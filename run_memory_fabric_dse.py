@@ -16,8 +16,8 @@ def run(output):
     def save(name,obj):(out/name).write_text(json.dumps(obj,indent=2,allow_nan=False))
     placements={m:geometry(m) for m in ('aligned','half_shifted_x','half_shifted')};placements['contoured']=contoured_geometry()
     training=scenarios(placements['contoured'],[300,301],fractions=(.25,.5),patterns=('uniform','clustered','correlated'))
-    testing=scenarios(placements['contoured'],range(3000,3006))
-    manifest=dict(provenance=provenance(),train_seeds=[300,301],test_seeds=list(range(3000,3006)),
+    testing=scenarios(placements['contoured'],range(4000,4006))
+    manifest=dict(provenance=provenance(),train_seeds=[300,301],test_seeds=list(range(4000,4006)),
         minimum_service_profiles=[0.,.9,1.],train_cases=len(training),test_cases=len(testing),
         algorithm='Finite seeds + one round short-wire edge additions/removals and 1000-bit port transfers; no global optimality claim',
         layout='Fixed home or L1 projected static bytes (design floor 0.9/1); continuous striping limit, no runtime remap',
@@ -26,21 +26,24 @@ def run(output):
         oracle='Free-residency service bound, migration cost ignored; NOT an implemented runtime')
     save('manifest.json',manifest)
     save('scenarios.json',dict(training=[s.serializable() for s in training],testing=[s.serializable() for s in testing]))
-    candidates=[];cache={};problems={};layouts={};fabrics={}
-    def evaluate(method,mask,widths,stage):
+    candidates=[];cache={};problems={};layouts={};fabrics={};design_maps={}
+    def evaluate(method,mask,widths,stage,inherited=None):
         key=(method,tuple(mask),tuple(widths))
         if key in cache:return cache[key]
         identifier='d'+str(len(candidates)).zfill(3)
         fabric=ExposureFabric(placements[method],mask,Channels(tuple(widths)))
         maps={'fixed_home':StripedLayout.home(fabric)}
+        if inherited:
+            maps.update({'inherited_'+name:layout for name,layout in inherited.items() if name!='fixed_home'})
         for h in (.9,1.):
             mapped=project_static_layout(fabric,training,h,True)
             if mapped is not None:maps['static_joint_h'+str(h)]=mapped
         # A constructive reciprocal seed is another legal offline mapping, not
         # a restriction on the graph family. Bank degrees elsewhere vary 1..5.
         if method=='contoured' and all(len(ps)==2 and 0 in ps for ps in mask):
-            try:maps['static_balanced_half']=StripedLayout.reciprocal(fabric)
-            except ValueError:pass
+            for beta in (.125,.25,.5):
+                try:maps['static_balanced_'+str(beta)]=StripedLayout.reciprocal(fabric,beta)
+                except ValueError:pass
         profiles=[]
         for mode,layout in maps.items():
             layout=FractionalLayout(layout.shares)
@@ -57,14 +60,14 @@ def run(output):
                     layout_hash=layout.sha256,full_load_1_feasible=model.full_load_certificate()['feasible']))
         row=dict(id=identifier,method=method,stage=stage,mask=[list(ps) for ps in mask],widths=list(widths),
             bank_degree=[len(ps) for ps in mask],cost=fabric.cost(),profiles=profiles)
-        candidates.append(row);cache[key]=row;fabrics[identifier]=fabric
+        candidates.append(row);cache[key]=row;fabrics[identifier]=fabric;design_maps[identifier]=maps
         print('DESIGN',identifier,method,stage,'profiles',sum(x['feasible'] for x in profiles),flush=True)
         save('candidates.json',candidates)
         return row
     for method,physical in placements.items():
         if method=='contoured':
             sparse=balanced_assignment(physical,(2,3))
-            masks=[tuple((0,) for _ in range(32)),sparse,
+            masks=[tuple((0,) for _ in range(32)),sparse,balanced_assignment(physical,(1,4)),balanced_assignment(physical,(1,2,3,4)),
                    tuple(tuple(range(5)) if b<8 else sparse[b] for b in range(32)),tuple(tuple(range(5)) for _ in range(32))]
             widths=[(8000,6000,6000,6000,6000),(8000,0,12000,12000,0)]
         else:
@@ -80,9 +83,9 @@ def run(output):
         if not eligible:continue
         _,seed,_=max(eligible,key=lambda x:(x[0],-x[1]['cost']['wire_mm']))
         mask=tuple(tuple(ps) for ps in seed['mask']);q=tuple(seed['widths'])
-        for mutated in mutate_mask(mask,physical,limit=4):evaluate(method,mutated,q,'edge_move')
+        for mutated in mutate_mask(mask,physical,limit=4):evaluate(method,mutated,q,'edge_move',design_maps[seed['id']])
         # Deterministic subset spans bandwidth transfer; not test-driven.
-        for moved in list(bandwidth_moves(q))[::max(1,len(q)-1)][:4]:evaluate(method,mask,moved,'width_move')
+        for moved in list(bandwidth_moves(q))[::max(1,len(q)-1)][:4]:evaluate(method,mask,moved,'width_move',design_maps[seed['id']])
     selection=[]
     for floor in (0.,.9,1.):
         for wire in manifest['selection_budgets']['wire_mm']:

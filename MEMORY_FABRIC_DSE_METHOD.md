@@ -53,8 +53,11 @@ using training `P(memory-owner idle | requester active)`, then L1-projects it on
 full-load bandwidth and storage feasibility at a design rate 0.9 or 1.0.
 The projection retains compute-bank byte proportions and every route resource.
 This LP is a constructive approximation to the nonconvex joint layout/rate
-problem; it is not claimed to maximize expected throughput globally. A balanced
-half-home/half-peer construction is an additional candidate where applicable.
+problem; it is not claimed to maximize expected throughput globally. Balanced
+peer fractions 1/8, 1/4 and 1/2 are additional candidates where applicable, for
+both opposite direction pairs and the four-direction k=2 seed. Local graph/width
+edits inherit all parent static layouts as candidates; an added edge must not
+look worse merely because a good parent layout was discarded.
 
 Layouts are frozen **continuous byte fractions**, representing arbitrarily fine
 static striping. No replication or per-test movement. Unlike the integer-stripe
@@ -71,7 +74,7 @@ cost; it is a potential bound, **not a dynamic-remapping implementation**.
 ## Protocol and accounting
 
 Training seeds 300–301; 25/50% active; uniform/clustered/correlated. Test seeds
-3000–3005; 25/50/75/100%; those patterns plus object hotspot. Every architecture
+4000–4005; 25/50/75/100%; those patterns plus object hotspot. Every architecture
 receives identical active IDs. Spatial patterns use the H/plus coordinates.
 Selection is saved before test solves. Template widths and frozen layout hashes
 are recorded. No test-dependent architecture/layout choice.
@@ -96,3 +99,12 @@ novelty versus SiloBreaker without its full text.
 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python -m unittest test_memory_fabric_dse -v
 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python run_memory_fabric_dse.py --output memory_results/memory_fabric_dse
 ```
+
+## Preliminary-run audit and revised holdout
+
+Commit 46ecc01 was evaluated with seeds 3000–3005. Its local mutations did not
+inherit constructive parent layouts, weakening that comparison. The revised
+run preserves those layouts and includes both opposite direction pairs and
+four-direction seeds. Seeds 4000–4005 are registered as a fresh held-out set;
+3000–3005 results remain diagnostic and are not reported as final validation.
+The earlier raw run is retained at `memory_results/eex005_dse_46ecc01`.

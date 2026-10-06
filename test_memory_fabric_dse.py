@@ -38,3 +38,15 @@ class FabricDSETests(unittest.TestCase):
             self.assertGreaterEqual(min(move),0)
 
 if __name__=='__main__':unittest.main()
+
+class InheritedLayoutTests(unittest.TestCase):
+    def test_added_edge_preserves_parent_service(self):
+        from guaranteed_service_exchange import StripedLayout
+        p=contoured_geometry();mask=balanced_assignment(p,(2,3));channels=Channels((8000,6000,6000,6000,6000))
+        parent=ExposureFabric(p,mask,channels);layout=StripedLayout.reciprocal(parent)
+        altered=list(mask);altered[0]=tuple(sorted(set(mask[0])|{1}))
+        child=ExposureFabric(p,altered,channels)
+        for phase in complementary_phases(p):
+            before=FixedService(parent,layout).solve(phase.demand,.9)
+            after=FixedService(child,layout).solve(phase.demand,.9)
+            self.assertGreaterEqual(after['total_tb_s']+1e-8,before['total_tb_s'])
