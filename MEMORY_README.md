@@ -1,5 +1,11 @@
 # Memory-on-Logic gates
 
+The latest results and partial-pass assessment are in [BANK_GATE_REPORT.md](BANK_GATE_REPORT.md).
+The bounded bank-to-HB follow-up is specified in [BANK_GATE_METHOD.md](BANK_GATE_METHOD.md),
+with a primary-source claim audit in [BANK_RELATED_WORK.md](BANK_RELATED_WORK.md).
+It adds 32 banks, four HB regions, repeated degree-1/2/4 masks and frozen data
+residency. The original pooled numbers below remain free-service upper bounds.
+
 This extension reuses the geometry at upstream commit `9470042` and adds direct
 compute-to-memory service bounds. It does **not** turn a memory reticle into a
 transit router, simulate DRAM timing, or establish a manufacturable bank layout.

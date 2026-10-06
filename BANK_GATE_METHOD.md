@@ -122,3 +122,32 @@ OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python run_bank_gate.py --out
 The default legacy input is `memory_results/eex005_gate/memory.json`; pass
 `--legacy` if archived elsewhere. Raw artifacts include provenance, templates,
 layouts, hashes, candidate training scores, cuts, service results and figures.
+
+## Exact coverage simplification for this parameter regime
+
+For these aligned/quadrant half-shift geometries, each physical HB edge supplies
+1 TB/s, every memory supplies at most 1 TB/s, and each compute has at most four
+neighbor memories with a 4 TB/s limit. All active demands are 4 TB/s. Under
+free residency, assign each reachable bank to any active neighboring compute.
+No HB edge then exceeds its parent memory's total 1 TB/s, and no compute exceeds
+4 TB/s. Consequently the oracle optimum equals the aggregate service of the
+**union of reachable banks**. This is a feasible construction achieving the
+neighbor-bank cut bound; min-cut is not uncovering an additional bottleneck
+in this particular budget regime. Its edge-category decomposition is nonunique.
+
+If exactly A of N=36 clients are chosen uniformly, and bank b can be reached
+by r_b distinct clients, its probability of being useful is
+`1 - choose(N-r_b,A)/choose(N,A)`. Summing this times bank service gives an
+exact expected oracle throughput, implemented in `analyze_bank_structure.py`.
+For periodic XY each bank reaches exactly k distinct clients. Hence same-k
+masks have identical expected oracle throughput under uniform subset activity.
+This does not establish equivalence for correlated activity, fixed residency,
+fairness or a tighter HB/controller budget.
+
+For nine active clients the exact finite expectations, in TB/s per client,
+are Aligned=1 for every k; X k=2 ranges 0.917--1.643 and X k=4 is 1.643;
+XY k=2 ranges 1.411--1.616 and XY k=4 is 2.470. Thus in this oracle objective
+X admits a two-port mask that matches its full-interface result, while adding
+XY geometric neighbors does not necessarily improve a bounded-degree design.
+These exact population means must not be substituted for individual held-out
+or fixed-layout measurements.

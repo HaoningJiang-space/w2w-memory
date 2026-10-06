@@ -31,6 +31,7 @@ def architecture(out):
     ax.plot([.3,7.8],[2.2,2.2],color='#aa643b',lw=5)
     ax.text(8.,2.2,'HB overlap enables these links\nPlacement decides the receiving reticle',va='center',fontsize=10)
     ax.add_patch(Rectangle((.25,.75),7.6,1.05,facecolor='#eef5e9',edgecolor='#73829a',lw=1.5))
+    ax.text(.4,1.65,'Receiving interfaces may belong to different compute reticles',fontsize=8)
     for p,x in enumerate([1.1,2.7,4.3,5.9]):box(x,1.05,.8,.5,f'Ctl {p}',colors[p],10)
     ax.text(.4,.45,'Compute side: 4 TB/s controller cap; 4 TB/s total HB budget per reticle',fontsize=10)
     ax.text(8.3,5.8,'Connectivity cost per template',fontsize=12,weight='bold')
@@ -80,7 +81,41 @@ def plot_results(directory):
         axes[-1].legend(fontsize=8,loc='lower right')
         fig.suptitle(f'25% active, {pattern} demand; masks and data layouts frozen before testing',fontsize=13)
         fig.savefig(out/f'cost_curve_{pattern}.png',dpi=180);fig.savefig(out/f'cost_curve_{pattern}.svg');plt.close(fig)
+    diagnostics(out,summary)
+    structural_cost(out)
     print('Wrote architecture, cost curves and',len(summary),'summary rows')
+
+def diagnostics(out,summary):
+    fig,axes=plt.subplots(1,2,figsize=(12,4.6),layout='constrained')
+    scopes=['finite','interior_active','periodic_reference']
+    for ax,mode,k,title in [(axes[0],'oracle',1,'Private banks: boundary service loss'),
+                            (axes[1],'static_train_greedy',2,'Offline static k=2: same frozen layout')]:
+        for i,(method,label,color) in enumerate([('aligned','Aligned','#3d5a80'),('half_shifted_x','X shift','#e49b18'),('half_shifted','XY shift','#a92332')]):
+            if not any(r['method']==method for r in summary):continue
+            values=[next(r['mean_tb_s_per_active'] for r in summary if r['scope']==scope and r['method']==method and r['layout_mode']==mode and r['k']==k and r['pattern']=='uniform' and r['fraction']==1.) for scope in scopes]
+            ax.bar(np.arange(3)+(i-1)*.24,values,width=.24,label=label,color=color)
+        ax.set_xticks(range(3),['Finite\n36 active','Interior activity\n25 active','Periodic reference\n36 active']);ax.set_title(title,fontsize=11)
+        ax.set_ylabel('TB/s per active compute');ax.set_ylim(0,1.25);ax.grid(axis='y',alpha=.2)
+    axes[-1].legend(fontsize=9);fig.suptitle('All eligible clients active; identical bank/HB/controller budgets',fontsize=13)
+    fig.savefig(out/'boundary_diagnostic.png',dpi=180);fig.savefig(out/'boundary_diagnostic.svg');plt.close(fig)
+
+
+def structural_cost(out):
+    source=out/'structure_expectations.json'
+    if not source.exists():return
+    records=json.loads(source.read_text())['records']
+    fig,ax=plt.subplots(figsize=(8,4.8),layout='constrained')
+    for method,label,color in [('aligned','Aligned','#3d5a80'),('half_shifted_x','X shift','#e49b18'),('half_shifted','XY shift','#a92332')]:
+        rows=[r for r in records if r['scope']=='finite' and r['method']==method and r['k']==2 and r['active']==9]
+        ax.scatter([r['cost']['extra_wire_mm'] for r in rows],[r['mean_oracle_tb_s_per_active'] for r in rows],label=label,color=color,alpha=.8,s=45)
+        best=max(rows,key=lambda r:(r['mean_oracle_tb_s_per_active'],-r['cost']['extra_wire_mm']))
+        ax.annotate(best['mask'],(best['cost']['extra_wire_mm'],best['mean_oracle_tb_s_per_active']),xytext=(8,6),textcoords='offset points',fontsize=9,color=color)
+    ax.set_xlabel('Added Manhattan wirelength per memory reticle (mm; proxy)')
+    ax.set_ylabel('Exact expected oracle TB/s per active compute')
+    ax.set_title('Same k=2 / 64 connections: placement and mask tradeoffs\n9 uniformly chosen active clients; data residency relaxed')
+    ax.legend();ax.grid(alpha=.2);ax.set_ylim(.8,1.8)
+    fig.savefig(out/'structural_cost.png',dpi=180);fig.savefig(out/'structural_cost.svg');plt.close(fig)
+
 
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('directory');a=p.parse_args();plot_results(a.directory)
