@@ -46,10 +46,10 @@ class Wafer:
                 self.visualize("debug_wafer_reticle_out_of_bounds")
                 hlp.register_error(f"Reticle {rid} with position ({reticle.x}, {reticle.y}) exceeds the wafer diameter of {diameter}.")
         # Verify that the wafer type is valid and set it
-        if typ in ["compute", "interconnect"]:
+        if typ in ["compute", "interconnect", "memory"]:
             self.type = typ    
         else:
-            hlp.register_error(f"Invalid wafer type {typ}. Possible types are: compute, interconnect.")
+            hlp.register_error(f"Invalid wafer type {typ}. Possible types are: compute, interconnect, memory.")
 
 
     def add_to_visualization(self, ax, show_local_reticle_ids : bool = False, show_reticle_attribute : str = "", layer : int = 0) -> None:
@@ -114,8 +114,8 @@ def create_wafer(wafer_below : Optional[Wafer], wafer_diameter : float, wafer_ty
     ###################################################################################################
     if wafer_below is not None and wafer_below.diameter != wafer_diameter:
         hlp.register_error(f"The diameter of the wafer ({wafer_diameter}) must match the diameter of the wafer below ({wafer_below.diameter}).")
-    if wafer_type not in ["compute", "interconnect"]:
-        hlp.register_error(f"Invalid wafer type {wafer_type}. Possible types are: compute, interconnect.")
+    if wafer_type not in ["compute", "interconnect", "memory"]:
+        hlp.register_error(f"Invalid wafer type {wafer_type}. Possible types are: compute, interconnect, memory.")
     if reticle_size[0] <= 0 or reticle_size[1] <= 0:
         hlp.register_error(f"Invalid reticle size {reticle_size}. Reticle size must be a tuple of positive floats (width, height).")
     if reticle_type not in ["compute", "interconnect", "memory", "io"]:

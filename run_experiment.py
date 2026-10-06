@@ -19,11 +19,12 @@ import analyze_topology as at
 import export_to_rapidchiplet as erc
 import export_to_orion3 as eo
 import power_and_area_summary as pas
-import perform_sample_period_analysis as pspa
-import perform_vc_buffer_analysis as pvba
 
 
 def construct_system_for_single_design(design : Dict, parameters : Dict) -> System:
+    if design["integration_level"] == "memory_and_logic":
+        from memory_model import construct_memory_system
+        return construct_memory_system(design, parameters)
     # Extract general parameters
     reticle_size = parameters["reticle_size"]
     sp = parameters["shape_param"]
@@ -71,6 +72,11 @@ def construct_system_for_single_design(design : Dict, parameters : Dict) -> Syst
 
 
 def compute_results_for_single_system(system : System, name : str, run_rapidchiplet : bool, run_orion : bool, perform_sample_period_analysis : bool = False, perform_vc_buffer_analysis : bool = False) -> Dict:
+    if system.integration_level == "memory_and_logic":
+        if run_rapidchiplet or run_orion or perform_sample_period_analysis or perform_vc_buffer_analysis:
+            raise ValueError("Memory-on-Logic supports analytical evaluation only; use run_memory_experiment.py")
+        from memory_model import MemoryFabric
+        return {"memory_analysis": MemoryFabric(system).summary()}
     # Compute all results
     results = {}
     # Analyze topology - Run this before the export to RapidChiplet in order to add the require network information 
@@ -96,10 +102,12 @@ def compute_results_for_single_system(system : System, name : str, run_rapidchip
             pas.add_power_summary(results)
     # Perform sample period analysis if requested
     if perform_sample_period_analysis:
+        import perform_sample_period_analysis as pspa
         hlp.print_cyan(f"\nPerforming sample period analysis for design: {name}")
         spa_results = pspa.perform_sample_period_analysis(system, name)
         results["sample_period_analysis"] = spa_results
     if perform_vc_buffer_analysis:
+        import perform_vc_buffer_analysis as pvba
         hlp.print_cyan(f"\nPerforming VC and buffer analysis for design: {name}")
         vcba_results = pvba.perform_vc_buffer_analysis(system, name)
         results["vc_buffer_analysis"] = vcba_results

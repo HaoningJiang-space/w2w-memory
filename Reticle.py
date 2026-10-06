@@ -33,10 +33,10 @@ class Reticle:
         else:
             hlp.register_error('Reticle type must be one of: compute, interconnect, memory, io')
         # Validate and set the NoC topology
-        if noc_topology in ["central_router", "fully_connected", "concentration_2"]:
+        if noc_topology in ["central_router", "fully_connected", "concentration_2", "memory_endpoint"]:
             self.noc_topology = noc_topology
         else:
-            hlp.register_error('NoC topology must be one of: central_router, fully_connected, concentration_2')
+            hlp.register_error('NoC topology must be one of: central_router, fully_connected, concentration_2, memory_endpoint')
         # Move and validate and set the vertical connectors. If valid, set them
         for vc in vertical_connectors:
             vc.x += x
@@ -286,6 +286,8 @@ def create_reticle(x : float, y : float, w : float, h : float, typ : str, shape 
     # Compute reticles use a central router
     if typ == "compute":
         noc_topology = "central_router"
+    elif typ == "memory":
+        noc_topology = "memory_endpoint"
     elif typ == "interconnect":
         # Interconnect reticles of our methods use the concentration_2 topology
         if vc_placement in ["left-right", "rotated_upper"]:
