@@ -19,6 +19,9 @@
 | elastic_bank | μ | 一个组可以消耗整 bank 的服务额度，但所有组总和仍不超过 μ |
 
 第二种是待验证的硬件能力，不是公开 LIO taps/mux 文本已经证明的结论。
+还必须核对 group 对应独立地址范围，还是一次读出中的部分数据位；后者需要
+完整数据聚合，不能让不同 compute 各拿一部分就计成独立完成的请求。
+本容量探针暂未约束地址或 word assembly，故只能作为包络。
 两种模式的总 DRAM、HB 和 controller 相同，但端点配置能力不同；不能跨模式宣称等成本。
 
 在每种模式内，仅改 wiring：A 每 bank 所有 slices 到它的 private port；
