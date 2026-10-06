@@ -3,3 +3,7 @@ __pycache__/
 build/
 memory_results/
 *.pyc
+poweric.txt
+.env
+.env.*
+!.env.example
