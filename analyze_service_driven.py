@@ -34,6 +34,52 @@ def analyze(source,output,figures):
     for result in ilps:
         assert result['continuous']==0 and result['binary']>0 and result['integer']==result['variables']
         assert result['primary']['bound']>=result['primary']['objective']-1e-8
+    # Independent reference: with <=96 edges, this full-bank pair family can
+    # afford home + at most two shared ports. Reciprocal H/plus pairs require
+    # one of the two opposite-port sets. Enumerate both, solve matching without
+    # Gurobi, then independently evaluate their fixed-data service.
+    from types import SimpleNamespace
+    from guaranteed_service_exchange import contoured_geometry,ExposureFabric,Channels
+    from service_driven_fabric import paired_layout,evaluate_layout
+    phases=[SimpleNamespace(demand=np.array(w['demand_tb_s'])) for w in read('scenarios.json')['training']]
+    physical=contoured_geometry();pair_reference=[]
+    for ports in ((1,4),(2,3)):
+        f=ExposureFabric(physical,tuple((0,)+ports for _ in range(32)),
+                         Channels(tuple(8000 if p==0 or p in ports else 0 for p in range(5))))
+        layout,match=paired_layout(f,phases,True)
+        value=1+match['matching_weight']
+        assert abs(evaluate_layout(f,layout,phases,1.)['score']-value)<1e-7
+        pair_reference.append(dict(ports=ports,edges=96,wire_mm=f.cost()['wire_mm'],
+            training_score=value,matched_clients=match['matched_clients']))
+    for result in ilps:
+        values=[1.]+[r['training_score'] for r in pair_reference
+                     if r['edges']<=result['edge_budget'] and r['wire_mm']<=result['wire_budget']+1e-8]
+        assert abs(result['primary']['objective']+1-max(values))<1e-7
+    # Explanatory post-search controls, never used for design selection.
+    # Same geometry/layout: do the added wires need wider shared channels?
+    from guaranteed_service_exchange import FixedService,StripedLayout,balanced_assignment
+    mask=tuple((0,2,3) for _ in range(32));wide=Channels((8000,0,8000,8000,0))
+    narrow=Channels((8000,0,4000,4000,0));paired_f=ExposureFabric(physical,mask,wide)
+    paired,_=paired_layout(paired_f)
+    group_f=ExposureFabric(physical,balanced_assignment(physical,(2,3)),narrow)
+    group_layout=StripedLayout.reciprocal(group_f)
+    controls=[('k3_pair_2TB',ExposureFabric(physical,mask,narrow),paired),
+              ('k3_home_3TB',paired_f,StripedLayout.home(paired_f)),
+              ('k3_pair_3TB',paired_f,paired),
+              ('k2_group_2TB',group_f,group_layout),
+              ('k2_group_3TB',ExposureFabric(physical,group_f.mask,wide),group_layout)]
+    channels=[]
+    for name,f,l in controls:
+        model=FixedService(f,l);solo=[]
+        for client in range(36):
+            demand=np.zeros(36);demand[client]=4.
+            solo.append(model.solve(demand)['total_tb_s'])
+        assert model.full_load_certificate()['feasible']
+        channels.append(dict(id=name,cost=f.cost(),singleton_min=min(solo),singleton_max=max(solo),
+            singleton_mean=float(np.mean(solo)),training_mean=evaluate_layout(f,l,phases,1.)['score']))
+    assert all(abs(r['singleton_mean']-1)<1e-7 for r in channels[:2])
+    assert abs(channels[2]['singleton_mean']-2)<1e-7
+    assert abs(channels[3]['training_mean']-channels[4]['training_mean'])<1e-7
     groups=defaultdict(list)
     for row in rows:
         assert row['seed'] in seeds[2]
@@ -67,7 +113,7 @@ def analyze(source,output,figures):
         compact.append({k:v for k,v in d.items() if k not in ('certificate','mask')}|dict(full_load_certificate=True))
     result=dict(manifest=manifest,verification=dict(designs=len(designs),records=len(rows),max_residual=residual,
         checks='Unique bytes/storage, layout hashes, disjoint train/validation/test, validation-only selection, monotonic exact acceptance, ILP variable types/bounds and service caps'),
-        designs=compact,selection=selection,ilp_certificates=ilps,perfect_pair_analytic_reference=analytic,summary=summary)
+        designs=compact,selection=selection,ilp_certificates=ilps,perfect_pair_analytic_reference=analytic,independent_pair_optima=pair_reference,explanatory_channel_controls=channels,summary=summary)
     Path(output).write_text(json.dumps(result,indent=2,allow_nan=False))
     figs=Path(figures);figs.mkdir(parents=True,exist_ok=True)
     plt.rcParams.update({'font.size':10,'axes.spines.top':False,'axes.spines.right':False,'svg.fonttype':'none'})
@@ -83,12 +129,17 @@ def analyze(source,output,figures):
         rr=[r for r in summary if r['id']==identifier and r['pattern']=='uniform']
         ax.plot([r['fraction']*100 for r in rr],[r['mean_bw'] for r in rr],marker='o',label=identifier.replace('_h1.0','').replace('_base',''))
     ax.set(xlabel='Active compute (%)',ylabel='Test TB/s / active',title='Fresh 20-seed random activity');ax.legend(fontsize=8)
+    ax.text(.97,.12,'Three pair curves coincide',ha='right',transform=ax.transAxes,fontsize=8)
     ax=axs[1,0]
     ss=[d for d in designs if d['kind']=='service_layout' and d['floor']==.9]
     for d in ss:
         b=ds[d['id'].replace('_slp_','_base_')]
         ax.scatter(d['training_mean']-b['training_mean'],d['validation_mean']-b['validation_mean'],s=50)
-        ax.annotate(d['id'].replace('_slp_h0.9',''),(d['training_mean']-b['training_mean'],d['validation_mean']-b['validation_mean']),fontsize=7)
+        name=d['id'].replace('_slp_h0.9','')
+        labels={'aligned_full':'Aligned','half_shifted_x_full':'X full','half_shifted_full':'XY full'}
+        offset=(-42,4) if name=='half_shifted_full' else ((6,-9) if name=='k2_23' else (5,5))
+        ax.annotate(labels.get(name,name),(d['training_mean']-b['training_mean'],d['validation_mean']-b['validation_mean']),
+                    xytext=offset,textcoords='offset points',fontsize=8)
     ax.axhline(0,color='k',lw=.7);ax.axvline(0,color='k',lw=.7)
     ax.set(xlabel='Training gain (TB/s / active)',ylabel='Validation gain',title='Does direct service optimization generalize?')
     ax=axs[1,1]

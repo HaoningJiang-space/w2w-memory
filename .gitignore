@@ -4,6 +4,7 @@ build/
 memory_results/
 *.pyc
 poweric.txt
+gurobi.lic
 .env
 .env.*
 !.env.example
