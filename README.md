@@ -5,6 +5,7 @@ This extension explores how repeated reticle geometry, nonuniform bank exposure,
 HB bandwidth allocation and offline data layout jointly determine usable memory
 flexibility. Service loss and physical proxies are reported as tradeoffs.
 
+- [Latest Memory Fabric DSE results](MEMORY_FABRIC_DSE_REPORT.md): 68 hardware candidates, relaxed service and frozen-layout comparisons.
 - [Open Memory Fabric DSE method](MEMORY_FABRIC_DSE_METHOD.md): geometry, graph, widths and static layouts; 0/0.9/1 service profiles.
 - [Guaranteed reciprocal reference results](GUARANTEED_EXCHANGE_REPORT.md): a reference family, not a restriction on the design space.
 - [Earlier bounded-sharing Gate report](BANK_GATE_REPORT.md): partial pass; static-layout throughput benefits, with fairness and implementation-cost limitations.

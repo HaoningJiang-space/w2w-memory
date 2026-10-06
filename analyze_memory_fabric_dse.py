@@ -1,7 +1,7 @@
 """Audit joint-DSE output and summarize registered selections, without retuning."""
 import argparse,hashlib,json
 from pathlib import Path
-from collections import defaultdict
+from collections import defaultdict, Counter
 import numpy as np
 import matplotlib
 matplotlib.use('Agg')
@@ -55,7 +55,12 @@ def analyze(source,output,figures):
             full_load_bw=rs[0]['full_load_service']['tb_s_per_active'],
             full_load_min=rs[0]['full_load_service']['minimum_tb_s'],
             unrecovered_bound_tb_s=float(np.mean([r['unrecovered_bound_tb_s'] for r in rs])),
-            fixed_layout_gap_tb_s=float(np.mean([r['fixed_layout_gap_tb_s'] for r in rs]))))
+            fixed_layout_gap_tb_s=float(np.mean([r['fixed_layout_gap_tb_s'] for r in rs])),
+            reported_bottleneck_counts=dict(Counter(b['resource'][0] for r in rs for b in r['throughput']['bottlenecks']))))
+    for row in summary:
+        pooled_per_active=min(4.,36/round(36*row['fraction']))
+        row['gain_recovery_global_pool']=(row['mean_bw']-1)/(pooled_per_active-1) if pooled_per_active>1 else None
+        row['gain_recovery_same_fabric']=(row['mean_bw']-1)/(row['oracle_bw']-1) if row['oracle_bw']>1+1e-9 else None
     compact=[{k:v for k,v in c.items() if k!='mask'} for c in candidates]
     result=dict(manifest=manifest,verification=dict(records=len(records),candidates=len(candidates),layouts=len(layouts),max_residual=max_residual,
         checks='Source hash, fixed byte/storage conservation, layout hashes, seed separation, training-only selections, per-record floors and oracle bounds'),
