@@ -16,7 +16,13 @@ full-load flow certificate at the selected floor remain explicit constraints.
 Four iterations at most; fractions 1, .5, .25, .125 are evaluated by the ORIGINAL
 fixed-byte service LP. Accept only a measured training improvement. The linearized
 objective is not a bound, and monotonic training acceptance does not imply a
-global optimum or generalization. Data shares may differ between compute
+global optimum or generalization. The joint LP uses 1e-10 primal/dual
+feasibility tolerances, tighter than the unchanged byte validator. Negative
+roundoff within 1e-9 is zeroed and row sums normalized; larger violations fail.
+Every cleaned proposal must pass an exact full-load service certificate before
+backtracking, and every accepted step is reevaluated by the original service LP. The initial
+86caf3b run stopped during training because default HiGHS tolerance admitted a
+negative ~1e-8 share; no held-out evaluation had begun. Data shares may differ between compute
 reticles, but hardware masks/widths repeat. All logical objects within a compute
 share its same bank fractions, under uniform within-object accesses.
 
@@ -52,6 +58,19 @@ General joint exposure/layout/service would be a mixed-integer nonconvex model
 unless separately discretized or decomposed; changing solvers does not linearize
 continuous products. [Gurobi's constraint reference](https://docs.gurobi.com/projects/optimizer/en/current/concepts/modeling/constraints.html).
 
+## Finite-population pair reference
+
+For n=36 compute clients and exactly a uniformly chosen active clients, a
+paired active client's partner is idle with probability (36-a)/35. If t clients
+are paired, exact average service is 1+(t/36)*(36-a)/35 TB/s per active client.
+For a perfect matching, all active clients have common rate 2 precisely when
+no selected pair is jointly active. This has probability
+2^a*C(18,a)/C(36,a), for a<=18, and zero otherwise. Expected common rate is
+1 plus that probability. At a=9 these are 1.771429 average and 1.264421 common.
+Expected normalized equal-work fluid stage duration is 1 minus half that
+probability, not the reciprocal of mean common bandwidth. These are mathematical
+references for the specified fluid model, not application speedups or test results.
+
 ## Controls and cost
 
 Aligned/X/XY full bank exposure, contoured k=2 opposite pairs and four directions,
@@ -86,8 +105,11 @@ The user identified eex005 Gurobi installations. Initial probes found 13.0.3 at
 `/home/wangziheng/miniconda3/envs/moe-chiplet-thermal` and 12.0.1 at
 `/home/wangziheng/miniconda3/envs/thermodse-moe-chiplet`. Both solved a two-variable
 binary model but rejected 2101 variables (error 10010), indicating the currently
-loaded size-limited license. A full academic license may exist elsewhere; its
-configuration remains to be supplied. No keys or license contents are recorded.
+loaded size-limited license. The user-supplied Downloads academic license was
+then tested privately on eex005: Gurobi rejected it with error 10009 (HostID
+mismatch). It was not activated globally, and its temporary server copy was
+removed. The registered experiment therefore uses the available restricted
+license within its supported model size. No keys or license contents are recorded.
 The restricted license allows at most 2000 variables/constraints for linear
 models. [Gurobi licensing explanation](https://support.gurobi.com/hc/en-us/articles/29682074018833-What-does-Restricted-license-for-non-production-use-only-mean).
 

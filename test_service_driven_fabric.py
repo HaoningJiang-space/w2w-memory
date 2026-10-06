@@ -23,6 +23,18 @@ class ServiceDrivenTests(unittest.TestCase):
         self.assertTrue(accepted)
         for t in accepted:self.assertGreater(max(x['score'] for x in t['trials'] if x['feasible']),t['before'])
 
+    def test_xy_multiscenario_update_keeps_valid_bytes(self):
+        # Regression: default LP tolerance returned a negative ~1e-8 share
+        # in this joint layout problem. Do not loosen byte validation.
+        phases=scenarios(self.physical,range(500,504),fractions=(.25,.5),
+                         patterns=('uniform','clustered','correlated'))
+        f=ExposureFabric(geometry('half_shifted'),templates(4)[0][1],Channels((8000,)*4))
+        layout,trace=optimize_layout(f,StripedLayout.home(f),phases,.9,4)
+        self.assertGreater(trace['final_score'],1.01)
+        self.assertGreaterEqual(layout.shares.min(),-1e-12)
+        self.assertTrue(np.allclose(layout.shares.sum(axis=1),1.,atol=1e-9,rtol=0))
+        self.assertTrue(FixedService(f,layout).full_load_certificate(.9)['feasible'])
+
     def test_no_false_gain_on_aligned(self):
         f=ExposureFabric(geometry('aligned'),templates(4)[0][1],Channels((8000,)*4))
         layout,trace=optimize_layout(f,StripedLayout.home(f),self.training,iterations=1)

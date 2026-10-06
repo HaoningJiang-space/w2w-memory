@@ -78,14 +78,26 @@ def layout_step(fabric, layout, phases, rates, floor=.9, share_radius=.5/32, rat
     n=len(bounds)
     eq=coo_matrix((ev,(er,ec)),shape=(len(rhs_eq),n)).tocsr()
     ub=coo_matrix((uv,(ur,uc)),shape=(len(rhs_ub),n)).tocsr()
-    result=linprog(cost,A_ub=ub,b_ub=rhs_ub,A_eq=eq,b_eq=rhs_eq,bounds=bounds,method='highs')
+    # Default HiGHS feasibility tolerance (1e-7) is looser than the
+    # static-byte validator. Tighten the solver, not conservation checks.
+    result=linprog(cost,A_ub=ub,b_ub=rhs_ub,A_eq=eq,b_eq=rhs_eq,bounds=bounds,method='highs',
+                   options={'primal_feasibility_tolerance':1e-10,'dual_feasibility_tolerance':1e-10})
     if not result.success:
         if result.status==2:return None,dict(status=result.message)
         raise RuntimeError(result.message)
     a=np.zeros_like(layout.shares)
     for (c,b),i in idx.items():a[c,b]=result.x[i]
-    return FractionalLayout(a),dict(predicted_score=float(-result.fun),variables=n,
-        constraints=len(rhs_eq)+len(rhs_ub),status='linearized LP; not a performance bound')
+    # Remove only solver-scale negative roundoff; meaningful violations fail.
+    minimum=float(a.min());row_error=float(max(abs(a.sum(axis=1)-1)))
+    if minimum < -1e-9 or row_error > 1e-8:
+        raise RuntimeError('Joint LP returned invalid byte proportions')
+    a=np.maximum(a,0.);a/=a.sum(axis=1)[:,None]
+    proposed=FractionalLayout(a)
+    if not FixedService(fabric,proposed).full_load_certificate(floor)['feasible']:
+        return None,dict(status='Rounded proposal failed exact full-load service certificate')
+    return proposed,dict(predicted_score=float(-result.fun),variables=n,
+        constraints=len(rhs_eq)+len(rhs_ub),minimum_share_before_cleanup=minimum,
+        row_error_before_cleanup=row_error,status='linearized LP; not a performance bound')
 
 
 def optimize_layout(fabric, initial, phases, floor=.9, iterations=4):
