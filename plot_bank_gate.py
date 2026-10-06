@@ -38,7 +38,7 @@ def architecture(out):
         y=5.15-i*.65
         ax.text(8.3,y,f'k = {k}: {edges} bank-port edges',fontsize=11)
         ax.text(8.3,y-.25,desc,fontsize=10,color='#53627a')
-    ax.text(8.3,3.2,'Added circuitry is on the MEMORY side.\nNo inter-reticle memory forwarding.\nWire/fan-in costs are proxies;\nDRAM process/timing not validated.',fontsize=10,linespacing=1.5)
+    ax.text(8.3,.6,'Added circuitry is on the MEMORY side.\nNo inter-reticle memory forwarding.\nWire/fan-in costs are proxies;\nDRAM process/timing not validated.',fontsize=10,linespacing=1.5)
     fig.savefig(out/'architecture.png',dpi=180,bbox_inches='tight');fig.savefig(out/'architecture.svg',bbox_inches='tight');plt.close(fig)
 
 
