@@ -6,7 +6,8 @@ HB bandwidth allocation and offline data layout jointly determine usable memory
 flexibility. Service loss and physical proxies are reported as tradeoffs.
 
 - [Current physical question: bank/LIO endpoint to HB](BANK_HB_PHYSICAL_BOUNDARY.md): demonstrated interfaces, candidate freedoms and missing physical parameters.
-- [Minimal partitioned/striped capacity check](SLICE_EXPOSURE_METHOD.md): separate slice address ownership from service capacity.
+- [Latest partitioned/striped capacity check](SLICE_EXPOSURE_REPORT.md): 108 cases; striping benefit depends on native endpoint capacity, with parent bank limits retained.
+- [Slice model and exact equivalence arguments](SLICE_EXPOSURE_METHOD.md).
 - [Completed service-driven search and Gurobi ILP reference](SERVICE_DRIVEN_REPORT.md): frozen-layout validation, integer optimality scope and cost.
 - [Earlier Memory Fabric DSE results](MEMORY_FABRIC_DSE_REPORT.md): 68 hardware candidates, relaxed service and frozen-layout comparisons.
 - [Open Memory Fabric DSE method](MEMORY_FABRIC_DSE_METHOD.md): geometry, graph, widths and static layouts; 0/0.9/1 service profiles.

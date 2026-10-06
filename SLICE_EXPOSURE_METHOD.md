@@ -2,6 +2,7 @@
 
 用户提出的 A partitioned / B striped / C full-pooling 是一个合理的最小对照。
 本实验只检查服务包络；不启动 DSE，也不声称模拟了真实 LIO 电路。
+[已完成的 108 次核验](SLICE_EXPOSURE_REPORT.md)。
 其物理依据与未知项见 [bank→HB 边界](BANK_HB_PHYSICAL_BOUNDARY.md)。
 
 ## 先补上两个不同的容量约束
