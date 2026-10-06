@@ -7,3 +7,6 @@ poweric.txt
 .env
 .env.*
 !.env.example
+
+# Raster previews of versioned research SVG figures
+research_figures/**/*.png

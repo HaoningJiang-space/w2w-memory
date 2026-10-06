@@ -117,6 +117,8 @@ def analyze(path,output,figures):
     ax.set_title('One k=2 candidate: width-accounted parallel aggregation before HB\nAt 1 GHz; conceptual ports and wire proxies, not a routed implementation')
     for ext in ('svg','png'):fig.savefig(figdir/('architecture.'+ext),dpi=160,bbox_inches='tight')
     plt.close(fig)
+    for svg in figdir.glob('*.svg'):
+        svg.write_text('\n'.join(line.rstrip() for line in svg.read_text().splitlines())+'\n')
     print(json.dumps(dict(verification=summary['verification'],selected=selected_id,probe=probe_summary),indent=2))
 
 if __name__=='__main__':

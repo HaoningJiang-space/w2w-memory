@@ -1,10 +1,13 @@
-# WoW Memory: Repeated-Reticle Bank-to-HB Sharing
+# Wafer-scale Memory Fabric
 
 Research repository: [HaoningJiang-space/w2w-memory](https://github.com/HaoningJiang-space/w2w-memory).
-This extension studies how repeated reticle templates and wafer placement
-constrain useful memory sharing under bounded bank-to-interface connectivity.
+This extension explores how repeated reticle geometry, nonuniform bank exposure,
+HB bandwidth allocation and offline data layout jointly determine usable memory
+flexibility. Service loss and physical proxies are reported as tradeoffs.
 
-- [Latest bounded-sharing Gate report](BANK_GATE_REPORT.md): partial pass; static-layout throughput benefits, with fairness and implementation-cost limitations.
+- [Open Memory Fabric DSE method](MEMORY_FABRIC_DSE_METHOD.md): geometry, graph, widths and static layouts; 0/0.9/1 service profiles.
+- [Guaranteed reciprocal reference results](GUARANTEED_EXCHANGE_REPORT.md): a reference family, not a restriction on the design space.
+- [Earlier bounded-sharing Gate report](BANK_GATE_REPORT.md): partial pass; static-layout throughput benefits, with fairness and implementation-cost limitations.
 - [Experiment method and reproduction](BANK_GATE_METHOD.md).
 - [Related-work and claim-boundary audit](BANK_RELATED_WORK.md).
 - [Original memory extension and reproduction](MEMORY_README.md).
