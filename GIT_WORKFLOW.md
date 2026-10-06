@@ -17,8 +17,9 @@ Both existing workspaces retain `origin` for
 `https://github.com/HaoningJiang-space/w2w-memory.git`.
 Their default push remote is `research-origin`.
 
-The active/default research branch is `research/bounded-bank-sharing`.
-`research/memory-on-logic-gate` preserves the earlier Gate state.
+Maintain only `main`, the default branch on GitHub and both workspaces.
+Earlier Gates are preserved by their immutable commit IDs in the same history;
+do not keep separate long-lived research branches.
 The original upstream commit is `9470042fb2d8b5368556e46cc75ac818dbf31522`.
 
 For a fresh clone, Git initially names the research remote `origin`; use these
@@ -40,7 +41,7 @@ experiment provenance in commits. Push the active research branch:
 ```sh
 git status --short --branch
 git diff --check
-git push research-origin research/bounded-bank-sharing
+git push research-origin main
 ```
 
 On eex005, inspect the working tree first, then synchronize without discarding
@@ -48,8 +49,8 @@ uncommitted work:
 
 ```sh
 git fetch research-origin
-git switch research/bounded-bank-sharing
-git merge --ff-only research-origin/research/bounded-bank-sharing
+git switch main
+git merge --ff-only research-origin/main
 git rev-parse HEAD
 git status --short --branch
 ```

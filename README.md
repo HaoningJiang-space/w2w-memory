@@ -10,8 +10,8 @@ constrain useful memory sharing under bounded bank-to-interface connectivity.
 - [Original memory extension and reproduction](MEMORY_README.md).
 - [Git workflow and local/eex005 synchronization](GIT_WORKFLOW.md).
 
-The active branch is `research/bounded-bank-sharing`; the earlier Gate is
-preserved on `research/memory-on-logic-gate`. Raw experiment output is excluded
+Only `main` is maintained. Earlier Gates remain available in its commit
+history; no separate research branches are needed. Raw experiment output is excluded
 from Git; versioned reports, aggregate results, figures and provenance are included.
 
 ## Upstream artifact

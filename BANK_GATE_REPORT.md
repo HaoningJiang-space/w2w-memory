@@ -147,7 +147,7 @@ XY 固定 home 布局、k=1 的有限/内部/周期三种每客户端带宽分�
 ## 复现与交付
 
 - 实验 host：`eex005`；实验代码 commit：`d57ab142eda1feeee524d72236f38be9b40ea079`，启动时工作区干净。
-- 分支：`research/bounded-bank-sharing`；原 upstream remote 保留，local/eex005 通过 Git bundle 同步。
+- 当前统一维护 `main`；实验及报告的历史提交保留，原 upstream remote 保留。本地和 eex005 从同一 research-origin 同步，必要时用 Git bundle 传输已发布提交。
 - 36 designs、6,192 held-out/diagnostic records、12,384 次测试服务 LP，另有训练搜索 LP；原始实验约 944.9 秒。
 - 本地/远端 15 项测试通过；6,192 条记录核验布局冻结、相同请求、train/test 分离、候选选择与 flow/cut 一致。最大约束残差 `4.66e-15`。
 - 远端原始结果：`/home/wangziheng/Video/w2w-memory/memory_results/eex005_bounded_gate/`；本地同仓库相对目录。
