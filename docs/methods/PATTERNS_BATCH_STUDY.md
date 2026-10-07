@@ -28,3 +28,8 @@ max_words=10M、max_slots=200K、最多四个独立进程。每步守恒检查�
 duplicated/configurable接口需逐服务记录一致。成本按既有代理独立报告，不伪造系统PPA。
 这是实际routing驱动的有限读阶段模型，不包括GEMM、KV、dispatch/combine、DRAM timing，
 不能称作完整LLM推理加速。
+
+补充诊断：每个窗口给定active数k，均匀置换compute标签的active-client idle-partner
+零假设为`(36-k)/35`，跨窗口按active-client数加权。这只隔离稀疏性，不表示真实随机调度。
+同时统计每个cohort、每层、每compute的连续idle-partner事件run length（decode步，不是时间）。
+层级单独报表防止把层间差异误当成时间互补；汇总相关系数仅为混合窗口描述。

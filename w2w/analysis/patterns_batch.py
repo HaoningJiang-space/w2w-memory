@@ -40,9 +40,18 @@ def metric_arrays(union, routed, owners, pairs, compute_count=36):
 def summarize(routes, order, batch_size, owners, pairs):
     if sorted(x for pair in pairs for x in pair)!=list(range(36)):
         raise ValueError('Pairs must be a disjoint cover of the frozen 36-compute design')
-    parts={};cohort_rows=[];sum_d=np.zeros(36);sum_sq=np.zeros(36);cross=np.zeros((36,36));total=0
+    parts={};cohort_rows=[];streak_lengths=[];sum_d=np.zeros(36);sum_sq=np.zeros(36);cross=np.zeros((36,36));total=0
     for union,routed,actual_size in windows(routes,order,batch_size):
         counts,values=metric_arrays(union,routed,owners,pairs)
+        # Idle-partner runs stay within a cohort and one selected layer.
+        peer=np.empty(36,dtype=int)
+        for i,j in pairs:peer[i]=j;peer[j]=i
+        active=counts.reshape(routes.shape[1],routes.shape[2],36)>0
+        events=active & ~active[:,:,peer]
+        flat=np.pad(events.transpose(1,2,0),((0,0),(0,0),(1,1))).reshape(-1).astype(np.int8)
+        changes=np.diff(flat)
+        starts=np.flatnonzero(changes==1);ends=np.flatnonzero(changes==-1)
+        streak_lengths.extend((ends-starts).tolist())
         d=counts.astype(float)
         sum_d+=d.sum(axis=0);sum_sq+=(d*d).sum(axis=0);cross+=d.T@d;total+=len(d)
         for key,value in values.items():parts.setdefault(key,[]).append(value)
@@ -62,6 +71,9 @@ def summarize(routes, order, batch_size, owners, pairs):
         active_compute_p95=float(np.quantile(a['active'],.95)),
         peak_to_mean_demand=float(a['imbalance'].mean()),
         active_client_idle_partner_fraction=float(a['idle_partner_events'].sum()/a['active'].sum()),
+        occupancy_conditioned_idle_partner_null=float((a['active']*(36-a['active'])/35).sum()/a['active'].sum()),
+        idle_partner_streak_mean_decode_steps=float(np.mean(streak_lengths)) if streak_lengths else 0.,
+        idle_partner_streak_p95_decode_steps=float(np.quantile(streak_lengths,.95)) if streak_lengths else 0.,
         pair_absolute_load_mismatch_fraction=float(a['paired_imbalance'].mean()),
         paired_demand_correlation_mean=float(np.mean(pc)) if pc else None,
         paired_demand_correlation_defined=len(pc),

@@ -18,6 +18,8 @@ class BatchDiagnosticsTests(unittest.TestCase):
         self.assertEqual(two['weight_read_reuse_saved'],.5)
         self.assertEqual(two['active_client_idle_partner_fraction'],1)
         self.assertEqual(two['bank_only_sequential_bound_ratio'],2)
+        self.assertEqual(two['idle_partner_streak_mean_decode_steps'],1)
+        self.assertAlmostEqual(two['occupancy_conditioned_idle_partner_null'],34/35)
         a[1]=False;a[1,0,0,[1,3]]=True
         two=summarize(a,[0,1],2,owners,pairs)
         self.assertEqual(two['weight_read_reuse_saved'],0)

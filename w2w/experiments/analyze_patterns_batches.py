@@ -61,13 +61,19 @@ def run(manifest_path,plan,output):
                 order=np.random.default_rng(plan['order_seeds'][0]).permutation(len(subset))
                 subject_results.append(dict(subject=subject,batch_size=batch_size,
                                             **summarize(subset,order,batch_size,population,pairs)))
+    layer_results=[]
+    for j,key in enumerate(layer_keys):
+        for batch_size in plan['batch_sizes']:
+            order=np.random.default_rng(plan['order_seeds'][0]).permutation(len(routes))
+            layer_results.append(dict(layer=key,batch_size=batch_size,
+                **summarize(routes[:,:,j:j+1,:],order,batch_size,population,pairs)))
     # Keep broad and selected-layer capacity accounting separate.
     record=dict(schema='w2w.patterns-batch-study.v1',plan=plan,
         source_commit=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
         source_dirty=bool(subprocess.check_output(['git','status','--porcelain'],text=True).strip()),
         manifest_sha256=sha256(path.read_bytes()).hexdigest(),sources=sources,catalog=catalog,
         frozen_pairs=pairs,all_layer_formats_validated=plan['layers'],selected_layers=layer_keys,
-        results=results,subject_results=subject_results,
+        results=results,subject_results=subject_results,layer_results=layer_results,
         claim='Real routing; synthetic fixed cohorts and frozen mappings; bank-only bounds omit endpoints, credits, HB and task execution',
         uncertainty='Order/mapping sensitivity is not an independent-request confidence interval; decode tokens are correlated',
         elapsed_seconds=time.monotonic()-start)
