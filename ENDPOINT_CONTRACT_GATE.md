@@ -142,3 +142,19 @@ Gamma 明确哪些出口能提供该地址／完整字节；若 a 是必须拼�
 
 固定这些合同与布局后仍是连续 LP；外层 configuration ILP 是后续可行路线。
 当前最重要的交付是**可反驳、可实现性边界清楚的合同**，不是又一个 matching 算法。
+
+## 8. 本轮执行与复现
+
+eex005 源提交 `82b1e03`：4 项测试通过；558 个合同 LP 全部通过解析式与原始约束
+核对，最大约束残差 2.220446049250313e-16。完整字拼装反例也通过。
+结果在 `endpoint_contract_results.json`，仅为归一化服务合同验证。
+
+- [服务合同曲线](research_figures/endpoint_contract/phase.svg)
+- [公开接口与新增候选路径](research_figures/endpoint_contract/datapath.svg)
+
+复现：干净提交上运行 `python endpoint_contract_probe.py --output memory_results/endpoint/results.json`，
+再运行 `python render_endpoint_contract.py memory_results/endpoint/results.json`。
+
+出版方 SeDRAM PDF 下载副本 SHA256：
+`a50f8bd52526b12ede69fb64b60f31b2bfd413ecd7ab87c054efa8a7de3f7b52`。
+已检查 PDF 第 4 页图文及第 4–5 页接口描述；版权原文仅留本地参考，不加入研究仓库。
