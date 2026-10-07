@@ -6,7 +6,7 @@ from unittest.mock import patch
 from hashlib import sha1
 import numpy as np
 from w2w.analysis.patterns_batch import summarize, windows
-from w2w.experiments.fetch_patterns_sample import fetch
+from w2w.workloads.patterns_download import fetch
 
 
 class BatchDiagnosticsTests(unittest.TestCase):
@@ -48,7 +48,7 @@ class BatchDiagnosticsTests(unittest.TestCase):
             if '/tree/' in url:return json.dumps([dict(type='file',path='s/a.json',size=len(payload),oid=oid)]).encode()
             if '/resolve/' in url:return payload
             return json.dumps(dict(sha='a'*40,gated=False)).encode()
-        with tempfile.TemporaryDirectory() as d,patch('w2w.experiments.fetch_patterns_sample.get_bytes',side_effect=response) as mocked:
+        with tempfile.TemporaryDirectory() as d,patch('w2w.workloads.patterns_download.get_bytes',side_effect=response) as mocked:
             fetch('https://example.test','s',d,1,100,100,selection='seeded',seed=17)
             mocked.reset_mock();fetch('https://example.test','s',d,1,100,100,selection='seeded',seed=17,resume=True)
             self.assertEqual(mocked.call_count,2)

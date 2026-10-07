@@ -2,6 +2,12 @@
 
 **开发交接入口：[HANDOFF](docs/HANDOFF.md)** — 当前状态、复现、接口边界与下一任务。
 
+**当前可用流程：[真实 trace 完整工作流](docs/guides/TRACE_WORKFLOW.md)。**
+256 个独立 requests 已取得；48/48 个完整读阶段回放通过原始输入重编译、逐字守恒和归档审计。
+148 项 Python 测试通过（含当前流程的 65 项定向测试）；
+[验收复查与边界](docs/reports/TRACE_FLOW_ACCEPTANCE.md)。代码本地开发，经唯一 `main` 同步到 CPU 服务器运行。
+这是 routing 驱动的读阶段模拟，不代表完整 MoE 推理或整片物理签核。
+
 研究目标：在有限接口与连线预算下，联合组织 **memory service interface、reticle
 placement 和静态数据布局**，使繁忙 compute 能利用已有 DRAM 服务。
 Matching、pooling 和 FIFO 是不同层次的工具，不是独立更换的研究题目。
@@ -13,10 +19,10 @@ egress 是关键机制，RTL 是该机制的功能与局部硬件成本验证。
 ```text
 w2w/                       研究代码（Python package）
 ├── geometry/              Memory-on-Logic 几何、HB overlap 与原始服务包络
-├── service/               Reticle / bank 资源、固定字节布局与服务 LP
+├── service/               Reticle / bank 资源、服务 LP、有限逻辑读执行
 ├── endpoints/             出口合同、完整字执行、有限队列与反压
 ├── synthesis/             Matching/cycle、sparse pooling、DSE 与 ILP
-├── workloads/             公共 activity / demand 场景生成
+├── workloads/             下载与身份验证、routing/demand、读任务与静态驻留
 ├── experiments/           实验入口、场景划分、冻结与结果记录
 ├── analysis/              归档结果分析、独立重算与统计
 ├── validation/            几何/构造证书、批量资源核对
@@ -36,23 +42,26 @@ memory_results/            本地/服务器实验工作目录（不入 Git）
 
 ## 从这里开始
 
+- [当前：真实 trace 工作流、主入口与验收范围](docs/guides/TRACE_WORKFLOW.md)
+- [48 次多窗口完整回放：全部结果、供给控制和成本](docs/reports/PATTERNS_REPLAY_STUDY_REPORT.md)
+- [服务器：本地开发 → Git → CPU 实验](docs/operations/HN072_RESEARCH.md)
 - [逻辑读任务导入与依赖回放：固定 H/plus、公平对照和证据范围](docs/methods/READ_WORKLOAD_REPLAY.md)
 - [读任务 infra 验收：44 测试、七个冻结设计和两组同服务消融](docs/reports/READ_WORKLOAD_INFRA_REPORT.md)
 - [固定研究范围与三层职责](docs/RESEARCH_SCOPE.md)
-- [最新：Configurable Shared Egress，同服务减少重复 FIFO](docs/reports/CONFIGURABLE_SHARED_EGRESS_REPORT.md)
+- [机制：Configurable Shared Egress，同服务减少重复 FIFO](docs/reports/CONFIGURABLE_SHARED_EGRESS_REPORT.md)
 - [固定 H/plus 架构竞争与性能/成本前沿](docs/reports/ARCHITECTURE_COMPETITION_REPORT.md)
 - [角色接口、home/k2/k3与原生供给敏感性](docs/reports/ROLE_INTERFACE_REPORT.md)
 - [不可变Design、端点契约与统一资源账本](docs/DESIGN_API.md)
 - [服务合同改变设计选择：首轮结果](docs/reports/CONTRACT_SELECTION_REPORT.md)
 - [地址权限与物理可达性审计](docs/reports/EGRESS_REACHABILITY_REPORT.md)
 - [代码层次、依赖方向与新旧入口](docs/CODE_STRUCTURE.md)
-- [当前闭环结果：Endpoint → bank → wafer](docs/reports/ENDPOINT_BRIDGE_REPORT.md)
+- [早期闭环结果：Endpoint → bank → wafer](docs/reports/ENDPOINT_BRIDGE_REPORT.md)
 - [该闭环的模型、参数与复现范围](docs/methods/ENDPOINT_BRIDGE_METHOD.md)
 - [全部阶段文档索引](docs/README.md)
 
 当前固定 H/plus，利用静态数据组织同时争取运行时共享机会和硬件复用机会。
-系统侧补充逻辑读任务导入、冻结地址布局与依赖回放；暂无指定真实 trace，先用合成任务
-验证 infra。Home、k2、k3 保留结构对照，duplicated/configurable 保留同服务成本消融。
+系统侧已接通真实 routing 导入、专家 union、完整权重读任务、冻结地址布局与依赖回放。
+合成任务保留为机制测试。Home、k2、k3 保留结构对照，duplicated/configurable 保留同服务成本消融。
 Matching、布局与执行模型服务于这项架构验证；暂不扩新优化框架。
 当前[source-side TX→HB→RX最小闭环](docs/reports/ENDPOINT_ROUNDTRIP_REPORT.md)
 已通过完整字、背压和吞吐对照；新增握手与RX存储均计费。
@@ -67,15 +76,19 @@ Home RX 完整字特化同时用于两种架构。结果限定于局部典型角
 ```sh
 python -m pip install -r requirements-memory.txt
 python -m w2w --list
-python -m unittest discover -s tests -v
-python -m w2w run_endpoint_bridge --output memory_results/endpoint_bridge/results.json
-python -m w2w analyze_endpoint_bridge artifacts/results/endpoint/endpoint_bridge_results.json
+python -m unittest tests.test_patterns_replay tests.test_patterns_trace tests.test_patterns_batch tests.test_request_window tests.test_read_workload tests.test_repository_layout
+# 只复核已归档结果，不下载、不启动长回放：
+python -m w2w audit_patterns_replay \
+  --source artifacts/results/workload/patterns_replay/flow \
+  --output build/patterns_replay_audit
 ```
 
 统一入口沿用原脚本名称，也接受 `run_endpoint_bridge.py` 这种名称；完整模块形式
 `python -m w2w.experiments.run_endpoint_bridge` 同样可用。旧的根目录命令
 `python run_endpoint_bridge.py` 已由上述入口替代，没有保留一批重复 wrapper。
 需要干净 Git 提交的实验仍然保留原检查。
+服务器含原始 JSON 的核对、完整重跑和历史入口区别见[工作流](docs/guides/TRACE_WORKFLOW.md)。
+完整 Python 测试可用 `python -m unittest discover -s tests -v`；上面的 65 项是当前输入/回放链的定向验收范围。
 
 只维护 **main**。[Git 同步流程](docs/operations/GIT_WORKFLOW.md)；
 [服务器历史实验归档与恢复](docs/operations/SERVER_STORAGE.md)。

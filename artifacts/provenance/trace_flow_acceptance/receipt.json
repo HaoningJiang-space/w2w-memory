@@ -1,0 +1,27 @@
+{
+  "schema": "w2w.trace-flow-acceptance.v1",
+  "validated_source": "6d1827bf2c4627afd3666ba60c82151cf1e86d15",
+  "execution_source": "aa9d91115ceff4458789487d0ed72a2796cd5277",
+  "server": "hn072@143.89.78.72:/Projects/haoning/w2w",
+  "server_source_clean": true,
+  "server_python_tests": 148,
+  "local_targeted_tests": 65,
+  "raw_input_recompiled": true,
+  "replays": 48,
+  "delivered_words": 1094980608,
+  "enhanced_checks": [
+    "per-task bank bytes",
+    "per-bank native words",
+    "per-bank-port transmitted and received counts",
+    "embedded design/residence identity",
+    "release/dependency/compute occupancy/makespan consistency"
+  ],
+  "audit_identical_to_existing_archive": true,
+  "csv_identical_to_existing_archive": true,
+  "audit_sha256": "43960662f0a5152c728d6729eaf3a63456f4c59ea0584c849db298508ecbcd15",
+  "csv_sha256": "d5e1998eabc0afa5de86c9e5db1623103bd7c47e5689eec935b5a07b29d67af9",
+  "tests_log_sha256": "9e2d8c6d2608737ccf48667d35fb01b838bbc93b55a54943121fc4ff9908d984",
+  "download_library_ast_unchanged": true,
+  "legacy_fetch_import_compatible": true,
+  "scope": "Recorded word/bit-budget read model; not fresh per-slot re-execution, payload/RTL equivalence or GPU inference"
+}

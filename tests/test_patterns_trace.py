@@ -13,7 +13,7 @@ from tests.test_read_workload import home_design, FAST
 from w2w.workloads.patterns_trace import compile_patterns, compile_patterns_window, load_requests, project_demand, batches
 from w2w.workloads.read_trace import ReadTrace
 from w2w.service.read_replay import replay_reads
-from w2w.experiments.fetch_patterns_sample import fetch, OriginBoundAuthorization
+from w2w.workloads.patterns_download import fetch, OriginBoundAuthorization
 from urllib.request import Request
 
 FIXTURE=Path(__file__).parent/'fixtures/patterns_input'
@@ -126,7 +126,7 @@ class PatternsInputTests(unittest.TestCase):
 
 class BoundedDownloadTests(unittest.TestCase):
     def test_token_never_sent_to_mirror(self):
-        with tempfile.TemporaryDirectory() as folder,patch('w2w.experiments.fetch_patterns_sample.get_bytes') as mock:
+        with tempfile.TemporaryDirectory() as folder,patch('w2w.workloads.patterns_download.get_bytes') as mock:
             with self.assertRaisesRegex(ValueError,'official|huggingface.co'):
                 fetch('https://hf-mirror.com','subject',Path(folder)/'out',token_file='not-read.txt')
             mock.assert_not_called()
@@ -145,7 +145,7 @@ class BoundedDownloadTests(unittest.TestCase):
                 if '/resolve/' in url:raise RuntimeError('HTTP 403: GatedRepo')
                 self.assertIn('expand=sha',url)
                 return json.dumps(dict(sha='a'*40,gated='auto')).encode()
-            with patch('w2w.experiments.fetch_patterns_sample.get_bytes',side_effect=response):
+            with patch('w2w.workloads.patterns_download.get_bytes',side_effect=response):
                 with self.assertRaisesRegex(RuntimeError,'GatedRepo'):
                     fetch('https://huggingface.co','subject',root/'out',token_file=secret)
             receipt=(root/'out/download_receipt.json').read_text()
@@ -162,13 +162,13 @@ class BoundedDownloadTests(unittest.TestCase):
             if '/resolve/' in url:
                 self.assertIn(revision,url);self.assertTrue(url.endswith('small.json'));return payload
             return json.dumps(dict(sha=revision,gated=False)).encode()
-        with tempfile.TemporaryDirectory() as folder,patch('w2w.experiments.fetch_patterns_sample.get_bytes',side_effect=response) as mock:
+        with tempfile.TemporaryDirectory() as folder,patch('w2w.workloads.patterns_download.get_bytes',side_effect=response) as mock:
             out=Path(folder)/'output';record=fetch('https://example.test','subject',out,1,100,100)
             self.assertEqual(len(record['downloaded']),1);self.assertEqual(mock.call_count,3)
             self.assertEqual(json.loads((out/'manifest.json').read_text())['requests'][0]['sha256'],sha256(payload).hexdigest())
 
     def test_access_denial_has_no_alternate_host_or_raw_download(self):
-        with tempfile.TemporaryDirectory() as folder,patch('w2w.experiments.fetch_patterns_sample.get_bytes',side_effect=RuntimeError('HTTP 403')) as mock:
+        with tempfile.TemporaryDirectory() as folder,patch('w2w.workloads.patterns_download.get_bytes',side_effect=RuntimeError('HTTP 403')) as mock:
             out=Path(folder)/'output'
             with self.assertRaisesRegex(RuntimeError,'403'):fetch('https://example.test','subject',out)
             self.assertEqual(mock.call_count,1)

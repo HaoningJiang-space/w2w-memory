@@ -1,5 +1,14 @@
 # 开发交接：Wafer-scale Memory Service Fabric
 
+**验收复查完成：** 服务器完整 Python 测试 148/148 通过；补充每 bank/route 的固定字节
+核对及任务时间线检查后，48 个真实 routing 回放再次通过原始输入重编译，报告数值不变。
+见[验收范围、实际补缺与未覆盖项](reports/TRACE_FLOW_ACCEPTANCE.md)。下面各轮测试数量为历史记录。
+
+**当前运行入口已统一：** 从[真实 trace 工作流](guides/TRACE_WORKFLOW.md)开始，
+区分归档审计、服务器原始输入复核和完整重跑。下载公共逻辑归入
+`workloads/patterns_download.py`，单样本 CLI 默认 HF 原站；不会自动切镜像或使用 VPS。
+根 README 中“暂无真实 trace”的旧状态已更新。历史实验及旧命令保留，不改旧结果。
+
 **2026-10-07 真实 trace 流程完成并整理代码：** 48/48 注册回放、1,094,980,608 个完整模拟读字
 全部核对；原始 routing → 专家 union → 完整权重读 → endpoint/HB/RX → 完成时间已接通。
 三个互不重叠的 request 组，各测嵌套 batch1/4/16；所有窗口及无收益结果都归档。

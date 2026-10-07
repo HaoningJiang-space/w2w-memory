@@ -12,7 +12,7 @@ from w2w.synthesis.read_catalog import load_designs
 from w2w.service.cost import CostModel
 from w2w.service.read_replay import ReadReplayConfig
 from w2w.workloads.patterns_trace import compile_patterns_window
-from w2w.workloads.read_trace import ReadTrace
+from w2w.workloads.read_trace import ReadTrace, digest
 
 
 def expected_keys(plan):
@@ -49,6 +49,57 @@ def check_delivery(trace, row):
     for task in trace.tasks:
         if tasks[task.id]['logical_bytes'] != sum(r.size_bytes for r in task.reads):
             raise ValueError('Task bytes mismatch')
+
+
+def check_frozen_accounting(certificate, row, word_bytes):
+    """Check resource-specific delivery and feasible task timing, not just totals.
+
+    The certificate is rebuilt from the frozen design and address residency.
+    This validates recorded accounting; it does not replay every slot or prove
+    payload/RTL equivalence.
+    """
+    for field in ('design', 'residence'):
+        if digest(row[field]) != row[field + '_sha256']:
+            raise ValueError('Embedded record identity mismatch: ' + field)
+    observed = {t['id']: t for t in row['tasks']}
+    if len(observed) != len(row['tasks']) or set(observed) != {t['id'] for t in certificate['tasks']}:
+        raise ValueError('Task coverage mismatch')
+    native, routes, intervals = Counter(), Counter(), {}
+    for task in certificate['tasks']:
+        current = observed[task['id']]
+        banks = {r['bank']: r['words'] * word_bytes for r in task['routes']}
+        if {int(k): v for k, v in current['bank_bytes'].items()} != banks:
+            raise ValueError('Frozen task-to-bank bytes mismatch')
+        for route in task['routes']:
+            native[route['bank']] += route['words']
+            routes[route['bank'], route['port']] += route['words']
+        start, done, finish = (current[k] for k in ('start_slot', 'reads_done_slot', 'finish_slot'))
+        eligible = max((task['release_slot'], *(observed[d]['finish_slot'] for d in task['dependencies'])))
+        if (any(type(t) is not int or t < 0 for t in (start, done, finish))
+                or current['compute'] != task['compute'] or start < eligible or done < start
+                or finish != done + task['compute_slots']
+                or current['read_wait_slots'] != done - start
+                or current['compute_queue_slots'] != start - eligible):
+            raise ValueError('Task timing or dependency mismatch')
+        if task['compute'] is not None:
+            intervals.setdefault(task['compute'], []).append((start, finish))
+    for tasks in intervals.values():
+        latest = 0
+        for start, finish in sorted(tasks):
+            if start < latest:
+                raise ValueError('Overlapping tasks on one compute')
+            latest = finish
+    if row['makespan_slots'] != max((t['finish_slot'] for t in observed.values()), default=0):
+        raise ValueError('Makespan differs from task completion')
+    if {int(k): v for k, v in row['native_words_by_bank'].items()} != dict(native):
+        raise ValueError('Frozen per-bank native words mismatch')
+    observed_routes = {(r['bank'], r['port']): r for r in row['routes']}
+    if len(observed_routes) != len(row['routes']) or set(observed_routes) != set(routes):
+        raise ValueError('Frozen physical route coverage mismatch')
+    for key, words in routes.items():
+        route = observed_routes[key]
+        if route['received_words'] != words or route['sent_bits'] != words * word_bytes * 8:
+            raise ValueError('Frozen per-route delivery mismatch')
 
 
 def check_routing_union(manifest_path, spec, step, demand):
@@ -147,6 +198,7 @@ def audit(source, plan_path, verify_inputs=False):
         check_delivery(trace, row)
         certificate = window_certificate(design, trace, config)
         check_bound(certificate, row)
+        check_frozen_accounting(certificate, row, trace.word_bytes)
         lower = dict(with_credit=completion_lower_bound(certificate, key[2]),
                      independent=completion_lower_bound(certificate))
         if row['lower_bound'] != lower:
@@ -187,5 +239,4 @@ def audit(source, plan_path, verify_inputs=False):
         delivered_words=delivered, raw_input_recompiled=verify_inputs,
         scope='Full modeled expert-weight read stages; no inference latency claim; no population CI',
         rows=table)
-
 
