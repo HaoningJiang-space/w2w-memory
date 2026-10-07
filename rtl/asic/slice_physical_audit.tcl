@@ -6,7 +6,7 @@ read_db $output/final.odb
 read_sdc $output/final.sdc
 read_spef $output/final.spef
 set fd [open $output/path_classes.tsv w]
-set inputs [all_inputs]
+set inputs [lsearch -all -inline -not -exact [all_inputs] [lindex [get_ports clk] 0]]
 set outputs [all_outputs]
 set launches [all_registers -clock_pins]
 set captures [all_registers -data_pins]

@@ -9,7 +9,7 @@ module home_rx_contract_tb;
     wire ar, br, av, bv;
     wire [255:0] ad, bd;
     integer cycle, lane, accepted=0, delivered=0, replacements=0, stalls=0;
-    integer seed=20261007;
+    integer seed=20261007, reset_flushed=0;
     endpoint_rx #(.WIDTH(256)) actual (
         .clk(clk),.rst(rst),.beat_valid(valid),.beat_ready(ar),
         .beat_data(data),.beat_units(4'd8),.word_valid(av),
@@ -35,6 +35,7 @@ module home_rx_contract_tb;
             if (ar!==br || av!==bv || actual.pending_bits!==reference.pending_bits)
                 $fatal(1,"Home control mismatch at cycle %0d",cycle);
             if (av && ad!==bd) $fatal(1,"Home payload mismatch at cycle %0d",cycle);
+            if (rst && actual.pending_bits==256) reset_flushed=reset_flushed+1;
             if (!rst) begin
                 if (valid && ar) accepted=accepted+1;
                 if (av && ready) delivered=delivered+1;
@@ -42,10 +43,10 @@ module home_rx_contract_tb;
                 if (av && !ready) stalls=stalls+1;
             end
         end
-        if (av || accepted<10000 || replacements<1000 || stalls<1000)
+        if (av || accepted!=delivered+reset_flushed || accepted<10000 || replacements<1000 || stalls<1000)
             $fatal(1,"Home contract coverage/drain failure");
-        $display("HOME_RX_CONTRACT_PASS cycles=%0d accepted=%0d delivered=%0d replacements=%0d stalls=%0d",
-                 cycle,accepted,delivered,replacements,stalls);
+        $display("HOME_RX_CONTRACT_PASS cycles=%0d accepted=%0d delivered=%0d replacements=%0d stalls=%0d reset_flushed=%0d",
+                 cycle,accepted,delivered,replacements,stalls,reset_flushed);
         $finish;
     end
 endmodule
