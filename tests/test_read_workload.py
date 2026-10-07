@@ -9,7 +9,7 @@ import unittest
 from tests.fixtures.tiny_fabric import two_compute_two_memory
 from w2w.domain import EndpointSpec, StaticLayout
 from w2w.domain.endpoint import NativeProfile
-from w2w.experiments.run_read_workload import hardware_evidence
+from w2w.experiments.run_read_workload import archived_cost_matches, hardware_evidence
 from w2w.service.read_replay import ReadReplayConfig, replay_reads
 from w2w.synthesis.role_interfaces import static_shared_fifo
 from w2w.workloads.moe_reads import compile_moe_reads, synthetic_moe_captures
@@ -39,6 +39,16 @@ FAST = ReadReplayConfig(request_latency_slots=0, native_latency_slots=0, link_la
 
 
 class ReadTraceTests(unittest.TestCase):
+    def test_archived_cost_allows_roundoff_but_not_changed_resources(self):
+        archived = dict(wire_mm=943.5999999999999, bank_port_connections=64,
+                        configured_hb_tb_s=2., pipeline_register_bits=4096)
+        reconstructed = {**archived, 'wire_mm': 943.5999999999995}
+        self.assertTrue(archived_cost_matches(reconstructed, archived))
+        for key, value in [('wire_mm', 943.6 + 1e-5), ('bank_port_connections', 65),
+                           ('configured_hb_tb_s', 2.000000001),
+                           ('pipeline_register_bits', 4097)]:
+            self.assertFalse(archived_cost_matches({**reconstructed, key: value}, archived))
+
     def test_roundtrip_and_invalid_dag(self):
         trace = read_trace()
         self.assertEqual(ReadTrace.from_record(json.loads(json.dumps(trace.record()))), trace)

@@ -42,3 +42,15 @@ runner为`python -m w2w.experiments.run_patterns_flow`，每case五设计、最�
 
 本轮下载清单以原站固定commit为准。新host直接下载，token通过SSH stdin进入进程内存，
 不写token文件，不传第三方镜像。完成文件逐个哈希验证、可按receipt恢复；原始文件不入Git。
+
+从已有凭据的本地机器传入 stdin，例如（不在命令行写 token 值）：
+
+```sh
+ssh hn072@143.89.78.72 \
+  'cd /Projects/haoning/w2w-trace-20261007 && .venv/bin/python -m w2w.experiments.download_patterns_corpus --plan artifacts/provenance/patterns_batch/plan.json --output memory_results/pbc_corpus256 --token-stdin' \
+  < /Users/haoning/project/w2w/hf_token.txt
+```
+
+输出目录包含 pinned manifest 和每科 receipt，恢复时不得改变 seed、revision 或字节预算。
+公开数据源有访问门槛，token 所属账户必须已取得 dataset 授权；403 应检查授权/网络，
+不通过切换身份或向第三方镜像发送凭据绕过。

@@ -1,7 +1,8 @@
 """Bounded opt-in sample download from one explicitly selected HF mirror folder.
 
 No recursive snapshot, automatic authorization, alternate-host retry or secret
-persistence. File choices are the smallest entries in the returned directory page.
+persistence. File choices use the selected smallest-first or seeded policy within
+the returned directory page; this is not a whole-dataset sample.
 """
 import argparse
 from hashlib import sha1, sha256

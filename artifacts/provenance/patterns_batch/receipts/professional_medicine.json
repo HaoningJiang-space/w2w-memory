@@ -1,0 +1,435 @@
+{
+  "endpoint": "https://huggingface.co",
+  "repository": "core12345/MoE_expert_selection_trace",
+  "prefix": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine",
+  "max_files": 32,
+  "max_file_bytes": 33554432,
+  "max_total_bytes": 1500000000,
+  "selection": "seeded",
+  "seed": 20261007,
+  "downloaded": [
+    {
+      "path": "request0.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12203.json",
+      "sha256": "609d712a4549fe71153b34e0ac3798fd6cdaae36673894107d6592e12fdc2564",
+      "git_blob_oid": "6f39786cfce82b2e9d11dc10f65d8d314afda8b1",
+      "bytes": 4279210
+    },
+    {
+      "path": "request1.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12189.json",
+      "sha256": "5ce0cac64506211f825f371b3f29337075c59cce967963fc7e70d0b71f51ea82",
+      "git_blob_oid": "7f25ca4110376db7da5d6387b95d4c2e447f2eb2",
+      "bytes": 5594014
+    },
+    {
+      "path": "request2.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12214.json",
+      "sha256": "ad90b21e3086e357b3fc1da88e5209f9d5fad10a49e116e83b7b9a7a027b009d",
+      "git_blob_oid": "5908b943647d9ea9d6501b72e4fde3726fd35225",
+      "bytes": 4134009
+    },
+    {
+      "path": "request3.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12360.json",
+      "sha256": "ee3123454434e92cee0b659acca131fecdaed1c92e89edf1c1c648d84f833d8c",
+      "git_blob_oid": "96a2d7d362105ccb9d7a84cc21b8eba679e9ea4d",
+      "bytes": 3762011
+    },
+    {
+      "path": "request4.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12245.json",
+      "sha256": "251a374f89923a47a9807f577cb07c1ebc1bd1ce072a9e363b4d9c85f5103486",
+      "git_blob_oid": "16eed96fb5f4c5d14cfc8a247099a59b22c12219",
+      "bytes": 3939173
+    },
+    {
+      "path": "request5.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12304.json",
+      "sha256": "9860388f2554ee9b5b3b9a50eb913fd135effafd4c9d5cd893dc291c78f581f8",
+      "git_blob_oid": "4c98a561afc9e2fbcfab82e906f14e34e91b7b49",
+      "bytes": 5308099
+    },
+    {
+      "path": "request6.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12402.json",
+      "sha256": "89caf803b725f47afb8f934933e103febd3bfa1e686528dd82008bac6467a6a7",
+      "git_blob_oid": "80c53a40500ccf8708ba341069d97f5aee23cc8a",
+      "bytes": 5751996
+    },
+    {
+      "path": "request7.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12231.json",
+      "sha256": "e66e41c36b838da61c727efb11710c96a22b5e73f9e978167482a967f6873829",
+      "git_blob_oid": "f6374955fa368013ffc1ead3ac481dbd94bf7cfe",
+      "bytes": 7545843
+    },
+    {
+      "path": "request8.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12330.json",
+      "sha256": "534962ec64d2287c73781ef5e83909c91a8d69b1bdba75cfdb6c22e2697747e8",
+      "git_blob_oid": "9f3c768f1388fcb74830c8bc743ad11dcd4949e8",
+      "bytes": 4277938
+    },
+    {
+      "path": "request9.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12371.json",
+      "sha256": "0fb5e973910c9957f318edefe0de9f6e8740f1b98958730daea98d9b4c494a39",
+      "git_blob_oid": "41813f66b0bf877088b41f25a884b770c333ed71",
+      "bytes": 5343785
+    },
+    {
+      "path": "request10.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12335.json",
+      "sha256": "2d1b940660253200bfa6a8b6efc96e225c0ba5d8207a819467cbdd8e106093a4",
+      "git_blob_oid": "87f4d07224a38f3a1da63f0a61d9752ddf40945a",
+      "bytes": 5768972
+    },
+    {
+      "path": "request11.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12369.json",
+      "sha256": "e576ee204871487a4c549ad374da35a656bbc3a4bbd591994b50ce450923eb31",
+      "git_blob_oid": "670cdd1207ab9b129e5c7b5b63b2a9fda205475f",
+      "bytes": 4258344
+    },
+    {
+      "path": "request12.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12234.json",
+      "sha256": "ebdcaa7d14dae8ec900fded2cbddd3a956e56165471332c1355888ed6b9de593",
+      "git_blob_oid": "8fb7b29544eacc2fbe9cde8b61df5b0829fd2c40",
+      "bytes": 3637518
+    },
+    {
+      "path": "request13.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12233.json",
+      "sha256": "313a700b5f69ceb64d64d4e8de11f61538663ca13daae82ff520f80623b6c7e8",
+      "git_blob_oid": "136b0efc5319ff72672400467da891b1c8b1c0fc",
+      "bytes": 3780690
+    },
+    {
+      "path": "request14.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12340.json",
+      "sha256": "09a4ddc57e6f2a6ef9bdcb5b0edc8c4851b04afcf870d3eeadfc50284e2da6be",
+      "git_blob_oid": "8a4985b301065dc1d8b4975c1c523fd7af719d15",
+      "bytes": 5184519
+    },
+    {
+      "path": "request15.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12408.json",
+      "sha256": "c85a739f2011c2de1a810aca020514cd25305898fa742221ca98905efe409b3b",
+      "git_blob_oid": "ea25104068f09157e538681aa7ee10f4ccebd910",
+      "bytes": 6196652
+    },
+    {
+      "path": "request16.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12399.json",
+      "sha256": "d668fb577b96d46e649f79c4849bffb8585dc40f9856c3e4bc000fb1673367d9",
+      "git_blob_oid": "b20b54e6df419898fba61dcd153073d51bd15286",
+      "bytes": 3301315
+    },
+    {
+      "path": "request17.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12177.json",
+      "sha256": "b146363b3f439be955466973d886fbfae43e4836f758147f5e5e3fa71a95cf7c",
+      "git_blob_oid": "0ff1a1cb7f1c170caffee2ddade09d696f7138a3",
+      "bytes": 5413008
+    },
+    {
+      "path": "request18.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12345.json",
+      "sha256": "6fced40ba9ca397606557771a5ab939d3fea0490a663b7bc081e359d9e8f2502",
+      "git_blob_oid": "acade4f980e9838a106cb016f0c9163d37656096",
+      "bytes": 5024703
+    },
+    {
+      "path": "request19.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12257.json",
+      "sha256": "34ce5529eb4dc6babdae94e4bee3642cd5687dcb204e41435040805aeb54f449",
+      "git_blob_oid": "f3a1076dd159061914432c483e2e93ef674ecc16",
+      "bytes": 5734660
+    },
+    {
+      "path": "request20.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12294.json",
+      "sha256": "5344cc7a42d62de652230ec7a427ee034276cbe8f916044c2a0a85e1334aa235",
+      "git_blob_oid": "211b81acf60462bdb91fe2aa260151a224c004a2",
+      "bytes": 5450945
+    },
+    {
+      "path": "request21.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12295.json",
+      "sha256": "1c430355152f7ffd97e8e772d269f0db930321b29f9842c7c3c2c95abb6be0fa",
+      "git_blob_oid": "a8e5efac08d3c1dbeb02c00cb27cd905a6524802",
+      "bytes": 4900004
+    },
+    {
+      "path": "request22.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12430.json",
+      "sha256": "d536b305ca8e1b10e64265adb239b0310ff1712aa76bd3d3a5881a1a0b2ba6d6",
+      "git_blob_oid": "9c7f2a60f53748ef1d7dc788202ad2d190dfd434",
+      "bytes": 4757757
+    },
+    {
+      "path": "request23.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12341.json",
+      "sha256": "376e7d0de767de6a8e707903c938fd92c435a10aa393d7d8c13e54530aaa5b4c",
+      "git_blob_oid": "7eb175e565ce72453dce792da5caf436ac63e195",
+      "bytes": 3656120
+    },
+    {
+      "path": "request24.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12324.json",
+      "sha256": "0fdd5e7361858d430ce837e8c01b9e29e1bbdcdbf87a35c988d9a37e432416b6",
+      "git_blob_oid": "d2d6917e5fc8d59cb32874121109d317c84d0be8",
+      "bytes": 5342187
+    },
+    {
+      "path": "request25.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12353.json",
+      "sha256": "02bbebb8b94796de7ef2e267e0352acbbaccb234bc019b5f57e7853d3240f71d",
+      "git_blob_oid": "50724aa41d749e161e62dd9561d4ca5fdd20386d",
+      "bytes": 8842564
+    },
+    {
+      "path": "request26.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12418.json",
+      "sha256": "e82134704ed66168e9ee04f0a87743472e652a8d4d840c2769aa736567ad0d54",
+      "git_blob_oid": "5f3351c88e9cd10c60893d240e043ee238d90a3c",
+      "bytes": 4829916
+    },
+    {
+      "path": "request27.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12383.json",
+      "sha256": "719ce47469679fad8ed5ac1258affbb571352f9357b1495dae711f97436ff478",
+      "git_blob_oid": "7524e4ea8e2f756e88e362e395e365d0b6d649c4",
+      "bytes": 3939778
+    },
+    {
+      "path": "request28.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12361.json",
+      "sha256": "191185271c0fcdd920b4c85aedc8e1d58e52320ffe0c76203f314a958e3b2880",
+      "git_blob_oid": "dfc79cec8136025fadd9ead5920df18dd6ebf46c",
+      "bytes": 7099833
+    },
+    {
+      "path": "request29.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12192.json",
+      "sha256": "02aa663f47e1bafee960bb17c532e997d42f87cb4dd7aea2c82a249b6e577cc7",
+      "git_blob_oid": "65a545b95946db8115026fabd30e6046694c9535",
+      "bytes": 4898537
+    },
+    {
+      "path": "request30.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12272.json",
+      "sha256": "48c9ea87dca196bad8c14b5c2073d2434bd6d566ff476cf1f1ce9719ecfb5206",
+      "git_blob_oid": "5f7edc651e4404e620776b0c30364e125c10ac5a",
+      "bytes": 4064006
+    },
+    {
+      "path": "request31.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12433.json",
+      "sha256": "9de3fd35f49d4a8bc33cf80afdb7db12971ca42db2c76c8ee90fd58eed3fc06a",
+      "git_blob_oid": "142da2b04e51b1f9cdda08ad96ebe81b84c087ce",
+      "bytes": 5769496
+    }
+  ],
+  "revision": "27febb7b2d24169560a9f6f83d38eb53f94916cf",
+  "listed_json_files": 272,
+  "excluded_by_file_cap": 0,
+  "selection_scope": "seeded selection within first nonrecursive directory page; not a whole-dataset sample",
+  "planned": [
+    {
+      "type": "file",
+      "oid": "6f39786cfce82b2e9d11dc10f65d8d314afda8b1",
+      "size": 4279210,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12203.json"
+    },
+    {
+      "type": "file",
+      "oid": "7f25ca4110376db7da5d6387b95d4c2e447f2eb2",
+      "size": 5594014,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12189.json"
+    },
+    {
+      "type": "file",
+      "oid": "5908b943647d9ea9d6501b72e4fde3726fd35225",
+      "size": 4134009,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12214.json"
+    },
+    {
+      "type": "file",
+      "oid": "96a2d7d362105ccb9d7a84cc21b8eba679e9ea4d",
+      "size": 3762011,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12360.json"
+    },
+    {
+      "type": "file",
+      "oid": "16eed96fb5f4c5d14cfc8a247099a59b22c12219",
+      "size": 3939173,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12245.json"
+    },
+    {
+      "type": "file",
+      "oid": "4c98a561afc9e2fbcfab82e906f14e34e91b7b49",
+      "size": 5308099,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12304.json"
+    },
+    {
+      "type": "file",
+      "oid": "80c53a40500ccf8708ba341069d97f5aee23cc8a",
+      "size": 5751996,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12402.json"
+    },
+    {
+      "type": "file",
+      "oid": "f6374955fa368013ffc1ead3ac481dbd94bf7cfe",
+      "size": 7545843,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12231.json"
+    },
+    {
+      "type": "file",
+      "oid": "9f3c768f1388fcb74830c8bc743ad11dcd4949e8",
+      "size": 4277938,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12330.json"
+    },
+    {
+      "type": "file",
+      "oid": "41813f66b0bf877088b41f25a884b770c333ed71",
+      "size": 5343785,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12371.json"
+    },
+    {
+      "type": "file",
+      "oid": "87f4d07224a38f3a1da63f0a61d9752ddf40945a",
+      "size": 5768972,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12335.json"
+    },
+    {
+      "type": "file",
+      "oid": "670cdd1207ab9b129e5c7b5b63b2a9fda205475f",
+      "size": 4258344,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12369.json"
+    },
+    {
+      "type": "file",
+      "oid": "8fb7b29544eacc2fbe9cde8b61df5b0829fd2c40",
+      "size": 3637518,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12234.json"
+    },
+    {
+      "type": "file",
+      "oid": "136b0efc5319ff72672400467da891b1c8b1c0fc",
+      "size": 3780690,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12233.json"
+    },
+    {
+      "type": "file",
+      "oid": "8a4985b301065dc1d8b4975c1c523fd7af719d15",
+      "size": 5184519,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12340.json"
+    },
+    {
+      "type": "file",
+      "oid": "ea25104068f09157e538681aa7ee10f4ccebd910",
+      "size": 6196652,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12408.json"
+    },
+    {
+      "type": "file",
+      "oid": "b20b54e6df419898fba61dcd153073d51bd15286",
+      "size": 3301315,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12399.json"
+    },
+    {
+      "type": "file",
+      "oid": "0ff1a1cb7f1c170caffee2ddade09d696f7138a3",
+      "size": 5413008,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12177.json"
+    },
+    {
+      "type": "file",
+      "oid": "acade4f980e9838a106cb016f0c9163d37656096",
+      "size": 5024703,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12345.json"
+    },
+    {
+      "type": "file",
+      "oid": "f3a1076dd159061914432c483e2e93ef674ecc16",
+      "size": 5734660,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12257.json"
+    },
+    {
+      "type": "file",
+      "oid": "211b81acf60462bdb91fe2aa260151a224c004a2",
+      "size": 5450945,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12294.json"
+    },
+    {
+      "type": "file",
+      "oid": "a8e5efac08d3c1dbeb02c00cb27cd905a6524802",
+      "size": 4900004,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12295.json"
+    },
+    {
+      "type": "file",
+      "oid": "9c7f2a60f53748ef1d7dc788202ad2d190dfd434",
+      "size": 4757757,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12430.json"
+    },
+    {
+      "type": "file",
+      "oid": "7eb175e565ce72453dce792da5caf436ac63e195",
+      "size": 3656120,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12341.json"
+    },
+    {
+      "type": "file",
+      "oid": "d2d6917e5fc8d59cb32874121109d317c84d0be8",
+      "size": 5342187,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12324.json"
+    },
+    {
+      "type": "file",
+      "oid": "50724aa41d749e161e62dd9561d4ca5fdd20386d",
+      "size": 8842564,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12353.json"
+    },
+    {
+      "type": "file",
+      "oid": "5f3351c88e9cd10c60893d240e043ee238d90a3c",
+      "size": 4829916,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12418.json"
+    },
+    {
+      "type": "file",
+      "oid": "7524e4ea8e2f756e88e362e395e365d0b6d649c4",
+      "size": 3939778,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12383.json"
+    },
+    {
+      "type": "file",
+      "oid": "dfc79cec8136025fadd9ead5920df18dd6ebf46c",
+      "size": 7099833,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12361.json"
+    },
+    {
+      "type": "file",
+      "oid": "65a545b95946db8115026fabd30e6046694c9535",
+      "size": 4898537,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12192.json"
+    },
+    {
+      "type": "file",
+      "oid": "5f7edc651e4404e620776b0c30364e125c10ac5a",
+      "size": 4064006,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12272.json"
+    },
+    {
+      "type": "file",
+      "oid": "142da2b04e51b1f9cdda08ad96ebe81b84c087ce",
+      "size": 5769496,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12433.json"
+    }
+  ],
+  "status": "downloaded; layer/model spec still required"
+}
