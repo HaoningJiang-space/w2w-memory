@@ -1,3 +1,4 @@
+`timescale 1ns/1ps
 // Read-return only. Native role/direction come from frozen address mapping.
 // Source machinery precedes every HB edge; receivers never forward data.
 // Reuse the archived whole-word FIFO/packetizer with a counted elastic beat.
