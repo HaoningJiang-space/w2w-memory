@@ -49,16 +49,18 @@ def get_bytes(url, limit, token=None):
 
 
 def fetch(endpoint, prefix, output, count=2, max_file_bytes=2*1024**2, max_total_bytes=4*1024**2, token_file=None,
-          selection='smallest', seed=0, resume=False, revision=None):
+          selection='smallest', seed=0, resume=False, revision=None, token=None):
     if urlparse(endpoint).scheme != 'https' or any(v <= 0 for v in (count,max_file_bytes,max_total_bytes)):
         raise ValueError('HTTPS endpoint and positive limits required')
     if not prefix or PurePosixPath(prefix).is_absolute() or '..' in PurePosixPath(prefix).parts:
         raise ValueError('Select one explicit model/benchmark/subject folder')
     read = get_bytes
-    if token_file is not None:
+    if token_file is not None or token is not None:
         if endpoint.rstrip('/') != 'https://huggingface.co':
             raise ValueError('Token files may only be used with https://huggingface.co')
-        token = Path(token_file).read_text().strip()
+        if token_file is not None:
+            if token is not None:raise ValueError('Choose one credential source')
+            token = Path(token_file).read_text().strip()
         if not token.startswith('hf_') or any(c.isspace() for c in token):
             raise ValueError('Token file must contain only one HF token')
         read = partial(get_bytes, token=token)
@@ -90,7 +92,7 @@ def fetch(endpoint, prefix, output, count=2, max_file_bytes=2*1024**2, max_total
         revision = revision or info['sha']
         if not re.fullmatch('[a-f0-9]{40}', revision):raise ValueError('Expected immutable dataset commit')
         receipt['revision'] = revision
-        if info.get('gated') and token_file is None:
+        if info.get('gated') and token is None:
             raise RuntimeError('Dataset reports gated access; obtain authorized local files before import')
         rows = json.loads(read(api+'/tree/'+revision+'/'+quote(prefix,safe='/')+'?limit=1000', 8*1024**2))
         all_files = [row for row in rows if row['type']=='file' and row['path'].endswith('.json')]

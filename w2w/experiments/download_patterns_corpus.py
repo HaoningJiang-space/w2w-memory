@@ -4,12 +4,13 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import json
 from pathlib import Path
 import time
+import sys
 from urllib.error import URLError
 
 from w2w.experiments.fetch_patterns_sample import fetch
 
 
-def download(plan, output, token_file):
+def download(plan, output, token_file=None, token=None):
     output = Path(output); output.mkdir(parents=True, exist_ok=True)
     subjects = plan['subjects']
     if not subjects or len(set(subjects)) != len(subjects):
@@ -21,7 +22,7 @@ def download(plan, output, token_file):
                 result = fetch('https://huggingface.co', plan['model_prefix']+'/'+subject,
                     output/subject, plan['requests_per_subject'], plan['max_file_bytes'],
                     per_subject, token_file, selection='seeded', seed=plan['download_seed'],
-                    resume=True, revision=plan['revision'])
+                    resume=True, revision=plan['revision'], token=token)
                 if len(result['downloaded']) != plan['requests_per_subject']:
                     raise ValueError('Insufficient files within registered size limits: '+subject)
                 return subject,result
@@ -55,8 +56,12 @@ def download(plan, output, token_file):
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--plan',required=True);p.add_argument('--output',required=True)
-    p.add_argument('--token-file',required=True)
-    args=p.parse_args();download(json.loads(Path(args.plan).read_text()),args.output,args.token_file)
+    credentials=p.add_mutually_exclusive_group(required=True)
+    credentials.add_argument('--token-file')
+    credentials.add_argument('--token-stdin',action='store_true',help='Read token from encrypted stdin; do not persist it')
+    args=p.parse_args()
+    token=sys.stdin.readline().strip() if args.token_stdin else None
+    download(json.loads(Path(args.plan).read_text()),args.output,args.token_file,token)
 
 
 if __name__=='__main__':main()
