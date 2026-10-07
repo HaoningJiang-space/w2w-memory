@@ -7,6 +7,9 @@
 
 ## 当前实现与运行
 
+- [Service provisioning：实现边界与进一步形式化](methods/SERVICE_PROVISIONING_ASSESSMENT.md)
+- [下一阶段任务](handoff/NEXT_TASK.md)
+
 - [静态驻留与请求容量联合设计：189回放、方向覆盖及成本](reports/SERVICE_PROVISIONING_REPORT.md) / [固定协议](methods/SERVICE_PROVISIONING_STUDY.md)
 - [流程验收复查：148测试、48回放与完成边界](reports/TRACE_FLOW_ACCEPTANCE.md)
 - [真实 trace 完整工作流：当前入口、验收范围与历史脚本区别](guides/TRACE_WORKFLOW.md)

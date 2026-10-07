@@ -55,6 +55,8 @@ python -m w2w audit_patterns_replay \
 
 | 目录 | 应放什么 | 主要模块 |
 |---|---|---|
+| `w2w/domain` | 不可变设计、endpoint 参数与服务包络，不依赖求解器或实验 | `design`、`endpoint` |
+| `w2w/theory` | 解析必要界与纯数学推导 | `interfaces`、`service_provisioning` |
 | `w2w/geometry` | Memory-on-Logic 的几何生成、HB overlap、初始服务包络 | `memory_model` |
 | `w2w/service` | 资源账本、固定数据布局、reticle/bank 服务 LP | `matching_placement`、`bank_sharing`、`guaranteed_service_exchange` |
 | `w2w/endpoints` | 出口服务合同、完整字执行、队列与反压 | `endpoint_contract_probe`、`endpoint_execution`、`slice_exposure_probe` |
@@ -137,3 +139,26 @@ python -m unittest discover -s tests -v
 新研究代码应进入对应层；新增实验注册在 `w2w/commands.py`。仍只使用 `main`，
 通过 Git 同步到当前 CPU 服务器 `/Projects/haoning/w2w`；eex005 保留历史实验。
 需要干净提交的 runner 保留原检查，不为重构绕过检查。
+
+## 后续扩展的边界
+
+合入 `11fd2ab` 的 service provisioning 工作后，注册候选构造由实验 runner 移至
+`synthesis/provisioning_catalog.py`；原 `run_service_provisioning.candidate_designs`
+继续兼容导入。八个设计、三个 duplicated 对照、比例推导和 catalog 身份保持不变。
+`analysis/service_provisioning.py` 计算资源必要界，`validation/service_provisioning.py`
+复核归档，`visualization/render_service_provisioning.py` 绘图；runner 只负责注册与执行。
+纯容量/请求生命周期公式移至 `theory/service_provisioning.py`，旧 analysis 导入保留兼容；
+候选构造和绘图直接依赖 theory，不通过归档分析层调用这些公式。
+
+当前 `EndpointSpec.shared_fifo_ports` 是 **bank-local** 共享状态；
+`MemoryFabricDesign.shared_directions` 是每 memory 实例的冻结方向。
+它们不表示跨 bank 的 engine pool。新增 pool 必须显式表示 bank-engine 支持、
+静态 binding、并发容量和互连成本，不能仅更改旧字段名称。
+
+当前 native ready pattern 和读 slot 也不表示 ACT/PRE/RD/refresh。
+命令时序后端计划放在 `service/dram`，通过接受、推进、完成接口与读执行器交互；
+该目录尚未实现。旧 slot 模型继续用于历史复现。
+
+服务配置提案见 [分析与形式化](methods/SERVICE_PROVISIONING_ASSESSMENT.md)。
+当前交接只看 [HANDOFF](HANDOFF.md) 与 [NEXT_TASK](handoff/NEXT_TASK.md)；
+逐轮状态已另存历史页，避免旧“下一步”与当前任务相互冲突。

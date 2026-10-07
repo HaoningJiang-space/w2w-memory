@@ -9,7 +9,7 @@ import time
 
 from w2w.analysis.service_provisioning import check_provisioning_bound, provisioning_certificate
 from w2w.experiments.prepare_provisioning_holdout import METHOD
-from w2w.experiments.run_service_provisioning import candidate_designs
+from w2w.synthesis.provisioning_catalog import candidate_designs
 from w2w.provenance import provenance
 from w2w.service.cost import CostModel
 from w2w.service.read_replay import ReadReplayConfig, replay_reads
