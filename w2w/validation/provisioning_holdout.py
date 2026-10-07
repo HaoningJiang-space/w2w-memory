@@ -10,7 +10,7 @@ from pathlib import Path
 from w2w.analysis.service_provisioning import check_provisioning_bound, provisioning_certificate
 from w2w.experiments.prepare_provisioning_holdout import METHOD, PREVIOUS
 from w2w.experiments.run_provisioning_holdout import jobs
-from w2w.experiments.run_service_provisioning import candidate_designs
+from w2w.synthesis.provisioning_catalog import candidate_designs
 from w2w.service.cost import CostModel
 from w2w.service.read_replay import ReadReplayConfig, design_record
 from w2w.synthesis.read_catalog import archived_cost_matches
