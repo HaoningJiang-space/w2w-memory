@@ -42,13 +42,16 @@ module endpoint_tx #(
     end
 `ifndef SYNTHESIS
     wire [31:0] pending_bits;
+    // Check the next occupancy before narrowing to the FIFO count register.
+    // For D=1, checking the stored one-bit count > 1 would be vacuous.
+    wire [31:0] next_word_count={30'b0,words}-{31'b0,pop};
     if (WIDTH == 256) begin: monitor_full
         assign pending_bits = fifo.count*256 + (beat_valid ? beat_units*32 : 0);
     end else begin: monitor_narrow
         assign pending_bits = fifo.count*256 - gearbox.serial_word.offset*32
                               + (beat_valid ? beat_units*32 : 0);
     end
-    always @(posedge clk) if (!rst && fifo.count > DEPTH) $fatal(1,"TX FIFO bound");
+    always @(posedge clk) if (!rst && next_word_count > DEPTH) $fatal(1,"TX FIFO bound");
     always @(posedge clk) if (!rst && advance &&
         ((units != 0) !== (words != 0))) $fatal(1,"TX nonempty/units invariant");
 `endif
