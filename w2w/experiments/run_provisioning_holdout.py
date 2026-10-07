@@ -27,12 +27,12 @@ def jobs(cases):
                               (128, ('home_mod',))) for label in labels]
 
 
-def execute(key, source, output):
+def execute(key, source, output, design_override=None):
     case, label, window = key
     started = time.monotonic()
     trace_path = Path(source) / case / ('modulo_trace.json' if label == 'home_mod' else 'trace.json')
     trace = ReadTrace.from_record(json.loads(trace_path.read_text()))
-    design = candidate_designs()[0]['home' if label == 'home_mod' else label]
+    design = design_override or candidate_designs()[0]['home' if label == 'home_mod' else label]
     config = ReadReplayConfig(outstanding_words_per_compute=window, max_trace_words=80000000, max_slots=500000)
     cert = provisioning_certificate(design, trace, config)
     row = replay_reads(design, trace, config)

@@ -40,6 +40,7 @@ COMMANDS = {
     'run_patterns_flow': 'w2w.experiments.run_patterns_flow',
     'run_patterns_replay_study': 'w2w.experiments.run_patterns_replay_study',
     'run_provisioning_holdout': 'w2w.experiments.run_provisioning_holdout',
+    'run_provisioning_target': 'w2w.experiments.run_provisioning_target',
     'run_read_workload': 'w2w.experiments.run_read_workload',
     'run_request_window': 'w2w.experiments.run_request_window',
     'run_role_interfaces': 'w2w.experiments.run_role_interfaces',
