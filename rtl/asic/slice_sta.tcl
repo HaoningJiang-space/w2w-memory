@@ -26,10 +26,14 @@ report_units
 puts "=== SETUP ==="
 report_worst_slack -max
 report_tns
-report_checks -path_delay max -group_count 5 -format full_clock_expanded -fields {slew cap fanout}
+report_checks -path_delay max -group_path_count 5 -format full_clock_expanded -fields {slew cap fanout}
 puts "=== HOLD ==="
 report_worst_slack -min
-report_checks -path_delay min -group_count 3 -fields {slew cap fanout}
+report_checks -path_delay min -group_path_count 3 -fields {slew cap fanout}
+puts "=== CORE SETUP ==="
+report_checks -path_delay max -from [all_registers -clock_pins] -to [all_registers -data_pins] -group_path_count 1 -fields {slew cap fanout}
+puts "=== CORE HOLD ==="
+report_checks -path_delay min -from [all_registers -clock_pins] -to [all_registers -data_pins] -group_path_count 1 -fields {slew cap fanout}
 puts "=== ELECTRICAL ==="
 report_check_types -max_slew -max_capacitance -max_fanout -violators
 puts "STA_COMPLETE"

@@ -167,6 +167,9 @@ write_json {d/'netlist.json'}
         if any(c.startswith('$') for c in cells):raise AssertionError(f'Unmapped cells: {name}')
         manifest['blocks'][name]=dict(cells=dict(cells),netlist_sha256=sha(d/'netlist.v'),
                                     sequential_cells=sum(v for c,v in cells.items() if c.startswith(('DFF','SDFF'))))
+        stats=json.loads((d/'stat.json').read_text())['modules']['\\'+target]
+        manifest['blocks'][name].update(cell_area_um2=stats['area'],
+                                       sequential_area_um2=stats['sequential_area'])
         env=dict(os.environ,W2W_LIBERTY=str(lib),W2W_NETLIST=str(d/'netlist.v'),
                  W2W_TOP=target,W2W_PERIOD_NS=str(args.period),W2W_TX=str(int(tx)))
         log=command(['sta','-exit',ROOT/'rtl/asic/slice_sta.tcl'],d,d/'sta.log',env)
@@ -175,9 +178,15 @@ write_json {d/'netlist.json'}
         manifest['blocks'][name]['sta_complete']=True
         save()
     # Generate zero-delay Liberty cell models; no timing simulation claim.
-    script=f'read_liberty {lib}\nwrite_verilog -noattr {out/"cells.v"}\n'
+    # Nangate contains unused clock-gate cells without an IQ function. Skip only
+    # unsupported models, then require a model for every actually mapped cell.
+    script=f'read_liberty -ignore_miss_func {lib}\nwrite_verilog -noattr {out/"cells.v"}\n'
     (out/'models.ys').write_text(script)
     command(['yosys','-s',out/'models.ys'],out,out/'models.log')
+    models=set(re.findall(r'^module\s+(\w+)',(out/'cells.v').read_text(),re.M))
+    used={cell for block in manifest['blocks'].values() for cell in block['cells']}
+    if used-models:
+        raise AssertionError(f'Missing mapped-cell simulation models: {sorted(used-models)}')
     (out/'mapped_star.sv').write_text(mapped_wrapper())
     netlists=[out/name/'netlist.v' for name in manifest['blocks']]
     command(['iverilog','-g2012','-DPPA_NETLIST','-s','endpoint_roundtrip_tb',
