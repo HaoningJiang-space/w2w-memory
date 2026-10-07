@@ -143,7 +143,8 @@ def audit(source, plan_path, verify_inputs=False):
         trace, design = traces[key[0]], designs[key[1]]
         config = ReadReplayConfig(outstanding_words_per_compute=key[2],
             max_trace_words=plan['max_trace_words'], max_slots=plan['max_slots'])
-        if row['config'] != asdict(config):
+        # JSON stores tuple-valued schedules as lists, preserving their contents.
+        if row['config'] != json.loads(json.dumps(asdict(config))):
             raise ValueError('Replay configuration differs from protocol')
         check_delivery(trace, row)
         certificate = window_certificate(design, trace, config)
