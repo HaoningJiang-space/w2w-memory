@@ -11,7 +11,7 @@ import subprocess
 import time
 
 from w2w.analysis.request_window import window_certificate, check_bound, completion_lower_bound
-from w2w.experiments.run_read_workload import load_designs
+from w2w.synthesis.read_catalog import load_designs
 from w2w.service.cost import CostModel
 from w2w.service.read_replay import ReadReplayConfig, replay_reads
 from w2w.workloads.patterns_trace import compile_patterns_window

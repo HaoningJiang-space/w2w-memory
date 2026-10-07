@@ -9,7 +9,7 @@ from pathlib import Path
 import subprocess
 import time
 
-from w2w.experiments.run_read_workload import load_designs
+from w2w.synthesis.read_catalog import load_designs
 from w2w.workloads.read_trace import ReadTrace
 from w2w.service.read_replay import replay_reads,ReadReplayConfig
 from w2w.service.cost import CostModel

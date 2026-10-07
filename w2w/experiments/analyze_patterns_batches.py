@@ -8,7 +8,7 @@ import time
 import numpy as np
 from w2w.workloads.patterns_trace import load_requests
 from w2w.analysis.patterns_batch import summarize
-from w2w.experiments.run_read_workload import load_designs
+from w2w.synthesis.read_catalog import load_designs
 
 
 def run(manifest_path,plan,output):

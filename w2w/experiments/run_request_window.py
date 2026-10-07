@@ -12,7 +12,7 @@ import time
 from w2w.analysis.read_completion import completion_metrics
 from w2w.analysis.request_window import (check_bound, completion_lower_bound,
     rate_window_lower_bound, request_cost_frontier, scan_minimum_window, window_certificate)
-from w2w.experiments.run_read_workload import load_designs
+from w2w.synthesis.read_catalog import load_designs
 from w2w.provenance import provenance
 from w2w.service.cost import CostModel
 from w2w.service.read_replay import ReadReplayConfig, replay_reads

@@ -21,7 +21,7 @@ def main():
     trace, summary = compile_patterns(args.manifest, spec)
     projections = []
     if args.project_designs:
-        from w2w.experiments.run_read_workload import load_designs
+        from w2w.synthesis.read_catalog import load_designs
         designs, catalog = load_designs()
         summary['projection_catalog'] = catalog
         for design in designs:

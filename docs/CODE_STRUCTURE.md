@@ -1,5 +1,44 @@
 # 代码结构与开发入口
 
+## 当前主流程：真实 routing 到有限读回放
+
+2026-10-07 完成输入闭环后的整理：冻结设计目录不再藏在 `run_read_workload.py` 中，
+审计与绘图分层；旧模块入口保留兼容导出。没有改变注册实验、设计顺序或服务语义。
+
+| 阶段 | 可复用模块 | 命令 / 数据 |
+|---|---|---|
+| 获取与身份验证 | `workloads/patterns_trace.py` | `download_patterns_corpus`；原始数据在服务器 `memory_results` |
+| routing → distinct experts → 完整权重读任务 | `workloads/patterns_trace.py`、`read_trace.py` | `import_patterns_trace`；执行假设在 `spec.json` |
+| 重建冻结硬件/布局 | `synthesis/read_catalog.py` | 检查历史 catalog 的布局身份和成本；不针对请求搜索 |
+| 有限 credit、地址驻留、endpoint/HB/RX 执行 | `service/read_replay.py`、`workloads/read_residency.py` | `replay_patterns_window`；逐字与逐槽守恒 |
+| 注册窗口与 CPU 作业编排 | `experiments/run_patterns_replay_study.py` | 九窗口、48组合；`plan.json` 冻结样本/设计/预算 |
+| 输入与结果独立核对 | `validation/patterns_replay.py` | 原始 union、字节、哈希、覆盖、资源必要界 |
+| 报告导出 | `analysis/patterns_replay.py` | `audit_patterns_replay` → JSON / CSV |
+| 图形 | `visualization/render_patterns_replay.py` | 只消费审计后的记录，不重新求解或下载 |
+
+`analysis` 和 `validation` 不再为读取设计而导入实验 runner。
+实验 runner 可以依赖公共目录，公共目录不能反过来启动实验。
+历史 `run_read_workload.load_designs`、`analysis.patterns_replay.audit` 仍可导入；
+新代码使用各自的 `synthesis` / `validation` 位置。
+
+从仓库根目录执行：
+
+```sh
+python -m w2w --list
+python -m w2w run_patterns_replay_study --help
+python -m w2w audit_patterns_replay --help
+# 不需要原始大 trace 的归档复核：
+python -m w2w audit_patterns_replay \
+  --source artifacts/results/workload/patterns_replay/flow \
+  --output build/patterns_replay_audit
+```
+
+服务器原始运行目录可再加 `--verify-inputs`，会重新读取授权原始 JSON 并编译核对。
+下载、编译、回放、审计均保持独立入口，审计不会触发下载或重跑实验。
+[结果与完整命令](reports/PATTERNS_REPLAY_STUDY_REPORT.md) / [服务器工作流](operations/HN072_RESEARCH.md)。
+
+## 既有模型层次
+
 2026-10-07 新增不可变设计与契约边界，详见 [Design API](DESIGN_API.md)。
 固定字节 LP 已迁至 `service/solver.py`，旧入口为兼容导出；端点容量通过
 `EndpointEnvelope` 交给共享 `ResourceLedger`，不再继承 service。
@@ -16,7 +55,7 @@
 | `w2w/service` | 资源账本、固定数据布局、reticle/bank 服务 LP | `matching_placement`、`bank_sharing`、`guaranteed_service_exchange` |
 | `w2w/endpoints` | 出口服务合同、完整字执行、队列与反压 | `endpoint_contract_probe`、`endpoint_execution`、`slice_exposure_probe` |
 | `w2w/synthesis` | 选择布局或硬件的算法 | `cycle_configurations`、`sparse_pooling`、`service_driven_fabric`、`nonuniform_pooling`、`gurobi_pair_synthesis`、`memory_fabric_dse` |
-| `w2w/workloads` | 可复用的活动集合、请求分布 | `bank`、`reticle` |
+| `w2w/workloads` | 活动集合、真实 routing、逻辑读任务和冻结地址驻留 | `bank`、`reticle`、`patterns_trace`、`read_trace`、`read_residency` |
 | `w2w/experiments` | 注册参数、train/val/test、冻结、执行和记录 | `run_*` |
 | `w2w/analysis` | 读取结果、独立重算、统计 | `analyze_*` |
 | `w2w/validation` | 构造证书、守恒检查、资源复核 | `verify_*`、`resources` |
@@ -92,4 +131,5 @@ python -m unittest discover -s tests -v
 - 上游 `results/` 和 `plots/` 不是本研究新结果目录，保留原样。
 
 新研究代码应进入对应层；新增实验注册在 `w2w/commands.py`。仍只使用 `main`，
-通过 Git 同步到 eex005。需要干净提交的 runner 保留原检查，不为重构绕过检查。
+通过 Git 同步到当前 CPU 服务器 `/Projects/haoning/w2w`；eex005 保留历史实验。
+需要干净提交的 runner 保留原检查，不为重构绕过检查。
