@@ -108,3 +108,21 @@ not a purported linearization of the joint bilinear A_cm*r_c problem.
 
 All code is committed and pushed before the eex005 experiment; results record
 the clean source commit. Maintain the existing single main branch.
+
+## Prospective mixed-distribution control
+
+After completing the separately trained experiment, add a distinct control for
+the stronger question: can **one frozen layout** serve all four distributions?
+The search algorithm, budgets, steps, trial counts and seeds 700/701 are unchanged.
+Use `--mixed`: 64 seeds 430000–430063 × four distributions give 256 equally
+weighted training scenarios; 64 seeds 440000–440063 × four give 256 validation
+scenarios. Select one baseline, one ratio and one joint layout on this mixture.
+All four test profiles use the same corresponding layout/hash, with brand-new
+test seeds 610000–611023 (1,024 per profile). Do not reuse the now-observed
+510000-series tests for this new design. Report per-profile outcomes and the
+equal-weight aggregate; do not tune the mixture weights after testing.
+
+This added control is not a rerun that changes the first experiment's result.
+Its training question and test set are distinct. It is needed because switching
+between four distribution-specific frozen designs does not demonstrate that a
+single memory fabric simultaneously avoids their respective regressions.

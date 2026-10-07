@@ -20,18 +20,26 @@ TEST=range(510000,511024)
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--output',required=True)
+    parser.add_argument('--mixed',action='store_true',help='One static fabric trained on an equal mixture of all four distributions')
     args=parser.parse_args();start=time.time();path=Path(args.output)
     commit=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
     if subprocess.check_output(['git','status','--porcelain'],text=True).strip():raise RuntimeError('Clean committed source required')
     subprocess.run([sys.executable,'-m','unittest','test_nonuniform_pooling','test_sparse_pooling','test_matching_placement'],check=True)
     p=contoured();p.validate_geometry();configs=catalog(p)
-    train=activity_sets(TRAIN);validation=activity_sets(VALIDATION)
+    train_range=range(430000,430064) if args.mixed else TRAIN
+    validation_range=range(440000,440064) if args.mixed else VALIDATION
+    test_range=range(610000,611024) if args.mixed else TEST
+    train=activity_sets(train_range);validation=activity_sets(validation_range)
+    design_kinds=('mixed',) if args.mixed else KINDS
+    if args.mixed:
+        train={'mixed':np.concatenate([train[k] for k in KINDS])}
+        validation={'mixed':np.concatenate([validation[k] for k in KINDS])}
     # Do not even generate test scenarios until all four designs are frozen.
-    out=dict(commit=commit,host=platform.node(),train_seeds=[TRAIN.start,TRAIN.stop-1],
-        validation_seeds=[VALIDATION.start,VALIDATION.stop-1],test_seeds=[TEST.start,TEST.stop-1],
+    out=dict(commit=commit,host=platform.node(),mixed=args.mixed,train_seeds=[train_range.start,train_range.stop-1],
+        validation_seeds=[validation_range.start,validation_range.stop-1],test_seeds=[test_range.start,test_range.stop-1],
         denominator=DENOMINATOR,edge_budget=126,degree_budget=4,designs=[],results=[])
     frozen=[]
-    for kind in KINDS:
+    for kind in design_kinds:
         search=CirculationSearch(p,train[kind]);choices=[q.optimize(v) for q,v in zip(configs,coefficients(configs,train[kind]))]
         cover=solve_cover(configs,[v['value'] for v in choices]);assert cover['feasible']
         baseline=[dict(name='pair',layout=mixture([list(range(36)),[c^1 for c in range(36)]],[.5,.5])),
@@ -77,12 +85,13 @@ def main():
         path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(out,indent=2)+'\n')
         print('FROZEN',kind,[(v['label'],v['name'],v['validation_mean']) for v in selected],flush=True)
     print('ALL_DESIGNS_FROZEN_BEFORE_TEST',flush=True)
-    testing=activity_sets(TEST);explicit=ReticleService(p);cache={}
-    for kind,label,a in frozen:
+    testing=activity_sets(test_range);explicit=ReticleService(p);cache={}
+    evaluated=frozen if not args.mixed else [(kind,label,a) for _,label,a in frozen for kind in KINDS]
+    for kind,label,a in evaluated:
         key=(kind,digest(a))
         if key not in cache:cache[key]=Evaluation(p,a).batch(testing[kind],audit=True)
         result=cache[key];checks=[]
-        for idx in list(range(0,len(TEST),128))+[-1]:
+        for idx in list(range(0,len(test_range),128))+[-1]:
             active=testing[kind][idx] if idx>=0 else np.ones(36,bool)
             for objective,key_name in [('throughput','means'),('common','common')]:
                 reference=explicit.solve(a,np.flatnonzero(active),objective,floor=1)
