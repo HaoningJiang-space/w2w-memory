@@ -2,7 +2,9 @@
 lassign $argv root out kind part period simdir
 file mkdir $out
 set_param general.maxThreads 2
-read_verilog -sv -define SYNTHESIS [list $root/rtl/cse_bank.sv $root/rtl/endpoint_link.sv]
+# Vivado synthesis defines SYNTHESIS automatically. read_verilog -define would
+# require a different compilation-unit mode and is unnecessary here.
+read_verilog -sv [list $root/rtl/cse_bank.sv $root/rtl/endpoint_link.sv]
 set tx [string match tx_* $kind]
 if {$tx} {
     set top endpoint_source
