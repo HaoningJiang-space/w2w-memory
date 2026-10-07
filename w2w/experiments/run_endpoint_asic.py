@@ -250,7 +250,11 @@ rename {top} {target}
 tee -o {d/'stat.json'} stat -json -liberty {lib} {target}
 select {target}
 write_verilog -noattr -noexpr -selected {d/'netlist.v'}
-select *
+# Reimport the exported netlist so JSON instance names match OpenSTA reports.
+# write_verilog renames private Yosys identifiers; raw pre-export JSON differs.
+design -reset
+read_liberty -lib {lib}
+read_verilog {d/'netlist.v'}
 write_json {d/'netlist.json'}
 '''
         (d/'synth.ys').write_text(script)
