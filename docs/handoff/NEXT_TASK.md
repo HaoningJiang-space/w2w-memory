@@ -31,6 +31,11 @@ B的FIFO-only局部可见总线由旧示意的256 bit修正为384 bit，详见�
 保留宽Home＋窄Shared＋冻结数据比例的架构骨架，共用发送器作为可选项；
 不要凭serializer实例数减少就认定总成本下降。现有证据不足以声称整体硬件大幅节省。
 
+最新合同核对见最新报告§5：窄出口依赖跨字gearbox；当前探索接口是slot-credit，未验证
+标准ready/valid的停顿稳定，也未实现RX重组。先将RX、metadata和credit延迟的成本边界
+纳入架构判断，不扩大RTL。正式RTL以后只接外部native word/role，周期比例留在testbench。
+Logic-side endpoint不能直接套用原memory侧路线；HB之后能否到另一个compute必须显式证明。
+
 固定 H/plus、配对和数据作为第一组因果对照。保留 private、k2 direct、独立 k3 A/B、
 full-width direct；对相同服务比较资源，不能只与昂贵的 buffered 基线比较。
 目标是用少量额外硬件回收有用闲置服务，是否值得由完整成本决定。

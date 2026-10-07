@@ -7,6 +7,8 @@
 已提前完成的小型endpoint RTL/通用门实验保留为探索附录，没有面积、频率、功耗结论。
 当前只推进模型上的服务—成本取舍，待架构值得继续后再恢复minimal RTL/PPA。
 最新安排见[当前任务](handoff/NEXT_TASK.md)，下面保留历史阶段状态。
+最新接口核对见同报告§5：gearbox已有TX原型，但ready/valid停顿稳定、RX重组及其成本尚缺；
+logic-side落点需重新检查跨reticle可达性。未来验证聚焦这些假设，当前不扩RTL。
 
 **2026-10-07 最新研究收敛：Configurable Shared Egress。**
 冻结布局的共享方向已进入显式实现，A/B 在相同服务下节省 33.3%/40% endpoint 存储；

@@ -97,6 +97,92 @@ B 的160-bit发送会跨越当前字尾和下一字的前128 bit，因此 V=384�
 当架构比较支持继续且接口契约稳定以后，才为新增端点块做小 RTL 与库映射/PPA；
 不实现 DRAM bank/controller 或整个 wafer。
 
+## 5. 最新合同核对：gearbox、接收重组与物理位置
+
+用户最新补充把后续RTL问题收敛为：完整字接口的持续服务是否能经由有限队列、跨字拼接、
+物理链路与接收重组端到端兑现，以及付出的局部实现成本。当前仍不扩RTL或启动PPA。
+
+### 5.1 当前源码已经验证什么，还缺什么
+
+| 项目 | 当前源码事实 | 后续需要验证的内容 |
+|---|---|---|
+| 跨字packing | `cse_packetizer` 使用 `{next_view, head_view}` 与phase移位，160-bit会同时读取前字尾与后字头 | 饱和、突发、有限尾部、停顿条件下的TX→RX完整字正确性 |
+| 192-bit | Python执行支持；本次RTL只运行128/160、Home固定256 | 192 D1的0.5与D2的0.75必须实测，不能算入既有144次验证 |
+| 输入目的地 | RTL从外部 `in_dest` 接收，内部没有周期流量生成器 | 正式接口改为映射提供的role/必要metadata；周期比例只在testbench中 |
+| 输出握手 | `units` 由 `ready` 门控，表示当槽实际发送的32-bit单位数；没有独立`out_valid` | 若采用ready/valid，`valid && !ready`时数据、有效位数、metadata保持，直至握手 |
+| 输入握手 | 当前随机激励可在未握手时撤销valid；非法方向测试会换dest | 不能把这组slot-offer激励称为标准valid/ready协议验证；后续激励也要遵守hold规则 |
+| 接收端 | oracle按端口比较发送token序列及哈希，无RTL receiver | 接收gearbox、完整字输出背压及其逻辑/存储成本 |
+| 布线与时序 | 未建模链路延迟、ready往返或库时序 | 长线credit延迟需要的存储/流水；统一时钟下的局部STA，不能从零延迟credit推定 |
+
+上述credit接口有自己的明确语义，并不因缺少ready/valid而自动错误；但不能直接宣称已经
+满足用户要求的“停顿时valid/data保持”。后续若增加holding/skid寄存器，必须计入存储、
+延迟和服务验证，不能把它藏在D之外后继续声称相同成本。
+
+对无限持续流，192-bit的对齐周期为3个256-bit字/4个beat；160-bit为5字/8beat，
+128-bit为1字/2beat。这些是饱和数据线利用率，不保证有限对象、缺字或背压下仍达到相同速率。
+有限流尾不足一个beat时，要定义有效单位数及flush；否则RX可能永远等待下一字。
+
+### 5.2 后续只定义一个read-return合同
+
+输入为已经合法产生的256-bit读返回及其原始role；endpoint不调度DRAM命令、不生成数据目的地。
+`native_valid && !native_ready`期间由源保持data和role。若上游DRAM返回本身不可停顿，
+需要在发起读时预留接收容量或显式上游response buffer；不把ready反压当成能取消已完成的读。
+
+输出选定明确的beat协议。若使用ready/valid，停顿时保持payload、有效单位数和metadata；
+配置在一个运行epoch内冻结。第一版每个源—目的流有序，接收端恢复原始完整字，debug tag
+用于scoreboard；真实协议若需要request ID、bank ID或帧边界，它们的传输与存储另计。
+不能允许跨不同目的流拼接而省略流标识。
+
+TX、链路、RX共同检查唯一有效payload守恒：
+
+\[
+256N_{accepted}=256N_{RX\ delivered}+U_{TX}+U_{link}+U_{RX}.
+\]
+
+U分别为各段尚未交付的有效位，互不重计；FIFO中已发送的前缀即使物理寄存器还在，也不
+再次算作待交付位。另查每个tag仅接收一次、FIFO容量、顺序和错误方向静默。
+重置时清空一个epoch，配置只允许在reset/空闲边界改变，不把reset丢弃与正常守恒混用。
+
+后续功能证据应为 `accepted native words == reconstructed RX words` 的逐字逐bit比较；
+独立byte/token scoreboard避免仅镜像Python控制逻辑导致同源错误。
+接收端至少作为验证模块，且TX/RX与有效单位/握手控制均进入端点成本。不同compute处的RX
+不能因发送侧共享FIFO就自动合并。
+
+### 5.3 Logic-side是物理候选，不能直接套原成本和可达性
+
+[Micron US20230048628A1，Figs.3F–3G及相应说明](https://patents.google.com/patent/US20230048628A1/en)
+披露了logic侧transceiver与sense-amplifier/LIO耦合的组织，支持研究这种分层。
+这是专利结构披露，不是本候选的PPA实证。
+但[当前沿用的WoW网络假设](https://arxiv.org/html/2603.05266v1)禁止同层reticle直接互连。
+因此本项目的连通性推论是：完整字先经HB进入C0之后，C0内部的方向选择器不能自动把它送给C1。
+必须明确另一个合法跨层路径、改变拓扑假设，或保留HB之前的方向选择；都不能免费替换原图。
+
+本次旧模型仍是假定memory侧数字外围在长线/HB之前完成序列化；不能仅以普通logic库综合
+就宣称它已合法放到logic层。可先对与层位置无关的数字功能作局部比较，系统成本和可达性
+则在确定端点落点后重新检查。若宽字先跨HB，窄serializer不会倒过来节省前段HB宽度。
+
+成本分别报告TX-local、RX-local、控制/metadata、pipeline、wafer接入线和HB；
+RTL寄存器与旧proxy重叠时替换对应条目，不能相加两次。面积、存储位、bit-mm和能量保留
+为各自维度；有一致单位的映射后才能合成总成本。
+现有 `fixed_sequence_control_bits` 是周期请求源的ROM/cursor代理，不是该RTL含有sequencer
+的证据。正式端点由外部role驱动时，应将这项归到源请求模型或移除，改计实际metadata/control；
+不能同时按流量ROM和真实端点控制收费。
+
+### 5.4 架构值得继续后，才做的有限验证
+
+第一步仅single native source slice＋验证用RX，不实现array、controller、NoC或整个wafer。
+只保留四个系统组织：256-wide direct强基线、192等宽buffered、256/160独立出口、
+同宽同数据的configurable shared。192 D1/D2、两路128和有限流尾部作为gearbox功能测试；
+128的单模块正确性不能代替完整A方案的PPA。如果要比较A/B硬件最优性，届时需显式纳入A。
+
+等宽192与256/160使用各自冻结数据比例；唯有后两项严格保持宽度、数据和workload相同，
+单独归因共享组织的收益。Wide direct应保留既有单原生字holding-register语义，不能换成
+三个独立全宽FIFO后仍称同一个低成本基线。
+
+先验证payload、握手和RX，之后才在同库、同时钟、同约束下比较局部面积/时序；功耗必须
+使用实际活动与相同有效工作量。32-bank汇聚只在single-slice结果值得继续且资源/metadata
+合同清楚后开展，32倍逻辑计数不能代替聚合与扇出验证。当前不安装OpenROAD或运行这些步骤。
+
 ## 附录：已提前完成的探索性原型，后续暂停
 
 为了完整保留本次执行历史：`rtl/cse_bank.sv` 与 `cse_tb.sv` 已完成一个小型 endpoint 原型。

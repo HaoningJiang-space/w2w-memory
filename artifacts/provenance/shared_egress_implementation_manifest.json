@@ -62,8 +62,19 @@
       "sha256": "3103092e43b95c9fc925b4b3005dbfea6afcc65a1feb1b3474ba86aaaa30e861"
     },
     "docs/reports/SHARED_EGRESS_ARCHITECTURE_DECISION.md": {
-      "bytes": 8478,
-      "sha256": "a852c35ef6126603278a7d3a52aefa854e4f5f0a27d9d0a69154df6f0deeac3f"
+      "bytes": 15211,
+      "sha256": "b6a9df34c7379377aa4431f4143c37cb45fe1a4011b1f8e57ab1b8a43966eeff"
     }
+  },
+  "post_run_contract_audit": {
+    "source_commit": "3c60583362530848907444453b0ab599f00e2b6a",
+    "new_rtl_or_experiments_run": false,
+    "findings": [
+      "TX implements cross-word packing; 192-bit not among tested hardware configurations",
+      "Slot-credit interface, not verified as held ready/valid protocol",
+      "No RTL receiver reassembly or receive-side cost",
+      "Logic-side placement needs explicit legal routes under adopted WoW topology",
+      "Fixed-sequence ROM proxy is not part of the externally routed endpoint RTL"
+    ]
   }
 }
