@@ -1,0 +1,435 @@
+{
+  "endpoint": "https://huggingface.co",
+  "repository": "core12345/MoE_expert_selection_trace",
+  "prefix": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy",
+  "max_files": 32,
+  "max_file_bytes": 33554432,
+  "max_total_bytes": 1500000000,
+  "selection": "seeded",
+  "seed": 20261007,
+  "downloaded": [
+    {
+      "path": "request0.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9894.json",
+      "sha256": "4875e544c3b8bbceea44c8a6b30b8aa060cfa984a38e6c40e515a8ea13940dc1",
+      "git_blob_oid": "567762319f42a74599a9538e5bc9a09d091fe20f",
+      "bytes": 2748123
+    },
+    {
+      "path": "request1.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9849.json",
+      "sha256": "13346873f8f5d51e2e8e4ea0c7f7b92ce8b144f6f65dfabe2ebadd84be211042",
+      "git_blob_oid": "f823efead4ab58524905195f42f968b3f57df980",
+      "bytes": 3314618
+    },
+    {
+      "path": "request2.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9968.json",
+      "sha256": "464af1dbb5bb54d0e11d31d54c089f04453bd8951a22924aa53d0d7c89d053d7",
+      "git_blob_oid": "0fb14957ae770b0696a1a2b1d92cffb779c369d9",
+      "bytes": 2800445
+    },
+    {
+      "path": "request3.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9937.json",
+      "sha256": "73bfbbd76afd6adb91469abf3156768fca38a676eeb147587afc5b7ad8bbfc8a",
+      "git_blob_oid": "281ed6a68c674e8d2819d551c7f8f8801102ad42",
+      "bytes": 2695133
+    },
+    {
+      "path": "request4.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9716.json",
+      "sha256": "c288e267bfb0331f8399bd9d9761ce7c65c6d618daf6e5196b19560b50da39b7",
+      "git_blob_oid": "b064e362df2eecf8556413791de8a1143451280a",
+      "bytes": 2837665
+    },
+    {
+      "path": "request5.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/10005.json",
+      "sha256": "b6dc293a45794e24601d6627af3af0725f69ab9a093bfa5a8fc412d0769aaca3",
+      "git_blob_oid": "15c5270bf34c5d7ce8b3c8bf0da1880baef0149e",
+      "bytes": 2854524
+    },
+    {
+      "path": "request6.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9732.json",
+      "sha256": "fbb2fdf5e4d7d0bb06cea0f7a065455f0d5802edfbf436306be0f5f2c252bc4f",
+      "git_blob_oid": "6249a9eef7841dfe43ca63fb42225435a75e89f7",
+      "bytes": 2764553
+    },
+    {
+      "path": "request7.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9724.json",
+      "sha256": "6c21c3386a8c131aafe36773c550e9d54833478ca9cb42736c498364782ecb03",
+      "git_blob_oid": "399dbdc457e1c4a27524719bd4ac1c74423dbb71",
+      "bytes": 2765870
+    },
+    {
+      "path": "request8.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9988.json",
+      "sha256": "f6a63ca838f87a4293614147a5f50c9f8682c63c5f1d007bfd81a1c6ad8dc60b",
+      "git_blob_oid": "eb2c34d3d8114974941c55d5c6f6c898bc55e8f7",
+      "bytes": 2714400
+    },
+    {
+      "path": "request9.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9909.json",
+      "sha256": "bc5fdda2c6b9ca5fdd83411ca675b3e9bc34e34a991f3b2564158b2e133587b9",
+      "git_blob_oid": "3e7d895bf47f3fa0c4bd64321323f19f7b3f1237",
+      "bytes": 2871773
+    },
+    {
+      "path": "request10.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9888.json",
+      "sha256": "f9fcf1140fa42b9d4871fd6687a7200aa093ff2dbc818d4740846712cdd8ba47",
+      "git_blob_oid": "f85d288d415751242412c21345ef97e4ecfc602b",
+      "bytes": 2748646
+    },
+    {
+      "path": "request11.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9767.json",
+      "sha256": "d07f1235ad501238c49c1c780569c336beefe4da320fd455511e0264c665c724",
+      "git_blob_oid": "e04c9befd1318eced96a7da2c5741bc38e2eddf7",
+      "bytes": 3456623
+    },
+    {
+      "path": "request12.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9714.json",
+      "sha256": "7e5070f4cbb7a4691503bc1cc21b3d5a9367e8a05ea01f4644d8ee1481d1d888",
+      "git_blob_oid": "d5483e8bb0847989eb6b417d23f9520cd091ed67",
+      "bytes": 2749688
+    },
+    {
+      "path": "request13.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9929.json",
+      "sha256": "803695517521c0d8538b223d543edaec775eebfdf3d100e7963e457bdeea1c6c",
+      "git_blob_oid": "17f2a053e33d04b0cd83521eb3ecb6d31fd5ea7c",
+      "bytes": 2675792
+    },
+    {
+      "path": "request14.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9913.json",
+      "sha256": "244bf9214da2e221ae4303738a9f7812d5d76d9ca118aa8c15b10b072f8dde4e",
+      "git_blob_oid": "c9858f8d94dc74ec6f1f324a229202172d9375b5",
+      "bytes": 2765475
+    },
+    {
+      "path": "request15.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9735.json",
+      "sha256": "cb85fc38146b43df3b9bde9c2cd20e20dca691aa6785235b89cdf42be40e9f93",
+      "git_blob_oid": "35fa04c2e6644d3d90b428e5c4e9b7d511ef9070",
+      "bytes": 2730382
+    },
+    {
+      "path": "request16.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9756.json",
+      "sha256": "1a2e2d944a28f45c90cc2150e287a67704c498aed06821b60f27b0b3a8d2724f",
+      "git_blob_oid": "837a01a1797c34339a10967fdbc8ca936580f6d0",
+      "bytes": 3048533
+    },
+    {
+      "path": "request17.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9976.json",
+      "sha256": "3481b852a9b60e2c4f316b17195c207c195b0b894877d0921c8671ad7bf96b13",
+      "git_blob_oid": "5efcd31e7d3adb52502cb2cdacd22a675389d280",
+      "bytes": 2642845
+    },
+    {
+      "path": "request18.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9992.json",
+      "sha256": "72e675bb26086e0b448a959f7ec457793cbc742aff7c7181a7a9bedb68ca5db2",
+      "git_blob_oid": "721e9edac3880e31f362bdc725917123ee483fb3",
+      "bytes": 2872803
+    },
+    {
+      "path": "request19.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9749.json",
+      "sha256": "cb85d6c3119adf8daf75b89f60661edbd5ce6c5d021070e24447d6a1ae73bcac",
+      "git_blob_oid": "1b306d35c1c167c2d5dedf24237466302374d82f",
+      "bytes": 3014825
+    },
+    {
+      "path": "request20.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/10003.json",
+      "sha256": "606ac9b233fc2031caf87bc00b7b9303b3834d522a4e84548e7980daf8a593df",
+      "git_blob_oid": "14aef8928bfdcda234e5407c3e995256621e75b6",
+      "bytes": 4576046
+    },
+    {
+      "path": "request21.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9903.json",
+      "sha256": "f09ef303a3ee11417393fe45b0e0e630d7592450c828aa9cb7008bcf5472098e",
+      "git_blob_oid": "6c6961a93a63d14da9fd2a568aa960c0a24fd383",
+      "bytes": 3049209
+    },
+    {
+      "path": "request22.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9901.json",
+      "sha256": "4b13437f3cb2b54f7d66479ea2f78b3d5d72721c0bb02b181021d0c788624fb5",
+      "git_blob_oid": "fb31bc5fbd05be6f84c187433b4cd39b4d9ccdd8",
+      "bytes": 2731331
+    },
+    {
+      "path": "request23.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9816.json",
+      "sha256": "767823a026b8ffe92fd654062736bf9aeaf1cceb122d618781af2d1a76bef349",
+      "git_blob_oid": "660c6a9789d497b3e7582493164e619a91ef51d0",
+      "bytes": 2765905
+    },
+    {
+      "path": "request24.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9857.json",
+      "sha256": "8ea3a4b8177e0e1e450372f708290abafe4f6e9b143679d5743d79ec5bc14b29",
+      "git_blob_oid": "83ce7bbe934e26a86b193ba8d3d73b52fed1a135",
+      "bytes": 2677434
+    },
+    {
+      "path": "request25.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9763.json",
+      "sha256": "062841eceaeb5a58a61bbfd426fd34567fefaa926b02de7974f9fded3a2cf89b",
+      "git_blob_oid": "3f55b24042db04a8a8a27269f1d064827d42dda6",
+      "bytes": 2819539
+    },
+    {
+      "path": "request26.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9916.json",
+      "sha256": "97fd0367a8e53a499328a2c19e1962f008f5617add07ee46752b340a567393ac",
+      "git_blob_oid": "ca302ddf81251897908c5068711315169cb58a17",
+      "bytes": 2730337
+    },
+    {
+      "path": "request27.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9782.json",
+      "sha256": "f0a93c7c20cb63305beb2acb35296c44d14f7db789bbd877a30266787beb2bd1",
+      "git_blob_oid": "f66179443cca0d128aa466fd965701674044cb92",
+      "bytes": 2800221
+    },
+    {
+      "path": "request28.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9733.json",
+      "sha256": "34e1846f90d09039c1027fea292f17d0507556c1ade54a0c7e0b1d57cb56d0ae",
+      "git_blob_oid": "65c5414ec6fbbbea74a2313fd06eca08a96d5653",
+      "bytes": 2802792
+    },
+    {
+      "path": "request29.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/10008.json",
+      "sha256": "7e7430b227360e01a44134009d7733dee700493a6d8ed1fc6e70943ecc1281e7",
+      "git_blob_oid": "40e47886d68245d83f08d2d28a42dc78bc975594",
+      "bytes": 2925199
+    },
+    {
+      "path": "request30.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9728.json",
+      "sha256": "a4765dcaf0bc6d7c2e5beb7506b41e29c8aa22308a14acd5935e509eb56ca088",
+      "git_blob_oid": "29a6be661e1822a9fd0fbc49f530db58324cf28c",
+      "bytes": 3121610
+    },
+    {
+      "path": "request31.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9739.json",
+      "sha256": "b698ea80feb32c91b5897d1150449f2f584e556b327d3409dd51e2cf93e87ba9",
+      "git_blob_oid": "52ce7e6e636b66cde1e471ea4612d0e17ff8cfd4",
+      "bytes": 2747662
+    }
+  ],
+  "revision": "27febb7b2d24169560a9f6f83d38eb53f94916cf",
+  "listed_json_files": 311,
+  "excluded_by_file_cap": 0,
+  "selection_scope": "seeded selection within first nonrecursive directory page; not a whole-dataset sample",
+  "planned": [
+    {
+      "type": "file",
+      "oid": "567762319f42a74599a9538e5bc9a09d091fe20f",
+      "size": 2748123,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9894.json"
+    },
+    {
+      "type": "file",
+      "oid": "f823efead4ab58524905195f42f968b3f57df980",
+      "size": 3314618,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9849.json"
+    },
+    {
+      "type": "file",
+      "oid": "0fb14957ae770b0696a1a2b1d92cffb779c369d9",
+      "size": 2800445,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9968.json"
+    },
+    {
+      "type": "file",
+      "oid": "281ed6a68c674e8d2819d551c7f8f8801102ad42",
+      "size": 2695133,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9937.json"
+    },
+    {
+      "type": "file",
+      "oid": "b064e362df2eecf8556413791de8a1143451280a",
+      "size": 2837665,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9716.json"
+    },
+    {
+      "type": "file",
+      "oid": "15c5270bf34c5d7ce8b3c8bf0da1880baef0149e",
+      "size": 2854524,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/10005.json"
+    },
+    {
+      "type": "file",
+      "oid": "6249a9eef7841dfe43ca63fb42225435a75e89f7",
+      "size": 2764553,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9732.json"
+    },
+    {
+      "type": "file",
+      "oid": "399dbdc457e1c4a27524719bd4ac1c74423dbb71",
+      "size": 2765870,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9724.json"
+    },
+    {
+      "type": "file",
+      "oid": "eb2c34d3d8114974941c55d5c6f6c898bc55e8f7",
+      "size": 2714400,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9988.json"
+    },
+    {
+      "type": "file",
+      "oid": "3e7d895bf47f3fa0c4bd64321323f19f7b3f1237",
+      "size": 2871773,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9909.json"
+    },
+    {
+      "type": "file",
+      "oid": "f85d288d415751242412c21345ef97e4ecfc602b",
+      "size": 2748646,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9888.json"
+    },
+    {
+      "type": "file",
+      "oid": "e04c9befd1318eced96a7da2c5741bc38e2eddf7",
+      "size": 3456623,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9767.json"
+    },
+    {
+      "type": "file",
+      "oid": "d5483e8bb0847989eb6b417d23f9520cd091ed67",
+      "size": 2749688,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9714.json"
+    },
+    {
+      "type": "file",
+      "oid": "17f2a053e33d04b0cd83521eb3ecb6d31fd5ea7c",
+      "size": 2675792,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9929.json"
+    },
+    {
+      "type": "file",
+      "oid": "c9858f8d94dc74ec6f1f324a229202172d9375b5",
+      "size": 2765475,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9913.json"
+    },
+    {
+      "type": "file",
+      "oid": "35fa04c2e6644d3d90b428e5c4e9b7d511ef9070",
+      "size": 2730382,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9735.json"
+    },
+    {
+      "type": "file",
+      "oid": "837a01a1797c34339a10967fdbc8ca936580f6d0",
+      "size": 3048533,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9756.json"
+    },
+    {
+      "type": "file",
+      "oid": "5efcd31e7d3adb52502cb2cdacd22a675389d280",
+      "size": 2642845,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9976.json"
+    },
+    {
+      "type": "file",
+      "oid": "721e9edac3880e31f362bdc725917123ee483fb3",
+      "size": 2872803,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9992.json"
+    },
+    {
+      "type": "file",
+      "oid": "1b306d35c1c167c2d5dedf24237466302374d82f",
+      "size": 3014825,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9749.json"
+    },
+    {
+      "type": "file",
+      "oid": "14aef8928bfdcda234e5407c3e995256621e75b6",
+      "size": 4576046,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/10003.json"
+    },
+    {
+      "type": "file",
+      "oid": "6c6961a93a63d14da9fd2a568aa960c0a24fd383",
+      "size": 3049209,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9903.json"
+    },
+    {
+      "type": "file",
+      "oid": "fb31bc5fbd05be6f84c187433b4cd39b4d9ccdd8",
+      "size": 2731331,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9901.json"
+    },
+    {
+      "type": "file",
+      "oid": "660c6a9789d497b3e7582493164e619a91ef51d0",
+      "size": 2765905,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9816.json"
+    },
+    {
+      "type": "file",
+      "oid": "83ce7bbe934e26a86b193ba8d3d73b52fed1a135",
+      "size": 2677434,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9857.json"
+    },
+    {
+      "type": "file",
+      "oid": "3f55b24042db04a8a8a27269f1d064827d42dda6",
+      "size": 2819539,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9763.json"
+    },
+    {
+      "type": "file",
+      "oid": "ca302ddf81251897908c5068711315169cb58a17",
+      "size": 2730337,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9916.json"
+    },
+    {
+      "type": "file",
+      "oid": "f66179443cca0d128aa466fd965701674044cb92",
+      "size": 2800221,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9782.json"
+    },
+    {
+      "type": "file",
+      "oid": "65c5414ec6fbbbea74a2313fd06eca08a96d5653",
+      "size": 2802792,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9733.json"
+    },
+    {
+      "type": "file",
+      "oid": "40e47886d68245d83f08d2d28a42dc78bc975594",
+      "size": 2925199,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/10008.json"
+    },
+    {
+      "type": "file",
+      "oid": "29a6be661e1822a9fd0fbc49f530db58324cf28c",
+      "size": 3121610,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9728.json"
+    },
+    {
+      "type": "file",
+      "oid": "52ce7e6e636b66cde1e471ea4612d0e17ff8cfd4",
+      "size": 2747662,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9739.json"
+    }
+  ],
+  "status": "downloaded; layer/model spec still required"
+}

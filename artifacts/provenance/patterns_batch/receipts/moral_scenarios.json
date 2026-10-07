@@ -1,0 +1,435 @@
+{
+  "endpoint": "https://huggingface.co",
+  "repository": "core12345/MoE_expert_selection_trace",
+  "prefix": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios",
+  "max_files": 32,
+  "max_file_bytes": 33554432,
+  "max_total_bytes": 1500000000,
+  "selection": "seeded",
+  "seed": 20261007,
+  "downloaded": [
+    {
+      "path": "request0.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9160.json",
+      "sha256": "40d6ce10caa5bde5e7f0ac3bd8a2706b02a3be1d725a54e07aa0289c38706e5d",
+      "git_blob_oid": "c577e112e40e04a2db6b20a03e38a2d7bca6e1f9",
+      "bytes": 3228992
+    },
+    {
+      "path": "request1.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9320.json",
+      "sha256": "0591ceccd471fd0052e94ec1b0e59fcfbc6c3bfce222a870e3581392ad809950",
+      "git_blob_oid": "28db389681d0b8e15c439493682860e7d489918d",
+      "bytes": 3070730
+    },
+    {
+      "path": "request2.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9152.json",
+      "sha256": "d4748a6f485a0538c16e53f535dbd2856aab9e9da4e95fccbce45225f48ea396",
+      "git_blob_oid": "f779f575f00019471f9bb199eddad539b9bf351c",
+      "bytes": 3087234
+    },
+    {
+      "path": "request3.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8672.json",
+      "sha256": "ed065a7f2bd8f522b3ba2ae0b8fa7e45031c0479a39827f14eaed46f1659e1ab",
+      "git_blob_oid": "3ce95150c0105ecde0c5b5d729d8f2e0cf1e984f",
+      "bytes": 3051672
+    },
+    {
+      "path": "request4.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8802.json",
+      "sha256": "475a872f28804cd39a925ce6a89b3bccf2b1c834b39b2c99f1bbc39e781c7244",
+      "git_blob_oid": "41d03881cfd221e11b5da2d7d8c18d5cfe9dcc0d",
+      "bytes": 2998028
+    },
+    {
+      "path": "request5.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9342.json",
+      "sha256": "df33348ca4bdc0b985e90d1e166489bfafd64737b3a06e51370c4660a8d92391",
+      "git_blob_oid": "0e371614495da261966f842c697522ef035dd364",
+      "bytes": 3139692
+    },
+    {
+      "path": "request6.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9216.json",
+      "sha256": "97499c84b9a2d885616c3c3d0c2d625bde9fe4823122bcd9a7cd8038e84b15c9",
+      "git_blob_oid": "29ee64a21a483fb92525c42b23c17232e83500a2",
+      "bytes": 3159488
+    },
+    {
+      "path": "request7.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8692.json",
+      "sha256": "6e9a891c5090a4f9c7f68ee8832f9dcea4cffdf4994d3b9e57d0e7ea50c6f55f",
+      "git_blob_oid": "37a7056045433417215d1711ca81dd64ca1018d5",
+      "bytes": 3229934
+    },
+    {
+      "path": "request8.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8621.json",
+      "sha256": "2fccfbb8297003b7eb786e3c80f546ca0e854ccd09e65f88ef2d52419bb4179b",
+      "git_blob_oid": "d6891b6ac3f36890a335b5fce105f38184f1f42e",
+      "bytes": 3034186
+    },
+    {
+      "path": "request9.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9172.json",
+      "sha256": "3d6496fa607a6c2538ff33cd2f8a56d6c751debf26a2f236a22f183c390189de",
+      "git_blob_oid": "c113cedbdfe141fa20eed22802d9ef9fbb837024",
+      "bytes": 3069563
+    },
+    {
+      "path": "request10.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8642.json",
+      "sha256": "c77d7bfe16d22235d28a8d99539f152ad4f3f87c6089dfe19d2f8c1b67d90087",
+      "git_blob_oid": "67958fe6b45c352086b26eff9c7966391bc002a5",
+      "bytes": 3228809
+    },
+    {
+      "path": "request11.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9295.json",
+      "sha256": "4c67ccc5e1039c9a759ad041d5d91bfcd1e5c4dbc3d6b7e4b01695db5dfee4fa",
+      "git_blob_oid": "202f40c6de9ce6bdcaf18ab327560ec15f9d512d",
+      "bytes": 3015244
+    },
+    {
+      "path": "request12.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8915.json",
+      "sha256": "7db6820c6e37a8f5d490276cf9c2bcf43ec6926a6abe2904a954f9a81418a467",
+      "git_blob_oid": "ac2e087349076a1ee94e640f5295024d69282532",
+      "bytes": 2998340
+    },
+    {
+      "path": "request13.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9159.json",
+      "sha256": "e1fc119f8cca3b33d5344006d6df4da0d56a305c340f72ade32bc3eba186989a",
+      "git_blob_oid": "f9ad73a6b03a640bad5e6a19da8e37924fc5e2ad",
+      "bytes": 3087136
+    },
+    {
+      "path": "request14.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9132.json",
+      "sha256": "f34be4bda45c6a10a90bc468192bbe2b18e0aa18e655963189086d594aad177c",
+      "git_blob_oid": "9d3e52245185eb88a706c049fa562ec840b1887b",
+      "bytes": 2908853
+    },
+    {
+      "path": "request15.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8726.json",
+      "sha256": "3b94cf989ab98b89a18c9e7306363fa50c430397e4d46ca3be96f7a56f25441d",
+      "git_blob_oid": "f1c4bcbd440940553b8f78faf56f76a79702b320",
+      "bytes": 2980080
+    },
+    {
+      "path": "request16.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8525.json",
+      "sha256": "9323c832d34ae884fe5d95beb67971db6b6df71e6736fa656f4e7126cc68e72f",
+      "git_blob_oid": "035df51adf40a71328fb6ae55877ca852f567e0f",
+      "bytes": 3229912
+    },
+    {
+      "path": "request17.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8561.json",
+      "sha256": "4dfdac966d8a28bf7ffde22b794af85cfa36456692528fc25718fdd3b555f34a",
+      "git_blob_oid": "a37aae64db5a13a192ef6d6d15fdf9d4b1deb60f",
+      "bytes": 3105330
+    },
+    {
+      "path": "request18.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9022.json",
+      "sha256": "7c726f062ec2b19b96bbe97dc83c5c22a81337c1fbd889a6eeae665433f02146",
+      "git_blob_oid": "cd900d54f07fc4eabd80716207bdd58cc1902db1",
+      "bytes": 2979731
+    },
+    {
+      "path": "request19.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9188.json",
+      "sha256": "d93d4ef471a711151603b07804bc30d4ca10db14c135764fc8f5afcb855b6681",
+      "git_blob_oid": "2967d5334fbd385ac0adc269f3fc136abc768293",
+      "bytes": 3122762
+    },
+    {
+      "path": "request20.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8904.json",
+      "sha256": "c933ba5a2101fa7032abef58aad1478d59060faeac27b688dd064c242b8b7233",
+      "git_blob_oid": "a3a5bc17b65efba11b7c27707373803e5d627c9a",
+      "bytes": 3210972
+    },
+    {
+      "path": "request21.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9111.json",
+      "sha256": "19534f52c946a0280a9f9b2c8a5e2788450575ad7e2ec73b123cdb3faf5522b7",
+      "git_blob_oid": "c700ea3fb8e941121fbc79bcba942226d3b892a4",
+      "bytes": 2979840
+    },
+    {
+      "path": "request22.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9391.json",
+      "sha256": "2ca92422d87c297c15f4fd43c642f7b0fbca8e3c659178f28485664285a88926",
+      "git_blob_oid": "7e350cb7e66caa6df163ffb7e4a3464b239c124f",
+      "bytes": 3016229
+    },
+    {
+      "path": "request23.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9053.json",
+      "sha256": "d96bd6dfca835131fa187f1822f40c8eee43309dbfb05eb16866120cb684fc7f",
+      "git_blob_oid": "afb5d9d9cde46e2bd7df61a585c806d1faa58cb6",
+      "bytes": 3175814
+    },
+    {
+      "path": "request24.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8579.json",
+      "sha256": "b3a0c25b2ee8f5e1332cc12cce60ddd167d8406df3e09f6dbe3c15572bb8a5c1",
+      "git_blob_oid": "25df4c7a7e2b78c9c19e36b3123cfe120e61595f",
+      "bytes": 2963131
+    },
+    {
+      "path": "request25.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9061.json",
+      "sha256": "97d85f0bf56180580afd3c8cf05b9c50d68352c9bb3a2432b7474366cce8784b",
+      "git_blob_oid": "e28e791727ca3db2361ce19b7aad53ef5c9127b7",
+      "bytes": 3070082
+    },
+    {
+      "path": "request26.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8574.json",
+      "sha256": "3ffd65cd864d5525cf2c2899ef94b77e8c323ea6369bfd2c17799b666635c773",
+      "git_blob_oid": "0559106e9454fcee8a7a043f0fcd441c5b5c0911",
+      "bytes": 3211308
+    },
+    {
+      "path": "request27.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9145.json",
+      "sha256": "0b6ed5b94bcfe1e55a4a109552093939587e347d620f475d18ef1fff5c7112e2",
+      "git_blob_oid": "90c92c3a1eae23046443210b5e6467293090b0e9",
+      "bytes": 3051962
+    },
+    {
+      "path": "request28.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8863.json",
+      "sha256": "8f9d13cb6f593c0e1a1f74a046fc217afbda68d08cc0da26a3c226e0131b96e5",
+      "git_blob_oid": "0d3451c4baeb5247dd2e902707773fea6a4f2e07",
+      "bytes": 3141172
+    },
+    {
+      "path": "request29.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9186.json",
+      "sha256": "0e49f93a153709becd0e428efc7829676fccd8b4a9bb6b9e3f66353d5484e68f",
+      "git_blob_oid": "557825f32f9d1d7e2a227808409a167f2086aa75",
+      "bytes": 3195023
+    },
+    {
+      "path": "request30.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9368.json",
+      "sha256": "ee3142422fe7d4ed941a67b33773c0b979479a605f0a6be2f7a3d265219472de",
+      "git_blob_oid": "e7a7287dd9fd524ddbb0636ef83b83743d008459",
+      "bytes": 3053441
+    },
+    {
+      "path": "request31.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8682.json",
+      "sha256": "b8d7a8fb41d94a4fc0f3a9d76f35e03eb0a83c3b4b7b14978d5f1082f6e5b3b1",
+      "git_blob_oid": "22164710605cc7076116edf61a94ede9d2deb2dd",
+      "bytes": 3086925
+    }
+  ],
+  "revision": "27febb7b2d24169560a9f6f83d38eb53f94916cf",
+  "listed_json_files": 895,
+  "excluded_by_file_cap": 0,
+  "selection_scope": "seeded selection within first nonrecursive directory page; not a whole-dataset sample",
+  "planned": [
+    {
+      "type": "file",
+      "oid": "c577e112e40e04a2db6b20a03e38a2d7bca6e1f9",
+      "size": 3228992,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9160.json"
+    },
+    {
+      "type": "file",
+      "oid": "28db389681d0b8e15c439493682860e7d489918d",
+      "size": 3070730,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9320.json"
+    },
+    {
+      "type": "file",
+      "oid": "f779f575f00019471f9bb199eddad539b9bf351c",
+      "size": 3087234,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9152.json"
+    },
+    {
+      "type": "file",
+      "oid": "3ce95150c0105ecde0c5b5d729d8f2e0cf1e984f",
+      "size": 3051672,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8672.json"
+    },
+    {
+      "type": "file",
+      "oid": "41d03881cfd221e11b5da2d7d8c18d5cfe9dcc0d",
+      "size": 2998028,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8802.json"
+    },
+    {
+      "type": "file",
+      "oid": "0e371614495da261966f842c697522ef035dd364",
+      "size": 3139692,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9342.json"
+    },
+    {
+      "type": "file",
+      "oid": "29ee64a21a483fb92525c42b23c17232e83500a2",
+      "size": 3159488,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9216.json"
+    },
+    {
+      "type": "file",
+      "oid": "37a7056045433417215d1711ca81dd64ca1018d5",
+      "size": 3229934,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8692.json"
+    },
+    {
+      "type": "file",
+      "oid": "d6891b6ac3f36890a335b5fce105f38184f1f42e",
+      "size": 3034186,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8621.json"
+    },
+    {
+      "type": "file",
+      "oid": "c113cedbdfe141fa20eed22802d9ef9fbb837024",
+      "size": 3069563,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9172.json"
+    },
+    {
+      "type": "file",
+      "oid": "67958fe6b45c352086b26eff9c7966391bc002a5",
+      "size": 3228809,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8642.json"
+    },
+    {
+      "type": "file",
+      "oid": "202f40c6de9ce6bdcaf18ab327560ec15f9d512d",
+      "size": 3015244,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9295.json"
+    },
+    {
+      "type": "file",
+      "oid": "ac2e087349076a1ee94e640f5295024d69282532",
+      "size": 2998340,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8915.json"
+    },
+    {
+      "type": "file",
+      "oid": "f9ad73a6b03a640bad5e6a19da8e37924fc5e2ad",
+      "size": 3087136,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9159.json"
+    },
+    {
+      "type": "file",
+      "oid": "9d3e52245185eb88a706c049fa562ec840b1887b",
+      "size": 2908853,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9132.json"
+    },
+    {
+      "type": "file",
+      "oid": "f1c4bcbd440940553b8f78faf56f76a79702b320",
+      "size": 2980080,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8726.json"
+    },
+    {
+      "type": "file",
+      "oid": "035df51adf40a71328fb6ae55877ca852f567e0f",
+      "size": 3229912,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8525.json"
+    },
+    {
+      "type": "file",
+      "oid": "a37aae64db5a13a192ef6d6d15fdf9d4b1deb60f",
+      "size": 3105330,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8561.json"
+    },
+    {
+      "type": "file",
+      "oid": "cd900d54f07fc4eabd80716207bdd58cc1902db1",
+      "size": 2979731,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9022.json"
+    },
+    {
+      "type": "file",
+      "oid": "2967d5334fbd385ac0adc269f3fc136abc768293",
+      "size": 3122762,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9188.json"
+    },
+    {
+      "type": "file",
+      "oid": "a3a5bc17b65efba11b7c27707373803e5d627c9a",
+      "size": 3210972,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8904.json"
+    },
+    {
+      "type": "file",
+      "oid": "c700ea3fb8e941121fbc79bcba942226d3b892a4",
+      "size": 2979840,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9111.json"
+    },
+    {
+      "type": "file",
+      "oid": "7e350cb7e66caa6df163ffb7e4a3464b239c124f",
+      "size": 3016229,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9391.json"
+    },
+    {
+      "type": "file",
+      "oid": "afb5d9d9cde46e2bd7df61a585c806d1faa58cb6",
+      "size": 3175814,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9053.json"
+    },
+    {
+      "type": "file",
+      "oid": "25df4c7a7e2b78c9c19e36b3123cfe120e61595f",
+      "size": 2963131,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8579.json"
+    },
+    {
+      "type": "file",
+      "oid": "e28e791727ca3db2361ce19b7aad53ef5c9127b7",
+      "size": 3070082,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9061.json"
+    },
+    {
+      "type": "file",
+      "oid": "0559106e9454fcee8a7a043f0fcd441c5b5c0911",
+      "size": 3211308,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8574.json"
+    },
+    {
+      "type": "file",
+      "oid": "90c92c3a1eae23046443210b5e6467293090b0e9",
+      "size": 3051962,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9145.json"
+    },
+    {
+      "type": "file",
+      "oid": "0d3451c4baeb5247dd2e902707773fea6a4f2e07",
+      "size": 3141172,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8863.json"
+    },
+    {
+      "type": "file",
+      "oid": "557825f32f9d1d7e2a227808409a167f2086aa75",
+      "size": 3195023,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9186.json"
+    },
+    {
+      "type": "file",
+      "oid": "e7a7287dd9fd524ddbb0636ef83b83743d008459",
+      "size": 3053441,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9368.json"
+    },
+    {
+      "type": "file",
+      "oid": "22164710605cc7076116edf61a94ede9d2deb2dd",
+      "size": 3086925,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8682.json"
+    }
+  ],
+  "status": "downloaded; layer/model spec still required"
+}

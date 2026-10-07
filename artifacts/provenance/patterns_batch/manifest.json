@@ -1,0 +1,1544 @@
+{
+  "schema": "w2w.pbc-files.v1",
+  "evidence": "captured",
+  "source": "https://huggingface.co/datasets/core12345/MoE_expert_selection_trace",
+  "revision": "27febb7b2d24169560a9f6f83d38eb53f94916cf",
+  "requests": [
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/59.json",
+      "path": "abstract_algebra/request0.json",
+      "sha256": "500f15d6e4f628f7a7fc86379d51821ecfa14c041adbe142eec1a5dcd06bb0da",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/47.json",
+      "path": "abstract_algebra/request1.json",
+      "sha256": "9454f60ed9f533192f106ff0eb8cdbb3fbb94653c3c8c7764c90bfeb456e73f6",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/89.json",
+      "path": "abstract_algebra/request2.json",
+      "sha256": "d715fa164ba0c60d14b787a6dd10f746a5fb6dc654696c70b1e14cb75d18f89c",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/26.json",
+      "path": "abstract_algebra/request3.json",
+      "sha256": "39d11b4403a39411cf52611cbc1d0a63b9a286a46eaed219e75c8aa65fb0aca4",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/44.json",
+      "path": "abstract_algebra/request4.json",
+      "sha256": "22bbe4be96ae3cec6aebd148c5ac17829017ce06e726cd9b0fca904aec69188c",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/77.json",
+      "path": "abstract_algebra/request5.json",
+      "sha256": "f4604cc5db3d4334bd9c53e2fcf4a9b5f513130c12c58c5e41c525f93ffe991f",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/40.json",
+      "path": "abstract_algebra/request6.json",
+      "sha256": "4e31cd3c2d34db190aff973cec64441d708e25288276f14e35af3a4d01e42705",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/42.json",
+      "path": "abstract_algebra/request7.json",
+      "sha256": "1517e588c8b7078a5757e8fd6cded20b82dcffe864e7b8eceed2be28d35cdaa8",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/98.json",
+      "path": "abstract_algebra/request8.json",
+      "sha256": "0a9933a9207fd02d20dd2a66b67537dd2c48e7320d54a298b78fb6078b729dae",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/39.json",
+      "path": "abstract_algebra/request9.json",
+      "sha256": "a59ace9073328d14062258aeb20c91d59fefe1516a4ddf1fad9135b1e753fdec",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/13.json",
+      "path": "abstract_algebra/request10.json",
+      "sha256": "2518e79a1c0335b2487e7affb0d758eccd8c17ae4d3747e9ab23ba75ad8dc4d4",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/64.json",
+      "path": "abstract_algebra/request11.json",
+      "sha256": "da2a725c606b5b0a5a48bd091f42fa5603ed863b68e2fda32b005de5079c8d69",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/5.json",
+      "path": "abstract_algebra/request12.json",
+      "sha256": "18a3b2616f818cdf1a95f8988abd4c34cab369d16c8dfd72345f688bc28bd4fc",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/38.json",
+      "path": "abstract_algebra/request13.json",
+      "sha256": "b505127ec81430a476a810b788a558eef7658e5e6b5489588b16b4bf373659f1",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/21.json",
+      "path": "abstract_algebra/request14.json",
+      "sha256": "fd639abd042c5e9ceefacb851f3abcf940b5fb9ce2058b9877036296ff56d91c",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/34.json",
+      "path": "abstract_algebra/request15.json",
+      "sha256": "9866e68c22cc089d76b98ff98a2a996ed58c86d755c3bd8288d7b80dd2023736",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/91.json",
+      "path": "abstract_algebra/request16.json",
+      "sha256": "0c83938a306230f025930fa5a7e9718074f1afa821cc75f9ab863a592c9f923a",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/55.json",
+      "path": "abstract_algebra/request17.json",
+      "sha256": "c05671807823ce17a1c07366b136fdec348f14991440f595c4013dd025b541c8",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/63.json",
+      "path": "abstract_algebra/request18.json",
+      "sha256": "f46cee4308b0a946fb11cfd2775195d108249b3d7db84f0d35a87bbe0ec4cbca",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/35.json",
+      "path": "abstract_algebra/request19.json",
+      "sha256": "6d0c0b0c73a97aec8575c80c91081e7a926238e66ec48b99f2cefbf0caf9e160",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/92.json",
+      "path": "abstract_algebra/request20.json",
+      "sha256": "ba335c1452312d551a8f8984d926be9f6f24560fba7f8947ff5f0941aff44d0e",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/27.json",
+      "path": "abstract_algebra/request21.json",
+      "sha256": "02382d84262640a51be965fb6e83c8a69967900882a80938704ee772c7155b6c",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/9.json",
+      "path": "abstract_algebra/request22.json",
+      "sha256": "9128a25575114114704cd71251d57873f84a468e0192e37720931526b6b3ad37",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/1.json",
+      "path": "abstract_algebra/request23.json",
+      "sha256": "51586971176a8edb268d4a0b511c62a930b6849f938165054ef88536f6be2b80",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/84.json",
+      "path": "abstract_algebra/request24.json",
+      "sha256": "b04df7a959271ceed0d7c4f1af7157d914881e86cdf613988d1df140a81049fa",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/52.json",
+      "path": "abstract_algebra/request25.json",
+      "sha256": "c494b8d8344d6109fcf868cc0d0380d86475c56c9b67dd8b3f4e3d6ad3324889",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/43.json",
+      "path": "abstract_algebra/request26.json",
+      "sha256": "e9a0ed1440c817558e5f59f5457759c6af0033f4c34a4459504edc3da8f0ce7b",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/10.json",
+      "path": "abstract_algebra/request27.json",
+      "sha256": "9e895dd3edac84a935f919ec363fd4d0aa150ed82ce272aa77cb98a46017b24e",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/18.json",
+      "path": "abstract_algebra/request28.json",
+      "sha256": "4844715b45d038b90e935ee07d0fcf8350533066172b4defe67703f859cacce4",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/75.json",
+      "path": "abstract_algebra/request29.json",
+      "sha256": "326c91b193671f5b8accb2e2f3d4949f7a65a7ab93b92089aca18172a72907fa",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/17.json",
+      "path": "abstract_algebra/request30.json",
+      "sha256": "e50d626fd877aef838f0aa62a66055292e26aa74dda5cf5ccb8f8c1e4023b1f3",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/16.json",
+      "path": "abstract_algebra/request31.json",
+      "sha256": "66ccf3cf2eebce3d8c50577a2115f61b1c4da02c75d319cfdadb9ad1ff226bff",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1534.json",
+      "path": "computer_security/request0.json",
+      "sha256": "7a8e3cc4dc869a48b75a4e9a5c0edb066166902e69252335cbdc9a703b1b1a70",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1490.json",
+      "path": "computer_security/request1.json",
+      "sha256": "e22faf41cb4243fec6ff7bbdacc62e56b260c8ff9fb7bc066dc734b5cd7316fb",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1515.json",
+      "path": "computer_security/request2.json",
+      "sha256": "ae1f959b82c1c41c69d47664e41de9948f60060fa59d43981ebff7a1c5730278",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1547.json",
+      "path": "computer_security/request3.json",
+      "sha256": "33d60fe2313f8f970b2c426688cd9f34272bf9f2de3c32208bc90afb6708205d",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1533.json",
+      "path": "computer_security/request4.json",
+      "sha256": "9571d964ba979e3e62ce11e0dd15fa2a4def62d1eeabb2a0ac47111103041adb",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1568.json",
+      "path": "computer_security/request5.json",
+      "sha256": "e83daeb513e220a6eb7d600aab4a531190276a07b5714bc4e187d19037601699",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1496.json",
+      "path": "computer_security/request6.json",
+      "sha256": "0b15b406b9bd62a42521b7f52c4afc2aa9d8d5864de554f2f751e41c5e8ea496",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1536.json",
+      "path": "computer_security/request7.json",
+      "sha256": "45fcde8588f880c33140029ef82986094ea023f059d637e9d6ce162658bd73b9",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1517.json",
+      "path": "computer_security/request8.json",
+      "sha256": "c89f139c014c8eaf0f2654cc0342fe896a92012d42d43ce238e2c0b69d60c633",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1481.json",
+      "path": "computer_security/request9.json",
+      "sha256": "ba3242067aee6553aac587472e22f9c33ac325f40cda80af91eb97f51db91bf5",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1519.json",
+      "path": "computer_security/request10.json",
+      "sha256": "d6a243a25ffa92384425998dc59e6aeb4b4571b23df054b5ee189de2c6e72785",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1488.json",
+      "path": "computer_security/request11.json",
+      "sha256": "5de4792fcd96b01bfc01ff8608c6d62dd6925226265a0009be3c865ebccd908a",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1545.json",
+      "path": "computer_security/request12.json",
+      "sha256": "210de434f476d0afbd4c86b7f3e40e8b52f77d490dce664fce422db313613716",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1471.json",
+      "path": "computer_security/request13.json",
+      "sha256": "fe070667f3e5304da8addbc76ca93985efbb9291a14bfdfbfdf9df2e6ed9a097",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1487.json",
+      "path": "computer_security/request14.json",
+      "sha256": "8f0654b7b99f5c4f0b9bb7ae94217964ab822144ce0f50671330a3c3acf72d18",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1512.json",
+      "path": "computer_security/request15.json",
+      "sha256": "358d52f1f83f16f330f9fbc343f6e6670de2c5c0515b151dedd118f91d9d085c",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1529.json",
+      "path": "computer_security/request16.json",
+      "sha256": "287e029c2ccc859a3a4f0b58fc96a84bcd204c4cdeda89744b613f934b48d5b5",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1567.json",
+      "path": "computer_security/request17.json",
+      "sha256": "a71b2b268c33dc6c304f0ef717624e7a9f8e06b6031a76822f3bc06f2786b930",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1497.json",
+      "path": "computer_security/request18.json",
+      "sha256": "ac162b239c80d13dd6fb69d2cb0223aad39e8fa6eed7f8433b5c98ec5f1e22a9",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1531.json",
+      "path": "computer_security/request19.json",
+      "sha256": "c25587f162e766cf15401d474543a40754ecab3436d8980bcc5989e1b1b7155e",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1506.json",
+      "path": "computer_security/request20.json",
+      "sha256": "0232e016d58294b381603823ca30cb84d54a16367346b2037c6d9266c3064acd",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1514.json",
+      "path": "computer_security/request21.json",
+      "sha256": "05969d700f55b0784b8afa806b56a727ed9f0ba8394be779bdd05acf23e3fc54",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1524.json",
+      "path": "computer_security/request22.json",
+      "sha256": "d780856366d3e40bb3e424b6de5a2289b813ff2a4e9632f941d25b214a69f606",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1494.json",
+      "path": "computer_security/request23.json",
+      "sha256": "5ebb9d028d1fbbbe37c49d81bfbe2c8bc14f825def20ca30e039c44f032f1332",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1548.json",
+      "path": "computer_security/request24.json",
+      "sha256": "dbf206aeebfba0b040a4e76ad89149e9c4cc2b339ee9cee980b7a6e4bfc3c23e",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1489.json",
+      "path": "computer_security/request25.json",
+      "sha256": "14177893fa932e506837667614e88904b0d04e2dddbea91d7ec5b27c1910861b",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1521.json",
+      "path": "computer_security/request26.json",
+      "sha256": "ca38dec4e3ccc198ef26c7d381e16a815e16fe158b31d518e286399087a95d85",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1505.json",
+      "path": "computer_security/request27.json",
+      "sha256": "7260b89294b2270472f72543bea7a45e0855da358a55f863e2c80119a8b6c1eb",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1552.json",
+      "path": "computer_security/request28.json",
+      "sha256": "69d77414d7dca4a8401b921335bfca56ea776ffd03d098e914d1b9a744ab38e5",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1569.json",
+      "path": "computer_security/request29.json",
+      "sha256": "50724a4fe165358e6677df99f8b30a0b2c8a2ce637389540540b4a5bc93c4971",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1566.json",
+      "path": "computer_security/request30.json",
+      "sha256": "9c3fa5c178f86399f82c187a2ff9b698ddeea912f3138734e7fa598526ff2a89",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1486.json",
+      "path": "computer_security/request31.json",
+      "sha256": "ce04ee8b2edefe615d31e67e832853ca972446b494f712fd649c8dc8c3bc19f9",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12203.json",
+      "path": "professional_medicine/request0.json",
+      "sha256": "609d712a4549fe71153b34e0ac3798fd6cdaae36673894107d6592e12fdc2564",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12189.json",
+      "path": "professional_medicine/request1.json",
+      "sha256": "5ce0cac64506211f825f371b3f29337075c59cce967963fc7e70d0b71f51ea82",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12214.json",
+      "path": "professional_medicine/request2.json",
+      "sha256": "ad90b21e3086e357b3fc1da88e5209f9d5fad10a49e116e83b7b9a7a027b009d",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12360.json",
+      "path": "professional_medicine/request3.json",
+      "sha256": "ee3123454434e92cee0b659acca131fecdaed1c92e89edf1c1c648d84f833d8c",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12245.json",
+      "path": "professional_medicine/request4.json",
+      "sha256": "251a374f89923a47a9807f577cb07c1ebc1bd1ce072a9e363b4d9c85f5103486",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12304.json",
+      "path": "professional_medicine/request5.json",
+      "sha256": "9860388f2554ee9b5b3b9a50eb913fd135effafd4c9d5cd893dc291c78f581f8",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12402.json",
+      "path": "professional_medicine/request6.json",
+      "sha256": "89caf803b725f47afb8f934933e103febd3bfa1e686528dd82008bac6467a6a7",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12231.json",
+      "path": "professional_medicine/request7.json",
+      "sha256": "e66e41c36b838da61c727efb11710c96a22b5e73f9e978167482a967f6873829",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12330.json",
+      "path": "professional_medicine/request8.json",
+      "sha256": "534962ec64d2287c73781ef5e83909c91a8d69b1bdba75cfdb6c22e2697747e8",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12371.json",
+      "path": "professional_medicine/request9.json",
+      "sha256": "0fb5e973910c9957f318edefe0de9f6e8740f1b98958730daea98d9b4c494a39",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12335.json",
+      "path": "professional_medicine/request10.json",
+      "sha256": "2d1b940660253200bfa6a8b6efc96e225c0ba5d8207a819467cbdd8e106093a4",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12369.json",
+      "path": "professional_medicine/request11.json",
+      "sha256": "e576ee204871487a4c549ad374da35a656bbc3a4bbd591994b50ce450923eb31",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12234.json",
+      "path": "professional_medicine/request12.json",
+      "sha256": "ebdcaa7d14dae8ec900fded2cbddd3a956e56165471332c1355888ed6b9de593",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12233.json",
+      "path": "professional_medicine/request13.json",
+      "sha256": "313a700b5f69ceb64d64d4e8de11f61538663ca13daae82ff520f80623b6c7e8",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12340.json",
+      "path": "professional_medicine/request14.json",
+      "sha256": "09a4ddc57e6f2a6ef9bdcb5b0edc8c4851b04afcf870d3eeadfc50284e2da6be",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12408.json",
+      "path": "professional_medicine/request15.json",
+      "sha256": "c85a739f2011c2de1a810aca020514cd25305898fa742221ca98905efe409b3b",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12399.json",
+      "path": "professional_medicine/request16.json",
+      "sha256": "d668fb577b96d46e649f79c4849bffb8585dc40f9856c3e4bc000fb1673367d9",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12177.json",
+      "path": "professional_medicine/request17.json",
+      "sha256": "b146363b3f439be955466973d886fbfae43e4836f758147f5e5e3fa71a95cf7c",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12345.json",
+      "path": "professional_medicine/request18.json",
+      "sha256": "6fced40ba9ca397606557771a5ab939d3fea0490a663b7bc081e359d9e8f2502",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12257.json",
+      "path": "professional_medicine/request19.json",
+      "sha256": "34ce5529eb4dc6babdae94e4bee3642cd5687dcb204e41435040805aeb54f449",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12294.json",
+      "path": "professional_medicine/request20.json",
+      "sha256": "5344cc7a42d62de652230ec7a427ee034276cbe8f916044c2a0a85e1334aa235",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12295.json",
+      "path": "professional_medicine/request21.json",
+      "sha256": "1c430355152f7ffd97e8e772d269f0db930321b29f9842c7c3c2c95abb6be0fa",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12430.json",
+      "path": "professional_medicine/request22.json",
+      "sha256": "d536b305ca8e1b10e64265adb239b0310ff1712aa76bd3d3a5881a1a0b2ba6d6",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12341.json",
+      "path": "professional_medicine/request23.json",
+      "sha256": "376e7d0de767de6a8e707903c938fd92c435a10aa393d7d8c13e54530aaa5b4c",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12324.json",
+      "path": "professional_medicine/request24.json",
+      "sha256": "0fdd5e7361858d430ce837e8c01b9e29e1bbdcdbf87a35c988d9a37e432416b6",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12353.json",
+      "path": "professional_medicine/request25.json",
+      "sha256": "02bbebb8b94796de7ef2e267e0352acbbaccb234bc019b5f57e7853d3240f71d",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12418.json",
+      "path": "professional_medicine/request26.json",
+      "sha256": "e82134704ed66168e9ee04f0a87743472e652a8d4d840c2769aa736567ad0d54",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12383.json",
+      "path": "professional_medicine/request27.json",
+      "sha256": "719ce47469679fad8ed5ac1258affbb571352f9357b1495dae711f97436ff478",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12361.json",
+      "path": "professional_medicine/request28.json",
+      "sha256": "191185271c0fcdd920b4c85aedc8e1d58e52320ffe0c76203f314a958e3b2880",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12192.json",
+      "path": "professional_medicine/request29.json",
+      "sha256": "02aa663f47e1bafee960bb17c532e997d42f87cb4dd7aea2c82a249b6e577cc7",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12272.json",
+      "path": "professional_medicine/request30.json",
+      "sha256": "48c9ea87dca196bad8c14b5c2073d2434bd6d566ff476cf1f1ce9719ecfb5206",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12433.json",
+      "path": "professional_medicine/request31.json",
+      "sha256": "9de3fd35f49d4a8bc33cf80afdb7db12971ca42db2c76c8ee90fd58eed3fc06a",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9894.json",
+      "path": "philosophy/request0.json",
+      "sha256": "4875e544c3b8bbceea44c8a6b30b8aa060cfa984a38e6c40e515a8ea13940dc1",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9849.json",
+      "path": "philosophy/request1.json",
+      "sha256": "13346873f8f5d51e2e8e4ea0c7f7b92ce8b144f6f65dfabe2ebadd84be211042",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9968.json",
+      "path": "philosophy/request2.json",
+      "sha256": "464af1dbb5bb54d0e11d31d54c089f04453bd8951a22924aa53d0d7c89d053d7",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9937.json",
+      "path": "philosophy/request3.json",
+      "sha256": "73bfbbd76afd6adb91469abf3156768fca38a676eeb147587afc5b7ad8bbfc8a",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9716.json",
+      "path": "philosophy/request4.json",
+      "sha256": "c288e267bfb0331f8399bd9d9761ce7c65c6d618daf6e5196b19560b50da39b7",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/10005.json",
+      "path": "philosophy/request5.json",
+      "sha256": "b6dc293a45794e24601d6627af3af0725f69ab9a093bfa5a8fc412d0769aaca3",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9732.json",
+      "path": "philosophy/request6.json",
+      "sha256": "fbb2fdf5e4d7d0bb06cea0f7a065455f0d5802edfbf436306be0f5f2c252bc4f",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9724.json",
+      "path": "philosophy/request7.json",
+      "sha256": "6c21c3386a8c131aafe36773c550e9d54833478ca9cb42736c498364782ecb03",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9988.json",
+      "path": "philosophy/request8.json",
+      "sha256": "f6a63ca838f87a4293614147a5f50c9f8682c63c5f1d007bfd81a1c6ad8dc60b",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9909.json",
+      "path": "philosophy/request9.json",
+      "sha256": "bc5fdda2c6b9ca5fdd83411ca675b3e9bc34e34a991f3b2564158b2e133587b9",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9888.json",
+      "path": "philosophy/request10.json",
+      "sha256": "f9fcf1140fa42b9d4871fd6687a7200aa093ff2dbc818d4740846712cdd8ba47",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9767.json",
+      "path": "philosophy/request11.json",
+      "sha256": "d07f1235ad501238c49c1c780569c336beefe4da320fd455511e0264c665c724",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9714.json",
+      "path": "philosophy/request12.json",
+      "sha256": "7e5070f4cbb7a4691503bc1cc21b3d5a9367e8a05ea01f4644d8ee1481d1d888",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9929.json",
+      "path": "philosophy/request13.json",
+      "sha256": "803695517521c0d8538b223d543edaec775eebfdf3d100e7963e457bdeea1c6c",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9913.json",
+      "path": "philosophy/request14.json",
+      "sha256": "244bf9214da2e221ae4303738a9f7812d5d76d9ca118aa8c15b10b072f8dde4e",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9735.json",
+      "path": "philosophy/request15.json",
+      "sha256": "cb85fc38146b43df3b9bde9c2cd20e20dca691aa6785235b89cdf42be40e9f93",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9756.json",
+      "path": "philosophy/request16.json",
+      "sha256": "1a2e2d944a28f45c90cc2150e287a67704c498aed06821b60f27b0b3a8d2724f",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9976.json",
+      "path": "philosophy/request17.json",
+      "sha256": "3481b852a9b60e2c4f316b17195c207c195b0b894877d0921c8671ad7bf96b13",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9992.json",
+      "path": "philosophy/request18.json",
+      "sha256": "72e675bb26086e0b448a959f7ec457793cbc742aff7c7181a7a9bedb68ca5db2",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9749.json",
+      "path": "philosophy/request19.json",
+      "sha256": "cb85d6c3119adf8daf75b89f60661edbd5ce6c5d021070e24447d6a1ae73bcac",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/10003.json",
+      "path": "philosophy/request20.json",
+      "sha256": "606ac9b233fc2031caf87bc00b7b9303b3834d522a4e84548e7980daf8a593df",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9903.json",
+      "path": "philosophy/request21.json",
+      "sha256": "f09ef303a3ee11417393fe45b0e0e630d7592450c828aa9cb7008bcf5472098e",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9901.json",
+      "path": "philosophy/request22.json",
+      "sha256": "4b13437f3cb2b54f7d66479ea2f78b3d5d72721c0bb02b181021d0c788624fb5",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9816.json",
+      "path": "philosophy/request23.json",
+      "sha256": "767823a026b8ffe92fd654062736bf9aeaf1cceb122d618781af2d1a76bef349",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9857.json",
+      "path": "philosophy/request24.json",
+      "sha256": "8ea3a4b8177e0e1e450372f708290abafe4f6e9b143679d5743d79ec5bc14b29",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9763.json",
+      "path": "philosophy/request25.json",
+      "sha256": "062841eceaeb5a58a61bbfd426fd34567fefaa926b02de7974f9fded3a2cf89b",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9916.json",
+      "path": "philosophy/request26.json",
+      "sha256": "97fd0367a8e53a499328a2c19e1962f008f5617add07ee46752b340a567393ac",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9782.json",
+      "path": "philosophy/request27.json",
+      "sha256": "f0a93c7c20cb63305beb2acb35296c44d14f7db789bbd877a30266787beb2bd1",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9733.json",
+      "path": "philosophy/request28.json",
+      "sha256": "34e1846f90d09039c1027fea292f17d0507556c1ade54a0c7e0b1d57cb56d0ae",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/10008.json",
+      "path": "philosophy/request29.json",
+      "sha256": "7e7430b227360e01a44134009d7733dee700493a6d8ed1fc6e70943ecc1281e7",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9728.json",
+      "path": "philosophy/request30.json",
+      "sha256": "a4765dcaf0bc6d7c2e5beb7506b41e29c8aa22308a14acd5935e509eb56ca088",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9739.json",
+      "path": "philosophy/request31.json",
+      "sha256": "b698ea80feb32c91b5897d1150449f2f584e556b327d3409dd51e2cf93e87ba9",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2703.json",
+      "path": "high_school_biology/request0.json",
+      "sha256": "855cd1f53d19054a746e0235a53852cb51dc929577e4a722395223de99eb911c",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2834.json",
+      "path": "high_school_biology/request1.json",
+      "sha256": "2746310529d8ce7d514550b96c9b9ce34670d30c5785bcec92ea1c1e8f0edf21",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2916.json",
+      "path": "high_school_biology/request2.json",
+      "sha256": "f2740cebb64f7db13969423174e96a7b90605a507f146c78ac1d63761155d20e",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2763.json",
+      "path": "high_school_biology/request3.json",
+      "sha256": "5545f2a458070cfd9a4cc7bae0c9fc213686f3d8839596ce2293e6d5f6c3ce61",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2682.json",
+      "path": "high_school_biology/request4.json",
+      "sha256": "167809066e4e30983fdf1283bc5a4be8b1c7dcb0d9de40e5296945829058d70f",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2797.json",
+      "path": "high_school_biology/request5.json",
+      "sha256": "3cd8f54c6683b9be664232b9988e8e2fd23143c51b72fd5efa0402955cf7dfc8",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2859.json",
+      "path": "high_school_biology/request6.json",
+      "sha256": "e7c354c6dc0b0b06d6f420cf33ee9fdd7955f2910a05a6d3cef4b955b809d284",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2726.json",
+      "path": "high_school_biology/request7.json",
+      "sha256": "1b2aba9e4dfd3833f2c83674d16fb1500388575f996dae86c1d080d3bad5a0e5",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2840.json",
+      "path": "high_school_biology/request8.json",
+      "sha256": "94f7f699d11c29b0ada34ea3fbaa94f9b8d4aa2a797194503296cf631d37c885",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2674.json",
+      "path": "high_school_biology/request9.json",
+      "sha256": "33640aeca651875d8d5a37efc216d80251c823961f2a9653c174318eb1d0a4f6",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2779.json",
+      "path": "high_school_biology/request10.json",
+      "sha256": "e56a048d319d844a55ffaf253c98a00df3b274898e7213a743ccc742b9c4e26d",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2846.json",
+      "path": "high_school_biology/request11.json",
+      "sha256": "cc639c45cefcb09de5005d81fe4309ed71b53ece62c72e806e735bf10561c7ad",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2909.json",
+      "path": "high_school_biology/request12.json",
+      "sha256": "63324d4f77304a77d538f681d4ccd8067ef3868ad405549d00a197d4f0dfd5b5",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2775.json",
+      "path": "high_school_biology/request13.json",
+      "sha256": "e40d6ca1979f6e6e224a0a8d52dcc2205415ace63da333db81e2660bf8dccda1",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2735.json",
+      "path": "high_school_biology/request14.json",
+      "sha256": "1fda08b144dad9e35ba0c2388a5fdc1061cfa8817982d02bc992f90415259d79",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2923.json",
+      "path": "high_school_biology/request15.json",
+      "sha256": "178aad710b3d3ee47f6d9b01212a84aabe161fbf8ef13959eeba7d18875935e8",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2902.json",
+      "path": "high_school_biology/request16.json",
+      "sha256": "8056e1bc47c6e5bd69a340b086bb8df8c1b7de289e75720537b9524e683da821",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2731.json",
+      "path": "high_school_biology/request17.json",
+      "sha256": "2eab86d4e8bf21168257f7e0310d8d0a07006d13daa4dcd24af74b2dfab7f793",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2908.json",
+      "path": "high_school_biology/request18.json",
+      "sha256": "00e492be1da20de9aded1f27420483bf85f320410765a7118488200b2745dc80",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2698.json",
+      "path": "high_school_biology/request19.json",
+      "sha256": "197794a2fb3a230f49efec95f3dc7deff8d2a6c050883ab5c8878fc1dfad5554",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2861.json",
+      "path": "high_school_biology/request20.json",
+      "sha256": "15a82aea2db1749d7c7d4b6b143cfcf944548b2954eb38924ab60b972a04c0bb",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2676.json",
+      "path": "high_school_biology/request21.json",
+      "sha256": "720e08cd46e5a677d5e5cf6b2196e828cda5f460f8b2e9f8da989061eaaaabd8",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2961.json",
+      "path": "high_school_biology/request22.json",
+      "sha256": "a7608ccd7c71c3e4873061a9c49c64fae890d2eb0a18c03268366c1749185133",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2743.json",
+      "path": "high_school_biology/request23.json",
+      "sha256": "4b7791035ea2932a84c9bc567e70568427c0d3a68307809fe6635296409f4a6f",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2689.json",
+      "path": "high_school_biology/request24.json",
+      "sha256": "41292efb9a3ebfe477d737182ddd088120bace5e297704e3e2343cbd86a699c7",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2777.json",
+      "path": "high_school_biology/request25.json",
+      "sha256": "a6aacfae97370f0ff00ef173a2b69bd31f0bfa289cd163d744fd39bbbe373b72",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2809.json",
+      "path": "high_school_biology/request26.json",
+      "sha256": "4fc2bb52f1cb994f767f83bb439d0a98d2713631634b1ecd6097e868aa891f2c",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2890.json",
+      "path": "high_school_biology/request27.json",
+      "sha256": "30e9031fe55d5e823e73676906068974c5697595ab62b871e8b05b97393ceaf5",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2854.json",
+      "path": "high_school_biology/request28.json",
+      "sha256": "789cd73fbccdff35f8aae8179fccd0de360ef4afffb430744ea494f0b497923d",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2967.json",
+      "path": "high_school_biology/request29.json",
+      "sha256": "d6019981b50100323bb30e6102b5fd8c1c177e8079ae678eecb3c4882f907544",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2822.json",
+      "path": "high_school_biology/request30.json",
+      "sha256": "008d2e1eb6710340431d407777197c718e3608315b689f3405b3b5ab9c52e0ae",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2832.json",
+      "path": "high_school_biology/request31.json",
+      "sha256": "08932819cc7b2879a955ee432a9b0ca881d804b8e431a059ea2fed7897337219",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4741.json",
+      "path": "high_school_physics/request0.json",
+      "sha256": "d56e322aeed683f5e3b63835a52f9fcf43edf4bb4b7e4fd0e5075ed069856c55",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4850.json",
+      "path": "high_school_physics/request1.json",
+      "sha256": "7a0f0c29cadd8f0f91a505596bb881c86dfefdbbf40271ed10d53bef650085a1",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4739.json",
+      "path": "high_school_physics/request2.json",
+      "sha256": "38bfb5961a59360b0453dfb7e3ccd5f9a5b612c75967219698d57409db6a407d",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4805.json",
+      "path": "high_school_physics/request3.json",
+      "sha256": "9d1e7709302fe10b23df6cf52e4918888acc03b4a61a9f1affec3f44c9de1e77",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4791.json",
+      "path": "high_school_physics/request4.json",
+      "sha256": "f3a1b74b8e6bc45569bcf855a1cdb9360ed235e204ca2c0accff7db41398030f",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4792.json",
+      "path": "high_school_physics/request5.json",
+      "sha256": "22b47df58cf70d67edc4b0b8fee316d4c4ec1b9261da33ceae9757417b445197",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4750.json",
+      "path": "high_school_physics/request6.json",
+      "sha256": "5c95e292b4e898aa3656d30bb59c7670cc90f13e14ce0d9c3481f1f2a20db4e7",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4862.json",
+      "path": "high_school_physics/request7.json",
+      "sha256": "40ab9589e3a63697dc0f3d9c6ca15e9050ff418539e443d06f08790370cd860d",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4812.json",
+      "path": "high_school_physics/request8.json",
+      "sha256": "177c729319181da74c7b0d2988d17963888cdeedaf2877339f440932f084bc5b",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4765.json",
+      "path": "high_school_physics/request9.json",
+      "sha256": "30a3040e6bae3d54e8fc63b6f71b50fd571b3a7372c0e8cd8f6f04d3d3f22bcb",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4754.json",
+      "path": "high_school_physics/request10.json",
+      "sha256": "1f0b50e876b8db946c7b2cbc1149500ef575d5a975ef479266b1c12e02027f72",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4823.json",
+      "path": "high_school_physics/request11.json",
+      "sha256": "a838be4f17de2c81683a8a45b3c6eb019af73225b91bc24807179a17fe8f0d57",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4822.json",
+      "path": "high_school_physics/request12.json",
+      "sha256": "595b15308fcc00be58cbda697e1ea2bdc15dad4cfeb89eef4f759d9b65fa8a10",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4866.json",
+      "path": "high_school_physics/request13.json",
+      "sha256": "dad4d959d1b76558b48dfab6dfcd812e22da7afb12f3128cc763cf661ca38f54",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4819.json",
+      "path": "high_school_physics/request14.json",
+      "sha256": "0c559f7a882f353ce002a2d8c1b6c17b805722957d4d4e5032d8d8b87b2f42df",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4815.json",
+      "path": "high_school_physics/request15.json",
+      "sha256": "542f860ee862853abd260e8a59c88a5e032c81517d2ff0e072179a80c8f9b7fa",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4769.json",
+      "path": "high_school_physics/request16.json",
+      "sha256": "0859384e60d94278759ba33b41ae22fc92cc7083057c1c79d5444d886ea97388",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4828.json",
+      "path": "high_school_physics/request17.json",
+      "sha256": "fd2e1ae0d2db4a8b766f01b3671d3ea21fc99e3c380b870b1383c08d97fd0287",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4884.json",
+      "path": "high_school_physics/request18.json",
+      "sha256": "1bcc47b07fb16e6e92c1ed3f81ab26e9feef23bc74d38e59da07af74e74b2efd",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4785.json",
+      "path": "high_school_physics/request19.json",
+      "sha256": "b7b39e6fc93dd83009debb0d1842e7908741903ec79167bbcc0a49a4afea56cc",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4799.json",
+      "path": "high_school_physics/request20.json",
+      "sha256": "f34753460a8d39a913746e72933b5e331fae8df014822e86dd0abd7650e02b71",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4787.json",
+      "path": "high_school_physics/request21.json",
+      "sha256": "5adce1161325142523e3fb709ecc2d5cc50edbf395d4e9d6b64cf58e4a80cc94",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4861.json",
+      "path": "high_school_physics/request22.json",
+      "sha256": "aa8ecd58814f6bec9ac55196e5ecf4ddaf31cf7b98ea1f28876f205e5e05f136",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4795.json",
+      "path": "high_school_physics/request23.json",
+      "sha256": "3a7020575f4d9f1b82a449087ab7d3324ebbb41b274bf86625114dc2e5f35ac4",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4814.json",
+      "path": "high_school_physics/request24.json",
+      "sha256": "6d7bb75c3eca0f8ac2f153ca7980419c863cade69b85e2c527a24bd02d4a3f23",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4831.json",
+      "path": "high_school_physics/request25.json",
+      "sha256": "3378d9e6d58d6e03c72ee8371994a8bfef04897f992d097bdcccc22025d80e9a",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4747.json",
+      "path": "high_school_physics/request26.json",
+      "sha256": "a0e805281d224697573de00f93b2bdeb5a7cff8381758ac54ce77fc90458e5d9",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4870.json",
+      "path": "high_school_physics/request27.json",
+      "sha256": "dcf58e67d02c19c7a92b3066b1db14a840396a9b8c29628dd2411bd863fa1e99",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4796.json",
+      "path": "high_school_physics/request28.json",
+      "sha256": "127065b785064a0c1003b25d974895c9fc2e12efd71c53d6cc16e25430d27133",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4775.json",
+      "path": "high_school_physics/request29.json",
+      "sha256": "261bd5bd59472277d0c2f0a886583610ea21b665e70d33659902514419a3a9f4",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4755.json",
+      "path": "high_school_physics/request30.json",
+      "sha256": "892a7a470244f3ca8b9e9ccfbf17f88360deb2cf457bc4f1efada8afc13e7b7c",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4811.json",
+      "path": "high_school_physics/request31.json",
+      "sha256": "b9247914b57a5e3ed3c180450fcc60c1b460f29d55cf4534f06abd32bf69b911",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9160.json",
+      "path": "moral_scenarios/request0.json",
+      "sha256": "40d6ce10caa5bde5e7f0ac3bd8a2706b02a3be1d725a54e07aa0289c38706e5d",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9320.json",
+      "path": "moral_scenarios/request1.json",
+      "sha256": "0591ceccd471fd0052e94ec1b0e59fcfbc6c3bfce222a870e3581392ad809950",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9152.json",
+      "path": "moral_scenarios/request2.json",
+      "sha256": "d4748a6f485a0538c16e53f535dbd2856aab9e9da4e95fccbce45225f48ea396",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8672.json",
+      "path": "moral_scenarios/request3.json",
+      "sha256": "ed065a7f2bd8f522b3ba2ae0b8fa7e45031c0479a39827f14eaed46f1659e1ab",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8802.json",
+      "path": "moral_scenarios/request4.json",
+      "sha256": "475a872f28804cd39a925ce6a89b3bccf2b1c834b39b2c99f1bbc39e781c7244",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9342.json",
+      "path": "moral_scenarios/request5.json",
+      "sha256": "df33348ca4bdc0b985e90d1e166489bfafd64737b3a06e51370c4660a8d92391",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9216.json",
+      "path": "moral_scenarios/request6.json",
+      "sha256": "97499c84b9a2d885616c3c3d0c2d625bde9fe4823122bcd9a7cd8038e84b15c9",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8692.json",
+      "path": "moral_scenarios/request7.json",
+      "sha256": "6e9a891c5090a4f9c7f68ee8832f9dcea4cffdf4994d3b9e57d0e7ea50c6f55f",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8621.json",
+      "path": "moral_scenarios/request8.json",
+      "sha256": "2fccfbb8297003b7eb786e3c80f546ca0e854ccd09e65f88ef2d52419bb4179b",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9172.json",
+      "path": "moral_scenarios/request9.json",
+      "sha256": "3d6496fa607a6c2538ff33cd2f8a56d6c751debf26a2f236a22f183c390189de",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8642.json",
+      "path": "moral_scenarios/request10.json",
+      "sha256": "c77d7bfe16d22235d28a8d99539f152ad4f3f87c6089dfe19d2f8c1b67d90087",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9295.json",
+      "path": "moral_scenarios/request11.json",
+      "sha256": "4c67ccc5e1039c9a759ad041d5d91bfcd1e5c4dbc3d6b7e4b01695db5dfee4fa",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8915.json",
+      "path": "moral_scenarios/request12.json",
+      "sha256": "7db6820c6e37a8f5d490276cf9c2bcf43ec6926a6abe2904a954f9a81418a467",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9159.json",
+      "path": "moral_scenarios/request13.json",
+      "sha256": "e1fc119f8cca3b33d5344006d6df4da0d56a305c340f72ade32bc3eba186989a",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9132.json",
+      "path": "moral_scenarios/request14.json",
+      "sha256": "f34be4bda45c6a10a90bc468192bbe2b18e0aa18e655963189086d594aad177c",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8726.json",
+      "path": "moral_scenarios/request15.json",
+      "sha256": "3b94cf989ab98b89a18c9e7306363fa50c430397e4d46ca3be96f7a56f25441d",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8525.json",
+      "path": "moral_scenarios/request16.json",
+      "sha256": "9323c832d34ae884fe5d95beb67971db6b6df71e6736fa656f4e7126cc68e72f",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8561.json",
+      "path": "moral_scenarios/request17.json",
+      "sha256": "4dfdac966d8a28bf7ffde22b794af85cfa36456692528fc25718fdd3b555f34a",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9022.json",
+      "path": "moral_scenarios/request18.json",
+      "sha256": "7c726f062ec2b19b96bbe97dc83c5c22a81337c1fbd889a6eeae665433f02146",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9188.json",
+      "path": "moral_scenarios/request19.json",
+      "sha256": "d93d4ef471a711151603b07804bc30d4ca10db14c135764fc8f5afcb855b6681",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8904.json",
+      "path": "moral_scenarios/request20.json",
+      "sha256": "c933ba5a2101fa7032abef58aad1478d59060faeac27b688dd064c242b8b7233",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9111.json",
+      "path": "moral_scenarios/request21.json",
+      "sha256": "19534f52c946a0280a9f9b2c8a5e2788450575ad7e2ec73b123cdb3faf5522b7",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9391.json",
+      "path": "moral_scenarios/request22.json",
+      "sha256": "2ca92422d87c297c15f4fd43c642f7b0fbca8e3c659178f28485664285a88926",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9053.json",
+      "path": "moral_scenarios/request23.json",
+      "sha256": "d96bd6dfca835131fa187f1822f40c8eee43309dbfb05eb16866120cb684fc7f",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8579.json",
+      "path": "moral_scenarios/request24.json",
+      "sha256": "b3a0c25b2ee8f5e1332cc12cce60ddd167d8406df3e09f6dbe3c15572bb8a5c1",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9061.json",
+      "path": "moral_scenarios/request25.json",
+      "sha256": "97d85f0bf56180580afd3c8cf05b9c50d68352c9bb3a2432b7474366cce8784b",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8574.json",
+      "path": "moral_scenarios/request26.json",
+      "sha256": "3ffd65cd864d5525cf2c2899ef94b77e8c323ea6369bfd2c17799b666635c773",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9145.json",
+      "path": "moral_scenarios/request27.json",
+      "sha256": "0b6ed5b94bcfe1e55a4a109552093939587e347d620f475d18ef1fff5c7112e2",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8863.json",
+      "path": "moral_scenarios/request28.json",
+      "sha256": "8f9d13cb6f593c0e1a1f74a046fc217afbda68d08cc0da26a3c226e0131b96e5",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9186.json",
+      "path": "moral_scenarios/request29.json",
+      "sha256": "0e49f93a153709becd0e428efc7829676fccd8b4a9bb6b9e3f66353d5484e68f",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9368.json",
+      "path": "moral_scenarios/request30.json",
+      "sha256": "ee3142422fe7d4ed941a67b33773c0b979479a605f0a6be2f7a3d265219472de",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8682.json",
+      "path": "moral_scenarios/request31.json",
+      "sha256": "b8d7a8fb41d94a4fc0f3a9d76f35e03eb0a83c3b4b7b14978d5f1082f6e5b3b1",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/408.json",
+      "path": "business_ethics/request0.json",
+      "sha256": "3bbcf81357320eeb53674983a27d4fec187b7b301e48f1f5fc69d156260606b0",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/438.json",
+      "path": "business_ethics/request1.json",
+      "sha256": "fd6214b511a0616fc046ea7b2a5efd3b91dea61f36c114f8f4e05a9747d337bc",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/398.json",
+      "path": "business_ethics/request2.json",
+      "sha256": "c4ef75345979498926e21ea8f4086bb05c4bc8a08b1e94c1bff7150635a17631",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/466.json",
+      "path": "business_ethics/request3.json",
+      "sha256": "569d60762f80090af611465c34da4fd63778cc01824d4eb7ac90a314a7ac5814",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/452.json",
+      "path": "business_ethics/request4.json",
+      "sha256": "80ace3cde987bf46d582d01d6979945c80d604e3c14801b59e88f6d6e2d1530a",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/419.json",
+      "path": "business_ethics/request5.json",
+      "sha256": "f7ce3e5876133f2500f07f356edaf73ad93b87fbfdcbc33c40b60decf6072b57",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/464.json",
+      "path": "business_ethics/request6.json",
+      "sha256": "8c338b180f8d08218044b1067cbc2dded8cbbb6db3cd828c23f329f98ceb1573",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/433.json",
+      "path": "business_ethics/request7.json",
+      "sha256": "31379c7e9881ad4f5b153af10ce641611526c1f2d13b45fadc5550b79cd06854",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/410.json",
+      "path": "business_ethics/request8.json",
+      "sha256": "a4abc2b956bac97b9a68c20c378ca7606bc8f63c385dc9058de9d2e1f94ca676",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/470.json",
+      "path": "business_ethics/request9.json",
+      "sha256": "9ea5bc760833e32524533c79b00ea060c45d1d3387fd86d58053dd7759b1842f",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/442.json",
+      "path": "business_ethics/request10.json",
+      "sha256": "ccb100c1b060b2011bb371c6d71bf43bfa71e4fb6596d45afe1cf7dafcf99762",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/482.json",
+      "path": "business_ethics/request11.json",
+      "sha256": "30b381c57e471cfb9cf82a56b74386e4abc261c92d0b83a1dfc72ecbf49aec4e",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/460.json",
+      "path": "business_ethics/request12.json",
+      "sha256": "622eed28a876ba863fcba3953b647e7ba4db66d21261d3e830c0fd0179837558",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/476.json",
+      "path": "business_ethics/request13.json",
+      "sha256": "194621ce25a7c1e2ac2566b7abf8edb13a628c8871a79f009bb7b6061467ea6a",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/420.json",
+      "path": "business_ethics/request14.json",
+      "sha256": "9e07f82de34664b4787bd1cfa87cbf8f239ee9b7c0810f7eda2c88e5eadc324f",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/415.json",
+      "path": "business_ethics/request15.json",
+      "sha256": "820a790ae8bb5e9f43787dc84ef239b09198e3968528b25f4b29f92310633171",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/469.json",
+      "path": "business_ethics/request16.json",
+      "sha256": "f69447a2a6ede2375934ad98e2e163150df0dd5921732854df39730c4b38cef9",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/441.json",
+      "path": "business_ethics/request17.json",
+      "sha256": "39fb620181e3246e28244c6313aa169097d6d3b6748611297211c03d1c2243f9",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/477.json",
+      "path": "business_ethics/request18.json",
+      "sha256": "78fb160da1628d373a3f82a115aeca51b3e7d2e90710b0485b21b78d32dd93e6",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/425.json",
+      "path": "business_ethics/request19.json",
+      "sha256": "a5b87fa708684f278e56b983c1264dec173a840f410f724402e5b3ab72f411cf",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/486.json",
+      "path": "business_ethics/request20.json",
+      "sha256": "3588d38f22aa9132121b7d7df104f8ee55b02e10196091aeacb25b2f64ce6b9a",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/421.json",
+      "path": "business_ethics/request21.json",
+      "sha256": "c6c64bbc2d640934a425e64d8704b4c66d2068f7919d14b82bf9f069911b43ef",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/406.json",
+      "path": "business_ethics/request22.json",
+      "sha256": "4ecaa604fbc49db1e5709c893db37fac1039e62ed4a349e00766aa0760272946",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/387.json",
+      "path": "business_ethics/request23.json",
+      "sha256": "aa61e213394cf6a2667f25f29832175ea488937703cba3c06796c48fc5b39534",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/444.json",
+      "path": "business_ethics/request24.json",
+      "sha256": "4f18558296aba0d9be3e62596fbf0252ef8973c1fafc87bc77f535ed7ae6f02c",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/472.json",
+      "path": "business_ethics/request25.json",
+      "sha256": "f1d14827d60382d97f17b4f6650c9aa41a940ec6a0a7e1a0f617049a7a42a548",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/409.json",
+      "path": "business_ethics/request26.json",
+      "sha256": "7c2bc65ee6d6e64d5d3ab834637f876b989b9af5e088b89978022edeb362c4eb",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/393.json",
+      "path": "business_ethics/request27.json",
+      "sha256": "ef3fa258a5f80f6b0265b20e3074097532524fad22f85a193e612264e7bd2d5a",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/453.json",
+      "path": "business_ethics/request28.json",
+      "sha256": "fdc70790756626ce288388ae932846e7c33def609a9156405e3645658a1de52b",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/389.json",
+      "path": "business_ethics/request29.json",
+      "sha256": "200e2a2272d508326d58b1b081bc12d819698665ec18a0eea739e9e3280de277",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/434.json",
+      "path": "business_ethics/request30.json",
+      "sha256": "9cb1c464e225e63b4ede72ccbb4bd5dc313357479f4451aaabfa87e424137ffa",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/417.json",
+      "path": "business_ethics/request31.json",
+      "sha256": "25abb405030f58c46597dd453cd860351909bfc6bfd271f5a76f734834109b46",
+      "arrival_iteration": 0
+    }
+  ]
+}

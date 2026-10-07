@@ -1,0 +1,189 @@
+{
+  "source_commit": "b7490e81c43bfc78ba1570cbaa7fdbe956037ac0",
+  "cases": 2,
+  "design_replays": 10,
+  "all_bytes_conserved": true,
+  "duplicated_configurable_equivalence": true,
+  "records": [
+    {
+      "case": "batch1",
+      "index": 0,
+      "read_bytes": 151031808,
+      "delivered_words": 4719744,
+      "makespan_slots": 36878,
+      "result_sha256": "28dd1c729c3e20249eefe01498e5961d20c545ed35a229337914bdb5cdf500e6",
+      "delivery_sha256": "74890dcf7033131e23affd1dff2e01bb82a2f33a619e4bea90f0d4317f4b858d",
+      "audit": {
+        "issued_words": 4719744,
+        "admitted_words": 4719744,
+        "transmitted_words": 4719744,
+        "delivered_words": 4719744,
+        "sent_bits": 1208254464,
+        "every_slot_conserved": true,
+        "frozen_residence": true
+      }
+    },
+    {
+      "case": "batch1",
+      "index": 1,
+      "read_bytes": 151031808,
+      "delivered_words": 4719744,
+      "makespan_slots": 36878,
+      "result_sha256": "e5fb159ba4d5310acf50e07c3752ea2952e1ffe343e213ecb217aaf232530735",
+      "delivery_sha256": "ecd341ec89985590d3aa4bee4d4b6a47b29ddc57599e52e61b5030bde679d9b7",
+      "audit": {
+        "issued_words": 4719744,
+        "admitted_words": 4719744,
+        "transmitted_words": 4719744,
+        "delivered_words": 4719744,
+        "sent_bits": 1208254464,
+        "every_slot_conserved": true,
+        "frozen_residence": true
+      }
+    },
+    {
+      "case": "batch1",
+      "index": 2,
+      "read_bytes": 151031808,
+      "delivered_words": 4719744,
+      "makespan_slots": 27660,
+      "result_sha256": "c1b3491bb45f8dc4bedced31622d518c6242d5dce917637793254a2e2d93522c",
+      "delivery_sha256": "f54737d0f2db48ab5d37a099a4382087009f3d119c7ed4d164ae1cb028941c1d",
+      "audit": {
+        "issued_words": 4719744,
+        "admitted_words": 4719744,
+        "transmitted_words": 4719744,
+        "delivered_words": 4719744,
+        "sent_bits": 1208254464,
+        "every_slot_conserved": true,
+        "frozen_residence": true
+      }
+    },
+    {
+      "case": "batch1",
+      "index": 4,
+      "read_bytes": 151031808,
+      "delivered_words": 4719744,
+      "makespan_slots": 31678,
+      "result_sha256": "52d278064346ca3365240fe43a68c32ab3e5351e9f6bdfd95a565122c911dd2d",
+      "delivery_sha256": "721d164a88a8ba95f7d7735a3775f05271f5df2c6d3dbf4b61fc5543e980d845",
+      "audit": {
+        "issued_words": 4719744,
+        "admitted_words": 4719744,
+        "transmitted_words": 4719744,
+        "delivered_words": 4719744,
+        "sent_bits": 1208254464,
+        "every_slot_conserved": true,
+        "frozen_residence": true
+      }
+    },
+    {
+      "case": "batch1",
+      "index": 6,
+      "read_bytes": 151031808,
+      "delivered_words": 4719744,
+      "makespan_slots": 31678,
+      "result_sha256": "518316cfe1c58ce20ada962d49da2554f098c5421992a342bded5710ae6f928e",
+      "delivery_sha256": "721d164a88a8ba95f7d7735a3775f05271f5df2c6d3dbf4b61fc5543e980d845",
+      "audit": {
+        "issued_words": 4719744,
+        "admitted_words": 4719744,
+        "transmitted_words": 4719744,
+        "delivered_words": 4719744,
+        "sent_bits": 1208254464,
+        "every_slot_conserved": true,
+        "frozen_residence": true
+      }
+    },
+    {
+      "case": "batch2",
+      "index": 0,
+      "read_bytes": 302063616,
+      "delivered_words": 9439488,
+      "makespan_slots": 55317,
+      "result_sha256": "7232b35f707538e53c43fd959429ed4729834a215c20339dfa0e0a6b1c777894",
+      "delivery_sha256": "2690aebadb3327f5d9ca675ee0f928faa11787ae23ab9abe8e0261503736b91c",
+      "audit": {
+        "issued_words": 9439488,
+        "admitted_words": 9439488,
+        "transmitted_words": 9439488,
+        "delivered_words": 9439488,
+        "sent_bits": 2416508928,
+        "every_slot_conserved": true,
+        "frozen_residence": true
+      }
+    },
+    {
+      "case": "batch2",
+      "index": 1,
+      "read_bytes": 302063616,
+      "delivered_words": 9439488,
+      "makespan_slots": 46098,
+      "result_sha256": "ff46b222e66b7f7ce29040b35fc214af065245147778cde0ca089cddeda307f4",
+      "delivery_sha256": "4912e6bc61dfeeff26db3d7dc90be3f26b9f7e6ec49b75150bba159a550b2dbf",
+      "audit": {
+        "issued_words": 9439488,
+        "admitted_words": 9439488,
+        "transmitted_words": 9439488,
+        "delivered_words": 9439488,
+        "sent_bits": 2416508928,
+        "every_slot_conserved": true,
+        "frozen_residence": true
+      }
+    },
+    {
+      "case": "batch2",
+      "index": 2,
+      "read_bytes": 302063616,
+      "delivered_words": 9439488,
+      "makespan_slots": 46100,
+      "result_sha256": "2ed3fdda9d1abd5b1c650b6ce4ce68a30143ecd581d8c59ba31d669b3d0daa78",
+      "delivery_sha256": "9ee306fcac0ffbfadae6a2a743c2a0a6605dc89af5135f8987affb335a5ed183",
+      "audit": {
+        "issued_words": 9439488,
+        "admitted_words": 9439488,
+        "transmitted_words": 9439488,
+        "delivered_words": 9439488,
+        "sent_bits": 2416508928,
+        "every_slot_conserved": true,
+        "frozen_residence": true
+      }
+    },
+    {
+      "case": "batch2",
+      "index": 4,
+      "read_bytes": 302063616,
+      "delivered_words": 9439488,
+      "makespan_slots": 50117,
+      "result_sha256": "1f15a6beda67ff1f93998b2d413e04753d8f0de6765598cfb8f9d4f5b9841f25",
+      "delivery_sha256": "6cb037c7fe678c283fad9bc8321d6c56035962fb4e81540aef3efb475fb0f3e3",
+      "audit": {
+        "issued_words": 9439488,
+        "admitted_words": 9439488,
+        "transmitted_words": 9439488,
+        "delivered_words": 9439488,
+        "sent_bits": 2416508928,
+        "every_slot_conserved": true,
+        "frozen_residence": true
+      }
+    },
+    {
+      "case": "batch2",
+      "index": 6,
+      "read_bytes": 302063616,
+      "delivered_words": 9439488,
+      "makespan_slots": 50117,
+      "result_sha256": "aafb5c526f5a1704e07a9486b09f57311041d477104e9726853d29fbfdb8b8bd",
+      "delivery_sha256": "6cb037c7fe678c283fad9bc8321d6c56035962fb4e81540aef3efb475fb0f3e3",
+      "audit": {
+        "issued_words": 9439488,
+        "admitted_words": 9439488,
+        "transmitted_words": 9439488,
+        "delivered_words": 9439488,
+        "sent_bits": 2416508928,
+        "every_slot_conserved": true,
+        "frozen_residence": true
+      }
+    }
+  ]
+}

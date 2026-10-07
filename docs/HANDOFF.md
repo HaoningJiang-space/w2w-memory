@@ -1,5 +1,12 @@
 # 开发交接：Wafer-scale Memory Service Fabric
 
+**2026-10-07 输入闭环扩展：服务器直接取得 256 个独立真实 requests（849 MB）。**
+新 CPU 工作区 `hn072@143.89.78.72:/Projects/haoning/w2w-trace-20261007`，无需 GPU。
+批量分析覆盖 batch=1–128；完整权重的 batch1/batch2 读窗口连接到 endpoint/HB/RX 回放。
+见[本轮结果、正确性与复现](reports/PATTERNS_BATCH_STUDY_REPORT.md)及[固定研究协议](methods/PATTERNS_BATCH_STUDY.md)。
+低 batch 有空间空闲，但固定伙伴的互补大部分由稀疏性解释；大 batch 复用提高、共享机会降低。
+原始 routing 保留服务器，不进 Git；下面单 request 记录为此前阶段，不再代表最新覆盖范围。
+
 **2026-10-07 输入侧新增：真实 Patterns Behind Chaos 路由适配器。**
 已通过授权原站取得一个 Qwen3/MMLU request（2.51 MiB），Git blob身份与SHA256核对通过；
 94层、128 decode步格式验证，单层4步转换成冻结专家权重需求并投影到七个既有设计。

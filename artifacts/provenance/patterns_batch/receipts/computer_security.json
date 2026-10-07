@@ -1,0 +1,435 @@
+{
+  "endpoint": "https://huggingface.co",
+  "repository": "core12345/MoE_expert_selection_trace",
+  "prefix": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security",
+  "max_files": 32,
+  "max_file_bytes": 33554432,
+  "max_total_bytes": 1500000000,
+  "selection": "seeded",
+  "seed": 20261007,
+  "downloaded": [
+    {
+      "path": "request0.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1534.json",
+      "sha256": "7a8e3cc4dc869a48b75a4e9a5c0edb066166902e69252335cbdc9a703b1b1a70",
+      "git_blob_oid": "6f66cf55785bbeb74c38f9c4065dfb82e45bc90e",
+      "bytes": 2929315
+    },
+    {
+      "path": "request1.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1490.json",
+      "sha256": "e22faf41cb4243fec6ff7bbdacc62e56b260c8ff9fb7bc066dc734b5cd7316fb",
+      "git_blob_oid": "4fd1fbf3980e7cc5273f64d88706947de57fc093",
+      "bytes": 2823306
+    },
+    {
+      "path": "request2.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1515.json",
+      "sha256": "ae1f959b82c1c41c69d47664e41de9948f60060fa59d43981ebff7a1c5730278",
+      "git_blob_oid": "2e96fe1742209c0588255b9c0255c78fff8f4d96",
+      "bytes": 3086903
+    },
+    {
+      "path": "request3.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1547.json",
+      "sha256": "33d60fe2313f8f970b2c426688cd9f34272bf9f2de3c32208bc90afb6708205d",
+      "git_blob_oid": "b133de820756b0d1883b11079fa71327b8fe2b2a",
+      "bytes": 3318453
+    },
+    {
+      "path": "request4.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1533.json",
+      "sha256": "9571d964ba979e3e62ce11e0dd15fa2a4def62d1eeabb2a0ac47111103041adb",
+      "git_blob_oid": "d11a04883cb097a9355413cc16bd52668f8ce2a6",
+      "bytes": 4260104
+    },
+    {
+      "path": "request5.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1568.json",
+      "sha256": "e83daeb513e220a6eb7d600aab4a531190276a07b5714bc4e187d19037601699",
+      "git_blob_oid": "cd691c5fbf4c4a84fb101b8f8a67a0681f7a1e31",
+      "bytes": 2716609
+    },
+    {
+      "path": "request6.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1496.json",
+      "sha256": "0b15b406b9bd62a42521b7f52c4afc2aa9d8d5864de554f2f751e41c5e8ea496",
+      "git_blob_oid": "4ca5d7ff0076b047c9784f5c9961d26ce455e2bc",
+      "bytes": 3037044
+    },
+    {
+      "path": "request7.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1536.json",
+      "sha256": "45fcde8588f880c33140029ef82986094ea023f059d637e9d6ce162658bd73b9",
+      "git_blob_oid": "457d5f849cedfdbbed846671891a2a9219e6dec3",
+      "bytes": 3800108
+    },
+    {
+      "path": "request8.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1517.json",
+      "sha256": "c89f139c014c8eaf0f2654cc0342fe896a92012d42d43ce238e2c0b69d60c633",
+      "git_blob_oid": "81fea77af43a743aace8dc8511620de259cf97de",
+      "bytes": 3054898
+    },
+    {
+      "path": "request9.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1481.json",
+      "sha256": "ba3242067aee6553aac587472e22f9c33ac325f40cda80af91eb97f51db91bf5",
+      "git_blob_oid": "26511103c67d549979e5226563c724f14a6f692e",
+      "bytes": 2644223
+    },
+    {
+      "path": "request10.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1519.json",
+      "sha256": "d6a243a25ffa92384425998dc59e6aeb4b4571b23df054b5ee189de2c6e72785",
+      "git_blob_oid": "02557678c832c6bf8007320d111963e29434e8c4",
+      "bytes": 2645621
+    },
+    {
+      "path": "request11.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1488.json",
+      "sha256": "5de4792fcd96b01bfc01ff8608c6d62dd6925226265a0009be3c865ebccd908a",
+      "git_blob_oid": "20623a578ad97f5db9be9013d812ebc00beadb4a",
+      "bytes": 2644301
+    },
+    {
+      "path": "request12.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1545.json",
+      "sha256": "210de434f476d0afbd4c86b7f3e40e8b52f77d490dce664fce422db313613716",
+      "git_blob_oid": "6243fa59271d9a1ad7ebe9b6c982cf4d329dbda8",
+      "bytes": 2626079
+    },
+    {
+      "path": "request13.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1471.json",
+      "sha256": "fe070667f3e5304da8addbc76ca93985efbb9291a14bfdfbfdf9df2e6ed9a097",
+      "git_blob_oid": "a69181445e055d2fd0115240f9704f1ba58e4228",
+      "bytes": 2945273
+    },
+    {
+      "path": "request14.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1487.json",
+      "sha256": "8f0654b7b99f5c4f0b9bb7ae94217964ab822144ce0f50671330a3c3acf72d18",
+      "git_blob_oid": "f6806821f47adfd13b3e0fcad00ba13e6017c922",
+      "bytes": 2767657
+    },
+    {
+      "path": "request15.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1512.json",
+      "sha256": "358d52f1f83f16f330f9fbc343f6e6670de2c5c0515b151dedd118f91d9d085c",
+      "git_blob_oid": "758873d91a0ce3250806382256159944e133d8b2",
+      "bytes": 3071006
+    },
+    {
+      "path": "request16.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1529.json",
+      "sha256": "287e029c2ccc859a3a4f0b58fc96a84bcd204c4cdeda89744b613f934b48d5b5",
+      "git_blob_oid": "058b4c25d60d63466a835cd4ece23caacbec77a1",
+      "bytes": 2859248
+    },
+    {
+      "path": "request17.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1567.json",
+      "sha256": "a71b2b268c33dc6c304f0ef717624e7a9f8e06b6031a76822f3bc06f2786b930",
+      "git_blob_oid": "2b8394d8d04fd78c45e691451a91264fa08cd79c",
+      "bytes": 2715235
+    },
+    {
+      "path": "request18.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1497.json",
+      "sha256": "ac162b239c80d13dd6fb69d2cb0223aad39e8fa6eed7f8433b5c98ec5f1e22a9",
+      "git_blob_oid": "7a458697b4e02fddd85710d0dfed0455683e541f",
+      "bytes": 2927365
+    },
+    {
+      "path": "request19.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1531.json",
+      "sha256": "c25587f162e766cf15401d474543a40754ecab3436d8980bcc5989e1b1b7155e",
+      "git_blob_oid": "e93a5d0112c5ecfea39af5e06dc8e76e2352a057",
+      "bytes": 2820101
+    },
+    {
+      "path": "request20.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1506.json",
+      "sha256": "0232e016d58294b381603823ca30cb84d54a16367346b2037c6d9266c3064acd",
+      "git_blob_oid": "381450f2d30cea313b3769962ec9562cf84b829c",
+      "bytes": 2750960
+    },
+    {
+      "path": "request21.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1514.json",
+      "sha256": "05969d700f55b0784b8afa806b56a727ed9f0ba8394be779bdd05acf23e3fc54",
+      "git_blob_oid": "faddc5aa2e0fa4913c7ac26bbbddbfe457c25f0c",
+      "bytes": 2697590
+    },
+    {
+      "path": "request22.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1524.json",
+      "sha256": "d780856366d3e40bb3e424b6de5a2289b813ff2a4e9632f941d25b214a69f606",
+      "git_blob_oid": "95b2d0cb9440f03bafd8c91c34d39e050cfe5073",
+      "bytes": 2787491
+    },
+    {
+      "path": "request23.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1494.json",
+      "sha256": "5ebb9d028d1fbbbe37c49d81bfbe2c8bc14f825def20ca30e039c44f032f1332",
+      "git_blob_oid": "d31bd0beab113e374d1f2e2a47350d7d1b7b07a5",
+      "bytes": 2822537
+    },
+    {
+      "path": "request24.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1548.json",
+      "sha256": "dbf206aeebfba0b040a4e76ad89149e9c4cc2b339ee9cee980b7a6e4bfc3c23e",
+      "git_blob_oid": "3fc76bf604fbe10c958ca37b0565f9958056b23c",
+      "bytes": 3179437
+    },
+    {
+      "path": "request25.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1489.json",
+      "sha256": "14177893fa932e506837667614e88904b0d04e2dddbea91d7ec5b27c1910861b",
+      "git_blob_oid": "a1b7569f60f1bccc97f0179f49a61cce218c6be8",
+      "bytes": 2679128
+    },
+    {
+      "path": "request26.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1521.json",
+      "sha256": "ca38dec4e3ccc198ef26c7d381e16a815e16fe158b31d518e286399087a95d85",
+      "git_blob_oid": "0b5df921d36b23aa16ae8d131739c1dff7da323b",
+      "bytes": 2892665
+    },
+    {
+      "path": "request27.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1505.json",
+      "sha256": "7260b89294b2270472f72543bea7a45e0855da358a55f863e2c80119a8b6c1eb",
+      "git_blob_oid": "06e25971a733e9e84c2b5f4845e91618871cf449",
+      "bytes": 2644546
+    },
+    {
+      "path": "request28.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1552.json",
+      "sha256": "69d77414d7dca4a8401b921335bfca56ea776ffd03d098e914d1b9a744ab38e5",
+      "git_blob_oid": "4f6066540613c50e0d25160641629174c2b993e1",
+      "bytes": 2734654
+    },
+    {
+      "path": "request29.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1569.json",
+      "sha256": "50724a4fe165358e6677df99f8b30a0b2c8a2ce637389540540b4a5bc93c4971",
+      "git_blob_oid": "fd084755a5f63e9f909f1774308327d1c2fabab0",
+      "bytes": 2857848
+    },
+    {
+      "path": "request30.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1566.json",
+      "sha256": "9c3fa5c178f86399f82c187a2ff9b698ddeea912f3138734e7fa598526ff2a89",
+      "git_blob_oid": "682104660dcd2fccc5c53a8569e8dce209ee68a7",
+      "bytes": 2698336
+    },
+    {
+      "path": "request31.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1486.json",
+      "sha256": "ce04ee8b2edefe615d31e67e832853ca972446b494f712fd649c8dc8c3bc19f9",
+      "git_blob_oid": "fc3996700c0ddec291693261f1f679f445477a62",
+      "bytes": 2876824
+    }
+  ],
+  "revision": "27febb7b2d24169560a9f6f83d38eb53f94916cf",
+  "listed_json_files": 100,
+  "excluded_by_file_cap": 0,
+  "selection_scope": "seeded selection within first nonrecursive directory page; not a whole-dataset sample",
+  "planned": [
+    {
+      "type": "file",
+      "oid": "6f66cf55785bbeb74c38f9c4065dfb82e45bc90e",
+      "size": 2929315,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1534.json"
+    },
+    {
+      "type": "file",
+      "oid": "4fd1fbf3980e7cc5273f64d88706947de57fc093",
+      "size": 2823306,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1490.json"
+    },
+    {
+      "type": "file",
+      "oid": "2e96fe1742209c0588255b9c0255c78fff8f4d96",
+      "size": 3086903,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1515.json"
+    },
+    {
+      "type": "file",
+      "oid": "b133de820756b0d1883b11079fa71327b8fe2b2a",
+      "size": 3318453,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1547.json"
+    },
+    {
+      "type": "file",
+      "oid": "d11a04883cb097a9355413cc16bd52668f8ce2a6",
+      "size": 4260104,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1533.json"
+    },
+    {
+      "type": "file",
+      "oid": "cd691c5fbf4c4a84fb101b8f8a67a0681f7a1e31",
+      "size": 2716609,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1568.json"
+    },
+    {
+      "type": "file",
+      "oid": "4ca5d7ff0076b047c9784f5c9961d26ce455e2bc",
+      "size": 3037044,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1496.json"
+    },
+    {
+      "type": "file",
+      "oid": "457d5f849cedfdbbed846671891a2a9219e6dec3",
+      "size": 3800108,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1536.json"
+    },
+    {
+      "type": "file",
+      "oid": "81fea77af43a743aace8dc8511620de259cf97de",
+      "size": 3054898,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1517.json"
+    },
+    {
+      "type": "file",
+      "oid": "26511103c67d549979e5226563c724f14a6f692e",
+      "size": 2644223,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1481.json"
+    },
+    {
+      "type": "file",
+      "oid": "02557678c832c6bf8007320d111963e29434e8c4",
+      "size": 2645621,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1519.json"
+    },
+    {
+      "type": "file",
+      "oid": "20623a578ad97f5db9be9013d812ebc00beadb4a",
+      "size": 2644301,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1488.json"
+    },
+    {
+      "type": "file",
+      "oid": "6243fa59271d9a1ad7ebe9b6c982cf4d329dbda8",
+      "size": 2626079,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1545.json"
+    },
+    {
+      "type": "file",
+      "oid": "a69181445e055d2fd0115240f9704f1ba58e4228",
+      "size": 2945273,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1471.json"
+    },
+    {
+      "type": "file",
+      "oid": "f6806821f47adfd13b3e0fcad00ba13e6017c922",
+      "size": 2767657,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1487.json"
+    },
+    {
+      "type": "file",
+      "oid": "758873d91a0ce3250806382256159944e133d8b2",
+      "size": 3071006,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1512.json"
+    },
+    {
+      "type": "file",
+      "oid": "058b4c25d60d63466a835cd4ece23caacbec77a1",
+      "size": 2859248,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1529.json"
+    },
+    {
+      "type": "file",
+      "oid": "2b8394d8d04fd78c45e691451a91264fa08cd79c",
+      "size": 2715235,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1567.json"
+    },
+    {
+      "type": "file",
+      "oid": "7a458697b4e02fddd85710d0dfed0455683e541f",
+      "size": 2927365,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1497.json"
+    },
+    {
+      "type": "file",
+      "oid": "e93a5d0112c5ecfea39af5e06dc8e76e2352a057",
+      "size": 2820101,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1531.json"
+    },
+    {
+      "type": "file",
+      "oid": "381450f2d30cea313b3769962ec9562cf84b829c",
+      "size": 2750960,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1506.json"
+    },
+    {
+      "type": "file",
+      "oid": "faddc5aa2e0fa4913c7ac26bbbddbfe457c25f0c",
+      "size": 2697590,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1514.json"
+    },
+    {
+      "type": "file",
+      "oid": "95b2d0cb9440f03bafd8c91c34d39e050cfe5073",
+      "size": 2787491,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1524.json"
+    },
+    {
+      "type": "file",
+      "oid": "d31bd0beab113e374d1f2e2a47350d7d1b7b07a5",
+      "size": 2822537,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1494.json"
+    },
+    {
+      "type": "file",
+      "oid": "3fc76bf604fbe10c958ca37b0565f9958056b23c",
+      "size": 3179437,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1548.json"
+    },
+    {
+      "type": "file",
+      "oid": "a1b7569f60f1bccc97f0179f49a61cce218c6be8",
+      "size": 2679128,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1489.json"
+    },
+    {
+      "type": "file",
+      "oid": "0b5df921d36b23aa16ae8d131739c1dff7da323b",
+      "size": 2892665,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1521.json"
+    },
+    {
+      "type": "file",
+      "oid": "06e25971a733e9e84c2b5f4845e91618871cf449",
+      "size": 2644546,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1505.json"
+    },
+    {
+      "type": "file",
+      "oid": "4f6066540613c50e0d25160641629174c2b993e1",
+      "size": 2734654,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1552.json"
+    },
+    {
+      "type": "file",
+      "oid": "fd084755a5f63e9f909f1774308327d1c2fabab0",
+      "size": 2857848,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1569.json"
+    },
+    {
+      "type": "file",
+      "oid": "682104660dcd2fccc5c53a8569e8dce209ee68a7",
+      "size": 2698336,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1566.json"
+    },
+    {
+      "type": "file",
+      "oid": "fc3996700c0ddec291693261f1f679f445477a62",
+      "size": 2876824,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1486.json"
+    }
+  ],
+  "status": "downloaded; layer/model spec still required"
+}

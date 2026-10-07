@@ -1,0 +1,18 @@
+{
+  "compared": [
+    "plan",
+    "sources",
+    "frozen_pairs",
+    "results",
+    "subject_results",
+    "layer_results"
+  ],
+  "nonfloat_fields_exact": true,
+  "float_absolute_tolerance": 1e-12,
+  "float_relative_tolerance": 1e-12,
+  "float_differing_fields": 73,
+  "max_float_difference": 8.881784197001252e-16,
+  "local_source": "4bae38fb6ebae1b0ce3507189ee43a25bdcb3bd1",
+  "remote_source": "b7490e81c43bfc78ba1570cbaa7fdbe956037ac0",
+  "both_clean": true
+}

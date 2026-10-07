@@ -1,0 +1,20 @@
+{
+  "old_source": "0ba033bfcd2723d3b82102869e812c9481c21c0b",
+  "new_source": "b7490e81c43bfc78ba1570cbaa7fdbe956037ac0",
+  "old_trace_sha256": "19b38a5c12bcc8cfb3ef269106c9ca18aca255a1d9c55c4613a136690a2f0e82",
+  "new_trace_sha256": "f06da154a6f9bf447aa805960c136f81487b09a428c9fb5adc70dfabb155bf2e",
+  "trace_objects_tasks_and_config_equal": true,
+  "trace_identity_difference": "Only source manifest checksum differs because raw file paths in the manifest differ; execution spec checksum and all object/task fields are identical.",
+  "compared_fields": [
+    "index",
+    "id",
+    "makespan_slots",
+    "logical_bytes",
+    "audit",
+    "delivery_sha256",
+    "residence_sha256",
+    "stalls"
+  ],
+  "designs": 5,
+  "all_compared_fields_equal": true
+}

@@ -1,0 +1,435 @@
+{
+  "endpoint": "https://huggingface.co",
+  "repository": "core12345/MoE_expert_selection_trace",
+  "prefix": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics",
+  "max_files": 32,
+  "max_file_bytes": 33554432,
+  "max_total_bytes": 1500000000,
+  "selection": "seeded",
+  "seed": 20261007,
+  "downloaded": [
+    {
+      "path": "request0.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/408.json",
+      "sha256": "3bbcf81357320eeb53674983a27d4fec187b7b301e48f1f5fc69d156260606b0",
+      "git_blob_oid": "57b78385472c6505fb0611e471d0f607b199c92c",
+      "bytes": 3173533
+    },
+    {
+      "path": "request1.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/438.json",
+      "sha256": "fd6214b511a0616fc046ea7b2a5efd3b91dea61f36c114f8f4e05a9747d337bc",
+      "git_blob_oid": "c11eb05094a431e9d270ad3eb3c76252441ff7ad",
+      "bytes": 3444844
+    },
+    {
+      "path": "request2.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/398.json",
+      "sha256": "c4ef75345979498926e21ea8f4086bb05c4bc8a08b1e94c1bff7150635a17631",
+      "git_blob_oid": "56563da0550e7ebe59c71bd573719e11936f74a3",
+      "bytes": 3015299
+    },
+    {
+      "path": "request3.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/466.json",
+      "sha256": "569d60762f80090af611465c34da4fd63778cc01824d4eb7ac90a314a7ac5814",
+      "git_blob_oid": "770851b8faa500c1fcb226abf667f0e32fce4b42",
+      "bytes": 3141969
+    },
+    {
+      "path": "request4.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/452.json",
+      "sha256": "80ace3cde987bf46d582d01d6979945c80d604e3c14801b59e88f6d6e2d1530a",
+      "git_blob_oid": "643cd22a1bbada9271921a16cc77c7f7871cee38",
+      "bytes": 3123887
+    },
+    {
+      "path": "request5.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/419.json",
+      "sha256": "f7ce3e5876133f2500f07f356edaf73ad93b87fbfdcbc33c40b60decf6072b57",
+      "git_blob_oid": "d70555235cea53001a259698a3d61736e2d0b0be",
+      "bytes": 2661026
+    },
+    {
+      "path": "request6.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/464.json",
+      "sha256": "8c338b180f8d08218044b1067cbc2dded8cbbb6db3cd828c23f329f98ceb1573",
+      "git_blob_oid": "0547f3551ab3f0e8f1a903855ba4f917f81ce033",
+      "bytes": 2874707
+    },
+    {
+      "path": "request7.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/433.json",
+      "sha256": "31379c7e9881ad4f5b153af10ce641611526c1f2d13b45fadc5550b79cd06854",
+      "git_blob_oid": "0880eb2b529db2ec60ff3ac571a93a74f3164a67",
+      "bytes": 3408686
+    },
+    {
+      "path": "request8.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/410.json",
+      "sha256": "a4abc2b956bac97b9a68c20c378ca7606bc8f63c385dc9058de9d2e1f94ca676",
+      "git_blob_oid": "25d49ea9a35589fe03a158d4cf627238043e2b8c",
+      "bytes": 2890733
+    },
+    {
+      "path": "request9.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/470.json",
+      "sha256": "9ea5bc760833e32524533c79b00ea060c45d1d3387fd86d58053dd7759b1842f",
+      "git_blob_oid": "fcd8dca5d439622af0fd23e552bd4bc35645ef1b",
+      "bytes": 3389427
+    },
+    {
+      "path": "request10.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/442.json",
+      "sha256": "ccb100c1b060b2011bb371c6d71bf43bfa71e4fb6596d45afe1cf7dafcf99762",
+      "git_blob_oid": "1353aa3055d68cff33617b9a83a341d8e486476b",
+      "bytes": 2679788
+    },
+    {
+      "path": "request11.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/482.json",
+      "sha256": "30b381c57e471cfb9cf82a56b74386e4abc261c92d0b83a1dfc72ecbf49aec4e",
+      "git_blob_oid": "7a3fff9939f7270e9e6bdc8907f5a841b771d14a",
+      "bytes": 3194483
+    },
+    {
+      "path": "request12.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/460.json",
+      "sha256": "622eed28a876ba863fcba3953b647e7ba4db66d21261d3e830c0fd0179837558",
+      "git_blob_oid": "3cfea1743209a109dac8f93c628c8d4cb2abf297",
+      "bytes": 2925275
+    },
+    {
+      "path": "request13.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/476.json",
+      "sha256": "194621ce25a7c1e2ac2566b7abf8edb13a628c8871a79f009bb7b6061467ea6a",
+      "git_blob_oid": "351e113e948691085e673f8b6ea070a460196cec",
+      "bytes": 2925435
+    },
+    {
+      "path": "request14.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/420.json",
+      "sha256": "9e07f82de34664b4787bd1cfa87cbf8f239ee9b7c0810f7eda2c88e5eadc324f",
+      "git_blob_oid": "faf15103e568e87266bd4c68514c86c3c74e9c4f",
+      "bytes": 3355138
+    },
+    {
+      "path": "request15.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/415.json",
+      "sha256": "820a790ae8bb5e9f43787dc84ef239b09198e3968528b25f4b29f92310633171",
+      "git_blob_oid": "9a3294d254c00b21c2d8748ac1e9af67205d4611",
+      "bytes": 3264915
+    },
+    {
+      "path": "request16.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/469.json",
+      "sha256": "f69447a2a6ede2375934ad98e2e163150df0dd5921732854df39730c4b38cef9",
+      "git_blob_oid": "2377cd317d73a583ed38dd352cf842c28935fb58",
+      "bytes": 3017149
+    },
+    {
+      "path": "request17.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/441.json",
+      "sha256": "39fb620181e3246e28244c6313aa169097d6d3b6748611297211c03d1c2243f9",
+      "git_blob_oid": "c9e35e48594833d9c3dc15d1e5b09e5b71f31f11",
+      "bytes": 3016076
+    },
+    {
+      "path": "request18.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/477.json",
+      "sha256": "78fb160da1628d373a3f82a115aeca51b3e7d2e90710b0485b21b78d32dd93e6",
+      "git_blob_oid": "447a050d515e4e0f61fe12fecf0bfb130acc6b8a",
+      "bytes": 2750840
+    },
+    {
+      "path": "request19.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/425.json",
+      "sha256": "a5b87fa708684f278e56b983c1264dec173a840f410f724402e5b3ab72f411cf",
+      "git_blob_oid": "21edce0da21725d84d6c473929e8814cf1077af3",
+      "bytes": 2927158
+    },
+    {
+      "path": "request20.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/486.json",
+      "sha256": "3588d38f22aa9132121b7d7df104f8ee55b02e10196091aeacb25b2f64ce6b9a",
+      "git_blob_oid": "74ede61f78543a643c66935ea1a162d0ac213977",
+      "bytes": 2626233
+    },
+    {
+      "path": "request21.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/421.json",
+      "sha256": "c6c64bbc2d640934a425e64d8704b4c66d2068f7919d14b82bf9f069911b43ef",
+      "git_blob_oid": "c4b70199a00bcd0fdc8420fd041bb0ea3ee3594a",
+      "bytes": 2837488
+    },
+    {
+      "path": "request22.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/406.json",
+      "sha256": "4ecaa604fbc49db1e5709c893db37fac1039e62ed4a349e00766aa0760272946",
+      "git_blob_oid": "a5d94edaee57b8f46696fc772428418ad0ba6e7d",
+      "bytes": 2999184
+    },
+    {
+      "path": "request23.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/387.json",
+      "sha256": "aa61e213394cf6a2667f25f29832175ea488937703cba3c06796c48fc5b39534",
+      "git_blob_oid": "8f36741ae83d24904f494bf0363b8e5395a1d221",
+      "bytes": 3337415
+    },
+    {
+      "path": "request24.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/444.json",
+      "sha256": "4f18558296aba0d9be3e62596fbf0252ef8973c1fafc87bc77f535ed7ae6f02c",
+      "git_blob_oid": "91f60c2704b3b8d00d8e377b00bcd873e0d3eb52",
+      "bytes": 2946155
+    },
+    {
+      "path": "request25.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/472.json",
+      "sha256": "f1d14827d60382d97f17b4f6650c9aa41a940ec6a0a7e1a0f617049a7a42a548",
+      "git_blob_oid": "7f9b0e7c382a4d3a0ab40b741be09dea52f3146b",
+      "bytes": 3125212
+    },
+    {
+      "path": "request26.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/409.json",
+      "sha256": "7c2bc65ee6d6e64d5d3ab834637f876b989b9af5e088b89978022edeb362c4eb",
+      "git_blob_oid": "204df1fa5bdf9276327e5961e27802a4698c6170",
+      "bytes": 3245903
+    },
+    {
+      "path": "request27.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/393.json",
+      "sha256": "ef3fa258a5f80f6b0265b20e3074097532524fad22f85a193e612264e7bd2d5a",
+      "git_blob_oid": "2cae8373d2faad79450dd58219dd5e18667fe145",
+      "bytes": 3019700
+    },
+    {
+      "path": "request28.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/453.json",
+      "sha256": "fdc70790756626ce288388ae932846e7c33def609a9156405e3645658a1de52b",
+      "git_blob_oid": "720ec11a077c6cf6c96969a30c16a58db0f7b9c8",
+      "bytes": 2715061
+    },
+    {
+      "path": "request29.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/389.json",
+      "sha256": "200e2a2272d508326d58b1b081bc12d819698665ec18a0eea739e9e3280de277",
+      "git_blob_oid": "bfe3b1d86c04d78255c998e6c7fb3f329a7cfd6e",
+      "bytes": 2927778
+    },
+    {
+      "path": "request30.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/434.json",
+      "sha256": "9cb1c464e225e63b4ede72ccbb4bd5dc313357479f4451aaabfa87e424137ffa",
+      "git_blob_oid": "792303db6d30b3e75179b37f986bee4c61a0440d",
+      "bytes": 3193437
+    },
+    {
+      "path": "request31.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/417.json",
+      "sha256": "25abb405030f58c46597dd453cd860351909bfc6bfd271f5a76f734834109b46",
+      "git_blob_oid": "b45652cfdc3120605230248f6027c4f57df86872",
+      "bytes": 3212355
+    }
+  ],
+  "revision": "27febb7b2d24169560a9f6f83d38eb53f94916cf",
+  "listed_json_files": 100,
+  "excluded_by_file_cap": 0,
+  "selection_scope": "seeded selection within first nonrecursive directory page; not a whole-dataset sample",
+  "planned": [
+    {
+      "type": "file",
+      "oid": "57b78385472c6505fb0611e471d0f607b199c92c",
+      "size": 3173533,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/408.json"
+    },
+    {
+      "type": "file",
+      "oid": "c11eb05094a431e9d270ad3eb3c76252441ff7ad",
+      "size": 3444844,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/438.json"
+    },
+    {
+      "type": "file",
+      "oid": "56563da0550e7ebe59c71bd573719e11936f74a3",
+      "size": 3015299,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/398.json"
+    },
+    {
+      "type": "file",
+      "oid": "770851b8faa500c1fcb226abf667f0e32fce4b42",
+      "size": 3141969,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/466.json"
+    },
+    {
+      "type": "file",
+      "oid": "643cd22a1bbada9271921a16cc77c7f7871cee38",
+      "size": 3123887,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/452.json"
+    },
+    {
+      "type": "file",
+      "oid": "d70555235cea53001a259698a3d61736e2d0b0be",
+      "size": 2661026,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/419.json"
+    },
+    {
+      "type": "file",
+      "oid": "0547f3551ab3f0e8f1a903855ba4f917f81ce033",
+      "size": 2874707,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/464.json"
+    },
+    {
+      "type": "file",
+      "oid": "0880eb2b529db2ec60ff3ac571a93a74f3164a67",
+      "size": 3408686,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/433.json"
+    },
+    {
+      "type": "file",
+      "oid": "25d49ea9a35589fe03a158d4cf627238043e2b8c",
+      "size": 2890733,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/410.json"
+    },
+    {
+      "type": "file",
+      "oid": "fcd8dca5d439622af0fd23e552bd4bc35645ef1b",
+      "size": 3389427,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/470.json"
+    },
+    {
+      "type": "file",
+      "oid": "1353aa3055d68cff33617b9a83a341d8e486476b",
+      "size": 2679788,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/442.json"
+    },
+    {
+      "type": "file",
+      "oid": "7a3fff9939f7270e9e6bdc8907f5a841b771d14a",
+      "size": 3194483,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/482.json"
+    },
+    {
+      "type": "file",
+      "oid": "3cfea1743209a109dac8f93c628c8d4cb2abf297",
+      "size": 2925275,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/460.json"
+    },
+    {
+      "type": "file",
+      "oid": "351e113e948691085e673f8b6ea070a460196cec",
+      "size": 2925435,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/476.json"
+    },
+    {
+      "type": "file",
+      "oid": "faf15103e568e87266bd4c68514c86c3c74e9c4f",
+      "size": 3355138,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/420.json"
+    },
+    {
+      "type": "file",
+      "oid": "9a3294d254c00b21c2d8748ac1e9af67205d4611",
+      "size": 3264915,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/415.json"
+    },
+    {
+      "type": "file",
+      "oid": "2377cd317d73a583ed38dd352cf842c28935fb58",
+      "size": 3017149,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/469.json"
+    },
+    {
+      "type": "file",
+      "oid": "c9e35e48594833d9c3dc15d1e5b09e5b71f31f11",
+      "size": 3016076,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/441.json"
+    },
+    {
+      "type": "file",
+      "oid": "447a050d515e4e0f61fe12fecf0bfb130acc6b8a",
+      "size": 2750840,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/477.json"
+    },
+    {
+      "type": "file",
+      "oid": "21edce0da21725d84d6c473929e8814cf1077af3",
+      "size": 2927158,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/425.json"
+    },
+    {
+      "type": "file",
+      "oid": "74ede61f78543a643c66935ea1a162d0ac213977",
+      "size": 2626233,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/486.json"
+    },
+    {
+      "type": "file",
+      "oid": "c4b70199a00bcd0fdc8420fd041bb0ea3ee3594a",
+      "size": 2837488,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/421.json"
+    },
+    {
+      "type": "file",
+      "oid": "a5d94edaee57b8f46696fc772428418ad0ba6e7d",
+      "size": 2999184,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/406.json"
+    },
+    {
+      "type": "file",
+      "oid": "8f36741ae83d24904f494bf0363b8e5395a1d221",
+      "size": 3337415,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/387.json"
+    },
+    {
+      "type": "file",
+      "oid": "91f60c2704b3b8d00d8e377b00bcd873e0d3eb52",
+      "size": 2946155,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/444.json"
+    },
+    {
+      "type": "file",
+      "oid": "7f9b0e7c382a4d3a0ab40b741be09dea52f3146b",
+      "size": 3125212,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/472.json"
+    },
+    {
+      "type": "file",
+      "oid": "204df1fa5bdf9276327e5961e27802a4698c6170",
+      "size": 3245903,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/409.json"
+    },
+    {
+      "type": "file",
+      "oid": "2cae8373d2faad79450dd58219dd5e18667fe145",
+      "size": 3019700,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/393.json"
+    },
+    {
+      "type": "file",
+      "oid": "720ec11a077c6cf6c96969a30c16a58db0f7b9c8",
+      "size": 2715061,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/453.json"
+    },
+    {
+      "type": "file",
+      "oid": "bfe3b1d86c04d78255c998e6c7fb3f329a7cfd6e",
+      "size": 2927778,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/389.json"
+    },
+    {
+      "type": "file",
+      "oid": "792303db6d30b3e75179b37f986bee4c61a0440d",
+      "size": 3193437,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/434.json"
+    },
+    {
+      "type": "file",
+      "oid": "b45652cfdc3120605230248f6027c4f57df86872",
+      "size": 3212355,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/417.json"
+    }
+  ],
+  "status": "downloaded; layer/model spec still required"
+}

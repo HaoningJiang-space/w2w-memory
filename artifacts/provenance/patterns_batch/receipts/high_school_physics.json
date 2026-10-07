@@ -1,0 +1,435 @@
+{
+  "endpoint": "https://huggingface.co",
+  "repository": "core12345/MoE_expert_selection_trace",
+  "prefix": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics",
+  "max_files": 32,
+  "max_file_bytes": 33554432,
+  "max_total_bytes": 1500000000,
+  "selection": "seeded",
+  "seed": 20261007,
+  "downloaded": [
+    {
+      "path": "request0.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4741.json",
+      "sha256": "d56e322aeed683f5e3b63835a52f9fcf43edf4bb4b7e4fd0e5075ed069856c55",
+      "git_blob_oid": "b6967a375c5e519f4cf8d11239ac0c586c6b4aee",
+      "bytes": 3337237
+    },
+    {
+      "path": "request1.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4850.json",
+      "sha256": "7a0f0c29cadd8f0f91a505596bb881c86dfefdbbf40271ed10d53bef650085a1",
+      "git_blob_oid": "3120ab217eeaf0088fa8fd4f5b67987c3cd35865",
+      "bytes": 3017700
+    },
+    {
+      "path": "request2.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4739.json",
+      "sha256": "38bfb5961a59360b0453dfb7e3ccd5f9a5b612c75967219698d57409db6a407d",
+      "git_blob_oid": "bfb19379ba7d4dd1f64535d13066fd5c20d07dd7",
+      "bytes": 3641081
+    },
+    {
+      "path": "request3.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4805.json",
+      "sha256": "9d1e7709302fe10b23df6cf52e4918888acc03b4a61a9f1affec3f44c9de1e77",
+      "git_blob_oid": "f0582bf4797821a6dfcab5722a4b29a3fec19d92",
+      "bytes": 3836186
+    },
+    {
+      "path": "request4.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4791.json",
+      "sha256": "f3a1b74b8e6bc45569bcf855a1cdb9360ed235e204ca2c0accff7db41398030f",
+      "git_blob_oid": "e0e8eed5e11e81f45c58db92b9ee9004624518ed",
+      "bytes": 3091073
+    },
+    {
+      "path": "request5.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4792.json",
+      "sha256": "22b47df58cf70d67edc4b0b8fee316d4c4ec1b9261da33ceae9757417b445197",
+      "git_blob_oid": "145cabef20047405d47cfdb3bfc3192893e6ce42",
+      "bytes": 4086339
+    },
+    {
+      "path": "request6.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4750.json",
+      "sha256": "5c95e292b4e898aa3656d30bb59c7670cc90f13e14ce0d9c3481f1f2a20db4e7",
+      "git_blob_oid": "713951c2f1f2826e6eb92e6be9f4af156b57e23a",
+      "bytes": 3285467
+    },
+    {
+      "path": "request7.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4862.json",
+      "sha256": "40ab9589e3a63697dc0f3d9c6ca15e9050ff418539e443d06f08790370cd860d",
+      "git_blob_oid": "456467801674f5ed9f871bd914a865b38b6d5c38",
+      "bytes": 3355741
+    },
+    {
+      "path": "request8.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4812.json",
+      "sha256": "177c729319181da74c7b0d2988d17963888cdeedaf2877339f440932f084bc5b",
+      "git_blob_oid": "7adc96c1cb73f51b5cea5a56dbe3f92eae8a1038",
+      "bytes": 3853439
+    },
+    {
+      "path": "request9.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4765.json",
+      "sha256": "30a3040e6bae3d54e8fc63b6f71b50fd571b3a7372c0e8cd8f6f04d3d3f22bcb",
+      "git_blob_oid": "4a241e4391b79ae8b235689797aafde81a879f2a",
+      "bytes": 3053746
+    },
+    {
+      "path": "request10.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4754.json",
+      "sha256": "1f0b50e876b8db946c7b2cbc1149500ef575d5a975ef479266b1c12e02027f72",
+      "git_blob_oid": "43ce3060d8f28e2539f136e3b20a0f8d4061dd59",
+      "bytes": 3159723
+    },
+    {
+      "path": "request11.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4823.json",
+      "sha256": "a838be4f17de2c81683a8a45b3c6eb019af73225b91bc24807179a17fe8f0d57",
+      "git_blob_oid": "68b467c8f8c348f3e2d84397da72d11fb091f02b",
+      "bytes": 3620773
+    },
+    {
+      "path": "request12.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4822.json",
+      "sha256": "595b15308fcc00be58cbda697e1ea2bdc15dad4cfeb89eef4f759d9b65fa8a10",
+      "git_blob_oid": "fa34333f96dd64ce9ad9f2d549489e640eca9259",
+      "bytes": 3071717
+    },
+    {
+      "path": "request13.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4866.json",
+      "sha256": "dad4d959d1b76558b48dfab6dfcd812e22da7afb12f3128cc763cf661ca38f54",
+      "git_blob_oid": "429a939bc336b2d35dca934ab8915ef6aad70a2a",
+      "bytes": 3568661
+    },
+    {
+      "path": "request14.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4819.json",
+      "sha256": "0c559f7a882f353ce002a2d8c1b6c17b805722957d4d4e5032d8d8b87b2f42df",
+      "git_blob_oid": "d21313882d93e1590077c104720504d7b3b0a67c",
+      "bytes": 2964232
+    },
+    {
+      "path": "request15.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4815.json",
+      "sha256": "542f860ee862853abd260e8a59c88a5e032c81517d2ff0e072179a80c8f9b7fa",
+      "git_blob_oid": "18b2d81ad946f048d19dffe412bcd2e5e75b93bd",
+      "bytes": 3321743
+    },
+    {
+      "path": "request16.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4769.json",
+      "sha256": "0859384e60d94278759ba33b41ae22fc92cc7083057c1c79d5444d886ea97388",
+      "git_blob_oid": "63d41463757b9cf2ffd0f89737f6bd2c3287da3c",
+      "bytes": 3194650
+    },
+    {
+      "path": "request17.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4828.json",
+      "sha256": "fd2e1ae0d2db4a8b766f01b3671d3ea21fc99e3c380b870b1383c08d97fd0287",
+      "git_blob_oid": "2f90a889c6bb3ba0fb8311524c76a17991c351e8",
+      "bytes": 3500413
+    },
+    {
+      "path": "request18.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4884.json",
+      "sha256": "1bcc47b07fb16e6e92c1ed3f81ab26e9feef23bc74d38e59da07af74e74b2efd",
+      "git_blob_oid": "8cebf2f431d44ebc557a58495d42529d4eee6076",
+      "bytes": 3338391
+    },
+    {
+      "path": "request19.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4785.json",
+      "sha256": "b7b39e6fc93dd83009debb0d1842e7908741903ec79167bbcc0a49a4afea56cc",
+      "git_blob_oid": "39e0d0833752c01960eabef49516a179018cbc22",
+      "bytes": 3480700
+    },
+    {
+      "path": "request20.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4799.json",
+      "sha256": "f34753460a8d39a913746e72933b5e331fae8df014822e86dd0abd7650e02b71",
+      "git_blob_oid": "9b3be5810ef8c7452417f60ceb44137e62044fa9",
+      "bytes": 3213821
+    },
+    {
+      "path": "request21.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4787.json",
+      "sha256": "5adce1161325142523e3fb709ecc2d5cc50edbf395d4e9d6b64cf58e4a80cc94",
+      "git_blob_oid": "e66d66f58470568d105d0ba964deddd317b64b47",
+      "bytes": 3443913
+    },
+    {
+      "path": "request22.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4861.json",
+      "sha256": "aa8ecd58814f6bec9ac55196e5ecf4ddaf31cf7b98ea1f28876f205e5e05f136",
+      "git_blob_oid": "07353e7e7d246c113150f7443845db53113b82bb",
+      "bytes": 4049203
+    },
+    {
+      "path": "request23.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4795.json",
+      "sha256": "3a7020575f4d9f1b82a449087ab7d3324ebbb41b274bf86625114dc2e5f35ac4",
+      "git_blob_oid": "561da76a99b667dfd0273e51b3b9012e8405bee9",
+      "bytes": 3427680
+    },
+    {
+      "path": "request24.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4814.json",
+      "sha256": "6d7bb75c3eca0f8ac2f153ca7980419c863cade69b85e2c527a24bd02d4a3f23",
+      "git_blob_oid": "db981c1cc2446bda184be67b5109178d6d9a38dc",
+      "bytes": 3762239
+    },
+    {
+      "path": "request25.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4831.json",
+      "sha256": "3378d9e6d58d6e03c72ee8371994a8bfef04897f992d097bdcccc22025d80e9a",
+      "git_blob_oid": "76dbf27f585102befe44d74386a2b690012bfb99",
+      "bytes": 3249845
+    },
+    {
+      "path": "request26.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4747.json",
+      "sha256": "a0e805281d224697573de00f93b2bdeb5a7cff8381758ac54ce77fc90458e5d9",
+      "git_blob_oid": "8e3f94dcd2b671776169c59e055fcc5a763f322b",
+      "bytes": 3904384
+    },
+    {
+      "path": "request27.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4870.json",
+      "sha256": "dcf58e67d02c19c7a92b3066b1db14a840396a9b8c29628dd2411bd863fa1e99",
+      "git_blob_oid": "7f8d33fe63c27df0b97fba2bf3d6ee474117e4ad",
+      "bytes": 3142227
+    },
+    {
+      "path": "request28.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4796.json",
+      "sha256": "127065b785064a0c1003b25d974895c9fc2e12efd71c53d6cc16e25430d27133",
+      "git_blob_oid": "bb0d49ec870db4a32ae79d3fb0822c1197316b84",
+      "bytes": 3498545
+    },
+    {
+      "path": "request29.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4775.json",
+      "sha256": "261bd5bd59472277d0c2f0a886583610ea21b665e70d33659902514419a3a9f4",
+      "git_blob_oid": "78a43e6a28a8c8992d74736eadcd728c88be5ffe",
+      "bytes": 2877556
+    },
+    {
+      "path": "request30.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4755.json",
+      "sha256": "892a7a470244f3ca8b9e9ccfbf17f88360deb2cf457bc4f1efada8afc13e7b7c",
+      "git_blob_oid": "2823c60c379caef4f5028af20926b367f114f079",
+      "bytes": 3639665
+    },
+    {
+      "path": "request31.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4811.json",
+      "sha256": "b9247914b57a5e3ed3c180450fcc60c1b460f29d55cf4534f06abd32bf69b911",
+      "git_blob_oid": "c31c05e039ca552f71b56822d2aa7b131a541b9e",
+      "bytes": 2893726
+    }
+  ],
+  "revision": "27febb7b2d24169560a9f6f83d38eb53f94916cf",
+  "listed_json_files": 151,
+  "excluded_by_file_cap": 0,
+  "selection_scope": "seeded selection within first nonrecursive directory page; not a whole-dataset sample",
+  "planned": [
+    {
+      "type": "file",
+      "oid": "b6967a375c5e519f4cf8d11239ac0c586c6b4aee",
+      "size": 3337237,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4741.json"
+    },
+    {
+      "type": "file",
+      "oid": "3120ab217eeaf0088fa8fd4f5b67987c3cd35865",
+      "size": 3017700,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4850.json"
+    },
+    {
+      "type": "file",
+      "oid": "bfb19379ba7d4dd1f64535d13066fd5c20d07dd7",
+      "size": 3641081,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4739.json"
+    },
+    {
+      "type": "file",
+      "oid": "f0582bf4797821a6dfcab5722a4b29a3fec19d92",
+      "size": 3836186,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4805.json"
+    },
+    {
+      "type": "file",
+      "oid": "e0e8eed5e11e81f45c58db92b9ee9004624518ed",
+      "size": 3091073,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4791.json"
+    },
+    {
+      "type": "file",
+      "oid": "145cabef20047405d47cfdb3bfc3192893e6ce42",
+      "size": 4086339,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4792.json"
+    },
+    {
+      "type": "file",
+      "oid": "713951c2f1f2826e6eb92e6be9f4af156b57e23a",
+      "size": 3285467,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4750.json"
+    },
+    {
+      "type": "file",
+      "oid": "456467801674f5ed9f871bd914a865b38b6d5c38",
+      "size": 3355741,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4862.json"
+    },
+    {
+      "type": "file",
+      "oid": "7adc96c1cb73f51b5cea5a56dbe3f92eae8a1038",
+      "size": 3853439,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4812.json"
+    },
+    {
+      "type": "file",
+      "oid": "4a241e4391b79ae8b235689797aafde81a879f2a",
+      "size": 3053746,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4765.json"
+    },
+    {
+      "type": "file",
+      "oid": "43ce3060d8f28e2539f136e3b20a0f8d4061dd59",
+      "size": 3159723,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4754.json"
+    },
+    {
+      "type": "file",
+      "oid": "68b467c8f8c348f3e2d84397da72d11fb091f02b",
+      "size": 3620773,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4823.json"
+    },
+    {
+      "type": "file",
+      "oid": "fa34333f96dd64ce9ad9f2d549489e640eca9259",
+      "size": 3071717,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4822.json"
+    },
+    {
+      "type": "file",
+      "oid": "429a939bc336b2d35dca934ab8915ef6aad70a2a",
+      "size": 3568661,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4866.json"
+    },
+    {
+      "type": "file",
+      "oid": "d21313882d93e1590077c104720504d7b3b0a67c",
+      "size": 2964232,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4819.json"
+    },
+    {
+      "type": "file",
+      "oid": "18b2d81ad946f048d19dffe412bcd2e5e75b93bd",
+      "size": 3321743,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4815.json"
+    },
+    {
+      "type": "file",
+      "oid": "63d41463757b9cf2ffd0f89737f6bd2c3287da3c",
+      "size": 3194650,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4769.json"
+    },
+    {
+      "type": "file",
+      "oid": "2f90a889c6bb3ba0fb8311524c76a17991c351e8",
+      "size": 3500413,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4828.json"
+    },
+    {
+      "type": "file",
+      "oid": "8cebf2f431d44ebc557a58495d42529d4eee6076",
+      "size": 3338391,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4884.json"
+    },
+    {
+      "type": "file",
+      "oid": "39e0d0833752c01960eabef49516a179018cbc22",
+      "size": 3480700,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4785.json"
+    },
+    {
+      "type": "file",
+      "oid": "9b3be5810ef8c7452417f60ceb44137e62044fa9",
+      "size": 3213821,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4799.json"
+    },
+    {
+      "type": "file",
+      "oid": "e66d66f58470568d105d0ba964deddd317b64b47",
+      "size": 3443913,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4787.json"
+    },
+    {
+      "type": "file",
+      "oid": "07353e7e7d246c113150f7443845db53113b82bb",
+      "size": 4049203,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4861.json"
+    },
+    {
+      "type": "file",
+      "oid": "561da76a99b667dfd0273e51b3b9012e8405bee9",
+      "size": 3427680,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4795.json"
+    },
+    {
+      "type": "file",
+      "oid": "db981c1cc2446bda184be67b5109178d6d9a38dc",
+      "size": 3762239,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4814.json"
+    },
+    {
+      "type": "file",
+      "oid": "76dbf27f585102befe44d74386a2b690012bfb99",
+      "size": 3249845,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4831.json"
+    },
+    {
+      "type": "file",
+      "oid": "8e3f94dcd2b671776169c59e055fcc5a763f322b",
+      "size": 3904384,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4747.json"
+    },
+    {
+      "type": "file",
+      "oid": "7f8d33fe63c27df0b97fba2bf3d6ee474117e4ad",
+      "size": 3142227,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4870.json"
+    },
+    {
+      "type": "file",
+      "oid": "bb0d49ec870db4a32ae79d3fb0822c1197316b84",
+      "size": 3498545,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4796.json"
+    },
+    {
+      "type": "file",
+      "oid": "78a43e6a28a8c8992d74736eadcd728c88be5ffe",
+      "size": 2877556,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4775.json"
+    },
+    {
+      "type": "file",
+      "oid": "2823c60c379caef4f5028af20926b367f114f079",
+      "size": 3639665,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4755.json"
+    },
+    {
+      "type": "file",
+      "oid": "c31c05e039ca552f71b56822d2aa7b131a541b9e",
+      "size": 2893726,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4811.json"
+    }
+  ],
+  "status": "downloaded; layer/model spec still required"
+}

@@ -1,0 +1,435 @@
+{
+  "endpoint": "https://huggingface.co",
+  "repository": "core12345/MoE_expert_selection_trace",
+  "prefix": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra",
+  "max_files": 32,
+  "max_file_bytes": 33554432,
+  "max_total_bytes": 1500000000,
+  "selection": "seeded",
+  "seed": 20261007,
+  "downloaded": [
+    {
+      "path": "request0.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/59.json",
+      "sha256": "500f15d6e4f628f7a7fc86379d51821ecfa14c041adbe142eec1a5dcd06bb0da",
+      "git_blob_oid": "f09867a7e7d3f1b7cc08239aa7e2a866eb108503",
+      "bytes": 3408360
+    },
+    {
+      "path": "request1.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/47.json",
+      "sha256": "9454f60ed9f533192f106ff0eb8cdbb3fbb94653c3c8c7764c90bfeb456e73f6",
+      "git_blob_oid": "d657881e1871966aed2f36d801217843f83ae4c6",
+      "bytes": 3071064
+    },
+    {
+      "path": "request2.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/89.json",
+      "sha256": "d715fa164ba0c60d14b787a6dd10f746a5fb6dc654696c70b1e14cb75d18f89c",
+      "git_blob_oid": "19701d167d272b7a63cc4334b9ffcd01dc554f2d",
+      "bytes": 3016224
+    },
+    {
+      "path": "request3.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/26.json",
+      "sha256": "39d11b4403a39411cf52611cbc1d0a63b9a286a46eaed219e75c8aa65fb0aca4",
+      "git_blob_oid": "d01914e7974c59ec3e514f4c73a67dfe12663881",
+      "bytes": 3212557
+    },
+    {
+      "path": "request4.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/44.json",
+      "sha256": "22bbe4be96ae3cec6aebd148c5ac17829017ce06e726cd9b0fca904aec69188c",
+      "git_blob_oid": "58347c0f9cf999f6a0086c22b1c41a79e7e9674c",
+      "bytes": 3674904
+    },
+    {
+      "path": "request5.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/77.json",
+      "sha256": "f4604cc5db3d4334bd9c53e2fcf4a9b5f513130c12c58c5e41c525f93ffe991f",
+      "git_blob_oid": "10ffd327ab42e3b278cf0f4738ae68e227a83337",
+      "bytes": 2646729
+    },
+    {
+      "path": "request6.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/40.json",
+      "sha256": "4e31cd3c2d34db190aff973cec64441d708e25288276f14e35af3a4d01e42705",
+      "git_blob_oid": "fbfd0da73e00bda84cbae84f1b6fa1082100869c",
+      "bytes": 3229354
+    },
+    {
+      "path": "request7.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/42.json",
+      "sha256": "1517e588c8b7078a5757e8fd6cded20b82dcffe864e7b8eceed2be28d35cdaa8",
+      "git_blob_oid": "76e0403ccbe3f8cd9a458c21bdce8d4369eea061",
+      "bytes": 3603931
+    },
+    {
+      "path": "request8.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/98.json",
+      "sha256": "0a9933a9207fd02d20dd2a66b67537dd2c48e7320d54a298b78fb6078b729dae",
+      "git_blob_oid": "e9e5841dd38a9f93bd08616646ff9b189b0f7bd3",
+      "bytes": 2911581
+    },
+    {
+      "path": "request9.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/39.json",
+      "sha256": "a59ace9073328d14062258aeb20c91d59fefe1516a4ddf1fad9135b1e753fdec",
+      "git_blob_oid": "f280619fa2d66fef2e84996f3bc6c76155f31c51",
+      "bytes": 2858070
+    },
+    {
+      "path": "request10.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/13.json",
+      "sha256": "2518e79a1c0335b2487e7affb0d758eccd8c17ae4d3747e9ab23ba75ad8dc4d4",
+      "git_blob_oid": "acdc95c590cc0c49edaa47f292696727467eed75",
+      "bytes": 3230958
+    },
+    {
+      "path": "request11.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/64.json",
+      "sha256": "da2a725c606b5b0a5a48bd091f42fa5603ed863b68e2fda32b005de5079c8d69",
+      "git_blob_oid": "c4ce86dec4fe1ac24cbac3e5805ba92ed415c577",
+      "bytes": 2857549
+    },
+    {
+      "path": "request12.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/5.json",
+      "sha256": "18a3b2616f818cdf1a95f8988abd4c34cab369d16c8dfd72345f688bc28bd4fc",
+      "git_blob_oid": "05f7971cb001727c45d2addaca13792d35d10751",
+      "bytes": 3639989
+    },
+    {
+      "path": "request13.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/38.json",
+      "sha256": "b505127ec81430a476a810b788a558eef7658e5e6b5489588b16b4bf373659f1",
+      "git_blob_oid": "3cdd7a3c71231dbb8b007e3a093fafca55712298",
+      "bytes": 2751087
+    },
+    {
+      "path": "request14.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/21.json",
+      "sha256": "fd639abd042c5e9ceefacb851f3abcf940b5fb9ce2058b9877036296ff56d91c",
+      "git_blob_oid": "bd09e813d5ef68c4d46bd8cd318bece5661d88fa",
+      "bytes": 3389578
+    },
+    {
+      "path": "request15.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/34.json",
+      "sha256": "9866e68c22cc089d76b98ff98a2a996ed58c86d755c3bd8288d7b80dd2023736",
+      "git_blob_oid": "2962181c0e1cc7734c74bf708d049f0f87afe394",
+      "bytes": 3692746
+    },
+    {
+      "path": "request16.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/91.json",
+      "sha256": "0c83938a306230f025930fa5a7e9718074f1afa821cc75f9ab863a592c9f923a",
+      "git_blob_oid": "583ca0df7927807f5eca79db8a67905de5e87830",
+      "bytes": 2822233
+    },
+    {
+      "path": "request17.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/55.json",
+      "sha256": "c05671807823ce17a1c07366b136fdec348f14991440f595c4013dd025b541c8",
+      "git_blob_oid": "7488cff35f358fa7c41763ff6ff7253728a949dd",
+      "bytes": 3141255
+    },
+    {
+      "path": "request18.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/63.json",
+      "sha256": "f46cee4308b0a946fb11cfd2775195d108249b3d7db84f0d35a87bbe0ec4cbca",
+      "git_blob_oid": "ec7627b8ecbf8ef287d72afed9215c5bd1b041db",
+      "bytes": 3211810
+    },
+    {
+      "path": "request19.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/35.json",
+      "sha256": "6d0c0b0c73a97aec8575c80c91081e7a926238e66ec48b99f2cefbf0caf9e160",
+      "git_blob_oid": "95d70d555d165c1fc370059aa2f688e8f0209dae",
+      "bytes": 2661810
+    },
+    {
+      "path": "request20.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/92.json",
+      "sha256": "ba335c1452312d551a8f8984d926be9f6f24560fba7f8947ff5f0941aff44d0e",
+      "git_blob_oid": "cbd6196cf70338eec5ed08f14be25eebe9e0616c",
+      "bytes": 2733721
+    },
+    {
+      "path": "request21.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/27.json",
+      "sha256": "02382d84262640a51be965fb6e83c8a69967900882a80938704ee772c7155b6c",
+      "git_blob_oid": "8859abd832f229ce82749b54205af516a8776468",
+      "bytes": 3301137
+    },
+    {
+      "path": "request22.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/9.json",
+      "sha256": "9128a25575114114704cd71251d57873f84a468e0192e37720931526b6b3ad37",
+      "git_blob_oid": "3fea77f47d01012dec4d984ed4f39719750de928",
+      "bytes": 2804421
+    },
+    {
+      "path": "request23.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/1.json",
+      "sha256": "51586971176a8edb268d4a0b511c62a930b6849f938165054ef88536f6be2b80",
+      "git_blob_oid": "f9d69f0427cba39ddcb7ae1c066139577c77ddb8",
+      "bytes": 3249772
+    },
+    {
+      "path": "request24.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/84.json",
+      "sha256": "b04df7a959271ceed0d7c4f1af7157d914881e86cdf613988d1df140a81049fa",
+      "git_blob_oid": "2b24542923bb25e480e8161a4115f7c7432fcc2a",
+      "bytes": 2946792
+    },
+    {
+      "path": "request25.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/52.json",
+      "sha256": "c494b8d8344d6109fcf868cc0d0380d86475c56c9b67dd8b3f4e3d6ad3324889",
+      "git_blob_oid": "54bbcef56493dd17b28876d52b3e5dd8819cd727",
+      "bytes": 3089870
+    },
+    {
+      "path": "request26.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/43.json",
+      "sha256": "e9a0ed1440c817558e5f59f5457759c6af0033f4c34a4459504edc3da8f0ce7b",
+      "git_blob_oid": "5fb5ab783fea5f3b618917f090917ec27eb9369d",
+      "bytes": 2980485
+    },
+    {
+      "path": "request27.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/10.json",
+      "sha256": "9e895dd3edac84a935f919ec363fd4d0aa150ed82ce272aa77cb98a46017b24e",
+      "git_blob_oid": "c2a53e77d6e157151c61b61b7df7b7c96b799c68",
+      "bytes": 3478488
+    },
+    {
+      "path": "request28.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/18.json",
+      "sha256": "4844715b45d038b90e935ee07d0fcf8350533066172b4defe67703f859cacce4",
+      "git_blob_oid": "febe00946a25a392db30871ee32017757de696f1",
+      "bytes": 2857645
+    },
+    {
+      "path": "request29.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/75.json",
+      "sha256": "326c91b193671f5b8accb2e2f3d4949f7a65a7ab93b92089aca18172a72907fa",
+      "git_blob_oid": "26d927174b6f7ce26bbb97f75754c34d3d8ec0d5",
+      "bytes": 3177283
+    },
+    {
+      "path": "request30.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/17.json",
+      "sha256": "e50d626fd877aef838f0aa62a66055292e26aa74dda5cf5ccb8f8c1e4023b1f3",
+      "git_blob_oid": "2193889549e9d1604feee44d7b8a91c80b40c6e3",
+      "bytes": 3035602
+    },
+    {
+      "path": "request31.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/16.json",
+      "sha256": "66ccf3cf2eebce3d8c50577a2115f61b1c4da02c75d319cfdadb9ad1ff226bff",
+      "git_blob_oid": "1d5acf03a373ea8cc074214f3a7cd91e94512fd2",
+      "bytes": 2981199
+    }
+  ],
+  "revision": "27febb7b2d24169560a9f6f83d38eb53f94916cf",
+  "listed_json_files": 100,
+  "excluded_by_file_cap": 0,
+  "selection_scope": "seeded selection within first nonrecursive directory page; not a whole-dataset sample",
+  "planned": [
+    {
+      "type": "file",
+      "oid": "f09867a7e7d3f1b7cc08239aa7e2a866eb108503",
+      "size": 3408360,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/59.json"
+    },
+    {
+      "type": "file",
+      "oid": "d657881e1871966aed2f36d801217843f83ae4c6",
+      "size": 3071064,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/47.json"
+    },
+    {
+      "type": "file",
+      "oid": "19701d167d272b7a63cc4334b9ffcd01dc554f2d",
+      "size": 3016224,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/89.json"
+    },
+    {
+      "type": "file",
+      "oid": "d01914e7974c59ec3e514f4c73a67dfe12663881",
+      "size": 3212557,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/26.json"
+    },
+    {
+      "type": "file",
+      "oid": "58347c0f9cf999f6a0086c22b1c41a79e7e9674c",
+      "size": 3674904,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/44.json"
+    },
+    {
+      "type": "file",
+      "oid": "10ffd327ab42e3b278cf0f4738ae68e227a83337",
+      "size": 2646729,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/77.json"
+    },
+    {
+      "type": "file",
+      "oid": "fbfd0da73e00bda84cbae84f1b6fa1082100869c",
+      "size": 3229354,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/40.json"
+    },
+    {
+      "type": "file",
+      "oid": "76e0403ccbe3f8cd9a458c21bdce8d4369eea061",
+      "size": 3603931,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/42.json"
+    },
+    {
+      "type": "file",
+      "oid": "e9e5841dd38a9f93bd08616646ff9b189b0f7bd3",
+      "size": 2911581,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/98.json"
+    },
+    {
+      "type": "file",
+      "oid": "f280619fa2d66fef2e84996f3bc6c76155f31c51",
+      "size": 2858070,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/39.json"
+    },
+    {
+      "type": "file",
+      "oid": "acdc95c590cc0c49edaa47f292696727467eed75",
+      "size": 3230958,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/13.json"
+    },
+    {
+      "type": "file",
+      "oid": "c4ce86dec4fe1ac24cbac3e5805ba92ed415c577",
+      "size": 2857549,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/64.json"
+    },
+    {
+      "type": "file",
+      "oid": "05f7971cb001727c45d2addaca13792d35d10751",
+      "size": 3639989,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/5.json"
+    },
+    {
+      "type": "file",
+      "oid": "3cdd7a3c71231dbb8b007e3a093fafca55712298",
+      "size": 2751087,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/38.json"
+    },
+    {
+      "type": "file",
+      "oid": "bd09e813d5ef68c4d46bd8cd318bece5661d88fa",
+      "size": 3389578,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/21.json"
+    },
+    {
+      "type": "file",
+      "oid": "2962181c0e1cc7734c74bf708d049f0f87afe394",
+      "size": 3692746,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/34.json"
+    },
+    {
+      "type": "file",
+      "oid": "583ca0df7927807f5eca79db8a67905de5e87830",
+      "size": 2822233,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/91.json"
+    },
+    {
+      "type": "file",
+      "oid": "7488cff35f358fa7c41763ff6ff7253728a949dd",
+      "size": 3141255,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/55.json"
+    },
+    {
+      "type": "file",
+      "oid": "ec7627b8ecbf8ef287d72afed9215c5bd1b041db",
+      "size": 3211810,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/63.json"
+    },
+    {
+      "type": "file",
+      "oid": "95d70d555d165c1fc370059aa2f688e8f0209dae",
+      "size": 2661810,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/35.json"
+    },
+    {
+      "type": "file",
+      "oid": "cbd6196cf70338eec5ed08f14be25eebe9e0616c",
+      "size": 2733721,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/92.json"
+    },
+    {
+      "type": "file",
+      "oid": "8859abd832f229ce82749b54205af516a8776468",
+      "size": 3301137,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/27.json"
+    },
+    {
+      "type": "file",
+      "oid": "3fea77f47d01012dec4d984ed4f39719750de928",
+      "size": 2804421,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/9.json"
+    },
+    {
+      "type": "file",
+      "oid": "f9d69f0427cba39ddcb7ae1c066139577c77ddb8",
+      "size": 3249772,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/1.json"
+    },
+    {
+      "type": "file",
+      "oid": "2b24542923bb25e480e8161a4115f7c7432fcc2a",
+      "size": 2946792,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/84.json"
+    },
+    {
+      "type": "file",
+      "oid": "54bbcef56493dd17b28876d52b3e5dd8819cd727",
+      "size": 3089870,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/52.json"
+    },
+    {
+      "type": "file",
+      "oid": "5fb5ab783fea5f3b618917f090917ec27eb9369d",
+      "size": 2980485,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/43.json"
+    },
+    {
+      "type": "file",
+      "oid": "c2a53e77d6e157151c61b61b7df7b7c96b799c68",
+      "size": 3478488,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/10.json"
+    },
+    {
+      "type": "file",
+      "oid": "febe00946a25a392db30871ee32017757de696f1",
+      "size": 2857645,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/18.json"
+    },
+    {
+      "type": "file",
+      "oid": "26d927174b6f7ce26bbb97f75754c34d3d8ec0d5",
+      "size": 3177283,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/75.json"
+    },
+    {
+      "type": "file",
+      "oid": "2193889549e9d1604feee44d7b8a91c80b40c6e3",
+      "size": 3035602,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/17.json"
+    },
+    {
+      "type": "file",
+      "oid": "1d5acf03a373ea8cc074214f3a7cd91e94512fd2",
+      "size": 2981199,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/16.json"
+    }
+  ],
+  "status": "downloaded; layer/model spec still required"
+}

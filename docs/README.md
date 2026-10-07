@@ -7,6 +7,7 @@
 
 ## 当前实现与运行
 
+- [256 个真实 requests：batch 复用/互补与完整读回放](reports/PATTERNS_BATCH_STUDY_REPORT.md) / [研究协议](methods/PATTERNS_BATCH_STUDY.md)
 - [Patterns Behind Chaos：request routing → batch → DRAM demand 输入接口](methods/PATTERNS_TRACE_INPUT.md)
 
 

@@ -1,0 +1,435 @@
+{
+  "endpoint": "https://huggingface.co",
+  "repository": "core12345/MoE_expert_selection_trace",
+  "prefix": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology",
+  "max_files": 32,
+  "max_file_bytes": 33554432,
+  "max_total_bytes": 1500000000,
+  "selection": "seeded",
+  "seed": 20261007,
+  "downloaded": [
+    {
+      "path": "request0.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2703.json",
+      "sha256": "855cd1f53d19054a746e0235a53852cb51dc929577e4a722395223de99eb911c",
+      "git_blob_oid": "cfbd6dc416c16b77e7e11552c29e65f96adec616",
+      "bytes": 2785400
+    },
+    {
+      "path": "request1.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2834.json",
+      "sha256": "2746310529d8ce7d514550b96c9b9ce34670d30c5785bcec92ea1c1e8f0edf21",
+      "git_blob_oid": "e9398db20d18bc874c90b09df8c9e4816cdd0a2c",
+      "bytes": 2785600
+    },
+    {
+      "path": "request2.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2916.json",
+      "sha256": "f2740cebb64f7db13969423174e96a7b90605a507f146c78ac1d63761155d20e",
+      "git_blob_oid": "b35ac1ad7dce42ee11358e9ba596f9f1d488ce57",
+      "bytes": 3158131
+    },
+    {
+      "path": "request3.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2763.json",
+      "sha256": "5545f2a458070cfd9a4cc7bae0c9fc213686f3d8839596ce2293e6d5f6c3ce61",
+      "git_blob_oid": "80867d57618dc96ac32bc1cd17b51511c2173b18",
+      "bytes": 2750907
+    },
+    {
+      "path": "request4.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2682.json",
+      "sha256": "167809066e4e30983fdf1283bc5a4be8b1c7dcb0d9de40e5296945829058d70f",
+      "git_blob_oid": "f783050e6263917607eb2ff17ec9c3b9b0ecf64c",
+      "bytes": 2858585
+    },
+    {
+      "path": "request5.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2797.json",
+      "sha256": "3cd8f54c6683b9be664232b9988e8e2fd23143c51b72fd5efa0402955cf7dfc8",
+      "git_blob_oid": "8f7f1513984166a84803812e1d5b14f83821c2cb",
+      "bytes": 2840021
+    },
+    {
+      "path": "request6.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2859.json",
+      "sha256": "e7c354c6dc0b0b06d6f420cf33ee9fdd7955f2910a05a6d3cef4b955b809d284",
+      "git_blob_oid": "24df3503c759870701901d02e84d4809e4c7bd18",
+      "bytes": 3283026
+    },
+    {
+      "path": "request7.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2726.json",
+      "sha256": "1b2aba9e4dfd3833f2c83674d16fb1500388575f996dae86c1d080d3bad5a0e5",
+      "git_blob_oid": "b48ad8b51288d470926a12066af78609b90a5c2c",
+      "bytes": 3193836
+    },
+    {
+      "path": "request8.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2840.json",
+      "sha256": "94f7f699d11c29b0ada34ea3fbaa94f9b8d4aa2a797194503296cf631d37c885",
+      "git_blob_oid": "6b969cfc2d232e7321a33a24c50472cf635bda28",
+      "bytes": 3284449
+    },
+    {
+      "path": "request9.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2674.json",
+      "sha256": "33640aeca651875d8d5a37efc216d80251c823961f2a9653c174318eb1d0a4f6",
+      "git_blob_oid": "27827e9092e31a99da9820b0dbf13ef01ba6df5a",
+      "bytes": 2788013
+    },
+    {
+      "path": "request10.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2779.json",
+      "sha256": "e56a048d319d844a55ffaf253c98a00df3b274898e7213a743ccc742b9c4e26d",
+      "git_blob_oid": "10d6b73194e6b687d054eaae5a1c3b320ee9fab9",
+      "bytes": 4382500
+    },
+    {
+      "path": "request11.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2846.json",
+      "sha256": "cc639c45cefcb09de5005d81fe4309ed71b53ece62c72e806e735bf10561c7ad",
+      "git_blob_oid": "ff1a8456a00a48efed7223b0bebcc414a24b23c5",
+      "bytes": 2947269
+    },
+    {
+      "path": "request12.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2909.json",
+      "sha256": "63324d4f77304a77d538f681d4ccd8067ef3868ad405549d00a197d4f0dfd5b5",
+      "git_blob_oid": "62d5562533192318d13813ee5fe45f647102c95c",
+      "bytes": 3159948
+    },
+    {
+      "path": "request13.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2775.json",
+      "sha256": "e40d6ca1979f6e6e224a0a8d52dcc2205415ace63da333db81e2660bf8dccda1",
+      "git_blob_oid": "30f09d1e096504695aadc7141065dd9160bf60bf",
+      "bytes": 3783699
+    },
+    {
+      "path": "request14.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2735.json",
+      "sha256": "1fda08b144dad9e35ba0c2388a5fdc1061cfa8817982d02bc992f90415259d79",
+      "git_blob_oid": "d49e53e4a02d90dbf2dde10437ca88c866a9e48f",
+      "bytes": 2732303
+    },
+    {
+      "path": "request15.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2923.json",
+      "sha256": "178aad710b3d3ee47f6d9b01212a84aabe161fbf8ef13959eeba7d18875935e8",
+      "git_blob_oid": "77e0c179eeda27829668f04d5a05cdb00c067e27",
+      "bytes": 2714683
+    },
+    {
+      "path": "request16.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2902.json",
+      "sha256": "8056e1bc47c6e5bd69a340b086bb8df8c1b7de289e75720537b9524e683da821",
+      "git_blob_oid": "474429743ecd0db10e4e5675b3d2db6d306a186c",
+      "bytes": 3072599
+    },
+    {
+      "path": "request17.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2731.json",
+      "sha256": "2eab86d4e8bf21168257f7e0310d8d0a07006d13daa4dcd24af74b2dfab7f793",
+      "git_blob_oid": "b25de06839dda3d9d9e82ec5a5e76e66b86f16e3",
+      "bytes": 2803417
+    },
+    {
+      "path": "request18.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2908.json",
+      "sha256": "00e492be1da20de9aded1f27420483bf85f320410765a7118488200b2745dc80",
+      "git_blob_oid": "774db7487df32621ede52cd85681ec31f32e4d19",
+      "bytes": 2787370
+    },
+    {
+      "path": "request19.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2698.json",
+      "sha256": "197794a2fb3a230f49efec95f3dc7deff8d2a6c050883ab5c8878fc1dfad5554",
+      "git_blob_oid": "27d3750b179e350fa3554f5885445324dd2a5f40",
+      "bytes": 2751567
+    },
+    {
+      "path": "request20.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2861.json",
+      "sha256": "15a82aea2db1749d7c7d4b6b143cfcf944548b2954eb38924ab60b972a04c0bb",
+      "git_blob_oid": "4a95d7683b8be05c6c8d65cddf8f057797a4c332",
+      "bytes": 3090616
+    },
+    {
+      "path": "request21.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2676.json",
+      "sha256": "720e08cd46e5a677d5e5cf6b2196e828cda5f460f8b2e9f8da989061eaaaabd8",
+      "git_blob_oid": "586bb20dce480c75175c2a475f24c92653f222d7",
+      "bytes": 2802100
+    },
+    {
+      "path": "request22.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2961.json",
+      "sha256": "a7608ccd7c71c3e4873061a9c49c64fae890d2eb0a18c03268366c1749185133",
+      "git_blob_oid": "bf525e55a5f1cc2f1acb89a5fa17bb0ca47202c1",
+      "bytes": 3479954
+    },
+    {
+      "path": "request23.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2743.json",
+      "sha256": "4b7791035ea2932a84c9bc567e70568427c0d3a68307809fe6635296409f4a6f",
+      "git_blob_oid": "4cf6de2050a0161bb84e0a5815bc0fef805210a7",
+      "bytes": 3496679
+    },
+    {
+      "path": "request24.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2689.json",
+      "sha256": "41292efb9a3ebfe477d737182ddd088120bace5e297704e3e2343cbd86a699c7",
+      "git_blob_oid": "286538a76f22085d553f2bfb805d6957e9fc46b8",
+      "bytes": 2644077
+    },
+    {
+      "path": "request25.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2777.json",
+      "sha256": "a6aacfae97370f0ff00ef173a2b69bd31f0bfa289cd163d744fd39bbbe373b72",
+      "git_blob_oid": "499c3f946462ac51d973579591124fa81f3dd399",
+      "bytes": 3034887
+    },
+    {
+      "path": "request26.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2809.json",
+      "sha256": "4fc2bb52f1cb994f767f83bb439d0a98d2713631634b1ecd6097e868aa891f2c",
+      "git_blob_oid": "ac281535ebb9d43dc9c149ad955c84e72c4e07f5",
+      "bytes": 2838582
+    },
+    {
+      "path": "request27.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2890.json",
+      "sha256": "30e9031fe55d5e823e73676906068974c5697595ab62b871e8b05b97393ceaf5",
+      "git_blob_oid": "63adcbf37c6dd704c334431562cbd026959703b7",
+      "bytes": 2766560
+    },
+    {
+      "path": "request28.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2854.json",
+      "sha256": "789cd73fbccdff35f8aae8179fccd0de360ef4afffb430744ea494f0b497923d",
+      "git_blob_oid": "0dfc27509048a715c64adf62fc1bfbf6bf97094c",
+      "bytes": 2681056
+    },
+    {
+      "path": "request29.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2967.json",
+      "sha256": "d6019981b50100323bb30e6102b5fd8c1c177e8079ae678eecb3c4882f907544",
+      "git_blob_oid": "88afbd57768d49eb7b584efb3bdf6cbfe1a1e796",
+      "bytes": 2821142
+    },
+    {
+      "path": "request30.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2822.json",
+      "sha256": "008d2e1eb6710340431d407777197c718e3608315b689f3405b3b5ab9c52e0ae",
+      "git_blob_oid": "33d48d71679e6cf8d902e82e5f9d0d5c81d431d1",
+      "bytes": 2783381
+    },
+    {
+      "path": "request31.json",
+      "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2832.json",
+      "sha256": "08932819cc7b2879a955ee432a9b0ca881d804b8e431a059ea2fed7897337219",
+      "git_blob_oid": "5c3f417a86fd2618746e0504ffe4864101ea5705",
+      "bytes": 2946393
+    }
+  ],
+  "revision": "27febb7b2d24169560a9f6f83d38eb53f94916cf",
+  "listed_json_files": 310,
+  "excluded_by_file_cap": 0,
+  "selection_scope": "seeded selection within first nonrecursive directory page; not a whole-dataset sample",
+  "planned": [
+    {
+      "type": "file",
+      "oid": "cfbd6dc416c16b77e7e11552c29e65f96adec616",
+      "size": 2785400,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2703.json"
+    },
+    {
+      "type": "file",
+      "oid": "e9398db20d18bc874c90b09df8c9e4816cdd0a2c",
+      "size": 2785600,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2834.json"
+    },
+    {
+      "type": "file",
+      "oid": "b35ac1ad7dce42ee11358e9ba596f9f1d488ce57",
+      "size": 3158131,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2916.json"
+    },
+    {
+      "type": "file",
+      "oid": "80867d57618dc96ac32bc1cd17b51511c2173b18",
+      "size": 2750907,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2763.json"
+    },
+    {
+      "type": "file",
+      "oid": "f783050e6263917607eb2ff17ec9c3b9b0ecf64c",
+      "size": 2858585,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2682.json"
+    },
+    {
+      "type": "file",
+      "oid": "8f7f1513984166a84803812e1d5b14f83821c2cb",
+      "size": 2840021,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2797.json"
+    },
+    {
+      "type": "file",
+      "oid": "24df3503c759870701901d02e84d4809e4c7bd18",
+      "size": 3283026,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2859.json"
+    },
+    {
+      "type": "file",
+      "oid": "b48ad8b51288d470926a12066af78609b90a5c2c",
+      "size": 3193836,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2726.json"
+    },
+    {
+      "type": "file",
+      "oid": "6b969cfc2d232e7321a33a24c50472cf635bda28",
+      "size": 3284449,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2840.json"
+    },
+    {
+      "type": "file",
+      "oid": "27827e9092e31a99da9820b0dbf13ef01ba6df5a",
+      "size": 2788013,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2674.json"
+    },
+    {
+      "type": "file",
+      "oid": "10d6b73194e6b687d054eaae5a1c3b320ee9fab9",
+      "size": 4382500,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2779.json"
+    },
+    {
+      "type": "file",
+      "oid": "ff1a8456a00a48efed7223b0bebcc414a24b23c5",
+      "size": 2947269,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2846.json"
+    },
+    {
+      "type": "file",
+      "oid": "62d5562533192318d13813ee5fe45f647102c95c",
+      "size": 3159948,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2909.json"
+    },
+    {
+      "type": "file",
+      "oid": "30f09d1e096504695aadc7141065dd9160bf60bf",
+      "size": 3783699,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2775.json"
+    },
+    {
+      "type": "file",
+      "oid": "d49e53e4a02d90dbf2dde10437ca88c866a9e48f",
+      "size": 2732303,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2735.json"
+    },
+    {
+      "type": "file",
+      "oid": "77e0c179eeda27829668f04d5a05cdb00c067e27",
+      "size": 2714683,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2923.json"
+    },
+    {
+      "type": "file",
+      "oid": "474429743ecd0db10e4e5675b3d2db6d306a186c",
+      "size": 3072599,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2902.json"
+    },
+    {
+      "type": "file",
+      "oid": "b25de06839dda3d9d9e82ec5a5e76e66b86f16e3",
+      "size": 2803417,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2731.json"
+    },
+    {
+      "type": "file",
+      "oid": "774db7487df32621ede52cd85681ec31f32e4d19",
+      "size": 2787370,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2908.json"
+    },
+    {
+      "type": "file",
+      "oid": "27d3750b179e350fa3554f5885445324dd2a5f40",
+      "size": 2751567,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2698.json"
+    },
+    {
+      "type": "file",
+      "oid": "4a95d7683b8be05c6c8d65cddf8f057797a4c332",
+      "size": 3090616,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2861.json"
+    },
+    {
+      "type": "file",
+      "oid": "586bb20dce480c75175c2a475f24c92653f222d7",
+      "size": 2802100,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2676.json"
+    },
+    {
+      "type": "file",
+      "oid": "bf525e55a5f1cc2f1acb89a5fa17bb0ca47202c1",
+      "size": 3479954,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2961.json"
+    },
+    {
+      "type": "file",
+      "oid": "4cf6de2050a0161bb84e0a5815bc0fef805210a7",
+      "size": 3496679,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2743.json"
+    },
+    {
+      "type": "file",
+      "oid": "286538a76f22085d553f2bfb805d6957e9fc46b8",
+      "size": 2644077,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2689.json"
+    },
+    {
+      "type": "file",
+      "oid": "499c3f946462ac51d973579591124fa81f3dd399",
+      "size": 3034887,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2777.json"
+    },
+    {
+      "type": "file",
+      "oid": "ac281535ebb9d43dc9c149ad955c84e72c4e07f5",
+      "size": 2838582,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2809.json"
+    },
+    {
+      "type": "file",
+      "oid": "63adcbf37c6dd704c334431562cbd026959703b7",
+      "size": 2766560,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2890.json"
+    },
+    {
+      "type": "file",
+      "oid": "0dfc27509048a715c64adf62fc1bfbf6bf97094c",
+      "size": 2681056,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2854.json"
+    },
+    {
+      "type": "file",
+      "oid": "88afbd57768d49eb7b584efb3bdf6cbfe1a1e796",
+      "size": 2821142,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2967.json"
+    },
+    {
+      "type": "file",
+      "oid": "33d48d71679e6cf8d902e82e5f9d0d5c81d431d1",
+      "size": 2783381,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2822.json"
+    },
+    {
+      "type": "file",
+      "oid": "5c3f417a86fd2618746e0504ffe4864101ea5705",
+      "size": 2946393,
+      "path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2832.json"
+    }
+  ],
+  "status": "downloaded; layer/model spec still required"
+}
