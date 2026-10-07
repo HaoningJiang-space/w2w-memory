@@ -1,0 +1,83 @@
+{
+  "source_commit": "7663f3606dad7137e975049098205f5b840af487",
+  "analysis_commit": "7663f3606dad7137e975049098205f5b840af487",
+  "host": "eex005",
+  "remote_root": "/home/wangziheng/Video/w2w-request-window-20261008",
+  "registration_sha256": "b0646a52fe4044ae899ac9c050895790b08ba83ee779520806e9eda5de932522",
+  "tests": 37,
+  "new_tests": 14,
+  "existing_read_workload_tests": 23,
+  "replays": 502,
+  "old_control_matches": 42,
+  "implementation_ablations": 29,
+  "audit": {
+    "verified": true,
+    "raw_replays": 502,
+    "model_words": 23908224,
+    "search_certificates": 27,
+    "common_minima": 5,
+    "equal_implementation_ablations": 29,
+    "raw_archive_sha256": "c027adb62a539a828f7fcca39c2da5a3f8aad3539bc84ec6f41082b67682c55e",
+    "scope": "Independent archived counters, hashes, bound exclusions and every minimum witness; no new replay or physical-cost calibration"
+  },
+  "elapsed_seconds": 369.973281362094,
+  "scope": "Finite synthetic target deadlines, integer request-window minima under the unchanged executor; necessary bounds plus exhaustive certificates; no global scheduler optimum, DRAM/RTL timing equivalence or calibrated request area",
+  "artifacts": [
+    {
+      "path": "artifacts/results/workload/request_window/summary.json",
+      "bytes": 1284255,
+      "sha256": "5c2d05901f30c604602d3bd7221abeb73eeea2f0e59d48e098471bb0b2703f3b"
+    },
+    {
+      "path": "artifacts/results/workload/request_window/replays.jsonl.gz",
+      "bytes": 9403693,
+      "sha256": "c027adb62a539a828f7fcca39c2da5a3f8aad3539bc84ec6f41082b67682c55e"
+    },
+    {
+      "path": "artifacts/results/workload/request_window/certificates.json.gz",
+      "bytes": 172812,
+      "sha256": "c1edf969a9315e9c4411d0cb4482ed4a4d9000a8d22c8c3f682491c8b4faaa88"
+    },
+    {
+      "path": "artifacts/results/workload/request_window/audit.json",
+      "bytes": 395,
+      "sha256": "a5e83099c752b5c2607c3aa2b94b88a91c031caf3b740d57b44163ede3c5b547"
+    },
+    {
+      "path": "artifacts/provenance/request_window_tests.log.gz",
+      "bytes": 1178,
+      "sha256": "139c1787b78fccb3dbeb6247c7e41af7ff98a8bc700854ebc17d08d235b3f55e"
+    },
+    {
+      "path": "artifacts/provenance/request_window_run.log.gz",
+      "bytes": 1855,
+      "sha256": "a07ae9294debc1bbe2b056ca0150ce0dfb2a745a92e7ed051876cda83af39264"
+    },
+    {
+      "path": "artifacts/provenance/request_window_audit.log.gz",
+      "bytes": 279,
+      "sha256": "8721dfc160024a82f25a20fc0baf805e3fa8303e36f183f3c43a0710d98c47db"
+    },
+    {
+      "path": "artifacts/figures/request_window/request_windows.svg",
+      "bytes": 57374,
+      "sha256": "41c5184fe5b4f00caae00863ce7f1ec06935526f8ca64d546d86980f66462247"
+    },
+    {
+      "path": "artifacts/results/workload/request_window/deadline_minima.csv",
+      "bytes": 1427,
+      "sha256": "f36133dbec292bb33fe4876bc40518665e0cabd235c9d03740c5176998bce2a7"
+    },
+    {
+      "path": "artifacts/results/workload/request_window/selected_tasks.csv",
+      "bytes": 1295,
+      "sha256": "8dc7e7da96847e811454008cacc1a4564ed7aaa4aa9c5008fc5ce3ac989f5f5c"
+    }
+  ],
+  "uncompressed_log_sha256": {
+    "request_window_tests.log": "2f09b777b652a943266d186a40432640240e5209de91b951979578154414ebb9",
+    "request_window_run.log": "c0e6c23e11aec1965c232cdd8326ad33c823bfd230867782ff130eb433f73bce",
+    "request_window_audit.log": "a5e83099c752b5c2607c3aa2b94b88a91c031caf3b740d57b44163ede3c5b547"
+  },
+  "figure_scope": "Executed integer windows only, scatter without interpolation; 512 controls remain in raw results"
+}

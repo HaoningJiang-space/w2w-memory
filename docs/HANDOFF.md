@@ -1,5 +1,12 @@
 # 开发交接：Wafer-scale Memory Service Fabric
 
+**2026-10-08 请求供给成本：** [必要界与最小窗口实验](reports/REQUEST_WINDOW_STUDY_REPORT.md)
+完成37测试、502回放、29组同服务消融。冻结接口、布局和仲裁，B以N192保持此前N512的
+60槽分散任务完成；同60槽目标，宽k3只需N148，揭示lane/wire与请求状态的交换。
+三个主场景的共同最小N为Home96、k2 112、宽k3 192、A160、B192；k2缩窗会损失单热点和
+长尾加速，不能将它当作充分供给强基线。请求entries尚未换算metadata面积，无新增RTL。
+源码`7663f36`，eex005隔离运行；[协议](methods/REQUEST_WINDOW_STUDY.md)。
+
 **2026-10-07 输入侧新增：真实 Patterns Behind Chaos 路由适配器。**
 已通过授权原站取得一个 Qwen3/MMLU request（2.51 MiB），Git blob身份与SHA256核对通过；
 94层、128 decode步格式验证，单层4步转换成冻结专家权重需求并投影到七个既有设计。

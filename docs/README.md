@@ -7,6 +7,7 @@
 
 ## 当前实现与运行
 
+- [请求窗口：必要界、502回放与同完成目标的最小配置](reports/REQUEST_WINDOW_STUDY_REPORT.md) / [注册协议](methods/REQUEST_WINDOW_STUDY.md)
 - [Patterns Behind Chaos：request routing → batch → DRAM demand 输入接口](methods/PATTERNS_TRACE_INPUT.md)
 
 

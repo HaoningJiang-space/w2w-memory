@@ -1,0 +1,10 @@
+{
+  "verified": true,
+  "raw_replays": 502,
+  "model_words": 23908224,
+  "search_certificates": 27,
+  "common_minima": 5,
+  "equal_implementation_ablations": 29,
+  "raw_archive_sha256": "c027adb62a539a828f7fcca39c2da5a3f8aad3539bc84ec6f41082b67682c55e",
+  "scope": "Independent archived counters, hashes, bound exclusions and every minimum witness; no new replay or physical-cost calibration"
+}
