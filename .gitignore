@@ -11,3 +11,6 @@ gurobi.lic
 
 # Raster previews of versioned research SVG figures
 artifacts/figures/**/*.png
+
+# Historical remote previews remain ignored until relocated
+research_figures/**/*.png
