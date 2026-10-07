@@ -4,7 +4,7 @@
 
 本页只记录当前状态。此前逐轮交接完整保存在 [历史记录](HANDOFF_HISTORY.md)，其中“当前”“下一步”、路径和测试数只适用于各自提交，不作为新开发任务。
 
-本次分层整理通过 56 项相关测试，八个候选和三个对照身份不变；189 份合成归档及
+本次分层整理通过 62 项相关测试，八个候选和三个对照身份不变；189 份合成归档及
 48 份真实回放相关证书重新核对。没有重跑这些性能实验，见[整理验收记录](../artifacts/provenance/provisioning_cleanup/receipt.json)。
 
 ## 已完成与尚未完成
@@ -19,6 +19,7 @@
 | DRAM 命令时序 | 尚未接入 ACT/PRE/RD/refresh；当前是有限资源的读 slot 模型 |
 | 整片 PPA 与 signoff | 尚未完成；局部面积不能直接当整片面积、功耗或工艺签核 |
 | 请求容量与驻留联合配置 | 新比例已完成 189 次合成回放；真实 48 记录仅增加下界，未重跑新比例；[报告](reports/SERVICE_PROVISIONING_REPORT.md) |
+| 新比例的独立 routing 验证 | `55a4fec` 已注册 87 组合及准备/运行入口；[协议](methods/PROVISIONING_HOLDOUT_STUDY.md)，尚未在本次整理中执行 |
 | 新 service-engine pool | 研究提案，未实现；[问题分析与形式化](methods/SERVICE_PROVISIONING_ASSESSMENT.md) |
 
 运行基线：真实回放 `aa9d911`；强化审计 `6d1827b`；完整测试与验收记录 `ce549ce`。另已合入 `11fd2ab` 的比例推导、189 次合成回放及独立审计，原执行源码为 `eefe539`。后续文档提交不会改变这些实验的源码身份。GPU 推理不是当前流程的必需步骤。

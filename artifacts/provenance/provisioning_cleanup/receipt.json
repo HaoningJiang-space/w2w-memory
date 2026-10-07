@@ -1,7 +1,7 @@
 {
   "base_commit": "11fd2ab50d0dc83375899009749a1c366b120704",
   "scope": "Layering refactor and current handoff cleanup; no new performance replay or DRAM/RTL implementation",
-  "targeted_tests": 56,
+  "targeted_tests": 62,
   "candidate_designs_unchanged": 8,
   "duplicated_controls_unchanged": 3,
   "compatibility_imports_verified": true,
@@ -11,8 +11,9 @@
   "real_trace_raw_recompiled_this_run": false,
   "real_trace_csv_byte_identical": true,
   "artifacts": {
-    "tests.log.gz": "8a6839bbbb16e23d2f25aaf58fbefe12566851890310c8bd33d6b9735f4d1f85",
+    "tests.log.gz": "e1adb728f73aaa572d98f968138410c2a2fdde2255c6451d29d8cd886c163e65",
     "candidate_identities.json": "fa1837a0c712a623a040fca3ad9961c6a7132dfd78622ea621933f1d91281bbf",
     "archive_audit.json": "0d2eac1f8ed22da9fa48a034780e8190b4ee31d4fb5af32adefeb27cabf3f292"
-  }
+  },
+  "additional_integrated_commit": "55a4fec"
 }
