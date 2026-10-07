@@ -1,4 +1,4 @@
-"""Remote single-slice RTL -> Liberty mapping -> pre-layout STA (no P&R)."""
+"""Remote slice verification, mapping and optional matched local P&R."""
 import argparse
 from collections import Counter
 import gzip
@@ -211,8 +211,18 @@ def run(args):
         manifest['tools']['openroad']=command([args.openroad,'-version'],out,out/'openroad_version.log').strip()
         manifest['boundary']='Local signal/clock P&R and extracted typical-corner STA; no wafer/HB RC, power grid or power claim'
         manifest['physical_settings']=dict(utilization=30,placement_density=.40,aspect_ratio=1,
-            core_space_um=5,seed=42,threads=2,hold_margin_ns=.05,max_hold_buffer_percent=50,
+            core_space_um=5,seed=42,threads=2,hold_margin_ns=.05,max_hold_buffer_percent=50,retry_max_hold_buffer_percent=200,
             platform_sha256={str(p.relative_to(args.platform)):sha(p) for p in sorted(args.platform.rglob('*')) if p.is_file()})
+    reuse=None
+    if args.reuse_closed:
+        reuse=json.loads((args.reuse_closed/'manifest.json').read_text())
+        for key in ('library_sha256','period_ns','tools'):
+            if reuse[key]!=manifest[key]:raise AssertionError(f'Reuse mismatch: {key}')
+        for key in ('rtl/cse_bank.sv','rtl/endpoint_link.sv','rtl/asic/slice_constraints.tcl'):
+            if reuse['input_sha256'][key]!=manifest['input_sha256'][key]:
+                raise AssertionError(f'Reuse changed implementation/contract: {key}')
+        manifest['reuse_verified_manifest']=dict(path=str(args.reuse_closed/'manifest.json'),
+            sha256=sha(args.reuse_closed/'manifest.json'),source_revision=reuse['source_revision'])
     save()
     for configurable in (0,1):
         log=command(['verilator','--lint-only','--timing','-Wall','-Wno-fatal',
@@ -250,6 +260,15 @@ def run(args):
     save();print('RTL_VERIFIED',len(records),'paired cases on each simulator',flush=True)
     (out/'abc.constr').write_text('set_driving_cell BUF_X1\nset_load 5.0\n')
     for name in ('tx_dup','tx_cfg','rx_home','rx_shared'):
+        if reuse and name in reuse['blocks'] and reuse['blocks'][name].get('physical',{}).get('closed'):
+            previous=args.reuse_closed/name
+            if sha(previous/'netlist.v')!=reuse['blocks'][name]['netlist_sha256']:
+                raise AssertionError(f'Reused netlist changed: {name}')
+            shutil.copytree(previous,out/name)
+            manifest['blocks'][name]=reuse['blocks'][name]
+            manifest['blocks'][name]['reused_closed_run']=str(args.reuse_closed)
+            save();print('REUSE_CLOSED_PHYSICAL',name,flush=True)
+            continue
         d=out/name;d.mkdir(exist_ok=True)
         tx=name.startswith('tx_');top='endpoint_source' if tx else 'endpoint_rx'
         parameters=f'-set WIDTH 160 -set DEPTH 2 -set CONFIGURABLE {int(name=="tx_cfg")}' if tx else f'-set WIDTH {256 if name=="rx_home" else 160}'
@@ -312,8 +331,20 @@ write_json {d/'netlist.json'}
             penv=dict(env,W2W_PLATFORM=str(args.platform.resolve()),
                       W2W_PHYSICAL_OUTPUT=str(physical),W2W_HOLD_REPORT=str(physical/'hold.tsv'))
             print('PHYSICAL',name,flush=True)
-            log=command([args.openroad,'-no_init','-exit',ROOT/'rtl/asic/slice_openroad.tcl'],
-                        physical,physical/'openroad.log',penv)
+            physical_argv=[args.openroad,'-no_init','-exit',ROOT/'rtl/asic/slice_openroad.tcl']
+            try:
+                log=command(physical_argv,physical,physical/'openroad.log',penv)
+                buffer_limit=50
+            except RuntimeError:
+                if 'Max buffer count reached' not in (physical/'openroad.log').read_text():raise
+                # Same policy for every block. Restart from the mapped netlist;
+                # lift only the repair effort ceiling, not timing constraints.
+                physical.rename(d/'physical_limit50')
+                physical.mkdir()
+                penv['W2W_HOLD_BUFFER_PERCENT']='200'
+                print('PHYSICAL_RETRY_BUFFER_LIMIT',name,200,flush=True)
+                log=command(physical_argv,physical,physical/'openroad.log',penv)
+                buffer_limit=200
             if 'PHYSICAL_FLOW_COMPLETE' not in log or 'STA_COMPLETE' not in log:
                 raise AssertionError(f'Physical flow incomplete: {physical}')
             shutil.copy2(physical/'netlist.v',d/'netlist.v')
@@ -342,6 +373,7 @@ write_json {d/'netlist.json'}
                 sequential_cells=sum(v for c,v in cells.items() if c.startswith(('DFF','SDFF'))),
                 cell_area_um2=stats['area'],sequential_area_um2=stats['sequential_area'],
                 physical=dict(stages=stages,slack_ns=final_slack,route_drc_count=int(drc[-1]),
+                              hold_buffer_limit_percent=buffer_limit,
                               electrical_violations='(VIOLATED)' in electrical,closed=passed))
         save()
     # Generate zero-delay Liberty cell models; no timing simulation claim.
@@ -375,11 +407,12 @@ if __name__=='__main__':
     p.add_argument('--traces',type=Path,required=True)
     p.add_argument('--liberty',type=Path,required=True)
     p.add_argument('--output',type=Path,required=True)
+    p.add_argument('--reuse-closed',type=Path,help='Reuse completed, closed physical blocks with identical RTL, SDC, library and tools')
     p.add_argument('--period',type=float,default=2.0)
     p.add_argument('--repair',action='store_true',help='Bounded cell-level hold/cap ECO under unchanged constraints')
     p.add_argument('--openroad',type=Path,help='OpenROAD executable for matched local physical validation')
     p.add_argument('--platform',type=Path,help='Pinned Nangate45 physical platform directory')
     args=p.parse_args()
-    if bool(args.openroad)!=bool(args.platform) or (args.openroad and args.repair):
+    if bool(args.openroad)!=bool(args.platform) or (args.openroad and args.repair) or (args.reuse_closed and not args.openroad):
         p.error('Use --openroad with --platform, starting from unrepaired mapped cells (no --repair)')
     run(args)

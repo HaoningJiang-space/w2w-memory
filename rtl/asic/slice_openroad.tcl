@@ -2,6 +2,8 @@
 set here $::env(W2W_SCRIPT_DIR)
 set platform $::env(W2W_PLATFORM)
 set output $::env(W2W_PHYSICAL_OUTPUT)
+set limit 50
+if {[info exists ::env(W2W_HOLD_BUFFER_PERCENT)]} {set limit $::env(W2W_HOLD_BUFFER_PERCENT)}
 set_thread_count 2
 read_lef $platform/lef/NangateOpenCellLibrary.tech.lef
 read_lef $platform/lef/NangateOpenCellLibrary.macro.mod.lef
@@ -60,7 +62,7 @@ detailed_placement
 estimate_parasitics -placement
 snapshot post_cts_before_repair
 repair_timing -setup
-repair_timing -hold -hold_margin 0.05 -max_buffer_percent 50
+repair_timing -hold -hold_margin 0.05 -max_buffer_percent $limit
 detailed_placement
 check_placement -verbose
 snapshot post_cts_repaired
@@ -68,7 +70,7 @@ global_route -guide_file $output/route.guide -congestion_iterations 50
 estimate_parasitics -global_routing
 repair_design
 repair_timing -setup
-repair_timing -hold -hold_margin 0.05 -max_buffer_percent 50
+repair_timing -hold -hold_margin 0.05 -max_buffer_percent $limit
 detailed_placement
 global_route -guide_file $output/route.guide -congestion_iterations 50
 estimate_parasitics -global_routing
