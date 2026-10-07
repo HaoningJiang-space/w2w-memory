@@ -24,6 +24,8 @@ def target_design(window, retention=Fraction(3, 4), rx_depth=None):
     retention = Fraction(retention)
     if type(window) is not int or window <= 96 or not 0 < retention <= 1:
         raise ValueError('Require N>96 and a positive retention target at most one')
+    if rx_depth is not None and (type(rx_depth) is not int or rx_depth < 2):
+        raise ValueError('Home256 at one word/slot with link latency one requires RX depth >= 2')
     reference = min(Fraction(2), Fraction(window, 96))
     target = 1 + retention * (reference - 1)
     fraction = 1 / target

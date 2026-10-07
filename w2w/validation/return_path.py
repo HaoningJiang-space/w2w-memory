@@ -35,6 +35,8 @@ def audit(source, primary, extension, diagnostic):
                 for w, d in ((128, 1), (160, 2), (192, 2), (224, 2), (256, 1)) for r in (2, 3)]
     if digest(profiles) != digest(summary['profiles']):
         raise ValueError('Periodic return-path witness mismatch')
+    if len(summary['target_derivations']) != 2:
+        raise ValueError('Missing RX-aware target certificate')
     for archived, rx in zip(summary['target_derivations'], (2, 3)):
         rebuilt = target_design(192, rx_depth=rx)[1]
         if (not archived_cost_matches(archived['cost'], rebuilt['cost'])
@@ -86,6 +88,8 @@ def audit(source, primary, extension, diagnostic):
             if digest(item[field]) != digest(row[field]):
                 raise ValueError('Diagnostic compact/raw mismatch')
         baseline = low[case, label]
+        if baseline['config']['rx_depth_words'] != 2:
+            raise ValueError('Diagnostic baseline must use RX2')
         for field in ('trace_sha256', 'design_sha256', 'residence_sha256', 'logical_bytes'):
             if row[field] != baseline[field]:
                 raise ValueError('RX change changed task/residency/hardware identity')

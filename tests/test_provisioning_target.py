@@ -11,6 +11,9 @@ class TargetTests(unittest.TestCase):
         self.assertEqual(limited.endpoint.widths[2], 256)
         self.assertEqual(supplied.endpoint.widths[2], 192)
         self.assertEqual(str(supplied.home_fraction), '4/7')
+        for rx in (1, True, 2.5):
+            with self.assertRaisesRegex(ValueError, 'Home256'):
+                target_design(128, rx_depth=rx)
 
     def test_targets_select_word_lifetime_and_capacity_boundaries(self):
         for n, width, depth, fraction in ((128, 128, 1, '4/5'), (160, 128, 1, '2/3'), (192, 192, 2, '4/7')):
