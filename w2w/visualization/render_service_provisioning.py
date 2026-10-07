@@ -41,8 +41,8 @@ def render(source, output):
         axes[1].plot([r['window'] for r in rows], [r['makespan_slots'] for r in rows],
                      label=title, color=color, linestyle=style, marker='o', linewidth=1.8)
     axes[1].set(xlabel='Outstanding words per compute (N)', ylabel='Task completion (native slots)',
-                title='(b) Executed dispersed9 controls', xticks=[128, 160, 192])
-    axes[1].legend(frameon=False, fontsize=8.5, loc='upper right')
+                title='(b) Executed dispersed9 controls', xticks=[128, 160, 192], ylim=(46, 103))
+    axes[1].legend(frameon=False, fontsize=8.5, loc='upper right', ncol=2)
     for ax in axes:
         ax.spines[['top', 'right']].set_visible(False)
         ax.grid(axis='y', alpha=0.18)
