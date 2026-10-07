@@ -1,6 +1,7 @@
 `timescale 1ns/1ps
 module endpoint_roundtrip_tb;
     parameter integer WIDTH=160, DEPTH=2;
+    parameter real PERIOD_NS=10.0;
     localparam integer MAX_WORDS=20000, WARMUP=1040, MEASURE=8320;
     reg clk=0, rst=1, cfg_shared_direction=0;
     reg native_valid=0, native_role=0, native_shared_direction=0;
@@ -10,13 +11,21 @@ module endpoint_roundtrip_tb;
     wire [2:0] valid_a,valid_b,hv_a,hv_b,hr_a,hr_b;
     wire [767:0] data_a,data_b,hd_a,hd_b;
     wire [11:0] hu_a,hu_b;
+`ifdef PPA_NETLIST
+    endpoint_ppa_dup duplicated (
+`else
     endpoint_star #(.WIDTH(WIDTH),.DEPTH(DEPTH),.CONFIGURABLE(0)) duplicated (
+`endif
         .clk(clk),.rst(rst),.cfg_shared_direction(cfg_shared_direction),
         .native_valid(native_valid),.native_role(native_role),
         .native_shared_direction(native_shared_direction),.native_data(native_data),
         .native_ready(ready_a),.sink_ready(sink_ready),.sink_valid(valid_a),.sink_data(data_a),
         .hb_valid(hv_a),.hb_ready(hr_a),.hb_data(hd_a),.hb_units(hu_a));
+`ifdef PPA_NETLIST
+    endpoint_ppa_cfg configurable (
+`else
     endpoint_star #(.WIDTH(WIDTH),.DEPTH(DEPTH),.CONFIGURABLE(1)) configurable (
+`endif
         .clk(clk),.rst(rst),.cfg_shared_direction(cfg_shared_direction),
         .native_valid(native_valid),.native_role(native_role),
         .native_shared_direction(native_shared_direction),.native_data(native_data),
@@ -24,6 +33,7 @@ module endpoint_roundtrip_tb;
         .hb_valid(hv_b),.hb_ready(hr_b),.hb_data(hd_b),.hb_units(hu_b));
 
     reg [2047:0] words_path, controls_path;
+    reg [2047:0] vcd_path;
     reg [255:0] words[0:MAX_WORDS-1];
     integer roles[0:MAX_WORDS-1], expected[0:2][0:MAX_WORDS-1];
     integer wr[0:2],rd[0:2],start_rx[0:2],measure_rx[0:2];
@@ -33,6 +43,8 @@ module endpoint_roundtrip_tb;
     integer total=0,accepted=0,received=0,cycle=0,offer,ready_mask,p,d,index;
     integer start_accepted=0,measure_accepted=0,source_stall=0,hb_stall=0,rx_stall=0;
     integer max_pending=0;
+    integer quiet_cycles=0,have_vcd=0,dump_start=1040,dump_stop=2080;
+    integer power_start_accepted=0,power_start_received=0;
     reg took;
     reg old_native_stall=0,old_native_role,old_native_direction;
     reg [255:0] old_native_data;
@@ -43,6 +55,8 @@ module endpoint_roundtrip_tb;
         if (!$value$plusargs("WORDS=%s",words_path) || !$value$plusargs("CONTROLS=%s",controls_path)
             || !$value$plusargs("DIR=%d",config_value)) $fatal(1,"Missing input");
         if ($value$plusargs("FAULT=%d",fault)) begin end
+        have_vcd=$value$plusargs("VCD=%s",vcd_path);
+        if(have_vcd) $dumpfile(vcd_path);
         cfg_shared_direction=config_value;
         native_shared_direction=config_value;
         fd=$fopen(words_path,"r");
@@ -57,9 +71,18 @@ module endpoint_roundtrip_tb;
         end
         $fclose(fd);
         for(p=0;p<3;p=p+1) begin wr[p]=0;rd[p]=0;start_rx[p]=0;measure_rx[p]=0;end
-        #5;clk=1;#5;clk=0;rst=0;
-        while(received<total || cycle==0) begin
+        #(PERIOD_NS/2);clk=1;#(PERIOD_NS/2);clk=0;rst=0;
+        while(received<total || quiet_cycles<8) begin
             if(cycle>=120000) $fatal(1,"Drain timeout: accepted=%d received=%d",accepted,received);
+            if(have_vcd && cycle==dump_start) begin
+                $dumpvars(0,duplicated,configurable);
+                power_start_accepted=accepted;power_start_received=received;
+            end
+            if(have_vcd && cycle==dump_stop) begin
+                $dumpoff;
+                $display("POWER_WINDOW %0d %0d %0d",dump_stop-dump_start,
+                    accepted-power_start_accepted,received-power_start_received);
+            end
             if($feof(control_fd)) begin offer=1;ready_mask=7;end
             else begin
                 parsed=$fscanf(control_fd,"%d %d\n",offer,ready_mask);
@@ -71,7 +94,7 @@ module endpoint_roundtrip_tb;
                 native_valid=1; native_data=words[accepted];native_role=roles[accepted];
             end
             if(fault==1 && cycle==10) cfg_shared_direction=!cfg_shared_direction;
-            #4;
+            #(PERIOD_NS*0.4);
             if(cfg_shared_direction!==config_value[0]) $fatal(1,"Static direction changed");
             if(ready_a!==ready_b || valid_a!==valid_b || hv_a!==hv_b || hr_a!==hr_b)
                 $fatal(1,"Architectures differ at cycle %0d",cycle);
@@ -108,10 +131,12 @@ module endpoint_roundtrip_tb;
             old_native_data=native_data;old_native_role=native_role;old_native_direction=native_shared_direction;
             old_hb_stall=hv_a & ~hr_a;old_hb_data=hd_a;old_hb_units=hu_a;
             old_rx_stall=valid_a & ~sink_ready;old_rx_data=data_a;
-            clk=1;#1;
+            clk=1;#(PERIOD_NS*0.1);
+`ifndef PPA_NETLIST
             if(256*(accepted-received)!==duplicated.pending_bits ||
                duplicated.pending_bits!==configurable.pending_bits) $fatal(1,"End-to-end bit conservation");
             if(duplicated.pending_bits>max_pending) max_pending=duplicated.pending_bits;
+`endif
             if(cycle==WARMUP-1) begin
                 start_accepted=accepted;
                 for(p=0;p<3;p=p+1) start_rx[p]=rd[p];
@@ -121,9 +146,13 @@ module endpoint_roundtrip_tb;
                 for(p=0;p<3;p=p+1) measure_rx[p]=rd[p]-start_rx[p];
             end
             if(took) native_valid=0;
-            #5;clk=0;cycle=cycle+1;
+            if(received==total) quiet_cycles=quiet_cycles+1;
+            #(PERIOD_NS*0.5);clk=0;cycle=cycle+1;
         end
-        if(accepted!=total || duplicated.pending_bits!=0) $fatal(1,"Incomplete drain");
+        if(accepted!=total) $fatal(1,"Incomplete drain");
+`ifndef PPA_NETLIST
+        if(duplicated.pending_bits!=0) $fatal(1,"Nonempty RTL state");
+`endif
         for(p=0;p<total;p=p+1) if(!seen[p]) $fatal(1,"Missing tag");
         $display("RESULT %0d %0d %0d %0d %0d %0d %0d %0d %0d %0d %0d %0d %0d",
             cycle,accepted,rd[0],rd[1],rd[2],measure_rx[0],measure_rx[1],measure_rx[2],
