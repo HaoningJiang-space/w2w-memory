@@ -10,19 +10,9 @@
   "scope": "Synthetic finite word/bit-budget task completion; separate from RTL-cycle and calibrated PPA evidence",
   "artifacts": [
     {
-      "path": "artifacts/figures/finite_read/completion.png",
-      "bytes": 205322,
-      "sha256": "6af26dfcd39781a774de205cab54c0e21c7a1b2bfe7a0f4e9d0eef8b698b68df"
-    },
-    {
       "path": "artifacts/figures/finite_read/completion.svg",
       "bytes": 101290,
       "sha256": "43c3bb2c76eeb89e1ff7b12508faec37deea40a11c1163e85dfdd5084fd46bc8"
-    },
-    {
-      "path": "artifacts/figures/finite_read/credits.png",
-      "bytes": 166815,
-      "sha256": "48155c6078fc5eace9f2cb4ea5195abecefe8a4afc43e5fb5614c31a97e5f732"
     },
     {
       "path": "artifacts/figures/finite_read/credits.svg",
@@ -114,5 +104,6 @@
       "bytes": 266237,
       "sha256": "0ce004f06364cf477b1721213e01b62f517a61c976a0d8390e2557dfeb3029ca"
     }
-  ]
+  ],
+  "figure_formats": "SVG archived; reproducible PNG previews remain ignored by repository convention"
 }
