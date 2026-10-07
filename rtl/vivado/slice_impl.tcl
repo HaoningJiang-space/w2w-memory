@@ -52,8 +52,14 @@ foreach mode {max min} {
         puts $summary "${mode}_slack_ns\t[get_property SLACK $path]"
         puts $summary "${mode}_datapath_ns\t[get_property DATAPATH_DELAY $path]"
     }
+    set core_path [get_timing_paths -delay_type $mode -from [all_registers] -to [all_registers] -max_paths 1]
+    if {[llength $core_path]} {
+        puts $summary "core_${mode}_slack_ns\t[get_property SLACK $core_path]"
+        puts $summary "core_${mode}_datapath_ns\t[get_property DATAPATH_DELAY $core_path]"
+    }
 }
 close $summary
+report_timing -from [all_registers] -to [all_registers] -max_paths 10 -file $out/core_timing.rpt
 foreach saif [lsort [glob $simdir/*/activity.saif]] {
     set case [file tail [file dirname $saif]]
     if {$kind eq "tx_dup"} {set scopes {duplicated/source}}
@@ -62,7 +68,7 @@ foreach saif [lsort [glob $simdir/*/activity.saif]] {
     if {$kind eq "rx_shared"} {set scopes {duplicated/left_rx duplicated/right_rx}}
     foreach scope $scopes {
         set label "${case}_[file tail $scope]"
-        reset_switching_activity
+        reset_switching_activity [get_nets -hierarchical]
         read_saif -strip_path endpoint_roundtrip_tb/$scope -out_file $out/${label}_annotation.rpt $saif
         report_power -file $out/${label}_power.rpt
     }

@@ -124,7 +124,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--traces', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
-    parser.add_argument('--part', default='xc7z020clg484-1')
+    parser.add_argument('--part', default='xcku040-ffva1156-2-e')
     parser.add_argument('--period', type=float, default=2.0)
     parser.add_argument('--simulation-from', type=Path,
                         help='Reuse matching, completed XSim evidence when only implementation changes')

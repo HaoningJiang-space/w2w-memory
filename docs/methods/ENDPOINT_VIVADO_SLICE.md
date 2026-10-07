@@ -10,17 +10,19 @@ during synthesis. Selection remains upstream of the first HB. Reuse the 14
 archived 160-bit traces (both directions, seven patterns); validate their hashes
 against the archived roundtrip artifact. No DRAM model, new placement or FIFO sweep.
 
-Use Vivado 2024.2, `xc7z020clg484-1`, 2 ns period, 0.05 ns uncertainty,
+Use Vivado 2024.2, `xcku040-ffva1156-2-e`, 2 ns period, 0.05 ns uncertainty,
 0.2 ns max input/output delay and zero min delay. Reset and frozen configuration
 inputs are excluded from operational timing paths, not tied off for synthesis.
 Use two tool threads, default synthesis/opt/place/route, no candidate-specific
 tuning or additional pipeline stages. Keep any timing failures in the results.
 
-The initial KU040 selection was stopped before synthesis by a missing Synthesis
-license. A separate eight-register tool probe verified that the installed Z020
-can actually synthesize. This part change precedes the architecture measurements;
-both candidates use the same Z020. Completed XSim evidence is reusable because
-the RTL, testbench, activity window, and clock period are unchanged.
+The initial KU040 launch missed the license path. After the user supplied a
+readable license, an eight-register KU040 synthesis passed with an explicit
+`XILINXD_LICENSE_FILE`. The main comparison therefore uses the original KU040
+selection. A partial Z020 tool bring-up is not mixed into the final comparison.
+Completed XSim evidence is reusable because RTL, testbench, activity window and
+clock period are unchanged. Operational recipes with host/license paths live in
+the user's local remote-execution skill, not in versioned license contents.
 
 Implement four out-of-context blocks: duplicated TX, configurable TX, Home RX,
 Shared RX. The same Home RX plus two copies of the same Shared RX are charged to
@@ -29,6 +31,9 @@ changing one candidate's receivers. Count TX and RX resources separately; combin
 counts are sums of separately implemented local blocks. Do not sum device static
 power across blocks. Timing is per block with matched interface constraints; it
 does not certify the HB path or an entire reticle clock.
+Report register-to-register timing separately from complete OOC interface timing:
+an ideal external capture clock and physical internal clock insertion can dominate
+an output-port slack. Preserve both rather than calling either a measured Fmax.
 
 Run XSim with the existing paired TX/HB/RX scoreboard at a 2 ns simulated period.
 Check accepted and reconstructed words, routes, held handshakes, and cycle-wise
