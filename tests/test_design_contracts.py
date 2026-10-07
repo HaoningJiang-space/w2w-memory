@@ -4,7 +4,6 @@ from dataclasses import FrozenInstanceError, replace
 from fractions import Fraction
 from pathlib import Path
 import unittest
-import numpy as np
 from tests.fixtures.tiny_fabric import two_compute_two_memory
 from w2w.domain import EndpointEnvelope, EndpointSpec, NativeProfile, StaticLayout
 from w2w.endpoints.role_execution import execute_periodic, ratio_sequence

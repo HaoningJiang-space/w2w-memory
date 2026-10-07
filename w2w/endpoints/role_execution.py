@@ -9,8 +9,6 @@ from dataclasses import asdict
 from math import gcd
 from w2w.domain.endpoint import EndpointSpec, NativeProfile
 
-ImplementationSpec = EndpointSpec  # Compatibility for the initial experiment draft.
-
 
 def balanced_sequence(home, peer, home_words, peer_words):
     """Compile integer residence weights to a fixed, evenly spaced word order."""
@@ -23,7 +21,7 @@ def balanced_sequence(home, peer, home_words, peer_words):
                  else peer for i in range(total))
 
 
-def execute_periodic(spec, sequence, profile=None, credits=None,
+def execute_periodic(spec: EndpointSpec, sequence, profile: NativeProfile | None = None, credits=None,
                      max_slots=100000):
     """Find a repeated pre-issue state; count EXACTLY one recurrent period.
 

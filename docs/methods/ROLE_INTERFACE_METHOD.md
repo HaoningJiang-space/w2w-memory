@@ -6,7 +6,7 @@
 
 ## 执行与组合 Gate
 
-新增入口保留旧 execute 回归。ImplementationSpec 同时决定输出宽度、存储和
+新增入口保留旧 execute 回归。EndpointSpec 同时决定输出宽度、存储和
 成本；每槽先发起至多一个完整字，再按输出发送。buffered 的 D 包含 serializer
 中的字；direct 使用每 bank 一个共享 holding register。按整数静态份额编译固定
 顺序，不越过满队列的字。活动源消失可以过滤其字，活动源不得重标地址或出口。
@@ -43,7 +43,7 @@ native_ready 是接收机会序列；不是已经产生且必须缓存的 DRAM �
 ## 成本边界
 
 每 memory 计全部重复模板连接，包含实例闲置方向。分别登记 bank 端序列化与
-port 端序列化时的长线 bit-mm、pipeline bits；宽度来自同一 ImplementationSpec。
+port 端序列化时的长线 bit-mm、pipeline bits；宽度来自同一 EndpointSpec。
 未知 bank 本地 selector 接线长度不填零当测量值。端点存储替代旧 buffer proxy，
 不叠加。HB signal bits、控制序列 ROM/counter、selector输入另列；没有校准面积、
 功耗、拥塞或时序 signoff。控制 ROM/counter 是明确编码代理，不代表最小控制器。

@@ -9,7 +9,7 @@ from math import ceil, comb
 import hashlib
 import numpy as np
 from scipy.optimize import linprog, linear_sum_assignment
-from scipy.sparse import coo_matrix, hstack, vstack
+from scipy.sparse import coo_matrix
 from shapely.geometry import Point, Polygon
 from Reticle import create_reticle
 from Wafer import Wafer
