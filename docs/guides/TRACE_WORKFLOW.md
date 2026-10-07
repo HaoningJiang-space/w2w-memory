@@ -3,6 +3,7 @@
 本流程已在 `hn072@143.89.78.72:/Projects/haoning/w2w` 完成 CPU 执行。
 当前覆盖真实 routing 导入与固定模型下的读阶段，不包含神经网络执行、实测 DRAM traffic、
 完整推理时延或 wafer 物理签核。[48 回放结果](../reports/PATTERNS_REPLAY_STUDY_REPORT.md)。
+[验收复查](../reports/TRACE_FLOW_ACCEPTANCE.md)记录补充的资源/时间线检查和 148 项测试。
 
 ## 数据经过哪些层
 

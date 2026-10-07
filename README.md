@@ -4,7 +4,8 @@
 
 **当前可用流程：[真实 trace 完整工作流](docs/guides/TRACE_WORKFLOW.md)。**
 256 个独立 requests 已取得；48/48 个完整读阶段回放通过原始输入重编译、逐字守恒和归档审计。
-63 项定向测试通过。代码本地开发，经唯一 `main` 同步到 CPU 服务器运行。
+148 项 Python 测试通过（含当前流程的 65 项定向测试）；
+[验收复查与边界](docs/reports/TRACE_FLOW_ACCEPTANCE.md)。代码本地开发，经唯一 `main` 同步到 CPU 服务器运行。
 这是 routing 驱动的读阶段模拟，不代表完整 MoE 推理或整片物理签核。
 
 研究目标：在有限接口与连线预算下，联合组织 **memory service interface、reticle
@@ -87,7 +88,7 @@ python -m w2w audit_patterns_replay \
 `python run_endpoint_bridge.py` 已由上述入口替代，没有保留一批重复 wrapper。
 需要干净 Git 提交的实验仍然保留原检查。
 服务器含原始 JSON 的核对、完整重跑和历史入口区别见[工作流](docs/guides/TRACE_WORKFLOW.md)。
-历史模型的完整单元测试可用 `python -m unittest discover -s tests -v`；上面的 63 项是当前输入/回放链的定向验收范围。
+完整 Python 测试可用 `python -m unittest discover -s tests -v`；上面的 65 项是当前输入/回放链的定向验收范围。
 
 只维护 **main**。[Git 同步流程](docs/operations/GIT_WORKFLOW.md)；
 [服务器历史实验归档与恢复](docs/operations/SERVER_STORAGE.md)。
