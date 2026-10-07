@@ -146,3 +146,6 @@ matching 结构的因果作用；其他服务目标仍可以研究 Pareto tradeo
 来源：[上游 H/plus 几何，§4.2](https://arxiv.org/html/2603.05266v1)；
 [perfect matching 与双随机矩阵分解算法](https://arxiv.org/abs/0909.3346)。
 这两个已有部件均不作为 novelty；与其他 HB 工作的完整方法重合仍未排除。
+
+进一步的机制解释、环长结论修正及完整优化问题见
+[MATCHING_THEORY_FORMULATION.md](MATCHING_THEORY_FORMULATION.md)。
