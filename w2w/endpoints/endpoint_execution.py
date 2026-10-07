@@ -6,11 +6,6 @@ queue slot includes the word currently in the serializer; depth zero explicitly
 uses the blocking direct path, with one shared holding register.
 """
 from collections import deque
-from copy import copy
-import numpy as np
-from scipy.sparse import coo_matrix, vstack
-from w2w.constants import BANKS,BANK_BW
-from w2w.service.guaranteed_service_exchange import FixedService
 
 
 def execute(output_bits=128, depth=1, active=(0, 1), mode='buffered',
@@ -86,66 +81,9 @@ def execute(output_bits=128, depth=1, active=(0, 1), mode='buffered',
         storage_bits=(word_bits if blocking else 2*depth*word_bits))
 
 
-class EndpointFixedService(FixedService):
-    """Reuse FixedService byte equalities; add actual shared-path time rows.
-
-    All addresses of a modeled bank are accessible through its declared mask.
-    That is a complete digital-export assumption, not an arbitrary LIO tap claim.
-    Buffered is a fluid upper envelope; finite-depth execution is separate.
-    """
-    def __init__(self, fabric, layout, contract='elastic', alpha=1., efficiency=1.):
-        if contract not in ('elastic', 'fixed_share', 'direct', 'buffered_envelope'):
-            raise ValueError('Unknown endpoint contract')
-        if not 0 < alpha <= 1 or not 0 < efficiency <= 1: raise ValueError('Invalid contract')
-        super().__init__(fabric, layout)
-        self.fabric = copy(fabric)
-        self.fabric.labels = list(fabric.labels); self.fabric.row = dict(fabric.row)
-        self.fabric.limits = fabric.limits.copy()
-        self.contract = contract; self.alpha = alpha
-        for m in range(fabric.nm):
-            for b, ports in enumerate(fabric.mask):
-                cap = min(alpha,1/len(ports))*BANK_BW if contract == 'fixed_share' else alpha*BANK_BW
-                for p in ports:
-                    row = fabric.row['bank_output', m, b, p]
-                    self.fabric.limits[row] = min(self.fabric.limits[row], cap)
-        self.route_variables = []
-        col = fabric.nc
-        for c in range(fabric.nc):
-            for bank in np.flatnonzero(layout.shares[c]):
-                for edge in fabric.paths.get((c, int(bank)), []):
-                    self.route_variables.append((col, c, int(bank), edge)); col += 1
-        assert col == self.nvar
-        if contract in ('direct', 'buffered_envelope'):
-            rr=[]; cc=[]; vv=[]
-            for col, c, bank, edge in self.route_variables:
-                m, b = divmod(bank, BANKS)
-                peak = self.fabric.limits[fabric.row['bank_output', m, b, fabric.edges[edge]['mp']]]
-                rr.append(bank); cc.append(col)
-                vv.append(1/peak if contract == 'direct' else 1/BANK_BW)
-            extra=coo_matrix((vv,(rr,cc)),shape=(fabric.nm*BANKS,self.nvar)).tocsr()
-            self._append(extra, np.full(fabric.nm*BANKS,efficiency),
-                         [('endpoint_time',m,b) for m in range(fabric.nm) for b in range(BANKS)])
-
-    def _append(self, matrix, limits, labels):
-        offset=len(self.fabric.limits)
-        self.ub=vstack([self.ub,matrix],format='csr')
-        self.fabric.limits=np.r_[self.fabric.limits,limits]
-        self.fabric.labels.extend(labels)
-        self.fabric.row.update({label:offset+i for i,label in enumerate(labels)})
-
-    def with_delivered_caps(self, caps):
-        """Scenario-specific achieved schedule caps, NOT a universal contract.
-
-        caps[(c,bank)] is measured complete-word service. Routes must be unique;
-        the caller verifies physical port usage and fixed-layout consistency.
-        """
-        out=copy(self);out.fabric=copy(self.fabric)
-        out.fabric.labels=list(self.fabric.labels);out.fabric.row=dict(self.fabric.row)
-        rr=[];cc=[];vv=[];limits=[];labels=[]
-        for col,c,bank,edge in self.route_variables:
-            if len(self.fabric.paths[c,bank]) != 1: raise ValueError('Replay requires unique route')
-            rr.append(len(limits));cc.append(col);vv.append(1.)
-            limits.append(caps.get((c,bank),0.));labels.append(('executed_route',c,bank))
-        extra=coo_matrix((vv,(rr,cc)),shape=(len(limits),self.nvar)).tocsr()
-        out._append(extra,limits,labels)
-        return out
+def __getattr__(name):
+    # Historical import path only; endpoint execution itself has no solver imports.
+    if name == 'EndpointFixedService':
+        from w2w.service.adapters import EndpointFixedService
+        return EndpointFixedService
+    raise AttributeError(name)

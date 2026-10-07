@@ -86,30 +86,18 @@ class ExposureFabric:
             raise ValueError('Invalid repeated bank-port mask')
         if any(len(r.vertical_connectors)!=self.nports for r in physical.compute+physical.memory):
             raise ValueError('Channel vector must match physical interfaces')
-        self.edges=physical.edges;self.paths={};self.labels=[];self.limits=[];self.row={}
-        def resource(label,cap):
-            self.row[label]=len(self.limits);self.labels.append(label);self.limits.append(cap)
-        for m in range(self.nm):
-            for b in range(BANKS):
-                resource(('bank',m,b),BANK_BW)
-                for p in self.mask[b]:resource(('bank_output',m,b,p),channels.capacity(channels.bank_link_bits))
-            for p,w in enumerate(channels.port_bits):resource(('memory_group_arb',m,p),channels.capacity(w))
-        for c in range(self.nc):
-            for p,w in enumerate(channels.port_bits):resource(('compute_port',c,p),channels.capacity(w))
+        self.edges=physical.edges;self.paths={}
+        from w2w.service.resources import build_fabric_ledger
+        ledger=build_fabric_ledger(self.nc,self.nm,self.mask,channels,self.edges)
+        self.labels=list(ledger.labels);self.limits=ledger.capacities;self.row=ledger.row
         for eidx,e in enumerate(self.edges):
-            cap=min(channels.capacity(channels.port_bits[e['cp']])*e['compute_port_fraction'],
-                    channels.capacity(channels.port_bits[e['mp']])*e['memory_port_fraction'])
-            resource(('hb_edge',eidx),cap)
-            if cap>1e-12:
+            if self.limits[self.row['hb_edge',eidx]]>1e-12:
                 for b in range(BANKS):
                     if e['mp'] in self.mask[b]:self.paths.setdefault((e['c'],e['m']*BANKS+b),[]).append(eidx)
-        self.limits=np.array(self.limits)
 
     def resources(self, bank, eidx):
-        m,b=divmod(bank,BANKS);e=self.edges[eidx]
-        return [self.row[('bank',m,b)],self.row[('bank_output',m,b,e['mp'])],
-                self.row[('memory_group_arb',m,e['mp'])],self.row[('compute_port',e['c'],e['cp'])],
-                self.row[('hb_edge',eidx)]]
+        from w2w.service.resources import route_resource_rows
+        return route_resource_rows(self.row,bank,dict(self.edges[eidx],index=eidx))
 
     def cost(self):
         xy=bank_coordinates();r=self.physical.memory[0]
@@ -176,67 +164,8 @@ class StripedLayout:
         return cls(a,fabric.nm)
 
 
-class FixedService:
-    def __init__(self,fabric,layout):
-        self.fabric=fabric;self.layout=layout;self.missing=np.zeros(fabric.nc)
-        ur=[];uc=[];ud=[];er=[];ec=[];ed=[];row=0;nvar=fabric.nc
-        for c in range(fabric.nc):
-            for b in np.flatnonzero(layout.shares[c]):
-                er.append(row);ec.append(c);ed.append(-layout.shares[c,b])
-                routes=fabric.paths.get((c,int(b)),[])
-                if not routes:self.missing[c]+=layout.shares[c,b]
-                for eidx in routes:
-                    er.append(row);ec.append(nvar);ed.append(1.)
-                    indices=fabric.resources(int(b),eidx)
-                    ur.extend(indices);uc.extend([nvar]*len(indices));ud.extend([1.]*len(indices));nvar+=1
-                row+=1
-        self.ub=coo_matrix((ud,(ur,uc)),shape=(len(fabric.limits),nvar)).tocsr()
-        self.eq=coo_matrix((ed,(er,ec)),shape=(row,nvar)).tocsr();self.nvar=nvar
-
-    def solve(self,demand,minimum=1.,objective='throughput'):
-        f=self.fabric;demand=np.asarray(demand,dtype=float);active=demand>0
-        if demand.shape!=(f.nc,) or not np.isfinite(demand).all() or (demand<0).any() or minimum<0:
-            raise ValueError('Invalid demand or service floor')
-        lower=np.minimum(demand,minimum);upper=np.minimum(demand,f.channels.controller_tb_s)
-        if np.any(lower>upper):return dict(feasible=False,status='Service floor exceeds controller capacity')
-        bounds=[(float(lo),float(hi)) for lo,hi in zip(lower,upper)]+[(0,None)]*(self.nvar-f.nc)
-        if objective=='throughput':ub=self.ub;eq=self.eq;cost=np.r_[-np.ones(f.nc),np.zeros(self.nvar-f.nc)]
-        elif objective in ('common','common_then_throughput'):
-            ub=hstack([self.ub,np.zeros((self.ub.shape[0],1))],format='csr')
-            eq=hstack([self.eq,np.zeros((self.eq.shape[0],1))],format='csr')
-            rows=np.repeat(np.arange(f.nc),2)
-            cols=np.column_stack([np.arange(f.nc),np.full(f.nc,self.nvar)]).ravel()
-            vals=np.column_stack([np.ones(f.nc),-demand]).ravel()
-            equal=coo_matrix((vals,(rows,cols)),shape=(f.nc,self.nvar+1)).tocsr()
-            eq=vstack([eq,equal],format='csr');bounds.append((0,1));cost=np.r_[np.zeros(self.nvar),-1.]
-        else:raise ValueError('Unknown objective')
-        result=linprog(cost,A_ub=ub,b_ub=f.limits,A_eq=eq,b_eq=np.zeros(eq.shape[0]),bounds=bounds,method='highs')
-        if not result.success:
-            if result.status==2:return dict(feasible=False,status=result.message)
-            raise RuntimeError(result.message)
-        alpha=float(result.x[-1]) if objective!='throughput' else None
-        if objective=='common_then_throughput':
-            new_bounds=[(max(float(lo),float(alpha*d)-1e-9),float(hi)) for lo,hi,d in zip(lower,upper,demand)]+[(0,None)]*(self.nvar-f.nc)
-            ub=self.ub;eq=self.eq
-            result=linprog(np.r_[-np.ones(f.nc),np.zeros(self.nvar-f.nc)],A_ub=ub,b_ub=f.limits,
-                           A_eq=eq,b_eq=np.zeros(eq.shape[0]),bounds=new_bounds,method='highs')
-            if not result.success:raise RuntimeError(result.message)
-        served=result.x[:f.nc]
-        residual=max(0.,float(np.max(ub@result.x-f.limits)),float(np.max(np.abs(eq@result.x))),float(np.max(lower-served)),float(np.max(served-upper)))
-        if residual>1e-7:raise RuntimeError('Service constraints violated')
-        duals=result.ineqlin.marginals
-        important=np.argsort(duals)[:8]
-        return dict(feasible=True,total_tb_s=float(served.sum()),tb_s_per_active=float(served.sum()/max(1,active.sum())),
-            served_tb_s=served.tolist(),minimum_tb_s=float(min(served[active])) if active.any() else 0.,
-            p5_tb_s=float(np.percentile(served[active],5)) if active.any() else 0.,common_fraction=alpha,
-            constraint_residual=residual,missing_byte_fraction=float(self.missing[active].mean()) if active.any() else 0.,
-            bottlenecks=[dict(resource=list(f.labels[int(i)]),dual=float(duals[i]),slack=float(result.ineqlin.residual[i])) for i in important if duals[i]<-1e-9])
-
-    def full_load_certificate(self,minimum=1.):
-        solved=self.solve(np.full(self.fabric.nc,minimum),minimum)
-        return dict(**solved,registered_floor_tb_s=minimum,layout_hash=self.layout.sha256,
-                    subset_guarantee='Feasible full-load flows restrict to any active subset; no runtime layout changes',
-                    bank_load_at_floor_tb_s=(self.layout.shares.sum(axis=0)*minimum).tolist())
+# Compatibility export: the fixed-byte LP has a single implementation.
+from w2w.service.solver import FixedService
 
 
 def maximum_nonhome_layout(fabric, floor):
