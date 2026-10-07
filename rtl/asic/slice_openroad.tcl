@@ -21,7 +21,6 @@ set ::env(MAX_ROUTING_LAYER) metal10
 source $platform/fastroute.tcl
 insert_tiecells LOGIC0_X1/Z
 insert_tiecells LOGIC1_X1/Z
-if {$::env(W2W_TX)} {set_io_pin_constraint -group -order -pin_names {native_data[*]}}
 place_pins -hor_layers metal5 -ver_layers metal6 -random -random_seed 42
 
 set metrics [open $output/stages.csv w]
@@ -42,8 +41,8 @@ proc snapshot {name} {
             set hold_area [expr {$hold_area+$a}]
         }
     }
-    set setup [get_property [lindex [find_timing_paths -path_delay max -group_path_count 1 -sort_by_slack] 0] slack]
-    set hold [get_property [lindex [find_timing_paths -path_delay min -group_path_count 1 -sort_by_slack] 0] slack]
+    set setup [get_property [lindex [find_timing_paths -path_delay max -group_count 1 -sort_by_slack] 0] slack]
+    set hold [get_property [lindex [find_timing_paths -path_delay min -group_count 1 -sort_by_slack] 0] slack]
     puts $metrics "$name,$area,$hold_count,$hold_area,$setup,$hold"
     flush $metrics
     return [list $setup $hold]
@@ -76,7 +75,7 @@ estimate_parasitics -global_routing
 snapshot global_route_repaired
 detailed_route -output_drc $output/route_drc.rpt -output_maze $output/maze.log \
     -bottom_routing_layer metal2 -top_routing_layer metal10 -or_seed 42
-define_process_corner -ext_model_index 0 -name typical
+define_process_corner -ext_model_index 0 typical
 extract_parasitics -ext_model_file $platform/rcx_patterns.rules
 snapshot post_route_extracted
 close $metrics
