@@ -62,7 +62,7 @@ foreach saif [lsort [glob $simdir/*/activity.saif]] {
     if {$kind eq "rx_shared"} {set scopes {duplicated/left_rx duplicated/right_rx}}
     foreach scope $scopes {
         set label "${case}_[file tail $scope]"
-        reset_switching_activity -all
+        reset_switching_activity
         read_saif -strip_path endpoint_roundtrip_tb/$scope -out_file $out/${label}_annotation.rpt $saif
         report_power -file $out/${label}_power.rpt
     }
