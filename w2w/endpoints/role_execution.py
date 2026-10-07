@@ -22,7 +22,7 @@ def balanced_sequence(home, peer, home_words, peer_words):
 
 
 def execute_periodic(spec: EndpointSpec, sequence, profile: NativeProfile | None = None, credits=None,
-                     max_slots=100000):
+                     max_slots=100000, selected_shared_port=None):
     """Find a repeated pre-issue state; count EXACTLY one recurrent period.
 
     Credit rows specify per-slot bit budgets. This witness is for this sequence,
@@ -41,10 +41,22 @@ def execute_periodic(spec: EndpointSpec, sequence, profile: NativeProfile | None
             or any(not isinstance(v, int) or not 0 <= v <= spec.widths[p]
                    for row in credits for p, v in enumerate(row))):
         raise ValueError('Invalid downstream credits')
-    queues = [deque() for _ in spec.widths]
-    counts = [0] * len(queues)
-    sent = [0] * len(queues)
-    peaks = [0] * len(queues)
+    group = spec.shared_fifo_ports
+    if group:
+        if (selected_shared_port not in group
+                or any(p in group and p != selected_shared_port for p in sequence)):
+            raise ValueError('Request violates the frozen shared direction')
+    elif selected_shared_port is not None:
+        raise ValueError('Direction selection requires a static shared FIFO')
+    groups = [group if group and p == group[0] else (p,)
+              for p in range(len(spec.widths)) if p not in group or p == group[0]]
+    queue_index = {p: i for i, ports in enumerate(groups) for p in ports}
+    drain_ports = [selected_shared_port if len(ps) > 1 else ps[0] for ps in groups]
+    queues = [deque() for _ in groups]
+    counts = [0] * len(spec.widths)
+    sent = [0] * len(spec.widths)
+    peaks = [0] * len(spec.widths)
+    queue_peaks = [0] * len(queues)
     seen = {}
     cursor = issued = completed = blocked = ready_slots = 0
     for tick in range(max_slots + 1):
@@ -57,7 +69,7 @@ def execute_periodic(spec: EndpointSpec, sequence, profile: NativeProfile | None
             emitted = [a - b for a, b in zip(sent, old_sent)]
             assert all(bits == words * spec.word_bits for bits, words in zip(emitted, delivered))
             assert sum(delivered) == issued - old_issued
-            return dict(spec=spec.record(), native_profile=asdict(profile),
+            result = dict(spec=spec.record(), native_profile=asdict(profile),
                         sequence=list(sequence), credits=[list(row) for row in credits],
                         transient_slots=start, period_slots=period,
                         delivered_words=delivered, sent_bits=emitted,
@@ -67,6 +79,12 @@ def execute_periodic(spec: EndpointSpec, sequence, profile: NativeProfile | None
                         ready_opportunities=ready_slots - old_ready,
                         boundary_state=state, state_repeated=True,
                         conservation_checked_every_slot=True)
+            if group:
+                result.update(selected_shared_port=selected_shared_port,
+                              queue_port_groups=groups, peak_queue_words=queue_peaks,
+                              physical_fifo_count=sum(spec.widths[p] > 0 for p in drain_ports),
+                              queue_capacity_words=[spec.depths[p] for p in drain_ports])
+            return result
         seen[state] = (tick, counts.copy(), sent.copy(), issued, blocked, ready_slots)
         if tick == max_slots:
             break
@@ -74,14 +92,16 @@ def execute_periodic(spec: EndpointSpec, sequence, profile: NativeProfile | None
         if profile.ready[tick % len(profile.ready)]:
             ready_slots += 1
             room = (not any(queues) if spec.mode == 'direct'
-                    else len(queues[p]) < spec.depths[p])
+                    else len(queues[queue_index[p]]) < spec.depths[p])
             if room:
-                queues[p].append(spec.word_bits)
+                queues[queue_index[p]].append(spec.word_bits)
                 issued += 1
                 cursor = (cursor + 1) % len(sequence)
             else:
                 blocked += 1
-        for p, q in enumerate(queues):
+        for i, q in enumerate(queues):
+            p = drain_ports[i]
+            queue_peaks[i] = max(queue_peaks[i], len(q))
             peaks[p] = max(peaks[p], len(q))
             budget = credits[tick % len(credits)][p]
             while budget and q:
@@ -99,7 +119,7 @@ def execute_periodic(spec: EndpointSpec, sequence, profile: NativeProfile | None
         if spec.mode == 'direct':
             assert sum(map(len, queues)) <= 1
         else:
-            assert all(len(q) <= d for q, d in zip(queues, spec.depths))
+            assert all(len(q) <= spec.depths[p] for q, p in zip(queues, drain_ports))
     raise RuntimeError('No repeated state within registered execution limit')
 
 

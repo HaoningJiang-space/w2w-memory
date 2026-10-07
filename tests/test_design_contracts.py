@@ -11,9 +11,37 @@ from w2w.endpoints.contracts import role_envelope
 from w2w.service.adapters import service_problem, solve_service
 from w2w.service.evaluator import CandidateEvaluator
 from w2w.service.cost import CostModel
+from w2w.synthesis.role_interfaces import static_shared_fifo
 
 
 class EndpointUnitTests(unittest.TestCase):
+    def test_static_fifo_preserves_period_under_credit_stalls(self):
+        for width, depth, fraction in ((128, 1, Fraction(2, 3)), (160, 2, Fraction(8, 13))):
+            old = EndpointSpec((256, width, width), (1, depth, depth))
+            new = replace(old, shared_fifo_ports=(1, 2))
+            for port in (1, 2):
+                for sequence in ((0,), (port,), ratio_sequence(0, port, fraction.numerator, fraction.denominator)):
+                    for credits in (None, ((0, 0, 0), old.widths)):
+                        before = execute_periodic(old, sequence, credits=credits)
+                        after = execute_periodic(new, sequence, credits=credits, selected_shared_port=port)
+                        for key in ('delivered_words', 'sent_bits', 'period_slots', 'transient_slots',
+                                    'backpressure_slots', 'ready_opportunities', 'peak_words'):
+                            self.assertEqual(before[key], after[key])
+                        self.assertEqual(after['physical_fifo_count'], 2)
+                        self.assertTrue(after['state_repeated'])
+
+    def test_static_fifo_rejects_dynamic_directions_and_exposes_false_collapse(self):
+        old = EndpointSpec((256, 160, 160), (1, 2, 2))
+        new = replace(old, shared_fifo_ports=(1, 2))
+        with self.assertRaisesRegex(ValueError, 'frozen shared direction'):
+            execute_periodic(new, (1, 2), selected_shared_port=1)
+        with self.assertRaisesRegex(ValueError, 'frozen shared direction'):
+            execute_periodic(new, (0,))  # Even home-only activity cannot choose configuration.
+        self.assertEqual(execute_periodic(old, (1, 2))['total_per_native'], 1.)
+        self.assertEqual(execute_periodic(old, (1,))['total_per_native'], .625)
+        with self.assertRaises(ValueError):
+            replace(new, serializer_location='port')
+
     def test_capacity_matched_ratios_close_native_service(self):
         options=[]
         for width in range(32,257,32):
@@ -115,6 +143,49 @@ class DesignContractTests(unittest.TestCase):
 
 
 class TinyIntegrationTests(unittest.TestCase):
+    def test_static_fifo_keeps_paths_rates_and_accounts_selector(self):
+        old = two_compute_two_memory()
+        new = static_shared_fifo(old)
+        self.assertEqual(new.shared_directions, (1, 2))
+        self.assertEqual(new.layout.sha256, old.layout.sha256)
+        self.assertEqual(new.exposure, old.exposure)
+        self.assertEqual(new.geometry, old.geometry)
+        for active in ([0], [1], [0, 1]):
+            before = CandidateEvaluator(old).replay(active)
+            after = CandidateEvaluator(new).replay(active)
+            self.assertEqual(before['served_tb_s'], after['served_tb_s'])
+            self.assertEqual(before['common_tb_s'], after['common_tb_s'])
+        before, after = CostModel.evaluate(old), CostModel.evaluate(new)
+        self.assertEqual((before['endpoint_storage_bits'], after['endpoint_storage_bits']), (768, 512))
+        for key in ('export_lane_bits', 'access_wire_bit_mm', 'pipeline_register_bits',
+                    'bank_port_connections', 'configured_hb_signal_bits', 'serializer_instances'):
+            self.assertEqual(before[key], after[key])
+        self.assertEqual(after['static_direction_selector_count'], 1)
+        self.assertEqual(after['static_direction_selector_input_bits'], 256)
+        self.assertEqual(after['static_direction_selector_output_bits'], 512)
+        self.assertEqual(after['static_direction_config_bits'], 1)
+        self.assertIsNone(after['static_direction_selector_wire_bit_mm'])
+        with self.assertRaises(ValueError):
+            CostModel.evaluate(new, 'port')
+        caps = dict(role_envelope(new).resource_caps)
+        self.assertEqual(caps[('bank_output', 0, 0, 2)], 0.)
+        self.assertEqual(caps[('bank_output', 1, 0, 1)], 0.)
+        with self.assertRaisesRegex(ValueError, 'unselected shared direction'):
+            replace(new, shared_directions=(2, 1))
+
+    def test_static_fifo_rejects_multiple_partners_before_activity_filtering(self):
+        from w2w.domain import Geometry, MemoryFabricDesign
+        base = two_compute_two_memory()
+        xy = ((0., 0.), (1., 0.), (2., 0.))
+        routes = tuple((c, c, 0, 0, 1., 1.) for c in range(3)) + (
+            (1, 0, 1, 1, 1., 1.), (2, 0, 2, 2, 1., 1.))
+        geometry = Geometry('3C3M', xy, xy, routes, base.geometry.bank_xy, base.geometry.port_xy)
+        layout = StaticLayout(((1., 0., 0.), (.5, .5, 0.), (.5, 0., .5)))
+        design = MemoryFabricDesign('two_peers', 'pair', geometry, base.exposure,
+                                    base.endpoint, layout)
+        with self.assertRaisesRegex(ValueError, 'multiple shared directions'):
+            static_shared_fifo(design)
+
     def test_serial_vs_buffered_half_width(self):
         for mode, depth, full in (('direct', 0, .5), ('buffered', 1, 1.)):
             design = two_compute_two_memory((128, 128, 128), (depth, depth, depth), Fraction(1, 2), mode)

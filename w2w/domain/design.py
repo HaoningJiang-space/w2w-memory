@@ -80,9 +80,12 @@ class MemoryFabricDesign:
     endpoint: EndpointSpec
     layout: StaticLayout
     home_fraction: Fraction = Fraction(1, 2)
+    # One immutable physical shared port per memory, independent of active set.
+    shared_directions: tuple = ()
 
     def __post_init__(self):
         object.__setattr__(self, 'home_fraction', Fraction(self.home_fraction))
+        object.__setattr__(self, 'shared_directions', tuple(self.shared_directions))
         if not 0 < self.home_fraction <= 1:
             raise ValueError('Invalid frozen home fraction')
         nb = len(self.exposure.mask)
@@ -97,3 +100,26 @@ class MemoryFabricDesign:
             stored = sum(row[bank] for row in self.layout.shares) * self.exposure.object_gib
             if stored > self.exposure.bank_capacity_gib + 1e-9:
                 raise ValueError('Static storage capacity exceeded')
+        group = self.endpoint.shared_fifo_ports
+        if not group:
+            if self.shared_directions:
+                raise ValueError('Direction configuration requires a static shared FIFO')
+            return
+        if (len(self.shared_directions) != len(self.geometry.memory_xy)
+                or any(p not in group for p in self.shared_directions)
+                or any(not set(group).issubset(ps) for ps in self.exposure.mask)):
+            raise ValueError('Shared FIFO requires a frozen direction for every memory and full template support')
+        routes = {}
+        for c, m, _, p, _, _ in self.geometry.routes:
+            routes.setdefault((c, m), set()).add(p)
+        for c, shares in enumerate(self.layout.shares):
+            for bank, fraction in enumerate(shares):
+                if fraction == 0:
+                    continue
+                m, b = divmod(bank, nb)
+                ports = routes.get((c, m), set()) & set(self.exposure.mask[b])
+                if len(ports) != 1:
+                    raise ValueError('Static shared FIFO requires a unique physical route for every byte')
+                p = next(iter(ports))
+                if p in group and p != self.shared_directions[m]:
+                    raise ValueError('Frozen layout uses an unselected shared direction')

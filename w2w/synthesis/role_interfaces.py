@@ -1,5 +1,6 @@
 """Bounded design construction and selection through public model APIs."""
 from fractions import Fraction
+from dataclasses import replace
 from math import ceil
 import numpy as np
 from w2w.constants import BANKS
@@ -87,6 +88,32 @@ def catalog(physical, pairs):
     for width in (128, 160):
         definitions.append((f'k3_s{width}_half', 'k3', implementation(256, width), Fraction(1, 2)))
     return [make_candidate(physical, pairs, *entry) for entry in definitions]
+
+
+def static_shared_fifo(design):
+    """Reuse bank-local storage only when all resident bytes select one direction/M.
+
+    Physical exposure, routes, widths, serializers and frozen data remain intact.
+    Configuration is compiled once from the full layout, never from active users.
+    """
+    if design.structure not in ('k3', 'pair') or design.endpoint.shared_fifo_ports:
+        raise ValueError('Static shared FIFO requires an independent full-bank pair design')
+    group = tuple(p for p, w in enumerate(design.endpoint.widths) if p and w)
+    spec = replace(design.endpoint, shared_fifo_ports=group)
+    used = [set() for _ in design.geometry.memory_xy]
+    routes = {}
+    for c, m, _, p, _, _ in design.geometry.routes:
+        routes.setdefault((c, m), set()).add(p)
+    nb = len(design.exposure.mask)
+    for c, row in enumerate(design.layout.shares):
+        for bank, share in enumerate(row):
+            if share:
+                m, b = divmod(bank, nb)
+                used[m].update(routes.get((c, m), set()) & set(design.exposure.mask[b]) & set(group))
+    if any(len(ports) > 1 for ports in used):
+        raise ValueError('Frozen layout uses multiple shared directions in one memory')
+    selected = tuple(next(iter(ports)) if ports else group[0] for ports in used)
+    return replace(design, name=design.name + '_static_fifo', endpoint=spec, shared_directions=selected)
 
 
 def synthesize_pair_target(target, quantum=32):

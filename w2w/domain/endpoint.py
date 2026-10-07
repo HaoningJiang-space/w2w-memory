@@ -22,10 +22,13 @@ class EndpointSpec:
     mode: str = 'buffered'
     serializer_location: str = 'bank'
     native: NativeProfile = NativeProfile()
+    # One bank-local FIFO, statically attached to one of these physical ports.
+    shared_fifo_ports: tuple = ()
 
     def __post_init__(self):
         object.__setattr__(self, 'widths', tuple(self.widths))
         object.__setattr__(self, 'depths', tuple(self.depths))
+        object.__setattr__(self, 'shared_fifo_ports', tuple(self.shared_fifo_ports))
         if (not self.widths or len(self.widths) != len(self.depths)
                 or not isinstance(self.word_bits, int) or self.word_bits <= 0
                 or self.mode not in ('buffered', 'direct')
@@ -37,6 +40,13 @@ class EndpointSpec:
                     or (self.mode == 'buffered' and w > 0 and d == 0)
                     or (self.mode == 'direct' and d != 0)):
                 raise ValueError('Invalid width/depth or unconfigured output storage')
+        group = self.shared_fifo_ports
+        if group and (self.mode != 'buffered' or self.serializer_location != 'bank'
+                      or len(group) < 2 or len(set(group)) != len(group)
+                      or any(not isinstance(p, int) or not 0 < p < len(self.widths) for p in group)
+                      or any(self.widths[p] <= 0 for p in group)
+                      or len({(self.widths[p], self.depths[p]) for p in group}) != 1):
+            raise ValueError('Static shared FIFO requires equal bank-side buffered shared ports')
 
     def record(self):
         return asdict(self)

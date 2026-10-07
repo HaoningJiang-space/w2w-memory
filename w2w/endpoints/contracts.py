@@ -31,5 +31,7 @@ def role_envelope(design):
         for b, ports in enumerate(design.exposure.mask):
             for p in ports:
                 capacity = design.endpoint.widths[p] / design.endpoint.word_bits * design.exposure.bank_bw
+                if p in design.endpoint.shared_fifo_ports and p != design.shared_directions[m]:
+                    capacity = 0.
                 caps.append((('bank_output', m, b, p), capacity))
     return EndpointEnvelope(tuple(caps), scope='Role width fluid upper bound; finite execution is separate')

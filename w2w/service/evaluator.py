@@ -8,8 +8,8 @@ from w2w.service.adapters import service_problem
 
 
 @lru_cache(None)
-def local_trace(spec, sequence, profile):
-    return execute_periodic(spec, sequence, profile)
+def local_trace(spec, sequence, profile, selected_shared_port=None):
+    return execute_periodic(spec, sequence, profile, selected_shared_port=selected_shared_port)
 
 
 class CandidateEvaluator:
@@ -71,7 +71,9 @@ class CandidateEvaluator:
             return {}
         ports = {self.ports[c, bank] for c in users}
         sequence = tuple(p for p in self.sequences[bank] if p in ports)
-        trace = local_trace(self.spec, sequence, self.profile)
+        selected = (self.candidate.shared_directions[bank // self.nb]
+                    if self.spec.shared_fifo_ports else None)
+        trace = local_trace(self.spec, sequence, self.profile, selected)
         return {c: trace['rate_per_native'][self.ports[c, bank]] * self.bank_bw for c in users}
 
     def achieved_rates(self, active):
@@ -145,5 +147,7 @@ class CandidateEvaluator:
                 ports = {self.ports[c, bank] for c, flag in zip(owners, flags) if flag}
                 sequence = tuple(p for p in self.sequences[bank] if p in ports)
                 if sequence:
-                    keys.add(sequence)
-        return [local_trace(self.spec, key, self.profile) for key in sorted(keys)]
+                    selected = (self.candidate.shared_directions[bank // self.nb]
+                                if self.spec.shared_fifo_ports else None)
+                    keys.add((sequence, selected))
+        return [local_trace(self.spec, key, self.profile, selected) for key, selected in sorted(keys)]
