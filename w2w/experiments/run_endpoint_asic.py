@@ -200,7 +200,7 @@ def run(args):
                   repair_requested=args.repair,
                   physical_requested=bool(args.openroad),
                   input_sha256={str(p.relative_to(ROOT)):sha(p) for p in
-                    [*rtl,tb,reference,ROOT/'rtl/asic/slice_sta.tcl',
+                    [*rtl,tb,reference,ROOT/'rtl/home_rx_contract_tb.sv',ROOT/'rtl/asic/slice_sta.tcl',
                      ROOT/'rtl/asic/slice_constraints.tcl',ROOT/'rtl/asic/slice_openroad.tcl',Path(__file__)]},
                   tools={},simulation={},blocks={})
     def save():
@@ -211,7 +211,7 @@ def run(args):
         manifest['tools']['openroad']=command([args.openroad,'-version'],out,out/'openroad_version.log').strip()
         manifest['boundary']='Local signal/clock P&R and extracted typical-corner STA; no wafer/HB RC, power grid or power claim'
         manifest['physical_settings']=dict(utilization=30,placement_density=.40,aspect_ratio=1,
-            core_space_um=5,seed=42,threads=2,hold_margin_ns=.02,max_hold_buffer_percent=50,
+            core_space_um=5,seed=42,threads=2,hold_margin_ns=.05,max_hold_buffer_percent=50,
             platform_sha256={str(p.relative_to(args.platform)):sha(p) for p in sorted(args.platform.rglob('*')) if p.is_file()})
     save()
     for configurable in (0,1):
@@ -224,6 +224,14 @@ def run(args):
         if set(ids)&{'LATCH','MULTIDRIVEN','UNOPTFLAT','UNDRIVEN'}:
             raise AssertionError(f'Structural lint warning: {out}/lint_cfg{configurable}.log')
     print('LINT_COMPLETE',flush=True)
+    contract=ROOT/'rtl/home_rx_contract_tb.sv'
+    command(['iverilog','-g2012','-s','home_rx_contract_tb','-o',out/'home_rx.vvp',*rtl,contract],
+            out,out/'home_rx_compile.log')
+    contract_log=command(['vvp',out/'home_rx.vvp'],out,out/'home_rx_contract.log')
+    if 'HOME_RX_CONTRACT_PASS' not in contract_log:
+        raise AssertionError('Home RX specialization contract did not complete')
+    manifest['home_rx_contract']=contract_log.strip()
+
     command(['verilator','--binary','--timing','--assert','-Wno-fatal','-j','2',
              '--top-module','endpoint_roundtrip_tb','--Mdir',out/'obj',*rtl,tb],
             out,out/'verilator_build.log')

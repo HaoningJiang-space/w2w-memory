@@ -60,7 +60,7 @@ detailed_placement
 estimate_parasitics -placement
 snapshot post_cts_before_repair
 repair_timing -setup
-repair_timing -hold -hold_margin 0.02 -max_buffer_percent 50
+repair_timing -hold -hold_margin 0.05 -max_buffer_percent 50
 detailed_placement
 check_placement -verbose
 snapshot post_cts_repaired
@@ -68,7 +68,7 @@ global_route -guide_file $output/route.guide -congestion_iterations 50
 estimate_parasitics -global_routing
 repair_design
 repair_timing -setup
-repair_timing -hold -hold_margin 0.02 -max_buffer_percent 50
+repair_timing -hold -hold_margin 0.05 -max_buffer_percent 50
 detailed_placement
 global_route -guide_file $output/route.guide -congestion_iterations 50
 estimate_parasitics -global_routing
@@ -80,7 +80,27 @@ extract_parasitics -ext_model_file $platform/rcx_patterns.rules
 write_spef $output/final.spef
 # OpenRCX populates the physical database; explicitly load its SPEF into STA.
 read_spef $output/final.spef
-report_parasitic_annotation
+report_parasitic_annotation -report_unannotated > $output/parasitic_annotation.rpt
+set fd [open $output/parasitic_annotation.rpt]
+set annotation [read $fd]
+close $fd
+if {![regexp {Found 0 partially unannotated drivers\.} $annotation]} {
+    error "Incomplete partial parasitic annotation"
+}
+set unused 0
+foreach line [split $annotation \n] {
+    if {[regexp {^ ([^ ]+)$} $line -> name]} {
+        set pin [get_pins -quiet $name]
+        if {[llength $pin]==0} {set pin [get_ports -quiet $name]}
+        if {[llength $pin]!=1} {error "Cannot resolve unannotated pin $name"}
+        # get_fanout includes the root itself in this pinned OpenSTA version.
+        foreach sink [get_fanout -from $pin -flat -pin_levels 1] {
+            if {[get_full_name $sink] ne $name} {error "Loaded net missing RC: $name"}
+        }
+        incr unused
+    }
+}
+puts "PARASITIC_ANNOTATION_COMPLETE: $unused unused drivers; no loaded net missing RC"
 snapshot post_route_extracted
 close $metrics
 write_def $output/final.def

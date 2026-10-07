@@ -57,7 +57,7 @@ module endpoint_tx #(
 `endif
 endmodule
 
-module endpoint_rx #(parameter integer WIDTH=160) (
+module endpoint_rx #(parameter integer WIDTH=160, GENERIC_REFERENCE=0) (
     input wire clk, rst, beat_valid,
     output wire beat_ready,
     input wire [WIDTH-1:0] beat_data,
@@ -66,6 +66,32 @@ module endpoint_rx #(parameter integer WIDTH=160) (
     input wire word_ready,
     output wire [255:0] word_data
 );
+`ifndef SYNTHESIS
+    wire [31:0] pending_bits;
+`endif
+    generate if (WIDTH==256 && !GENERIC_REFERENCE) begin: full_word
+        // Home contract: every accepted beat is exactly one native word.
+        // One elastic slot permits simultaneous dequeue/enqueue; no bypass.
+        reg [255:0] payload;
+        reg full;
+        wire push=beat_valid && beat_ready;
+        wire pop=word_valid && word_ready;
+        assign word_valid=full && !rst;
+        assign word_data=payload;
+        assign beat_ready=!rst && (!full || word_ready);
+        always @(posedge clk) begin
+            if (rst) begin payload<=0; full<=0; end
+            else begin
+                full<=push || (full && !pop);
+                if (push) payload<=beat_data;
+            end
+        end
+`ifndef SYNTHESIS
+        assign pending_bits=full ? 256 : 0;
+        always @(posedge clk) if (!rst && push && beat_units!=8)
+            $fatal(1,"Home RX requires a complete word");
+`endif
+    end else begin: reassembly
     function automatic integer gcd(input integer a,b);
         integer t;
         begin while (b != 0) begin t=a%b; a=b; b=t; end gcd=a; end
@@ -97,13 +123,14 @@ module endpoint_rx #(parameter integer WIDTH=160) (
         else begin reservoir<=updated; count<=n; end
     end
 `ifndef SYNTHESIS
-    wire [31:0] pending_bits=count*32;
+    assign pending_bits=count*32;
     always @(posedge clk) if (!rst) begin
         if (count>CAP_UNITS) $fatal(1,"RX reservoir bound");
         if (push && (beat_units==0 || beat_units>WIDTH/32 || beat_units%QUANTUM!=0))
             $fatal(1,"RX invalid beat units");
     end
 `endif
+    end endgenerate
 endmodule
 
 module endpoint_source #(

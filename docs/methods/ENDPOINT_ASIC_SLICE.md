@@ -98,14 +98,14 @@ square aspect ratio, 5 um core margin, placement density 0.40, seed 42, two
 threads, metal5/6 local I/O pins and the platform's metal2–10 signal / metal4–10
 clock routing settings. CTS uses CLKBUF_X1/X2/X3. The same automatic setup/hold
 repair sequence runs after CTS and with global-route parasitics; hold margin is
-0.02 ns and the buffer limit is 50% for every block. Detailed routing is followed
+0.05 ns and the buffer limit is 50% for every block. Detailed routing is followed
 by OpenRCX extraction and STA using propagated clocks. Record pre-repair,
 post-CTS, repaired and extracted-route area/slack, added hold-buffer count/area,
 route DRC count, and exact final cell counts. Replay the same mapped scoreboards.
 Load the exported SPEF explicitly into STA and inspect parasitic annotation;
 extraction into the physical database alone is insufficient. The three low Home
 unit-count outputs are structurally literal zero in both mapped sources. Verify
-this before excluding those constant endpoints from timing; no data path gets
+this before accepting only those constant endpoints in the old check_setup report; no data path gets
 a new false-path exception. The exception also applies in standalone STA.
 
 This is local signal/clock physical validation. Power-grid routing, wafer-length
@@ -131,3 +131,19 @@ Relevant primary tool documentation:
 [Yosys ABC mapping](https://yosyshq.readthedocs.io/projects/yosys/en/v0.54/cmd/abc.html),
 [OpenSTA](https://github.com/parallaxsw/OpenSTA),
 [Verilator](https://verilator.org/guide/latest/).
+
+
+Home RX specialization uses one 256-bit elastic slot and a full flag, valid only
+for accepted WIDTH=256 beats with units=8. Shared RX remains the generic
+reservoir. Both architecture variants use the same optimized Home RX.
+`home_rx_contract_tb.sv` compares the optimized branch with the retained generic
+reference across 100,004 directed/random cycles, reset, replacement and stalls.
+The existing 14 paired archived traces must also retain their cycle counters.
+
+The first physical probe used a 0.02 ns repair margin. Once extracted SPEF was
+explicitly loaded into STA, residual hold remained negative. The registered
+matched run therefore uses a common 0.05 ns repair margin for every block;
+SDC input/output delays and clock constraints stay unchanged. Constant Home
+unit bits are verified in the mapped netlist. No data-path false path is added.
+Extraction coverage is checked separately: only drivers with no other connected
+fanout may lack annotation (unused QN pins and clock-load outputs, for example).

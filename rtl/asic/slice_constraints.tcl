@@ -13,8 +13,4 @@ set_false_path -from [get_ports rst]
 if {$::env(W2W_TX)} {
     # Valid only for the frozen one-partner contract, not dynamic direction STA.
     set_false_path -from [get_ports {cfg_shared_direction native_shared_direction}]
-    # Full-width Home emits zero or eight 32-bit units. The runner verifies
-    # these three pins are literal zero nets before applying this exception.
-    # Tie-cell insertion otherwise makes old check_setup flag static endpoints.
-    set_false_path -to [get_ports {home_units[0] home_units[1] home_units[2]}]
 }
