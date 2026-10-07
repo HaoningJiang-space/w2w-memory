@@ -35,7 +35,8 @@ memory_results/            本地/服务器实验工作目录（不入 Git）
 ## 从这里开始
 
 - [固定研究范围与三层职责](docs/RESEARCH_SCOPE.md)
-- [最新：固定 H/plus 架构竞争与性能/成本前沿](docs/reports/ARCHITECTURE_COMPETITION_REPORT.md)
+- [最新：Configurable Shared Egress，同服务减少重复 FIFO](docs/reports/CONFIGURABLE_SHARED_EGRESS_REPORT.md)
+- [固定 H/plus 架构竞争与性能/成本前沿](docs/reports/ARCHITECTURE_COMPETITION_REPORT.md)
 - [角色接口、home/k2/k3与原生供给敏感性](docs/reports/ROLE_INTERFACE_REPORT.md)
 - [不可变Design、端点契约与统一资源账本](docs/DESIGN_API.md)
 - [服务合同改变设计选择：首轮结果](docs/reports/CONTRACT_SELECTION_REPORT.md)
@@ -45,9 +46,9 @@ memory_results/            本地/服务器实验工作目录（不入 Git）
 - [该闭环的模型、参数与复现范围](docs/methods/ENDPOINT_BRIDGE_METHOD.md)
 - [全部阶段文档索引](docs/README.md)
 
-当前固定 H/plus，让 home/k2/k3 各自选择静态布局、方向和接口，在完整字执行与统一成本
-账本下比较前沿。k2 和 k3 分别保留低成本与高服务区域；最优性限于注册设计族，
-尚不是任意 fabric 综合、通用全 wafer 队列模拟或校准后的 DRAM/PPA。
+当前固定 H/plus，研究可配置共享接口：利用冻结伙伴关系复用 shared FIFO，在相同服务下
+减少重复存储。k2 和 full-width direct 保留为强对照。Matching、布局与执行模型服务于这项
+接口架构验证；暂不扩新优化框架，尚无 RTL/PPA。
 
 ## 运行
 

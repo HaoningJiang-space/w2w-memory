@@ -1,13 +1,19 @@
 # 开发交接：Wafer-scale Memory Service Fabric
 
-**2026-10-07 最新更新：工程整理已结束，固定 H/plus 架构竞争已完成。**
+**2026-10-07 最新研究收敛：Configurable Shared Egress。**
+冻结布局的共享方向已进入显式实现，A/B 在相同服务下节省 33.3%/40% endpoint 存储；
+7 设计、441 LP、22 测试通过，源码 `7604acb`。见[接口报告](reports/CONFIGURABLE_SHARED_EGRESS_REPORT.md)。
+下面架构竞争是其前置证据；之前“先做逆向综合”的安排已由用户最新要求替换为具体接口
+实现与成本对照，暂停新的 matching/cycle、任意 k、深 FIFO 和 DSE，见[当前任务](handoff/NEXT_TASK.md)。
+
+**2026-10-07 前置阶段：工程整理结束，固定 H/plus 架构竞争完成。**
 见[最新报告](reports/ARCHITECTURE_COMPETITION_REPORT.md)：161 个合法候选、54 个实际设计、
 3,402 个 LP；home/k2/k3 均有 Pareto 区域，wire 预算可翻转 k2/k3 的胜负。
 实验源码 `806fe82`，eex005 隔离目录 `/home/wangziheng/Video/w2w-interface-20261007`；
 本地 `/home/abc/jhn/w2w-memory`，研究 remote 为 `origin`，隔离服务器为 `research`。
 四个模型边界与前轮结果见 [Design API](DESIGN_API.md)、[角色接口报告](reports/ROLE_INTERFACE_REPORT.md)。
-当前按用户最新顺序进入[固定几何的目标服务逆向综合](handoff/NEXT_TASK.md)，不再继续整理，
-不先做 placement 或真实 trace。下面保留前阶段交接快照，其版本、路径和“下一项”均为历史记录。
+该阶段之后已转入上面的具体接口候选，当前步骤以[下一任务](handoff/NEXT_TASK.md)为准。
+下面保留前阶段交接快照，其版本、路径和“下一项”均为历史记录。
 
 **交接日期：2026-10-07。读这份文件即可接手，不需要重新阅读整段聊天。**
 

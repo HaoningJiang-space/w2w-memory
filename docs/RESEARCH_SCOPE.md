@@ -1,6 +1,8 @@
 # 固定研究范围
 
-研究怎样在 wafer-scale Memory-on-Logic 中，联合组织 DRAM 服务接口、WoW 物理连接和静态数据布局，使已有但闲置的 DRAM 服务能力能够被其他 compute 有效利用。
+研究适合 repeated-reticle WoW Memory-on-Logic 的低成本共享 memory interface，使邻近
+compute 能利用已有的闲置 DRAM 服务。当前主候选为 **Configurable Shared Egress**：
+宽 Home、窄 Shared、冻结方向选择和匹配的静态数据比例，利用配置互斥减少重复服务硬件。
 
 | 层 | 职责 | 验证边界 |
 |---|---|---|
@@ -12,6 +14,9 @@ Matching/cycle 是布局表示和分析工具；endpoint/FIFO 是服务合同的
 
 统一方法选择经过验证的接口候选，而不是自由放大服务合同。地址权限 R、物理接收可达性 Y、共享资源容量必须同时成立。一个足够宽的合法单出口也可以兑现共享服务，多出口聚合不是唯一实现。
 
-近期问题：相同资源预算下，使用真实服务合同是否改变最优设计选择？先比较理想容量、实现区分的流体合同和有限执行，再与强结构化基线对照。小目录内的精确枚举不等于全设计空间最优；成本向量不等于芯片 PPA；服务速率不等于应用加速。
+近期问题：相同 placement、数据与 workload 下，独立复制 shared endpoint 与可配置
+shared endpoint 怎样交换服务和硬件成本？[第一项 FIFO 复用对照](reports/CONFIGURABLE_SHARED_EGRESS_REPORT.md)
+已完成。保留 private、k2 direct、独立 k3 和 full-width direct 对照；不先增加 matching/cycle、
+任意 k、深 FIFO 或优化框架。小目录最优性不等于全设计空间最优；成本计数不等于 PPA。
 
 完整的新颖性仍需前作全文核对。目录整理及模型诊断本身不作为新的架构贡献。

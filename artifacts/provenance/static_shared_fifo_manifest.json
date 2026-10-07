@@ -1,0 +1,96 @@
+{
+  "experiment_source_commit": "7604acbf0201bb3ee700a17b8a4c60b8a47a74c3",
+  "host": "eex005",
+  "remote_checkout": "/home/wangziheng/Video/w2w-interface-20261007",
+  "raw_directory": "memory_results/static_shared_fifo_7604acb",
+  "input_sha256": "865e92db4ade51444356c2a0ac3c60ab0e70af0f468b19a133eef0397d05e9c2",
+  "input_experiment_commit": "806fe829dacf4b02c9d0f1a100089e2f135cf613",
+  "raw_results_sha256": "45905eb3d70a219d1455d770d448130e40be823965e6e3f453d3491fd5a4408d",
+  "registration_sha256": "abaeb659e5d4bb1bf9617a8927827e7cbe14f6e8c1712507ad9100d2a2ad1365",
+  "tests": {
+    "count": 22,
+    "status": "PASS",
+    "scope": "18 previous design/role tests plus four configurable FIFO tests; no full historical rerun"
+  },
+  "verification": {
+    "designs": 7,
+    "lp_solves": 441,
+    "max_resource_residual": 6.2727600891321345e-15,
+    "actual_sequence_classes": 10,
+    "configured_trace_comparisons": 12,
+    "all_service_equal": true,
+    "original_baselines_match_archive": true
+  },
+  "cost_reductions": [
+    {
+      "baseline": "k3_23_random9_maxweight_h256s128_d11_buffered",
+      "configurable": "k3_23_random9_maxweight_h256s128_d11_buffered_static_fifo",
+      "saved_endpoint_bits": 8192,
+      "endpoint_reduction": 0.3333333333333333,
+      "endpoint_plus_pipeline_reduction": 0.04539007092198582,
+      "unchanged_cost_keys": [
+        "bank_port_connections",
+        "export_lane_bits",
+        "pipeline_register_bits",
+        "wire_mm",
+        "access_wire_bit_mm",
+        "configured_hb_signal_bits",
+        "configured_hb_tb_s",
+        "port_bits",
+        "fixed_sequence_control_bits",
+        "selector_input_bits",
+        "serializer_instances"
+      ],
+      "full_cost_dominance_claimed": false
+    },
+    {
+      "baseline": "k3_23_random9_maxweight_h256s160_d12_buffered",
+      "configurable": "k3_23_random9_maxweight_h256s160_d12_buffered_static_fifo",
+      "saved_endpoint_bits": 16384,
+      "endpoint_reduction": 0.4,
+      "endpoint_plus_pipeline_reduction": 0.07448356124527204,
+      "unchanged_cost_keys": [
+        "bank_port_connections",
+        "export_lane_bits",
+        "pipeline_register_bits",
+        "wire_mm",
+        "access_wire_bit_mm",
+        "configured_hb_signal_bits",
+        "configured_hb_tb_s",
+        "port_bits",
+        "fixed_sequence_control_bits",
+        "selector_input_bits",
+        "serializer_instances"
+      ],
+      "full_cost_dominance_claimed": false
+    }
+  ],
+  "elapsed_seconds": 15.518962441943586,
+  "scope": "One-factor bank-local FIFO reuse with frozen direction; serializers and physical routes retained; no RTL/PPA",
+  "files": {
+    "artifacts/results/endpoint/static_shared_fifo.json.gz": {
+      "bytes": 19942,
+      "sha256": "2ccc412a1c2b955d34a437d09aababd4c73fa7f0c711214e78ca8e258ec0e28c"
+    },
+    "artifacts/results/endpoint/static_shared_fifo_summary.csv": {
+      "bytes": 1148,
+      "sha256": "70eb2c005a725471909a634f6fe4ad683a1ab428f3929097fd0817576499c1d9"
+    },
+    "docs/reports/CONFIGURABLE_SHARED_EGRESS_REPORT.md": {
+      "bytes": 10058,
+      "sha256": "6e9d9423562c265227edbbcb38dcf73cb010784cba326b6c0c6f4d796293d3eb"
+    },
+    "docs/methods/STATIC_SHARED_FIFO.md": {
+      "bytes": 3372,
+      "sha256": "abaeb659e5d4bb1bf9617a8927827e7cbe14f6e8c1712507ad9100d2a2ad1365"
+    },
+    "artifacts/provenance/static_shared_fifo_tests.log.gz": {
+      "bytes": 781,
+      "sha256": "645b26eb481bd7676aebf214846192843e1d4b0ec9f8267a4d026bd4b570564b"
+    },
+    "artifacts/provenance/static_shared_fifo_run.log.gz": {
+      "bytes": 420,
+      "sha256": "d1064ad637eef6183cc32a47c512ee9f6fbafc9f978f3e7236674cefc7ef2fa4"
+    }
+  }
+}

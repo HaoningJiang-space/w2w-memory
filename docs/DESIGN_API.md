@@ -53,3 +53,8 @@ API 工作；`bank_sharing`、`matching_placement`、oracle relaxation 的不同
 当前 `CandidateEvaluator` 仅支持唯一物理路径、每 bank 最多两个固定所有者及能通过
 保守瞬时端口容量证书的设计。通用多路径或共享端口拥塞需要独立实现，不能通过
 修改 design 名字绕过这些条件。
+
+Configurable Shared Egress 使用 `EndpointSpec.shared_fifo_ports` 指定共用存储的物理方向，
+`MemoryFabricDesign.shared_directions` 冻结每 memory 的方向。构造器核对完整布局，执行器
+只分配一份 shared queue，envelope 关闭未选方向的服务容量，成本仍保留其物理线路。
+该类型当前限于 bank-local 等宽/等深 shared FIFO，不能随 activity set 切换配置。
