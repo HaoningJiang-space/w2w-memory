@@ -106,7 +106,8 @@ Load the exported SPEF explicitly into STA and inspect parasitic annotation;
 extraction into the physical database alone is insufficient. The three low Home
 unit-count outputs are structurally literal zero in both mapped sources. Verify
 this before accepting only those constant endpoints in the old check_setup report; no data path gets
-a new false-path exception. The exception also applies in standalone STA.
+a new false-path exception. This only filters the old physical check_setup
+diagnostic for proven constant outputs; standalone STA keeps its full check.
 
 This is local signal/clock physical validation. Power-grid routing, wafer-length
 access wires, actual HB parasitics, multi-corner signoff and power are excluded.

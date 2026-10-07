@@ -1,47 +1,52 @@
-# 当前进展：单 slice 标准单元比较已完成
+# 当前：单 slice 物理验证完成，回到研究归因
 
-研究主线：用较少共享接口硬件，使邻近 compute 利用已有闲置 DRAM 服务。
-方向选择固定在 source 侧、第一次 HB 之前；每条 M→C 必须是合法 overlap 边。
-不引入 logic 侧 C→C 转发，不实现 DRAM array/controller 或整个 wafer。
+研究主线保持：以较少共享接口硬件，让邻近 compute 使用已有闲置 DRAM 服务。
+静态方向选择发生在第一次 HB 之前，不引入同 wafer 跨 reticle 转发。
 
-## 最新证据
+## 已完成的两项
 
-[ASIC 报告](../reports/ENDPOINT_ASIC_SLICE_REPORT.md)，执行源码 `5d5a958`，
-在 hn072 的隔离目录完成 Verilator/Icarus、Yosys/ABC、OpenSTA 与映射后零延迟回放。
-Home256/D1、Shared160/D2、同 Nangate45 typical 库、2 ns 约束。
+[ASIC 报告](../reports/ENDPOINT_ASIC_SLICE_REPORT.md)末节记录最终物理结果。
+同 Nangate45 typical、2 ns、同 I/O 条件，source 修复后面积
+21,987.294→15,318.674 μm²（−30.33%）；Configurable 虽多 357 个 hold buffer，
+仍节省 6,668.620 μm²。682-FF 差不变，保留现有一套 Shared TX 核心。
 
-每个后端 14 条成对轨迹通过，每架构 124,834 个完整字逐 bit 恢复，
-181,308 个成对周期；两种 RTL simulator 与映射后外部周期/计数一致。
-两个注入错误均触发预期 checker。
+Home RX 已按既有完整字合同特化，两种架构同时采用。
+修复后的通用/特化 Home RX 为 9,890.944/3,815.770 μm²。
+共同部件优化节省 6,075.174 μm²，不能重复记作方向复用的贡献。
 
-Source 单元面积 17,265.528→11,123.854 μm²（−35.6%）；
-计入同样一套 Home RX + 两套 Shared RX，合计 37,762.690→31,621.016 μm²（−16.3%）。
-Lane 不变。所有 setup slack 为正，但输入 hold 和 RX 最大电容有违例；
-尚未时序收敛，未做 P&R 或功耗。面积是修复前映射结果。
+Source + 特化 Home RX + 两套 Shared RX：
+46,023.320→39,354.700 μm²（−14.49%）。计入 tap 后约 −14.45%。
+所有正式块和通用 Home 对照均通过本轮提取后的 setup/hold、电气检查与路由器 DRC。
+三个后端均通过 14 条成对轨迹，每架构 124,834 字；
+通用 Home 物理网表另跑同 14 条轨迹，Home 独立周期对照为 100,004 周期。
 
-此前 [roundtrip 报告](../reports/ENDPOINT_ROUNDTRIP_REPORT.md) 保留更宽目录的历史
-26 条轨迹，包括 192/D1=.5、192/D2=.75。不要把历史计数混入本轮 14 条 ASIC 轨迹。
-[Vivado 报告](../reports/ENDPOINT_VIVADO_SLICE_REPORT.md) 记录旧输入约束错误，
-修正后的 FPGA 重跑为优先 ASIC 而中止；没有修正后的 FPGA PPA 结论。
+## 下一项研究判断
 
-## 下一步围绕研究判断
+局部验证到此收尾。先把已有服务结果与这份实测局部成本对应起来，说明：
 
-当前结果支持：静态互斥共享方向能够减少 source 硬件；加入 RX 后收益仍在，
-但总收益小于 TX-only 比例。不要再以 FIFO bits 直接推断完整 endpoint 面积。
+- 哪些收益来自静态伙伴/数据比例，哪些来自少复制一套 Shared TX；
+- 完整路径中的 TX、RX、长线与 HB 分别计几份，避免重复计算三个 RX；
+- 加入共同 RX 和长线后，sharing 相比 private/k2/direct 的收益占比还剩多少。
 
-如继续推进硬件证据，先在相同库和边界约束下修复已知 hold/cap 违例，
-重新核对功能和面积变化，再判断是否值得进入局部物理实现/功耗。
-不把部署更多 EDA 工具本身当研究进展，不自动启动新 sweep 或工程重构。
-Source 位于第一次 HB 之前，Nangate45 仅验证 logic 库相对成本；其具体工艺/层归属
-仍需在最终架构中说明。
+已有固定 H/plus 的服务结果继续作为机制证据。不因安装好 EDA 工具而自动开展
+Shared RX 微优化、dual-leaf、32-bank RTL、clock/load sweep、formal、placement 或新 DSE。
+只有新的真实瓶颈证据或用户的新任务才扩展这些方向。
 
-## 保持范围
+## 证据边界与入口
 
-private、k2、full-width direct 保留为系统层基线；当前不扩 wafer LP、
-matching/cycle、任意 k、深 FIFO scheduler、BO/Benders、placement 或真实 trace。
-32-bank 聚合、真实 HB 延迟和 metadata 汇聚留待单 slice 判断之后。
-不把本轮三个 RX 的计费范围直接套入每-M 成本账本，以免重复计费。
+本轮是独立小块的局部标准单元面积和单角时序；不代表跨 HB 端到端 timing、
+wafer 长线、MCMM、功耗或真实 DRAM 工艺。保留 576 physical data lanes；
+不能把 logic area 减少写成长线/HB 减少，也不把 2 ns 直接换成机制模型 TB/s。
 
-当前实验服务器为 `hn072@143.89.78.72`，根目录
-`/Projects/haoning/w2w-memory-slice-20261007`；工具环境在 `asic_tools/env.sh`，
-结果在 `asic_5d5a958`。源码、工具环境、库与输入 SHA、报告均已归档。
+最终 runner 源码 `6ecba5c`；source 的物理结果复用 `9cae62d`，特化 Home RX 复用
+`5c7fcc0`，均核对 RTL/SDC/库/工具与 manifest 哈希链。所有原始版本保留。
+
+服务器：`hn072@143.89.78.72`，根目录
+`/Projects/haoning/w2w-memory-slice-20261007`。
+主结果 `physical_6ecba5c`；通用 Home 对照 `physical_home_generic_6ecba5c`，
+对照网表回放 `generic_home_replay_6ecba5c`。全部退出码 0。
+
+[结果 JSON](../../artifacts/results/endpoint/endpoint_physical_slice.json.gz)、
+[完整物理证据](../../artifacts/provenance/endpoint_physical_slice_evidence.tar.gz)、
+[方法](../methods/ENDPOINT_ASIC_SLICE.md)包含源码、库、工具、输入、SPEF、ODB、网表、日志和 SHA。
+旧 `5d5a958` 的未修复映射结果、`61ba73f` 的零线 RC ECO 仍为历史证据，不替代当前结果。

@@ -52,8 +52,9 @@ memory_results/            本地/服务器实验工作目录（不入 Git）
 减少重复存储。k2 和 full-width direct 保留为强对照。Matching、布局与执行模型服务于这项
 接口架构验证；暂不扩新优化框架。当前[source-side TX→HB→RX最小闭环](docs/reports/ENDPOINT_ROUNDTRIP_REPORT.md)
 已通过完整字、背压和吞吐对照；新增握手与RX存储均计费。
-同库、同约束的[单 slice ASIC 映射/STA](docs/reports/ENDPOINT_ASIC_SLICE_REPORT.md)
-现已完成，报告区分局部面积、未解决时序问题和未执行的物理/功耗验证。
+同库、同约束的[单 slice ASIC 物理验证](docs/reports/ENDPOINT_ASIC_SLICE_REPORT.md)
+已完成：修复后 source 面积减少 30.3%，计入相同三个 RX 后减少 14.5%；
+Home RX 完整字特化同时用于两种架构。结果限定于局部典型角面积/时序，不含功耗或 wafer/HB 长线。
 
 ## 运行
 

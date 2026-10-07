@@ -1,5 +1,16 @@
 # 单 slice 标准单元综合与时序结果
 
+**2026-10-07 最新结果：保留 configurable 核心，source 物理修复与共同 Home RX 特化均完成。**
+同 Nangate45 typical 库、2 ns、相同 I/O 合同，布线/提取/修复后 source 面积
+21,987.294→15,318.674 μm²（−30.33%）；计入相同的特化 Home RX 和两套 Shared RX，
+46,023.320→39,354.700 μm²（−14.49%）。四种模块均通过本轮提取后的 setup/hold、
+电气检查和路由器 DRC；最终网表完整字回放通过。
+这些是独立小块的局部单元面积与单角时序结果，未测功耗，也未闭合跨 HB 的端到端时序。
+完整归因、复现及范围见文末“物理修复与 Home RX 特化”。下面先保留历史映射基线。
+
+## 历史映射基线：5d5a958
+
+
 2026-10-07，执行源码 `5d5a958`。在 hn072 服务器完成 Verilator / Icarus
 RTL 仿真、Yosys/ABC 标准单元映射、OpenSTA，以及映射后零延迟网表回放。
 当前可配置 source 保持注册轨迹上的服务，source 映射面积减少 **35.6%**；
@@ -146,3 +157,133 @@ Configurable 付出了更多缓冲，source 绝对面积差从 6,141.674 降为 
 [修复结果](../../artifacts/results/endpoint/endpoint_asic_repair.json.gz)、
 [原始日志与网表](../../artifacts/provenance/endpoint_asic_repair_evidence.tar.gz)、
 [哈希清单](../../artifacts/provenance/endpoint_asic_repair_manifest.json)。
+
+
+## 物理修复与 Home RX 特化（2026-10-07）
+
+### 改动与控制
+
+本轮保留原 source RTL：一套 Home TX、一套 Shared TX，第一次 HB 之前静态选方向。
+没有增加 dual-leaf、ingress pipeline 或动态共享方向；Shared 160/D2、布局和输入轨迹不变。
+唯一数据通路改动是 Home RX：在 WIDTH=256、有效 beat_units=8 的既有合同下，
+用 256-bit payload 和 full 标志替代通用 reservoir/count。支持同拍 pop/push，
+背压时保持有效字，不添加 bypass。原通用分支保留为对照；两种架构使用同一特化 RX。
+
+物理实现仍用原 Nangate45 typical Liberty（1.1 V、25°C），SDC 的 2 ns、
+0.05 ns uncertainty、I/O max=0.2 ns/min=0、BUF_X1 drive、5 fF load 全部保持相同。
+OpenROAD v2.0-17598-ga008522d8，ORFS 平台与库均来自
+`9b26ff8ff651fc0b696f7ef20a356865ca6068bb`。
+每块初始 utilization=30%、placement density=40%、方形 core、5 μm margin、seed=42。
+分别完成 placement、CTS、自动修复、详细布线、OpenRCX、显式 read_spef、propagated-clock STA。
+
+修复策略对所有块相同：hold margin=0.05 ns，每阶段最多三次自动修复；
+遇到单次 buffer 数上限时保留已插单元、合法化并更新 RC，再继续。
+还保留从 50% 到工具允许最大 100% 的有限重启选项；最终采用的块没有使用该重启。
+若提取后仍有电气违例，则从原映射网表重跑一次，repair_design cap_margin=20%。
+Shared RX 与原通用 Home RX 用到此电气重试，已闭合的 source/特化 Home RX 不受影响。
+这是修复器的余量/工作量设置，不是放松输入延迟或输出负载。
+
+试跑的 0.02 ns hold margin 在显式载入 SPEF 后仍有负 slack，因此未作为正式结果。
+同样，初次 Shared RX 的两个电容违例及通用 Home RX 的一个违例保留为失败记录，
+未混进最终闭合比较。三个恒零 Home units 输出经映射结构验证后，仅过滤旧版
+check_setup 的恒定端点提示，没有新增数据 false path。提取检查逐一确认未标注 driver
+都没有其他连接负载；没有带负载的 net 缺失 RC。
+
+### Source：额外 hold buffer 没有抵消方向复用收益
+
+面积单位 μm²。这里计功能、时钟及修复单元，单列 tap，不含 placement 留白。
+
+| 指标 | Duplicated | Configurable |
+|---|---:|---:|
+| 原映射面积 | 17,265.528 | 11,123.854 |
+| 最终 hold buffer 数 | 2,669 | 3,026 |
+| hold buffer 面积 | 2,135.182 | 2,414.748 |
+| CTS buffer / dummy load 数 | 336 / 254 | 199 / 171 |
+| CTS buffer + dummy load 面积 | 636.804 | 397.404 |
+| **提取后修复面积** | **21,987.294** | **15,318.674** |
+| 相对原映射的净增量 | 4,721.766 | 4,194.820 |
+| FF 数 | 1,879 | 1,197 |
+| 另计 tap 面积 | 113.316 | 91.238 |
+
+Configurable 多 357 个 hold buffer，但总物理增量更小。
+方向复用的绝对节省为 **6,668.620 μm²**（−30.329%），
+FF 差仍为 682，保持“一套 Shared TX 状态被删除”的结构解释。
+净增量包含 clock、插入、删除、尺寸调整，不能只从 hold buffer 数或最差 slack 推断。
+表中 clock/hold 分类来自最终实例名与 master 清单；其他电气修复/重构保留在完整
+初始/最终网表、逐实例清单和阶段总面积中，不把所有剩余增量冒充为纯 hold 成本。
+
+Source 路径分类，单位 ns：
+
+| 路径类型 | Dup setup | Dup hold | Cfg setup | Cfg hold |
+| 输入→寄存器 | +1.050922 | +0.023190 | +1.002006 | +0.035715 |
+| 寄存器→寄存器 | +1.068283 | +0.060025 | +0.998935 | +0.059970 |
+| 寄存器→输出 | +1.296427 | +0.286969 | +1.310715 | +0.262357 |
+| 输入→输出 | +1.254268 | +0.123004 | +1.278878 | +0.155760 |
+
+最差 hold 仍属于输入→寄存器；寄存器间 hold 均为正。没有证据要求为这些输入路径
+改成 shared-core＋dual-leaf。所有精确 startpoint/endpoint 见 JSON 的 audit.paths。
+
+### Home RX：共同实现优化，单独归因
+
+| 指标 | 原通用 Home RX | 完整字 Home RX |
+|---|---:|---:|
+| 原映射面积 | 6,186.894 | 1,961.750 |
+| 提取后修复面积 | 9,890.944 | 3,815.770 |
+| hold buffer 数 | 1,115 | 2,023 |
+| hold buffer 面积 | 897.750 | 1,614.354 |
+| 最终 setup slack | +0.831098 | +1.361952 |
+| 最终 hold slack | +0.040300 | +0.045307 |
+
+修复后的共同节省为 **6,075.174 μm² / Home RX（−61.422%）**。
+特化 RX 组合路径更简单，却需要更多输入 hold 修复；这部分成本全部计入。
+这是既有完整字合同下的实现特化，两种架构同时受益，不算作方向复用新增贡献。
+原通用 Home RX 对照也完成同策略修复、提取和最终网表回放。
+
+共同 Shared RX 未改 RTL：原映射 7,155.134、物理修复后 10,110.128 μm²/套；
+1,267 个 hold buffer，面积 1,245.678 μm²。最终 setup=+0.981954 ns、
+hold=+0.026565 ns。全四种正式块及通用 Home 对照的电气违例、路由器 DRC 均为 0。
+
+### 合计时保持相同分母
+
+| 独立块单元面积合计 | Duplicated | Configurable | 方向复用节省 |
+|---|---:|---:|---:|
+| Source + 原通用 Home RX + 2 Shared RX | 52,098.494 | 45,429.874 | 12.800% |
+| **Source + 特化 Home RX + 2 Shared RX** | **46,023.320** | **39,354.700** | **14.490%** |
+
+两行的 source 绝对差均为 6,668.620 μm²。Home RX 共同优化只改变分母，不能把
+其 6,075.174 μm² 再加进方向复用的绝对收益。若计入所有 tap，第二行变为
+46,312.196→39,621.498 μm²（−14.447%）；结论一致。
+
+上述合计不是整片 wafer 面积，也不是一块联合布局后的 core 面积。
+三个 RX 对应此局部 star 的三个潜在直接目的地；不能把这份计费方式自动乘到
+所有 compute 而重复计费。实际 HB、wafer 长线、驱动、供电网络不在这些单元面积里。
+
+### 功能、完整性与复现
+
+- Home 独立对照：100,004 周期，包含长停顿、同拍替换和中途复位。
+  62,887 次接受、62,886 次交付、1 字按复位合同丢弃；复位丢弃单独计数，
+  不把它当数据丢失。所有有效 payload、ready/valid 和 pending bits 与通用分支一致。
+- 正式 14 条成对轨迹：Verilator RTL、Icarus RTL、最终物理网表零延迟回放全部通过。
+  每架构、每后端 124,834 字，181,308 成对周期；完整 payload/tag/目的地一致，
+  背压和停顿稳定性检查通过，两个故意破坏的负测试触发预期 checker。
+- 原通用 Home RX 的最终物理网表另外回放同 14 条轨迹，外部计数/周期与特化版一致。
+- 316 份归档文件 SHA 全部核对；RTL、SDC、库、复用 manifest 哈希链及网表哈希一致。
+  物理数据库逐实例面积与最终 Liberty 单元面积交叉核对，误差 <1e-5 μm²。
+
+执行来源分开记录：source 闭合于 `9cae62d`，特化 Home RX 闭合于 `5c7fcc0`，
+最终 Shared RX、电气重试及整套回放为 `6ecba5c`，正式流程完成于
+2026-10-07T14:48:04Z。闭合块在相同 RTL/SDC/库/工具下复用，保留其原始日志和哈希；
+没有把缓存结果伪装成重新运行。完整从头复现可不使用 --reuse-closed。
+
+服务器主结果：`/Projects/haoning/w2w-memory-slice-20261007/physical_6ecba5c`；
+通用 Home 对照：`physical_home_generic_6ecba5c`、`generic_home_replay_6ecba5c`。
+
+- [物理结果 JSON](../../artifacts/results/endpoint/endpoint_physical_slice.json.gz)
+- [物理数据库、SPEF、网表、原始日志、完整输入与脚本](../../artifacts/provenance/endpoint_physical_slice_evidence.tar.gz)
+- [316 文件归档清单与 SHA](../../artifacts/provenance/endpoint_physical_slice_manifest.json)
+
+这里的“通过”限定于同一 typical corner、2 ns 和注册 I/O 条件。
+没有 MCMM、SDF 动态仿真、formal equivalence、功耗或 HB/wafer 长线模型；
+相加的独立块不能证明跨 HB 的端到端物理时序。2 ns RTL 时钟也不直接校准机制模型的
+TB/s。局部结果支持保留静态 Shared TX 复用，当前不扩 dual-leaf、Shared RX 优化或
+32-bank RTL；下一步回到系统服务与完整路径成本的归因。

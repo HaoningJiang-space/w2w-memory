@@ -1,5 +1,15 @@
 # 开发交接：Wafer-scale Memory Service Fabric
 
+**2026-10-07 当前：source 物理修复与共同 Home RX 特化完成。**
+同库、2 ns、同 I/O 合同，提取后 source 21,987.294→15,318.674 μm²（−30.33%）；
+计入相同特化 Home RX 与两套 Shared RX，总计 −14.49%。所有块及通用 Home 对照通过
+本轮 setup/hold、电气与路由器 DRC；最终物理网表完整轨迹回放通过。
+方向复用节省 6,668.620 μm²，Home RX 共同特化另省 6,075.174 μm²，分别归因。
+没有新增 dual-leaf，不再扩 RTL 支线；回到系统服务—完整路径成本。
+见[最新报告](reports/ENDPOINT_ASIC_SLICE_REPORT.md)末节与[当前任务](handoff/NEXT_TASK.md)。
+以下为历史交接记录，其中未修复百分比和下一步安排均按各自版本解释。
+
+
 **2026-10-07 当前定位：架构贡献与 RTL 验证分开。**
 主线是 wafer-scale DRAM 服务共享；静态可配置 source egress 是关键机制，
 gearbox/FIFO/RTL 是功能与局部硬件成本证据，不另立贡献。
