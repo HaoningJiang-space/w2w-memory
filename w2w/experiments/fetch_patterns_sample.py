@@ -48,47 +48,80 @@ def get_bytes(url, limit, token=None):
     return raw
 
 
-def fetch(endpoint, prefix, output, count=2, max_file_bytes=2*1024**2, max_total_bytes=4*1024**2, token_file=None):
+def fetch(endpoint, prefix, output, count=2, max_file_bytes=2*1024**2, max_total_bytes=4*1024**2, token_file=None,
+          selection='smallest', seed=0, resume=False, revision=None, token=None):
     if urlparse(endpoint).scheme != 'https' or any(v <= 0 for v in (count,max_file_bytes,max_total_bytes)):
         raise ValueError('HTTPS endpoint and positive limits required')
     if not prefix or PurePosixPath(prefix).is_absolute() or '..' in PurePosixPath(prefix).parts:
         raise ValueError('Select one explicit model/benchmark/subject folder')
     read = get_bytes
-    if token_file is not None:
+    if token_file is not None or token is not None:
         if endpoint.rstrip('/') != 'https://huggingface.co':
             raise ValueError('Token files may only be used with https://huggingface.co')
-        token = Path(token_file).read_text().strip()
+        if token_file is not None:
+            if token is not None:raise ValueError('Choose one credential source')
+            token = Path(token_file).read_text().strip()
         if not token.startswith('hf_') or any(c.isspace() for c in token):
             raise ValueError('Token file must contain only one HF token')
         read = partial(get_bytes, token=token)
+    if selection not in ('smallest', 'seeded'):
+        raise ValueError('Unknown selection policy')
     output = Path(output)
-    if output.exists() and any(output.iterdir()):
+    previous = None
+    if output.exists() and any(output.iterdir()) and not resume:
         raise ValueError('Output directory must be new or empty')
+    if resume and (output/'download_receipt.json').exists():
+        previous = json.loads((output/'download_receipt.json').read_text())
+        identity = dict(endpoint=endpoint, repository=REPO, prefix=prefix, max_files=count,
+                        max_file_bytes=max_file_bytes, max_total_bytes=max_total_bytes,
+                        selection=selection, seed=seed)
+        if any(previous.get(k) != v for k,v in identity.items()):
+            raise ValueError('Resume parameters differ from original download')
+        if revision is not None and revision != previous['revision']:
+            raise ValueError('Resume revision mismatch')
+        revision = previous['revision']
     output.mkdir(parents=True, exist_ok=True)
     receipt = dict(endpoint=endpoint, repository=REPO, prefix=prefix, max_files=count,
-                   max_file_bytes=max_file_bytes, max_total_bytes=max_total_bytes, downloaded=[])
+                   max_file_bytes=max_file_bytes, max_total_bytes=max_total_bytes,
+                   selection=selection, seed=seed, downloaded=[])
     try:
         api = endpoint.rstrip('/')+'/api/datasets/'+REPO
         # Default metadata includes a very large siblings list. Request only
         # the pinned revision and gate status, not the entire dataset listing.
         info = json.loads(read(api+'?expand=sha&expand=gated', 8*1024**2))
-        revision = info['sha']
+        revision = revision or info['sha']
         if not re.fullmatch('[a-f0-9]{40}', revision):raise ValueError('Expected immutable dataset commit')
         receipt['revision'] = revision
-        if info.get('gated') and token_file is None:
+        if info.get('gated') and token is None:
             raise RuntimeError('Dataset reports gated access; obtain authorized local files before import')
         rows = json.loads(read(api+'/tree/'+revision+'/'+quote(prefix,safe='/')+'?limit=1000', 8*1024**2))
-        files = sorted((row for row in rows if row['type']=='file' and row['path'].endswith('.json')
-                        and 0 < row['size'] <= max_file_bytes), key=lambda row:(row['size'], row['path']))
-        receipt['selection_scope'] = 'Smallest files in first nonrecursive directory page, not global dataset minimum'
+        all_files = [row for row in rows if row['type']=='file' and row['path'].endswith('.json')]
+        files = [row for row in all_files if 0 < row['size'] <= max_file_bytes]
+        key = (lambda row:(row['size'], row['path'])) if selection == 'smallest' else (
+            lambda row:sha256((str(seed)+'\0'+row['path']).encode()).hexdigest())
+        files.sort(key=key)
+        receipt['listed_json_files'] = len(all_files)
+        receipt['excluded_by_file_cap'] = len(all_files)-len(files)
+        receipt['selection_scope'] = selection+' selection within first nonrecursive directory page; not a whole-dataset sample'
         chosen, used = [], 0
         for row in files:
             if len(chosen)==count:break
             if used+row['size'] <= max_total_bytes:chosen.append(row);used+=row['size']
         if not chosen:raise ValueError('No JSON files fit limits in this folder')
+        receipt['planned'] = chosen
+        if previous is not None and previous.get('planned') != chosen:
+            raise ValueError('Pinned directory plan changed')
+        (output/'download_receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
         for index,row in enumerate(chosen):
             url=endpoint.rstrip('/')+'/datasets/'+REPO+'/resolve/'+revision+'/'+quote(row['path'],safe='/')
-            raw=read(url,min(max_file_bytes,max_total_bytes-sum(r['bytes'] for r in receipt['downloaded'])))
+            name=f'request{index}.json'
+            if (output/name).exists():
+                if not resume:raise ValueError('Existing raw file would be overwritten')
+                raw=(output/name).read_bytes()
+                if not (row.get('oid') or row.get('lfs',{}).get('oid')):
+                    raise ValueError('Cannot resume without authoritative file identity')
+            else:
+                raw=read(url,min(max_file_bytes,max_total_bytes-sum(r['bytes'] for r in receipt['downloaded'])))
             if len(raw)!=row['size']:raise ValueError('Downloaded size differs from metadata')
             value=json.loads(raw)
             if not isinstance(value,list) or not value:raise ValueError('Not a request routing JSON list')
@@ -98,9 +131,12 @@ def fetch(endpoint, prefix, output, count=2, max_file_bytes=2*1024**2, max_total
             blob_oid = sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()
             if not expected and row.get('oid') and row['oid'] != blob_oid:
                 raise ValueError('Git blob identity mismatch')
-            name=f'request{index}.json';(output/name).write_bytes(raw)
+            if not (output/name).exists():
+                partial_file=output/(name+'.part')
+                partial_file.write_bytes(raw);partial_file.replace(output/name)
             receipt['downloaded'].append(dict(path=name,source_path=row['path'],sha256=fingerprint,
                                              git_blob_oid=blob_oid if not expected else None,bytes=len(raw)))
+            (output/'download_receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
         manifest=dict(schema='w2w.pbc-files.v1',evidence='captured',
                       source='https://huggingface.co/datasets/'+REPO,revision=revision,
                       requests=[dict(id=r['source_path'],path=r['path'],sha256=r['sha256'],arrival_iteration=0)
@@ -124,8 +160,13 @@ def main():
     p.add_argument('--max-file-bytes',type=int,default=2*1024**2)
     p.add_argument('--max-total-bytes',type=int,default=4*1024**2)
     p.add_argument('--token-file',help='Optional secret file; official HF host only; never persisted in receipt')
+    p.add_argument('--selection',choices=('smallest','seeded'),default='smallest')
+    p.add_argument('--seed',type=int,default=0)
+    p.add_argument('--resume',action='store_true',help='Reuse hash-verified complete files; not partial-byte resume')
+    p.add_argument('--revision',help='Pin a known dataset commit')
     args=p.parse_args()
-    receipt=fetch(args.endpoint,args.prefix,args.output,args.max_files,args.max_file_bytes,args.max_total_bytes,args.token_file)
+    receipt=fetch(args.endpoint,args.prefix,args.output,args.max_files,args.max_file_bytes,args.max_total_bytes,args.token_file,
+                  args.selection,args.seed,args.resume,args.revision)
     print(json.dumps(receipt))
 
 

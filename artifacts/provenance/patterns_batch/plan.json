@@ -1,0 +1,57 @@
+{
+  "revision": "27febb7b2d24169560a9f6f83d38eb53f94916cf",
+  "model_prefix": "Qwen/Qwen3-235B-A22B-FP8/mmlu",
+  "subjects": [
+    "abstract_algebra",
+    "computer_security",
+    "professional_medicine",
+    "philosophy",
+    "high_school_biology",
+    "high_school_physics",
+    "moral_scenarios",
+    "business_ethics"
+  ],
+  "requests_per_subject": 32,
+  "download_seed": 20261007,
+  "max_file_bytes": 33554432,
+  "max_total_bytes": 12000000000,
+  "batch_sizes": [
+    1,
+    2,
+    4,
+    8,
+    16,
+    32,
+    64,
+    128
+  ],
+  "order_seeds": [
+    701,
+    702,
+    703,
+    704
+  ],
+  "mapping_seeds": [
+    null,
+    811,
+    812
+  ],
+  "mapping_rule": "e%36 or fixed seeded permutation of that balanced owner list, identical across all layers and batches",
+  "batching": "fixed cohorts, no request duplication or padding; all 128 decode steps; layers evaluated separately",
+  "weight_bytes_per_expert": 18878976,
+  "expert_count": 128,
+  "compute_count": 36,
+  "layers": 94,
+  "top_k": 8,
+  "analysis_scope": "Reuse and demand complementarity, not measured DRAM bytes or endpoint/application speedup",
+  "analysis_layers": [
+    0,
+    13,
+    26,
+    39,
+    52,
+    65,
+    78,
+    93
+  ]
+}
