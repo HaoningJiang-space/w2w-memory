@@ -1,4 +1,5 @@
 from copy import deepcopy
+from dataclasses import replace
 from hashlib import sha256
 import json
 from pathlib import Path
@@ -8,9 +9,47 @@ import unittest
 from tests.test_read_workload import FAST, home_design, read_trace
 from w2w.analysis.patterns_replay import check_coverage, check_delivery, check_routing_union
 from w2w.service.read_replay import replay_reads
+from w2w.analysis.request_window import window_certificate
+from w2w.validation.patterns_replay import check_frozen_accounting
 
 
 class ReplayArchiveTests(unittest.TestCase):
+    def test_unchanged_global_totals_cannot_hide_wrong_bank_or_route(self):
+        trace, design = read_trace(19, both=True), home_design()
+        row = replay_reads(design, trace, FAST)
+        certificate = window_certificate(design, trace, FAST)
+        check_frozen_accounting(certificate, row, trace.word_bytes)
+        for target in ('native', 'route', 'task', 'embedded'):
+            bad = deepcopy(row)
+            if target == 'native':
+                keys = list(bad['native_words_by_bank'])
+                bad['native_words_by_bank'][keys[0]] -= 1
+                bad['native_words_by_bank'][keys[1]] += 1
+            elif target == 'route':
+                bad['routes'][0]['received_words'] -= 1
+                bad['routes'][1]['received_words'] += 1
+            elif target == 'task':
+                key = next(iter(bad['tasks'][0]['bank_bytes']))
+                bad['tasks'][0]['bank_bytes'][key] -= 32
+            else:
+                bad['design']['name'] = 'unrelated design'
+            # Previously the global conservation check alone accepted these.
+            check_delivery(trace, bad)
+            with self.subTest(target=target), self.assertRaises(ValueError):
+                check_frozen_accounting(certificate, bad, trace.word_bytes)
+
+    def test_shifted_child_before_parent_is_rejected_even_with_valid_duration(self):
+        trace, design = read_trace(19, both=True), home_design()
+        trace = replace(trace, tasks=(trace.tasks[0], replace(trace.tasks[1], dependencies=('a',))))
+        row = replay_reads(design, trace, FAST)
+        certificate = window_certificate(design, trace, FAST)
+        check_frozen_accounting(certificate, row, trace.word_bytes)
+        child = next(t for t in row['tasks'] if t['id'] == 'b')
+        for field in ('start_slot', 'reads_done_slot', 'finish_slot'):
+            child[field] -= 1
+        with self.assertRaisesRegex(ValueError, 'dependency'):
+            check_frozen_accounting(certificate, row, trace.word_bytes)
+
     def test_independent_union_rejects_per_token_weight_reads_and_missing_residency(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)
