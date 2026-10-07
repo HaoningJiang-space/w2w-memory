@@ -1,0 +1,10 @@
+{
+  "source_commit": "dda731fffa0c656468ce365ce31a58e02c954265",
+  "old_source_commit": "8b27f7b135718931da9b579272ed7d21285ae81f",
+  "micro_traces": 64,
+  "wafer_replays": 160,
+  "selection_records": 384,
+  "max_numeric_difference": 0,
+  "old_input_sha256": "dbad74125d1c5deed71559afcb48f92afe1b9cfb68c900431dd78bcd042b0950",
+  "new_bridge_sha256": "a5158b370ab4096c5430bcd074d434c8351767c11d29d6274973383792b4a8e9"
+}

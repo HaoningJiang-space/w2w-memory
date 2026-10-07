@@ -1,0 +1,1094 @@
+{
+  "source_commit": "dda731fffa0c656468ce365ce31a58e02c954265",
+  "scope": "Pre-derived single-output burst backlog thresholds, not a new wafer candidate catalog",
+  "traces": [
+    {
+      "spec": {
+        "widths": [
+          128
+        ],
+        "depths": [
+          1
+        ],
+        "word_bits": 256,
+        "mode": "buffered",
+        "serializer_location": "bank",
+        "native": {
+          "name": "alternate",
+          "ready": [
+            1,
+            0
+          ]
+        }
+      },
+      "native_profile": {
+        "name": "alternate",
+        "ready": [
+          1,
+          0
+        ]
+      },
+      "sequence": [
+        0
+      ],
+      "credits": [
+        [
+          128
+        ]
+      ],
+      "transient_slots": 0,
+      "period_slots": 2,
+      "delivered_words": [
+        1
+      ],
+      "sent_bits": [
+        256
+      ],
+      "rate_per_native": [
+        0.5
+      ],
+      "total_per_native": 0.5,
+      "peak_words": [
+        1
+      ],
+      "backpressure_slots": 0,
+      "ready_opportunities": 1,
+      "boundary_state": [
+        0,
+        0,
+        0,
+        [
+          []
+        ]
+      ],
+      "state_repeated": true,
+      "conservation_checked_every_slot": true
+    },
+    {
+      "spec": {
+        "widths": [
+          128
+        ],
+        "depths": [
+          2
+        ],
+        "word_bits": 256,
+        "mode": "buffered",
+        "serializer_location": "bank",
+        "native": {
+          "name": "alternate",
+          "ready": [
+            1,
+            0
+          ]
+        }
+      },
+      "native_profile": {
+        "name": "alternate",
+        "ready": [
+          1,
+          0
+        ]
+      },
+      "sequence": [
+        0
+      ],
+      "credits": [
+        [
+          128
+        ]
+      ],
+      "transient_slots": 0,
+      "period_slots": 2,
+      "delivered_words": [
+        1
+      ],
+      "sent_bits": [
+        256
+      ],
+      "rate_per_native": [
+        0.5
+      ],
+      "total_per_native": 0.5,
+      "peak_words": [
+        1
+      ],
+      "backpressure_slots": 0,
+      "ready_opportunities": 1,
+      "boundary_state": [
+        0,
+        0,
+        0,
+        [
+          []
+        ]
+      ],
+      "state_repeated": true,
+      "conservation_checked_every_slot": true
+    },
+    {
+      "spec": {
+        "widths": [
+          128
+        ],
+        "depths": [
+          3
+        ],
+        "word_bits": 256,
+        "mode": "buffered",
+        "serializer_location": "bank",
+        "native": {
+          "name": "alternate",
+          "ready": [
+            1,
+            0
+          ]
+        }
+      },
+      "native_profile": {
+        "name": "alternate",
+        "ready": [
+          1,
+          0
+        ]
+      },
+      "sequence": [
+        0
+      ],
+      "credits": [
+        [
+          128
+        ]
+      ],
+      "transient_slots": 0,
+      "period_slots": 2,
+      "delivered_words": [
+        1
+      ],
+      "sent_bits": [
+        256
+      ],
+      "rate_per_native": [
+        0.5
+      ],
+      "total_per_native": 0.5,
+      "peak_words": [
+        1
+      ],
+      "backpressure_slots": 0,
+      "ready_opportunities": 1,
+      "boundary_state": [
+        0,
+        0,
+        0,
+        [
+          []
+        ]
+      ],
+      "state_repeated": true,
+      "conservation_checked_every_slot": true
+    },
+    {
+      "spec": {
+        "widths": [
+          160
+        ],
+        "depths": [
+          2
+        ],
+        "word_bits": 256,
+        "mode": "buffered",
+        "serializer_location": "bank",
+        "native": {
+          "name": "alternate",
+          "ready": [
+            1,
+            0
+          ]
+        }
+      },
+      "native_profile": {
+        "name": "alternate",
+        "ready": [
+          1,
+          0
+        ]
+      },
+      "sequence": [
+        0
+      ],
+      "credits": [
+        [
+          160
+        ]
+      ],
+      "transient_slots": 0,
+      "period_slots": 2,
+      "delivered_words": [
+        1
+      ],
+      "sent_bits": [
+        256
+      ],
+      "rate_per_native": [
+        0.5
+      ],
+      "total_per_native": 0.5,
+      "peak_words": [
+        1
+      ],
+      "backpressure_slots": 0,
+      "ready_opportunities": 1,
+      "boundary_state": [
+        0,
+        0,
+        0,
+        [
+          []
+        ]
+      ],
+      "state_repeated": true,
+      "conservation_checked_every_slot": true
+    },
+    {
+      "spec": {
+        "widths": [
+          170
+        ],
+        "depths": [
+          2
+        ],
+        "word_bits": 256,
+        "mode": "buffered",
+        "serializer_location": "bank",
+        "native": {
+          "name": "alternate",
+          "ready": [
+            1,
+            0
+          ]
+        }
+      },
+      "native_profile": {
+        "name": "alternate",
+        "ready": [
+          1,
+          0
+        ]
+      },
+      "sequence": [
+        0
+      ],
+      "credits": [
+        [
+          170
+        ]
+      ],
+      "transient_slots": 0,
+      "period_slots": 2,
+      "delivered_words": [
+        1
+      ],
+      "sent_bits": [
+        256
+      ],
+      "rate_per_native": [
+        0.5
+      ],
+      "total_per_native": 0.5,
+      "peak_words": [
+        1
+      ],
+      "backpressure_slots": 0,
+      "ready_opportunities": 1,
+      "boundary_state": [
+        0,
+        0,
+        0,
+        [
+          []
+        ]
+      ],
+      "state_repeated": true,
+      "conservation_checked_every_slot": true
+    },
+    {
+      "spec": {
+        "widths": [
+          171
+        ],
+        "depths": [
+          2
+        ],
+        "word_bits": 256,
+        "mode": "buffered",
+        "serializer_location": "bank",
+        "native": {
+          "name": "alternate",
+          "ready": [
+            1,
+            0
+          ]
+        }
+      },
+      "native_profile": {
+        "name": "alternate",
+        "ready": [
+          1,
+          0
+        ]
+      },
+      "sequence": [
+        0
+      ],
+      "credits": [
+        [
+          171
+        ]
+      ],
+      "transient_slots": 0,
+      "period_slots": 2,
+      "delivered_words": [
+        1
+      ],
+      "sent_bits": [
+        256
+      ],
+      "rate_per_native": [
+        0.5
+      ],
+      "total_per_native": 0.5,
+      "peak_words": [
+        1
+      ],
+      "backpressure_slots": 0,
+      "ready_opportunities": 1,
+      "boundary_state": [
+        0,
+        0,
+        0,
+        [
+          []
+        ]
+      ],
+      "state_repeated": true,
+      "conservation_checked_every_slot": true
+    },
+    {
+      "spec": {
+        "widths": [
+          192
+        ],
+        "depths": [
+          2
+        ],
+        "word_bits": 256,
+        "mode": "buffered",
+        "serializer_location": "bank",
+        "native": {
+          "name": "alternate",
+          "ready": [
+            1,
+            0
+          ]
+        }
+      },
+      "native_profile": {
+        "name": "alternate",
+        "ready": [
+          1,
+          0
+        ]
+      },
+      "sequence": [
+        0
+      ],
+      "credits": [
+        [
+          192
+        ]
+      ],
+      "transient_slots": 0,
+      "period_slots": 2,
+      "delivered_words": [
+        1
+      ],
+      "sent_bits": [
+        256
+      ],
+      "rate_per_native": [
+        0.5
+      ],
+      "total_per_native": 0.5,
+      "peak_words": [
+        1
+      ],
+      "backpressure_slots": 0,
+      "ready_opportunities": 1,
+      "boundary_state": [
+        0,
+        0,
+        0,
+        [
+          []
+        ]
+      ],
+      "state_repeated": true,
+      "conservation_checked_every_slot": true
+    },
+    {
+      "spec": {
+        "widths": [
+          256
+        ],
+        "depths": [
+          1
+        ],
+        "word_bits": 256,
+        "mode": "buffered",
+        "serializer_location": "bank",
+        "native": {
+          "name": "alternate",
+          "ready": [
+            1,
+            0
+          ]
+        }
+      },
+      "native_profile": {
+        "name": "alternate",
+        "ready": [
+          1,
+          0
+        ]
+      },
+      "sequence": [
+        0
+      ],
+      "credits": [
+        [
+          256
+        ]
+      ],
+      "transient_slots": 0,
+      "period_slots": 2,
+      "delivered_words": [
+        1
+      ],
+      "sent_bits": [
+        256
+      ],
+      "rate_per_native": [
+        0.5
+      ],
+      "total_per_native": 0.5,
+      "peak_words": [
+        1
+      ],
+      "backpressure_slots": 0,
+      "ready_opportunities": 1,
+      "boundary_state": [
+        0,
+        0,
+        0,
+        [
+          []
+        ]
+      ],
+      "state_repeated": true,
+      "conservation_checked_every_slot": true
+    },
+    {
+      "spec": {
+        "widths": [
+          128
+        ],
+        "depths": [
+          1
+        ],
+        "word_bits": 256,
+        "mode": "buffered",
+        "serializer_location": "bank",
+        "native": {
+          "name": "burst4",
+          "ready": [
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "native_profile": {
+        "name": "burst4",
+        "ready": [
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "sequence": [
+        0
+      ],
+      "credits": [
+        [
+          128
+        ]
+      ],
+      "transient_slots": 0,
+      "period_slots": 8,
+      "delivered_words": [
+        2
+      ],
+      "sent_bits": [
+        512
+      ],
+      "rate_per_native": [
+        0.25
+      ],
+      "total_per_native": 0.25,
+      "peak_words": [
+        1
+      ],
+      "backpressure_slots": 2,
+      "ready_opportunities": 4,
+      "boundary_state": [
+        0,
+        0,
+        0,
+        [
+          []
+        ]
+      ],
+      "state_repeated": true,
+      "conservation_checked_every_slot": true
+    },
+    {
+      "spec": {
+        "widths": [
+          128
+        ],
+        "depths": [
+          2
+        ],
+        "word_bits": 256,
+        "mode": "buffered",
+        "serializer_location": "bank",
+        "native": {
+          "name": "burst4",
+          "ready": [
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "native_profile": {
+        "name": "burst4",
+        "ready": [
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "sequence": [
+        0
+      ],
+      "credits": [
+        [
+          128
+        ]
+      ],
+      "transient_slots": 0,
+      "period_slots": 8,
+      "delivered_words": [
+        3
+      ],
+      "sent_bits": [
+        768
+      ],
+      "rate_per_native": [
+        0.375
+      ],
+      "total_per_native": 0.375,
+      "peak_words": [
+        2
+      ],
+      "backpressure_slots": 1,
+      "ready_opportunities": 4,
+      "boundary_state": [
+        0,
+        0,
+        0,
+        [
+          []
+        ]
+      ],
+      "state_repeated": true,
+      "conservation_checked_every_slot": true
+    },
+    {
+      "spec": {
+        "widths": [
+          128
+        ],
+        "depths": [
+          3
+        ],
+        "word_bits": 256,
+        "mode": "buffered",
+        "serializer_location": "bank",
+        "native": {
+          "name": "burst4",
+          "ready": [
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "native_profile": {
+        "name": "burst4",
+        "ready": [
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "sequence": [
+        0
+      ],
+      "credits": [
+        [
+          128
+        ]
+      ],
+      "transient_slots": 0,
+      "period_slots": 8,
+      "delivered_words": [
+        4
+      ],
+      "sent_bits": [
+        1024
+      ],
+      "rate_per_native": [
+        0.5
+      ],
+      "total_per_native": 0.5,
+      "peak_words": [
+        3
+      ],
+      "backpressure_slots": 0,
+      "ready_opportunities": 4,
+      "boundary_state": [
+        0,
+        0,
+        0,
+        [
+          []
+        ]
+      ],
+      "state_repeated": true,
+      "conservation_checked_every_slot": true
+    },
+    {
+      "spec": {
+        "widths": [
+          160
+        ],
+        "depths": [
+          2
+        ],
+        "word_bits": 256,
+        "mode": "buffered",
+        "serializer_location": "bank",
+        "native": {
+          "name": "burst4",
+          "ready": [
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "native_profile": {
+        "name": "burst4",
+        "ready": [
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "sequence": [
+        0
+      ],
+      "credits": [
+        [
+          160
+        ]
+      ],
+      "transient_slots": 0,
+      "period_slots": 8,
+      "delivered_words": [
+        3
+      ],
+      "sent_bits": [
+        768
+      ],
+      "rate_per_native": [
+        0.375
+      ],
+      "total_per_native": 0.375,
+      "peak_words": [
+        2
+      ],
+      "backpressure_slots": 1,
+      "ready_opportunities": 4,
+      "boundary_state": [
+        0,
+        0,
+        0,
+        [
+          []
+        ]
+      ],
+      "state_repeated": true,
+      "conservation_checked_every_slot": true
+    },
+    {
+      "spec": {
+        "widths": [
+          170
+        ],
+        "depths": [
+          2
+        ],
+        "word_bits": 256,
+        "mode": "buffered",
+        "serializer_location": "bank",
+        "native": {
+          "name": "burst4",
+          "ready": [
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "native_profile": {
+        "name": "burst4",
+        "ready": [
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "sequence": [
+        0
+      ],
+      "credits": [
+        [
+          170
+        ]
+      ],
+      "transient_slots": 0,
+      "period_slots": 8,
+      "delivered_words": [
+        3
+      ],
+      "sent_bits": [
+        768
+      ],
+      "rate_per_native": [
+        0.375
+      ],
+      "total_per_native": 0.375,
+      "peak_words": [
+        2
+      ],
+      "backpressure_slots": 1,
+      "ready_opportunities": 4,
+      "boundary_state": [
+        0,
+        0,
+        0,
+        [
+          []
+        ]
+      ],
+      "state_repeated": true,
+      "conservation_checked_every_slot": true
+    },
+    {
+      "spec": {
+        "widths": [
+          171
+        ],
+        "depths": [
+          2
+        ],
+        "word_bits": 256,
+        "mode": "buffered",
+        "serializer_location": "bank",
+        "native": {
+          "name": "burst4",
+          "ready": [
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "native_profile": {
+        "name": "burst4",
+        "ready": [
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "sequence": [
+        0
+      ],
+      "credits": [
+        [
+          171
+        ]
+      ],
+      "transient_slots": 0,
+      "period_slots": 8,
+      "delivered_words": [
+        4
+      ],
+      "sent_bits": [
+        1024
+      ],
+      "rate_per_native": [
+        0.5
+      ],
+      "total_per_native": 0.5,
+      "peak_words": [
+        2
+      ],
+      "backpressure_slots": 0,
+      "ready_opportunities": 4,
+      "boundary_state": [
+        0,
+        0,
+        0,
+        [
+          []
+        ]
+      ],
+      "state_repeated": true,
+      "conservation_checked_every_slot": true
+    },
+    {
+      "spec": {
+        "widths": [
+          192
+        ],
+        "depths": [
+          2
+        ],
+        "word_bits": 256,
+        "mode": "buffered",
+        "serializer_location": "bank",
+        "native": {
+          "name": "burst4",
+          "ready": [
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "native_profile": {
+        "name": "burst4",
+        "ready": [
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "sequence": [
+        0
+      ],
+      "credits": [
+        [
+          192
+        ]
+      ],
+      "transient_slots": 0,
+      "period_slots": 8,
+      "delivered_words": [
+        4
+      ],
+      "sent_bits": [
+        1024
+      ],
+      "rate_per_native": [
+        0.5
+      ],
+      "total_per_native": 0.5,
+      "peak_words": [
+        2
+      ],
+      "backpressure_slots": 0,
+      "ready_opportunities": 4,
+      "boundary_state": [
+        0,
+        0,
+        0,
+        [
+          []
+        ]
+      ],
+      "state_repeated": true,
+      "conservation_checked_every_slot": true
+    },
+    {
+      "spec": {
+        "widths": [
+          256
+        ],
+        "depths": [
+          1
+        ],
+        "word_bits": 256,
+        "mode": "buffered",
+        "serializer_location": "bank",
+        "native": {
+          "name": "burst4",
+          "ready": [
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "native_profile": {
+        "name": "burst4",
+        "ready": [
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "sequence": [
+        0
+      ],
+      "credits": [
+        [
+          256
+        ]
+      ],
+      "transient_slots": 0,
+      "period_slots": 8,
+      "delivered_words": [
+        4
+      ],
+      "sent_bits": [
+        1024
+      ],
+      "rate_per_native": [
+        0.5
+      ],
+      "total_per_native": 0.5,
+      "peak_words": [
+        1
+      ],
+      "backpressure_slots": 0,
+      "ready_opportunities": 4,
+      "boundary_state": [
+        0,
+        0,
+        0,
+        [
+          []
+        ]
+      ],
+      "state_repeated": true,
+      "conservation_checked_every_slot": true
+    }
+  ]
+}

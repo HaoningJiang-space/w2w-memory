@@ -1,0 +1,72 @@
+{
+  "experiment_source_commit": "dda731fffa0c656468ce365ce31a58e02c954265",
+  "cleanup_source_commit": "a164050c9eaf13d666294e430cc713db0eaa5119",
+  "host": "eex005",
+  "remote_checkout": "/home/wangziheng/Video/w2w-interface-20261007",
+  "raw_directory": "memory_results/role_interfaces",
+  "tests": [
+    {
+      "source_commit": "2435b0b",
+      "count": 75,
+      "result": "PASS",
+      "scope": "63 historical plus 12 new tiny/unit/contract tests"
+    },
+    {
+      "source_commit": "dda731f",
+      "count": 15,
+      "result": "PASS",
+      "scope": "12 tiny/unit/contract plus 3 new wafer regressions"
+    },
+    {
+      "source_commit": "a164050",
+      "count": 15,
+      "result": "PASS",
+      "scope": "Post-cleanup targeted tests"
+    }
+  ],
+  "unique_tests_passed": 78,
+  "role_designs": 21,
+  "role_lp_solves": 378,
+  "periodic_main_traces": 105,
+  "principles_threshold_traces": 16,
+  "legacy_equivalence": {
+    "source_commit": "dda731fffa0c656468ce365ce31a58e02c954265",
+    "old_source_commit": "8b27f7b135718931da9b579272ed7d21285ae81f",
+    "micro_traces": 64,
+    "wafer_replays": 160,
+    "selection_records": 384,
+    "max_numeric_difference": 0,
+    "old_input_sha256": "dbad74125d1c5deed71559afcb48f92afe1b9cfb68c900431dd78bcd042b0950",
+    "new_bridge_sha256": "a5158b370ab4096c5430bcd074d434c8351767c11d29d6274973383792b4a8e9"
+  },
+  "files": {
+    "artifacts/provenance/role_interface_cleanup_tests.log.gz": {
+      "bytes": 575,
+      "sha256": "f2f3340f3f502a2b8e742b5a4ef856c737c3c7d67125a7ded8b73fb064e20408"
+    },
+    "artifacts/provenance/role_interface_contracts.log.gz": {
+      "bytes": 575,
+      "sha256": "8e267361ee357592325a4db287f9426d1bef1f36bbd3ad196cfbb5e4ea256801"
+    },
+    "artifacts/provenance/role_interface_legacy_equivalence.json": {
+      "bytes": 419,
+      "sha256": "f48120537b18c1a7ac4d90d30d1c7aded3390462d09792230a670aafa1122dc7"
+    },
+    "artifacts/provenance/role_interface_tests.log.gz": {
+      "bytes": 2261,
+      "sha256": "63713211c963e6af820c0d98e4c147d793c7caea6242817a20889fa569a450db"
+    },
+    "artifacts/provenance/role_interface_verification.json": {
+      "bytes": 336,
+      "sha256": "945cfac10d9cca58da6c47dd9b0d0ad6b8d2d4b067bf07f9409ac335ed6fdba1"
+    },
+    "artifacts/results/endpoint/burst_principles.json": {
+      "bytes": 18490,
+      "sha256": "3c468e9235d6c544c333454b8e6f6d0b4e2ce2fcbe4542f492445de24833ce38"
+    },
+    "artifacts/results/endpoint/role_interfaces.json.gz": {
+      "bytes": 97360,
+      "sha256": "92bb8e8d758d4449723a2f5ef80eb5cc807aaacdd5d45953e6f4d00a8542f8e8"
+    }
+  }
+}

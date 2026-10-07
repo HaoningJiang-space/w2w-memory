@@ -9,6 +9,8 @@
 
 - [不可变 Design、EndpointEnvelope 与共享 ResourceLedger](DESIGN_API.md)
 - [按角色接口与 home/k2/k3 比较协议](methods/ROLE_INTERFACE_METHOD.md)
+- [21设计结果、等价回归与供给敏感性](reports/ROLE_INTERFACE_REPORT.md)
+- [完整字、累积到达与重复模板的第一性原理推导](theory/ROLE_INTERFACE_PRINCIPLES.md)
 
 - [服务合同改变设计选择：首轮结果](reports/CONTRACT_SELECTION_REPORT.md)
 - [地址权限与物理可达性审计](reports/EGRESS_REACHABILITY_REPORT.md)

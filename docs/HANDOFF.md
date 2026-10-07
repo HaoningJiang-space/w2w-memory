@@ -1,5 +1,10 @@
 # 开发交接：Wafer-scale Memory Service Fabric
 
+**2026-10-07 后续更新：** 四个模型边界与首轮21设计比较已落地，见
+[Design API](DESIGN_API.md) 和 [角色接口报告](reports/ROLE_INTERFACE_REPORT.md)。
+下面保留前一阶段交接快照。当前下一研究项是native profile驱动的离线比例选择，
+不要把下文的“待开发”当作最新状态。
+
 **交接日期：2026-10-07。读这份文件即可接手，不需要重新阅读整段聊天。**
 
 ## 1. 一分钟了解项目

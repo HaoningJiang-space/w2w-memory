@@ -1,0 +1,8 @@
+{
+  "input_sha256": "5776e07f1ffe06733d85fba02fc123f497b10c8d05f4018d22db629c7e797595",
+  "designs": 21,
+  "periodic_traces": 105,
+  "shared_ledger_max_residual": 6.2727600891321345e-15,
+  "independent_pair_max_error": 4.440892098500626e-16,
+  "scope": "Shared production resource ledger plus separate pair and integer-count oracles"
+}

@@ -1,6 +1,8 @@
 # 下一项开发任务：统一服务合同下的 exposure 候选比较
 
-**状态：待开发。这里的类型与接口是建议，不是已有功能。**
+**状态：首轮已完成。** 见 [角色接口报告](../reports/ROLE_INTERFACE_REPORT.md) 与
+[Design API](../DESIGN_API.md)。以下保留原任务范围；尚未覆盖通用多路径、真实DRAM
+时序和placement搜索。下一步优先处理native profile变化导致静态比例失配的问题。
 
 ## 目标与边界
 
