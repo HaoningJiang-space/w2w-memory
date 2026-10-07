@@ -36,6 +36,7 @@ def prepare(manifest_path, output):
     base['layers'] = [dict(base['layers'][0], key=key) for key in ('0', '39', '78')]
     base['batching'] = dict(policy='fixed_cohort', batch_size=1, max_decode_steps=None)
     output.mkdir(parents=True)
+    (output / 'corpus_manifest.json').write_bytes(manifest_path.read_bytes())
 
     def save_manifest(ids, folder):
         folder.mkdir(parents=True, exist_ok=True)
