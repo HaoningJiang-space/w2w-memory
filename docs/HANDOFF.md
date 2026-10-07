@@ -1,5 +1,11 @@
 # 开发交接：Wafer-scale Memory Service Fabric
 
+**2026-10-07 服务器工作流统一：** 本地开发，推送 `HaoningJiang-space/w2w-memory` 的 main，
+服务器 `/Projects/haoning/w2w` 通过 GitHub SSH 拉取后执行。完整 Git 源码和历史归档已 clone，
+原始 trace 与 ASIC 输出保留原路径并提供入口。Codex CLI 0.161.0 已安装，尚需用户登录。
+HF 实测直连快于 VPS，默认直连。见[运行与交接说明](operations/HN072_RESEARCH.md)。
+48次真实 routing 多窗口回放沿用已注册协议；本条不代表该批实验已完成。
+
 **2026-10-08 请求供给成本：** [必要界与最小窗口实验](reports/REQUEST_WINDOW_STUDY_REPORT.md)
 完成37测试、502回放、29组同服务消融。冻结接口、布局和仲裁，B以N192保持此前N512的
 60槽分散任务完成；同60槽目标，宽k3只需N148，揭示lane/wire与请求状态的交换。
