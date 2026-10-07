@@ -54,8 +54,10 @@ def run(args):
     sim = out/'sim'
     sim.mkdir(exist_ok=True)
     command(['xvlog', '--sv', *sources], sim, sim/'compile.log')
-    command(['xelab', 'endpoint_roundtrip_tb', '-s', 'slice', '-debug', 'typical', '-mt', '2',
-             '-generic_top', f'PERIOD_NS={args.period}'], sim, sim/'elaborate.log')
+    # Overriding a top-level generic changes XSim's root scope name. A runtime
+    # clock plusarg preserves the same SAIF hierarchy across simulator versions.
+    command(['xelab', 'endpoint_roundtrip_tb', '-s', 'slice', '-debug', 'typical', '-mt', '2'],
+            sim, sim/'elaborate.log')
     for r in records:
         name = f'{r["pattern"]}_dir{r["direction"]}'
         case = sim/name
@@ -66,6 +68,7 @@ def run(args):
             env['W2W_SAIF_FILE'] = str(case/'activity.saif')
             env['W2W_PERIOD_NS'] = str(args.period)
         log = command(['xsim', 'slice', '-tclbatch', ROOT/'rtl/vivado/slice_saif.tcl',
+                       '-testplusarg', f'PERIOD_NS={args.period}',
                        '-testplusarg', f'DIR={r["direction"]}',
                        '-testplusarg', f'WORDS={traces/name/"words.txt"}',
                        '-testplusarg', f'CONTROLS={traces/name/"controls.txt"}'],
