@@ -1,5 +1,6 @@
 """Audit the registered full-size routing replays and report paired read times."""
 import argparse
+from collections import Counter
 import csv
 from dataclasses import asdict
 import gzip
@@ -52,6 +53,33 @@ def check_delivery(trace, row):
             raise ValueError('Task bytes mismatch')
 
 
+def check_routing_union(manifest_path, spec, step, demand):
+    """Independent selected-token accounting, without the trace compiler."""
+    path = Path(manifest_path)
+    manifest = json.loads(path.read_text())
+    layer = spec['layers'][0]
+    counts = Counter()
+    for entry in manifest['requests']:
+        raw = (path.parent / entry['path']).read_bytes()
+        if sha256(raw).hexdigest() != entry['sha256']:
+            raise ValueError('Raw request hash mismatch')
+        selected = json.loads(raw)[step][layer['key']]
+        if selected and isinstance(selected[0], list):
+            if len(selected) != 1:
+                raise ValueError('Expected exactly one decode token per request')
+            selected = selected[0]
+        if len(selected) != layer['top_k'] or len(set(selected)) != len(selected):
+            raise ValueError('Invalid expert selection')
+        counts.update(selected)
+    window = demand['windows'][0]
+    if ({int(k): v for k, v in window['expert_token_counts'].items()} != dict(counts)
+            or sorted(counts) != window['activated_experts']
+            or window['logical_read_bytes'] != len(counts) * layer['weight_bytes']):
+        raise ValueError('Independent routing union or full weight bytes mismatch')
+    if demand['total_resident_weight_bytes'] != len(layer['compute_by_expert']) * layer['weight_bytes']:
+        raise ValueError('Inactive experts omitted from resident capacity')
+
+
 def audit(source, plan_path, verify_inputs=False):
     source, plan_path = Path(source), Path(plan_path)
     summary = json.loads((source / 'summary.json').read_text())
@@ -88,6 +116,10 @@ def audit(source, plan_path, verify_inputs=False):
             raise ValueError('Compiled demand mismatch')
         if verify_inputs:
             spec = json.loads((source / name / 'spec.json').read_text())
+            manifest = json.loads((source / name / 'manifest.json').read_text())
+            if [r['id'] for r in manifest['requests']] != case['request_ids']:
+                raise ValueError('Raw manifest cohort differs from registration')
+            check_routing_union(source / name / 'manifest.json', spec, case['decode_step'], demand)
             rebuilt, rebuilt_demand = compile_patterns_window(source / name / 'manifest.json',
                                                               spec, case['decode_step'])
             # Expert-count keys are integers in memory and strings in JSON.
