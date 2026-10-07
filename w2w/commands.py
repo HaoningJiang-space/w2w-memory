@@ -44,6 +44,7 @@ COMMANDS = {
     'run_provisioning_target': 'w2w.experiments.run_provisioning_target',
     'run_read_workload': 'w2w.experiments.run_read_workload',
     'run_request_window': 'w2w.experiments.run_request_window',
+    'run_return_path_diagnostic': 'w2w.experiments.run_return_path_diagnostic',
     'run_role_interfaces': 'w2w.experiments.run_role_interfaces',
     'run_service_driven': 'w2w.experiments.run_service_driven',
     'run_service_provisioning': 'w2w.experiments.run_service_provisioning',
