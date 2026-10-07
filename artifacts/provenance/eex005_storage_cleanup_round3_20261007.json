@@ -1,0 +1,943 @@
+{
+  "dedupe_receipt": {
+    "method": "XFS FIDEDUPERANGE; independent inodes and copy-on-write",
+    "cow_probe_passed": true,
+    "live_references": [],
+    "free_before": 75132997632,
+    "entries": [
+      {
+        "canonical": "/home/wangziheng/wafer_simulator/runs/llama16-full-006-csr-frontier/baseline/trace.json",
+        "copy": "/home/wangziheng/wafer_simulator/runs/llama16-full-002/baseline/trace.json",
+        "sha256": "5c614411f1764a415f4ea3e9fb989d2e06d511347e663568c881d44159c1118b",
+        "deduplicated_bytes": 773325762
+      },
+      {
+        "canonical": "/home/wangziheng/wafer_simulator/runs/llama16-full-006-csr-frontier/baseline/trace.json",
+        "copy": "/home/wangziheng/wafer_simulator/runs/model-boundary-inputs-001/m0_lowering/baseline/trace.json",
+        "sha256": "5c614411f1764a415f4ea3e9fb989d2e06d511347e663568c881d44159c1118b",
+        "deduplicated_bytes": 773325762
+      },
+      {
+        "canonical": "/home/wangziheng/wafer_simulator/runs/llama16-full-006-csr-frontier/baseline/trace.json",
+        "copy": "/home/wangziheng/wafer_simulator/runs/model-boundary-inputs-001/m0_recheck_llama16-model-boundary-M1-002/baseline/trace.json",
+        "sha256": "5c614411f1764a415f4ea3e9fb989d2e06d511347e663568c881d44159c1118b",
+        "deduplicated_bytes": 773325762
+      },
+      {
+        "canonical": "/home/wangziheng/wafer_simulator/runs/llama16-full-006-csr-frontier/ours_rotated/trace.json",
+        "copy": "/home/wangziheng/wafer_simulator/runs/llama16-full-002/ours_rotated/trace.json",
+        "sha256": "a73efd59b2573979f958f74e1f5caeeb61533f5d03c334327df2e44041df9b1f",
+        "deduplicated_bytes": 773325762
+      },
+      {
+        "canonical": "/home/wangziheng/wafer_simulator/runs/llama16-full-006-csr-frontier/ours_rotated/trace.json",
+        "copy": "/home/wangziheng/wafer_simulator/runs/model-boundary-inputs-001/m0_lowering/ours_rotated/trace.json",
+        "sha256": "a73efd59b2573979f958f74e1f5caeeb61533f5d03c334327df2e44041df9b1f",
+        "deduplicated_bytes": 773325762
+      },
+      {
+        "canonical": "/home/wangziheng/wafer_simulator/runs/llama16-full-006-csr-frontier/ours_rotated/trace.json",
+        "copy": "/home/wangziheng/wafer_simulator/runs/model-boundary-inputs-001/m0_recheck_llama16-model-boundary-M1-002/ours_rotated/trace.json",
+        "sha256": "a73efd59b2573979f958f74e1f5caeeb61533f5d03c334327df2e44041df9b1f",
+        "deduplicated_bytes": 773325762
+      },
+      {
+        "canonical": "/home/wangziheng/wafer_simulator/runs/llama16-full-006-csr-frontier/baseline/events.jsonl",
+        "copy": "/home/wangziheng/wafer_simulator/runs/llama16-full-002/baseline/events.jsonl",
+        "sha256": "f62e20007fbc9cfc676347cd7582415a796d682b411d1a154aa86181d22032b2",
+        "deduplicated_bytes": 847864837
+      },
+      {
+        "canonical": "/home/wangziheng/wafer_simulator/runs/llama16-full-006-csr-frontier/baseline/checked_events.npy",
+        "copy": "/home/wangziheng/wafer_simulator/runs/llama16-full-002/baseline/checked_events.npy",
+        "sha256": "d5f78c8f66e50194b496dd4484656cfae59bd6fe15950dc2407e0b6dc217b92d",
+        "deduplicated_bytes": 340751040
+      },
+      {
+        "canonical": "/home/wangziheng/wafer_simulator/runs/llama16-full-006-csr-frontier/ours_rotated/checked_events.npy",
+        "copy": "/home/wangziheng/wafer_simulator/runs/llama16-full-002/ours_rotated/checked_events.npy",
+        "sha256": "2a024487349189fadf8177b7cdb7659e41f2f398fc4b5d1ebf157de55448d166",
+        "deduplicated_bytes": 340751040
+      },
+      {
+        "canonical": "/home/wangziheng/wafer_simulator/runs/llama16-full-006-csr-frontier/ours_rotated/events.jsonl",
+        "copy": "/home/wangziheng/wafer_simulator/runs/llama16-full-002/ours_rotated/events.jsonl",
+        "sha256": "fd09ca1cee86dcdb5001fb036f6ee8a210aada3b24f40b96acf0efc9e82cbfc3",
+        "deduplicated_bytes": 847874242
+      },
+      {
+        "canonical": "/home/wangziheng/wafer_simulator/runs/postrun-006-attribution-001/critical_local_pairs.csv",
+        "copy": "/home/wangziheng/wafer_simulator/runs/postrun-full-readback-004-001/critical_local_pairs.csv",
+        "sha256": "dc7133021873a8f27653aefb36973d9a61df89e237011beb7901c38d23288a9b",
+        "deduplicated_bytes": 12179339
+      },
+      {
+        "canonical": "/home/wangziheng/wafer_simulator/runs/postrun-006-attribution-001/message_pairs.csv",
+        "copy": "/home/wangziheng/wafer_simulator/runs/postrun-full-readback-004-001/message_pairs.csv",
+        "sha256": "d2fd135191db96f77831816e220cb8e6dd299714522e483943d0acbf4749d24e",
+        "deduplicated_bytes": 140761891
+      },
+      {
+        "canonical": "/home/wangziheng/wafer_simulator/runs/postrun-006-attribution-001/baseline/critical_chain.csv",
+        "copy": "/home/wangziheng/wafer_simulator/runs/postrun-full-readback-004-001/baseline/critical_chain.csv",
+        "sha256": "1ae0f8a937d1dbb5b67c307462f2fb3e55c4816b6281e09fd0225e1c9420f03d",
+        "deduplicated_bytes": 8404700
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261006_stack/runs/stack_v3_r1/cases/fine_full_A_cosine/b.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261006_stack/runs/stack_v3_r1/cases/fine_half_A_cosine/b.npy",
+        "sha256": "936f48837df7e61b05c8f9a9f8f7b747badeb86d5478b7d9696fb559ebf95a7d",
+        "deduplicated_bytes": 50331776
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261006_stack/runs/stack_v3_r1/cases/fine_full_A_cosine/b.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261006_stack/runs/stack_v3_r1/cases/fine_half_B_cosine/b.npy",
+        "sha256": "936f48837df7e61b05c8f9a9f8f7b747badeb86d5478b7d9696fb559ebf95a7d",
+        "deduplicated_bytes": 50331776
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261006_stack/runs/stack_v3_r1/cases/fine_full_A_cosine/b.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261006_stack/runs/stack_v3_r1/cases/fine_half_F_cosine/b.npy",
+        "sha256": "936f48837df7e61b05c8f9a9f8f7b747badeb86d5478b7d9696fb559ebf95a7d",
+        "deduplicated_bytes": 50331776
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261006_aes_thermal/attempt2/runs/v1/cases/fine_full_A_cosine/b.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261006_aes_thermal/attempt2/runs/v1/cases/fine_half_A_cosine/b.npy",
+        "sha256": "facc975a9b4a91afe9fa5d81af397a86c9009b7c86f3862ba3257359a9ffa877",
+        "deduplicated_bytes": 46476416
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261006_aes_thermal/attempt2/runs/v1/cases/fine_full_A_cosine/b.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261006_aes_thermal/attempt2/runs/v1/cases/fine_half_B_cosine/b.npy",
+        "sha256": "facc975a9b4a91afe9fa5d81af397a86c9009b7c86f3862ba3257359a9ffa877",
+        "deduplicated_bytes": 46476416
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261006_aes_thermal/attempt2/runs/v1/cases/fine_full_A_cosine/b.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261006_aes_thermal/attempt2/runs/v1/cases/fine_half_D0_cosine/b.npy",
+        "sha256": "facc975a9b4a91afe9fa5d81af397a86c9009b7c86f3862ba3257359a9ffa877",
+        "deduplicated_bytes": 46476416
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261006_aes_thermal/attempt2/runs/v1/cases/fine_full_A_cosine/b.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261006_aes_thermal/attempt2/runs/v1/cases/fine_half_D1_cosine/b.npy",
+        "sha256": "facc975a9b4a91afe9fa5d81af397a86c9009b7c86f3862ba3257359a9ffa877",
+        "deduplicated_bytes": 46476416
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261006_aes_thermal/attempt2/runs/v1/cases/fine_full_A_cosine/b.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261006_aes_thermal/attempt2/runs/v1/cases/fine_half_D2_cosine/b.npy",
+        "sha256": "facc975a9b4a91afe9fa5d81af397a86c9009b7c86f3862ba3257359a9ffa877",
+        "deduplicated_bytes": 46476416
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261006_aes_thermal/attempt2/runs/v1/cases/fine_full_A_cosine/b.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261006_aes_thermal/attempt2/runs/v1/cases/fine_half_F_cosine/b.npy",
+        "sha256": "facc975a9b4a91afe9fa5d81af397a86c9009b7c86f3862ba3257359a9ffa877",
+        "deduplicated_bytes": 46476416
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261006_dummy_response/v1/cases/finite_baseline_s1_z1/lift.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261006_leverage/v1/cases/full_ladder_uniform_s1_z1/lift.npy",
+        "sha256": "b9a27fcccee2cf9ff2dd86a8fd7e80c03d9ffbde9cf847cfcad9e92e22ea0220",
+        "deduplicated_bytes": 27132032
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261006_dummy_response/v1/cases/finite_adjoint_4_s1_z1/lift.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261006_dummy_response/v1/cases/finite_source_4_s1_z1/lift.npy",
+        "sha256": "d51078419e7d9516d9a446b98ccc16057d82c02b28595c14dfe86612fc896ef4",
+        "deduplicated_bytes": 27132032
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261006_dummy_response/v1/cases/finite_adjoint_1_s1_z1/lift.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261006_dummy_response/v1/cases/finite_random_1_s1_z1/lift.npy",
+        "sha256": "098e61bea9731883799ad9f4f430a20eaaa96c05bf8c4ae98c1d410d8ecb5d3f",
+        "deduplicated_bytes": 27132032
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261006_dummy_response/v1/cases/ideal_top_cooling_adjoint_4_s1_z1/lift.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261006_dummy_response/v1/cases/ideal_top_cooling_source_4_s1_z1/lift.npy",
+        "sha256": "bcc01495ad31d65a4fac1a777b9b2a52a8bd6e4201f4ca10e7ff0c67dacb7a95",
+        "deduplicated_bytes": 27132032
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261006_dummy_response/v1/cases/ideal_top_cooling_adjoint_1_s1_z1/lift.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261006_dummy_response/v1/cases/ideal_top_cooling_random_1_s1_z1/lift.npy",
+        "sha256": "85479da28a1afc73214fbd9623219afed25872a925e2afe0e7a47b19609e3593",
+        "deduplicated_bytes": 27132032
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261006_beol_access/runs/v4/cases/ladder_left_hotspot_resolved_r0_m2/lift.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261006_beol_access/runs/v4/cases/ladder_left_uniform_resolved_r0_m2/lift.npy",
+        "sha256": "3fff14c50c558dc68eeff9e2822f038108bde23a2f38ded9482e9ab44a9278e3",
+        "deduplicated_bytes": 13566080
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261006_beol_access/runs/v4/cases/ladder_left_hotspot_hom_r0_m2/lift.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261006_beol_access/runs/v4/cases/ladder_left_uniform_hom_r0_m2/lift.npy",
+        "sha256": "538369ae9ff85c40204d65c11fade2b7d70b17a7b6b8287b3de9f34f3cb093c8",
+        "deduplicated_bytes": 13566080
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261006_dummy_response/v1/cases/finite_baseline_s2_z1/lift.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261006_leverage/v1/cases/full_ladder_uniform_s2_z1/lift.npy",
+        "sha256": "f839a0462d059f1029a8785ad1f941ee26dcf66fdb3c845744336be9ba532512",
+        "deduplicated_bytes": 108527744
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261006_dummy_response/v1/cases/finite_adjoint_1_s2_z1/lift.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261006_dummy_response/v1/cases/finite_source_1_s2_z1/lift.npy",
+        "sha256": "1157274476da00a483dd2e9b730bea0a85056ce6df51bfa8598daf78069e2902",
+        "deduplicated_bytes": 108527744
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261006_dummy_response/v1/cases/ideal_top_cooling_adjoint_1_s2_z1/lift.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261006_dummy_response/v1/cases/ideal_top_cooling_source_1_s2_z1/lift.npy",
+        "sha256": "2bb09a9ba52955ad9c31549ebfcb5530b4fe68bbd185eac6db50a5f0e5c1f046",
+        "deduplicated_bytes": 108527744
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261006_beol_access/runs/refinement_v1/cases/graded_ladder_left_hotspot_xy4_z1/lift.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261006_beol_access/runs/refinement_v1/cases/graded_ladder_left_uniform_xy4_z1/lift.npy",
+        "sha256": "d39d52c2365ab3948a06af7f17a38e861c70a391502451b0af09fe943ce21da1",
+        "deduplicated_bytes": 18874496
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261006_beol_access/runs/refinement_v1/cases/graded_ladder_left_hotspot_xy4_z2/lift.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261006_beol_access/runs/refinement_v1/cases/graded_ladder_left_uniform_xy4_z2/lift.npy",
+        "sha256": "d494c52da2e29c29251e25c4dbe5840dae0d806942ec4d8f2978d4ff0a6b24e4",
+        "deduplicated_bytes": 37748864
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261006_beol_access/runs/refinement_v1/cases/graded_ladder_left_hotspot_xy8_z2/lift.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261006_beol_access/runs/refinement_v1/cases/graded_ladder_left_uniform_xy8_z2/lift.npy",
+        "sha256": "791b9fb6db34b08698a8e4d7732311e52ab1dbdcf14aa3c676278bc6cad30217",
+        "deduplicated_bytes": 150995072
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261006_beol_access/runs/refinement_v1/cases/graded_ladder_left_hotspot_xy8_z4/lift.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261006_beol_access/runs/refinement_v1/cases/graded_ladder_left_uniform_xy8_z4/lift.npy",
+        "sha256": "1f0d195f05a70c0c492c671b29a2318117a7e97055e89e68ab06dd4173bad429",
+        "deduplicated_bytes": 301990016
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261006_dummy_response/v1/cases/finite_baseline_s1_z2/lift.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261006_leverage/v1/cases/full_ladder_uniform_s1_z2/lift.npy",
+        "sha256": "048f372e33f93270322f656c6da07505489ca4eee82f4d4e7dd425fb5e1cafe6",
+        "deduplicated_bytes": 54263936
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261006_dummy_response/v1/cases/finite_adjoint_1_s1_z2/lift.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261006_dummy_response/v1/cases/finite_random_1_s1_z2/lift.npy",
+        "sha256": "fc3461ae2dc75eb48e7910b407a12e18fd8503e1b1bdb9cee75af63e1834600b",
+        "deduplicated_bytes": 54263936
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261006_dummy_response/v1/cases/ideal_top_cooling_adjoint_1_s1_z2/lift.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261006_dummy_response/v1/cases/ideal_top_cooling_random_1_s1_z2/lift.npy",
+        "sha256": "d738b931a3914dbed50caa93e177b23f21c3dd519fd87c38c81e9403bd4866c9",
+        "deduplicated_bytes": 54263936
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261006_dummy_response/v1/cases/finite_baseline_s2_z2/lift.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261006_leverage/v1/cases/full_ladder_uniform_s2_z2/lift.npy",
+        "sha256": "161f5be84e314545b23a176d686593599123f940fa5205f511d1e42184fbe912",
+        "deduplicated_bytes": 217055360
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261006_dummy_response/v1/cases/finite_adjoint_1_s2_z2/lift.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261006_dummy_response/v1/cases/finite_source_1_s2_z2/lift.npy",
+        "sha256": "468fd700c39289a2482336efe835818f30f40f83c965d697506eabfdb6dfe713",
+        "deduplicated_bytes": 217055360
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261006_dummy_response/v1/cases/ideal_top_cooling_adjoint_1_s2_z2/lift.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261006_dummy_response/v1/cases/ideal_top_cooling_source_1_s2_z2/lift.npy",
+        "sha256": "bc4d6014098a2e1d96681bab4c6d9092c0300d6f942ff676201847df304b82ce",
+        "deduplicated_bytes": 217055360
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261006_reference_qualification/p1/cases/baseline_xy1_z1/lift.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261006_reference_qualification/p1/cases/uniform_source_baseline_xy1_z1/lift.npy",
+        "sha256": "f83b77dcf829e0fe62e275def5d2f4ca7dc6999c44aca4af140fda41703b0154",
+        "deduplicated_bytes": 29393408
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261006_reference_qualification/p1/cases/baseline_xy1_z2/lift.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261006_reference_qualification/p1/cases/uniform_source_baseline_xy1_z2/lift.npy",
+        "sha256": "3eb45eb92ad68f6da1f69c4a65bb1ef2ca75f1b4f0299759f8559ad9752d557e",
+        "deduplicated_bytes": 58786688
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261006_reference_qualification/p1/cases/baseline_xy2_z1/lift.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261006_reference_qualification/p1/cases/uniform_source_baseline_xy2_z1/lift.npy",
+        "sha256": "91f9339540b70f26dc3c18e851e4ba74ac18f4b43064f83e8ed1ab17c82b3e73",
+        "deduplicated_bytes": 117573248
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261006_reference_qualification/p1/cases/baseline_xy2_z2/lift.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261006_reference_qualification/p1/cases/uniform_source_baseline_xy2_z2/lift.npy",
+        "sha256": "06a3a740f7dcedaa14707030a58aa2c7d6d44d2a5e3127c77f3bb8452955b9f2",
+        "deduplicated_bytes": 235146368
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261007_optional_access_v0/thermal/cases/2f8b89c6482fb1aa_xy1_z1/lift.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261007_optional_access_v0/thermal/cases/967c0cf9eaf30a09_xy1_z1/lift.npy",
+        "sha256": "ccbd60428d9ec841295845add77094b05a6a3a5fe1a3e46d0ed229e51c3a020d",
+        "deduplicated_bytes": 31611008
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261007_optional_access_v0/thermal/cases/2f8b89c6482fb1aa_xy1_z1/lift.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261007_optional_access_v0/thermal/cases/ec5a49fe177e0a38_xy1_z1/lift.npy",
+        "sha256": "ccbd60428d9ec841295845add77094b05a6a3a5fe1a3e46d0ed229e51c3a020d",
+        "deduplicated_bytes": 31611008
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261007_optional_access_v0/thermal/cases/2f8b89c6482fb1aa_xy1_z2/lift.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261007_optional_access_v0/thermal/cases/967c0cf9eaf30a09_xy1_z2/lift.npy",
+        "sha256": "85d65f3fa3f7e201f5607500cd2896ccd748c020f9a6bf8b076f1c16a187130f",
+        "deduplicated_bytes": 63221888
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261007_optional_access_v0/thermal/cases/2f8b89c6482fb1aa_xy1_z2/lift.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261007_optional_access_v0/thermal/cases/ec5a49fe177e0a38_xy1_z2/lift.npy",
+        "sha256": "85d65f3fa3f7e201f5607500cd2896ccd748c020f9a6bf8b076f1c16a187130f",
+        "deduplicated_bytes": 63221888
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261007_optional_access_v0/thermal/cases/2f8b89c6482fb1aa_xy2_z1/lift.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261007_optional_access_v0/thermal/cases/967c0cf9eaf30a09_xy2_z1/lift.npy",
+        "sha256": "9a5f026f380f90e05bc1eb6357fdbf8c5e3c813f8be0c23f5800a917a00b0330",
+        "deduplicated_bytes": 126443648
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261007_optional_access_v0/thermal/cases/2f8b89c6482fb1aa_xy2_z1/lift.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261007_optional_access_v0/thermal/cases/e628abc1b7d4a578_xy2_z1/lift.npy",
+        "sha256": "9a5f026f380f90e05bc1eb6357fdbf8c5e3c813f8be0c23f5800a917a00b0330",
+        "deduplicated_bytes": 126443648
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261007_optional_access_v0/thermal/cases/2f8b89c6482fb1aa_xy2_z1/lift.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261007_optional_access_v0/thermal/cases/ec5a49fe177e0a38_xy2_z1/lift.npy",
+        "sha256": "9a5f026f380f90e05bc1eb6357fdbf8c5e3c813f8be0c23f5800a917a00b0330",
+        "deduplicated_bytes": 126443648
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261007_optional_access_v0/thermal/cases/2f8b89c6482fb1aa_xy2_z2/lift.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261007_optional_access_v0/thermal/cases/967c0cf9eaf30a09_xy2_z2/lift.npy",
+        "sha256": "99490bed4aad7c89d4695f1e8788790e745b941d9643aa9d813c53028e237517",
+        "deduplicated_bytes": 252887168
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261007_optional_access_v0/thermal/cases/2f8b89c6482fb1aa_xy2_z2/lift.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261007_optional_access_v0/thermal/cases/e628abc1b7d4a578_xy2_z2/lift.npy",
+        "sha256": "99490bed4aad7c89d4695f1e8788790e745b941d9643aa9d813c53028e237517",
+        "deduplicated_bytes": 252887168
+      },
+      {
+        "canonical": "/home/wangziheng/thermal_hbt/20261007_optional_access_v0/thermal/cases/2f8b89c6482fb1aa_xy2_z2/lift.npy",
+        "copy": "/home/wangziheng/thermal_hbt/20261007_optional_access_v0/thermal/cases/ec5a49fe177e0a38_xy2_z2/lift.npy",
+        "sha256": "99490bed4aad7c89d4695f1e8788790e745b941d9643aa9d813c53028e237517",
+        "deduplicated_bytes": 252887168
+      }
+    ],
+    "protected_session_daemons_not_inspectable": [
+      [
+        "10583",
+        "sshd"
+      ],
+      [
+        "1205902",
+        "sshd"
+      ],
+      [
+        "1359711",
+        "sshd"
+      ],
+      [
+        "2480532",
+        "(sd-pam)"
+      ],
+      [
+        "3268251",
+        "sshd"
+      ],
+      [
+        "3292309",
+        "sshd"
+      ],
+      [
+        "587343",
+        "sshd"
+      ],
+      [
+        "649211",
+        "sshd"
+      ],
+      [
+        "713242",
+        "sshd"
+      ],
+      [
+        "722279",
+        "sshd"
+      ]
+    ],
+    "source_files_deleted": 0,
+    "unique_results_deleted": 0,
+    "free_after": 77771116544,
+    "all_sha256_verified": true,
+    "inodes_sizes_mtimes_preserved": true,
+    "total_deduplicated_bytes": 11188895325,
+    "observed_free_delta": 2638118912
+  },
+  "checkout_receipt": {
+    "entries": [
+      {
+        "path": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/block-operator-7cc5c8c-HfXvUA/checkout",
+        "terminal_markers": [
+          "tests.exit",
+          "build.exit",
+          "baseline.exit",
+          "instrumented.exit"
+        ],
+        "repositories": [
+          {
+            "relative_path": ".",
+            "head": "7cc5c8c08e86251d8d4ec386e3a836e9d0892e57",
+            "tree": "43c38f3ba19f7583d433025becefd19f5ceedc89",
+            "bundle": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/block-operator-7cc5c8c-HfXvUA.bundle",
+            "bundle_sha256": "c87acedfbed9568ea558424332328b51cb4dcd2dc4e5bf4e6e2123fe279cd262",
+            "shallow_commits": []
+          },
+          {
+            "relative_path": "external/hdmoe",
+            "head": "66b84d75f9504374fbf4826ddf1dba9db4def5ef",
+            "tree": "533b00c16d93a08f5c7e250f2d7b7de00078b847",
+            "bundle": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/hdmoe-66b84d7.bundle",
+            "bundle_sha256": "534d09e3602ed076a6050d98a49fc6d8c997e8585dcbe5d261e49fd54bf2cfd6",
+            "shallow_commits": [
+              "66b84d75f9504374fbf4826ddf1dba9db4def5ef"
+            ]
+          }
+        ],
+        "source_bundle": {
+          "path": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/block-operator-7cc5c8c-HfXvUA.bundle",
+          "sha256": "c87acedfbed9568ea558424332328b51cb4dcd2dc4e5bf4e6e2123fe279cd262",
+          "bytes": 1230470,
+          "head": "7cc5c8c08e86251d8d4ec386e3a836e9d0892e57",
+          "tree": "43c38f3ba19f7583d433025becefd19f5ceedc89",
+          "shallow_commits": [],
+          "restore_verified": true
+        }
+      },
+      {
+        "path": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/block-operator-8ca575d-UEliuz/checkout",
+        "terminal_markers": [
+          "tests.exit",
+          "build.exit",
+          "baseline.exit",
+          "instrumented.exit"
+        ],
+        "repositories": [
+          {
+            "relative_path": ".",
+            "head": "8ca575d21af81d4121001e9c61043b502b32dd16",
+            "tree": "6ad15ce03a3a9687d66a8e1d6b3c8d50f4f7e999",
+            "bundle": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/block-operator-8ca575d-UEliuz.bundle",
+            "bundle_sha256": "8f16478860020bc6b4160dfab3e9ad5045f5c1ff1d8be399eaaf6d50f6a4b67d",
+            "shallow_commits": []
+          },
+          {
+            "relative_path": "external/hdmoe",
+            "head": "66b84d75f9504374fbf4826ddf1dba9db4def5ef",
+            "tree": "533b00c16d93a08f5c7e250f2d7b7de00078b847",
+            "bundle": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/hdmoe-66b84d7.bundle",
+            "bundle_sha256": "534d09e3602ed076a6050d98a49fc6d8c997e8585dcbe5d261e49fd54bf2cfd6",
+            "shallow_commits": [
+              "66b84d75f9504374fbf4826ddf1dba9db4def5ef"
+            ]
+          }
+        ],
+        "source_bundle": {
+          "path": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/block-operator-8ca575d-UEliuz.bundle",
+          "sha256": "8f16478860020bc6b4160dfab3e9ad5045f5c1ff1d8be399eaaf6d50f6a4b67d",
+          "bytes": 1234870,
+          "head": "8ca575d21af81d4121001e9c61043b502b32dd16",
+          "tree": "6ad15ce03a3a9687d66a8e1d6b3c8d50f4f7e999",
+          "shallow_commits": [],
+          "restore_verified": true
+        }
+      },
+      {
+        "path": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/block-operator-f97ea6b-tD2NsR/checkout",
+        "terminal_markers": [
+          "tests.exit",
+          "build.exit"
+        ],
+        "repositories": [
+          {
+            "relative_path": ".",
+            "head": "f97ea6bc9591e324e9fc8291b34806c084b4915d",
+            "tree": "ed11d68c2ebe0e427beeb312d0afe66af8b9731f",
+            "bundle": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/block-operator-f97ea6b-tD2NsR.bundle",
+            "bundle_sha256": "85bfb135a598b8ab2a15628e782328f17db15a458bd0bc03a10eb824c60ad5bd",
+            "shallow_commits": []
+          },
+          {
+            "relative_path": "external/hdmoe",
+            "head": "66b84d75f9504374fbf4826ddf1dba9db4def5ef",
+            "tree": "533b00c16d93a08f5c7e250f2d7b7de00078b847",
+            "bundle": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/hdmoe-66b84d7.bundle",
+            "bundle_sha256": "534d09e3602ed076a6050d98a49fc6d8c997e8585dcbe5d261e49fd54bf2cfd6",
+            "shallow_commits": [
+              "66b84d75f9504374fbf4826ddf1dba9db4def5ef"
+            ]
+          }
+        ],
+        "source_bundle": {
+          "path": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/block-operator-f97ea6b-tD2NsR.bundle",
+          "sha256": "85bfb135a598b8ab2a15628e782328f17db15a458bd0bc03a10eb824c60ad5bd",
+          "bytes": 1229449,
+          "head": "f97ea6bc9591e324e9fc8291b34806c084b4915d",
+          "tree": "ed11d68c2ebe0e427beeb312d0afe66af8b9731f",
+          "shallow_commits": [],
+          "restore_verified": true
+        }
+      },
+      {
+        "path": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/boundary-scan-b1d566a-tests-GHw2yv/checkout",
+        "terminal_markers": [
+          "exit_code.txt",
+          "end_time.txt"
+        ],
+        "repositories": [
+          {
+            "relative_path": ".",
+            "head": "b1d566a6316ae9563c6a0597246ee8bcec3e68ca",
+            "tree": "d49bf2ea1781c9e18307f280cbcb266846fcfd93",
+            "bundle": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/boundary-scan-b1d566a-tests-GHw2yv.bundle",
+            "bundle_sha256": "4e52827b777e880a6e6c15cf28e4e9911dee9aa787343ff30ca442bbf9688bbb",
+            "shallow_commits": []
+          },
+          {
+            "relative_path": "external/hdmoe",
+            "head": "66b84d75f9504374fbf4826ddf1dba9db4def5ef",
+            "tree": "533b00c16d93a08f5c7e250f2d7b7de00078b847",
+            "bundle": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/hdmoe-66b84d7.bundle",
+            "bundle_sha256": "534d09e3602ed076a6050d98a49fc6d8c997e8585dcbe5d261e49fd54bf2cfd6",
+            "shallow_commits": [
+              "66b84d75f9504374fbf4826ddf1dba9db4def5ef"
+            ]
+          }
+        ],
+        "source_bundle": {
+          "path": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/boundary-scan-b1d566a-tests-GHw2yv.bundle",
+          "sha256": "4e52827b777e880a6e6c15cf28e4e9911dee9aa787343ff30ca442bbf9688bbb",
+          "bytes": 1201288,
+          "head": "b1d566a6316ae9563c6a0597246ee8bcec3e68ca",
+          "tree": "d49bf2ea1781c9e18307f280cbcb266846fcfd93",
+          "shallow_commits": [],
+          "restore_verified": true
+        }
+      },
+      {
+        "path": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/boundary-scan-b1d566a-tests-JoF68b/checkout",
+        "terminal_markers": [
+          "exit_code.txt",
+          "end_time.txt"
+        ],
+        "repositories": [
+          {
+            "relative_path": ".",
+            "head": "b1d566a6316ae9563c6a0597246ee8bcec3e68ca",
+            "tree": "d49bf2ea1781c9e18307f280cbcb266846fcfd93",
+            "bundle": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/boundary-scan-b1d566a-tests-JoF68b.bundle",
+            "bundle_sha256": "4e52827b777e880a6e6c15cf28e4e9911dee9aa787343ff30ca442bbf9688bbb",
+            "shallow_commits": []
+          }
+        ],
+        "source_bundle": {
+          "path": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/boundary-scan-b1d566a-tests-JoF68b.bundle",
+          "sha256": "4e52827b777e880a6e6c15cf28e4e9911dee9aa787343ff30ca442bbf9688bbb",
+          "bytes": 1201288,
+          "head": "b1d566a6316ae9563c6a0597246ee8bcec3e68ca",
+          "tree": "d49bf2ea1781c9e18307f280cbcb266846fcfd93",
+          "shallow_commits": [],
+          "restore_verified": true
+        }
+      },
+      {
+        "path": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/convergence-v2-1e65b03-tests-d9esSv/checkout",
+        "terminal_markers": [
+          "test_exit_code.txt"
+        ],
+        "repositories": [
+          {
+            "relative_path": ".",
+            "head": "1e65b03d8dbdf07616d94f7faac873aee46ffa77",
+            "tree": "53c8cd1bca365fdeb80397a8400d77f0dbb92e82",
+            "bundle": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/convergence-v2-1e65b03-tests-d9esSv.bundle",
+            "bundle_sha256": "10aeaa4a125ef0d192bf7dbca411d83c0656872cccb1f3b2563a979b944671b5",
+            "shallow_commits": []
+          },
+          {
+            "relative_path": "external/hdmoe",
+            "head": "66b84d75f9504374fbf4826ddf1dba9db4def5ef",
+            "tree": "533b00c16d93a08f5c7e250f2d7b7de00078b847",
+            "bundle": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/hdmoe-66b84d7.bundle",
+            "bundle_sha256": "534d09e3602ed076a6050d98a49fc6d8c997e8585dcbe5d261e49fd54bf2cfd6",
+            "shallow_commits": [
+              "66b84d75f9504374fbf4826ddf1dba9db4def5ef"
+            ]
+          }
+        ],
+        "source_bundle": {
+          "path": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/convergence-v2-1e65b03-tests-d9esSv.bundle",
+          "sha256": "10aeaa4a125ef0d192bf7dbca411d83c0656872cccb1f3b2563a979b944671b5",
+          "bytes": 1199167,
+          "head": "1e65b03d8dbdf07616d94f7faac873aee46ffa77",
+          "tree": "53c8cd1bca365fdeb80397a8400d77f0dbb92e82",
+          "shallow_commits": [],
+          "restore_verified": true
+        }
+      },
+      {
+        "path": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/cuda-full-088881f-iXWz3AWh/source",
+        "terminal_markers": [
+          "run_exit_code.txt",
+          "run_end_time_utc.txt",
+          "repeat-2-exit_code.txt",
+          "repeat-2-end_time_utc.txt",
+          "repeat-3-exit_code.txt",
+          "repeat-3-end_time_utc.txt"
+        ],
+        "repositories": [
+          {
+            "relative_path": ".",
+            "head": "088881f82a696d3ff136a158e1319ea1b445d347",
+            "tree": "33f1642193a3e72126855d82db841b052a34bbe5",
+            "bundle": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/cuda-full-088881f-iXWz3AWh.bundle",
+            "bundle_sha256": "e13c3b19407f2996b0de93b7a17960e9e61aa43a7ef4a9e97b480bd292a49e37",
+            "shallow_commits": []
+          },
+          {
+            "relative_path": "external/hdmoe",
+            "head": "66b84d75f9504374fbf4826ddf1dba9db4def5ef",
+            "tree": "533b00c16d93a08f5c7e250f2d7b7de00078b847",
+            "bundle": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/hdmoe-66b84d7.bundle",
+            "bundle_sha256": "534d09e3602ed076a6050d98a49fc6d8c997e8585dcbe5d261e49fd54bf2cfd6",
+            "shallow_commits": [
+              "66b84d75f9504374fbf4826ddf1dba9db4def5ef"
+            ]
+          }
+        ],
+        "source_bundle": {
+          "path": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/cuda-full-088881f-iXWz3AWh.bundle",
+          "sha256": "e13c3b19407f2996b0de93b7a17960e9e61aa43a7ef4a9e97b480bd292a49e37",
+          "bytes": 1293612,
+          "head": "088881f82a696d3ff136a158e1319ea1b445d347",
+          "tree": "33f1642193a3e72126855d82db841b052a34bbe5",
+          "shallow_commits": [],
+          "restore_verified": true
+        }
+      },
+      {
+        "path": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/host-parity-2efba87-1n35eEtI/checkout",
+        "terminal_markers": [
+          "test_exit_code.txt",
+          "end_time_utc.txt"
+        ],
+        "repositories": [
+          {
+            "relative_path": ".",
+            "head": "2efba87f333c7efccbd852b9e88040b7f7afe922",
+            "tree": "9b88ac3c4f243923bf524a4d51b6937912e6b39f",
+            "bundle": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/host-parity-2efba87-1n35eEtI.bundle",
+            "bundle_sha256": "e3939c89259050d5becb80d889e92b5fd565e84264aabadb4cad584aeb1aa134",
+            "shallow_commits": []
+          },
+          {
+            "relative_path": "external/hdmoe",
+            "head": "66b84d75f9504374fbf4826ddf1dba9db4def5ef",
+            "tree": "533b00c16d93a08f5c7e250f2d7b7de00078b847",
+            "bundle": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/hdmoe-66b84d7.bundle",
+            "bundle_sha256": "534d09e3602ed076a6050d98a49fc6d8c997e8585dcbe5d261e49fd54bf2cfd6",
+            "shallow_commits": [
+              "66b84d75f9504374fbf4826ddf1dba9db4def5ef"
+            ]
+          }
+        ],
+        "source_bundle": {
+          "path": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/host-parity-2efba87-1n35eEtI.bundle",
+          "sha256": "e3939c89259050d5becb80d889e92b5fd565e84264aabadb4cad584aeb1aa134",
+          "bytes": 1245183,
+          "head": "2efba87f333c7efccbd852b9e88040b7f7afe922",
+          "tree": "9b88ac3c4f243923bf524a4d51b6937912e6b39f",
+          "shallow_commits": [],
+          "restore_verified": true
+        }
+      },
+      {
+        "path": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/host-parity-6db32f9-h1d3P7uI/checkout",
+        "terminal_markers": [
+          "test_exit_code.txt",
+          "end_time_utc.txt"
+        ],
+        "repositories": [
+          {
+            "relative_path": ".",
+            "head": "6db32f9353f47763ca06354fc644353010a52b76",
+            "tree": "b8c950a7fe6df1e9fab095ff4de210a6d0dbe8ed",
+            "bundle": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/host-parity-6db32f9-h1d3P7uI.bundle",
+            "bundle_sha256": "5ee0ea315d11d08b3d563fbf8d0c65fd47e27ac5a3de982c3594d19e0c4dfe9f",
+            "shallow_commits": []
+          },
+          {
+            "relative_path": "external/hdmoe",
+            "head": "66b84d75f9504374fbf4826ddf1dba9db4def5ef",
+            "tree": "533b00c16d93a08f5c7e250f2d7b7de00078b847",
+            "bundle": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/hdmoe-66b84d7.bundle",
+            "bundle_sha256": "534d09e3602ed076a6050d98a49fc6d8c997e8585dcbe5d261e49fd54bf2cfd6",
+            "shallow_commits": [
+              "66b84d75f9504374fbf4826ddf1dba9db4def5ef"
+            ]
+          }
+        ],
+        "source_bundle": {
+          "path": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/host-parity-6db32f9-h1d3P7uI.bundle",
+          "sha256": "5ee0ea315d11d08b3d563fbf8d0c65fd47e27ac5a3de982c3594d19e0c4dfe9f",
+          "bytes": 1247060,
+          "head": "6db32f9353f47763ca06354fc644353010a52b76",
+          "tree": "b8c950a7fe6df1e9fab095ff4de210a6d0dbe8ed",
+          "shallow_commits": [],
+          "restore_verified": true
+        }
+      },
+      {
+        "path": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/parent-ttrace-576dd02-4T2xSR/checkout",
+        "terminal_markers": [
+          "test_exit_code.txt"
+        ],
+        "repositories": [
+          {
+            "relative_path": ".",
+            "head": "576dd02e69a0ea379b687abfba32bbcbf5aaaae0",
+            "tree": "287d8b85bcc41c7a774d0fece63bb4b5421144bf",
+            "bundle": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/parent-ttrace-576dd02-4T2xSR.bundle",
+            "bundle_sha256": "db8ae9e90906ee6284d66df6c0259a5c54937c5b5d7b47fcbd897a11853ad3f0",
+            "shallow_commits": []
+          },
+          {
+            "relative_path": "external/hdmoe",
+            "head": "66b84d75f9504374fbf4826ddf1dba9db4def5ef",
+            "tree": "533b00c16d93a08f5c7e250f2d7b7de00078b847",
+            "bundle": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/hdmoe-66b84d7.bundle",
+            "bundle_sha256": "534d09e3602ed076a6050d98a49fc6d8c997e8585dcbe5d261e49fd54bf2cfd6",
+            "shallow_commits": [
+              "66b84d75f9504374fbf4826ddf1dba9db4def5ef"
+            ]
+          }
+        ],
+        "source_bundle": {
+          "path": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/parent-ttrace-576dd02-4T2xSR.bundle",
+          "sha256": "db8ae9e90906ee6284d66df6c0259a5c54937c5b5d7b47fcbd897a11853ad3f0",
+          "bytes": 1188516,
+          "head": "576dd02e69a0ea379b687abfba32bbcbf5aaaae0",
+          "tree": "287d8b85bcc41c7a774d0fece63bb4b5421144bf",
+          "shallow_commits": [],
+          "restore_verified": true
+        }
+      },
+      {
+        "path": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/thermal-fidelity-v4-689e787-tests-knn1mIig/checkout",
+        "terminal_markers": [
+          "exit_code.txt",
+          "end_time.txt"
+        ],
+        "repositories": [
+          {
+            "relative_path": ".",
+            "head": "689e7877c589ea16034f82fbdc5d525aac20b4e2",
+            "tree": "8358ca1e3b040b293bd258da4fba23b00e2bb3f9",
+            "bundle": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/thermal-fidelity-v4-689e787-tests-knn1mIig.bundle",
+            "bundle_sha256": "8f5ede1c74f18d079c52d230cf01f095b6fe34391fde7ab73ad47869dd96b779",
+            "shallow_commits": []
+          },
+          {
+            "relative_path": "external/hdmoe",
+            "head": "66b84d75f9504374fbf4826ddf1dba9db4def5ef",
+            "tree": "533b00c16d93a08f5c7e250f2d7b7de00078b847",
+            "bundle": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/hdmoe-66b84d7.bundle",
+            "bundle_sha256": "534d09e3602ed076a6050d98a49fc6d8c997e8585dcbe5d261e49fd54bf2cfd6",
+            "shallow_commits": [
+              "66b84d75f9504374fbf4826ddf1dba9db4def5ef"
+            ]
+          }
+        ],
+        "source_bundle": {
+          "path": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/thermal-fidelity-v4-689e787-tests-knn1mIig.bundle",
+          "sha256": "8f5ede1c74f18d079c52d230cf01f095b6fe34391fde7ab73ad47869dd96b779",
+          "bytes": 1214713,
+          "head": "689e7877c589ea16034f82fbdc5d525aac20b4e2",
+          "tree": "8358ca1e3b040b293bd258da4fba23b00e2bb3f9",
+          "shallow_commits": [],
+          "restore_verified": true
+        }
+      },
+      {
+        "path": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/thermal-v3-5c81730-tests-FaKwdDqI/checkout",
+        "terminal_markers": [
+          "exit_code.txt"
+        ],
+        "repositories": [
+          {
+            "relative_path": ".",
+            "head": "5c8173095d766c1148b8fb7268975e2fb03b7e38",
+            "tree": "a10643e96ec64f4edb2854d689507bb0e8255f84",
+            "bundle": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/thermal-v3-5c81730-tests-FaKwdDqI.bundle",
+            "bundle_sha256": "d01a0ad92727a722fa579bd745929c612ad8e7d8ac178492858e65f04294f93a",
+            "shallow_commits": []
+          },
+          {
+            "relative_path": "external/hdmoe",
+            "head": "66b84d75f9504374fbf4826ddf1dba9db4def5ef",
+            "tree": "533b00c16d93a08f5c7e250f2d7b7de00078b847",
+            "bundle": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/hdmoe-66b84d7.bundle",
+            "bundle_sha256": "534d09e3602ed076a6050d98a49fc6d8c997e8585dcbe5d261e49fd54bf2cfd6",
+            "shallow_commits": [
+              "66b84d75f9504374fbf4826ddf1dba9db4def5ef"
+            ]
+          }
+        ],
+        "source_bundle": {
+          "path": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/thermal-v3-5c81730-tests-FaKwdDqI.bundle",
+          "sha256": "d01a0ad92727a722fa579bd745929c612ad8e7d8ac178492858e65f04294f93a",
+          "bytes": 1206853,
+          "head": "5c8173095d766c1148b8fb7268975e2fb03b7e38",
+          "tree": "a10643e96ec64f4edb2854d689507bb0e8255f84",
+          "shallow_commits": [],
+          "restore_verified": true
+        }
+      },
+      {
+        "path": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/transient-input-45c242c-qQAu0OwQ/checkout",
+        "terminal_markers": [
+          "tests_exit_code.txt",
+          "transient_batch_tests_exit_code.txt",
+          "build_exit_code.txt",
+          "build_end_time_utc.txt",
+          "verify_exit_code.txt",
+          "verify_end_time_utc.txt"
+        ],
+        "repositories": [
+          {
+            "relative_path": ".",
+            "head": "45c242c8d889e47813746e2237bf06dedb24dc3a",
+            "tree": "58cebd5b7678de0a817027b716a64f1ccdc517b6",
+            "bundle": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/transient-input-45c242c-qQAu0OwQ.bundle",
+            "bundle_sha256": "167e0a268a032d342a1831e19b3803314cc10bde0fcb28346bc3e9aafb2783d5",
+            "shallow_commits": []
+          },
+          {
+            "relative_path": "external/hdmoe",
+            "head": "66b84d75f9504374fbf4826ddf1dba9db4def5ef",
+            "tree": "533b00c16d93a08f5c7e250f2d7b7de00078b847",
+            "bundle": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/hdmoe-66b84d7.bundle",
+            "bundle_sha256": "534d09e3602ed076a6050d98a49fc6d8c997e8585dcbe5d261e49fd54bf2cfd6",
+            "shallow_commits": [
+              "66b84d75f9504374fbf4826ddf1dba9db4def5ef"
+            ]
+          }
+        ],
+        "source_bundle": {
+          "path": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/transient-input-45c242c-qQAu0OwQ.bundle",
+          "sha256": "167e0a268a032d342a1831e19b3803314cc10bde0fcb28346bc3e9aafb2783d5",
+          "bytes": 1261031,
+          "head": "45c242c8d889e47813746e2237bf06dedb24dc3a",
+          "tree": "58cebd5b7678de0a817027b716a64f1ccdc517b6",
+          "shallow_commits": [],
+          "restore_verified": true
+        }
+      }
+    ],
+    "skipped": [
+      {
+        "path": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/cpu-six-arm-cc0650b-ze4VAVeu/source",
+        "reason": "No top-level terminal marker; retained"
+      },
+      {
+        "path": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/cuda-metric-3fc05f0-a3FgWisn/source",
+        "reason": "No top-level terminal marker; retained"
+      },
+      {
+        "path": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/cuda-microcase-a38f460-qpk3xt5W/source",
+        "reason": "No top-level terminal marker; retained"
+      }
+    ],
+    "hdmoe_bundle": {
+      "path": "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/retired_sources_20261007/hdmoe-66b84d7.bundle",
+      "sha256": "534d09e3602ed076a6050d98a49fc6d8c997e8585dcbe5d261e49fd54bf2cfd6",
+      "bytes": 55292484,
+      "head": "66b84d75f9504374fbf4826ddf1dba9db4def5ef",
+      "tree": "533b00c16d93a08f5c7e250f2d7b7de00078b847",
+      "shallow_commits": [
+        "66b84d75f9504374fbf4826ddf1dba9db4def5ef"
+      ],
+      "restore_verified": true
+    },
+    "free_before_archives": 78615134208,
+    "allocated_checkout_bytes": 3415609344,
+    "archive_bytes": 71278592,
+    "active_references": [],
+    "external_symlink_references": [],
+    "scope": "Only clean checkout/source leaves of terminated tests; batch logs, inputs, results, tools and existing bundles retained",
+    "removed": [
+      "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/block-operator-7cc5c8c-HfXvUA/checkout",
+      "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/block-operator-8ca575d-UEliuz/checkout",
+      "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/block-operator-f97ea6b-tD2NsR/checkout",
+      "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/boundary-scan-b1d566a-tests-GHw2yv/checkout",
+      "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/boundary-scan-b1d566a-tests-JoF68b/checkout",
+      "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/convergence-v2-1e65b03-tests-d9esSv/checkout",
+      "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/cuda-full-088881f-iXWz3AWh/source",
+      "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/host-parity-2efba87-1n35eEtI/checkout",
+      "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/host-parity-6db32f9-h1d3P7uI/checkout",
+      "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/parent-ttrace-576dd02-4T2xSR/checkout",
+      "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/thermal-fidelity-v4-689e787-tests-knn1mIig/checkout",
+      "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/thermal-v3-5c81730-tests-FaKwdDqI/checkout",
+      "/home/wangziheng/TA-PPAAS/tmp/experiments/ThermoDSE/transient-input-45c242c-qQAu0OwQ/checkout"
+    ],
+    "free_before_delete": 76952985600,
+    "free_after_delete": 80381587456,
+    "observed_free_delta": 3428601856,
+    "bundles_reverified": true
+  },
+  "restore_smoke": {
+    "batch": "cuda-full-088881f-iXWz3AWh",
+    "full_checkout_and_hdmoe_restored": true,
+    "fsck_and_clean_status_passed": true
+  },
+  "final_check": {
+    "completed_utc": "2026-10-07T16:08:49.542119+00:00",
+    "free_home_bytes": 80380813312,
+    "retired_checkouts_absent": true,
+    "terminal_logs_retained": true,
+    "w2w_imports": {
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "shapely": "2.1.2"
+    }
+  },
+  "notes": [
+    "Read-only inspection separated unique evidence from byte-identical copies and clean terminated test checkouts.",
+    "Dedupe byte count is the compared/shared logical range, not a physical-space-reclaimed claim; XFS extents may already be shared.",
+    "Free-space deltas include unrelated concurrent writes. Source archive cost is approximately 68 MiB.",
+    "No unique result, tool environment, license, ongoing transfer, or current working checkout was deleted.",
+    "Protected sshd and sd-pam process descriptors are not inspectable; all accessible user processes and external symlinks were checked."
+  ],
+  "maintenance_scripts": {
+    "archive": "eex005_storage_cleanup_round3_scripts_20261007.tar.gz",
+    "sha256": "8addd7f3dae55d4a84744d4a781fca3a77d029697dc955b99531d178d342f220"
+  }
+}
