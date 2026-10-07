@@ -16,8 +16,8 @@ if {$tx} {
 set xdc [open $out/constraints.xdc w]
 puts $xdc "create_clock -name native -period $period \[get_ports clk\]"
 puts $xdc {set_clock_uncertainty 0.05 [get_clocks native]}
-puts $xdc {set_input_delay -max 0.2 -clock native [remove_from_collection [all_inputs] [get_ports clk]]}
-puts $xdc {set_input_delay -min 0 -clock native [remove_from_collection [all_inputs] [get_ports clk]]}
+puts $xdc {set_input_delay -max 0.2 -clock native [get_ports -filter {DIRECTION == IN && NAME != clk}]}
+puts $xdc {set_input_delay -min 0 -clock native [get_ports -filter {DIRECTION == IN && NAME != clk}]}
 puts $xdc {set_output_delay -max 0.2 -clock native [all_outputs]}
 puts $xdc {set_output_delay -min 0 -clock native [all_outputs]}
 puts $xdc {set_false_path -from [get_ports rst]}
@@ -27,6 +27,7 @@ if {$tx} {
 close $xdc
 read_xdc $out/constraints.xdc
 synth_design -top $top -part $part -mode out_of_context -flatten_hierarchy rebuilt -generic $generics
+write_xdc -force $out/applied_constraints.xdc
 # OOC clock location supplies a common clock-origin assumption without board I/O.
 set clock_site [lindex [lsort [get_sites -filter {SITE_TYPE == BUFGCE}]] 0]
 if {$clock_site eq ""} {

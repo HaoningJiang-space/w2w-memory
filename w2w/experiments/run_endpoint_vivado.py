@@ -5,6 +5,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import re
 import subprocess
 import time
 
@@ -105,14 +106,22 @@ def run(args):
         manifest['records'].append(dict(case=name, result=values, archived_counts_match=True))
         (out/'manifest.json').write_text(json.dumps(manifest, indent=2)+'\n')
         print('XSIM_VERIFIED', name, flush=True)
-    for block in ('tx_dup', 'tx_cfg', 'rx_home', 'rx_shared'):
+    for block in args.blocks:
         folder = out/block
         folder.mkdir(exist_ok=True)
         print('IMPLEMENT', block, flush=True)
-        command(['vivado', '-mode', 'batch', '-nojournal', '-log', folder/'vivado.log',
+        log = command(['vivado', '-mode', 'batch', '-nojournal', '-log', folder/'vivado.log',
                  '-source', ROOT/'rtl/vivado/slice_impl.tcl', '-tclargs',
                  ROOT, folder, block, args.part, args.period, sim],
                 folder, folder/'console.log')
+        if 'CRITICAL WARNING:' in log:
+            raise AssertionError(f'Unresolved critical warning: {folder}/console.log')
+        timing = (folder/'timing.rpt').read_text()
+        for check in ('no_clock', 'unconstrained_internal_endpoints',
+                      'no_input_delay', 'no_output_delay', 'loops'):
+            match = re.search(r'checking '+check+r' \((\d+)\)', timing)
+            if match is None or int(match[1]):
+                raise AssertionError(f'Incomplete timing constraints: {block}: {check}')
         manifest.setdefault('implemented', []).append(block)
         (out/'manifest.json').write_text(json.dumps(manifest, indent=2)+'\n')
     manifest['completed_utc'] = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
@@ -128,4 +137,8 @@ if __name__ == '__main__':
     parser.add_argument('--period', type=float, default=2.0)
     parser.add_argument('--simulation-from', type=Path,
                         help='Reuse matching, completed XSim evidence when only implementation changes')
+    parser.add_argument('--blocks', nargs='+',
+                        choices=('tx_dup', 'tx_cfg', 'rx_home', 'rx_shared'),
+                        default=('tx_dup', 'tx_cfg', 'rx_home', 'rx_shared'),
+                        help='Implement only changed blocks; do not imply unrun blocks were revalidated')
     run(parser.parse_args())

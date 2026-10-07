@@ -59,3 +59,24 @@ python3 w2w/experiments/run_endpoint_vivado.py \
 
 SAIF procedure follows AMD UG900 (2024.2), [Generating SAIF Dumping](https://docs.amd.com/r/2024.2-English/ug900-vivado-logic-simulation/Generating-SAIF-Dumping);
 annotation follows UG835 [read_saif](https://docs.amd.com/r/2024.2-English/ug835-vivado-tcl-commands/read_saif).
+
+## Constraint audit and controlled RTL diagnostic
+
+The first completed implementation (`4c1e4f8`) exposed an XDC error:
+`remove_from_collection` is unsupported within the XDC reader, leaving input
+delays unset. Preserve that run as diagnostic evidence, not a valid complete
+interface timing comparison. Replace it with a filtered `get_ports` query and
+rerun all four unchanged RTL blocks first. Save applied XDC and reject missing
+input/output delays, unconstrained internal endpoints and critical warnings.
+
+Then make a separate, matched TX-only experiment: drive beat valid/data-enable
+directly from nonempty FIFO view when the elastic beat may advance, rather than
+testing the calculated transmitted-unit count. On legal state, `view_count > 0`
+and `0 <= offset < 8` imply a positive available-unit count. This changes neither
+buffer capacity nor latency. Verify the same 14 bit-perfect traces and count
+regression again; use identical corrected XDC for both architectures. Unchanged
+RX blocks may be charged from the corrected baseline with explicit provenance.
+
+Vivado 2026.1 version discovery succeeded, but its actual launch with the supplied
+license failed before synthesis. No 2026.1 PPA results are claimed. These paired
+diagnostics remain on verified Vivado 2024.2.
