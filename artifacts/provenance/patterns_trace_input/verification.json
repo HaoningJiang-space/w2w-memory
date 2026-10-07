@@ -1,0 +1,21 @@
+{
+  "dataset": "core12345/MoE_expert_selection_trace",
+  "revision": "27febb7b2d24169560a9f6f83d38eb53f94916cf",
+  "source_path": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/93.json",
+  "bytes": 2627151,
+  "git_blob_sha1": "c74f079886d952c949edfb0a8ca01c593831220f",
+  "matches_hf_blob_id": true,
+  "sha256": "eec1bfcf72e8382a13d347879f5c0bbff1fac6387e0d9fbf9b06c3e8ad64312c",
+  "records": 129,
+  "layers_each_record": 94,
+  "prefill_token_rows": 2,
+  "decode_steps": 128,
+  "experts_per_token": 8,
+  "expert_ids_in_range": [
+    0,
+    127
+  ],
+  "all_layer_formats_validated": true,
+  "downloaded_file_count": 1,
+  "scope": "Input identity/format validation, not measured memory traffic or performance"
+}

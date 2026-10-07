@@ -9,3 +9,5 @@ COMMANDS['run_architecture_competition'] = 'w2w.experiments.run_architecture_com
 COMMANDS['run_static_shared_fifo'] = 'w2w.experiments.run_static_shared_fifo'
 COMMANDS['run_shared_egress_rtl'] = 'w2w.experiments.run_shared_egress_rtl'
 COMMANDS['run_read_workload'] = 'w2w.experiments.run_read_workload'
+COMMANDS['import_patterns_trace'] = 'w2w.experiments.import_patterns_trace'
+COMMANDS['fetch_patterns_sample'] = 'w2w.experiments.fetch_patterns_sample'
