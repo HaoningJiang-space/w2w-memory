@@ -72,6 +72,11 @@
       "path": "artifacts/results/workload/request_window/selected_tasks.csv",
       "bytes": 1245,
       "sha256": "8904dbc7dfcdd887b90ae51e89dfe145b043e8ec8f03c641ff6539c4a3986d54"
+    },
+    {
+      "path": "artifacts/provenance/request_window_integration_tests.log.gz",
+      "bytes": 1215,
+      "sha256": "5121ae42f7d4573679488b9f0aa7debad7e7ecc3724c0b00d642d4d4cece3504"
     }
   ],
   "uncompressed_log_sha256": {
@@ -80,5 +85,13 @@
     "request_window_audit.log": "a5e83099c752b5c2607c3aa2b94b88a91c031caf3b740d57b44163ede3c5b547"
   },
   "figure_scope": "Executed integer windows only, scatter without interpolation; 512 controls remain in raw results",
-  "derived_formatting": "SVG trailing whitespace removed with XML geometry/text equivalence check; CSV uses LF. Raw experiment archives and logs are byte-identical."
+  "derived_formatting": "SVG trailing whitespace removed with XML geometry/text equivalence check; CSV uses LF. Raw experiment archives and logs are byte-identical.",
+  "integration_validation": {
+    "source_commit": "6965a0a4c8abd626d7498f6032fe02f1f6e4f300",
+    "tests": 38,
+    "host": "eex005",
+    "git_status": "",
+    "uncompressed_log_sha256": "df9861e8005d3cce9ef940e272eaa5dca91440976da36335dd18a0e1100817b4",
+    "scope": "Post-merge targeted regression; experiment source and its 37 pre-run tests remain unchanged"
+  }
 }
