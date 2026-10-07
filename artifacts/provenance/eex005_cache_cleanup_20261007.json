@@ -1,0 +1,61 @@
+{
+  "host": "eex005",
+  "time_utc": "2026-10-07T15:37:20Z",
+  "free_before": 72559656960,
+  "actions": [
+    {
+      "path": "/home/wangziheng/.cache/Tectonic",
+      "allocated_bytes_removed": 6008926208,
+      "kind": "rebuildable_cache"
+    },
+    {
+      "path": "/home/wangziheng/.cache/pip",
+      "allocated_bytes_removed": 697389056,
+      "kind": "rebuildable_cache"
+    },
+    {
+      "path": "/home/wangziheng/Video/finite-read-20261007.bundle",
+      "allocated_bytes_removed": 99225600,
+      "kind": "already_imported_git_bundle"
+    },
+    {
+      "path": "/home/wangziheng/Video/finite-read-update.bundle",
+      "allocated_bytes_removed": 4096,
+      "kind": "already_imported_git_bundle"
+    },
+    {
+      "path": "/home/wangziheng/Video/finite-render.bundle",
+      "allocated_bytes_removed": 8192,
+      "kind": "already_imported_git_bundle"
+    },
+    {
+      "path": "/home/wangziheng/Video/finite-audit.bundle",
+      "allocated_bytes_removed": 4096,
+      "kind": "already_imported_git_bundle"
+    }
+  ],
+  "active_target_handles": [],
+  "preserve": "All environments, source checkouts, experiment results, licenses, running transfers",
+  "free_after": 80581980160,
+  "allocated_bytes_removed_direct": 6805557248,
+  "conda_cleanup": {
+    "options": [
+      "--tarballs",
+      "--index-cache",
+      "--yes"
+    ],
+    "download_archive_bytes": 338421068,
+    "index_cache_paths": [
+      "/home/wangziheng/miniconda3/pkgs/cache"
+    ],
+    "success": true
+  },
+  "verification": {
+    "numpy_scipy_shapely_imports": true,
+    "conda_version": "26.3.2",
+    "active_comsol_transfer_directory_preserved": true
+  },
+  "scope": "No source, environment or unique experiment data deleted. Free-space deltas include concurrent filesystem activity.",
+  "full_remote_manifest": "/home/wangziheng/Video/w2w-finite-read-20261007/memory_results/storage_cleanup_20261007.json",
+  "full_manifest_sha256": "583625c6af18905dac0718e7d703a085369f04f0b5d3a88690e7c79ae14e4226"
+}
