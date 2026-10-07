@@ -269,6 +269,8 @@ write_json {d/'netlist.json'}
         print('SYNTHESIZE',name,flush=True)
         command(['yosys','-s',d/'synth.ys'],d,d/'synth.log')
         mapped=json.loads((d/'netlist.json').read_text())['modules'][target]
+        if tx and mapped['ports']['home_units']['bits'][:3]!=['0','0','0']:
+            raise AssertionError('Home units static-output exception no longer valid')
         cells=Counter(c['type'] for c in mapped['cells'].values() if c['type']!='$scopeinfo')
         if any(c.startswith('$') for c in cells):raise AssertionError(f'Unmapped cells: {name}')
         manifest['blocks'][name]=dict(cells=dict(cells),netlist_sha256=sha(d/'netlist.v'),

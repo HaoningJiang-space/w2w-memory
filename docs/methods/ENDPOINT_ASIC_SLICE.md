@@ -102,6 +102,11 @@ repair sequence runs after CTS and with global-route parasitics; hold margin is
 by OpenRCX extraction and STA using propagated clocks. Record pre-repair,
 post-CTS, repaired and extracted-route area/slack, added hold-buffer count/area,
 route DRC count, and exact final cell counts. Replay the same mapped scoreboards.
+Load the exported SPEF explicitly into STA and inspect parasitic annotation;
+extraction into the physical database alone is insufficient. The three low Home
+unit-count outputs are structurally literal zero in both mapped sources. Verify
+this before excluding those constant endpoints from timing; no data path gets
+a new false-path exception. The exception also applies in standalone STA.
 
 This is local signal/clock physical validation. Power-grid routing, wafer-length
 access wires, actual HB parasitics, multi-corner signoff and power are excluded.

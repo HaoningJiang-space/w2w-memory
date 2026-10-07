@@ -77,9 +77,12 @@ detailed_route -output_drc $output/route_drc.rpt -output_maze $output/maze.log \
     -bottom_routing_layer metal2 -top_routing_layer metal10 -or_seed 42
 define_process_corner -ext_model_index 0 typical
 extract_parasitics -ext_model_file $platform/rcx_patterns.rules
+write_spef $output/final.spef
+# OpenRCX populates the physical database; explicitly load its SPEF into STA.
+read_spef $output/final.spef
+report_parasitic_annotation
 snapshot post_route_extracted
 close $metrics
-write_spef $output/final.spef
 write_def $output/final.def
 write_db $output/final.odb
 write_verilog -remove_cells {TAPCELL_X1} $output/netlist.v
