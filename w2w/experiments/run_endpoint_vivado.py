@@ -52,16 +52,35 @@ def run(args):
         ['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
     manifest['tool_version'] = command(['vivado', '-version'], out, out/'version.log')
     sim = out/'sim'
-    sim.mkdir(exist_ok=True)
-    command(['xvlog', '--sv', *sources], sim, sim/'compile.log')
-    # Overriding a top-level generic changes XSim's root scope name. A runtime
-    # clock plusarg preserves the same SAIF hierarchy across simulator versions.
-    command(['xelab', 'endpoint_roundtrip_tb', '-s', 'slice', '-debug', 'typical', '-mt', '2'],
-            sim, sim/'elaborate.log')
+    reuse = None
+    if args.simulation_from:
+        previous = args.simulation_from.resolve()
+        reuse = json.loads((previous/'manifest.json').read_text())
+        assert reuse['period_ns'] == args.period
+        for path in sources + [ROOT/'rtl/vivado/slice_saif.tcl', reference_path]:
+            key = str(path.relative_to(ROOT))
+            assert reuse['file_sha256'][key] == manifest['file_sha256'][key], key
+        assert len(reuse['records']) == len(records)
+        sim = previous/'sim'
+        manifest['simulation_provenance'] = dict(source_revision=reuse['source_revision'],
+            manifest_sha256=digest(previous/'manifest.json'), directory=str(previous))
+    else:
+        sim.mkdir(exist_ok=True)
+        command(['xvlog', '--sv', *sources], sim, sim/'compile.log')
+        # Top-level generic overrides change XSim's root scope name; use a plusarg.
+        command(['xelab', 'endpoint_roundtrip_tb', '-s', 'slice', '-debug', 'typical', '-mt', '2'],
+                sim, sim/'elaborate.log')
     for r in records:
         name = f'{r["pattern"]}_dir{r["direction"]}'
         case = sim/name
         case.mkdir(exist_ok=True)
+        if reuse:
+            record = next(v for v in reuse['records'] if v['case'] == name)
+            assert record['archived_counts_match']
+            if r['pattern'] in ('mixed', 'stalls'):
+                assert (case/'activity.saif').stat().st_size > 1000
+            manifest['records'].append(record)
+            continue
         env = dict(os.environ)
         env.pop('W2W_SAIF_FILE', None)
         if r['pattern'] in ('mixed', 'stalls'):
@@ -107,4 +126,6 @@ if __name__ == '__main__':
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--part', default='xcku040-ffva1156-2-e')
     parser.add_argument('--period', type=float, default=2.0)
+    parser.add_argument('--simulation-from', type=Path,
+                        help='Reuse matching, completed XSim evidence when only implementation changes')
     run(parser.parse_args())
