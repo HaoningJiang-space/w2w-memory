@@ -42,6 +42,7 @@ memory_results/            本地/服务器实验工作目录（不入 Git）
 
 ## 从这里开始
 
+- [静态驻留与请求容量联合设计：解析比例、189回放和服务硬件取舍](docs/reports/SERVICE_PROVISIONING_REPORT.md)
 - [当前：真实 trace 工作流、主入口与验收范围](docs/guides/TRACE_WORKFLOW.md)
 - [48 次多窗口完整回放：全部结果、供给控制和成本](docs/reports/PATTERNS_REPLAY_STUDY_REPORT.md)
 - [服务器：本地开发 → Git → CPU 实验](docs/operations/HN072_RESEARCH.md)

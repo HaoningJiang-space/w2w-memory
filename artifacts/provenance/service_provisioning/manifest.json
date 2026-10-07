@@ -1,0 +1,126 @@
+{
+  "schema": "w2w.service-provisioning-manifest.v1",
+  "date": "2026-10-08",
+  "experiment": {
+    "commit": "eefe539d529cba64401b0cc66f7d4d06cbe40b71",
+    "git_status": "",
+    "host": "eex005",
+    "python": "3.13.13",
+    "packages": {
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "shapely": "2.1.2",
+      "pymetis": "2025.2.2",
+      "networkx": "3.7",
+      "matplotlib": "3.11.2"
+    }
+  },
+  "registration_sha256": "2ea191496e436c76e458433535689cd41d02e6b6e792ea2c4ce5aab5a1f73e85",
+  "registration_source_commit": "3c6cc4239bb124a20afa8fdc35b179b6190e8dc4",
+  "readback_source_commit": "1b756ae2ab8b0e1e2cbfe3afa07a6f08f027110a",
+  "remote_checkout": "/home/wangziheng/Video/w2w-provisioning-20261008",
+  "remote_python": "/home/wangziheng/Video/w2w-memory/.venv/bin/python",
+  "elapsed_seconds": 155.2487500505522,
+  "tests": {
+    "related_modules": 56,
+    "additional_entrypoint_checks": 3
+  },
+  "main_replays": 168,
+  "implementation_ablations": 21,
+  "matched_existing_replays": 36,
+  "real_archives_reanalyzed": 48,
+  "new_model_words": 6956928,
+  "archive_audit": {
+    "verified": true,
+    "new_replays": 189,
+    "main_replays": 168,
+    "implementation_ablations": 21,
+    "model_words": 6956928,
+    "real_archive_bounds": 48,
+    "regenerated_synthetic_certificates": 56,
+    "experimental_source_commit": "eefe539d529cba64401b0cc66f7d4d06cbe40b71",
+    "raw_archive_sha256": "04b21112164829a401b7886496a033eb4c2a62ae9af0eccb9030d804864c8af3",
+    "scope": "Readback, frozen-input regeneration, per-resource delivery, task timing and bound checks; no new replay"
+  },
+  "summary_archiving": "Byte-preserving gzip with mtime=0 of the unmodified remote summary.json",
+  "files": [
+    {
+      "path": "docs/methods/SERVICE_PROVISIONING_STUDY.md",
+      "bytes": 4991,
+      "sha256": "2ea191496e436c76e458433535689cd41d02e6b6e792ea2c4ce5aab5a1f73e85"
+    },
+    {
+      "path": "artifacts/results/workload/service_provisioning/certificates.json.gz",
+      "bytes": 1195188,
+      "sha256": "fd5c97c0ee4d31a4ad350d7f3463da0eca1ca207d9844259814df702c34d0e6b"
+    },
+    {
+      "path": "artifacts/results/workload/service_provisioning/pool_bounds.csv",
+      "bytes": 1945,
+      "sha256": "a9d731db8c85b5f31e64c82d684ba2584d1debbbe57f6572f0c8cad11859493e"
+    },
+    {
+      "path": "artifacts/results/workload/service_provisioning/real_bounds.csv",
+      "bytes": 19067,
+      "sha256": "85cfd2659e48c4594a10670ac0626f851114521baa0a57a11aa8a9cb8f034723"
+    },
+    {
+      "path": "artifacts/results/workload/service_provisioning/replays.jsonl.gz",
+      "bytes": 3091006,
+      "sha256": "04b21112164829a401b7886496a033eb4c2a62ae9af0eccb9030d804864c8af3"
+    },
+    {
+      "path": "artifacts/results/workload/service_provisioning/summary.json.gz",
+      "bytes": 74743,
+      "sha256": "a5662919d929dbb16cbf806ebe68c103d3fc46e89a7b5aa2210e6b3d023be5b8"
+    },
+    {
+      "path": "artifacts/results/workload/service_provisioning/supports.json.gz",
+      "bytes": 2470,
+      "sha256": "5c2798456e5ffd88880b42a989d4ffcb94d136def793b1e813fa47c6eaafaf48"
+    },
+    {
+      "path": "artifacts/results/workload/service_provisioning/synthetic.csv",
+      "bytes": 40176,
+      "sha256": "ed032a18bd69676964fc307272ae4fa6b0b6cf5f5800d977f80e756d90d92885"
+    },
+    {
+      "path": "artifacts/figures/service_provisioning/provisioning.pdf",
+      "bytes": 20423,
+      "sha256": "321b22211fdcbae1192f39d68c77cb7daf17a67526b2023e6be37e749e50c208"
+    },
+    {
+      "path": "artifacts/figures/service_provisioning/provisioning.svg",
+      "bytes": 35838,
+      "sha256": "f571fc580184e7a41d9eacea44866de61d440151b723c2e03ee032bc5ab6db88"
+    },
+    {
+      "path": "artifacts/provenance/service_provisioning/audit.json",
+      "bytes": 487,
+      "sha256": "0d2eac1f8ed22da9fa48a034780e8190b4ee31d4fb5af32adefeb27cabf3f292"
+    },
+    {
+      "path": "artifacts/provenance/service_provisioning/audit.log.gz",
+      "bytes": 326,
+      "sha256": "d0f579aa57643812510f70b658a3a4af02300685bc4f8627a5ff3e60d7839ab3"
+    },
+    {
+      "path": "artifacts/provenance/service_provisioning/entrypoints_tests.log.gz",
+      "bytes": 193,
+      "sha256": "c3b466c7db2b8536684a78572a01d68ba0200c82f995582d52a9f5068d268e47"
+    },
+    {
+      "path": "artifacts/provenance/service_provisioning/integration_tests.log.gz",
+      "bytes": 1708,
+      "sha256": "b78e478eb3c95a4590ef979050e466f47845a665cd535fe1f9af9646ab045978"
+    },
+    {
+      "path": "artifacts/provenance/service_provisioning/run.log.gz",
+      "bytes": 873,
+      "sha256": "f272f2ac3ac4a447a4ef484dc19ca648bdab527aa867e812723468e186e5f763"
+    }
+  ],
+  "scope": "New synthetic executions and existing real-routing bound analysis; no new RTL or real-routing candidate replay",
+  "entrypoint_test_source_commit": "b40beda323ce7f26ca2a9cff7da64130e42a6c9f",
+  "rendering_source_commit": "7d31a476b6c92d2241904e811896837bc4f93463"
+}

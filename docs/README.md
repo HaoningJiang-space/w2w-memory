@@ -7,6 +7,7 @@
 
 ## 当前实现与运行
 
+- [静态驻留与请求容量联合设计：189回放、方向覆盖及成本](reports/SERVICE_PROVISIONING_REPORT.md) / [固定协议](methods/SERVICE_PROVISIONING_STUDY.md)
 - [流程验收复查：148测试、48回放与完成边界](reports/TRACE_FLOW_ACCEPTANCE.md)
 - [真实 trace 完整工作流：当前入口、验收范围与历史脚本区别](guides/TRACE_WORKFLOW.md)
 - [48次真实 routing 多窗口完整回放：结果与成本](reports/PATTERNS_REPLAY_STUDY_REPORT.md) / [当前代码分层](CODE_STRUCTURE.md)

@@ -1,0 +1,12 @@
+{
+  "verified": true,
+  "new_replays": 189,
+  "main_replays": 168,
+  "implementation_ablations": 21,
+  "model_words": 6956928,
+  "real_archive_bounds": 48,
+  "regenerated_synthetic_certificates": 56,
+  "experimental_source_commit": "eefe539d529cba64401b0cc66f7d4d06cbe40b71",
+  "raw_archive_sha256": "04b21112164829a401b7886496a033eb4c2a62ae9af0eccb9030d804864c8af3",
+  "scope": "Readback, frozen-input regeneration, per-resource delivery, task timing and bound checks; no new replay"
+}
