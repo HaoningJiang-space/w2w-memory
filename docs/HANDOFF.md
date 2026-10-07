@@ -1,5 +1,12 @@
 # 开发交接：Wafer-scale Memory Service Fabric
 
+**2026-10-07 输入侧新增：真实 Patterns Behind Chaos 路由适配器。**
+已通过授权原站取得一个 Qwen3/MMLU request（2.51 MiB），Git blob身份与SHA256核对通过；
+94层、128 decode步格式验证，单层4步转换成冻结专家权重需求并投影到七个既有设计。
+原始路由是真实记录，batch/权重冷读/compute映射仍是显式建模；没有应用加速结论。
+[接口与命令](methods/PATTERNS_TRACE_INPUT.md) / [来源与验收](reports/PATTERNS_TRACE_INPUT_REPORT.md)。
+Token与raw数据不进Git；无需全199GB下载。以下保留此前各阶段的历史状态。
+
 **2026-10-07 有限任务实验完成：** [77 次冻结回放](reports/FINITE_READ_STUDY_REPORT.md)、49 测试，
 22 组 duplicated/configurable 服务一致。分散热点 B 为 77 对 Private 88 槽，扩大请求窗口后为
 60 槽；相邻热点、全忙与阶段移动无明显收益。k2 在所测单热点/长尾中仍是强成本参考。

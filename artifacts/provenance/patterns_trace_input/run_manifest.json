@@ -1,0 +1,40 @@
+{
+  "source_commit": "024e27d362fd3f5d98fb9ab8a5894ff2d2661b76",
+  "source_clean": true,
+  "local_and_remote_output_sha256_identical": {
+    "trace.json": "844b1f158cc6462f74cb42788db3cc319d9e92e223106b8ab256773ca96c986f",
+    "demand.json": "f290cd961d39efe3330d8bc7915409a8b727a9243f0623bbebc93d0dab7a1357",
+    "residency.json": "732d2e389afad897002520445c8eec86919c93581dc6492eeb88be2c5b33623e",
+    "execution_spec.json": "57f20d0634628fe71478de5f1e3b8101c97c087b127ebc626c129d8124cc3f2c"
+  },
+  "server": "wangziheng@eex005",
+  "remote_repo": "/home/wangziheng/Video/w2w-memory",
+  "raw_directory": "memory_results/pbc_authorized_raw_v1",
+  "output_directory": "memory_results/pbc_real_import_clean",
+  "tests": {
+    "count": 39,
+    "passed": 39,
+    "modules": [
+      "tests.test_patterns_trace",
+      "tests.test_read_workload",
+      "tests.test_repository_layout"
+    ]
+  },
+  "format_validation": {
+    "layers": 94,
+    "decode_steps": 128,
+    "top_k": 8
+  },
+  "projection": {
+    "designs": 7,
+    "feasible": 7,
+    "layers": 1,
+    "decode_steps": 4,
+    "logical_read_bytes": 604127232,
+    "resident_weight_bytes": 2416508928
+  },
+  "cycle_replay_run": false,
+  "raw_files_downloaded": 1,
+  "raw_bytes": 2627151,
+  "scope": "Real routing with modeled cold-weight demand and static byte projection; not measured traffic or application speedup"
+}
