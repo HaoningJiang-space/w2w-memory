@@ -1,5 +1,5 @@
 # Local signal/clock P&R only. No wafer wires, HB extraction or power analysis.
-set here [file dirname [info script]]
+set here $::env(W2W_SCRIPT_DIR)
 set platform $::env(W2W_PLATFORM)
 set output $::env(W2W_PHYSICAL_OUTPUT)
 set_thread_count 2

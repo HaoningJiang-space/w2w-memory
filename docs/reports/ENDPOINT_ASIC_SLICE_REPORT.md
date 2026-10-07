@@ -118,3 +118,31 @@ python3 w2w/experiments/run_endpoint_asic.py \
 Vivado 作为补充证据保留；早期 FPGA 输入约束错误及被中止的重跑见
 [Vivado 诊断报告](ENDPOINT_VIVADO_SLICE_REPORT.md)，不与这次 ASIC 结果混用。
 本轮停在同库、同约束的单 slice 比较，不扩展 placement、32-bank 聚合或整片 P&R。
+
+## 补充：零线 RC 的网表修复诊断
+
+源码 `61ba73f`，2026-10-07T13:37:32Z 完成。RTL 与边界约束均未改变；
+修复只在映射网表上加 BUF_X1、将过载 NOR4_X1 替换为 NOR4_X2。
+数据路径未设 false path，最小输入延迟仍为 0。修复前所有负 hold 都位于
+input→register；寄存器间 hold 已为正。
+
+| 模块 | 新增 hold buffers | 驱动强度调整 | 修复后面积 μm² | 最差 setup ns | 最差 hold ns |
+|---|---:|---:|---:|---:|---:|
+| Duplicated source | 258 | 0 | 17,471.412 | +0.990369 | +0.000888 |
+| Configurable source | 513 | 0 | 11,533.228 | +1.062070 | +0.004900 |
+| Home RX | 0 | 4 | 6,191.150 | +0.892862 | +0.005703 |
+| Shared RX，每套 | 3 | 1 | 7,158.592 | +1.091455 | +0.000094 |
+
+该零线 RC 模型中的 setup、hold、电容/转换时间检查均通过。
+Configurable 付出了更多缓冲，source 绝对面积差从 6,141.674 降为 **5,938.184 μm²**，
+相对节省为 **34.0%**；计入相同三个 RX 后为 **37,979.746→32,041.562 μm²，−15.6%**。
+全部 14 条成对 mapped trace 再次通过，字数与周期均与 RTL 一致。
+
+这只回答修复成本的逻辑级诊断问题，**不是 physical hold repair 或 post-route 时序收敛**。
+没有 CTS/skew/提取 RC；其中很小的正 hold 裕量也不能外推到其他角或物理实现。
+随后按用户要求注册 OpenROAD 对照，从未加这些 ECO 的原始网表出发，独立报告工具自动
+修复后的结果。统一 ingress register 也不会消除输入口到该寄存器本身的 hold 要求。
+
+[修复结果](../../artifacts/results/endpoint/endpoint_asic_repair.json.gz)、
+[原始日志与网表](../../artifacts/provenance/endpoint_asic_repair_evidence.tar.gz)、
+[哈希清单](../../artifacts/provenance/endpoint_asic_repair_manifest.json)。

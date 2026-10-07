@@ -278,7 +278,7 @@ write_json {d/'netlist.json'}
                                        sequential_area_um2=stats['sequential_area'])
         env=dict(os.environ,W2W_LIBERTY=str(lib),W2W_NETLIST=str(d/'netlist.v'),
                  W2W_TOP=target,W2W_PERIOD_NS=str(args.period),W2W_TX=str(int(tx)),
-                 W2W_HOLD_REPORT=str(d/'hold.tsv'))
+                 W2W_HOLD_REPORT=str(d/'hold.tsv'),W2W_SCRIPT_DIR=str(ROOT/'rtl/asic'))
         log=command(['sta','-exit',ROOT/'rtl/asic/slice_sta.tcl'],d,d/'sta.log',env)
         if 'STA_COMPLETE' not in log or re.search(r'(^|\n)Error:',log):
             raise AssertionError(f'STA incomplete: {d}/sta.log')

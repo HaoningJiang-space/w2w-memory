@@ -3,7 +3,7 @@ if {![info exists ::env(W2W_LOADED)]} {
     read_liberty $::env(W2W_LIBERTY)
     read_verilog $::env(W2W_NETLIST)
     link_design $::env(W2W_TOP)
-    source [file join [file dirname [info script]] slice_constraints.tcl]
+    source [file join $::env(W2W_SCRIPT_DIR) slice_constraints.tcl]
 }
 if {[info exists ::env(W2W_HOLD_REPORT)]} {
     set fd [open $::env(W2W_HOLD_REPORT) w]
