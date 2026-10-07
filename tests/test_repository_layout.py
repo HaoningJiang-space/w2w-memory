@@ -5,12 +5,30 @@ import json
 from pathlib import Path
 import subprocess
 import sys
+import tempfile
 import unittest
 from w2w.commands import COMMANDS
 from w2w.paths import REPO_ROOT
 
 
 class RepositoryLayoutTests(unittest.TestCase):
+    def test_dispatched_process_pool_can_serialize_workers(self):
+        with tempfile.TemporaryDirectory() as folder:
+            Path(folder, 'pool_probe.py').write_text(
+                'from concurrent.futures import ProcessPoolExecutor\n'
+                'import multiprocessing\n'
+                'def square(value): return value * value\n'
+                'if __name__ == "__main__":\n'
+                '    for method in ("fork", "spawn"):\n'
+                '        with ProcessPoolExecutor(1, mp_context=multiprocessing.get_context(method)) as pool:\n'
+                '            print(method, pool.submit(square, 7).result())\n')
+            launcher = ('import sys; sys.path.insert(0, sys.argv[1]); '
+                        'from w2w.commands import COMMANDS; from w2w.__main__ import main; '
+                        'COMMANDS["pool_probe"] = "pool_probe"; main(["pool_probe"])')
+            result = subprocess.run([sys.executable, '-c', launcher, folder], cwd=REPO_ROOT,
+                                    capture_output=True, text=True, check=True, timeout=30)
+            self.assertEqual(result.stdout.splitlines(), ['fork 49', 'spawn 49'])
+
     def test_moved_result_bytes_are_unchanged(self):
         manifest=json.loads((REPO_ROOT/'artifacts/provenance/layout_migration.json').read_text())
         for path,digest in manifest['result_sha256'].items():

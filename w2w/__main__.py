@@ -21,7 +21,8 @@ def main(argv=None):
         parser=argparse.ArgumentParser(prog='python -m w2w')
         parser.error('unknown command '+repr(command)+'; use --list')
     sys.argv=[command]+argv
-    runpy.run_module(COMMANDS[command],run_name='__main__')
+    # Multiprocessing must find dispatched top-level workers in sys.modules.
+    runpy.run_module(COMMANDS[command],run_name='__main__',alter_sys=True)
 
 
 if __name__ == '__main__':
