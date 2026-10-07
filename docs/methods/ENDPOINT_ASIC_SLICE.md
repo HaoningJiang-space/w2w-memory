@@ -154,3 +154,10 @@ all additional cells are charged. Successful closed blocks may be reused only
 with identical RTL, SDC, library, period and tool versions; their original
 manifest/hash and source revision remain recorded. This avoids re-running the
 already closed sources while finishing the common receivers.
+
+A small full-word RX hit the limit even at 100% of its initial cell count.
+The common procedure therefore permits at most three automatic hold-repair
+calls per stage, retaining inserted cells, legalizing and refreshing RC after
+a per-call limit. A limit error is recorded, not treated as timing success;
+only the extracted final slack/electrical checks determine closure. Source
+blocks that completed on their first call are unaffected by this continuation.

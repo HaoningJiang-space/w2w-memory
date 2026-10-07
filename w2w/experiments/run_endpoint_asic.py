@@ -211,7 +211,7 @@ def run(args):
         manifest['tools']['openroad']=command([args.openroad,'-version'],out,out/'openroad_version.log').strip()
         manifest['boundary']='Local signal/clock P&R and extracted typical-corner STA; no wafer/HB RC, power grid or power claim'
         manifest['physical_settings']=dict(utilization=30,placement_density=.40,aspect_ratio=1,
-            core_space_um=5,seed=42,threads=2,hold_margin_ns=.05,max_hold_buffer_percent=50,retry_max_hold_buffer_percent=100,
+            core_space_um=5,seed=42,threads=2,hold_margin_ns=.05,max_hold_buffer_percent=50,retry_max_hold_buffer_percent=100,max_hold_passes_per_stage=3,
             platform_sha256={str(p.relative_to(args.platform)):sha(p) for p in sorted(args.platform.rglob('*')) if p.is_file()})
     reuse=None
     if args.reuse_closed:

@@ -49,6 +49,22 @@ proc snapshot {name} {
     flush $metrics
     return [list $setup $hold]
 }
+# A small elastic RX can need more delay cells than its initial logic count.
+# If the per-call effort ceiling is reached, keep the inserted cells, legalize,
+# refresh RC, and allow at most two further automatic repair passes.
+proc repair_hold {model} {
+    global limit output
+    for {set pass 0} {$pass<3} {incr pass} {
+        if {![catch {repair_timing -hold -hold_margin 0.05 -max_buffer_percent $limit} message]} {return}
+        if {![string match {*Max buffer count reached*} $message] || $pass==2} {error $message}
+        puts "HOLD_LIMIT_CONTINUE: completed pass [expr {$pass+1}], legalize and refresh $model RC"
+        detailed_placement
+        if {$model eq "global_routing"} {
+            global_route -guide_file $output/route.guide -congestion_iterations 50
+        }
+        estimate_parasitics -$model
+    }
+}
 snapshot imported
 global_placement -density 0.40
 detailed_placement
@@ -62,7 +78,7 @@ detailed_placement
 estimate_parasitics -placement
 snapshot post_cts_before_repair
 repair_timing -setup
-repair_timing -hold -hold_margin 0.05 -max_buffer_percent $limit
+repair_hold placement
 detailed_placement
 check_placement -verbose
 snapshot post_cts_repaired
@@ -70,7 +86,7 @@ global_route -guide_file $output/route.guide -congestion_iterations 50
 estimate_parasitics -global_routing
 repair_design
 repair_timing -setup
-repair_timing -hold -hold_margin 0.05 -max_buffer_percent $limit
+repair_hold global_routing
 detailed_placement
 global_route -guide_file $output/route.guide -congestion_iterations 50
 estimate_parasitics -global_routing
