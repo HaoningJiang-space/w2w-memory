@@ -33,6 +33,8 @@ memory_results/            本地/服务器实验工作目录（不入 Git）
 ## 从这里开始
 
 - [固定研究范围与三层职责](docs/RESEARCH_SCOPE.md)
+- [服务合同改变设计选择：首轮结果](docs/reports/CONTRACT_SELECTION_REPORT.md)
+- [地址权限与物理可达性审计](docs/reports/EGRESS_REACHABILITY_REPORT.md)
 - [代码层次、依赖方向与新旧入口](docs/CODE_STRUCTURE.md)
 - [当前闭环结果：Endpoint → bank → wafer](docs/reports/ENDPOINT_BRIDGE_REPORT.md)
 - [该闭环的模型、参数与复现范围](docs/methods/ENDPOINT_BRIDGE_METHOD.md)

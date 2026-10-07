@@ -5,6 +5,8 @@
 
 ## 当前实现与运行
 
+- [服务合同改变设计选择：首轮结果](reports/CONTRACT_SELECTION_REPORT.md)
+- [地址权限与物理可达性审计](reports/EGRESS_REACHABILITY_REPORT.md)
 - [代码结构与依赖](CODE_STRUCTURE.md)
 - [Endpoint-to-wafer：方法](methods/ENDPOINT_BRIDGE_METHOD.md) / [结果](reports/ENDPOINT_BRIDGE_REPORT.md)
 - [Endpoint 合同与公开数字接口边界](methods/ENDPOINT_CONTRACT_GATE.md)

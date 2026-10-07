@@ -1,0 +1,207 @@
+{
+  "physical_cm_multiplicity": {
+    "1": 146
+  },
+  "used_c_bank_routes": {
+    "1": 2304
+  },
+  "layout_hash": "e91429dfa136daf8ae6340a22e0803b201e61158eaeae72eeb7ae32c50ff68ad",
+  "example_pair": [
+    0,
+    1
+  ],
+  "physical_memory_ports": [
+    [
+      0,
+      2
+    ],
+    [
+      0,
+      3
+    ]
+  ],
+  "physical_y": [
+    [
+      [
+        1,
+        0
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        0
+      ]
+    ]
+  ],
+  "cases": [
+    {
+      "address": "unique",
+      "physical_relaxation": false,
+      "active": [
+        0
+      ],
+      "rate_per_active": 1.0,
+      "missing_active_byte_classes": 0,
+      "floor_one_feasible": true,
+      "residual": 0.0
+    },
+    {
+      "address": "unique",
+      "physical_relaxation": false,
+      "active": [
+        0,
+        1
+      ],
+      "rate_per_active": 1.0,
+      "missing_active_byte_classes": 0,
+      "floor_one_feasible": true,
+      "residual": 0.0
+    },
+    {
+      "address": "flexible",
+      "physical_relaxation": false,
+      "active": [
+        0
+      ],
+      "rate_per_active": 1.0,
+      "missing_active_byte_classes": 0,
+      "floor_one_feasible": true,
+      "residual": 0.0
+    },
+    {
+      "address": "flexible",
+      "physical_relaxation": false,
+      "active": [
+        0,
+        1
+      ],
+      "rate_per_active": 1.0,
+      "missing_active_byte_classes": 0,
+      "floor_one_feasible": true,
+      "residual": 0.0
+    },
+    {
+      "address": "flexible",
+      "physical_relaxation": true,
+      "active": [
+        0
+      ],
+      "rate_per_active": 2.0,
+      "missing_active_byte_classes": 0,
+      "floor_one_feasible": true,
+      "residual": 0.0
+    },
+    {
+      "address": "flexible",
+      "physical_relaxation": true,
+      "active": [
+        0,
+        1
+      ],
+      "rate_per_active": 1.0,
+      "missing_active_byte_classes": 0,
+      "floor_one_feasible": true,
+      "residual": 0.0
+    },
+    {
+      "address": "striped",
+      "physical_relaxation": false,
+      "active": [
+        0
+      ],
+      "rate_per_active": -0.0,
+      "missing_active_byte_classes": 2,
+      "floor_one_feasible": false,
+      "residual": 0.0
+    },
+    {
+      "address": "striped",
+      "physical_relaxation": false,
+      "active": [
+        0,
+        1
+      ],
+      "rate_per_active": -0.0,
+      "missing_active_byte_classes": 4,
+      "floor_one_feasible": false,
+      "residual": 0.0
+    },
+    {
+      "address": "striped",
+      "physical_relaxation": true,
+      "active": [
+        0
+      ],
+      "rate_per_active": 2.0,
+      "missing_active_byte_classes": 0,
+      "floor_one_feasible": true,
+      "residual": 0.0
+    },
+    {
+      "address": "striped",
+      "physical_relaxation": true,
+      "active": [
+        0,
+        1
+      ],
+      "rate_per_active": 1.0,
+      "missing_active_byte_classes": 0,
+      "floor_one_feasible": true,
+      "residual": 0.0
+    }
+  ],
+  "abstract_two_output_complete_word_trace": {
+    "output_bits": 128,
+    "word_bits": 256,
+    "alpha": 0.5,
+    "depth": 1,
+    "mode": "buffered",
+    "effective_mode": "buffered",
+    "policy": "round_robin",
+    "burst": 8,
+    "active": [
+      0,
+      1
+    ],
+    "slots": 8192,
+    "warmup": 1024,
+    "delivered_words": [
+      4096,
+      4096
+    ],
+    "rate_per_native": [
+      0.5,
+      0.5
+    ],
+    "total_per_native": 1.0,
+    "peak_words": [
+      1,
+      1
+    ],
+    "backpressure_slots": 0,
+    "max_latency_slots": 2,
+    "issued_words": 9216,
+    "completed_words": 9215,
+    "outstanding_words": 1,
+    "conservation_checked_every_slot": true,
+    "storage_bits": 512
+  },
+  "oracle_serial_single": {
+    "rate_per_active": 1.0,
+    "missing_active_byte_classes": 0,
+    "floor_one_feasible": true,
+    "residual": 0.0
+  },
+  "scope": "Real geometry audit plus physically relaxed aggregation upper reference; no added real HB paths",
+  "interpretation": "R permits bytes at outputs; Y separately determines recipients. Changing R alone does not change Y.",
+  "commit": "8b27f7b135718931da9b579272ed7d21285ae81f"
+}

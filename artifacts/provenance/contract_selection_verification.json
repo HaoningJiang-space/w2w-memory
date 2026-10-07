@@ -1,0 +1,25 @@
+{
+  "source_commit": "8b27f7b135718931da9b579272ed7d21285ae81f",
+  "host": "eex005",
+  "remote_directory": "/home/wangziheng/Video/w2w-memory/memory_results/contract_selection_8b27f7b",
+  "tests_passed": 63,
+  "test_log_sha256": "a71eb59093fa4a9607e5b451c9c5fbf3165b337017bd6b81aee99c5ac06afbb9",
+  "unchanged_historical_result_hashes": 21,
+  "bridge_equality_excluding": [
+    "commit",
+    "host"
+  ],
+  "bridge_equal": true,
+  "bridge_rows": 160,
+  "micro_traces": 64,
+  "selection_records": 384,
+  "local_remote_selection_agree_excluding": [
+    "reference_commit",
+    "input_sha256"
+  ],
+  "raw_sha256": {
+    "contract_selection.json": "a2e0c922124ccf0ab2f6995bac9b2bcb8e3833423f0c7064bad28451fdf1912d",
+    "egress_reachability.json": "9b697729fee5940cc6202cc0063ad63602b5b3f99c7ae98a20c6eff0b17424e6",
+    "contract_selection_bridge.json.gz": "dbad74125d1c5deed71559afcb48f92afe1b9cfb68c900431dd78bcd042b0950"
+  }
+}
