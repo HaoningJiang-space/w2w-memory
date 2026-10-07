@@ -189,10 +189,13 @@ write_json {d/'netlist.json'}
         raise AssertionError(f'Missing mapped-cell simulation models: {sorted(used-models)}')
     (out/'mapped_star.sv').write_text(mapped_wrapper())
     netlists=[out/name/'netlist.v' for name in manifest['blocks']]
-    command(['iverilog','-g2012','-DPPA_NETLIST','-s','endpoint_roundtrip_tb',
-             '-o',out/'mapped.vvp',out/'cells.v',*netlists,out/'mapped_star.sv',tb],
-            out,out/'mapped_compile.log')
-    manifest['simulation']['mapped_zero_delay']=replay(['vvp',out/'mapped.vvp'],records,traces,out,'mapped',args.period)
+    # Compiled simulation keeps the full archived traces practical at cell level.
+    command(['verilator','--binary','--timing','--assert','-Wno-fatal','-j','2',
+             '-DPPA_NETLIST','--top-module','endpoint_roundtrip_tb',
+             '--Mdir',out/'mapped_obj',out/'cells.v',*netlists,out/'mapped_star.sv',tb],
+            out,out/'mapped_build.log')
+    manifest['simulation']['mapped_zero_delay']=replay(
+        [out/'mapped_obj/Vendpoint_roundtrip_tb'],records,traces,out,'mapped',args.period)
     for a,b in zip(manifest['simulation']['verilator'],manifest['simulation']['mapped_zero_delay']):
         if a['result'][:12]!=b['result'][:12]:
             raise AssertionError('Mapped cycle/scoreboard mismatch')
