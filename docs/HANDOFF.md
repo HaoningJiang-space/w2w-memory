@@ -1,5 +1,10 @@
 # 开发交接：Wafer-scale Memory Service Fabric
 
+**当前运行入口已统一：** 从[真实 trace 工作流](guides/TRACE_WORKFLOW.md)开始，
+区分归档审计、服务器原始输入复核和完整重跑。下载公共逻辑归入
+`workloads/patterns_download.py`，单样本 CLI 默认 HF 原站；不会自动切镜像或使用 VPS。
+根 README 中“暂无真实 trace”的旧状态已更新。历史实验及旧命令保留，不改旧结果。
+
 **2026-10-07 真实 trace 流程完成并整理代码：** 48/48 注册回放、1,094,980,608 个完整模拟读字
 全部核对；原始 routing → 专家 union → 完整权重读 → endpoint/HB/RX → 完成时间已接通。
 三个互不重叠的 request 组，各测嵌套 batch1/4/16；所有窗口及无收益结果都归档。

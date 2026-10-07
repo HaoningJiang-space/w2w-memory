@@ -7,7 +7,7 @@
 
 | 阶段 | 可复用模块 | 命令 / 数据 |
 |---|---|---|
-| 获取与身份验证 | `workloads/patterns_trace.py` | `download_patterns_corpus`；原始数据在服务器 `memory_results` |
+| 获取与身份验证 | `workloads/patterns_download.py` | `download_patterns_corpus`；原始数据在服务器 `memory_results` |
 | routing → distinct experts → 完整权重读任务 | `workloads/patterns_trace.py`、`read_trace.py` | `import_patterns_trace`；执行假设在 `spec.json` |
 | 重建冻结硬件/布局 | `synthesis/read_catalog.py` | 检查历史 catalog 的布局身份和成本；不针对请求搜索 |
 | 有限 credit、地址驻留、endpoint/HB/RX 执行 | `service/read_replay.py`、`workloads/read_residency.py` | `replay_patterns_window`；逐字与逐槽守恒 |
@@ -35,6 +35,10 @@ python -m w2w audit_patterns_replay \
 
 服务器原始运行目录可再加 `--verify-inputs`，会重新读取授权原始 JSON 并编译核对。
 下载、编译、回放、审计均保持独立入口，审计不会触发下载或重跑实验。
+[完整工作流与验收范围](guides/TRACE_WORKFLOW.md)。
+下载器的 HTTP、授权边界、文件身份与已完成文件恢复逻辑也已移至 `workloads`；
+`fetch_patterns_sample` 只保留 CLI 和历史导入兼容。单样本 CLI 默认官方 HF 原站，
+镜像需显式 `--endpoint`，不会自动转站。没有新增部分文件 Range 恢复行为。
 [结果与完整命令](reports/PATTERNS_REPLAY_STUDY_REPORT.md) / [服务器工作流](operations/HN072_RESEARCH.md)。
 
 ## 既有模型层次
@@ -86,7 +90,7 @@ upstream geometry + constants + workloads
 入口；实验负责调用模型、记录参数和冻结结果。`validation/resources.py` 复用综合
 层的独立原始资源核对，不参与算法选方案。
 
-## 当前闭环应看哪些文件
+## 历史 endpoint 闭环入口
 
 1. [EndpointFixedService / 完整字执行](../w2w/endpoints/endpoint_execution.py)
 2. [ExposureFabric / FixedService](../w2w/service/guaranteed_service_exchange.py)

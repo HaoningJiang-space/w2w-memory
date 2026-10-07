@@ -7,7 +7,7 @@ import time
 import sys
 from urllib.error import URLError
 
-from w2w.experiments.fetch_patterns_sample import fetch
+from w2w.workloads.patterns_download import fetch
 
 
 def download(plan, output, token_file=None, token=None):
