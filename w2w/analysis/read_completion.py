@@ -50,3 +50,64 @@ def projected_frontier(rows):
     return sorted(name for name, v in vectors.items() if not any(
         all(x <= y for x, y in zip(other, v)) and any(x < y for x, y in zip(other, v))
         for key, other in vectors.items() if key != name))
+
+
+def render_study(summary, output):
+    """Export finite-workload figures; never combine model time with ASIC area."""
+    from pathlib import Path
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+    main = [c for c in summary['cases'] if c['control'] == 'base']
+    names = [r['id'] for r in main[0]['rows']]
+    # Dup/config have identical times; show each performance curve once.
+    selected = [names[i] for i in (0, 1, 2, 5, 6)]
+    labels = ['Private', 'k2 direct', 'k3 wide', 'Paired A cfg', 'Paired B cfg']
+    times = [[next(r['makespan_slots'] for r in c['rows'] if r['id'] == k)
+              for k in selected] for c in main]
+    ratio = np.array(times) / np.array(times)[:, :1]
+    fig, ax = plt.subplots(figsize=(8.5, 4.8), layout='constrained')
+    im = ax.imshow(ratio, cmap='RdYlBu_r', vmin=.5, vmax=1.2, aspect='auto')
+    ax.set_xticks(range(len(labels)), labels)
+    ax.set_yticks(range(len(main)), [c['case'] for c in main])
+    for i, row in enumerate(ratio):
+        for j, value in enumerate(row):
+            ax.text(j, i, f'{value:.3f}\n({times[i][j]} slots)', ha='center', va='center', fontsize=9)
+    ax.set_title('Finite task completion / Private (lower is better)\nSynthetic H/plus; fixed residence; 128 outstanding words/C')
+    fig.colorbar(im, ax=ax, label='Normalized makespan', shrink=.85)
+    output = Path(output)
+    output.mkdir(parents=True, exist_ok=True)
+    for suffix in ('svg', 'png'):
+        fig.savefig(output / f'completion.{suffix}', dpi=180)
+    plt.close(fig)
+
+    fig, axes = plt.subplots(1, 3, figsize=(12, 3.6), layout='constrained')
+    for ax, case in zip(axes, ('dispersed9', 'clustered9', 'full36')):
+        data = [next(c for c in summary['cases'] if c['case'] == case and c['control'] == control)
+                for control in ('base', 'credits512')]
+        for label, key in zip(labels, selected):
+            values = [next(r['makespan_slots'] for r in c['rows'] if r['id'] == key) for c in data]
+            ax.plot((0, 1), values, marker='o', label=label)
+        ax.set_xticks((0, 1), ('128 words', '512 words'))
+        ax.set_xlabel('Outstanding words per compute')
+        ax.set_title(case)
+        ax.grid(alpha=.2)
+    axes[0].set_ylabel('Makespan (native slots)')
+    axes[-1].legend(fontsize=8)
+    fig.suptitle('Credit control: same issue, native, endpoint and RX contracts')
+    for suffix in ('svg', 'png'):
+        fig.savefig(output / f'credits.{suffix}', dpi=180)
+    plt.close(fig)
+
+
+if __name__ == '__main__':
+    import argparse
+    import json
+    from pathlib import Path
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('summary')
+    parser.add_argument('--output', required=True)
+    args = parser.parse_args()
+    render_study(json.loads(Path(args.summary).read_text()), args.output)
