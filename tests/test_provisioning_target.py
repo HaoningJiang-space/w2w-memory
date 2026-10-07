@@ -5,6 +5,13 @@ from w2w.synthesis.provisioning_target import target_design
 
 
 class TargetTests(unittest.TestCase):
+    def test_rx_capacity_changes_the_selected_interface(self):
+        limited, _ = target_design(192, rx_depth=2)
+        supplied, _ = target_design(192, rx_depth=3)
+        self.assertEqual(limited.endpoint.widths[2], 256)
+        self.assertEqual(supplied.endpoint.widths[2], 192)
+        self.assertEqual(str(supplied.home_fraction), '4/7')
+
     def test_targets_select_word_lifetime_and_capacity_boundaries(self):
         for n, width, depth, fraction in ((128, 128, 1, '4/5'), (160, 128, 1, '2/3'), (192, 192, 2, '4/7')):
             design, cert = target_design(n)
