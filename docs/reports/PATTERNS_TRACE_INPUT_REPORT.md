@@ -65,3 +65,18 @@ OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python -m unittest \
 ```
 
 验收测试覆盖输入去重、联合batch、不同request长度/到达、预填充隔离、哈希与维度负例、静态驻留字节守恒、完整字回放、受限下载与凭证域名隔离。远程复跑结果另归档，不能以本地结果冒充eex005执行。
+
+## eex005 复跑完成
+
+源码 `024e27d362fd3f5d98fb9ab8a5894ff2d2661b76`，两端干净Git状态。
+本地和 `wangziheng@eex005:/home/wangziheng/Video/w2w-memory` 均通过39项定向测试。
+原始文件传输后SHA256一致；服务器重新验证全部94层、128 decode步。
+服务器重新生成trace、demand、residency、execution_spec四个JSON，**四份完整文件SHA256均与本地一致**；七设计投影全部可行。
+
+- [运行记录与四文件哈希](../../artifacts/provenance/patterns_trace_input/run_manifest.json)
+- [服务器测试日志](../../artifacts/provenance/patterns_trace_input/eex005_tests.log)
+- [服务器导入日志](../../artifacts/provenance/patterns_trace_input/eex005_import.log)
+- [压缩输出归档](../../artifacts/results/workload/patterns_input/)
+
+原始作者request不在Git。服务器仅保留这一个raw样本，约2.51 MiB。没有下载剩余数据集、模型权重，也未运行数亿字的周期回放。
+输入接口已经可交接；下一阶段若要测批内去重与负载互补，须再取少量独立requests，并明确batch、容量、缓存和权重读语义，不能将该单请求验收当成性能实验。

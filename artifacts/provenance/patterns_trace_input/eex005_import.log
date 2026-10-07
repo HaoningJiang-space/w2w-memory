@@ -1,0 +1,1 @@
+{"trace_sha256": "4857e2651f9027a8b918ee152f81a0f319f169eb3177faf518b73d9c50157b7a", "evidence": "captured", "request_count": 1, "layer_windows": 4, "logical_read_bytes": 604127232, "resident_weight_bytes": 2416508928, "projected_designs": 7, "cycle_replay_run": false}
