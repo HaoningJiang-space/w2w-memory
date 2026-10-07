@@ -66,6 +66,10 @@ module endpoint_rx #(parameter integer WIDTH=160, GENERIC_REFERENCE=0) (
     input wire word_ready,
     output wire [255:0] word_data
 );
+    function automatic integer gcd(input integer a,b);
+        integer t;
+        begin while (b != 0) begin t=a%b; a=b; b=t; end gcd=a; end
+    endfunction
 `ifndef SYNTHESIS
     wire [31:0] pending_bits;
 `endif
@@ -92,10 +96,6 @@ module endpoint_rx #(parameter integer WIDTH=160, GENERIC_REFERENCE=0) (
             $fatal(1,"Home RX requires a complete word");
 `endif
     end else begin: reassembly
-    function automatic integer gcd(input integer a,b);
-        integer t;
-        begin while (b != 0) begin t=a%b; a=b; b=t; end gcd=a; end
-    endfunction
     // TX emits multiples of gcd(256,WIDTH); includes the stalled complete word.
     localparam integer QUANTUM=gcd(256,WIDTH)/32;
     localparam integer CAP_UNITS=(256+WIDTH-gcd(256,WIDTH))/32;
