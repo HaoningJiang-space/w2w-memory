@@ -7,6 +7,8 @@
 
 ## 当前实现与运行
 
+- [Wafer-scale Memory Service 技术报告（PDF）](reports/W2W_MEMORY_SERVICE_TECHNICAL_REPORT.pdf)
+
 - [最新：source-side TX→HB→RX完整字闭环](reports/ENDPOINT_ROUNDTRIP_REPORT.md)
 - [最小闭环的协议、测试范围与成本计数](methods/ENDPOINT_ROUNDTRIP.md)
 - [三种 Shared Egress 组织的架构判断与原型边界](reports/SHARED_EGRESS_ARCHITECTURE_DECISION.md)
