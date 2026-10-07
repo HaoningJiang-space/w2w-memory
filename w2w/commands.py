@@ -21,6 +21,7 @@ COMMANDS = {
     'plot_memory_results': 'w2w.visualization.plot_memory_results',
     'render_endpoint_bridge': 'w2w.visualization.render_endpoint_bridge',
     'render_endpoint_contract': 'w2w.visualization.render_endpoint_contract',
+    'render_service_provisioning': 'w2w.visualization.render_service_provisioning',
     'replay_patterns_window': 'w2w.experiments.replay_patterns_window',
     'report_patterns_batches': 'w2w.analysis.report_patterns_batches',
     'run_architecture_competition': 'w2w.experiments.run_architecture_competition',
