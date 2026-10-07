@@ -90,16 +90,17 @@ def catalog(physical, pairs):
     return [make_candidate(physical, pairs, *entry) for entry in definitions]
 
 
-def static_shared_fifo(design):
+def static_shared_fifo(design, share_serializer=False):
     """Reuse bank-local storage only when all resident bytes select one direction/M.
 
-    Physical exposure, routes, widths, serializers and frozen data remain intact.
+    Physical exposure, routes, widths and frozen data remain intact. The optional
+    shared serializer moves direction selection after one common packetizer.
     Configuration is compiled once from the full layout, never from active users.
     """
     if design.structure not in ('k3', 'pair') or design.endpoint.shared_fifo_ports:
         raise ValueError('Static shared FIFO requires an independent full-bank pair design')
     group = tuple(p for p, w in enumerate(design.endpoint.widths) if p and w)
-    spec = replace(design.endpoint, shared_fifo_ports=group)
+    spec = replace(design.endpoint, shared_fifo_ports=group, shared_serializer=share_serializer)
     used = [set() for _ in design.geometry.memory_xy]
     routes = {}
     for c, m, _, p, _, _ in design.geometry.routes:
@@ -113,7 +114,8 @@ def static_shared_fifo(design):
     if any(len(ports) > 1 for ports in used):
         raise ValueError('Frozen layout uses multiple shared directions in one memory')
     selected = tuple(next(iter(ports)) if ports else group[0] for ports in used)
-    return replace(design, name=design.name + '_static_fifo', endpoint=spec, shared_directions=selected)
+    suffix = '_shared_egress' if share_serializer else '_static_fifo'
+    return replace(design, name=design.name + suffix, endpoint=spec, shared_directions=selected)
 
 
 def synthesize_pair_target(target, quantum=32):

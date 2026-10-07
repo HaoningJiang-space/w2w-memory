@@ -143,6 +143,23 @@ class DesignContractTests(unittest.TestCase):
 
 
 class TinyIntegrationTests(unittest.TestCase):
+    def test_shared_sender_moves_selection_after_packetization(self):
+        for width, depth, fraction, view in ((128,1,Fraction(2,3),256),(160,2,Fraction(8,13),384)):
+            old = two_compute_two_memory((256,width,width),(1,depth,depth),fraction)
+            fifo = static_shared_fifo(old)
+            sender = static_shared_fifo(old,share_serializer=True)
+            a,b = CostModel.evaluate(fifo),CostModel.evaluate(sender)
+            self.assertEqual(a['static_direction_selector_input_bits'],view)
+            self.assertEqual(b['static_direction_selector_input_bits'],width)
+            self.assertEqual((a['serializer_instances'],b['serializer_instances']),(2,1))
+            for key in ('endpoint_storage_bits','pipeline_register_bits','access_wire_bit_mm','bank_access_driver_bits'):
+                self.assertEqual(a[key],b[key])
+            for active in ([0],[0,1]):
+                self.assertEqual(CandidateEvaluator(fifo).replay(active)['served_tb_s'],
+                                 CandidateEvaluator(sender).replay(active)['served_tb_s'])
+        with self.assertRaises(ValueError):
+            EndpointSpec((256,160,160),(1,2,2),shared_serializer=True)
+
     def test_static_fifo_keeps_paths_rates_and_accounts_selector(self):
         old = two_compute_two_memory()
         new = static_shared_fifo(old)

@@ -24,6 +24,7 @@ class EndpointSpec:
     native: NativeProfile = NativeProfile()
     # One bank-local FIFO, statically attached to one of these physical ports.
     shared_fifo_ports: tuple = ()
+    shared_serializer: bool = False
 
     def __post_init__(self):
         object.__setattr__(self, 'widths', tuple(self.widths))
@@ -41,6 +42,8 @@ class EndpointSpec:
                     or (self.mode == 'direct' and d != 0)):
                 raise ValueError('Invalid width/depth or unconfigured output storage')
         group = self.shared_fifo_ports
+        if not isinstance(self.shared_serializer, bool) or (self.shared_serializer and not group):
+            raise ValueError('A shared serializer requires a static shared FIFO')
         if group and (self.mode != 'buffered' or self.serializer_location != 'bank'
                       or len(group) < 2 or len(set(group)) != len(group)
                       or any(not isinstance(p, int) or not 0 < p < len(self.widths) for p in group)
