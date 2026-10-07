@@ -37,8 +37,7 @@ Both architectures receive exactly the same edit.
 - `4c1e4f8`: archived initial diagnostic, incomplete input constraints.
 - `cff6b51`: corrected XDC, original RTL; rerun launched but stopped during the first block routing. The runner now
   rejects critical warnings and missing input/output/internal timing constraints.
-- `b92deec`: only the common TX enable logic changes; its queued XSim/implementation run was stopped before execution. RX RTL and corrected implementation
-  settings are unchanged; final totals explicitly reuse the corrected RX results.
+- `b92deec`: only the common TX enable logic changes; its queued XSim/implementation run was stopped before execution. No corrected FPGA RX result or final corrected FPGA total is available.
 
 The archived original XSim run passed 14 paired cases and 124,834 complete words
 per architecture with source/HB/RX hold checks, exact payload/route scoreboards,

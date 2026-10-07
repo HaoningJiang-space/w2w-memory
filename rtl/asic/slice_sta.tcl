@@ -21,8 +21,8 @@ puts "=== CHECK_SETUP ==="
 check_setup -verbose
 puts "=== UNITS ==="
 report_units
-puts "=== AREA ==="
-report_design_area
+# Cell area is reported by Yosys stat with this same Liberty. Standalone OpenSTA
+# does not provide OpenROAD's report_design_area command.
 puts "=== SETUP ==="
 report_worst_slack -max
 report_tns
