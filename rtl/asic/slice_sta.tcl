@@ -18,7 +18,7 @@ if {$::env(W2W_TX)} {
     set_false_path -from [get_ports {cfg_shared_direction native_shared_direction}]
 }
 puts "=== CHECK_SETUP ==="
-check_setup -verbose
+if {![check_setup -verbose]} {error "Incomplete constraints or timing graph"}
 puts "=== UNITS ==="
 report_units
 # Cell area is reported by Yosys stat with this same Liberty. Standalone OpenSTA
