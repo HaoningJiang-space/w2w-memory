@@ -5,6 +5,7 @@ from fractions import Fraction
 import gzip
 from hashlib import sha256
 import json
+from math import isclose
 from pathlib import Path
 import subprocess
 import time
@@ -28,6 +29,18 @@ DESIGNS = ('home_h256s0_d00_direct', 'k2_23_h256s256_d00_direct',
            PREFIX + 'h256s160_d12_buffered')
 
 
+def archived_cost_matches(cost, archived):
+    """Ignore only roundoff in accumulated geometric proxies across Python versions.
+
+    Integer resource counts, bandwidths, strings and all other fields remain exact.
+    Python 3.12's compensated float sum can differ from 3.10 by a few ulps.
+    """
+    geometric = {'wire_mm', 'access_wire_bit_mm'}
+    return all(k in cost and (isclose(cost[k], v, rel_tol=1e-12, abs_tol=1e-9)
+                              if k in geometric else cost[k] == v)
+               for k, v in archived.items())
+
+
 def load_designs(path=CATALOG):
     raw = Path(path).read_bytes()
     archive = json.loads(gzip.decompress(raw) if str(path).endswith('.gz') else raw)
@@ -42,7 +55,7 @@ def load_designs(path=CATALOG):
         if design.layout.sha256 != row['layout_hash']:
             raise RuntimeError('Archived frozen layout failed reconstruction')
         cost = CostModel.evaluate(design)
-        if any(cost[k] != v for k, v in row['cost'].items()):
+        if not archived_cost_matches(cost, row['cost']):
             raise RuntimeError('Archived cost contract changed')
         designs.append(design)
     designs.extend(static_shared_fifo(d, share_serializer=True) for d in tuple(designs)
