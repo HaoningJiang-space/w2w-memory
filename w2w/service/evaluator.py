@@ -36,6 +36,10 @@ class CandidateEvaluator:
                 if m not in owners or len(owners) != 2:
                     raise ValueError('Unsupported ownership pattern')
                 peer = next(c for c in owners if c != m)
+                own = self.layout.shares[m, bank]
+                other = self.layout.shares[peer, bank]
+                if not np.isclose(own / (own + other), float(fraction), atol=1e-12):
+                    raise ValueError('Fixed issue ratio disagrees with immutable byte layout')
                 sequence = ratio_sequence(0, self.ports[peer, bank], fraction.numerator, fraction.denominator)
             self.sequences[bank] = sequence
         self.composition = self._composition_certificate()
@@ -72,6 +76,8 @@ class CandidateEvaluator:
 
     def achieved_rates(self, active):
         active = set(active)
+        if not active or any(not 0 <= c < self.f.nc for c in active):
+            raise ValueError('Nonempty valid active compute set required')
         rates = np.full(self.f.nc, np.inf)
         caps = {}
         for bank in self.owners:

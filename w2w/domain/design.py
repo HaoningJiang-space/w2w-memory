@@ -82,6 +82,9 @@ class MemoryFabricDesign:
     home_fraction: Fraction = Fraction(1, 2)
 
     def __post_init__(self):
+        object.__setattr__(self, 'home_fraction', Fraction(self.home_fraction))
+        if not 0 < self.home_fraction <= 1:
+            raise ValueError('Invalid frozen home fraction')
         nb = len(self.exposure.mask)
         if (nb != len(self.geometry.bank_xy) or len(self.endpoint.widths) != len(self.exposure.port_bits)
                 or len(self.geometry.port_xy) != len(self.exposure.port_bits)

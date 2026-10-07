@@ -3,3 +3,5 @@ COMMANDS = {'analyze_bank_structure': 'w2w.analysis.analyze_bank_structure', 'an
 
 COMMANDS['verify_egress_reachability'] = 'w2w.validation.verify_egress_reachability'
 COMMANDS['run_contract_selection'] = 'w2w.experiments.run_contract_selection'
+COMMANDS['run_role_interfaces'] = 'w2w.experiments.run_role_interfaces'
+COMMANDS['verify_role_interfaces'] = 'w2w.validation.verify_role_interfaces'
