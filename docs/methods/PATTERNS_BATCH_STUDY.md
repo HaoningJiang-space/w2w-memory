@@ -33,3 +33,12 @@ duplicated/configurable接口需逐服务记录一致。成本按既有代理独
 零假设为`(36-k)/35`，跨窗口按active-client数加权。这只隔离稀疏性，不表示真实随机调度。
 同时统计每个cohort、每层、每compute的连续idle-partner事件run length（decode步，不是时间）。
 层级单独报表防止把层间差异误当成时间互补；汇总相关系数仅为混合窗口描述。
+
+新增闭环在 `hn072@143.89.78.72` CPU执行：除了此前request93的batch1窗口，
+再取固定corpus manifest的前两个独立requests（不按收益筛选），layer0、各decode第1步。
+模型仍保留完整128专家容量，batch2使用去重union，至多16专家/9,439,488个字，未改10M字预算。
+两个case请求内容不同，不能把它们的耗时比直接称为batch-size影响；它们用于输入到执行验证。
+runner为`python -m w2w.experiments.run_patterns_flow`，每case五设计、最多两进程。
+
+本轮下载清单以原站固定commit为准。新host直接下载，token通过SSH stdin进入进程内存，
+不写token文件，不传第三方镜像。完成文件逐个哈希验证、可按receipt恢复；原始文件不入Git。
