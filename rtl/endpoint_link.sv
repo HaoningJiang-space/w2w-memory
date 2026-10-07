@@ -33,9 +33,11 @@ module endpoint_tx #(
             beat_data <= 0;
             beat_units <= 0;
         end else if (advance) begin
-            beat_valid <= units != 0;
+            // A nonempty view always has at least one unit left in its head.
+            // Do not route the units arithmetic back through the wide data CE.
+            beat_valid <= words != 0;
             beat_units <= units;
-            if (units != 0) beat_data <= data;
+            if (words != 0) beat_data <= data;
         end
     end
 `ifndef SYNTHESIS
@@ -47,6 +49,8 @@ module endpoint_tx #(
                               + (beat_valid ? beat_units*32 : 0);
     end
     always @(posedge clk) if (!rst && fifo.count > DEPTH) $fatal(1,"TX FIFO bound");
+    always @(posedge clk) if (!rst && advance &&
+        ((units != 0) !== (words != 0))) $fatal(1,"TX nonempty/units invariant");
 `endif
 endmodule
 
