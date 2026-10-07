@@ -19,4 +19,9 @@ shared endpoint 怎样交换服务和硬件成本？[第一项 FIFO 复用对照
 已完成。保留 private、k2 direct、独立 k3 和 full-width direct 对照；不先增加 matching/cycle、
 任意 k、深 FIFO 或优化框架。小目录最优性不等于全设计空间最优；成本计数不等于 PPA。
 
+[三种接口组织的最新判断](reports/SHARED_EGRESS_ARCHITECTURE_DECISION.md)：FIFO复用保持服务，
+存储收益计入pipeline后为4.54%/7.45%；lane与接入长线没有下降，共用发送器未确定占优。
+当前继续架构模型与成本比较；已提前完成的小型RTL原型归档，停止后续RTL/综合扩展。
+待架构收益和接口契约明确后，才对新增endpoint做minimal RTL与PPA，不做DRAM bank/controller RTL。
+
 完整的新颖性仍需前作全文核对。目录整理及模型诊断本身不作为新的架构贡献。

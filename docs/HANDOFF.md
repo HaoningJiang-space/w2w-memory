@@ -1,5 +1,13 @@
 # 开发交接：Wafer-scale Memory Service Fabric
 
+**2026-10-07 最新安排：架构先于RTL，停止继续综合扩展。**
+[三组织比较与决策](reports/SHARED_EGRESS_ARCHITECTURE_DECISION.md)记录独立出口、共用FIFO、
+共用FIFO＋发送器。补充源码 `3c60583`：23测试、126 LP，服务保持；lane/接入长线不变。
+存储收益计入pipeline后只有4.54%/7.45%，局部选择器成本仍需判断。
+已提前完成的小型endpoint RTL/通用门实验保留为探索附录，没有面积、频率、功耗结论。
+当前只推进模型上的服务—成本取舍，待架构值得继续后再恢复minimal RTL/PPA。
+最新安排见[当前任务](handoff/NEXT_TASK.md)，下面保留历史阶段状态。
+
 **2026-10-07 最新研究收敛：Configurable Shared Egress。**
 冻结布局的共享方向已进入显式实现，A/B 在相同服务下节省 33.3%/40% endpoint 存储；
 7 设计、441 LP、22 测试通过，源码 `7604acb`。见[接口报告](reports/CONFIGURABLE_SHARED_EGRESS_REPORT.md)。

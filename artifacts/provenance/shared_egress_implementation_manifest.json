@@ -1,0 +1,69 @@
+{
+  "experiment_source_commit": "3c60583362530848907444453b0ab599f00e2b6a",
+  "host": "eex005",
+  "remote_checkout": "/home/wangziheng/Video/w2w-interface-20261007",
+  "raw_directory": "memory_results/shared_egress_rtl_3c60583",
+  "status": "Completed exploratory endpoint prototype archived; architecture-first, further RTL and synthesis paused",
+  "raw_results_sha256": "644733791322fb169a95b4814fb9748377e54508e42b00143310590412ccc329",
+  "input_sha256": {
+    "/home/wangziheng/Video/w2w-interface-20261007/rtl/cse_bank.sv": "bf30da6ce332fd4cf44d1ff3d0b48c152757d011a8cda9fc574a0942ba0fc819",
+    "/home/wangziheng/Video/w2w-interface-20261007/rtl/cse_tb.sv": "b910ab4c4ee0f9624b94accaa85e2e214b00333f9dcd8f86f006351a8d4c452b",
+    "docs/methods/SHARED_EGRESS_RTL.md": "a3cd919cb627cd60c379de2a679c9e10356f34bc235a6ebe0bbfa3c706189b3c",
+    "artifacts/results/endpoint/static_shared_fifo.json.gz": "2ccc412a1c2b955d34a437d09aababd4c73fa7f0c711214e78ca8e258ec0e28c",
+    "artifacts/results/endpoint/architecture_competition.json.gz": "865e92db4ade51444356c2a0ac3c60ab0e70af0f468b19a133eef0397d05e9c2"
+  },
+  "tools": {
+    "yosys": "Yosys 0.69+ (git sha1 9f09efcdb-dirty, Release, GNU /home/conda/feedstock_root/build_artifacts/bld/rattler-build_yosys_1788957668/build_env/bin/x86_64-conda-linux-gnu-c++ 15.3.0) [github.com/conda-forge/yosys-feedstock at main]",
+    "iverilog": "Icarus Verilog version 13.0 (stable) (v13_0)"
+  },
+  "tests": {
+    "count": 23,
+    "status": "PASS",
+    "scope": "Design contracts, full-word role execution, role regression; no full historical test rerun"
+  },
+  "verification": {
+    "hardware_designs": 6,
+    "simulation_runs": 144,
+    "checked_cycles": 119808,
+    "max_service_error": 0.0,
+    "lp_solves": 126,
+    "max_resource_residual": 3.6637359812630166e-15
+  },
+  "hardware_count_scope": "Synthesizable registered FIFO + 32-bit-lane packetizer; generic gates only, no library/STA/routing/power",
+  "architecture_conclusion": "Same service and reduced endpoint storage at fixed width; no lane or long-wire reduction; selector/local-wire cost not calibrated; shared sender not a default winner",
+  "incomplete_first_attempt": {
+    "commit": "4648b03",
+    "reason": "Rate measurement window did not cover an integer number of A source periods; fixed by candidate-specific windows",
+    "included_in_accepted_results": false
+  },
+  "files": {
+    "artifacts/results/endpoint/shared_egress_implementation.json.gz": {
+      "bytes": 11402,
+      "sha256": "e8c3173c72e7c153ca59f80d9dfb1f8227f67d215512ef695582d493199ac687"
+    },
+    "artifacts/provenance/shared_egress_implementation_tests.log.gz": {
+      "bytes": 811,
+      "sha256": "34eccf7f6239380aefd891814818eff0e3cfa5352295cbf8e5ce45919505a6ff"
+    },
+    "artifacts/provenance/shared_egress_implementation_run.log.gz": {
+      "bytes": 273,
+      "sha256": "a049cff7f4c093752ffbb88a45b0c3c2035dcbef3c61edb042eb905fb21aad5d"
+    },
+    "artifacts/provenance/shared_egress_implementation_yosys_version.log.gz": {
+      "bytes": 200,
+      "sha256": "4a402d4dd7cb71d097f8fd819344c60e80c16c866186f807214fdb179e603107"
+    },
+    "artifacts/provenance/shared_egress_implementation_iverilog_version.log.gz": {
+      "bytes": 593,
+      "sha256": "ef55156b8d4f1a26cdd898d3544ff5fd9c56c7cdb2d14808066f13f6c42cabc2"
+    },
+    "artifacts/results/endpoint/shared_egress_implementation_summary.csv": {
+      "bytes": 826,
+      "sha256": "3103092e43b95c9fc925b4b3005dbfea6afcc65a1feb1b3474ba86aaaa30e861"
+    },
+    "docs/reports/SHARED_EGRESS_ARCHITECTURE_DECISION.md": {
+      "bytes": 8478,
+      "sha256": "a852c35ef6126603278a7d3a52aefa854e4f5f0a27d9d0a69154df6f0deeac3f"
+    }
+  }
+}

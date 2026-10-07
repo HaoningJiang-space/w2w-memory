@@ -7,7 +7,8 @@
 
 ## 当前实现与运行
 
-- [最新：Configurable Shared Egress 的单因素对照](reports/CONFIGURABLE_SHARED_EGRESS_REPORT.md)
+- [最新：三种 Shared Egress 组织的架构判断，RTL后续暂停](reports/SHARED_EGRESS_ARCHITECTURE_DECISION.md)
+- [Configurable Shared Egress 的首项单因素对照](reports/CONFIGURABLE_SHARED_EGRESS_REPORT.md)
 - [静态方向与共享 FIFO 的实验范围](methods/STATIC_SHARED_FIFO.md)
 - [home/k2/k3 架构竞争、同预算与同服务前沿](reports/ARCHITECTURE_COMPETITION_REPORT.md)
 - [架构竞争预注册范围与最优性边界](methods/ARCHITECTURE_COMPETITION.md)

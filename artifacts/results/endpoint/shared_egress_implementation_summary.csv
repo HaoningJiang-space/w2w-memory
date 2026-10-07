@@ -1,0 +1,7 @@
+width,depth,organization,random9_tb_s_per_active_c,full_tb_s_per_c,export_lane_bits,endpoint_storage_bits,pipeline_register_bits,access_wire_bit_mm,serializer_instances,static_direction_selector_input_bits,static_direction_selector_output_bits,shared_packetizer_view_bits_per_bank
+128,1,independent,1.385714285714286,1.0,16384,24576,155904,297497.59999999986,64,0,0,0
+128,1,shared_fifo,1.385714285714286,1.0,16384,16384,155904,297497.59999999986,64,8192,16384,256
+128,1,shared_fifo_sender,1.385714285714286,1.0,16384,16384,155904,297497.59999999986,32,4096,8192,256
+160,2,independent,1.4821428571428568,1.0,18432,40960,179008,341664.0,64,0,0,0
+160,2,shared_fifo,1.4821428571428568,1.0,18432,24576,179008,341664.0,64,12288,24576,384
+160,2,shared_fifo_sender,1.4821428571428568,1.0,18432,24576,179008,341664.0,32,5120,10240,384
