@@ -1,0 +1,133 @@
+{
+  "source_commit": "55d4d56f1ccc89f9a1b7f98a2d5a2812376b25e6",
+  "host": "eex005",
+  "input_path_checks": [
+    {
+      "name": "trace_import",
+      "command": [
+        "/home/wangziheng/Video/w2w-memory/.venv/bin/python",
+        "-m",
+        "w2w",
+        "run_read_workload",
+        "--trace",
+        "memory_results/read_workload_55d4d56/trace.json",
+        "--output",
+        "memory_results/read_workload_55d4d56/trace_import.json"
+      ],
+      "compared_designs": 7,
+      "fields": [
+        "trace_sha256",
+        "design_sha256",
+        "residence_sha256",
+        "makespan_slots",
+        "tasks",
+        "routes",
+        "audit",
+        "delivery_sha256",
+        "cost",
+        "stalls",
+        "native_words_by_bank"
+      ],
+      "equal": true
+    },
+    {
+      "name": "route_import",
+      "command": [
+        "/home/wangziheng/Video/w2w-memory/.venv/bin/python",
+        "-m",
+        "w2w",
+        "run_read_workload",
+        "--training-routes",
+        "memory_results/read_workload_55d4d56/train.json",
+        "--routes",
+        "memory_results/read_workload_55d4d56/test.json",
+        "--output",
+        "memory_results/read_workload_55d4d56/route_import.json"
+      ],
+      "compared_designs": 7,
+      "fields": [
+        "trace_sha256",
+        "design_sha256",
+        "residence_sha256",
+        "makespan_slots",
+        "tasks",
+        "routes",
+        "audit",
+        "delivery_sha256",
+        "cost",
+        "stalls",
+        "native_words_by_bank"
+      ],
+      "equal": true
+    }
+  ],
+  "independent_total_and_dependency_checks": true,
+  "tests": {
+    "count": 44,
+    "new_tests": 18,
+    "passed": true
+  },
+  "result_bytes_sha256": "2c1fbbab03184b063d18623f5399a152e47524f358c82b29192279fecc8a58aa",
+  "schema": "w2w.read-workload-evidence.v1",
+  "result_provenance": {
+    "commit": "55d4d56f1ccc89f9a1b7f98a2d5a2812376b25e6",
+    "git_status": "",
+    "host": "eex005",
+    "python": "3.13.13",
+    "packages": {
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "shapely": "2.1.2",
+      "pymetis": "2025.2.2",
+      "networkx": "3.7",
+      "matplotlib": "3.11.2"
+    }
+  },
+  "registration_sha256": "b07cfcfbc9bf503965fb266e8770bd7ab752ef55d165a9031ba36a6b95d31401",
+  "archive": {
+    "path": "artifacts/results/endpoint/architecture_competition.json.gz",
+    "file_sha256": "865e92db4ade51444356c2a0ac3c60ab0e70af0f468b19a133eef0397d05e9c2",
+    "source_commit": "806fe829dacf4b02c9d0f1a100089e2f135cf613",
+    "selection": "Five preregistered archived representatives plus two implementation ablations; no layout or interface search on evaluation requests"
+  },
+  "trace_sha256": "4c2b00c935370d813bc566bbade2adf3cdb5c33b2a24d06fe00b7c752bb98245",
+  "config": {
+    "request_latency_slots": 1,
+    "native_latency_slots": 0,
+    "link_latency_slots": 1,
+    "request_words_per_compute_slot": 64,
+    "outstanding_words_per_compute": 128,
+    "rx_depth_words": 2,
+    "rx_ready": [
+      1
+    ],
+    "max_slots": 100000,
+    "max_trace_words": 10000000
+  },
+  "remote_directory": "/home/wangziheng/Video/w2w-read-replay-20261007/memory_results/read_workload_55d4d56",
+  "evidence": "synthetic",
+  "distinct_designs": 7,
+  "implementation_ablations": 2,
+  "logical_tasks": 48,
+  "logical_words_per_design": 74880,
+  "files_sha256": {
+    "artifacts/results/workload/read_workload_demo.json.gz": "48aff8d0d5911466de926bb6d8e75c0541b1e430a087f6b4d6f279707c496aa1",
+    "artifacts/results/workload/read_workload_summary.json": "2d72e79e41f6bc4b0ae9cf201b2c5e967c9ba398af3cbf88d488e2bd53aa0345",
+    "artifacts/provenance/read_workload_tests.log.gz": "1fe6d59b8dc747a57db3b199053c3d3796d6f7d0762f09837c7cbe0c1207e41d",
+    "artifacts/provenance/read_workload_runs.log.gz": "890f908dfb11f532a66108e5a00ee1effb7ba163bc70788c7144c3637255f513"
+  },
+  "retained_remote_import_outputs": {
+    "trace_import.json": "95e40ac302e1f34821adc9e648b681929035035dc8775ef039d78e94f0d04c87",
+    "route_import.json": "ee3d11cf37c8772da762158ef100aa8ac9167918927e0d20d83b225c15b42f66",
+    "trace.json": "af281bf7d0e4ec38d3f1a39dce9cb4618c96e93f034e7c0552fcf5de1433fc6a",
+    "train.json": "9b44e3b5dec273278e83db29fe0badebaeedddab28ab1b70268ef5fe79ebdaff",
+    "test.json": "94e1958e4f211cfbb8ab8f312d2a9267faa2184e4fb30e684b0373dfab98547e"
+  },
+  "limits": [
+    "No captured model routing",
+    "No calibrated DRAM timing",
+    "No application speedup",
+    "Bit-budget system model is not RTL cycle equivalence",
+    "No complete system area or energy"
+  ]
+}

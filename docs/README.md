@@ -7,7 +7,7 @@
 
 ## 当前实现与运行
 
-- [逻辑读请求、冻结地址布局、依赖回放与成本接口](methods/READ_WORKLOAD_REPLAY.md)
+- [逻辑读请求、冻结地址布局、依赖回放与成本接口](methods/READ_WORKLOAD_REPLAY.md) / [44 测试与七设计验收](reports/READ_WORKLOAD_INFRA_REPORT.md)
 - [最新：source-side TX→HB→RX完整字闭环](reports/ENDPOINT_ROUNDTRIP_REPORT.md)
 - [最小闭环的协议、测试范围与成本计数](methods/ENDPOINT_ROUNDTRIP.md)
 - [三种 Shared Egress 组织的架构判断与原型边界](reports/SHARED_EGRESS_ARCHITECTURE_DECISION.md)

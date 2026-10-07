@@ -37,6 +37,7 @@ memory_results/            本地/服务器实验工作目录（不入 Git）
 ## 从这里开始
 
 - [逻辑读任务导入与依赖回放：固定 H/plus、公平对照和证据范围](docs/methods/READ_WORKLOAD_REPLAY.md)
+- [读任务 infra 验收：44 测试、七个冻结设计和两组同服务消融](docs/reports/READ_WORKLOAD_INFRA_REPORT.md)
 - [固定研究范围与三层职责](docs/RESEARCH_SCOPE.md)
 - [最新：Configurable Shared Egress，同服务减少重复 FIFO](docs/reports/CONFIGURABLE_SHARED_EGRESS_REPORT.md)
 - [固定 H/plus 架构竞争与性能/成本前沿](docs/reports/ARCHITECTURE_COMPETITION_REPORT.md)

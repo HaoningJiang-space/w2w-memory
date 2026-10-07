@@ -1,9 +1,11 @@
 # 开发交接：Wafer-scale Memory Service Fabric
 
-**2026-10-07 系统侧：补充逻辑读任务导入与回放 infra。**
+**2026-10-07 系统侧：逻辑读任务导入与回放 infra 验收完成。**
 用户确认暂无指定 trace；按[回放合同](methods/READ_WORKLOAD_REPLAY.md)实现地址到 bank/HB 的
 冻结映射、任务依赖、有限请求/返回/RX 与完成时间。复用五个已注册 H/plus 候选，加 A/B
-两组 configurable 消融；合成任务用于验证，不声称真实 MoE 收益。硬件工作独立保留如下。
+两组 configurable 消融；44 项测试通过，三个输入入口七设计结果一致。
+源码 `55d4d56`，见[验收报告与归档](reports/READ_WORKLOAD_INFRA_REPORT.md)。
+合成任务用于验证，不声称真实 MoE 收益。硬件工作独立保留如下。
 
 **2026-10-07 当前：source 物理修复与共同 Home RX 特化完成。**
 同库、2 ns、同 I/O 合同，提取后 source 21,987.294→15,318.674 μm²（−30.33%）；
