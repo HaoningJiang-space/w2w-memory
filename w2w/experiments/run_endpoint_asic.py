@@ -7,6 +7,7 @@ import json
 import os
 from pathlib import Path
 import re
+import shutil
 import subprocess
 import time
 
@@ -85,6 +86,98 @@ def mapped_wrapper():
     return text
 
 
+def repair_block(folder, target, lib, env):
+    """Bounded pre-layout ECO: input delay buffers and same-function upsizing.
+
+    No constraints, RTL, clock paths or sequential cells are changed. These
+    repairs have zero wire RC and must not be called physical timing closure.
+    """
+    initial=folder/'initial';initial.mkdir()
+    for name in ('netlist.json','netlist.v','stat.json','sta.log','hold.tsv'):
+        shutil.copy2(folder/name,initial/name)
+    history=[]
+    for iteration in range(9):
+        timing=(folder/'hold.tsv').read_text().splitlines()
+        metrics={s.split()[1]:float(s.split()[2]) for s in timing if s.startswith('METRIC ')}
+        starts=sorted({s.split()[1] for s in timing if s.startswith('HOLD ')})
+        electrical=(folder/'sta.log').read_text().split('=== ELECTRICAL ===')[1]
+        violations=[line for line in electrical.splitlines() if '(VIOLATED)' in line]
+        if violations and ('max slew' in electrical or 'max fanout' in electrical):
+            raise AssertionError('ECO supports capacitance only; unexpected electrical violation')
+        pins=sorted({line.split()[0] for line in violations})
+        if metrics['setup_ns']<0:
+            raise AssertionError(f'ECO would leave setup failing: {folder}')
+        if not starts and not pins:
+            if metrics['hold_ns']<0:raise AssertionError('Negative hold missing from path list')
+            return dict(iterations=history,final_slack_ns=metrics,
+                        all_hold_paths_nonnegative=True,electrical_violations=0)
+        if iteration==8:raise AssertionError(f'ECO pass limit: {folder}')
+        design=json.loads((folder/'netlist.json').read_text())
+        top=design['modules'][target];cells=top['cells']
+        bits=[b for c in cells.values() for bs in c['connections'].values() for b in bs if isinstance(b,int)]
+        bits += [b for p in top['ports'].values() for b in p['bits'] if isinstance(b,int)]
+        next_bit=max(bits)+1
+        changes=dict(round=iteration+1,hold_buffers=[],resized=[])
+        for pin in pins:
+            instance=pin.rsplit('/',1)[0]
+            cell=cells[instance];old=cell['type']
+            match=re.fullmatch(r'(.+)_X(1|2|4|8)',old)
+            if not match:raise AssertionError(f'No bounded size successor: {old}')
+            new=f'{match[1]}_X{2*int(match[2])}'
+            if new not in design['modules']:raise AssertionError(f'Library lacks {new}')
+            # Nangate X strengths must have exactly the same signal interface.
+            if design['modules'][old]['ports']!=design['modules'][new]['ports']:
+                raise AssertionError(f'Library port mismatch: {old}/{new}')
+            cell['type']=new
+            changes['resized'].append(dict(instance=instance,old=old,new=new))
+        for start in starts:
+            match=re.fullmatch(r'([^\[]+)(?:\[(\d+)\])?',start)
+            if not match or match[1] not in top['ports']:
+                raise AssertionError(f'Internal hold needs a different repair: {start}')
+            port=top['ports'][match[1]]
+            if port['direction']!='input' or port.get('upto',0) or match[1] in ('clk','rst'):
+                raise AssertionError(f'Unsupported hold startpoint: {start}')
+            index=int(match[2] or 0)-port.get('offset',0)
+            old_bit=port['bits'][index];new_bit=next_bit;next_bit+=1
+            loads=0
+            for cell in list(cells.values()):
+                for name,connection in cell['connections'].items():
+                    if old_bit in connection:
+                        if cell['port_directions'][name]!='input':
+                            raise AssertionError(f'Input net has internal driver: {start}')
+                        loads+=connection.count(old_bit)
+                        cell['connections'][name]=[new_bit if b==old_bit else b for b in connection]
+            if not loads:raise AssertionError(f'Hold input has no loads: {start}')
+            name=f'w2w_hold_{iteration}_{len(changes["hold_buffers"])}'
+            if name in cells:raise AssertionError('ECO name collision')
+            cells[name]=dict(hide_name=0,type='BUF_X1',parameters={},attributes={},
+                             port_directions=dict(A='input',Z='output'),
+                             connections=dict(A=[old_bit],Z=[new_bit]))
+            top['netnames'][name+'_net']=dict(hide_name=0,bits=[new_bit],attributes={})
+            changes['hold_buffers'].append(dict(instance=name,startpoint=start))
+        step=folder/f'eco_{iteration+1}';step.mkdir()
+        (step/'edited.json').write_text(json.dumps(design))
+        (step/'changes.json').write_text(json.dumps(changes,indent=2)+'\n')
+        script=f'''read_json {step/'edited.json'}
+check -assert
+tee -o {folder/'stat.json'} stat -json -liberty {lib} {target}
+select {target}
+write_verilog -noattr -noexpr -selected {folder/'netlist.v'}
+select *
+write_json {folder/'netlist.json'}
+'''
+        (step/'write.ys').write_text(script)
+        command(['yosys','-s',step/'write.ys'],step,step/'write.log')
+        log=command(['sta','-exit',ROOT/'rtl/asic/slice_sta.tcl'],folder,folder/'sta.log',env)
+        if 'STA_COMPLETE' not in log or re.search(r'(^|\n)Error:',log):
+            raise AssertionError(f'ECO STA incomplete: {folder}')
+        for name in ('stat.json','sta.log','hold.tsv'):
+            shutil.copy2(folder/name,step/name)
+        history.append(changes)
+        print('ECO',target,iteration+1,'buffers',len(changes['hold_buffers']),
+              'resizes',len(changes['resized']),flush=True)
+
+
 def run(args):
     out=args.output.resolve();out.mkdir(parents=True,exist_ok=True)
     traces=args.traces.resolve();lib=args.liberty.resolve()
@@ -104,6 +197,7 @@ def run(args):
                   library_path=str(lib),library_sha256=sha(lib),period_ns=args.period,
                   started_utc=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),
                   boundary='Pre-layout Nangate45 Liberty mapping and STA; no wire RC, CTS, P&R or power claim',
+                  repair_requested=args.repair,
                   input_sha256={str(p.relative_to(ROOT)):sha(p) for p in
                     [*rtl,tb,reference,ROOT/'rtl/asic/slice_sta.tcl',Path(__file__)]},
                   tools={},simulation={},blocks={})
@@ -171,11 +265,22 @@ write_json {d/'netlist.json'}
         manifest['blocks'][name].update(cell_area_um2=stats['area'],
                                        sequential_area_um2=stats['sequential_area'])
         env=dict(os.environ,W2W_LIBERTY=str(lib),W2W_NETLIST=str(d/'netlist.v'),
-                 W2W_TOP=target,W2W_PERIOD_NS=str(args.period),W2W_TX=str(int(tx)))
+                 W2W_TOP=target,W2W_PERIOD_NS=str(args.period),W2W_TX=str(int(tx)),
+                 W2W_HOLD_REPORT=str(d/'hold.tsv'))
         log=command(['sta','-exit',ROOT/'rtl/asic/slice_sta.tcl'],d,d/'sta.log',env)
         if 'STA_COMPLETE' not in log or re.search(r'(^|\n)Error:',log):
             raise AssertionError(f'STA incomplete: {d}/sta.log')
         manifest['blocks'][name]['sta_complete']=True
+        if args.repair:
+            before=dict(manifest['blocks'][name])
+            repairs=repair_block(d,target,lib,env)
+            repaired=json.loads((d/'netlist.json').read_text())['modules'][target]
+            cells=Counter(c['type'] for c in repaired['cells'].values() if c['type']!='$scopeinfo')
+            stats=json.loads((d/'stat.json').read_text())['modules']['\\'+target]
+            manifest['blocks'][name].update(before_repair=before,repair=repairs,
+                cells=dict(cells),netlist_sha256=sha(d/'netlist.v'),
+                sequential_cells=sum(v for c,v in cells.items() if c.startswith(('DFF','SDFF'))),
+                cell_area_um2=stats['area'],sequential_area_um2=stats['sequential_area'])
         save()
     # Generate zero-delay Liberty cell models; no timing simulation claim.
     # Nangate contains unused clock-gate cells without an IQ function. Skip only
@@ -209,4 +314,5 @@ if __name__=='__main__':
     p.add_argument('--liberty',type=Path,required=True)
     p.add_argument('--output',type=Path,required=True)
     p.add_argument('--period',type=float,default=2.0)
+    p.add_argument('--repair',action='store_true',help='Bounded cell-level hold/cap ECO under unchanged constraints')
     run(p.parse_args())

@@ -15,7 +15,21 @@ set_output_delay -min 0 -clock native [all_outputs]
 set_load 5.0 [all_outputs]
 set_false_path -from [get_ports rst]
 if {$::env(W2W_TX)} {
+    # Both are static only under the registered one-partner workload contract.
+    # This does not certify dynamic-direction timing of the duplicated source.
     set_false_path -from [get_ports {cfg_shared_direction native_shared_direction}]
+}
+if {[info exists ::env(W2W_HOLD_REPORT)]} {
+    set fd [open $::env(W2W_HOLD_REPORT) w]
+    foreach mode {max min} name {setup_ns hold_ns} {
+        set path [lindex [find_timing_paths -path_delay $mode -group_path_count 1 -sort_by_slack] 0]
+        puts $fd "METRIC $name [get_property $path slack]"
+    }
+    # Preserve every negative hold endpoint, not only the few printed below.
+    foreach path [find_timing_paths -path_delay min -slack_max 0 -group_path_count 100000] {
+        puts $fd "HOLD [get_full_name [get_property $path startpoint]] [get_property $path slack]"
+    }
+    close $fd
 }
 puts "=== CHECK_SETUP ==="
 if {![check_setup -verbose]} {error "Incomplete constraints or timing graph"}

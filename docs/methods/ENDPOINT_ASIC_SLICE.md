@@ -67,6 +67,24 @@ pre-repair mapped area until those constraints close. The first completed run
 and these remaining violations are recorded in the
 [ASIC slice report](../reports/ENDPOINT_ASIC_SLICE_REPORT.md).
 
+## Registered hold/capacitance repair
+
+The next comparison freezes the RTL, Liberty, 2 ns clock, all I/O delays and the
+5 fF load. Optional `--repair` acts on mapped cells only: add one BUF_X1 stage
+at each input with a negative hold path per iteration, and upsize a reported
+overloaded driver to the next Nangate strength with the same signal ports.
+Clock/reset nets and sequential cells are not edited. There are at most eight
+repair iterations; unexpected internal hold, missing compatible cells, setup
+failure or remaining violations stop acceptance. Initial netlists, every edit,
+all STA reports, final area and mapped-trace verification remain available.
+
+This is an explicit pre-layout netlist ECO under zero wire RC, not OpenROAD
+physical repair, CTS or signoff. Do not relax min input delay to remove hold.
+Do not change the direction interface in the same comparison. Equivalence of
+the two architectures remains restricted to the static one-partner workload;
+false-path direction controls do not certify the duplicated architecture's
+general dynamic-direction timing. Sensitivity sweeps and P&R are separate work.
+
 Relevant primary tool documentation:
 [Yosys ABC mapping](https://yosyshq.readthedocs.io/projects/yosys/en/v0.54/cmd/abc.html),
 [OpenSTA](https://github.com/parallaxsw/OpenSTA),
