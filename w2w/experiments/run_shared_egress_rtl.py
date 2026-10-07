@@ -7,6 +7,7 @@ import hashlib
 import json
 from pathlib import Path
 import random
+from math import gcd
 import subprocess
 import time
 import numpy as np
@@ -208,9 +209,146 @@ def run(output, tools_dir):
     print('VERIFIED',result['verification'],'seconds',result['elapsed_seconds'],flush=True)
 
 
+def roundtrip_trace(folder, width, pattern, direction):
+    """Stimulus only: tagged random words and external offer/receiver schedules."""
+    fraction = Fraction(256, 256+width)
+    sequence = ((0,) if pattern == 'home' else (1,) if pattern in ('shared', 'tail') else
+                ratio_sequence(0, 1, fraction.numerator, fraction.denominator))
+    count = 17 if pattern == 'tail' else 10400
+    rng = random.Random(9700 + width + ('home','shared','mixed','bursty','stalls','long_stall','tail').index(pattern))
+    words = folder/'words.txt'
+    controls = folder/'controls.txt'
+    # Tag occupies payload bits in this synthetic trace, not an unpriced tag bus.
+    words.write_text(''.join(f'{sequence[i % len(sequence)]} {(rng.getrandbits(224)<<32)|i:064x}\n'
+                             for i in range(count)))
+    rows=[]
+    for tick in range(60000):
+        offer, ready = 1, 7
+        if pattern == 'bursty':
+            offer=int(tick % 16 < 8)
+        elif pattern == 'stalls':
+            offer=int(rng.random()<.8)
+            ready=sum(int(rng.random()<.65)<<p for p in range(3))
+        elif pattern == 'long_stall':
+            if tick % 1000 < 400:
+                ready &= ~(1 << (direction+1))
+            if 500 <= tick % 1000 < 550:
+                ready &= ~1
+        rows.append(f'{offer} {ready}\n')
+    controls.write_text(''.join(rows))
+    return dict(words=count,sequence=sequence,words_sha256=hashlib.sha256(words.read_bytes()).hexdigest(),
+                controls_sha256=hashlib.sha256(controls.read_bytes()).hexdigest())
+
+
+def roundtrip_storage(width, depth, configurable):
+    """Declared payload state, including held beats and both physical receivers.
+
+    This is not a synthesis cell count. Control widths are separately counted;
+    no projected wire or receiver savings from pooling the transmitter.
+    """
+    shared = 1 if configurable else 2
+    fifo = 256*(1+shared*depth)
+    beats = 256+shared*width
+    rx = 256+2*(256+width-gcd(256,width))
+    fifo_control = 1+shared*(1 if depth==1 else 2)
+    phase = shared*(0 if width==256 else 1 if width==128 else 3)
+    beat_control = (1+shared)*5  # four valid-unit bits and valid bit per beat
+    rx_control = (8).bit_length()+2*((256+width-gcd(256,width))//32).bit_length()
+    return dict(tx_fifo_payload_bits=fifo,tx_beat_payload_bits=beats,rx_payload_bits=rx,
+                total_payload_bits=fifo+beats+rx,tx_control_bits=fifo_control+phase+beat_control,
+                rx_control_bits=rx_control,data_lane_bits=256+2*width,
+                hb_valid_units_bits=15,hb_ready_bits=3,
+                config_scope='One external frozen direction input; no trace sequencer or reorder RAM',
+                scope='Single source slice plus three physical receivers; declared registers, not mapped area')
+
+
+def run_roundtrip(output, tools_dir):
+    if subprocess.check_output(['git','status','--porcelain'],text=True).strip():
+        raise RuntimeError('Commit source before endpoint roundtrip experiment')
+    started=time.monotonic()
+    out=Path(output).resolve();out.mkdir(parents=True,exist_ok=True)
+    tools=Path(tools_dir).resolve()/'bin'
+    # Extract the physical star from the existing geometry, without solving a wafer LP.
+    physical=contoured_geometry()
+    for m in range(len(physical.memory)):
+        edges=[next((dict(e) for e in physical.edges if e['m']==m and e['mp']==p),None) for p in (0,2,3)]
+        if all(e is not None for e in edges) and len({e['c'] for e in edges})==3:
+            break
+    else:
+        raise AssertionError('No legal three-destination star in current H/plus')
+    for e in edges:
+        cr=physical.compute[e['c']].vertical_connectors[e['cp']]
+        mr=physical.memory[e['m']].vertical_connectors[e['mp']]
+        area=physical.region(cr).intersection(physical.region(mr)).area
+        assert area>0 and abs(area-e['overlap_mm2'])<1e-10
+    sources=[Path(p).resolve() for p in ('rtl/cse_bank.sv','rtl/endpoint_link.sv','rtl/endpoint_roundtrip_tb.sv')]
+    versions=dict(iverilog=command([tools/'iverilog','-V'],out/'iverilog_version.log').splitlines()[0])
+    records=[]
+    pairs=[(160,2),(128,1),(192,1),(192,2),(256,1)]
+    for width,depth in pairs:
+        folder=out/f'w{width}_d{depth}';folder.mkdir(exist_ok=True)
+        exe=folder/'roundtrip.vvp'
+        command([tools/'iverilog','-g2012','-s','endpoint_roundtrip_tb',
+                 '-P',f'endpoint_roundtrip_tb.WIDTH={width}','-P',f'endpoint_roundtrip_tb.DEPTH={depth}',
+                 '-o',exe,*sources],folder/'compile.log')
+        patterns=('home','shared','mixed','bursty','stalls','long_stall','tail') if width==160 else ('shared','stalls','tail')
+        for direction in ((0,1) if width==160 else (0,)):
+            for pattern in patterns:
+                case=folder/f'{pattern}_dir{direction}';case.mkdir(exist_ok=True)
+                trace=roundtrip_trace(case,width,pattern,direction)
+                response=command([tools/'vvp',exe,f'+DIR={direction}',f'+WORDS={case/"words.txt"}',
+                                  f'+CONTROLS={case/"controls.txt"}'],case/'run.log')
+                line=next(v for v in response.splitlines() if v.startswith('RESULT '))
+                values=list(map(int,line.split()[1:]))
+                cycles,accepted,*_=values
+                assert accepted==trace['words'] and sum(values[2:5])==accepted
+                record=dict(width=width,depth=depth,pattern=pattern,direction=direction,**trace,
+                    cycles=cycles,accepted=accepted,received=values[2:5],measured_received=values[5:8],
+                    measured_accepted=values[8],source_stall_cycles=values[9],hb_stall_port_cycles=values[10],
+                    rx_stall_port_cycles=values[11],maximum_pending_payload_bits=values[12],
+                    bitperfect=True,cycle_equivalent=True,hold_checked=True,conservation_checked=True)
+                if pattern in ('home','shared','mixed'):
+                    sequence=tuple(direction+1 if p else 0 for p in trace['sequence'])
+                    spec=EndpointSpec((256,width,width),(1,depth,depth))
+                    reference=execute_periodic(spec,sequence)
+                    actual=np.array(values[5:8])/8320
+                    expected=np.array(reference['rate_per_native'])
+                    assert np.all(np.abs(actual-expected)<=1/8320+1e-12),(actual,expected)
+                    record.update(received_words_per_cycle=actual.tolist(),python_reference=expected.tolist(),
+                                  measurement_cycles=8320,boundary_tolerance_words=1)
+                if pattern in ('stalls','long_stall'):
+                    assert all(values[i]>0 for i in (9,10,11))
+                records.append(record)
+                print('ROUNDTRIP',width,depth,direction,pattern,'words',accepted,'cycles',cycles,flush=True)
+    # Demonstrate two checkers reject their specific deliberately injected fault.
+    fault_case=out/'w160_d2'/'tail_dir0'
+    faults=[]
+    for fault,message in ((1,'Static direction changed'),(2,'Bit-perfect/tag failure')):
+        args=[str(tools/'vvp'),str(out/'w160_d2'/'roundtrip.vvp'),'+DIR=0',f'+FAULT={fault}',
+              f'+WORDS={fault_case/"words.txt"}',f'+CONTROLS={fault_case/"controls.txt"}']
+        r=subprocess.run(args,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True)
+        (out/f'negative_{fault}.log').write_text(r.stdout)
+        assert r.returncode!=0 and message in r.stdout
+        faults.append(dict(fault=fault,expected_failure=message,detected=True))
+    inputs=sources+[Path('docs/methods/ENDPOINT_ROUNDTRIP.md')]
+    result=dict(provenance=provenance(),tools=versions,geometry=dict(memory=m,edges=edges,
+        node_aliases={'M0':m,'C0':edges[0]['c'],'C1':edges[1]['c'],'C2':edges[2]['c']},
+        source='H/plus physical connector intersections; no C-to-C links'),records=records,negative_checks=faults,
+        storage={name:roundtrip_storage(160,2,pooled) for name,pooled in [('duplicated',False),('configurable',True)]},
+        input_sha256={str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in inputs},
+        verification=dict(paired_traces=len(records),architecture_runs=2*len(records),
+            accepted_words_per_architecture=sum(r['accepted'] for r in records),
+            paired_cycles=sum(r['cycles'] for r in records),wafer_lp_solves=0,synthesis_runs=0),
+        scope='Functional single-source TX/HB/RX star, registered ready/valid, ordered stream per physical edge; no link delay, timing, area or power',
+        elapsed_seconds=time.monotonic()-started)
+    (out/'results.json').write_text(json.dumps(result,indent=2)+'\n')
+    print('VERIFIED',result['verification'],flush=True)
+
+
 if __name__=='__main__':
     parser=argparse.ArgumentParser()
     parser.add_argument('--output',required=True)
     parser.add_argument('--tools',default='memory_results/cse_tools')
+    parser.add_argument('--roundtrip',action='store_true',help='Functional TX/RX star; no synthesis or wafer LP')
     args=parser.parse_args()
-    run(args.output,args.tools)
+    (run_roundtrip if args.roundtrip else run)(args.output,args.tools)

@@ -1,5 +1,12 @@
 # 下一研究任务：先判断 Configurable Shared Egress 的架构收益
 
+**最新：用户已明确source侧HB前选择、三个直接RX，推进最小TX→RX功能对照。**
+当前按[ENDPOINT_ROUNDTRIP](../methods/ENDPOINT_ROUNDTRIP.md)实现与验证1M→3C；
+只比较独立出口与可配置出口，相同word trace/位宽/背压/RX，首验收为bit-perfect。
+HB前source保持memory侧数字功能边界；不使用logic侧隐含转发。
+新增握手寄存器、RX重组都单独计费。当前不扩wafer实验或运行PPA。
+下面“暂停RTL”的段落是此前顺序记录，本次仅恢复上述范围的功能验证。
+
 用户最新收敛：设计适合 repeated-reticle WoW Memory-on-Logic 的低成本共享接口。
 Matching、静态布局、endpoint execution 和 cost model 是支撑；暂停它们各自的新算法支线。
 此前目标服务逆向综合的任务优先级已被本项替换。
