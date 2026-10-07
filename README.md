@@ -36,6 +36,7 @@ memory_results/            本地/服务器实验工作目录（不入 Git）
 
 ## 从这里开始
 
+- [逻辑读任务导入与依赖回放：固定 H/plus、公平对照和证据范围](docs/methods/READ_WORKLOAD_REPLAY.md)
 - [固定研究范围与三层职责](docs/RESEARCH_SCOPE.md)
 - [最新：Configurable Shared Egress，同服务减少重复 FIFO](docs/reports/CONFIGURABLE_SHARED_EGRESS_REPORT.md)
 - [固定 H/plus 架构竞争与性能/成本前沿](docs/reports/ARCHITECTURE_COMPETITION_REPORT.md)
@@ -48,9 +49,11 @@ memory_results/            本地/服务器实验工作目录（不入 Git）
 - [该闭环的模型、参数与复现范围](docs/methods/ENDPOINT_BRIDGE_METHOD.md)
 - [全部阶段文档索引](docs/README.md)
 
-当前固定 H/plus，研究可配置共享接口：利用冻结伙伴关系复用 shared FIFO，在相同服务下
-减少重复存储。k2 和 full-width direct 保留为强对照。Matching、布局与执行模型服务于这项
-接口架构验证；暂不扩新优化框架。当前[source-side TX→HB→RX最小闭环](docs/reports/ENDPOINT_ROUNDTRIP_REPORT.md)
+当前固定 H/plus，利用静态数据组织同时争取运行时共享机会和硬件复用机会。
+系统侧补充逻辑读任务导入、冻结地址布局与依赖回放；暂无指定真实 trace，先用合成任务
+验证 infra。Home、k2、k3 保留结构对照，duplicated/configurable 保留同服务成本消融。
+Matching、布局与执行模型服务于这项架构验证；暂不扩新优化框架。
+当前[source-side TX→HB→RX最小闭环](docs/reports/ENDPOINT_ROUNDTRIP_REPORT.md)
 已通过完整字、背压和吞吐对照；新增握手与RX存储均计费。
 同库、同约束的[单 slice ASIC 物理验证](docs/reports/ENDPOINT_ASIC_SLICE_REPORT.md)
 已完成：修复后 source 面积减少 30.3%，计入相同三个 RX 后减少 14.5%；

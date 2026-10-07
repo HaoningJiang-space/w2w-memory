@@ -22,7 +22,14 @@ Source + 特化 Home RX + 两套 Shared RX：
 
 ## 下一项研究判断
 
-局部验证到此收尾。先把已有服务结果与这份实测局部成本对应起来，说明：
+用户最新要求：暂无指定 trace，先完成可验证的导入与回放 infra。
+系统侧采用[逻辑读任务回放合同](../methods/READ_WORKLOAD_REPLAY.md)：固定 H/plus，复用
+Home、k2 direct、k3 direct、A/B 及同布局 configurable，接入地址驻留、依赖触发、有限
+outstanding/返回/RX 与任务完成时间。MoE adapter 用训练输入均衡 expert 归属，再展开
+测试批的实际路由；合成验证不算真实 capture 或应用加速。它与 RTL 工作分开维护。
+
+局部硬件验证到此收尾。系统 infra 通过后接有来源的真实逻辑读任务，同时把实测局部成本
+对应到完整 design 和路径，说明：
 
 - 哪些收益来自静态伙伴/数据比例，哪些来自少复制一套 Shared TX；
 - 完整路径中的 TX、RX、长线与 HB 分别计几份，避免重复计算三个 RX；

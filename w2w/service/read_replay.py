@@ -104,10 +104,21 @@ def replay_reads(design, trace, config=ReadReplayConfig()):
                     if c is not None:
                         del active[c]
                     changed = True
+            candidates = []
             for key in sorted(not_started):
                 t = task_by_id[key]
                 if (t.release_slot > tick or any(d not in finished for d in t.dependencies)
                         or (t.compute is not None and t.compute in active)):
+                    continue
+                candidates.append(key)
+            # Resolve instantaneous joins before arbitrating compute ownership.
+            # Otherwise a task behind a zero-time join can lose priority solely
+            # because the join's lexical ID sorts after another ready task.
+            instant = [key for key in candidates
+                       if not words[key] and not task_by_id[key].compute_slots]
+            for key in instant or candidates:
+                t = task_by_id[key]
+                if t.compute is not None and t.compute in active:
                     continue
                 ready_at = max((t.release_slot, *(finished[d] for d in t.dependencies)))
                 state[key] = dict(start=tick, eligible=ready_at, remaining=words[key], issued=0,
