@@ -124,10 +124,14 @@ class ReadTrace:
 
 def synthetic_read_suite(compute_xy):
     """Frozen coordinate-based cases; never inspect sharing partners or rates."""
-    xs, ys = sorted({v[0] for v in compute_xy}), sorted({v[1] for v in compute_xy})
-    grid = {(ys.index(y), xs.index(x)): c for c, (x, y) in enumerate(compute_xy)}
-    if len(xs) != 6 or len(ys) != 6 or len(grid) != 36:
-        raise ValueError('Registered suite requires a complete 6 by 6 compute grid')
+    xs = sorted({v[0] for v in compute_xy})
+    columns = [sorted((y, c) for c, (px, y) in enumerate(compute_xy) if px == x) for x in xs]
+    # H/plus staggers odd columns by half a row; rank y within each column.
+    if (len(xs) != 6 or any(len(col) != 6 for col in columns)
+            or len(set(compute_xy)) != 36):
+        raise ValueError('Registered suite requires six columns of six compute positions')
+    grid = {(row, col): c for col, column in enumerate(columns)
+            for row, (_, c) in enumerate(column)}
     base = 2496
     objects = tuple(ReadObject(f'object{c:02}', 4 * base * 32, c) for c in range(36))
     group = lambda rows, cols: tuple(grid[r, c] for r in rows for c in cols)

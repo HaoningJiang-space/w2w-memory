@@ -210,6 +210,8 @@ class CompletionStudyTests(unittest.TestCase):
         self.assertEqual([t.compute for t in suite['dispersed9'].tasks if t.reads],
                          [0, 2, 4, 12, 14, 16, 24, 26, 28])
         self.assertEqual(sum(r.size_bytes for t in moving.tasks for r in t.reads), 36 * 2496 * 32)
+        staggered = tuple((x, y + (x % 2) * .5) for x, y in coordinates)
+        self.assertEqual(synthetic_read_suite(staggered), suite)
         with self.assertRaises(ValueError):
             synthetic_read_suite(coordinates[:-1])
 
