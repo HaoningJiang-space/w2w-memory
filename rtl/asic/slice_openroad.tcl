@@ -56,7 +56,7 @@ proc repair_hold {model} {
     global limit output
     for {set pass 0} {$pass<3} {incr pass} {
         if {![catch {repair_timing -hold -hold_margin 0.05 -max_buffer_percent $limit} message]} {return}
-        if {![string match {*Max buffer count reached*} $message] || $pass==2} {error $message}
+        if {($message ne "RSZ-0060" && ![string match {*Max buffer count reached*} $message]) || $pass==2} {error $message}
         puts "HOLD_LIMIT_CONTINUE: completed pass [expr {$pass+1}], legalize and refresh $model RC"
         detailed_placement
         if {$model eq "global_routing"} {
