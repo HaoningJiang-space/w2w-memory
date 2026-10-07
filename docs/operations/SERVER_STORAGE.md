@@ -16,6 +16,23 @@
 [清理清单](../../artifacts/provenance/eex005_cache_cleanup_20261007.json)包含各目标、
 尺寸、验证与完整服务器日志位置。本轮有限任务结果已经独立归档到 Git。
 
+### 第二轮：未使用包与编译缓存
+
+继续检查后，Conda dry-run 标记 127 个未使用包缓存（3,106,811,816 bytes）。
+扫描账号内 34,688 个软链接及本账号进程的 cwd/exe/fd/maps，未发现对待删目录的引用；
+复核清理计划不变后运行 `conda clean --packages --yes`。环境目录未删除。
+另删除无活动引用的 `.nv/ComputeCache`、`.triton/cache`、`.npm/_cacache`，
+合计 804,323,328 bytes。操作前后观测约释放 3.748 GiB，两轮约 11.22 GiB。
+
+清理后 W2W 数值依赖导入和 Conda 命令正常。仍有其他写入，最终 `df` 显示 `/home`
+可用约 71 GiB，不能将两轮删除量简单加到当前空闲值。
+[第二轮完整记录](../../artifacts/provenance/eex005_cache_cleanup_round2_20261007.json)。
+
+仍可进一步整理的候选为 `TA-PPAAS/tmp`（约 6.9 GB）、`wafer_simulator/runs`
+（约 22 GB）、`thermal_hbt`（目录总量约 78 GB）。它们含实验输入、结果和复现证据，
+本轮保留；后续应按已结束批次核验并归档/迁移，再删除本地展开副本。
+`wafer_simulator/downloads/atlahs` 也包含实际 graph/SQLite trace，未当安装缓存删除。
+
 ## 既有实验结果归档
 
 本轮按照用户清理授权，将 13 个已结束实验目录压缩至：
