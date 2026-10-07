@@ -60,18 +60,18 @@
     },
     {
       "path": "artifacts/figures/request_window/request_windows.svg",
-      "bytes": 57374,
-      "sha256": "41c5184fe5b4f00caae00863ce7f1ec06935526f8ca64d546d86980f66462247"
+      "bytes": 56450,
+      "sha256": "d1db9700a97d2cb1227405562c2945d8e07097eeda54182e1ccd1f7ee82c5b59"
     },
     {
       "path": "artifacts/results/workload/request_window/deadline_minima.csv",
-      "bytes": 1427,
-      "sha256": "f36133dbec292bb33fe4876bc40518665e0cabd235c9d03740c5176998bce2a7"
+      "bytes": 1399,
+      "sha256": "4087db2b4975ba19309c67f46bf197c30635f5eaf4aefc09813fac14c8a91595"
     },
     {
       "path": "artifacts/results/workload/request_window/selected_tasks.csv",
-      "bytes": 1295,
-      "sha256": "8dc7e7da96847e811454008cacc1a4564ed7aaa4aa9c5008fc5ce3ac989f5f5c"
+      "bytes": 1245,
+      "sha256": "8904dbc7dfcdd887b90ae51e89dfe145b043e8ec8f03c641ff6539c4a3986d54"
     }
   ],
   "uncompressed_log_sha256": {
@@ -79,5 +79,6 @@
     "request_window_run.log": "c0e6c23e11aec1965c232cdd8326ad33c823bfd230867782ff130eb433f73bce",
     "request_window_audit.log": "a5e83099c752b5c2607c3aa2b94b88a91c031caf3b740d57b44163ede3c5b547"
   },
-  "figure_scope": "Executed integer windows only, scatter without interpolation; 512 controls remain in raw results"
+  "figure_scope": "Executed integer windows only, scatter without interpolation; 512 controls remain in raw results",
+  "derived_formatting": "SVG trailing whitespace removed with XML geometry/text equivalence check; CSV uses LF. Raw experiment archives and logs are byte-identical."
 }

@@ -274,7 +274,9 @@ def render_archive(folder):
            title='Frozen dispersed9: executed integer windows', xlim=(85, 240))
     ax.legend(fontsize=9)
     ax.grid(alpha=.15)
-    fig.savefig(folder / 'request_windows.svg')
+    path = folder / 'request_windows.svg'
+    fig.savefig(path)
+    path.write_text(''.join(line.rstrip() + '\n' for line in path.read_text().splitlines()))
     plt.close(fig)
 
 
