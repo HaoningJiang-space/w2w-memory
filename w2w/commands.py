@@ -13,6 +13,7 @@ COMMANDS = {
     'audit_patterns_replay': 'w2w.analysis.patterns_replay',
     'audit_provisioning_holdout': 'w2w.validation.provisioning_holdout',
     'audit_provisioning_target': 'w2w.validation.provisioning_target',
+    'audit_return_path': 'w2w.validation.return_path',
     'audit_service_provisioning': 'w2w.validation.service_provisioning',
     'download_patterns_corpus': 'w2w.experiments.download_patterns_corpus',
     'draw_bank_hb_boundary': 'w2w.visualization.draw_bank_hb_boundary',
