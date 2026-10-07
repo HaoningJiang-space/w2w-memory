@@ -111,7 +111,8 @@
   "archive": {
     "method": "Frozen inputs and raw .json.gz unchanged; summaries compressed losslessly with mtime=0",
     "all_input_and_output_hashes_verified": true,
-    "raw_routing": "Original large routing JSON remains on hn072"
+    "raw_routing": "Original large routing JSON remains on hn072",
+    "independent_committed_archive_readback": "0800cbe; 280 archived + 3 prior file hashes and all reconstructed metrics matched"
   },
   "failures_retained": {
     "first_pool_launch": "0 completed replays; runpy worker serialization fixed before successful full run",
@@ -128,6 +129,11 @@
       "path": "artifacts/figures/provisioning_holdout/provisioning.svg",
       "bytes": 81322,
       "sha256": "9f856db8f8aa84ac737fa5bebb6d80fc672750ec99974222af5340600c583c8e"
+    },
+    {
+      "path": "artifacts/provenance/provisioning_holdout/archive_readback_receipt.json",
+      "bytes": 945,
+      "sha256": "ea0402cf4d11e939b735fd85208ba3a0507530b617a5147defc197e2201ad9fd"
     },
     {
       "path": "artifacts/provenance/provisioning_holdout/hn_preparation_tests.log.gz",
@@ -1516,8 +1522,8 @@
     },
     {
       "path": "docs/reports/RETURN_PATH_PROVISIONING_REPORT.md",
-      "bytes": 18221,
-      "sha256": "2d38e56912211e08d6825a28bcf9ae9a35a00ec7aa46d166c937fd3385b1ef4e"
+      "bytes": 18468,
+      "sha256": "5264616d341bbed09cda0f283d9b3e555989cf42e27836643b2a3d9ca163d155"
     }
   ],
   "referenced_prior_files": [

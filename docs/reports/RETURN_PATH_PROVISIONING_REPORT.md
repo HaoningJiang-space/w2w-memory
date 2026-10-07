@@ -261,13 +261,15 @@ min(idle,demand)。它必须同时包含字节来源、路径状态和critical r
 **3,006,327,648个32-byte字**。七个C实现配对全部一致；所有记录逐一核对源字节、
 配置与布局身份、每bank/route交付、任务依赖、完成界和压缩原始文件SHA。
 64个训练请求的分数/owner可重建；hn072已从原始JSON重编译九个测试窗口并核对训练提取。
+归档提交`0800cbe`在eex005独立读回，280份归档文件及重建指标与原始输出一致；
+[读回记录](../../artifacts/provenance/provisioning_holdout/archive_readback_receipt.json)。
 
 - 准备源码：`23e2711`，hn072；原始重编译审计修正于`90ec6e5`。
 - 主实验与目标扩展：`5c425e5`，eex005，分别1752.52秒和1187.32秒，最多12 workers。
 - RX诊断：`34932c6`，eex005，644.97秒，最多12 workers。
 - 独立结果审计与图：`0fdb4b7`。准备、执行、诊断和审计分别记录干净源码身份。
 - 57项执行相关测试通过；后续21项返回路径/选择器/导入/CLI测试通过，二者有重叠。
-  hn072的13项路径定向检查也通过。没有重新声称执行了历史148项完整套件。
+  hn072的13项路径定向检查也通过；最终Home/RX前提检查4项通过。没有重跑历史148项完整套件。
 
 最初CLI多进程启动在0条回放时失败，原因是runpy入口的worker不可序列化；
 修复`alter_sys=True`后从新目录执行全部87条，fork与spawn都经实际进程池测试。
@@ -296,6 +298,7 @@ min(idle,demand)。它必须同时包含字节来源、路径状态和critical r
 对归档做完整审计，无需重新执行十亿字回放：
 
 ```sh
+mkdir -p memory_results
 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python -m w2w audit_return_path \
   --source artifacts/results/workload/provisioning_holdout/inputs \
   --primary artifacts/results/workload/provisioning_holdout/primary \

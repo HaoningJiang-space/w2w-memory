@@ -1,0 +1,17 @@
+{
+  "schema": "w2w.provisioning-archive-readback.v1",
+  "verified": true,
+  "archive_source_commit": "0800cbe5f143701397b813376c3721459f06a636",
+  "host": "eex005",
+  "remote_worktree": "/home/wangziheng/Video/w2w-provisioning-audit-20261008",
+  "archived_files_verified": 280,
+  "referenced_prior_files_verified": 3,
+  "verified_manifest_sha256": "2cf94f6ce14a09eda0f9d1a094b12c97c7afa888587b9897818de0ebd902b28b",
+  "replays": 166,
+  "delivered_words": 3006327648,
+  "all_reconstructed_metrics_equal": true,
+  "excluded_comparison_fields": [
+    "audit_provenance"
+  ],
+  "command": "python -m w2w audit_return_path --source artifacts/results/workload/provisioning_holdout/inputs --primary artifacts/results/workload/provisioning_holdout/primary --extension artifacts/results/workload/provisioning_holdout/target --diagnostic artifacts/results/workload/provisioning_holdout/receiver --output memory_results/validation/archive_readback.json"
+}
