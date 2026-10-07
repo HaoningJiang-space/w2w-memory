@@ -1,5 +1,10 @@
 # 开发交接：Wafer-scale Memory Service Fabric
 
+**2026-10-07 有限任务实验完成：** [77 次冻结回放](reports/FINITE_READ_STUDY_REPORT.md)、49 测试，
+22 组 duplicated/configurable 服务一致。分散热点 B 为 77 对 Private 88 槽，扩大请求窗口后为
+60 槽；相邻热点、全忙与阶段移动无明显收益。k2 在所测单热点/长尾中仍是强成本参考。
+时间为机制模型原生槽，不与 2 ns ASIC 面积合成系统 PPA；下一步是有来源的实际读阶段。
+
 **2026-10-07 系统侧：逻辑读任务导入与回放 infra 验收完成。**
 用户确认暂无指定 trace；按[回放合同](methods/READ_WORKLOAD_REPLAY.md)实现地址到 bank/HB 的
 冻结映射、任务依赖、有限请求/返回/RX 与完成时间。复用五个已注册 H/plus 候选，加 A/B

@@ -7,6 +7,7 @@
 
 ## 当前实现与运行
 
+- [有限任务完成与共享成本：77 回放、credit/同步瓶颈和投影前沿](reports/FINITE_READ_STUDY_REPORT.md)
 - [逻辑读请求、冻结地址布局、依赖回放与成本接口](methods/READ_WORKLOAD_REPLAY.md) / [44 测试与七设计验收](reports/READ_WORKLOAD_INFRA_REPORT.md)
 - [Wafer-scale Memory Service 技术报告（PDF）](reports/W2W_MEMORY_SERVICE_TECHNICAL_REPORT.pdf)
 

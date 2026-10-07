@@ -1,0 +1,118 @@
+{
+  "source_commit": "17a64420eaada660c8ce159b00f7843f08059431",
+  "analysis_commit": "b706092",
+  "host": "eex005",
+  "remote_root": "/home/wangziheng/Video/w2w-finite-read-20261007",
+  "replays": 77,
+  "implementation_ablations": 22,
+  "tests": 49,
+  "model_words": 2904384,
+  "scope": "Synthetic finite word/bit-budget task completion; separate from RTL-cycle and calibrated PPA evidence",
+  "artifacts": [
+    {
+      "path": "artifacts/figures/finite_read/completion.png",
+      "bytes": 205322,
+      "sha256": "6af26dfcd39781a774de205cab54c0e21c7a1b2bfe7a0f4e9d0eef8b698b68df"
+    },
+    {
+      "path": "artifacts/figures/finite_read/completion.svg",
+      "bytes": 101290,
+      "sha256": "43c3bb2c76eeb89e1ff7b12508faec37deea40a11c1163e85dfdd5084fd46bc8"
+    },
+    {
+      "path": "artifacts/figures/finite_read/credits.png",
+      "bytes": 166815,
+      "sha256": "48155c6078fc5eace9f2cb4ea5195abecefe8a4afc43e5fb5614c31a97e5f732"
+    },
+    {
+      "path": "artifacts/figures/finite_read/credits.svg",
+      "bytes": 75624,
+      "sha256": "8def335e000264947c6d1356b49cc67a7e7e6dcd655b91965cfaefb78334d1ce"
+    },
+    {
+      "path": "artifacts/provenance/finite_read_analysis.log.gz",
+      "bytes": 107,
+      "sha256": "c88f988fd1a7924b4fa43a6b4729ee79bc9e414a55c0399e64a86aafc18f77fc"
+    },
+    {
+      "path": "artifacts/provenance/finite_read_rejected_staggered_grid.log.gz",
+      "bytes": 441,
+      "sha256": "6dfab127e09170ed66c93570d6bf0ce84761df8c7d66788aa19bf2c31f9bbb17"
+    },
+    {
+      "path": "artifacts/provenance/finite_read_run.log.gz",
+      "bytes": 585,
+      "sha256": "8f55dee1cd3d0e64bd998f87a5127059bf738606be82d6f50f778e321eee7275"
+    },
+    {
+      "path": "artifacts/provenance/finite_read_tests.log.gz",
+      "bytes": 1572,
+      "sha256": "4c2ff96143dcf2cd9bfe5f7d9da48553acd4cbc06e101de30b86a9ff62f7c305"
+    },
+    {
+      "path": "artifacts/results/workload/finite_read/audit.json",
+      "bytes": 60013,
+      "sha256": "8d305223474040cbb73ae638f29dcbf08425b040bb58a40e160a1f92bede753a"
+    },
+    {
+      "path": "artifacts/results/workload/finite_read/clustered9_base.json.gz",
+      "bytes": 96309,
+      "sha256": "e99d792899ace36f5ed3e54bd2a6681163a4db4d22351620158b7329e3930b9d"
+    },
+    {
+      "path": "artifacts/results/workload/finite_read/clustered9_credits512.json.gz",
+      "bytes": 96277,
+      "sha256": "a2a48478602d287d3602ff73d04539334a23705af1253666f432af9429badda4"
+    },
+    {
+      "path": "artifacts/results/workload/finite_read/dispersed9_base.json.gz",
+      "bytes": 99724,
+      "sha256": "867d21014ec964d7ddc28cea6ee517350908f6da89cf568f1bcb546f1b765f2c"
+    },
+    {
+      "path": "artifacts/results/workload/finite_read/dispersed9_credits512.json.gz",
+      "bytes": 99732,
+      "sha256": "c4a75e563a2ed59fbf804f9bcdbe844bd072972042929738240caef89f06204b"
+    },
+    {
+      "path": "artifacts/results/workload/finite_read/dispersed9_rx_half.json.gz",
+      "bytes": 99841,
+      "sha256": "d06c5b9fe5223c3111b2a19d47486980a2afdd6189db5de5db80bf193d4b0dc9"
+    },
+    {
+      "path": "artifacts/results/workload/finite_read/full36_base.json.gz",
+      "bytes": 181021,
+      "sha256": "6633a284c3a1341fdbde283317560dfe350d8fc76d22510b9a4117d0cf1a2a98"
+    },
+    {
+      "path": "artifacts/results/workload/finite_read/full36_credits512.json.gz",
+      "bytes": 180931,
+      "sha256": "bb1fedbb874b6dacb5fe1f6fc05ab1a9e8fd9d735148fb815f889a8359241590"
+    },
+    {
+      "path": "artifacts/results/workload/finite_read/moving9_base.json.gz",
+      "bytes": 182372,
+      "sha256": "b29ac20b8dd5aa28072145fc15157e71f9810537c8463f2d63c7fc2e38b17e94"
+    },
+    {
+      "path": "artifacts/results/workload/finite_read/short9_base.json.gz",
+      "bytes": 97650,
+      "sha256": "0f8d79e8a034f34695f5f331acc67908a65adead3068fa152cd1ab85596ec2cd"
+    },
+    {
+      "path": "artifacts/results/workload/finite_read/single_base.json.gz",
+      "bytes": 65643,
+      "sha256": "55297e8f78e6b33d1f49408465aee1f64b4e39c8ee392d188cb590d4ae1b223b"
+    },
+    {
+      "path": "artifacts/results/workload/finite_read/straggler9_base.json.gz",
+      "bytes": 99734,
+      "sha256": "2cb771fceee4bda231477a256534c25c69885431eb744edf6124b32761f12f7e"
+    },
+    {
+      "path": "artifacts/results/workload/finite_read/summary.json",
+      "bytes": 266237,
+      "sha256": "0ce004f06364cf477b1721213e01b62f517a61c976a0d8390e2557dfeb3029ca"
+    }
+  ]
+}
