@@ -53,6 +53,13 @@ class DesignContractTests(unittest.TestCase):
             replace(design, endpoint=EndpointSpec((256, 0, 128), (1, 0, 1)))
         with self.assertRaises(ValueError):
             StaticLayout(((.2, .2),))
+        # Polygon intersection arithmetic can put a full overlap a few ulps over 1.
+        routes = list(design.geometry.routes)
+        routes[0] = (*routes[0][:4], 1 + 1e-14, 1.)
+        replace(design.geometry, routes=routes)
+        routes[0] = (*routes[0][:4], 1.01, 1.)
+        with self.assertRaises(ValueError):
+            replace(design.geometry, routes=routes)
 
     def test_endpoint_caps_are_consumed_without_mutating_design(self):
         design = two_compute_two_memory()

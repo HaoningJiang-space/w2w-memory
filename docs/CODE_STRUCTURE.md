@@ -1,5 +1,9 @@
 # 代码结构与开发入口
 
+2026-10-07 新增不可变设计与契约边界，详见 [Design API](DESIGN_API.md)。
+固定字节 LP 已迁至 `service/solver.py`，旧入口为兼容导出；端点容量通过
+`EndpointEnvelope` 交给共享 `ResourceLedger`，不再继承 service。
+
 本次是目录与公共依赖整理，不改变服务公式、实验 seeds、优化目标或硬件参数。
 旧结果及摘要按字节原样迁移；路径清单和 SHA-256 在
 [迁移记录](../artifacts/provenance/layout_migration.json)。历史提交仍可复现旧命令。

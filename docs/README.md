@@ -7,6 +7,9 @@
 
 ## 当前实现与运行
 
+- [不可变 Design、EndpointEnvelope 与共享 ResourceLedger](DESIGN_API.md)
+- [按角色接口与 home/k2/k3 比较协议](methods/ROLE_INTERFACE_METHOD.md)
+
 - [服务合同改变设计选择：首轮结果](reports/CONTRACT_SELECTION_REPORT.md)
 - [地址权限与物理可达性审计](reports/EGRESS_REACHABILITY_REPORT.md)
 - [代码结构与依赖](CODE_STRUCTURE.md)

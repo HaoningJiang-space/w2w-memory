@@ -25,7 +25,7 @@ class Geometry:
         for c, m, cp, mp, cf, mf in self.routes:
             if (not 0 <= c < len(self.compute_xy) or not 0 <= m < len(self.memory_xy)
                     or not 0 <= cp < len(self.port_xy) or not 0 <= mp < len(self.port_xy)
-                    or not 0 < cf <= 1 or not 0 < mf <= 1):
+                    or not 0 < cf <= 1 + 1e-12 or not 0 < mf <= 1 + 1e-12):
                 raise ValueError('Invalid physical route')
 
 
