@@ -2,6 +2,8 @@
 set here $::env(W2W_SCRIPT_DIR)
 set platform $::env(W2W_PLATFORM)
 set output $::env(W2W_PHYSICAL_OUTPUT)
+set cap_margin 0
+if {[info exists ::env(W2W_CAP_MARGIN)]} {set cap_margin $::env(W2W_CAP_MARGIN)}
 set limit 50
 if {[info exists ::env(W2W_HOLD_BUFFER_PERCENT)]} {set limit $::env(W2W_HOLD_BUFFER_PERCENT)}
 set_thread_count 2
@@ -69,7 +71,7 @@ snapshot imported
 global_placement -density 0.40
 detailed_placement
 estimate_parasitics -placement
-repair_design
+repair_design -cap_margin $cap_margin
 detailed_placement
 clock_tree_synthesis -buf_list {CLKBUF_X1 CLKBUF_X2 CLKBUF_X3} -root_buf CLKBUF_X3 \
     -sink_clustering_enable
@@ -84,7 +86,7 @@ check_placement -verbose
 snapshot post_cts_repaired
 global_route -guide_file $output/route.guide -congestion_iterations 50
 estimate_parasitics -global_routing
-repair_design
+repair_design -cap_margin $cap_margin
 repair_timing -setup
 repair_hold global_routing
 detailed_placement

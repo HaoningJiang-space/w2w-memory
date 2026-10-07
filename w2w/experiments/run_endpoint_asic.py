@@ -211,7 +211,7 @@ def run(args):
         manifest['tools']['openroad']=command([args.openroad,'-version'],out,out/'openroad_version.log').strip()
         manifest['boundary']='Local signal/clock P&R and extracted typical-corner STA; no wafer/HB RC, power grid or power claim'
         manifest['physical_settings']=dict(utilization=30,placement_density=.40,aspect_ratio=1,
-            core_space_um=5,seed=42,threads=2,hold_margin_ns=.05,max_hold_buffer_percent=50,retry_max_hold_buffer_percent=100,max_hold_passes_per_stage=3,
+            core_space_um=5,seed=42,threads=2,hold_margin_ns=.05,max_hold_buffer_percent=50,retry_max_hold_buffer_percent=100,max_hold_passes_per_stage=3,electrical_retry_cap_margin_percent=20,
             platform_sha256={str(p.relative_to(args.platform)):sha(p) for p in sorted(args.platform.rglob('*')) if p.is_file()})
     reuse=None
     if args.reuse_closed:
@@ -330,6 +330,12 @@ write_json {d/'netlist.json'}
             physical=d/'physical';physical.mkdir()
             penv=dict(env,W2W_PLATFORM=str(args.platform.resolve()),
                       W2W_PHYSICAL_OUTPUT=str(physical),W2W_HOLD_REPORT=str(physical/'hold.tsv'))
+            cap_margin=0
+            prior_physical=reuse['blocks'].get(name,{}).get('physical',{}) if reuse else {}
+            if prior_physical.get('electrical_violations'):
+                cap_margin=20
+                penv['W2W_CAP_MARGIN']='20'
+                print('REUSE_ELECTRICAL_FAILURE',name,'retry margin',cap_margin,flush=True)
             print('PHYSICAL',name,flush=True)
             physical_argv=[args.openroad,'-no_init','-exit',ROOT/'rtl/asic/slice_openroad.tcl']
             try:
@@ -345,6 +351,13 @@ write_json {d/'netlist.json'}
                 print('PHYSICAL_RETRY_BUFFER_LIMIT',name,100,flush=True)
                 log=command(physical_argv,physical,physical/'openroad.log',penv)
                 buffer_limit=100
+            if cap_margin==0 and '=== ELECTRICAL ===' in log and '(VIOLATED)' in log.split('=== ELECTRICAL ===')[1]:
+                physical.rename(d/'physical_cap0')
+                physical.mkdir()
+                cap_margin=20
+                penv['W2W_CAP_MARGIN']='20'
+                print('PHYSICAL_RETRY_ELECTRICAL',name,cap_margin,flush=True)
+                log=command(physical_argv,physical,physical/'openroad.log',penv)
             if 'PHYSICAL_FLOW_COMPLETE' not in log or 'STA_COMPLETE' not in log:
                 raise AssertionError(f'Physical flow incomplete: {physical}')
             shutil.copy2(physical/'netlist.v',d/'netlist.v')
@@ -373,7 +386,7 @@ write_json {d/'netlist.json'}
                 sequential_cells=sum(v for c,v in cells.items() if c.startswith(('DFF','SDFF'))),
                 cell_area_um2=stats['area'],sequential_area_um2=stats['sequential_area'],
                 physical=dict(stages=stages,slack_ns=final_slack,route_drc_count=int(drc[-1]),
-                              hold_buffer_limit_percent=buffer_limit,
+                              hold_buffer_limit_percent=buffer_limit,cap_margin_percent=cap_margin,
                               electrical_violations='(VIOLATED)' in electrical,closed=passed))
         save()
     # Generate zero-delay Liberty cell models; no timing simulation claim.

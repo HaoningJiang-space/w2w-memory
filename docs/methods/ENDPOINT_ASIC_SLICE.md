@@ -161,3 +161,10 @@ calls per stage, retaining inserted cells, legalizing and refreshing RC after
 a per-call limit. A limit error is recorded, not treated as timing success;
 only the extracted final slack/electrical checks determine closure. Source
 blocks that completed on their first call are unaffected by this continuation.
+
+If extracted-route electrical checks still fail, the common policy restarts
+that block once with `repair_design -cap_margin 20`, preserving the same SDC,
+load and clock. This occurred on Shared RX hold buffers after the first routed
+attempt. Closed blocks are unchanged. When reusing a recorded failed block,
+its manifest supplies the reason to enter this retry directly; the failed
+physical result remains archived. A retry is not automatically a pass.
