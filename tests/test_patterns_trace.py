@@ -10,7 +10,7 @@ import unittest
 from unittest.mock import patch
 
 from tests.test_read_workload import home_design, FAST
-from w2w.workloads.patterns_trace import compile_patterns, load_requests, project_demand, batches
+from w2w.workloads.patterns_trace import compile_patterns, compile_patterns_window, load_requests, project_demand, batches
 from w2w.workloads.read_trace import ReadTrace
 from w2w.service.read_replay import replay_reads
 from w2w.experiments.fetch_patterns_sample import fetch, OriginBoundAuthorization
@@ -45,6 +45,28 @@ class PatternsInputTests(unittest.TestCase):
         for previous,current in zip(summary['windows'],summary['windows'][1:]):
             self.assertTrue(all(by_id[k].dependencies==(previous['join_task'],) for k in current['task_ids']))
         self.assertEqual(summary['total_logical_read_bytes'],sum(r.size_bytes for t in trace.tasks for r in t.reads))
+
+    def test_explicit_later_window_keeps_original_step_and_full_capacity(self):
+        manifest=json.loads(self.manifest.read_text())
+        manifest['requests']=[manifest['requests'][i] for i in (0,2)]
+        for r in manifest['requests']:r['arrival_iteration']=0
+        self.manifest.write_text(json.dumps(manifest))
+        self.spec['layers']=self.spec['layers'][:1]
+        self.spec['batching']=dict(policy='fixed_cohort',batch_size=2,max_decode_steps=None)
+        trace,summary=compile_patterns_window(self.manifest,self.spec,2)
+        expected=set()
+        for i in (0,2):expected.update(json.loads((self.root/f'request{i}.json').read_text())[2]['1'][0])
+        self.assertEqual(summary['windows'][0]['activated_experts'],sorted(expected))
+        self.assertTrue(all(r['decode_step']==2 for r in summary['windows'][0]['request_tokens']))
+        self.assertEqual(len(trace.objects),4)
+        self.assertEqual(summary['total_logical_read_bytes'],len(expected)*3328)
+        self.assertEqual([r['selected_decode_steps'] for r in summary['requests']],[[2],[2]])
+        self.assertFalse(summary['window_selection']['preceding_steps_executed'])
+        self.assertIn('cold_selected_decode_step=2',trace.source)
+        with self.assertRaisesRegex(ValueError,'absent'):compile_patterns_window(self.manifest,self.spec,3)
+        with self.assertRaises(ValueError):compile_patterns_window(self.manifest,self.spec,0)
+        self.spec['batching']['max_decode_steps']=2
+        with self.assertRaisesRegex(ValueError,'truncation'):compile_patterns_window(self.manifest,self.spec,2)
 
     def test_refill_has_mixed_decode_positions_and_no_padding(self):
         requests,_=load_requests(self.manifest,self.spec)

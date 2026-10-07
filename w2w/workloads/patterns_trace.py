@@ -5,7 +5,7 @@ Batch admission, weight read reuse and static ownership are separate model input
 No download, model execution, residency optimization, or timing inference occurs here.
 """
 from collections import Counter
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from hashlib import sha256
 import json
 from pathlib import Path
@@ -157,6 +157,30 @@ def batches(requests, policy, size):
 
 def compile_patterns(manifest_path, spec):
     requests, manifest = load_requests(manifest_path, spec)
+    return _compile_loaded(requests, manifest, spec)
+
+
+def compile_patterns_window(manifest_path, spec, decode_step):
+    """One cold decode window at an explicit original step, without rewriting raw JSON.
+
+    This does not execute preceding steps or imply their weights remain cached.
+    All selected raw layers/steps are validated before selecting the window.
+    """
+    integer(decode_step, 'decode_step', 1)
+    if spec['batching']['policy'] != 'fixed_cohort' or spec['batching']['max_decode_steps'] is not None:
+        raise ValueError('Window selection requires fixed_cohort and no decode truncation')
+    requests, manifest = load_requests(manifest_path, spec)
+    if len(requests) != spec['batching']['batch_size'] or any(r.arrival_iteration for r in requests):
+        raise ValueError('Window must contain exactly one complete cohort arriving at iteration zero')
+    if any(len(r.decode) < decode_step for r in requests):
+        raise ValueError('Selected decode step absent; no padding or request replacement')
+    selected = tuple(replace(r, decode=(r.decode[decode_step-1],), source=dict(
+        r.source, retained_decode_steps=1, omitted_decode_steps=len(r.decode)-1,
+        selected_decode_steps=[decode_step])) for r in requests)
+    return _compile_loaded(selected, manifest, spec, decode_step)
+
+
+def _compile_loaded(requests, manifest, spec, selected_step=None):
     objects = tuple(ReadObject(object_id(layer['key'], e), layer['weight_bytes'], owner)
                     for layer in spec['layers'] for e, owner in enumerate(layer['compute_by_expert']))
     tasks, windows, previous = [], [], ()
@@ -178,14 +202,15 @@ def compile_patterns(manifest_path, spec):
             tasks.append(ReadTask(barrier, None, dependencies=tuple(task_ids)))
             previous = (barrier,)
             windows.append(dict(id=f'batch{batch_index}/layer{layer_index}', iteration=iteration,
-                layer=layer['key'], request_tokens=[dict(id=r.id, decode_step=s+1) for r,s in active],
+                layer=layer['key'], request_tokens=[dict(id=r.id, decode_step=selected_step or s+1) for r,s in active],
                 token_count=len(active), expert_token_counts=dict(sorted(counts.items())),
                 activated_experts=sorted(counts), task_ids=task_ids, join_task=barrier,
                 read_bytes_per_compute=byte_demand, logical_read_bytes=sum(byte_demand),
                 no_reuse_reference_bytes=sum(counts.values())*layer['weight_bytes']))
     trace = ReadTrace(objects, tuple(tasks), manifest['evidence'],
                       f'{manifest["source"]}@{manifest["revision"]}; '
-                      f'manifest_sha256={digest(manifest)}; execution_spec_sha256={digest(spec)}')
+                      f'manifest_sha256={digest(manifest)}; execution_spec_sha256={digest(spec)}'
+                      + (f'; cold_selected_decode_step={selected_step}' if selected_step is not None else ''))
     summary = dict(schema='w2w.pbc-demand.v1', trace_sha256=trace.sha256,
         manifest_sha256=digest(manifest), execution_spec_sha256=digest(spec),
         evidence=manifest['evidence'], captured_routing=manifest['evidence']=='captured',
@@ -200,6 +225,9 @@ def compile_patterns(manifest_path, spec):
             timing='Selected layers/batches execute sequentially with joins; GEMM/dispatch/combine/KV/dense/shared experts omitted',
             weight_bytes='Explicit supplied bytes, including chosen precision/metadata; not inferred from token counts',
             scope='Selected routed MoE layers only, not full-model capacity or end-to-end latency'))
+    if selected_step is not None:
+        summary['window_selection'] = dict(original_decode_step=selected_step,
+            preceding_steps_executed=False, cache_state='cold by explicit model assumption')
     return trace, summary
 
 
