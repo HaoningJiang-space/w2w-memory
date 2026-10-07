@@ -90,7 +90,8 @@ def audit(source, plan_path, verify_inputs=False):
             spec = json.loads((source / name / 'spec.json').read_text())
             rebuilt, rebuilt_demand = compile_patterns_window(source / name / 'manifest.json',
                                                               spec, case['decode_step'])
-            if rebuilt.sha256 != trace.sha256 or rebuilt_demand != demand:
+            # Expert-count keys are integers in memory and strings in JSON.
+            if rebuilt.sha256 != trace.sha256 or json.loads(json.dumps(rebuilt_demand)) != demand:
                 raise ValueError('Recompiled raw routing differs')
         traces[name] = trace
     for item in rows:
