@@ -35,7 +35,9 @@ def vectors(path, width, depth, mode, direction, pattern):
                 ratio_sequence(0, peer, fraction.numerator, fraction.denominator))
     patterns = ('home', 'shared', 'mixed', 'bursty', 'stalls', 'reject')
     rng = random.Random(840100 + width*100 + direction*10 + patterns.index(pattern))
-    cycles = 1664 if pattern in patterns[:3] else 512
+    # Close both the byte phase (divisor of 8 slots) and 3/13-word source period.
+    window = 64*fraction.denominator
+    cycles = 2*window if pattern in patterns[:3] else 512
     queues = [deque() for _ in range(3)]
     cursor = issued = 0
     total = [0, 0, 0]
@@ -84,10 +86,10 @@ def vectors(path, width, depth, mode, direction, pattern):
         assert issued*8 == sum(total) + sum(len(word) for q in queues for word in q)
         rows.append(f'{int(valid)} {dest} {payload:064x} {ready_mask:03b} {int(ready)} ' +
                     ' '.join(f'{n} {beat:064x}' for n, beat in zip(counts,beats)))
-        if tick == 831:
+        if tick == window-1:
             before = total.copy()
-        if tick == 1663:
-            measured = [(n-old)/8/832 for n, old in zip(total,before)]
+        if tick == 2*window-1:
+            measured = [(n-old)/8/window for n, old in zip(total,before)]
     assert not any(queues)
     assert [v.hexdigest() for v in accepted] == [v.hexdigest() for v in delivered]
     path.write_text('\n'.join(rows)+'\n')
