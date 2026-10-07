@@ -9,7 +9,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-from w2w.analysis.service_provisioning import credit_matched_split
+from w2w.theory.service_provisioning import credit_matched_split
 
 
 def render(source, output):

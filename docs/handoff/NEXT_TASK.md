@@ -1,88 +1,40 @@
-# 当前：验证静态驻留、接口能力与请求容量的联合选择
+# 下一阶段的服务配置与物理验证
 
-2026-10-08：已完成[比例推导与189次有限回放](../reports/SERVICE_PROVISIONING_REPORT.md)。
-在N128下，Home=4/5使窄A与宽B同为73槽分散完成；原比例为79/77槽。
-供给充足时原B仍更快。完整驻留证书说明现有k3可将64套潜在Shared状态合为32套，
-保留bank并行度；跨bank池化需要单独满足容量界。
+真实 routing 输入闭环已经完成；本阶段接真实 DRAM 命令时序、建立层级物理成本，并判断静态 service provisioning 是否值得扩展。以下为待实现任务，不是新增实验结果。研究判断及数学边界见 [分析](../methods/SERVICE_PROVISIONING_ASSESSMENT.md)。此前 ASIC 交接全文保存在 [历史记录](NEXT_TASK_HISTORY.md)。
 
-下一步使用独立routing输入，冻结公式生成的候选与同等优化的Home/k2/宽k3，比较同N
-完成时间及达到同目标的多项成本。共同静态owner均衡只用训练输入，测试时冻结地址映射。
-重点判断增加请求entries、加宽Shared、调整比例三者的选择，不先新增pool或RTL。
-本轮新比例只完成合成验证；48个真实回放只重算必要完成界。以下保留先前工作流记录。
+## 已合入的新进展与最近实验
 
-## 真实 routing 输入闭环与服务器入口
+`11fd2ab` 已加入请求容量感知比例与 189 次合成回放：N128 下 A/B 的 Home=4/5，分散任务均为 73 槽；原来是 79/77 槽。N192 下原 B 更快，比例不能逐窗口免费切换。48 份真实记录只重算下界，没有回放新比例。
 
-2026-10-07 更新：已有真实输入，不再需要用合成样例代替 trace。
-256 个独立 requests 已下载并逐文件核对；注册的三个 request 组、九窗口、48 次完整
-读回放全部完成。[多窗口报告](../reports/PATTERNS_REPLAY_STUDY_REPORT.md)记录全部结果，
-[代码分层](../CODE_STRUCTURE.md)给出输入、冻结目录、执行、审计与绘图入口。
-代码在本地开发，唯一 `main` 经 Git 推送到 `HaoningJiang-space/w2w-memory`，
-服务器 `/Projects/haoning/w2w` 拉取后实验；HF 默认直连，VPS 隧道停用。
+先在独立 routing 输入上验证这些冻结候选，保留同等优化的 Home/k2/宽 k3，比较同 N 完成时间与同目标成本。若优化 owner，只用训练部分并冻结，val 用于选配置，test 用于最终报告。候选已存在，不重复开发或先扩跨 bank pool。以下 DRAM 后端与物理成本是此前用户要求，仍需推进。
 
-接手时先复核归档，不重跑已完成的 48 个长回放。当前证据说明 k2 是强成本参考，
-B 的收益依赖窗口与请求供给；下一项研究应解释服务—完整路径成本取舍。
-若以后用当前 requests 选择硬件或 owner，另留独立测试输入。本轮不自动新增
-FIFO/RTL/DSE，也不把读阶段完成比写成完整推理加速。
+## 第一项 把 DRAM 时序作为可替换后端接入
 
-下面保留此前 ASIC 交接和当时下一步安排；“暂无 trace”只描述历史阶段。
+保留当前 slot 模型作为明确命名的参考后端，不改旧结果或默认语义。新增公共后端负责有限接受队列、读地址、推进时间和完成回调；endpoint 队列、HB、RX 与 outstanding 继续由现有执行层管理。命令后端必须接收反压并遵守返回容量预留，不能先离线算完 DRAM latency，再把它作为固定延迟贴回执行器。
 
-## 历史：单 slice 物理验证与回放接口
+先固定一个公开 DRAM 组织和时序 profile，记录模型版本、地址映射、burst 大小、bank group/channel 共享约束、刷新与控制器策略。公开 HBM profile 是参考模型，不等于定制 WoW DRAM 的真实工艺。将 32-byte 逻辑字与实际 burst 合并/拆分，防止重复服务。
 
-研究主线保持：以较少共享接口硬件，让邻近 compute 使用已有闲置 DRAM 服务。
-静态方向选择发生在第一次 HB 之前，不引入同 wafer 跨 reticle 转发。
+最小核验包括 row hit/miss/conflict、同 bank 与跨 bank 竞争、刷新、HB/RX 反压，以及完成字节恰好一次。之后在相同物理 DRAM 资源和请求预算下重跑少量已冻结窗口。
 
-## 已完成的两项
+## 第二项 先验证 service provisioning 的可优化空间
 
-[ASIC 报告](../reports/ENDPOINT_ASIC_SLICE_REPORT.md)末节记录最终物理结果。
-同 Nangate45 typical、2 ns、同 I/O 条件，source 修复后面积
-21,987.294→15,318.674 μm²（−30.33%）；Configurable 虽多 357 个 hold buffer，
-仍节省 6,668.620 μm²。682-FF 差不变，保留现有一套 Shared TX 核心。
+现有实现是每 bank 的静态方向复用；不能直接称作多 bank 共享一个发送 engine。先固定几何、地址驻留和 lane/HB 总预算，比较独立出口、删去静态未使用方向的强基线、少量 engine 绑定。明确 engine 属于 bank、bank group 还是整个 reticle。
 
-Home RX 已按既有完整字合同特化，两种架构同时采用。
-修复后的通用/特化 Home RX 为 9,890.944/3,815.770 μm²。
-共同部件优化节省 6,075.174 μm²，不能重复记作方向复用的贡献。
+静态 binding 一次覆盖注册的全部层、对象和需求窗口，测试时不能重绑定。若更少 engine 只能靠未计费跨 bank 互连或逐窗口换方向维持服务，应报告这个缺口。先在流体放松中估计机会，再用有限执行核验；仅对值得继续的设计扩 RTL。布局联合优化在单因素服务实验之后进行，不能将两种收益混在一个数字中。
 
-Source + 特化 Home RX + 两套 Shared RX：
-46,023.320→39,354.700 μm²（−14.49%）。计入 tap 后约 −14.45%。
-所有正式块和通用 Home 对照均通过本轮提取后的 setup/hold、电气检查与路由器 DRC。
-三个后端均通过 14 条成对轨迹，每架构 124,834 字；
-通用 Home 物理网表另跑同 14 条轨迹，Home 独立周期对照为 100,004 周期。
+## 第三项 建立完整路径的层级成本
 
-## 下一项研究判断
+复用已通过检查的 Nangate45 slice，补 engine binding、跨 bank 连线、仲裁/ID/credit、RX、HB pad 与时钟等资源账本。未实现块用分项区间，不将 bit-mm 换名为面积。分别报告 source、完整数据路径、reticle 和整片估计，区分 measured 与 estimated。
 
-用户最新要求：暂无指定 trace，先完成可验证的导入与回放 infra。
-系统侧采用[逻辑读任务回放合同](../methods/READ_WORKLOAD_REPLAY.md)：固定 H/plus，复用
-Home、k2 direct、k3 direct、A/B 及同布局 configurable，接入地址驻留、依赖触发、有限
-outstanding/返回/RX 与任务完成时间。MoE adapter 用训练输入均衡 expert 归属，再展开
-测试批的实际路由；合成验证不算真实 capture 或应用加速。它与 RTL 工作分开维护。
+真实工艺 signoff 仍需指定的 logic/DRAM PDK、多角库、DRAM 宏、HB/RDL 寄生和规则、顶层网表、时钟/功耗约束及 DRC/LVS/IR/EM 流程。现有公开单角 slice 结果不能代替这些资产；当前资料路径仍待确认。先完成可复现的公开模型评估。
 
-局部硬件验证到此收尾。系统 infra 已通过[验收](../reports/READ_WORKLOAD_INFRA_REPORT.md)，
-之后接有来源的真实逻辑读任务，同时把实测局部成本
-对应到完整 design 和路径，说明：
+## 代码放置和交付
 
-- 哪些收益来自静态伙伴/数据比例，哪些来自少复制一套 Shared TX；
-- 完整路径中的 TX、RX、长线与 HB 分别计几份，避免重复计算三个 RX；
-- 加入共同 RX 和长线后，sharing 相比 private/k2/direct 的收益占比还剩多少。
+- 不可变参数与身份：`domain`；DRAM 后端实现：后续新增 `service/dram`。
+- 绑定与布局选择：`synthesis`；endpoint 执行：`endpoints`。
+- 参数注册与 CPU 作业：`experiments`；独立证书：`validation`。
+- 结果统计：`analysis`；图形：`visualization`；不新增根目录研究脚本。
+- 每次新增实现先有最小构造及反例验证，再扩大实验；保留版本、输入与合同身份。
+- 本地开发 → 唯一 main 推送 → 服务器拉取实验。原始 trace 与大中间文件留服务器。
 
-已有固定 H/plus 的服务结果继续作为机制证据。不因安装好 EDA 工具而自动开展
-Shared RX 微优化、dual-leaf、32-bank RTL、clock/load sweep、formal、placement 或新 DSE。
-只有新的真实瓶颈证据或用户的新任务才扩展这些方向。
-
-## 证据边界与入口
-
-本轮是独立小块的局部标准单元面积和单角时序；不代表跨 HB 端到端 timing、
-wafer 长线、MCMM、功耗或真实 DRAM 工艺。保留 576 physical data lanes；
-不能把 logic area 减少写成长线/HB 减少，也不把 2 ns 直接换成机制模型 TB/s。
-
-最终 runner 源码 `6ecba5c`；source 的物理结果复用 `9cae62d`，特化 Home RX 复用
-`5c7fcc0`，均核对 RTL/SDC/库/工具与 manifest 哈希链。所有原始版本保留。
-
-服务器：`hn072@143.89.78.72`，根目录
-`/Projects/haoning/w2w-memory-slice-20261007`。
-主结果 `physical_6ecba5c`；通用 Home 对照 `physical_home_generic_6ecba5c`，
-对照网表回放 `generic_home_replay_6ecba5c`。全部退出码 0。
-
-[结果 JSON](../../artifacts/results/endpoint/endpoint_physical_slice.json.gz)、
-[完整物理证据](../../artifacts/provenance/endpoint_physical_slice_evidence.tar.gz)、
-[方法](../methods/ENDPOINT_ASIC_SLICE.md)包含源码、库、工具、输入、SPEF、ODB、网表、日志和 SHA。
-旧 `5d5a958` 的未修复映射结果、`61ba73f` 的零线 RC ECO 仍为历史证据，不替代当前结果。
+本轮文档整理没有安装 DRAM 模拟器、创建上述新包或完成新 RTL/signoff。
