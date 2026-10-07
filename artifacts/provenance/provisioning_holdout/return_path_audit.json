@@ -1,0 +1,2231 @@
+{
+  "verified": true,
+  "audit_provenance": {
+    "commit": "0fdb4b731116cac7e6ede32bc055097b951cbbee",
+    "git_status": "",
+    "host": "eex005",
+    "python": "3.13.13",
+    "packages": {
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "shapely": "2.1.2",
+      "pymetis": "2025.2.2",
+      "networkx": "3.7",
+      "matplotlib": "3.11.2"
+    }
+  },
+  "source_commit": "34932c61c7b9a129e538ef5d37890bf072c0e6fb",
+  "diagnostic_replays": 32,
+  "diagnostic_delivered_words": 399333696,
+  "total_new_replays": 166,
+  "total_delivered_words": 3006327648,
+  "preceding_audit": {
+    "verified": true,
+    "source_commit": "5c425e55f07d8f863d8f5e5c8bf21c9785432a89",
+    "extension_replays": 47,
+    "real_replays": 33,
+    "implementation_ablations": 7,
+    "extension_delivered_words": 940924320,
+    "primary_audit": {
+      "verified": true,
+      "source_commit": "5c425e55f07d8f863d8f5e5c8bf21c9785432a89",
+      "replay_count": 87,
+      "delivered_words": 1666069632,
+      "raw_inputs_recompiled": false,
+      "training_requests": 64,
+      "disjoint_test_requests": 48,
+      "cases": 9,
+      "scope": "Frozen routing/owners and complete modeled read stages; no inference or global dynamic sharing claim"
+    },
+    "combined_real_replays": 120,
+    "scope": "Paired extension on the same held-out requests; same static pair reference, not full dynamic pooling"
+  },
+  "profiles": [
+    {
+      "width_bits": 128,
+      "source_depth": 1,
+      "rx_depth": 2,
+      "link_latency": 1,
+      "warmup_slots": 2,
+      "period_slots": 2,
+      "delivered_words_per_period": 1,
+      "words_per_slot": "1/2",
+      "periodic_states": [
+        [
+          [],
+          [
+            1
+          ]
+        ],
+        [
+          [
+            [
+              128,
+              true
+            ]
+          ],
+          [
+            0,
+            null
+          ]
+        ]
+      ],
+      "scope": "Exact isolated always-ready return contract; finite shared tasks require replay",
+      "full_packing_requirement": {
+        "packing_words": 1,
+        "beat_spans": [
+          2
+        ],
+        "mean_beat_span": "2",
+        "full_width_rate": "1/2",
+        "necessary_mean_rx_occupancy": "3/2",
+        "minimum_integer_rx": 2
+      }
+    },
+    {
+      "width_bits": 128,
+      "source_depth": 1,
+      "rx_depth": 3,
+      "link_latency": 1,
+      "warmup_slots": 2,
+      "period_slots": 2,
+      "delivered_words_per_period": 1,
+      "words_per_slot": "1/2",
+      "periodic_states": [
+        [
+          [],
+          [
+            1
+          ]
+        ],
+        [
+          [
+            [
+              128,
+              true
+            ]
+          ],
+          [
+            0,
+            null
+          ]
+        ]
+      ],
+      "scope": "Exact isolated always-ready return contract; finite shared tasks require replay",
+      "full_packing_requirement": {
+        "packing_words": 1,
+        "beat_spans": [
+          2
+        ],
+        "mean_beat_span": "2",
+        "full_width_rate": "1/2",
+        "necessary_mean_rx_occupancy": "3/2",
+        "minimum_integer_rx": 2
+      }
+    },
+    {
+      "width_bits": 160,
+      "source_depth": 2,
+      "rx_depth": 2,
+      "link_latency": 1,
+      "warmup_slots": 2,
+      "period_slots": 5,
+      "delivered_words_per_period": 3,
+      "words_per_slot": "3/5",
+      "periodic_states": [
+        [
+          [
+            [
+              192,
+              true
+            ]
+          ],
+          [
+            1,
+            null
+          ]
+        ],
+        [
+          [
+            [
+              32,
+              true
+            ],
+            [
+              256,
+              false
+            ]
+          ],
+          [
+            0,
+            null
+          ]
+        ],
+        [
+          [
+            [
+              128,
+              true
+            ]
+          ],
+          [
+            1,
+            null
+          ]
+        ],
+        [
+          [
+            [
+              256,
+              false
+            ]
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        [
+          [
+            [
+              96,
+              true
+            ],
+            [
+              256,
+              false
+            ]
+          ],
+          [
+            0,
+            null
+          ]
+        ]
+      ],
+      "scope": "Exact isolated always-ready return contract; finite shared tasks require replay",
+      "full_packing_requirement": {
+        "packing_words": 5,
+        "beat_spans": [
+          2,
+          3,
+          2,
+          3,
+          2
+        ],
+        "mean_beat_span": "12/5",
+        "full_width_rate": "5/8",
+        "necessary_mean_rx_occupancy": "17/8",
+        "minimum_integer_rx": 3
+      }
+    },
+    {
+      "width_bits": 160,
+      "source_depth": 2,
+      "rx_depth": 3,
+      "link_latency": 1,
+      "warmup_slots": 2,
+      "period_slots": 8,
+      "delivered_words_per_period": 5,
+      "words_per_slot": "5/8",
+      "periodic_states": [
+        [
+          [
+            [
+              192,
+              true
+            ]
+          ],
+          [
+            1,
+            null
+          ]
+        ],
+        [
+          [
+            [
+              32,
+              true
+            ],
+            [
+              256,
+              false
+            ]
+          ],
+          [
+            0,
+            null
+          ]
+        ],
+        [
+          [
+            [
+              128,
+              true
+            ]
+          ],
+          [
+            1,
+            null
+          ]
+        ],
+        [
+          [
+            [
+              224,
+              true
+            ]
+          ],
+          [
+            0,
+            1,
+            null
+          ]
+        ],
+        [
+          [
+            [
+              64,
+              true
+            ],
+            [
+              256,
+              false
+            ]
+          ],
+          [
+            0,
+            null
+          ]
+        ],
+        [
+          [
+            [
+              160,
+              true
+            ]
+          ],
+          [
+            1,
+            null
+          ]
+        ],
+        [
+          [
+            [
+              256,
+              false
+            ]
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        [
+          [
+            [
+              96,
+              true
+            ],
+            [
+              256,
+              false
+            ]
+          ],
+          [
+            0,
+            null
+          ]
+        ]
+      ],
+      "scope": "Exact isolated always-ready return contract; finite shared tasks require replay",
+      "full_packing_requirement": {
+        "packing_words": 5,
+        "beat_spans": [
+          2,
+          3,
+          2,
+          3,
+          2
+        ],
+        "mean_beat_span": "12/5",
+        "full_width_rate": "5/8",
+        "necessary_mean_rx_occupancy": "17/8",
+        "minimum_integer_rx": 3
+      }
+    },
+    {
+      "width_bits": 192,
+      "source_depth": 2,
+      "rx_depth": 2,
+      "link_latency": 1,
+      "warmup_slots": 2,
+      "period_slots": 3,
+      "delivered_words_per_period": 2,
+      "words_per_slot": "2/3",
+      "periodic_states": [
+        [
+          [
+            [
+              128,
+              true
+            ]
+          ],
+          [
+            1,
+            null
+          ]
+        ],
+        [
+          [
+            [
+              256,
+              false
+            ]
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        [
+          [
+            [
+              64,
+              true
+            ],
+            [
+              256,
+              false
+            ]
+          ],
+          [
+            0,
+            null
+          ]
+        ]
+      ],
+      "scope": "Exact isolated always-ready return contract; finite shared tasks require replay",
+      "full_packing_requirement": {
+        "packing_words": 3,
+        "beat_spans": [
+          2,
+          2,
+          2
+        ],
+        "mean_beat_span": "2",
+        "full_width_rate": "3/4",
+        "necessary_mean_rx_occupancy": "9/4",
+        "minimum_integer_rx": 3
+      }
+    },
+    {
+      "width_bits": 192,
+      "source_depth": 2,
+      "rx_depth": 3,
+      "link_latency": 1,
+      "warmup_slots": 2,
+      "period_slots": 4,
+      "delivered_words_per_period": 3,
+      "words_per_slot": "3/4",
+      "periodic_states": [
+        [
+          [
+            [
+              128,
+              true
+            ]
+          ],
+          [
+            1,
+            null
+          ]
+        ],
+        [
+          [
+            [
+              192,
+              true
+            ]
+          ],
+          [
+            0,
+            1,
+            null
+          ]
+        ],
+        [
+          [
+            [
+              256,
+              false
+            ]
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        [
+          [
+            [
+              64,
+              true
+            ],
+            [
+              256,
+              false
+            ]
+          ],
+          [
+            0,
+            null
+          ]
+        ]
+      ],
+      "scope": "Exact isolated always-ready return contract; finite shared tasks require replay",
+      "full_packing_requirement": {
+        "packing_words": 3,
+        "beat_spans": [
+          2,
+          2,
+          2
+        ],
+        "mean_beat_span": "2",
+        "full_width_rate": "3/4",
+        "necessary_mean_rx_occupancy": "9/4",
+        "minimum_integer_rx": 3
+      }
+    },
+    {
+      "width_bits": 224,
+      "source_depth": 2,
+      "rx_depth": 2,
+      "link_latency": 1,
+      "warmup_slots": 2,
+      "period_slots": 3,
+      "delivered_words_per_period": 2,
+      "words_per_slot": "2/3",
+      "periodic_states": [
+        [
+          [
+            [
+              64,
+              true
+            ]
+          ],
+          [
+            1,
+            null
+          ]
+        ],
+        [
+          [
+            [
+              256,
+              false
+            ]
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        [
+          [
+            [
+              32,
+              true
+            ],
+            [
+              256,
+              false
+            ]
+          ],
+          [
+            0,
+            null
+          ]
+        ]
+      ],
+      "scope": "Exact isolated always-ready return contract; finite shared tasks require replay",
+      "full_packing_requirement": {
+        "packing_words": 7,
+        "beat_spans": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "mean_beat_span": "2",
+        "full_width_rate": "7/8",
+        "necessary_mean_rx_occupancy": "21/8",
+        "minimum_integer_rx": 3
+      }
+    },
+    {
+      "width_bits": 224,
+      "source_depth": 2,
+      "rx_depth": 3,
+      "link_latency": 1,
+      "warmup_slots": 2,
+      "period_slots": 8,
+      "delivered_words_per_period": 7,
+      "words_per_slot": "7/8",
+      "periodic_states": [
+        [
+          [
+            [
+              64,
+              true
+            ]
+          ],
+          [
+            1,
+            null
+          ]
+        ],
+        [
+          [
+            [
+              96,
+              true
+            ]
+          ],
+          [
+            0,
+            1,
+            null
+          ]
+        ],
+        [
+          [
+            [
+              128,
+              true
+            ]
+          ],
+          [
+            0,
+            1,
+            null
+          ]
+        ],
+        [
+          [
+            [
+              160,
+              true
+            ]
+          ],
+          [
+            0,
+            1,
+            null
+          ]
+        ],
+        [
+          [
+            [
+              192,
+              true
+            ]
+          ],
+          [
+            0,
+            1,
+            null
+          ]
+        ],
+        [
+          [
+            [
+              224,
+              true
+            ]
+          ],
+          [
+            0,
+            1,
+            null
+          ]
+        ],
+        [
+          [
+            [
+              256,
+              false
+            ]
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        [
+          [
+            [
+              32,
+              true
+            ],
+            [
+              256,
+              false
+            ]
+          ],
+          [
+            0,
+            null
+          ]
+        ]
+      ],
+      "scope": "Exact isolated always-ready return contract; finite shared tasks require replay",
+      "full_packing_requirement": {
+        "packing_words": 7,
+        "beat_spans": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "mean_beat_span": "2",
+        "full_width_rate": "7/8",
+        "necessary_mean_rx_occupancy": "21/8",
+        "minimum_integer_rx": 3
+      }
+    },
+    {
+      "width_bits": 256,
+      "source_depth": 1,
+      "rx_depth": 2,
+      "link_latency": 1,
+      "warmup_slots": 2,
+      "period_slots": 1,
+      "delivered_words_per_period": 1,
+      "words_per_slot": "1",
+      "periodic_states": [
+        [
+          [],
+          [
+            0,
+            1
+          ]
+        ]
+      ],
+      "scope": "Exact isolated always-ready return contract; finite shared tasks require replay",
+      "full_packing_requirement": {
+        "packing_words": 1,
+        "beat_spans": [
+          1
+        ],
+        "mean_beat_span": "1",
+        "full_width_rate": "1",
+        "necessary_mean_rx_occupancy": "2",
+        "minimum_integer_rx": 2
+      }
+    },
+    {
+      "width_bits": 256,
+      "source_depth": 1,
+      "rx_depth": 3,
+      "link_latency": 1,
+      "warmup_slots": 2,
+      "period_slots": 1,
+      "delivered_words_per_period": 1,
+      "words_per_slot": "1",
+      "periodic_states": [
+        [
+          [],
+          [
+            0,
+            1
+          ]
+        ]
+      ],
+      "scope": "Exact isolated always-ready return contract; finite shared tasks require replay",
+      "full_packing_requirement": {
+        "packing_words": 1,
+        "beat_spans": [
+          1
+        ],
+        "mean_beat_span": "1",
+        "full_width_rate": "1",
+        "necessary_mean_rx_occupancy": "2",
+        "minimum_integer_rx": 2
+      }
+    }
+  ],
+  "metrics": [
+    {
+      "case": "h0_b1",
+      "label": "a_n128",
+      "makespan_slots": 33190,
+      "speedup_over_home": 1.1111178065682434,
+      "retained_wide_gain": 0.3334739771600501,
+      "rx_payload_bits_per_memory": 49152,
+      "tx_plus_rx_payload_proxy_bits": 65536,
+      "export_lane_bits": 16384,
+      "endpoint_storage_bits": 16384,
+      "access_wire_bit_mm": 297497.59999999986,
+      "pipeline_register_bits": 155904,
+      "fixed_sequence_control_bits": 576,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h0_b1",
+      "label": "b_cfg",
+      "makespan_slots": 30260,
+      "speedup_over_home": 1.2187045604758757,
+      "retained_wide_gain": 0.6563509653166109,
+      "rx_payload_bits_per_memory": 49152,
+      "tx_plus_rx_payload_proxy_bits": 73728,
+      "export_lane_bits": 18432,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 341664.0,
+      "pipeline_register_bits": 179008,
+      "fixed_sequence_control_bits": 1376,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h0_b1",
+      "label": "home",
+      "makespan_slots": 36878,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": 0.0,
+      "rx_payload_bits_per_memory": 16384,
+      "tx_plus_rx_payload_proxy_bits": 24576,
+      "export_lane_bits": 8192,
+      "endpoint_storage_bits": 8192,
+      "access_wire_bit_mm": 120832.0,
+      "pipeline_register_bits": 63488,
+      "fixed_sequence_control_bits": 96,
+      "bank_port_connections": 32
+    },
+    {
+      "case": "h0_b1",
+      "label": "k2",
+      "makespan_slots": 27659,
+      "speedup_over_home": 1.3333092302686287,
+      "retained_wide_gain": 1.000289315228441,
+      "rx_payload_bits_per_memory": 32768,
+      "tx_plus_rx_payload_proxy_bits": 40960,
+      "export_lane_bits": 16384,
+      "endpoint_storage_bits": 8192,
+      "access_wire_bit_mm": 241561.59999999986,
+      "pipeline_register_bits": 126976,
+      "fixed_sequence_control_bits": 224,
+      "bank_port_connections": 64
+    },
+    {
+      "case": "h0_b1",
+      "label": "wide",
+      "makespan_slots": 27661,
+      "speedup_over_home": 1.3332128267235457,
+      "retained_wide_gain": 1.0,
+      "rx_payload_bits_per_memory": 49152,
+      "tx_plus_rx_payload_proxy_bits": 57344,
+      "export_lane_bits": 24576,
+      "endpoint_storage_bits": 8192,
+      "access_wire_bit_mm": 474163.1999999995,
+      "pipeline_register_bits": 248320,
+      "fixed_sequence_control_bits": 224,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h0_b1",
+      "label": "c_n192",
+      "makespan_slots": 30294,
+      "speedup_over_home": 1.2173367663563741,
+      "retained_wide_gain": 0.6522460989675235,
+      "rx_payload_bits_per_memory": 49152,
+      "tx_plus_rx_payload_proxy_bits": 73728,
+      "export_lane_bits": 20480,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 385830.3999999998,
+      "pipeline_register_bits": 202112,
+      "fixed_sequence_control_bits": 768,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h0_b1",
+      "label": "b_cfg_rx3",
+      "makespan_slots": 29787,
+      "speedup_over_home": 1.2380568704468393,
+      "retained_wide_gain": 0.7144288915514833,
+      "rx_payload_bits_per_memory": 73728,
+      "tx_plus_rx_payload_proxy_bits": 98304,
+      "export_lane_bits": 18432,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 341664.0,
+      "pipeline_register_bits": 179008,
+      "fixed_sequence_control_bits": 1376,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h0_b1",
+      "label": "c_n192_rx3",
+      "makespan_slots": 28977,
+      "speedup_over_home": 1.2726645270386858,
+      "retained_wide_gain": 0.8182894089635554,
+      "rx_payload_bits_per_memory": 73728,
+      "tx_plus_rx_payload_proxy_bits": 98304,
+      "export_lane_bits": 20480,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 385830.3999999998,
+      "pipeline_register_bits": 202112,
+      "fixed_sequence_control_bits": 768,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h0_b4",
+      "label": "b_cfg",
+      "makespan_slots": 48699,
+      "speedup_over_home": 1.1358960142918746,
+      "retained_wide_gain": 0.6796127536169584,
+      "rx_payload_bits_per_memory": 49152,
+      "tx_plus_rx_payload_proxy_bits": 73728,
+      "export_lane_bits": 18432,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 341664.0,
+      "pipeline_register_bits": 179008,
+      "fixed_sequence_control_bits": 1376,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h0_b4",
+      "label": "c_n192",
+      "makespan_slots": 48734,
+      "speedup_over_home": 1.135080231460582,
+      "retained_wide_gain": 0.6755330429704237,
+      "rx_payload_bits_per_memory": 49152,
+      "tx_plus_rx_payload_proxy_bits": 73728,
+      "export_lane_bits": 20480,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 385830.3999999998,
+      "pipeline_register_bits": 202112,
+      "fixed_sequence_control_bits": 768,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h0_b4",
+      "label": "home",
+      "makespan_slots": 55317,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": 0.0,
+      "rx_payload_bits_per_memory": 16384,
+      "tx_plus_rx_payload_proxy_bits": 24576,
+      "export_lane_bits": 8192,
+      "endpoint_storage_bits": 8192,
+      "access_wire_bit_mm": 120832.0,
+      "pipeline_register_bits": 63488,
+      "fixed_sequence_control_bits": 96,
+      "bank_port_connections": 32
+    },
+    {
+      "case": "h0_b4",
+      "label": "k2",
+      "makespan_slots": 55317,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": 0.0,
+      "rx_payload_bits_per_memory": 32768,
+      "tx_plus_rx_payload_proxy_bits": 40960,
+      "export_lane_bits": 16384,
+      "endpoint_storage_bits": 8192,
+      "access_wire_bit_mm": 241561.59999999986,
+      "pipeline_register_bits": 126976,
+      "fixed_sequence_control_bits": 224,
+      "bank_port_connections": 64
+    },
+    {
+      "case": "h0_b4",
+      "label": "wide",
+      "makespan_slots": 46099,
+      "speedup_over_home": 1.1999609535998612,
+      "retained_wide_gain": 1.0,
+      "rx_payload_bits_per_memory": 49152,
+      "tx_plus_rx_payload_proxy_bits": 57344,
+      "export_lane_bits": 24576,
+      "endpoint_storage_bits": 8192,
+      "access_wire_bit_mm": 474163.1999999995,
+      "pipeline_register_bits": 248320,
+      "fixed_sequence_control_bits": 224,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h0_b4",
+      "label": "b_cfg_rx3",
+      "makespan_slots": 48226,
+      "speedup_over_home": 1.1470368680794591,
+      "retained_wide_gain": 0.7353278999343661,
+      "rx_payload_bits_per_memory": 73728,
+      "tx_plus_rx_payload_proxy_bits": 98304,
+      "export_lane_bits": 18432,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 341664.0,
+      "pipeline_register_bits": 179008,
+      "fixed_sequence_control_bits": 1376,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h0_b4",
+      "label": "c_n192_rx3",
+      "makespan_slots": 47417,
+      "speedup_over_home": 1.1666069131324208,
+      "retained_wide_gain": 0.8331972324247635,
+      "rx_payload_bits_per_memory": 73728,
+      "tx_plus_rx_payload_proxy_bits": 98304,
+      "export_lane_bits": 20480,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 385830.3999999998,
+      "pipeline_register_bits": 202112,
+      "fixed_sequence_control_bits": 768,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h0_b16",
+      "label": "b_cfg",
+      "makespan_slots": 55317,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "rx_payload_bits_per_memory": 49152,
+      "tx_plus_rx_payload_proxy_bits": 73728,
+      "export_lane_bits": 18432,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 341664.0,
+      "pipeline_register_bits": 179008,
+      "fixed_sequence_control_bits": 1376,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h0_b16",
+      "label": "c_n192",
+      "makespan_slots": 55319,
+      "speedup_over_home": 0.9999638460565086,
+      "retained_wide_gain": null,
+      "rx_payload_bits_per_memory": 49152,
+      "tx_plus_rx_payload_proxy_bits": 73728,
+      "export_lane_bits": 20480,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 385830.3999999998,
+      "pipeline_register_bits": 202112,
+      "fixed_sequence_control_bits": 768,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h0_b16",
+      "label": "home",
+      "makespan_slots": 55317,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "rx_payload_bits_per_memory": 16384,
+      "tx_plus_rx_payload_proxy_bits": 24576,
+      "export_lane_bits": 8192,
+      "endpoint_storage_bits": 8192,
+      "access_wire_bit_mm": 120832.0,
+      "pipeline_register_bits": 63488,
+      "fixed_sequence_control_bits": 96,
+      "bank_port_connections": 32
+    },
+    {
+      "case": "h0_b16",
+      "label": "k2",
+      "makespan_slots": 55317,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "rx_payload_bits_per_memory": 32768,
+      "tx_plus_rx_payload_proxy_bits": 40960,
+      "export_lane_bits": 16384,
+      "endpoint_storage_bits": 8192,
+      "access_wire_bit_mm": 241561.59999999986,
+      "pipeline_register_bits": 126976,
+      "fixed_sequence_control_bits": 224,
+      "bank_port_connections": 64
+    },
+    {
+      "case": "h0_b16",
+      "label": "wide",
+      "makespan_slots": 55318,
+      "speedup_over_home": 0.9999819227014715,
+      "retained_wide_gain": null,
+      "rx_payload_bits_per_memory": 49152,
+      "tx_plus_rx_payload_proxy_bits": 57344,
+      "export_lane_bits": 24576,
+      "endpoint_storage_bits": 8192,
+      "access_wire_bit_mm": 474163.1999999995,
+      "pipeline_register_bits": 248320,
+      "fixed_sequence_control_bits": 224,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h0_b16",
+      "label": "b_cfg_rx3",
+      "makespan_slots": 55317,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "rx_payload_bits_per_memory": 73728,
+      "tx_plus_rx_payload_proxy_bits": 98304,
+      "export_lane_bits": 18432,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 341664.0,
+      "pipeline_register_bits": 179008,
+      "fixed_sequence_control_bits": 1376,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h0_b16",
+      "label": "c_n192_rx3",
+      "makespan_slots": 55319,
+      "speedup_over_home": 0.9999638460565086,
+      "retained_wide_gain": null,
+      "rx_payload_bits_per_memory": 73728,
+      "tx_plus_rx_payload_proxy_bits": 98304,
+      "export_lane_bits": 20480,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 385830.3999999998,
+      "pipeline_register_bits": 202112,
+      "fixed_sequence_control_bits": 768,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h1_b1",
+      "label": "a_n128",
+      "makespan_slots": 18439,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "rx_payload_bits_per_memory": 49152,
+      "tx_plus_rx_payload_proxy_bits": 65536,
+      "export_lane_bits": 16384,
+      "endpoint_storage_bits": 16384,
+      "access_wire_bit_mm": 297497.59999999986,
+      "pipeline_register_bits": 155904,
+      "fixed_sequence_control_bits": 576,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h1_b1",
+      "label": "b_cfg",
+      "makespan_slots": 18439,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "rx_payload_bits_per_memory": 49152,
+      "tx_plus_rx_payload_proxy_bits": 73728,
+      "export_lane_bits": 18432,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 341664.0,
+      "pipeline_register_bits": 179008,
+      "fixed_sequence_control_bits": 1376,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h1_b1",
+      "label": "home",
+      "makespan_slots": 18439,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "rx_payload_bits_per_memory": 16384,
+      "tx_plus_rx_payload_proxy_bits": 24576,
+      "export_lane_bits": 8192,
+      "endpoint_storage_bits": 8192,
+      "access_wire_bit_mm": 120832.0,
+      "pipeline_register_bits": 63488,
+      "fixed_sequence_control_bits": 96,
+      "bank_port_connections": 32
+    },
+    {
+      "case": "h1_b1",
+      "label": "k2",
+      "makespan_slots": 18439,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "rx_payload_bits_per_memory": 32768,
+      "tx_plus_rx_payload_proxy_bits": 40960,
+      "export_lane_bits": 16384,
+      "endpoint_storage_bits": 8192,
+      "access_wire_bit_mm": 241561.59999999986,
+      "pipeline_register_bits": 126976,
+      "fixed_sequence_control_bits": 224,
+      "bank_port_connections": 64
+    },
+    {
+      "case": "h1_b1",
+      "label": "wide",
+      "makespan_slots": 18440,
+      "speedup_over_home": 0.9999457700650759,
+      "retained_wide_gain": null,
+      "rx_payload_bits_per_memory": 49152,
+      "tx_plus_rx_payload_proxy_bits": 57344,
+      "export_lane_bits": 24576,
+      "endpoint_storage_bits": 8192,
+      "access_wire_bit_mm": 474163.1999999995,
+      "pipeline_register_bits": 248320,
+      "fixed_sequence_control_bits": 224,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h1_b1",
+      "label": "c_n192",
+      "makespan_slots": 18439,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "rx_payload_bits_per_memory": 49152,
+      "tx_plus_rx_payload_proxy_bits": 73728,
+      "export_lane_bits": 20480,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 385830.3999999998,
+      "pipeline_register_bits": 202112,
+      "fixed_sequence_control_bits": 768,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h1_b1",
+      "label": "b_cfg_rx3",
+      "makespan_slots": 18439,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "rx_payload_bits_per_memory": 73728,
+      "tx_plus_rx_payload_proxy_bits": 98304,
+      "export_lane_bits": 18432,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 341664.0,
+      "pipeline_register_bits": 179008,
+      "fixed_sequence_control_bits": 1376,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h1_b1",
+      "label": "c_n192_rx3",
+      "makespan_slots": 18439,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "rx_payload_bits_per_memory": 73728,
+      "tx_plus_rx_payload_proxy_bits": 98304,
+      "export_lane_bits": 20480,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 385830.3999999998,
+      "pipeline_register_bits": 202112,
+      "fixed_sequence_control_bits": 768,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h1_b4",
+      "label": "b_cfg",
+      "makespan_slots": 30260,
+      "speedup_over_home": 1.2187045604758757,
+      "retained_wide_gain": 0.6563509653166109,
+      "rx_payload_bits_per_memory": 49152,
+      "tx_plus_rx_payload_proxy_bits": 73728,
+      "export_lane_bits": 18432,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 341664.0,
+      "pipeline_register_bits": 179008,
+      "fixed_sequence_control_bits": 1376,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h1_b4",
+      "label": "c_n192",
+      "makespan_slots": 30294,
+      "speedup_over_home": 1.2173367663563741,
+      "retained_wide_gain": 0.6522460989675235,
+      "rx_payload_bits_per_memory": 49152,
+      "tx_plus_rx_payload_proxy_bits": 73728,
+      "export_lane_bits": 20480,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 385830.3999999998,
+      "pipeline_register_bits": 202112,
+      "fixed_sequence_control_bits": 768,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h1_b4",
+      "label": "home",
+      "makespan_slots": 36878,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": 0.0,
+      "rx_payload_bits_per_memory": 16384,
+      "tx_plus_rx_payload_proxy_bits": 24576,
+      "export_lane_bits": 8192,
+      "endpoint_storage_bits": 8192,
+      "access_wire_bit_mm": 120832.0,
+      "pipeline_register_bits": 63488,
+      "fixed_sequence_control_bits": 96,
+      "bank_port_connections": 32
+    },
+    {
+      "case": "h1_b4",
+      "label": "k2",
+      "makespan_slots": 36878,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": 0.0,
+      "rx_payload_bits_per_memory": 32768,
+      "tx_plus_rx_payload_proxy_bits": 40960,
+      "export_lane_bits": 16384,
+      "endpoint_storage_bits": 8192,
+      "access_wire_bit_mm": 241561.59999999986,
+      "pipeline_register_bits": 126976,
+      "fixed_sequence_control_bits": 224,
+      "bank_port_connections": 64
+    },
+    {
+      "case": "h1_b4",
+      "label": "wide",
+      "makespan_slots": 27661,
+      "speedup_over_home": 1.3332128267235457,
+      "retained_wide_gain": 1.0,
+      "rx_payload_bits_per_memory": 49152,
+      "tx_plus_rx_payload_proxy_bits": 57344,
+      "export_lane_bits": 24576,
+      "endpoint_storage_bits": 8192,
+      "access_wire_bit_mm": 474163.1999999995,
+      "pipeline_register_bits": 248320,
+      "fixed_sequence_control_bits": 224,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h1_b4",
+      "label": "b_cfg_rx3",
+      "makespan_slots": 29787,
+      "speedup_over_home": 1.2380568704468393,
+      "retained_wide_gain": 0.7144288915514833,
+      "rx_payload_bits_per_memory": 73728,
+      "tx_plus_rx_payload_proxy_bits": 98304,
+      "export_lane_bits": 18432,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 341664.0,
+      "pipeline_register_bits": 179008,
+      "fixed_sequence_control_bits": 1376,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h1_b4",
+      "label": "c_n192_rx3",
+      "makespan_slots": 28977,
+      "speedup_over_home": 1.2726645270386858,
+      "retained_wide_gain": 0.8182894089635554,
+      "rx_payload_bits_per_memory": 73728,
+      "tx_plus_rx_payload_proxy_bits": 98304,
+      "export_lane_bits": 20480,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 385830.3999999998,
+      "pipeline_register_bits": 202112,
+      "fixed_sequence_control_bits": 768,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h1_b16",
+      "label": "b_cfg",
+      "makespan_slots": 55317,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "rx_payload_bits_per_memory": 49152,
+      "tx_plus_rx_payload_proxy_bits": 73728,
+      "export_lane_bits": 18432,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 341664.0,
+      "pipeline_register_bits": 179008,
+      "fixed_sequence_control_bits": 1376,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h1_b16",
+      "label": "c_n192",
+      "makespan_slots": 55319,
+      "speedup_over_home": 0.9999638460565086,
+      "retained_wide_gain": null,
+      "rx_payload_bits_per_memory": 49152,
+      "tx_plus_rx_payload_proxy_bits": 73728,
+      "export_lane_bits": 20480,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 385830.3999999998,
+      "pipeline_register_bits": 202112,
+      "fixed_sequence_control_bits": 768,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h1_b16",
+      "label": "home",
+      "makespan_slots": 55317,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "rx_payload_bits_per_memory": 16384,
+      "tx_plus_rx_payload_proxy_bits": 24576,
+      "export_lane_bits": 8192,
+      "endpoint_storage_bits": 8192,
+      "access_wire_bit_mm": 120832.0,
+      "pipeline_register_bits": 63488,
+      "fixed_sequence_control_bits": 96,
+      "bank_port_connections": 32
+    },
+    {
+      "case": "h1_b16",
+      "label": "k2",
+      "makespan_slots": 55317,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "rx_payload_bits_per_memory": 32768,
+      "tx_plus_rx_payload_proxy_bits": 40960,
+      "export_lane_bits": 16384,
+      "endpoint_storage_bits": 8192,
+      "access_wire_bit_mm": 241561.59999999986,
+      "pipeline_register_bits": 126976,
+      "fixed_sequence_control_bits": 224,
+      "bank_port_connections": 64
+    },
+    {
+      "case": "h1_b16",
+      "label": "wide",
+      "makespan_slots": 55318,
+      "speedup_over_home": 0.9999819227014715,
+      "retained_wide_gain": null,
+      "rx_payload_bits_per_memory": 49152,
+      "tx_plus_rx_payload_proxy_bits": 57344,
+      "export_lane_bits": 24576,
+      "endpoint_storage_bits": 8192,
+      "access_wire_bit_mm": 474163.1999999995,
+      "pipeline_register_bits": 248320,
+      "fixed_sequence_control_bits": 224,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h1_b16",
+      "label": "b_cfg_rx3",
+      "makespan_slots": 55317,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "rx_payload_bits_per_memory": 73728,
+      "tx_plus_rx_payload_proxy_bits": 98304,
+      "export_lane_bits": 18432,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 341664.0,
+      "pipeline_register_bits": 179008,
+      "fixed_sequence_control_bits": 1376,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h1_b16",
+      "label": "c_n192_rx3",
+      "makespan_slots": 55319,
+      "speedup_over_home": 0.9999638460565086,
+      "retained_wide_gain": null,
+      "rx_payload_bits_per_memory": 73728,
+      "tx_plus_rx_payload_proxy_bits": 98304,
+      "export_lane_bits": 20480,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 385830.3999999998,
+      "pipeline_register_bits": 202112,
+      "fixed_sequence_control_bits": 768,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h2_b1",
+      "label": "a_n128",
+      "makespan_slots": 18439,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "rx_payload_bits_per_memory": 49152,
+      "tx_plus_rx_payload_proxy_bits": 65536,
+      "export_lane_bits": 16384,
+      "endpoint_storage_bits": 16384,
+      "access_wire_bit_mm": 297497.59999999986,
+      "pipeline_register_bits": 155904,
+      "fixed_sequence_control_bits": 576,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h2_b1",
+      "label": "b_cfg",
+      "makespan_slots": 18439,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "rx_payload_bits_per_memory": 49152,
+      "tx_plus_rx_payload_proxy_bits": 73728,
+      "export_lane_bits": 18432,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 341664.0,
+      "pipeline_register_bits": 179008,
+      "fixed_sequence_control_bits": 1376,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h2_b1",
+      "label": "home",
+      "makespan_slots": 18439,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "rx_payload_bits_per_memory": 16384,
+      "tx_plus_rx_payload_proxy_bits": 24576,
+      "export_lane_bits": 8192,
+      "endpoint_storage_bits": 8192,
+      "access_wire_bit_mm": 120832.0,
+      "pipeline_register_bits": 63488,
+      "fixed_sequence_control_bits": 96,
+      "bank_port_connections": 32
+    },
+    {
+      "case": "h2_b1",
+      "label": "k2",
+      "makespan_slots": 18439,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "rx_payload_bits_per_memory": 32768,
+      "tx_plus_rx_payload_proxy_bits": 40960,
+      "export_lane_bits": 16384,
+      "endpoint_storage_bits": 8192,
+      "access_wire_bit_mm": 241561.59999999986,
+      "pipeline_register_bits": 126976,
+      "fixed_sequence_control_bits": 224,
+      "bank_port_connections": 64
+    },
+    {
+      "case": "h2_b1",
+      "label": "wide",
+      "makespan_slots": 18440,
+      "speedup_over_home": 0.9999457700650759,
+      "retained_wide_gain": null,
+      "rx_payload_bits_per_memory": 49152,
+      "tx_plus_rx_payload_proxy_bits": 57344,
+      "export_lane_bits": 24576,
+      "endpoint_storage_bits": 8192,
+      "access_wire_bit_mm": 474163.1999999995,
+      "pipeline_register_bits": 248320,
+      "fixed_sequence_control_bits": 224,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h2_b1",
+      "label": "c_n192",
+      "makespan_slots": 18439,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "rx_payload_bits_per_memory": 49152,
+      "tx_plus_rx_payload_proxy_bits": 73728,
+      "export_lane_bits": 20480,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 385830.3999999998,
+      "pipeline_register_bits": 202112,
+      "fixed_sequence_control_bits": 768,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h2_b1",
+      "label": "b_cfg_rx3",
+      "makespan_slots": 18439,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "rx_payload_bits_per_memory": 73728,
+      "tx_plus_rx_payload_proxy_bits": 98304,
+      "export_lane_bits": 18432,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 341664.0,
+      "pipeline_register_bits": 179008,
+      "fixed_sequence_control_bits": 1376,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h2_b1",
+      "label": "c_n192_rx3",
+      "makespan_slots": 18439,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "rx_payload_bits_per_memory": 73728,
+      "tx_plus_rx_payload_proxy_bits": 98304,
+      "export_lane_bits": 20480,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 385830.3999999998,
+      "pipeline_register_bits": 202112,
+      "fixed_sequence_control_bits": 768,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h2_b4",
+      "label": "b_cfg",
+      "makespan_slots": 30260,
+      "speedup_over_home": 1.2187045604758757,
+      "retained_wide_gain": 0.6563509653166109,
+      "rx_payload_bits_per_memory": 49152,
+      "tx_plus_rx_payload_proxy_bits": 73728,
+      "export_lane_bits": 18432,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 341664.0,
+      "pipeline_register_bits": 179008,
+      "fixed_sequence_control_bits": 1376,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h2_b4",
+      "label": "c_n192",
+      "makespan_slots": 30294,
+      "speedup_over_home": 1.2173367663563741,
+      "retained_wide_gain": 0.6522460989675235,
+      "rx_payload_bits_per_memory": 49152,
+      "tx_plus_rx_payload_proxy_bits": 73728,
+      "export_lane_bits": 20480,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 385830.3999999998,
+      "pipeline_register_bits": 202112,
+      "fixed_sequence_control_bits": 768,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h2_b4",
+      "label": "home",
+      "makespan_slots": 36878,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": 0.0,
+      "rx_payload_bits_per_memory": 16384,
+      "tx_plus_rx_payload_proxy_bits": 24576,
+      "export_lane_bits": 8192,
+      "endpoint_storage_bits": 8192,
+      "access_wire_bit_mm": 120832.0,
+      "pipeline_register_bits": 63488,
+      "fixed_sequence_control_bits": 96,
+      "bank_port_connections": 32
+    },
+    {
+      "case": "h2_b4",
+      "label": "k2",
+      "makespan_slots": 36878,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": 0.0,
+      "rx_payload_bits_per_memory": 32768,
+      "tx_plus_rx_payload_proxy_bits": 40960,
+      "export_lane_bits": 16384,
+      "endpoint_storage_bits": 8192,
+      "access_wire_bit_mm": 241561.59999999986,
+      "pipeline_register_bits": 126976,
+      "fixed_sequence_control_bits": 224,
+      "bank_port_connections": 64
+    },
+    {
+      "case": "h2_b4",
+      "label": "wide",
+      "makespan_slots": 27661,
+      "speedup_over_home": 1.3332128267235457,
+      "retained_wide_gain": 1.0,
+      "rx_payload_bits_per_memory": 49152,
+      "tx_plus_rx_payload_proxy_bits": 57344,
+      "export_lane_bits": 24576,
+      "endpoint_storage_bits": 8192,
+      "access_wire_bit_mm": 474163.1999999995,
+      "pipeline_register_bits": 248320,
+      "fixed_sequence_control_bits": 224,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h2_b4",
+      "label": "b_cfg_rx3",
+      "makespan_slots": 29787,
+      "speedup_over_home": 1.2380568704468393,
+      "retained_wide_gain": 0.7144288915514833,
+      "rx_payload_bits_per_memory": 73728,
+      "tx_plus_rx_payload_proxy_bits": 98304,
+      "export_lane_bits": 18432,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 341664.0,
+      "pipeline_register_bits": 179008,
+      "fixed_sequence_control_bits": 1376,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h2_b4",
+      "label": "c_n192_rx3",
+      "makespan_slots": 28977,
+      "speedup_over_home": 1.2726645270386858,
+      "retained_wide_gain": 0.8182894089635554,
+      "rx_payload_bits_per_memory": 73728,
+      "tx_plus_rx_payload_proxy_bits": 98304,
+      "export_lane_bits": 20480,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 385830.3999999998,
+      "pipeline_register_bits": 202112,
+      "fixed_sequence_control_bits": 768,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h2_b16",
+      "label": "b_cfg",
+      "makespan_slots": 60520,
+      "speedup_over_home": 1.2187045604758757,
+      "retained_wide_gain": 0.65630349824171,
+      "rx_payload_bits_per_memory": 49152,
+      "tx_plus_rx_payload_proxy_bits": 73728,
+      "export_lane_bits": 18432,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 341664.0,
+      "pipeline_register_bits": 179008,
+      "fixed_sequence_control_bits": 1376,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h2_b16",
+      "label": "c_n192",
+      "makespan_slots": 60589,
+      "speedup_over_home": 1.2173166746439124,
+      "retained_wide_gain": 0.6521386361798681,
+      "rx_payload_bits_per_memory": 49152,
+      "tx_plus_rx_payload_proxy_bits": 73728,
+      "export_lane_bits": 20480,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 385830.3999999998,
+      "pipeline_register_bits": 202112,
+      "fixed_sequence_control_bits": 768,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h2_b16",
+      "label": "home",
+      "makespan_slots": 73756,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": 0.0,
+      "rx_payload_bits_per_memory": 16384,
+      "tx_plus_rx_payload_proxy_bits": 24576,
+      "export_lane_bits": 8192,
+      "endpoint_storage_bits": 8192,
+      "access_wire_bit_mm": 120832.0,
+      "pipeline_register_bits": 63488,
+      "fixed_sequence_control_bits": 96,
+      "bank_port_connections": 32
+    },
+    {
+      "case": "h2_b16",
+      "label": "k2",
+      "makespan_slots": 73756,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": 0.0,
+      "rx_payload_bits_per_memory": 32768,
+      "tx_plus_rx_payload_proxy_bits": 40960,
+      "export_lane_bits": 16384,
+      "endpoint_storage_bits": 8192,
+      "access_wire_bit_mm": 241561.59999999986,
+      "pipeline_register_bits": 126976,
+      "fixed_sequence_control_bits": 224,
+      "bank_port_connections": 64
+    },
+    {
+      "case": "h2_b16",
+      "label": "wide",
+      "makespan_slots": 55321,
+      "speedup_over_home": 1.3332369263028507,
+      "retained_wide_gain": 1.0,
+      "rx_payload_bits_per_memory": 49152,
+      "tx_plus_rx_payload_proxy_bits": 57344,
+      "export_lane_bits": 24576,
+      "endpoint_storage_bits": 8192,
+      "access_wire_bit_mm": 474163.1999999995,
+      "pipeline_register_bits": 248320,
+      "fixed_sequence_control_bits": 224,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h2_b16",
+      "label": "b_cfg_rx3",
+      "makespan_slots": 59574,
+      "speedup_over_home": 1.2380568704468393,
+      "retained_wide_gain": 0.7143772243010355,
+      "rx_payload_bits_per_memory": 73728,
+      "tx_plus_rx_payload_proxy_bits": 98304,
+      "export_lane_bits": 18432,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 341664.0,
+      "pipeline_register_bits": 179008,
+      "fixed_sequence_control_bits": 1376,
+      "bank_port_connections": 96
+    },
+    {
+      "case": "h2_b16",
+      "label": "c_n192_rx3",
+      "makespan_slots": 57955,
+      "speedup_over_home": 1.2726425675092745,
+      "retained_wide_gain": 0.8181643329091709,
+      "rx_payload_bits_per_memory": 73728,
+      "tx_plus_rx_payload_proxy_bits": 98304,
+      "export_lane_bits": 20480,
+      "endpoint_storage_bits": 24576,
+      "access_wire_bit_mm": 385830.3999999998,
+      "pipeline_register_bits": 202112,
+      "fixed_sequence_control_bits": 768,
+      "bank_port_connections": 96
+    }
+  ],
+  "receiver_effects": [
+    {
+      "case": "h0_b1",
+      "label": "b_cfg",
+      "rx2_slots": 30260,
+      "rx3_slots": 29787,
+      "speedup_from_rx3": 1.0158794104810824
+    },
+    {
+      "case": "h0_b1",
+      "label": "c_n192",
+      "rx2_slots": 30294,
+      "rx3_slots": 28977,
+      "speedup_from_rx3": 1.0454498395279015
+    },
+    {
+      "case": "h0_b16",
+      "label": "b_cfg",
+      "rx2_slots": 55317,
+      "rx3_slots": 55317,
+      "speedup_from_rx3": 1.0
+    },
+    {
+      "case": "h0_b16",
+      "label": "c_n192",
+      "rx2_slots": 55319,
+      "rx3_slots": 55319,
+      "speedup_from_rx3": 1.0
+    },
+    {
+      "case": "h0_b4",
+      "label": "b_cfg",
+      "rx2_slots": 48699,
+      "rx3_slots": 48226,
+      "speedup_from_rx3": 1.0098079873926928
+    },
+    {
+      "case": "h0_b4",
+      "label": "c_n192",
+      "rx2_slots": 48734,
+      "rx3_slots": 47417,
+      "speedup_from_rx3": 1.0277748486829619
+    },
+    {
+      "case": "h1_b1",
+      "label": "b_cfg",
+      "rx2_slots": 18439,
+      "rx3_slots": 18439,
+      "speedup_from_rx3": 1.0
+    },
+    {
+      "case": "h1_b1",
+      "label": "c_n192",
+      "rx2_slots": 18439,
+      "rx3_slots": 18439,
+      "speedup_from_rx3": 1.0
+    },
+    {
+      "case": "h1_b16",
+      "label": "b_cfg",
+      "rx2_slots": 55317,
+      "rx3_slots": 55317,
+      "speedup_from_rx3": 1.0
+    },
+    {
+      "case": "h1_b16",
+      "label": "c_n192",
+      "rx2_slots": 55319,
+      "rx3_slots": 55319,
+      "speedup_from_rx3": 1.0
+    },
+    {
+      "case": "h1_b4",
+      "label": "b_cfg",
+      "rx2_slots": 30260,
+      "rx3_slots": 29787,
+      "speedup_from_rx3": 1.0158794104810824
+    },
+    {
+      "case": "h1_b4",
+      "label": "c_n192",
+      "rx2_slots": 30294,
+      "rx3_slots": 28977,
+      "speedup_from_rx3": 1.0454498395279015
+    },
+    {
+      "case": "h2_b1",
+      "label": "b_cfg",
+      "rx2_slots": 18439,
+      "rx3_slots": 18439,
+      "speedup_from_rx3": 1.0
+    },
+    {
+      "case": "h2_b1",
+      "label": "c_n192",
+      "rx2_slots": 18439,
+      "rx3_slots": 18439,
+      "speedup_from_rx3": 1.0
+    },
+    {
+      "case": "h2_b16",
+      "label": "b_cfg",
+      "rx2_slots": 60520,
+      "rx3_slots": 59574,
+      "speedup_from_rx3": 1.0158794104810824
+    },
+    {
+      "case": "h2_b16",
+      "label": "c_n192",
+      "rx2_slots": 60589,
+      "rx3_slots": 57955,
+      "speedup_from_rx3": 1.045449055301527
+    },
+    {
+      "case": "h2_b4",
+      "label": "b_cfg",
+      "rx2_slots": 30260,
+      "rx3_slots": 29787,
+      "speedup_from_rx3": 1.0158794104810824
+    },
+    {
+      "case": "h2_b4",
+      "label": "c_n192",
+      "rx2_slots": 30294,
+      "rx3_slots": 28977,
+      "speedup_from_rx3": 1.0454498395279015
+    },
+    {
+      "case": "synthetic_clustered9",
+      "label": "b_cfg",
+      "rx2_slots": 88,
+      "rx3_slots": 88,
+      "speedup_from_rx3": 1.0
+    },
+    {
+      "case": "synthetic_clustered9",
+      "label": "c_n192",
+      "rx2_slots": 88,
+      "rx3_slots": 88,
+      "speedup_from_rx3": 1.0
+    },
+    {
+      "case": "synthetic_dispersed9",
+      "label": "b_cfg",
+      "rx2_slots": 60,
+      "rx3_slots": 59,
+      "speedup_from_rx3": 1.0169491525423728
+    },
+    {
+      "case": "synthetic_dispersed9",
+      "label": "c_n192",
+      "rx2_slots": 60,
+      "rx3_slots": 55,
+      "speedup_from_rx3": 1.0909090909090908
+    },
+    {
+      "case": "synthetic_full36",
+      "label": "b_cfg",
+      "rx2_slots": 88,
+      "rx3_slots": 88,
+      "speedup_from_rx3": 1.0
+    },
+    {
+      "case": "synthetic_full36",
+      "label": "c_n192",
+      "rx2_slots": 88,
+      "rx3_slots": 88,
+      "speedup_from_rx3": 1.0
+    },
+    {
+      "case": "synthetic_moving9",
+      "label": "b_cfg",
+      "rx2_slots": 352,
+      "rx3_slots": 352,
+      "speedup_from_rx3": 1.0
+    },
+    {
+      "case": "synthetic_moving9",
+      "label": "c_n192",
+      "rx2_slots": 352,
+      "rx3_slots": 352,
+      "speedup_from_rx3": 1.0
+    },
+    {
+      "case": "synthetic_short9",
+      "label": "b_cfg",
+      "rx2_slots": 4,
+      "rx3_slots": 4,
+      "speedup_from_rx3": 1.0
+    },
+    {
+      "case": "synthetic_short9",
+      "label": "c_n192",
+      "rx2_slots": 4,
+      "rx3_slots": 4,
+      "speedup_from_rx3": 1.0
+    },
+    {
+      "case": "synthetic_single",
+      "label": "b_cfg",
+      "rx2_slots": 60,
+      "rx3_slots": 59,
+      "speedup_from_rx3": 1.0169491525423728
+    },
+    {
+      "case": "synthetic_single",
+      "label": "c_n192",
+      "rx2_slots": 60,
+      "rx3_slots": 55,
+      "speedup_from_rx3": 1.0909090909090908
+    },
+    {
+      "case": "synthetic_straggler9",
+      "label": "b_cfg",
+      "rx2_slots": 242,
+      "rx3_slots": 235,
+      "speedup_from_rx3": 1.0297872340425531
+    },
+    {
+      "case": "synthetic_straggler9",
+      "label": "c_n192",
+      "rx2_slots": 243,
+      "rx3_slots": 221,
+      "speedup_from_rx3": 1.0995475113122173
+    }
+  ],
+  "synthetic_metrics": [
+    {
+      "case": "synthetic_clustered9",
+      "label": "b_cfg",
+      "rx2_slots": 88,
+      "rx3_slots": 88,
+      "speedup_from_rx3": 1.0,
+      "home_slots": 88,
+      "wide_slots": 88,
+      "retained_wide_gain": null
+    },
+    {
+      "case": "synthetic_clustered9",
+      "label": "c_n192",
+      "rx2_slots": 88,
+      "rx3_slots": 88,
+      "speedup_from_rx3": 1.0,
+      "home_slots": 88,
+      "wide_slots": 88,
+      "retained_wide_gain": null
+    },
+    {
+      "case": "synthetic_dispersed9",
+      "label": "b_cfg",
+      "rx2_slots": 60,
+      "rx3_slots": 59,
+      "speedup_from_rx3": 1.0169491525423728,
+      "home_slots": 88,
+      "wide_slots": 49,
+      "retained_wide_gain": 0.6175575836592787
+    },
+    {
+      "case": "synthetic_dispersed9",
+      "label": "c_n192",
+      "rx2_slots": 60,
+      "rx3_slots": 55,
+      "speedup_from_rx3": 1.0909090909090908,
+      "home_slots": 88,
+      "wide_slots": 49,
+      "retained_wide_gain": 0.7538461538461538
+    },
+    {
+      "case": "synthetic_full36",
+      "label": "b_cfg",
+      "rx2_slots": 88,
+      "rx3_slots": 88,
+      "speedup_from_rx3": 1.0,
+      "home_slots": 88,
+      "wide_slots": 88,
+      "retained_wide_gain": null
+    },
+    {
+      "case": "synthetic_full36",
+      "label": "c_n192",
+      "rx2_slots": 88,
+      "rx3_slots": 88,
+      "speedup_from_rx3": 1.0,
+      "home_slots": 88,
+      "wide_slots": 88,
+      "retained_wide_gain": null
+    },
+    {
+      "case": "synthetic_moving9",
+      "label": "b_cfg",
+      "rx2_slots": 352,
+      "rx3_slots": 352,
+      "speedup_from_rx3": 1.0,
+      "home_slots": 352,
+      "wide_slots": 352,
+      "retained_wide_gain": null
+    },
+    {
+      "case": "synthetic_moving9",
+      "label": "c_n192",
+      "rx2_slots": 352,
+      "rx3_slots": 352,
+      "speedup_from_rx3": 1.0,
+      "home_slots": 352,
+      "wide_slots": 352,
+      "retained_wide_gain": null
+    },
+    {
+      "case": "synthetic_short9",
+      "label": "b_cfg",
+      "rx2_slots": 4,
+      "rx3_slots": 4,
+      "speedup_from_rx3": 1.0,
+      "home_slots": 4,
+      "wide_slots": 3,
+      "retained_wide_gain": 0.0
+    },
+    {
+      "case": "synthetic_short9",
+      "label": "c_n192",
+      "rx2_slots": 4,
+      "rx3_slots": 4,
+      "speedup_from_rx3": 1.0,
+      "home_slots": 4,
+      "wide_slots": 3,
+      "retained_wide_gain": 0.0
+    },
+    {
+      "case": "synthetic_single",
+      "label": "b_cfg",
+      "rx2_slots": 60,
+      "rx3_slots": 59,
+      "speedup_from_rx3": 1.0169491525423728,
+      "home_slots": 88,
+      "wide_slots": 49,
+      "retained_wide_gain": 0.6175575836592787
+    },
+    {
+      "case": "synthetic_single",
+      "label": "c_n192",
+      "rx2_slots": 60,
+      "rx3_slots": 55,
+      "speedup_from_rx3": 1.0909090909090908,
+      "home_slots": 88,
+      "wide_slots": 49,
+      "retained_wide_gain": 0.7538461538461538
+    },
+    {
+      "case": "synthetic_straggler9",
+      "label": "b_cfg",
+      "rx2_slots": 242,
+      "rx3_slots": 235,
+      "speedup_from_rx3": 1.0297872340425531,
+      "home_slots": 354,
+      "wide_slots": 198,
+      "retained_wide_gain": 0.6427168576104746
+    },
+    {
+      "case": "synthetic_straggler9",
+      "label": "c_n192",
+      "rx2_slots": 243,
+      "rx3_slots": 221,
+      "speedup_from_rx3": 1.0995475113122173,
+      "home_slots": 354,
+      "wide_slots": 198,
+      "retained_wide_gain": 0.7638357117995127
+    }
+  ],
+  "owner_controls": [
+    {
+      "case": "h0_b1",
+      "trained_home_slots": 36878,
+      "modulo_home_slots": 18439,
+      "trained_speedup_over_modulo": 0.5
+    },
+    {
+      "case": "h0_b4",
+      "trained_home_slots": 55317,
+      "modulo_home_slots": 36878,
+      "trained_speedup_over_modulo": 0.6666666666666666
+    },
+    {
+      "case": "h0_b16",
+      "trained_home_slots": 55317,
+      "modulo_home_slots": 55317,
+      "trained_speedup_over_modulo": 1.0
+    },
+    {
+      "case": "h1_b1",
+      "trained_home_slots": 18439,
+      "modulo_home_slots": 18439,
+      "trained_speedup_over_modulo": 1.0
+    },
+    {
+      "case": "h1_b4",
+      "trained_home_slots": 36878,
+      "modulo_home_slots": 55317,
+      "trained_speedup_over_modulo": 1.5
+    },
+    {
+      "case": "h1_b16",
+      "trained_home_slots": 55317,
+      "modulo_home_slots": 73756,
+      "trained_speedup_over_modulo": 1.3333333333333333
+    },
+    {
+      "case": "h2_b1",
+      "trained_home_slots": 18439,
+      "modulo_home_slots": 36878,
+      "trained_speedup_over_modulo": 2.0
+    },
+    {
+      "case": "h2_b4",
+      "trained_home_slots": 36878,
+      "modulo_home_slots": 73756,
+      "trained_speedup_over_modulo": 2.0
+    },
+    {
+      "case": "h2_b16",
+      "trained_home_slots": 73756,
+      "modulo_home_slots": 73756,
+      "trained_speedup_over_modulo": 1.0
+    }
+  ],
+  "frontiers_with_rx_payload": {
+    "h0_b1": [
+      "home",
+      "k2"
+    ],
+    "h0_b4": [
+      "b_cfg",
+      "b_cfg_rx3",
+      "c_n192",
+      "c_n192_rx3",
+      "home",
+      "wide"
+    ],
+    "h0_b16": [
+      "home"
+    ],
+    "h1_b1": [
+      "home"
+    ],
+    "h1_b4": [
+      "b_cfg",
+      "b_cfg_rx3",
+      "c_n192",
+      "c_n192_rx3",
+      "home",
+      "wide"
+    ],
+    "h1_b16": [
+      "home"
+    ],
+    "h2_b1": [
+      "home"
+    ],
+    "h2_b4": [
+      "b_cfg",
+      "b_cfg_rx3",
+      "c_n192",
+      "c_n192_rx3",
+      "home",
+      "wide"
+    ],
+    "h2_b16": [
+      "b_cfg",
+      "b_cfg_rx3",
+      "c_n192",
+      "c_n192_rx3",
+      "home",
+      "wide"
+    ]
+  },
+  "scope": "Same-input RX causal diagnostic; finite read stage, manufacturing-direction payload proxy, no RX PPA"
+}

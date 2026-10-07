@@ -1,0 +1,14 @@
+{
+  "schema": "w2w.pbc-files.v1",
+  "evidence": "captured",
+  "source": "https://huggingface.co/datasets/core12345/MoE_expert_selection_trace",
+  "revision": "27febb7b2d24169560a9f6f83d38eb53f94916cf",
+  "requests": [
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9968.json",
+      "path": "../../../../w2w-trace-20261007/memory_results/pbc_corpus256/philosophy/request2.json",
+      "sha256": "464af1dbb5bb54d0e11d31d54c089f04453bd8951a22924aa53d0d7c89d053d7",
+      "arrival_iteration": 0
+    }
+  ]
+}

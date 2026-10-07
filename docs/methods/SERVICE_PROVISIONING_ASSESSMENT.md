@@ -1,5 +1,9 @@
 # Memory service provisioning 的研究判断与形式化
 
+2026-10-08补充：[完整返回路径研究](../reports/RETURN_PATH_PROVISIONING_REPORT.md)已完成166次新回放。
+它将本页的共享状态约束落实为TX打包/RX占位周期合同，并在独立routing输入上验证冻结比例。
+下文引用的旧执行数量、收益及“尚未回放”描述保留为此前分析时点；最新结果以补充报告为准。
+
 研究主线保持为：在重复 reticle 的 WoW 系统中，组织服务接口、物理连接和静态数据，
 利用已有闲置 DRAM 服务。将 endpoint 泛化为静态可配置 service fabric 是值得验证的
 架构假设；三张图的命名本身不构成新贡献。本分析合入 `11fd2ab` 的最新比例推导，并核对此前 `ce549ce` 的真实回放与物理归档，

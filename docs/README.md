@@ -7,6 +7,7 @@
 
 ## 当前实现与运行
 
+- [完整返回路径配置：166次回放、RX限制与独立请求结果](reports/RETURN_PATH_PROVISIONING_REPORT.md)
 - [Service provisioning：实现边界与进一步形式化](methods/SERVICE_PROVISIONING_ASSESSMENT.md)
 - [下一阶段任务](handoff/NEXT_TASK.md)
 

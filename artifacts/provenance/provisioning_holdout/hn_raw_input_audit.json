@@ -1,0 +1,7 @@
+{
+  "verified": true,
+  "training_requests": 64,
+  "test_requests": 48,
+  "cases": 9,
+  "raw_inputs_recompiled": true
+}

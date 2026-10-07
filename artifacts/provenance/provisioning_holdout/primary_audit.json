@@ -1,0 +1,1061 @@
+{
+  "verified": true,
+  "source_commit": "5c425e55f07d8f863d8f5e5c8bf21c9785432a89",
+  "replay_count": 87,
+  "delivered_words": 1666069632,
+  "raw_inputs_recompiled": false,
+  "training_requests": 64,
+  "disjoint_test_requests": 48,
+  "cases": 9,
+  "metrics": [
+    {
+      "case": "h0_b1",
+      "label": "a_cfg",
+      "window": 128,
+      "makespan_slots": 34831,
+      "home_slots": 36878,
+      "wide_slots": 32270,
+      "speedup_over_home": 1.058769486951279,
+      "retained_wide_gain": 0.41156496178771146,
+      "lower_slots": 30728,
+      "gap_slots": 4103
+    },
+    {
+      "case": "h0_b1",
+      "label": "a_n128",
+      "window": 128,
+      "makespan_slots": 33191,
+      "home_slots": 36878,
+      "wide_slots": 32270,
+      "speedup_over_home": 1.1110843300894822,
+      "retained_wide_gain": 0.7779278064209176,
+      "lower_slots": 33186,
+      "gap_slots": 5
+    },
+    {
+      "case": "h0_b1",
+      "label": "b_cfg",
+      "window": 128,
+      "makespan_slots": 34278,
+      "home_slots": 36878,
+      "wide_slots": 32270,
+      "speedup_over_home": 1.0758503996732598,
+      "retained_wide_gain": 0.5311832459757149,
+      "lower_slots": 31202,
+      "gap_slots": 3076
+    },
+    {
+      "case": "h0_b1",
+      "label": "b_n128",
+      "window": 128,
+      "makespan_slots": 33191,
+      "home_slots": 36878,
+      "wide_slots": 32270,
+      "speedup_over_home": 1.1110843300894822,
+      "retained_wide_gain": 0.7779278064209176,
+      "lower_slots": 33186,
+      "gap_slots": 5
+    },
+    {
+      "case": "h0_b1",
+      "label": "home",
+      "window": 128,
+      "makespan_slots": 36878,
+      "home_slots": 36878,
+      "wide_slots": 32270,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": 0.0,
+      "lower_slots": 36878,
+      "gap_slots": 0
+    },
+    {
+      "case": "h0_b1",
+      "label": "k2",
+      "window": 128,
+      "makespan_slots": 32268,
+      "home_slots": 36878,
+      "wide_slots": 32270,
+      "speedup_over_home": 1.1428659972728399,
+      "retained_wide_gain": 1.0004960355890955,
+      "lower_slots": 27656,
+      "gap_slots": 4612
+    },
+    {
+      "case": "h0_b1",
+      "label": "wide",
+      "window": 128,
+      "makespan_slots": 32270,
+      "home_slots": 36878,
+      "wide_slots": 32270,
+      "speedup_over_home": 1.1427951657886581,
+      "retained_wide_gain": 1.0,
+      "lower_slots": 27657,
+      "gap_slots": 4613
+    },
+    {
+      "case": "h0_b1",
+      "label": "a_n128",
+      "window": 192,
+      "makespan_slots": 33190,
+      "home_slots": 36878,
+      "wide_slots": 27661,
+      "speedup_over_home": 1.1111178065682434,
+      "retained_wide_gain": 0.3334739771600501,
+      "lower_slots": 33186,
+      "gap_slots": 4
+    },
+    {
+      "case": "h0_b1",
+      "label": "b_cfg",
+      "window": 192,
+      "makespan_slots": 30260,
+      "home_slots": 36878,
+      "wide_slots": 27661,
+      "speedup_over_home": 1.2187045604758757,
+      "retained_wide_gain": 0.6563509653166109,
+      "lower_slots": 29783,
+      "gap_slots": 477
+    },
+    {
+      "case": "h0_b1",
+      "label": "home",
+      "window": 192,
+      "makespan_slots": 36878,
+      "home_slots": 36878,
+      "wide_slots": 27661,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": 0.0,
+      "lower_slots": 36878,
+      "gap_slots": 0
+    },
+    {
+      "case": "h0_b1",
+      "label": "k2",
+      "window": 192,
+      "makespan_slots": 27659,
+      "home_slots": 36878,
+      "wide_slots": 27661,
+      "speedup_over_home": 1.3333092302686287,
+      "retained_wide_gain": 1.000289315228441,
+      "lower_slots": 27654,
+      "gap_slots": 5
+    },
+    {
+      "case": "h0_b1",
+      "label": "wide",
+      "window": 192,
+      "makespan_slots": 27661,
+      "home_slots": 36878,
+      "wide_slots": 27661,
+      "speedup_over_home": 1.3332128267235457,
+      "retained_wide_gain": 1.0,
+      "lower_slots": 27657,
+      "gap_slots": 4
+    },
+    {
+      "case": "h0_b16",
+      "label": "a_cfg",
+      "window": 128,
+      "makespan_slots": 55320,
+      "home_slots": 55317,
+      "wide_slots": 55318,
+      "speedup_over_home": 0.9999457700650759,
+      "retained_wide_gain": null,
+      "lower_slots": 55311,
+      "gap_slots": 9
+    },
+    {
+      "case": "h0_b16",
+      "label": "a_n128",
+      "window": 128,
+      "makespan_slots": 55319,
+      "home_slots": 55317,
+      "wide_slots": 55318,
+      "speedup_over_home": 0.9999638460565086,
+      "retained_wide_gain": null,
+      "lower_slots": 55311,
+      "gap_slots": 8
+    },
+    {
+      "case": "h0_b16",
+      "label": "b_cfg",
+      "window": 128,
+      "makespan_slots": 55317,
+      "home_slots": 55317,
+      "wide_slots": 55318,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "lower_slots": 55311,
+      "gap_slots": 6
+    },
+    {
+      "case": "h0_b16",
+      "label": "b_n128",
+      "window": 128,
+      "makespan_slots": 55319,
+      "home_slots": 55317,
+      "wide_slots": 55318,
+      "speedup_over_home": 0.9999638460565086,
+      "retained_wide_gain": null,
+      "lower_slots": 55311,
+      "gap_slots": 8
+    },
+    {
+      "case": "h0_b16",
+      "label": "home",
+      "window": 128,
+      "makespan_slots": 55317,
+      "home_slots": 55317,
+      "wide_slots": 55318,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "lower_slots": 55317,
+      "gap_slots": 0
+    },
+    {
+      "case": "h0_b16",
+      "label": "k2",
+      "window": 128,
+      "makespan_slots": 55317,
+      "home_slots": 55317,
+      "wide_slots": 55318,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "lower_slots": 55317,
+      "gap_slots": 0
+    },
+    {
+      "case": "h0_b16",
+      "label": "wide",
+      "window": 128,
+      "makespan_slots": 55318,
+      "home_slots": 55317,
+      "wide_slots": 55318,
+      "speedup_over_home": 0.9999819227014715,
+      "retained_wide_gain": null,
+      "lower_slots": 55314,
+      "gap_slots": 4
+    },
+    {
+      "case": "h0_b4",
+      "label": "a_cfg",
+      "window": 128,
+      "makespan_slots": 53271,
+      "home_slots": 55317,
+      "wide_slots": 50708,
+      "speedup_over_home": 1.0384073886354677,
+      "retained_wide_gain": 0.4225562731454315,
+      "lower_slots": 49165,
+      "gap_slots": 4106
+    },
+    {
+      "case": "h0_b4",
+      "label": "a_n128",
+      "window": 128,
+      "makespan_slots": 51631,
+      "home_slots": 55317,
+      "wide_slots": 50708,
+      "speedup_over_home": 1.0713912184540295,
+      "retained_wide_gain": 0.7854428087148905,
+      "lower_slots": 51623,
+      "gap_slots": 8
+    },
+    {
+      "case": "h0_b4",
+      "label": "b_cfg",
+      "window": 128,
+      "makespan_slots": 52717,
+      "home_slots": 55317,
+      "wide_slots": 50708,
+      "speedup_over_home": 1.0493199537151203,
+      "retained_wide_gain": 0.5426157980009383,
+      "lower_slots": 48220,
+      "gap_slots": 4497
+    },
+    {
+      "case": "h0_b4",
+      "label": "b_n128",
+      "window": 128,
+      "makespan_slots": 51631,
+      "home_slots": 55317,
+      "wide_slots": 50708,
+      "speedup_over_home": 1.0713912184540295,
+      "retained_wide_gain": 0.7854428087148905,
+      "lower_slots": 51623,
+      "gap_slots": 8
+    },
+    {
+      "case": "h0_b4",
+      "label": "home",
+      "window": 128,
+      "makespan_slots": 55317,
+      "home_slots": 55317,
+      "wide_slots": 50708,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": 0.0,
+      "lower_slots": 55317,
+      "gap_slots": 0
+    },
+    {
+      "case": "h0_b4",
+      "label": "k2",
+      "window": 128,
+      "makespan_slots": 55317,
+      "home_slots": 55317,
+      "wide_slots": 50708,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": 0.0,
+      "lower_slots": 55317,
+      "gap_slots": 0
+    },
+    {
+      "case": "h0_b4",
+      "label": "wide",
+      "window": 128,
+      "makespan_slots": 50708,
+      "home_slots": 55317,
+      "wide_slots": 50708,
+      "speedup_over_home": 1.0908929557466278,
+      "retained_wide_gain": 1.0,
+      "lower_slots": 46095,
+      "gap_slots": 4613
+    },
+    {
+      "case": "h1_b1",
+      "label": "a_cfg",
+      "window": 128,
+      "makespan_slots": 18440,
+      "home_slots": 18439,
+      "wide_slots": 18440,
+      "speedup_over_home": 0.9999457700650759,
+      "retained_wide_gain": null,
+      "lower_slots": 18437,
+      "gap_slots": 3
+    },
+    {
+      "case": "h1_b1",
+      "label": "a_n128",
+      "window": 128,
+      "makespan_slots": 18439,
+      "home_slots": 18439,
+      "wide_slots": 18440,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "lower_slots": 18437,
+      "gap_slots": 2
+    },
+    {
+      "case": "h1_b1",
+      "label": "b_cfg",
+      "window": 128,
+      "makespan_slots": 18439,
+      "home_slots": 18439,
+      "wide_slots": 18440,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "lower_slots": 18437,
+      "gap_slots": 2
+    },
+    {
+      "case": "h1_b1",
+      "label": "b_n128",
+      "window": 128,
+      "makespan_slots": 18439,
+      "home_slots": 18439,
+      "wide_slots": 18440,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "lower_slots": 18437,
+      "gap_slots": 2
+    },
+    {
+      "case": "h1_b1",
+      "label": "home",
+      "window": 128,
+      "makespan_slots": 18439,
+      "home_slots": 18439,
+      "wide_slots": 18440,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "lower_slots": 18439,
+      "gap_slots": 0
+    },
+    {
+      "case": "h1_b1",
+      "label": "k2",
+      "window": 128,
+      "makespan_slots": 18439,
+      "home_slots": 18439,
+      "wide_slots": 18440,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "lower_slots": 18439,
+      "gap_slots": 0
+    },
+    {
+      "case": "h1_b1",
+      "label": "wide",
+      "window": 128,
+      "makespan_slots": 18440,
+      "home_slots": 18439,
+      "wide_slots": 18440,
+      "speedup_over_home": 0.9999457700650759,
+      "retained_wide_gain": null,
+      "lower_slots": 18438,
+      "gap_slots": 2
+    },
+    {
+      "case": "h1_b1",
+      "label": "a_n128",
+      "window": 192,
+      "makespan_slots": 18439,
+      "home_slots": 18439,
+      "wide_slots": 18440,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "lower_slots": 18437,
+      "gap_slots": 2
+    },
+    {
+      "case": "h1_b1",
+      "label": "b_cfg",
+      "window": 192,
+      "makespan_slots": 18439,
+      "home_slots": 18439,
+      "wide_slots": 18440,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "lower_slots": 18437,
+      "gap_slots": 2
+    },
+    {
+      "case": "h1_b1",
+      "label": "home",
+      "window": 192,
+      "makespan_slots": 18439,
+      "home_slots": 18439,
+      "wide_slots": 18440,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "lower_slots": 18439,
+      "gap_slots": 0
+    },
+    {
+      "case": "h1_b1",
+      "label": "k2",
+      "window": 192,
+      "makespan_slots": 18439,
+      "home_slots": 18439,
+      "wide_slots": 18440,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "lower_slots": 18439,
+      "gap_slots": 0
+    },
+    {
+      "case": "h1_b1",
+      "label": "wide",
+      "window": 192,
+      "makespan_slots": 18440,
+      "home_slots": 18439,
+      "wide_slots": 18440,
+      "speedup_over_home": 0.9999457700650759,
+      "retained_wide_gain": null,
+      "lower_slots": 18438,
+      "gap_slots": 2
+    },
+    {
+      "case": "h1_b16",
+      "label": "a_cfg",
+      "window": 128,
+      "makespan_slots": 55320,
+      "home_slots": 55317,
+      "wide_slots": 55318,
+      "speedup_over_home": 0.9999457700650759,
+      "retained_wide_gain": null,
+      "lower_slots": 55311,
+      "gap_slots": 9
+    },
+    {
+      "case": "h1_b16",
+      "label": "a_n128",
+      "window": 128,
+      "makespan_slots": 55319,
+      "home_slots": 55317,
+      "wide_slots": 55318,
+      "speedup_over_home": 0.9999638460565086,
+      "retained_wide_gain": null,
+      "lower_slots": 55311,
+      "gap_slots": 8
+    },
+    {
+      "case": "h1_b16",
+      "label": "b_cfg",
+      "window": 128,
+      "makespan_slots": 55317,
+      "home_slots": 55317,
+      "wide_slots": 55318,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "lower_slots": 55311,
+      "gap_slots": 6
+    },
+    {
+      "case": "h1_b16",
+      "label": "b_n128",
+      "window": 128,
+      "makespan_slots": 55319,
+      "home_slots": 55317,
+      "wide_slots": 55318,
+      "speedup_over_home": 0.9999638460565086,
+      "retained_wide_gain": null,
+      "lower_slots": 55311,
+      "gap_slots": 8
+    },
+    {
+      "case": "h1_b16",
+      "label": "home",
+      "window": 128,
+      "makespan_slots": 55317,
+      "home_slots": 55317,
+      "wide_slots": 55318,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "lower_slots": 55317,
+      "gap_slots": 0
+    },
+    {
+      "case": "h1_b16",
+      "label": "k2",
+      "window": 128,
+      "makespan_slots": 55317,
+      "home_slots": 55317,
+      "wide_slots": 55318,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "lower_slots": 55317,
+      "gap_slots": 0
+    },
+    {
+      "case": "h1_b16",
+      "label": "wide",
+      "window": 128,
+      "makespan_slots": 55318,
+      "home_slots": 55317,
+      "wide_slots": 55318,
+      "speedup_over_home": 0.9999819227014715,
+      "retained_wide_gain": null,
+      "lower_slots": 55314,
+      "gap_slots": 4
+    },
+    {
+      "case": "h1_b4",
+      "label": "a_cfg",
+      "window": 128,
+      "makespan_slots": 34831,
+      "home_slots": 36878,
+      "wide_slots": 32270,
+      "speedup_over_home": 1.058769486951279,
+      "retained_wide_gain": 0.41156496178771146,
+      "lower_slots": 30728,
+      "gap_slots": 4103
+    },
+    {
+      "case": "h1_b4",
+      "label": "a_n128",
+      "window": 128,
+      "makespan_slots": 33191,
+      "home_slots": 36878,
+      "wide_slots": 32270,
+      "speedup_over_home": 1.1110843300894822,
+      "retained_wide_gain": 0.7779278064209176,
+      "lower_slots": 33186,
+      "gap_slots": 5
+    },
+    {
+      "case": "h1_b4",
+      "label": "b_cfg",
+      "window": 128,
+      "makespan_slots": 34278,
+      "home_slots": 36878,
+      "wide_slots": 32270,
+      "speedup_over_home": 1.0758503996732598,
+      "retained_wide_gain": 0.5311832459757149,
+      "lower_slots": 31202,
+      "gap_slots": 3076
+    },
+    {
+      "case": "h1_b4",
+      "label": "b_n128",
+      "window": 128,
+      "makespan_slots": 33191,
+      "home_slots": 36878,
+      "wide_slots": 32270,
+      "speedup_over_home": 1.1110843300894822,
+      "retained_wide_gain": 0.7779278064209176,
+      "lower_slots": 33186,
+      "gap_slots": 5
+    },
+    {
+      "case": "h1_b4",
+      "label": "home",
+      "window": 128,
+      "makespan_slots": 36878,
+      "home_slots": 36878,
+      "wide_slots": 32270,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": 0.0,
+      "lower_slots": 36878,
+      "gap_slots": 0
+    },
+    {
+      "case": "h1_b4",
+      "label": "k2",
+      "window": 128,
+      "makespan_slots": 36878,
+      "home_slots": 36878,
+      "wide_slots": 32270,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": 0.0,
+      "lower_slots": 36878,
+      "gap_slots": 0
+    },
+    {
+      "case": "h1_b4",
+      "label": "wide",
+      "window": 128,
+      "makespan_slots": 32270,
+      "home_slots": 36878,
+      "wide_slots": 32270,
+      "speedup_over_home": 1.1427951657886581,
+      "retained_wide_gain": 1.0,
+      "lower_slots": 27657,
+      "gap_slots": 4613
+    },
+    {
+      "case": "h2_b1",
+      "label": "a_cfg",
+      "window": 128,
+      "makespan_slots": 18440,
+      "home_slots": 18439,
+      "wide_slots": 18440,
+      "speedup_over_home": 0.9999457700650759,
+      "retained_wide_gain": null,
+      "lower_slots": 18437,
+      "gap_slots": 3
+    },
+    {
+      "case": "h2_b1",
+      "label": "a_n128",
+      "window": 128,
+      "makespan_slots": 18439,
+      "home_slots": 18439,
+      "wide_slots": 18440,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "lower_slots": 18437,
+      "gap_slots": 2
+    },
+    {
+      "case": "h2_b1",
+      "label": "b_cfg",
+      "window": 128,
+      "makespan_slots": 18439,
+      "home_slots": 18439,
+      "wide_slots": 18440,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "lower_slots": 18437,
+      "gap_slots": 2
+    },
+    {
+      "case": "h2_b1",
+      "label": "b_n128",
+      "window": 128,
+      "makespan_slots": 18439,
+      "home_slots": 18439,
+      "wide_slots": 18440,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "lower_slots": 18437,
+      "gap_slots": 2
+    },
+    {
+      "case": "h2_b1",
+      "label": "home",
+      "window": 128,
+      "makespan_slots": 18439,
+      "home_slots": 18439,
+      "wide_slots": 18440,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "lower_slots": 18439,
+      "gap_slots": 0
+    },
+    {
+      "case": "h2_b1",
+      "label": "k2",
+      "window": 128,
+      "makespan_slots": 18439,
+      "home_slots": 18439,
+      "wide_slots": 18440,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "lower_slots": 18439,
+      "gap_slots": 0
+    },
+    {
+      "case": "h2_b1",
+      "label": "wide",
+      "window": 128,
+      "makespan_slots": 18440,
+      "home_slots": 18439,
+      "wide_slots": 18440,
+      "speedup_over_home": 0.9999457700650759,
+      "retained_wide_gain": null,
+      "lower_slots": 18438,
+      "gap_slots": 2
+    },
+    {
+      "case": "h2_b1",
+      "label": "a_n128",
+      "window": 192,
+      "makespan_slots": 18439,
+      "home_slots": 18439,
+      "wide_slots": 18440,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "lower_slots": 18437,
+      "gap_slots": 2
+    },
+    {
+      "case": "h2_b1",
+      "label": "b_cfg",
+      "window": 192,
+      "makespan_slots": 18439,
+      "home_slots": 18439,
+      "wide_slots": 18440,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "lower_slots": 18437,
+      "gap_slots": 2
+    },
+    {
+      "case": "h2_b1",
+      "label": "home",
+      "window": 192,
+      "makespan_slots": 18439,
+      "home_slots": 18439,
+      "wide_slots": 18440,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "lower_slots": 18439,
+      "gap_slots": 0
+    },
+    {
+      "case": "h2_b1",
+      "label": "k2",
+      "window": 192,
+      "makespan_slots": 18439,
+      "home_slots": 18439,
+      "wide_slots": 18440,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": null,
+      "lower_slots": 18439,
+      "gap_slots": 0
+    },
+    {
+      "case": "h2_b1",
+      "label": "wide",
+      "window": 192,
+      "makespan_slots": 18440,
+      "home_slots": 18439,
+      "wide_slots": 18440,
+      "speedup_over_home": 0.9999457700650759,
+      "retained_wide_gain": null,
+      "lower_slots": 18438,
+      "gap_slots": 2
+    },
+    {
+      "case": "h2_b16",
+      "label": "a_cfg",
+      "window": 128,
+      "makespan_slots": 69662,
+      "home_slots": 73756,
+      "wide_slots": 64539,
+      "speedup_over_home": 1.058769486951279,
+      "retained_wide_gain": 0.41151393277081444,
+      "lower_slots": 61456,
+      "gap_slots": 8206
+    },
+    {
+      "case": "h2_b16",
+      "label": "a_n128",
+      "window": 128,
+      "makespan_slots": 66383,
+      "home_slots": 73756,
+      "wide_slots": 64539,
+      "speedup_over_home": 1.1110675926065408,
+      "retained_wide_gain": 0.7777141541969779,
+      "lower_slots": 66372,
+      "gap_slots": 11
+    },
+    {
+      "case": "h2_b16",
+      "label": "b_cfg",
+      "window": 128,
+      "makespan_slots": 68556,
+      "home_slots": 73756,
+      "wide_slots": 64539,
+      "speedup_over_home": 1.0758503996732598,
+      "retained_wide_gain": 0.5311173857559416,
+      "lower_slots": 62404,
+      "gap_slots": 6152
+    },
+    {
+      "case": "h2_b16",
+      "label": "b_n128",
+      "window": 128,
+      "makespan_slots": 66383,
+      "home_slots": 73756,
+      "wide_slots": 64539,
+      "speedup_over_home": 1.1110675926065408,
+      "retained_wide_gain": 0.7777141541969779,
+      "lower_slots": 66372,
+      "gap_slots": 11
+    },
+    {
+      "case": "h2_b16",
+      "label": "home",
+      "window": 128,
+      "makespan_slots": 73756,
+      "home_slots": 73756,
+      "wide_slots": 64539,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": 0.0,
+      "lower_slots": 73756,
+      "gap_slots": 0
+    },
+    {
+      "case": "h2_b16",
+      "label": "k2",
+      "window": 128,
+      "makespan_slots": 73756,
+      "home_slots": 73756,
+      "wide_slots": 64539,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": 0.0,
+      "lower_slots": 73756,
+      "gap_slots": 0
+    },
+    {
+      "case": "h2_b16",
+      "label": "wide",
+      "window": 128,
+      "makespan_slots": 64539,
+      "home_slots": 73756,
+      "wide_slots": 64539,
+      "speedup_over_home": 1.1428128728365794,
+      "retained_wide_gain": 1.0,
+      "lower_slots": 55314,
+      "gap_slots": 9225
+    },
+    {
+      "case": "h2_b4",
+      "label": "a_cfg",
+      "window": 128,
+      "makespan_slots": 34831,
+      "home_slots": 36878,
+      "wide_slots": 32270,
+      "speedup_over_home": 1.058769486951279,
+      "retained_wide_gain": 0.41156496178771146,
+      "lower_slots": 30728,
+      "gap_slots": 4103
+    },
+    {
+      "case": "h2_b4",
+      "label": "a_n128",
+      "window": 128,
+      "makespan_slots": 33191,
+      "home_slots": 36878,
+      "wide_slots": 32270,
+      "speedup_over_home": 1.1110843300894822,
+      "retained_wide_gain": 0.7779278064209176,
+      "lower_slots": 33186,
+      "gap_slots": 5
+    },
+    {
+      "case": "h2_b4",
+      "label": "b_cfg",
+      "window": 128,
+      "makespan_slots": 34278,
+      "home_slots": 36878,
+      "wide_slots": 32270,
+      "speedup_over_home": 1.0758503996732598,
+      "retained_wide_gain": 0.5311832459757149,
+      "lower_slots": 31202,
+      "gap_slots": 3076
+    },
+    {
+      "case": "h2_b4",
+      "label": "b_n128",
+      "window": 128,
+      "makespan_slots": 33191,
+      "home_slots": 36878,
+      "wide_slots": 32270,
+      "speedup_over_home": 1.1110843300894822,
+      "retained_wide_gain": 0.7779278064209176,
+      "lower_slots": 33186,
+      "gap_slots": 5
+    },
+    {
+      "case": "h2_b4",
+      "label": "home",
+      "window": 128,
+      "makespan_slots": 36878,
+      "home_slots": 36878,
+      "wide_slots": 32270,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": 0.0,
+      "lower_slots": 36878,
+      "gap_slots": 0
+    },
+    {
+      "case": "h2_b4",
+      "label": "k2",
+      "window": 128,
+      "makespan_slots": 36878,
+      "home_slots": 36878,
+      "wide_slots": 32270,
+      "speedup_over_home": 1.0,
+      "retained_wide_gain": 0.0,
+      "lower_slots": 36878,
+      "gap_slots": 0
+    },
+    {
+      "case": "h2_b4",
+      "label": "wide",
+      "window": 128,
+      "makespan_slots": 32270,
+      "home_slots": 36878,
+      "wide_slots": 32270,
+      "speedup_over_home": 1.1427951657886581,
+      "retained_wide_gain": 1.0,
+      "lower_slots": 27657,
+      "gap_slots": 4613
+    }
+  ],
+  "frontiers": {
+    "h0_b1": [
+      {
+        "label": "home",
+        "window": 128
+      },
+      {
+        "label": "k2",
+        "window": 128
+      },
+      {
+        "label": "k2",
+        "window": 192
+      }
+    ],
+    "h0_b4": [
+      {
+        "label": "a_cfg",
+        "window": 128
+      },
+      {
+        "label": "a_n128",
+        "window": 128
+      },
+      {
+        "label": "home",
+        "window": 128
+      },
+      {
+        "label": "wide",
+        "window": 128
+      }
+    ],
+    "h0_b16": [
+      {
+        "label": "home",
+        "window": 128
+      }
+    ],
+    "h1_b1": [
+      {
+        "label": "home",
+        "window": 128
+      }
+    ],
+    "h1_b4": [
+      {
+        "label": "a_cfg",
+        "window": 128
+      },
+      {
+        "label": "a_n128",
+        "window": 128
+      },
+      {
+        "label": "home",
+        "window": 128
+      },
+      {
+        "label": "wide",
+        "window": 128
+      }
+    ],
+    "h1_b16": [
+      {
+        "label": "home",
+        "window": 128
+      }
+    ],
+    "h2_b1": [
+      {
+        "label": "home",
+        "window": 128
+      }
+    ],
+    "h2_b4": [
+      {
+        "label": "a_cfg",
+        "window": 128
+      },
+      {
+        "label": "a_n128",
+        "window": 128
+      },
+      {
+        "label": "home",
+        "window": 128
+      },
+      {
+        "label": "wide",
+        "window": 128
+      }
+    ],
+    "h2_b16": [
+      {
+        "label": "a_cfg",
+        "window": 128
+      },
+      {
+        "label": "a_n128",
+        "window": 128
+      },
+      {
+        "label": "home",
+        "window": 128
+      },
+      {
+        "label": "wide",
+        "window": 128
+      }
+    ]
+  },
+  "scope": "Frozen routing/owners and complete modeled read stages; no inference or global dynamic sharing claim"
+}

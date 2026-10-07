@@ -1,0 +1,14 @@
+{
+  "schema": "w2w.pbc-files.v1",
+  "evidence": "captured",
+  "source": "https://huggingface.co/datasets/core12345/MoE_expert_selection_trace",
+  "revision": "27febb7b2d24169560a9f6f83d38eb53f94916cf",
+  "requests": [
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8682.json",
+      "path": "../../../../w2w-trace-20261007/memory_results/pbc_corpus256/moral_scenarios/request31.json",
+      "sha256": "b8d7a8fb41d94a4fc0f3a9d76f35e03eb0a83c3b4b7b14978d5f1082f6e5b3b1",
+      "arrival_iteration": 0
+    }
+  ]
+}

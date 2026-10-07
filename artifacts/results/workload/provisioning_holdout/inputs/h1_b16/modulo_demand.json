@@ -1,0 +1,565 @@
+{
+  "schema": "w2w.pbc-demand.v1",
+  "trace_sha256": "1214305587374da36f9c5df2694598f623c0c421edd335dc4ab711455c3cdeb0",
+  "manifest_sha256": "b90195a700a1bedc816849fbc53f11cf57cdc32417970bb32769be78a7e0cf0f",
+  "execution_spec_sha256": "af778558b4d0b70d214ca7b16e9cd758e42aebbdc70094f271838d6ccb10e08b",
+  "evidence": "captured",
+  "captured_routing": true,
+  "model": "Qwen/Qwen3-235B-A22B-FP8; config SHA256=702c46d431bb984db9035a1225186bbfdb52c0d19c82104df4a37cd005e0369e",
+  "source": "https://huggingface.co/datasets/core12345/MoE_expert_selection_trace",
+  "revision": "27febb7b2d24169560a9f6f83d38eb53f94916cf",
+  "requests": [
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8682.json",
+      "path": "../../../../w2w-trace-20261007/memory_results/pbc_corpus256/moral_scenarios/request31.json",
+      "sha256": "b8d7a8fb41d94a4fc0f3a9d76f35e03eb0a83c3b4b7b14978d5f1082f6e5b3b1",
+      "arrival_iteration": 0,
+      "prefill_tokens": 28,
+      "raw_decode_steps": 128,
+      "retained_decode_steps": 1,
+      "omitted_decode_steps": 127,
+      "selected_decode_steps": [
+        65
+      ]
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12335.json",
+      "path": "../../../../w2w-trace-20261007/memory_results/pbc_corpus256/professional_medicine/request10.json",
+      "sha256": "2d1b940660253200bfa6a8b6efc96e225c0ba5d8207a819467cbdd8e106093a4",
+      "arrival_iteration": 0,
+      "prefill_tokens": 179,
+      "raw_decode_steps": 128,
+      "retained_decode_steps": 1,
+      "omitted_decode_steps": 127,
+      "selected_decode_steps": [
+        65
+      ]
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/59.json",
+      "path": "../../../../w2w-trace-20261007/memory_results/pbc_corpus256/abstract_algebra/request0.json",
+      "sha256": "500f15d6e4f628f7a7fc86379d51821ecfa14c041adbe142eec1a5dcd06bb0da",
+      "arrival_iteration": 0,
+      "prefill_tokens": 46,
+      "raw_decode_steps": 128,
+      "retained_decode_steps": 1,
+      "omitted_decode_steps": 127,
+      "selected_decode_steps": [
+        65
+      ]
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4787.json",
+      "path": "../../../../w2w-trace-20261007/memory_results/pbc_corpus256/high_school_physics/request21.json",
+      "sha256": "5adce1161325142523e3fb709ecc2d5cc50edbf395d4e9d6b64cf58e4a80cc94",
+      "arrival_iteration": 0,
+      "prefill_tokens": 48,
+      "raw_decode_steps": 128,
+      "retained_decode_steps": 1,
+      "omitted_decode_steps": 127,
+      "selected_decode_steps": [
+        65
+      ]
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/410.json",
+      "path": "../../../../w2w-trace-20261007/memory_results/pbc_corpus256/business_ethics/request8.json",
+      "sha256": "a4abc2b956bac97b9a68c20c378ca7606bc8f63c385dc9058de9d2e1f94ca676",
+      "arrival_iteration": 0,
+      "prefill_tokens": 17,
+      "raw_decode_steps": 128,
+      "retained_decode_steps": 1,
+      "omitted_decode_steps": 127,
+      "selected_decode_steps": [
+        65
+      ]
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2902.json",
+      "path": "../../../../w2w-trace-20261007/memory_results/pbc_corpus256/high_school_biology/request16.json",
+      "sha256": "8056e1bc47c6e5bd69a340b086bb8df8c1b7de289e75720537b9524e683da821",
+      "arrival_iteration": 0,
+      "prefill_tokens": 27,
+      "raw_decode_steps": 128,
+      "retained_decode_steps": 1,
+      "omitted_decode_steps": 127,
+      "selected_decode_steps": [
+        65
+      ]
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9929.json",
+      "path": "../../../../w2w-trace-20261007/memory_results/pbc_corpus256/philosophy/request13.json",
+      "sha256": "803695517521c0d8538b223d543edaec775eebfdf3d100e7963e457bdeea1c6c",
+      "arrival_iteration": 0,
+      "prefill_tokens": 5,
+      "raw_decode_steps": 128,
+      "retained_decode_steps": 1,
+      "omitted_decode_steps": 127,
+      "selected_decode_steps": [
+        65
+      ]
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12330.json",
+      "path": "../../../../w2w-trace-20261007/memory_results/pbc_corpus256/professional_medicine/request8.json",
+      "sha256": "534962ec64d2287c73781ef5e83909c91a8d69b1bdba75cfdb6c22e2697747e8",
+      "arrival_iteration": 0,
+      "prefill_tokens": 95,
+      "raw_decode_steps": 128,
+      "retained_decode_steps": 1,
+      "omitted_decode_steps": 127,
+      "selected_decode_steps": [
+        65
+      ]
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2779.json",
+      "path": "../../../../w2w-trace-20261007/memory_results/pbc_corpus256/high_school_biology/request10.json",
+      "sha256": "e56a048d319d844a55ffaf253c98a00df3b274898e7213a743ccc742b9c4e26d",
+      "arrival_iteration": 0,
+      "prefill_tokens": 101,
+      "raw_decode_steps": 128,
+      "retained_decode_steps": 1,
+      "omitted_decode_steps": 127,
+      "selected_decode_steps": [
+        65
+      ]
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1567.json",
+      "path": "../../../../w2w-trace-20261007/memory_results/pbc_corpus256/computer_security/request17.json",
+      "sha256": "a71b2b268c33dc6c304f0ef717624e7a9f8e06b6031a76822f3bc06f2786b930",
+      "arrival_iteration": 0,
+      "prefill_tokens": 7,
+      "raw_decode_steps": 128,
+      "retained_decode_steps": 1,
+      "omitted_decode_steps": 127,
+      "selected_decode_steps": [
+        65
+      ]
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/44.json",
+      "path": "../../../../w2w-trace-20261007/memory_results/pbc_corpus256/abstract_algebra/request4.json",
+      "sha256": "22bbe4be96ae3cec6aebd148c5ac17829017ce06e726cd9b0fca904aec69188c",
+      "arrival_iteration": 0,
+      "prefill_tokens": 61,
+      "raw_decode_steps": 128,
+      "retained_decode_steps": 1,
+      "omitted_decode_steps": 127,
+      "selected_decode_steps": [
+        65
+      ]
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1471.json",
+      "path": "../../../../w2w-trace-20261007/memory_results/pbc_corpus256/computer_security/request13.json",
+      "sha256": "fe070667f3e5304da8addbc76ca93985efbb9291a14bfdfbfdf9df2e6ed9a097",
+      "arrival_iteration": 0,
+      "prefill_tokens": 20,
+      "raw_decode_steps": 128,
+      "retained_decode_steps": 1,
+      "omitted_decode_steps": 127,
+      "selected_decode_steps": [
+        65
+      ]
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9988.json",
+      "path": "../../../../w2w-trace-20261007/memory_results/pbc_corpus256/philosophy/request8.json",
+      "sha256": "f6a63ca838f87a4293614147a5f50c9f8682c63c5f1d007bfd81a1c6ad8dc60b",
+      "arrival_iteration": 0,
+      "prefill_tokens": 7,
+      "raw_decode_steps": 128,
+      "retained_decode_steps": 1,
+      "omitted_decode_steps": 127,
+      "selected_decode_steps": [
+        65
+      ]
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9159.json",
+      "path": "../../../../w2w-trace-20261007/memory_results/pbc_corpus256/moral_scenarios/request13.json",
+      "sha256": "e1fc119f8cca3b33d5344006d6df4da0d56a305c340f72ade32bc3eba186989a",
+      "arrival_iteration": 0,
+      "prefill_tokens": 28,
+      "raw_decode_steps": 128,
+      "retained_decode_steps": 1,
+      "omitted_decode_steps": 127,
+      "selected_decode_steps": [
+        65
+      ]
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4811.json",
+      "path": "../../../../w2w-trace-20261007/memory_results/pbc_corpus256/high_school_physics/request31.json",
+      "sha256": "b9247914b57a5e3ed3c180450fcc60c1b460f29d55cf4534f06abd32bf69b911",
+      "arrival_iteration": 0,
+      "prefill_tokens": 17,
+      "raw_decode_steps": 128,
+      "retained_decode_steps": 1,
+      "omitted_decode_steps": 127,
+      "selected_decode_steps": [
+        65
+      ]
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/417.json",
+      "path": "../../../../w2w-trace-20261007/memory_results/pbc_corpus256/business_ethics/request31.json",
+      "sha256": "25abb405030f58c46597dd453cd860351909bfc6bfd271f5a76f734834109b46",
+      "arrival_iteration": 0,
+      "prefill_tokens": 35,
+      "raw_decode_steps": 128,
+      "retained_decode_steps": 1,
+      "omitted_decode_steps": 127,
+      "selected_decode_steps": [
+        65
+      ]
+    }
+  ],
+  "windows": [
+    {
+      "id": "batch0/layer0",
+      "iteration": 0,
+      "layer": "39",
+      "request_tokens": [
+        {
+          "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8682.json",
+          "decode_step": 65
+        },
+        {
+          "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12335.json",
+          "decode_step": 65
+        },
+        {
+          "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/59.json",
+          "decode_step": 65
+        },
+        {
+          "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4787.json",
+          "decode_step": 65
+        },
+        {
+          "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/410.json",
+          "decode_step": 65
+        },
+        {
+          "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2902.json",
+          "decode_step": 65
+        },
+        {
+          "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9929.json",
+          "decode_step": 65
+        },
+        {
+          "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12330.json",
+          "decode_step": 65
+        },
+        {
+          "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2779.json",
+          "decode_step": 65
+        },
+        {
+          "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1567.json",
+          "decode_step": 65
+        },
+        {
+          "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/44.json",
+          "decode_step": 65
+        },
+        {
+          "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1471.json",
+          "decode_step": 65
+        },
+        {
+          "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9988.json",
+          "decode_step": 65
+        },
+        {
+          "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9159.json",
+          "decode_step": 65
+        },
+        {
+          "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4811.json",
+          "decode_step": 65
+        },
+        {
+          "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/417.json",
+          "decode_step": 65
+        }
+      ],
+      "token_count": 16,
+      "expert_token_counts": {
+        "1": 1,
+        "2": 3,
+        "3": 1,
+        "4": 1,
+        "10": 3,
+        "12": 5,
+        "14": 1,
+        "15": 3,
+        "16": 2,
+        "19": 1,
+        "20": 4,
+        "22": 2,
+        "23": 1,
+        "24": 3,
+        "25": 2,
+        "26": 1,
+        "27": 1,
+        "29": 1,
+        "30": 1,
+        "31": 1,
+        "32": 1,
+        "33": 1,
+        "34": 2,
+        "36": 1,
+        "37": 1,
+        "40": 5,
+        "41": 2,
+        "44": 1,
+        "46": 2,
+        "47": 2,
+        "48": 1,
+        "49": 4,
+        "51": 1,
+        "54": 1,
+        "55": 2,
+        "57": 1,
+        "59": 4,
+        "63": 1,
+        "64": 1,
+        "67": 1,
+        "71": 1,
+        "73": 3,
+        "75": 1,
+        "76": 1,
+        "77": 1,
+        "78": 1,
+        "79": 3,
+        "80": 1,
+        "82": 2,
+        "84": 1,
+        "88": 4,
+        "96": 1,
+        "97": 2,
+        "100": 1,
+        "101": 1,
+        "102": 2,
+        "103": 1,
+        "104": 2,
+        "105": 2,
+        "107": 2,
+        "110": 1,
+        "114": 5,
+        "115": 2,
+        "118": 2,
+        "119": 1,
+        "122": 2,
+        "123": 3,
+        "124": 4,
+        "127": 2
+      },
+      "activated_experts": [
+        1,
+        2,
+        3,
+        4,
+        10,
+        12,
+        14,
+        15,
+        16,
+        19,
+        20,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        36,
+        37,
+        40,
+        41,
+        44,
+        46,
+        47,
+        48,
+        49,
+        51,
+        54,
+        55,
+        57,
+        59,
+        63,
+        64,
+        67,
+        71,
+        73,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        82,
+        84,
+        88,
+        96,
+        97,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        107,
+        110,
+        114,
+        115,
+        118,
+        119,
+        122,
+        123,
+        124,
+        127
+      ],
+      "task_ids": [
+        "batch0/layer0/expert1",
+        "batch0/layer0/expert2",
+        "batch0/layer0/expert3",
+        "batch0/layer0/expert4",
+        "batch0/layer0/expert10",
+        "batch0/layer0/expert12",
+        "batch0/layer0/expert14",
+        "batch0/layer0/expert15",
+        "batch0/layer0/expert16",
+        "batch0/layer0/expert19",
+        "batch0/layer0/expert20",
+        "batch0/layer0/expert22",
+        "batch0/layer0/expert23",
+        "batch0/layer0/expert24",
+        "batch0/layer0/expert25",
+        "batch0/layer0/expert26",
+        "batch0/layer0/expert27",
+        "batch0/layer0/expert29",
+        "batch0/layer0/expert30",
+        "batch0/layer0/expert31",
+        "batch0/layer0/expert32",
+        "batch0/layer0/expert33",
+        "batch0/layer0/expert34",
+        "batch0/layer0/expert36",
+        "batch0/layer0/expert37",
+        "batch0/layer0/expert40",
+        "batch0/layer0/expert41",
+        "batch0/layer0/expert44",
+        "batch0/layer0/expert46",
+        "batch0/layer0/expert47",
+        "batch0/layer0/expert48",
+        "batch0/layer0/expert49",
+        "batch0/layer0/expert51",
+        "batch0/layer0/expert54",
+        "batch0/layer0/expert55",
+        "batch0/layer0/expert57",
+        "batch0/layer0/expert59",
+        "batch0/layer0/expert63",
+        "batch0/layer0/expert64",
+        "batch0/layer0/expert67",
+        "batch0/layer0/expert71",
+        "batch0/layer0/expert73",
+        "batch0/layer0/expert75",
+        "batch0/layer0/expert76",
+        "batch0/layer0/expert77",
+        "batch0/layer0/expert78",
+        "batch0/layer0/expert79",
+        "batch0/layer0/expert80",
+        "batch0/layer0/expert82",
+        "batch0/layer0/expert84",
+        "batch0/layer0/expert88",
+        "batch0/layer0/expert96",
+        "batch0/layer0/expert97",
+        "batch0/layer0/expert100",
+        "batch0/layer0/expert101",
+        "batch0/layer0/expert102",
+        "batch0/layer0/expert103",
+        "batch0/layer0/expert104",
+        "batch0/layer0/expert105",
+        "batch0/layer0/expert107",
+        "batch0/layer0/expert110",
+        "batch0/layer0/expert114",
+        "batch0/layer0/expert115",
+        "batch0/layer0/expert118",
+        "batch0/layer0/expert119",
+        "batch0/layer0/expert122",
+        "batch0/layer0/expert123",
+        "batch0/layer0/expert124",
+        "batch0/layer0/expert127"
+      ],
+      "join_task": "batch0/layer0/join",
+      "read_bytes_per_compute": [
+        18878976,
+        56636928,
+        37757952,
+        37757952,
+        56636928,
+        37757952,
+        37757952,
+        37757952,
+        37757952,
+        0,
+        75515904,
+        37757952,
+        56636928,
+        18878976,
+        37757952,
+        56636928,
+        56636928,
+        0,
+        18878976,
+        56636928,
+        18878976,
+        18878976,
+        18878976,
+        37757952,
+        37757952,
+        37757952,
+        18878976,
+        37757952,
+        37757952,
+        37757952,
+        37757952,
+        56636928,
+        37757952,
+        37757952,
+        18878976,
+        37757952
+      ],
+      "logical_read_bytes": 1302649344,
+      "no_reuse_reference_bytes": 2416508928
+    }
+  ],
+  "total_logical_read_bytes": 1302649344,
+  "total_resident_weight_bytes": 2416508928,
+  "semantics": {
+    "stage": "decode_only; prefill validated but never charged to decode",
+    "reuse": "One full routed-expert weight read per layer/batch; intra-batch reuse; cold across batches",
+    "batching": "Logical decode iterations, not measured wall-clock arrivals or serving throughput",
+    "placement": "Caller-supplied compute_by_expert frozen for all architectures; no trace-fitted assignment",
+    "timing": "Selected layers/batches execute sequentially with joins; GEMM/dispatch/combine/KV/dense/shared experts omitted",
+    "weight_bytes": "Explicit supplied bytes, including chosen precision/metadata; not inferred from token counts",
+    "scope": "Selected routed MoE layers only, not full-model capacity or end-to-end latency"
+  },
+  "window_selection": {
+    "original_decode_step": 65,
+    "preceding_steps_executed": false,
+    "cache_state": "cold by explicit model assumption"
+  }
+}

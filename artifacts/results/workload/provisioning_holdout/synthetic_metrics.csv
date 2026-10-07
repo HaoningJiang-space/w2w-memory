@@ -1,0 +1,15 @@
+case,label,rx2_slots,rx3_slots,speedup_from_rx3,home_slots,wide_slots,retained_wide_gain
+synthetic_clustered9,b_cfg,88,88,1.0,88,88,
+synthetic_clustered9,c_n192,88,88,1.0,88,88,
+synthetic_dispersed9,b_cfg,60,59,1.0169491525423728,88,49,0.6175575836592787
+synthetic_dispersed9,c_n192,60,55,1.0909090909090908,88,49,0.7538461538461538
+synthetic_full36,b_cfg,88,88,1.0,88,88,
+synthetic_full36,c_n192,88,88,1.0,88,88,
+synthetic_moving9,b_cfg,352,352,1.0,352,352,
+synthetic_moving9,c_n192,352,352,1.0,352,352,
+synthetic_short9,b_cfg,4,4,1.0,4,3,0.0
+synthetic_short9,c_n192,4,4,1.0,4,3,0.0
+synthetic_single,b_cfg,60,59,1.0169491525423728,88,49,0.6175575836592787
+synthetic_single,c_n192,60,55,1.0909090909090908,88,49,0.7538461538461538
+synthetic_straggler9,b_cfg,242,235,1.0297872340425531,354,198,0.6427168576104746
+synthetic_straggler9,c_n192,243,221,1.0995475113122173,354,198,0.7638357117995127
