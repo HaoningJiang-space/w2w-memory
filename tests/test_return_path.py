@@ -5,17 +5,22 @@ from dataclasses import replace
 from w2w.theory.return_path import packed_rx_requirement, return_path_period
 from tests.fixtures.tiny_fabric import two_compute_two_memory
 from tests.test_read_workload import read_trace
-from w2w.domain import StaticLayout
+from w2w.workloads.read_trace import ReadSpan
 from w2w.service.read_replay import ReadReplayConfig, replay_reads
 
 
 class ReturnPathTests(unittest.TestCase):
     def test_isolated_prediction_matches_long_word_replay(self):
         for width, rx in ((160, 2), (160, 3), (192, 2), (192, 3)):
-            base = two_compute_two_memory(widths=(256, width, width), depths=(1, 2, 2))
-            design = replace(base, layout=StaticLayout(((0., 1.), (1., 0.))))
+            design = two_compute_two_memory(widths=(256, width, width), depths=(1, 2, 2),
+                                            home_fraction=Fraction(1, 2))
+            # Preserve legal reciprocal residency; this phase reads only the
+            # odd-address words, which all reside at the peer in this fixture.
+            trace = read_trace(4800)
+            trace = replace(trace, tasks=(replace(trace.tasks[0], reads=tuple(
+                ReadSpan('a', i * 32, 32) for i in range(1, 4800, 2))),))
             rate = Fraction(return_path_period(width, 2, rx)['words_per_slot'])
-            row = replay_reads(design, read_trace(2400), ReadReplayConfig(
+            row = replay_reads(design, trace, ReadReplayConfig(
                 outstanding_words_per_compute=4096, rx_depth_words=rx))
             self.assertLessEqual(abs(row['makespan_slots'] - 2400 / rate), 5)
 
