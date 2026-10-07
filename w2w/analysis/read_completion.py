@@ -52,6 +52,70 @@ def projected_frontier(rows):
         for key, other in vectors.items() if key != name))
 
 
+def audit_study(summary, folder):
+    """Reconcile archived counters/hashes and expose initial partner contention."""
+    import gzip
+    from hashlib import sha256
+    import json
+    from pathlib import Path
+    from w2w.workloads.read_trace import digest
+
+    records = []
+    total = 0
+    for artifact, compact in zip(summary['artifacts'], summary['cases'], strict=True):
+        raw = (Path(folder) / artifact['path']).read_bytes()
+        if sha256(raw).hexdigest() != artifact['sha256']:
+            raise ValueError('Study artifact hash mismatch')
+        case = json.loads(gzip.decompress(raw))
+        if digest(case['trace']) != artifact['trace_sha256']:
+            raise ValueError('Trace hash mismatch')
+        logical_bytes = sum(r['size_bytes'] for t in case['trace']['tasks'] for r in t['reads'])
+        contexts = []
+        for row, small in zip(case['results'], compact['rows'], strict=True):
+            if any(row[k] != v for k, v in small.items()):
+                raise ValueError('Summary and raw replay disagree')
+            if (digest(row['design']) != row['design_sha256']
+                    or digest(row['residence']) != row['residence_sha256']):
+                raise ValueError('Design or residence hash mismatch')
+            counts = row['audit']
+            if (any(counts[k] != logical_bytes // 32 for k in
+                    ('issued_words', 'admitted_words', 'transmitted_words', 'delivered_words'))
+                    or counts['sent_bits'] != logical_bytes * 8
+                    or sum(r['sent_bits'] for r in row['routes']) != logical_bytes * 8
+                    or sum(r['received_words'] for r in row['routes']) != logical_bytes // 32
+                    or sum(row['native_words_by_bank'].values()) != logical_bytes // 32):
+                raise ValueError('Independent aggregate conservation failure')
+            total += counts['delivered_words']
+            shares = row['design']['layout']['shares']
+            owners = [{c for c, values in enumerate(shares) if values[b]} for b in range(len(shares[0]))]
+            stages = sorted({t['id'].split('/')[0] for t in row['tasks'] if t['logical_bytes']})
+            for stage in stages:
+                tasks = [t for t in row['tasks'] if t['id'].split('/')[0] == stage and t['logical_bytes']]
+                active = {t['compute'] for t in tasks}
+                private, busy = [], []
+                for task in tasks:
+                    c = task['compute']
+                    banks = [int(b) for b in task['bank_bytes']]
+                    neighbors = set().union(*(owners[b] for b in banks)) - {c}
+                    if any(owners[b] == {c} for b in banks):
+                        private.append(c)
+                    if neighbors & active:
+                        busy.append(c)
+                contexts.append(dict(design=row['id'], stage=stage, active=sorted(active),
+                                     required_private_bank_clients=private,
+                                     initially_busy_sharing_competitor_clients=busy))
+        records.append(dict(case=case['case'], control=case['control'], contexts=contexts))
+    # Independent closed-form Home oracles for these registered DAGs and settings.
+    expected_home = dict(single=88, dispersed9=88, clustered9=88, full36=88,
+                         moving9=352, straggler9=354, short9=4)
+    for case in summary['cases']:
+        if case['control'] == 'base' and case['rows'][0]['makespan_slots'] != expected_home[case['case']]:
+            raise ValueError('Analytical Private completion oracle failed')
+    return dict(verified=True, delivered_words_across_replays=total, analytical_home_oracles=expected_home,
+                contexts=records, scope='Independent archive/counter/Private-time checks; contexts describe '
+                                       'initial stage activity, not persistent contention or RTL equivalence')
+
+
 def render_study(summary, output):
     """Export finite-workload figures; never combine model time with ASIC area."""
     from pathlib import Path
@@ -110,4 +174,9 @@ if __name__ == '__main__':
     parser.add_argument('summary')
     parser.add_argument('--output', required=True)
     args = parser.parse_args()
-    render_study(json.loads(Path(args.summary).read_text()), args.output)
+    summary = json.loads(Path(args.summary).read_text())
+    audit = audit_study(summary, Path(args.summary).parent)
+    render_study(summary, args.output)
+    (Path(args.output) / 'audit.json').write_text(json.dumps(audit, indent=2) + '\n')
+    print('VERIFIED archive, counters and Private analytical completion;',
+          audit['delivered_words_across_replays'], 'delivered model words')
