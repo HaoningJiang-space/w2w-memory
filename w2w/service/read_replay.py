@@ -53,6 +53,7 @@ def replay_reads(design, trace, config=ReadReplayConfig()):
     nc = len(design.geometry.compute_xy)
     state = {}
     active = {}
+    last_compute_task = {}
     finished = {}
     not_started = set(task_by_id)
     pending = defaultdict(lambda: defaultdict(deque))
@@ -103,6 +104,7 @@ def replay_reads(design, trace, config=ReadReplayConfig()):
                     c = task_by_id[key].compute
                     if c is not None:
                         del active[c]
+                        last_compute_task[c] = key
                     changed = True
             candidates = []
             for key in sorted(not_started):
@@ -122,6 +124,7 @@ def replay_reads(design, trace, config=ReadReplayConfig()):
                     continue
                 ready_at = max((t.release_slot, *(finished[d] for d in t.dependencies)))
                 state[key] = dict(start=tick, eligible=ready_at, remaining=words[key], issued=0,
+                                  compute_predecessor=last_compute_task.get(t.compute),
                                   iterator=trace.words(t), reads_done=tick if not words[key] else None,
                                   finish=tick + t.compute_slots if not words[key] else None)
                 not_started.remove(key)
@@ -242,6 +245,7 @@ def replay_reads(design, trace, config=ReadReplayConfig()):
         for b, count in bank_bytes.items():
             memory_bytes[b // len(design.exposure.mask)] += count
         tasks.append(dict(id=task.id, compute=task.compute, start_slot=s['start'],
+                          compute_predecessor=s['compute_predecessor'],
                           reads_done_slot=s['reads_done'], finish_slot=s['finish'],
                           compute_queue_slots=s['start'] - s['eligible'],
                           read_wait_slots=s['reads_done'] - s['start'],

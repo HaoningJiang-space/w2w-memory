@@ -15,6 +15,8 @@ from w2w.synthesis.role_interfaces import static_shared_fifo
 from w2w.workloads.moe_reads import compile_moe_reads, synthetic_moe_captures
 from w2w.workloads.read_residency import ReadResidency
 from w2w.workloads.read_trace import ReadObject, ReadSpan, ReadTask, ReadTrace
+from w2w.workloads.read_trace import synthetic_read_suite
+from w2w.analysis.read_completion import completion_metrics, projected_frontier
 
 
 def home_design():
@@ -164,6 +166,59 @@ class ReadReplayTests(unittest.TestCase):
         result = replay_reads(home_design(), trace, FAST)
         self.assertEqual(result['makespan_slots'], 4)
         self.assertEqual(result['tasks'][2]['compute_queue_slots'], 2)
+
+
+class CompletionStudyTests(unittest.TestCase):
+    def test_join_critical_path_excludes_parallel_work_and_counts_release_gap(self):
+        trace = read_trace(6, both=True)
+        trace = replace(trace, tasks=(
+            ReadTask('a', 0, (ReadSpan('a', 0, 64),), compute_slots=3),
+            trace.tasks[1], ReadTask('join', None, dependencies=('a', 'b')),
+            ReadTask('after', 0, (ReadSpan('a', 0, 64),), ('join',), release_slot=10)))
+        result = replay_reads(home_design(), trace, FAST)
+        metrics = completion_metrics(trace, result)
+        self.assertEqual(result['makespan_slots'], 12)
+        self.assertEqual(metrics['critical_path'], ['b', 'join', 'after'])
+        self.assertEqual(metrics['critical_read_wait_slots'], 8)
+        self.assertEqual(metrics['critical_release_wait_slots'], 4)
+        self.assertEqual(metrics['joins'][0]['arrival_span_slots'], 1)
+        self.assertEqual(result['summed_task_read_wait_slots'], 10)
+
+    def test_actual_compute_serialization_is_a_critical_dependency(self):
+        trace = read_trace(2)
+        trace = replace(trace, tasks=(trace.tasks[0], ReadTask('b', 0, trace.tasks[0].reads)))
+        result = replay_reads(home_design(), trace, FAST)
+        self.assertEqual(completion_metrics(trace, result)['critical_path'], ['a', 'b'])
+        self.assertEqual(result['tasks'][1]['compute_predecessor'], 'a')
+
+    def test_instant_join_precedes_ready_task_arbitration(self):
+        trace = read_trace(2)
+        trace = replace(trace, tasks=(ReadTask('z_join', None),
+                                      replace(trace.tasks[0], dependencies=('z_join',)),
+                                      ReadTask('b', 0, trace.tasks[0].reads)))
+        result = replay_reads(home_design(), trace, FAST)
+        self.assertEqual(result['tasks'][1]['start_slot'], 0)
+        self.assertEqual(completion_metrics(trace, result)['critical_path'], ['z_join', 'a', 'b'])
+
+    def test_coordinate_suite_has_constant_resident_objects_and_stage_coverage(self):
+        coordinates = tuple((x, y) for y in range(6) for x in range(6))
+        suite = synthetic_read_suite(coordinates)
+        self.assertEqual(len(suite), 7)
+        self.assertTrue(all(t.objects == suite['single'].objects for t in suite.values()))
+        moving = suite['moving9']
+        self.assertEqual(sorted(t.compute for t in moving.tasks if t.reads), list(range(36)))
+        self.assertEqual([t.compute for t in suite['dispersed9'].tasks if t.reads],
+                         [0, 2, 4, 12, 14, 16, 24, 26, 28])
+        self.assertEqual(sum(r.size_bytes for t in moving.tasks for r in t.reads), 36 * 2496 * 32)
+        with self.assertRaises(ValueError):
+            synthetic_read_suite(coordinates[:-1])
+
+    def test_projection_retains_cost_tradeoffs_and_removes_dominated_point(self):
+        def row(name, time, lane, storage, wire):
+            return dict(id=name, makespan_slots=time, cost=dict(export_lane_bits=lane,
+                        endpoint_storage_bits=storage, access_wire_bit_mm=wire))
+        self.assertEqual(projected_frontier([row('home', 10, 1, 1, 1), row('fast', 5, 2, 1, 2),
+                                            row('duplicated', 5, 2, 2, 2)]), ['fast', 'home'])
 
 
 class MoeImportTests(unittest.TestCase):

@@ -120,3 +120,48 @@ class ReadTrace:
             for word in range(read.offset_bytes // self.word_bytes,
                               (read.offset_bytes + read.size_bytes) // self.word_bytes):
                 yield read.object, word
+
+
+def synthetic_read_suite(compute_xy):
+    """Frozen coordinate-based cases; never inspect sharing partners or rates."""
+    xs, ys = sorted({v[0] for v in compute_xy}), sorted({v[1] for v in compute_xy})
+    grid = {(ys.index(y), xs.index(x)): c for c, (x, y) in enumerate(compute_xy)}
+    if len(xs) != 6 or len(ys) != 6 or len(grid) != 36:
+        raise ValueError('Registered suite requires a complete 6 by 6 compute grid')
+    base = 2496
+    objects = tuple(ReadObject(f'object{c:02}', 4 * base * 32, c) for c in range(36))
+    group = lambda rows, cols: tuple(grid[r, c] for r in rows for c in cols)
+    dispersed = group((0, 2, 4), (0, 2, 4))
+    clustered = group(range(3), range(3))
+    center = grid[2, 2]
+    cases = {
+        'single': ((center,),),
+        'dispersed9': (dispersed,),
+        'clustered9': (clustered,),
+        'full36': (tuple(range(36)),),
+        'moving9': tuple(group(range(r, r + 3), range(c, c + 3))
+                         for r, c in ((0, 0), (0, 3), (3, 0), (3, 3))),
+        'straggler9': (dispersed,),
+        'short9': (dispersed,),
+    }
+    suite = {}
+    for name, stages in cases.items():
+        tasks, previous = [], ()
+        for stage, clients in enumerate(stages):
+            reads = []
+            for c in clients:
+                count = 64 if name == 'short9' else base
+                if name == 'straggler9' and c == center:
+                    count *= 4
+                task_id = f's{stage}/c{c:02}'
+                reads.append(task_id)
+                tasks.append(ReadTask(task_id, c, (ReadSpan(f'object{c:02}', 0, count * 32),),
+                                      previous, compute_slots=0 if name == 'short9' else 8))
+            join = f's{stage}/join'
+            tasks.append(ReadTask(join, None, dependencies=tuple(reads)))
+            previous = (join,)
+        if name == 'straggler9':
+            tasks.append(ReadTask('post_join', center, dependencies=previous, compute_slots=32))
+        suite[name] = ReadTrace(objects, tuple(tasks), 'synthetic',
+                               f'FINITE_READ_STUDY.md/{name}; coordinate-selected, no partner selection')
+    return suite
