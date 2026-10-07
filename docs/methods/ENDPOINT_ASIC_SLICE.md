@@ -1,0 +1,67 @@
+# Single-slice standard-cell pipeline
+
+Registered 2026-10-07. The main hardware-cost evidence is now ASIC-oriented;
+Vivado remains supplemental FPGA evidence. No VCS/DC/Genus/PrimeTime executable
+was discovered in the hn072 server PATH or configured environment. Their absence
+from PATH is not proof that the institution has no licenses. A site environment
+script and library can later replace the open tools without changing the traces.
+
+This first pipeline uses Verilator and Icarus for the same self-checking RTL,
+Yosys/ABC for Liberty mapping and OpenSTA for pre-layout timing. No P&R, DRAM
+array/controller RTL, wafer network, new placement or width/depth sweep.
+
+## Fixed comparison
+
+- Native 256-bit read-return words; Home 256/D1, Shared 160/D2.
+- Duplicated source vs configurable source; static select before the first HB.
+- Map source variants separately, plus one common Home RX and common Shared RX.
+  Each architecture is charged one Home RX and two Shared RX blocks.
+- Preserve manufactured alternative directions. Do not tie configuration inputs
+  to constants during synthesis. Configuration is frozen only in a test trace.
+- Same Nangate45 typical Liberty, 2 ns target, 0.05 ns clock uncertainty,
+  0.2 ns max I/O delay, zero min I/O delay, BUF_X1 input drive, 5 fF output load.
+- Ideal clock and no extracted wire RC. These are local-pin assumptions, not a
+  model of actual HB electrical loading or memory-process timing.
+- ABC receives the same 2,000 ps target and driving/load constraints. OpenSTA
+  independently checks the resulting mapped cells; a target is not achieved Fmax.
+
+Library source: OpenROAD-flow-scripts commit
+`9b26ff8ff651fc0b696f7ef20a356865ca6068bb`,
+`flow/platforms/nangate45/lib/NangateOpenCellLibrary_typical.lib`.
+SHA-256: `8d540a4d4cf6d09d27c87ad067857a9c0c2eeb023ab7a56e058cd3113db4e9b1`.
+This public library provides a reproducible relative standard-cell comparison;
+it is not calibrated to a DRAM process, an actual WoW stack or a foundry signoff.
+
+## Execution and acceptance
+
+`run_endpoint_asic.py` uses only the Python standard library. Tool environment and
+library live outside Git in the remote experiment's `asic_tools` directory.
+
+```sh
+python3 w2w/experiments/run_endpoint_asic.py \
+  --traces /path/to/archived/160bit/traces \
+  --liberty /path/to/NangateOpenCellLibrary_typical.lib \
+  --output /path/to/new/results --period 2
+```
+
+1. Check trace hashes against the archived roundtrip artifact.
+2. Preserve all Verilator lint warnings and reject structural latch,
+   multiple-driver, undriven or combinational-loop findings.
+3. Replay 14 paired traces on Verilator and Icarus; compare exact cycle/counter
+   results and historical completed-word/backpressure/occupancy counts.
+4. Require both deliberately corrupted-data and changed-direction tests to fail
+   through their intended checkers.
+5. Map all four local blocks to the same Liberty and reject unmapped cells.
+6. Run STA, preserving setup/hold paths and electrical constraint violations.
+7. Generate zero-delay functional cell models from that same Liberty and replay
+   the same scoreboard through the mapped TX and RX netlists. This checks mapping
+   semantics; it is not SDF timing simulation or formal proof.
+
+Record source hash, tools, library hash, input hashes, source/RX area and cell
+counts, and timing reports. Preserve incomplete runs separately. Do not infer
+power savings, routed area, wirelength or a production Fmax from this pipeline.
+
+Relevant primary tool documentation:
+[Yosys ABC mapping](https://yosyshq.readthedocs.io/projects/yosys/en/v0.54/cmd/abc.html),
+[OpenSTA](https://github.com/parallaxsw/OpenSTA),
+[Verilator](https://verilator.org/guide/latest/).
