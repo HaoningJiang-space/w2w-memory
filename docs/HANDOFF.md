@@ -1,5 +1,12 @@
 # 开发交接：Wafer-scale Memory Service Fabric
 
+**2026-10-07 当前：source-side TX→HB→RX最小闭环通过。**
+[最新结果](reports/ENDPOINT_ROUNDTRIP_REPORT.md)，源码 `2745632`，eex005：
+26条成对轨迹，逐周期等价；每个架构208,102字逐bit恢复，含背压、有限尾部和192-bit回归。
+加入held beat和三个RX后，B的payload存储2,880→2,208 bit；lane不变，尚无PPA。
+用户最新要求已将此前RTL暂停范围收敛为这个最小功能验证，未恢复wafer实验或DRAM RTL。
+下一步只判断single-slice局部PPA；见[当前任务](handoff/NEXT_TASK.md)。下面为历史状态。
+
 **2026-10-07 最新安排：架构先于RTL，停止继续综合扩展。**
 [三组织比较与决策](reports/SHARED_EGRESS_ARCHITECTURE_DECISION.md)记录独立出口、共用FIFO、
 共用FIFO＋发送器。补充源码 `3c60583`：23测试、126 LP，服务保持；lane/接入长线不变。

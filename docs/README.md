@@ -7,7 +7,9 @@
 
 ## 当前实现与运行
 
-- [最新：三种 Shared Egress 组织的架构判断，RTL后续暂停](reports/SHARED_EGRESS_ARCHITECTURE_DECISION.md)
+- [最新：source-side TX→HB→RX完整字闭环](reports/ENDPOINT_ROUNDTRIP_REPORT.md)
+- [最小闭环的协议、测试范围与成本计数](methods/ENDPOINT_ROUNDTRIP.md)
+- [三种 Shared Egress 组织的架构判断与原型边界](reports/SHARED_EGRESS_ARCHITECTURE_DECISION.md)
 - [Configurable Shared Egress 的首项单因素对照](reports/CONFIGURABLE_SHARED_EGRESS_REPORT.md)
 - [静态方向与共享 FIFO 的实验范围](methods/STATIC_SHARED_FIFO.md)
 - [home/k2/k3 架构竞争、同预算与同服务前沿](reports/ARCHITECTURE_COMPETITION_REPORT.md)

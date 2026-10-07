@@ -21,7 +21,8 @@ shared endpoint 怎样交换服务和硬件成本？[第一项 FIFO 复用对照
 
 [三种接口组织的最新判断](reports/SHARED_EGRESS_ARCHITECTURE_DECISION.md)：FIFO复用保持服务，
 存储收益计入pipeline后为4.54%/7.45%；lane与接入长线没有下降，共用发送器未确定占优。
-当前继续架构模型与成本比较；已提前完成的小型RTL原型归档，停止后续RTL/综合扩展。
-待架构收益和接口契约明确后，才对新增endpoint做minimal RTL与PPA，不做DRAM bank/controller RTL。
+此后按用户明确的source侧方向选择与RX要求，完成[最小TX→HB→RX功能对照](reports/ENDPOINT_ROUNDTRIP_REPORT.md)：
+两架构在冻结单伙伴下逐槽等价，全部字逐bit恢复。新增握手/RX之后的payload存储下降23.33%，
+lane不变；下一步仅判断相同协议下的single-slice局部PPA，不做DRAM bank/controller RTL或扩wafer实验。
 
 完整的新颖性仍需前作全文核对。目录整理及模型诊断本身不作为新的架构贡献。

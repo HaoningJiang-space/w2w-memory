@@ -48,8 +48,8 @@ memory_results/            本地/服务器实验工作目录（不入 Git）
 
 当前固定 H/plus，研究可配置共享接口：利用冻结伙伴关系复用 shared FIFO，在相同服务下
 减少重复存储。k2 和 full-width direct 保留为强对照。Matching、布局与执行模型服务于这项
-接口架构验证；暂不扩新优化框架。当前先判断架构收益，已提前完成的小型endpoint RTL
-探索保留归档，暂停后续RTL/综合；尚无PPA。见[三组织比较与当前决策](docs/reports/SHARED_EGRESS_ARCHITECTURE_DECISION.md)。
+接口架构验证；暂不扩新优化框架。当前[source-side TX→HB→RX最小闭环](docs/reports/ENDPOINT_ROUNDTRIP_REPORT.md)
+已通过完整字、背压和吞吐对照；新增握手与RX存储均计费，尚无PPA。
 
 ## 运行
 
