@@ -10,4 +10,4 @@ gurobi.lic
 !.env.example
 
 # Raster previews of versioned research SVG figures
-research_figures/**/*.png
+artifacts/figures/**/*.png

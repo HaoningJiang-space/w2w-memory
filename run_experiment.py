@@ -23,7 +23,7 @@ import power_and_area_summary as pas
 
 def construct_system_for_single_design(design : Dict, parameters : Dict) -> System:
     if design["integration_level"] == "memory_and_logic":
-        from memory_model import construct_memory_system
+        from w2w.geometry.memory_model import construct_memory_system
         return construct_memory_system(design, parameters)
     # Extract general parameters
     reticle_size = parameters["reticle_size"]
@@ -74,8 +74,8 @@ def construct_system_for_single_design(design : Dict, parameters : Dict) -> Syst
 def compute_results_for_single_system(system : System, name : str, run_rapidchiplet : bool, run_orion : bool, perform_sample_period_analysis : bool = False, perform_vc_buffer_analysis : bool = False) -> Dict:
     if system.integration_level == "memory_and_logic":
         if run_rapidchiplet or run_orion or perform_sample_period_analysis or perform_vc_buffer_analysis:
-            raise ValueError("Memory-on-Logic supports analytical evaluation only; use run_memory_experiment.py")
-        from memory_model import MemoryFabric
+            raise ValueError("Memory-on-Logic supports analytical evaluation only; use python -m w2w run_memory_experiment")
+        from w2w.geometry.memory_model import MemoryFabric
         return {"memory_analysis": MemoryFabric(system).summary()}
     # Compute all results
     results = {}

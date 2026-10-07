@@ -1,0 +1,91 @@
+# 代码结构与开发入口
+
+本次是目录与公共依赖整理，不改变服务公式、实验 seeds、优化目标或硬件参数。
+旧结果及摘要按字节原样迁移；路径清单和 SHA-256 在
+[迁移记录](../artifacts/provenance/layout_migration.json)。历史提交仍可复现旧命令。
+
+## 分层职责
+
+| 目录 | 应放什么 | 主要模块 |
+|---|---|---|
+| `w2w/geometry` | Memory-on-Logic 的几何生成、HB overlap、初始服务包络 | `memory_model` |
+| `w2w/service` | 资源账本、固定数据布局、reticle/bank 服务 LP | `matching_placement`、`bank_sharing`、`guaranteed_service_exchange` |
+| `w2w/endpoints` | 出口服务合同、完整字执行、队列与反压 | `endpoint_contract_probe`、`endpoint_execution`、`slice_exposure_probe` |
+| `w2w/synthesis` | 选择布局或硬件的算法 | `cycle_configurations`、`sparse_pooling`、`service_driven_fabric`、`nonuniform_pooling`、`gurobi_pair_synthesis`、`memory_fabric_dse` |
+| `w2w/workloads` | 可复用的活动集合、请求分布 | `bank`、`reticle` |
+| `w2w/experiments` | 注册参数、train/val/test、冻结、执行和记录 | `run_*` |
+| `w2w/analysis` | 读取结果、独立重算、统计 | `analyze_*` |
+| `w2w/validation` | 构造证书、守恒检查、资源复核 | `verify_*`、`resources` |
+| `w2w/visualization` | 生成图形 | `plot_*`、`render_*`、`draw_*` |
+
+共享参数在 `w2w/constants.py`；环境记录在 `w2w/provenance.py`；归档路径在
+`w2w/paths.py`。包导入不会启动实验或生成图片。
+
+旧模型中少量 baseline 构造和布局辅助函数仍与其服务模型放在一起，以保持 API
+及历史行为。这次没有趁搬目录重写算法。上游几何和 NoC 工具仍位于根目录：
+研究代码通过显式 import 使用它们，保留原工具运行方式和第三方依赖结构。
+
+## 依赖方向
+
+```text
+upstream geometry + constants + workloads
+                    ↓
+              geometry / service
+                    ↓
+          endpoints / synthesis
+                    ↓
+     experiments / analysis / validation
+                    ↓
+                 artifacts
+```
+
+公共 workload 和 provenance 不再从 `run_*.py` 导入。模型与综合算法不要依赖实验
+入口；实验负责调用模型、记录参数和冻结结果。`validation/resources.py` 复用综合
+层的独立原始资源核对，不参与算法选方案。
+
+## 当前闭环应看哪些文件
+
+1. [EndpointFixedService / 完整字执行](../w2w/endpoints/endpoint_execution.py)
+2. [ExposureFabric / FixedService](../w2w/service/guaranteed_service_exchange.py)
+3. [冻结的 endpoint-to-wafer 实验](../w2w/experiments/run_endpoint_bridge.py)
+4. [独立配对复核](../w2w/analysis/analyze_endpoint_bridge.py)
+5. [执行与接入测试](../tests/test_endpoint_execution.py)
+
+## 统一命令
+
+在仓库根目录：
+
+```sh
+python -m w2w --list
+python -m w2w run_endpoint_bridge --help
+python -m w2w run_endpoint_bridge --output memory_results/my_endpoint/results.json
+python -m w2w analyze_endpoint_bridge artifacts/results/endpoint/endpoint_bridge_results.json
+python -m unittest discover -s tests -v
+```
+
+入口保留原脚本 stem，甚至接受 `.py` 后缀：
+`python -m w2w run_endpoint_bridge.py ...`。也可以直接用完整模块路径。
+
+| 原入口 | 当前入口 |
+|---|---|
+| `python run_endpoint_bridge.py ...` | `python -m w2w run_endpoint_bridge ...` |
+| `python endpoint_contract_probe.py ...` | `python -m w2w endpoint_contract_probe ...` |
+| `python analyze_nonuniform_pooling.py ...` | `python -m w2w analyze_nonuniform_pooling ...` |
+| `python -m unittest test_endpoint_execution` | `python -m unittest tests.test_endpoint_execution` |
+| `from guaranteed_service_exchange import FixedService` | `from w2w.service.guaranteed_service_exchange import FixedService` |
+
+没有保留根目录 wrapper 或全局 `sys.path` 注入；旧直接文件命令需要按表更新。
+文档中已更新可运行命令。原脚本的参数保持原语义；有些分析/绘图脚本不提供
+`--help`，用统一 `--list` 查找入口，再看对应模块或方法文档。
+
+## 结果、报告与服务器
+
+- `docs/methods`：实验协议；`docs/reports`：结果；`docs/theory`：推导。
+- `docs/background`：物理证据/related work；`docs/operations`：Git 与服务器。
+- `artifacts/results/<stage>`：精选原始结果、摘要、证书。不要修改旧结果去匹配新模型。
+- `artifacts/figures/<stage>`：SVG 正式图；PNG 仅作本地预览。
+- `memory_results/<run>`：新运行的工作目录，保持原位置，避免破坏服务器归档恢复。
+- 上游 `results/` 和 `plots/` 不是本研究新结果目录，保留原样。
+
+新研究代码应进入对应层；新增实验注册在 `w2w/commands.py`。仍只使用 `main`，
+通过 Git 同步到 eex005。需要干净提交的 runner 保留原检查，不为重构绕过检查。
