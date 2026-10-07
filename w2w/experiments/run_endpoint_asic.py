@@ -198,13 +198,21 @@ def run(args):
                   started_utc=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),
                   boundary='Pre-layout Nangate45 Liberty mapping and STA; no wire RC, CTS, P&R or power claim',
                   repair_requested=args.repair,
+                  physical_requested=bool(args.openroad),
                   input_sha256={str(p.relative_to(ROOT)):sha(p) for p in
-                    [*rtl,tb,reference,ROOT/'rtl/asic/slice_sta.tcl',Path(__file__)]},
+                    [*rtl,tb,reference,ROOT/'rtl/asic/slice_sta.tcl',
+                     ROOT/'rtl/asic/slice_constraints.tcl',ROOT/'rtl/asic/slice_openroad.tcl',Path(__file__)]},
                   tools={},simulation={},blocks={})
     def save():
         (out/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
     for tool,flag in (('verilator','--version'),('yosys','-V'),('sta','-version'),('iverilog','-V')):
         manifest['tools'][tool]=command([tool,flag],out,out/f'{tool}_version.log').strip()
+    if args.openroad:
+        manifest['tools']['openroad']=command([args.openroad,'-version'],out,out/'openroad_version.log').strip()
+        manifest['boundary']='Local signal/clock P&R and extracted typical-corner STA; no wafer/HB RC, power grid or power claim'
+        manifest['physical_settings']=dict(utilization=30,placement_density=.30,aspect_ratio=1,
+            core_space_um=5,seed=42,threads=2,hold_margin_ns=.02,max_hold_buffer_percent=50,
+            platform_sha256={str(p.relative_to(args.platform)):sha(p) for p in sorted(args.platform.rglob('*')) if p.is_file()})
     save()
     for configurable in (0,1):
         log=command(['verilator','--lint-only','--timing','-Wall','-Wno-fatal',
@@ -285,6 +293,46 @@ write_json {d/'netlist.json'}
                 cells=dict(cells),netlist_sha256=sha(d/'netlist.v'),
                 sequential_cells=sum(v for c,v in cells.items() if c.startswith(('DFF','SDFF'))),
                 cell_area_um2=stats['area'],sequential_area_um2=stats['sequential_area'])
+        if args.openroad:
+            before=dict(manifest['blocks'][name])
+            initial=d/'initial';initial.mkdir()
+            for f in ('netlist.v','netlist.json','stat.json','sta.log','hold.tsv'):
+                shutil.copy2(d/f,initial/f)
+            physical=d/'physical';physical.mkdir()
+            penv=dict(env,W2W_PLATFORM=str(args.platform.resolve()),
+                      W2W_PHYSICAL_OUTPUT=str(physical),W2W_HOLD_REPORT=str(physical/'hold.tsv'))
+            print('PHYSICAL',name,flush=True)
+            log=command([args.openroad,'-no_init','-exit',ROOT/'rtl/asic/slice_openroad.tcl'],
+                        physical,physical/'openroad.log',penv)
+            if 'PHYSICAL_FLOW_COMPLETE' not in log or 'STA_COMPLETE' not in log:
+                raise AssertionError(f'Physical flow incomplete: {physical}')
+            shutil.copy2(physical/'netlist.v',d/'netlist.v')
+            script=f'''read_liberty -lib {lib}
+read_verilog {d/'netlist.v'}
+hierarchy -top {target}
+check -assert
+tee -o {d/'stat.json'} stat -json -liberty {lib} {target}
+write_json {d/'netlist.json'}
+'''
+            (physical/'stat.ys').write_text(script)
+            command(['yosys','-s',physical/'stat.ys'],physical,physical/'stat.log')
+            post=json.loads((d/'netlist.json').read_text())['modules'][target]
+            cells=Counter(c['type'] for c in post['cells'].values() if c['type']!='$scopeinfo')
+            stats=json.loads((d/'stat.json').read_text())['modules']['\\'+target]
+            import csv
+            with (physical/'stages.csv').open() as f: stages=list(csv.DictReader(f))
+            metric_lines=(physical/'hold.tsv').read_text().splitlines()
+            final_slack={s.split()[1]:float(s.split()[2]) for s in metric_lines if s.startswith('METRIC ')}
+            electrical=log.split('=== ELECTRICAL ===')[1]
+            drc=re.findall(r'Number of violations\s*=\s*(\d+)',log)
+            if not drc:raise AssertionError('Missing routed DRC count')
+            passed=min(final_slack.values())>=0 and '(VIOLATED)' not in electrical and int(drc[-1])==0
+            manifest['blocks'][name].update(before_physical=before,cells=dict(cells),
+                netlist_sha256=sha(d/'netlist.v'),
+                sequential_cells=sum(v for c,v in cells.items() if c.startswith(('DFF','SDFF'))),
+                cell_area_um2=stats['area'],sequential_area_um2=stats['sequential_area'],
+                physical=dict(stages=stages,slack_ns=final_slack,route_drc_count=int(drc[-1]),
+                              electrical_violations='(VIOLATED)' in electrical,closed=passed))
         save()
     # Generate zero-delay Liberty cell models; no timing simulation claim.
     # Nangate contains unused clock-gate cells without an IQ function. Skip only
@@ -319,4 +367,9 @@ if __name__=='__main__':
     p.add_argument('--output',type=Path,required=True)
     p.add_argument('--period',type=float,default=2.0)
     p.add_argument('--repair',action='store_true',help='Bounded cell-level hold/cap ECO under unchanged constraints')
-    run(p.parse_args())
+    p.add_argument('--openroad',type=Path,help='OpenROAD executable for matched local physical validation')
+    p.add_argument('--platform',type=Path,help='Pinned Nangate45 physical platform directory')
+    args=p.parse_args()
+    if bool(args.openroad)!=bool(args.platform) or (args.openroad and args.repair):
+        p.error('Use --openroad with --platform, starting from unrepaired mapped cells (no --repair)')
+    run(args)

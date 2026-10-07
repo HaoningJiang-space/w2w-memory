@@ -5,6 +5,8 @@
 研究目标：在有限接口与连线预算下，联合组织 **memory service interface、reticle
 placement 和静态数据布局**，使繁忙 compute 能利用已有 DRAM 服务。
 Matching、pooling 和 FIFO 是不同层次的工具，不是独立更换的研究题目。
+主贡献是 **wafer-scale memory-service sharing architecture**；静态可配置 shared
+egress 是关键机制，RTL 是该机制的功能与局部硬件成本验证。
 
 ## 目录与职责
 
@@ -49,7 +51,9 @@ memory_results/            本地/服务器实验工作目录（不入 Git）
 当前固定 H/plus，研究可配置共享接口：利用冻结伙伴关系复用 shared FIFO，在相同服务下
 减少重复存储。k2 和 full-width direct 保留为强对照。Matching、布局与执行模型服务于这项
 接口架构验证；暂不扩新优化框架。当前[source-side TX→HB→RX最小闭环](docs/reports/ENDPOINT_ROUNDTRIP_REPORT.md)
-已通过完整字、背压和吞吐对照；新增握手与RX存储均计费，尚无PPA。
+已通过完整字、背压和吞吐对照；新增握手与RX存储均计费。
+同库、同约束的[单 slice ASIC 映射/STA](docs/reports/ENDPOINT_ASIC_SLICE_REPORT.md)
+现已完成，报告区分局部面积、未解决时序问题和未执行的物理/功耗验证。
 
 ## 运行
 

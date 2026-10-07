@@ -85,6 +85,43 @@ the two architectures remains restricted to the static one-partner workload;
 false-path direction controls do not certify the duplicated architecture's
 general dynamic-direction timing. Sensitivity sweeps and P&R are separate work.
 
+## Registered matched OpenROAD experiment
+
+The subsequent user-requested physical comparison starts from the unrepaired
+mapped netlists, with the same Nangate45 typical Liberty and the same shared
+`slice_constraints.tcl`. It uses OpenROAD 2.0-17598-ga008522d8 (Ubuntu 22.04
+prebuilt), and LEF, track, RC and extraction rules from the same pinned ORFS
+revision as the library. No custom ECO buffers carry into this experiment.
+
+Both sources and the two common receiver types use 30% initial utilization,
+square aspect ratio, 5 um core margin, placement density 0.30, seed 42, two
+threads, metal5/6 local I/O pins and the platform's metal2–10 signal / metal4–10
+clock routing settings. CTS uses CLKBUF_X1/X2/X3. The same automatic setup/hold
+repair sequence runs after CTS and with global-route parasitics; hold margin is
+0.02 ns and the buffer limit is 50% for every block. Detailed routing is followed
+by OpenRCX extraction and STA using propagated clocks. Record pre-repair,
+post-CTS, repaired and extracted-route area/slack, added hold-buffer count/area,
+route DRC count, and exact final cell counts. Replay the same mapped scoreboards.
+
+This is local signal/clock physical validation. Power-grid routing, wafer-length
+access wires, actual HB parasitics, multi-corner signoff and power are excluded.
+Routing DRC means the detailed router's check, not an independent foundry deck.
+A completed flow with residual violations is reported as not closed.
+
+```sh
+python3 w2w/experiments/run_endpoint_asic.py \
+  --traces /path/to/inputs --liberty /path/to/NangateOpenCellLibrary_typical.lib \
+  --output /path/to/new/physical_results --period 2 \
+  --openroad /path/to/physical_tools/bin/openroad \
+  --platform /path/to/physical_tools/nangate45
+```
+
+The prebuilt route is documented by [OpenROAD](https://openroad-flow-scripts.readthedocs.io/en/latest/user/BuildWithPrebuilt.html);
+the pinned release is [2024-12-14](https://github.com/Precision-Innovations/OpenROAD/releases/tag/2024-12-14).
+See the [resizer documentation](https://openroad.readthedocs.io/en/latest/main/src/rsz/README.html)
+for automatic setup/hold repair. Tool/library version and raw logs take precedence
+over behavior described for a newer online version.
+
 Relevant primary tool documentation:
 [Yosys ABC mapping](https://yosyshq.readthedocs.io/projects/yosys/en/v0.54/cmd/abc.html),
 [OpenSTA](https://github.com/parallaxsw/OpenSTA),

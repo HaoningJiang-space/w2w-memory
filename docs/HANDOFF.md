@@ -1,5 +1,14 @@
 # 开发交接：Wafer-scale Memory Service Fabric
 
+**2026-10-07 当前定位：架构贡献与 RTL 验证分开。**
+主线是 wafer-scale DRAM 服务共享；静态可配置 source egress 是关键机制，
+gearbox/FIFO/RTL 是功能与局部硬件成本证据，不另立贡献。
+见[研究范围](RESEARCH_SCOPE.md)和[当前任务](handoff/NEXT_TASK.md)。
+同库同约束的 [ASIC 单 slice 报告](reports/ENDPOINT_ASIC_SLICE_REPORT.md)已完成，
+source 面积减少 35.6%，计入相同三个 RX 为 16.3%；该报告保留修复前的 hold/cap 违例。
+仅收尾已启动的网表修复，随后回到整片系统服务—成本归因，不自动扩展 RTL 支线。
+以下保留历史阶段状态，其中“下一步”“尚无 PPA”等均按各自版本解释。
+
 **2026-10-07 当前：source-side TX→HB→RX最小闭环通过。**
 [最新结果](reports/ENDPOINT_ROUNDTRIP_REPORT.md)，源码 `2745632`，eex005：
 26条成对轨迹，逐周期等价；每个架构208,102字逐bit恢复，含背压、有限尾部和192-bit回归。
