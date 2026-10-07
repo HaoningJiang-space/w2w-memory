@@ -1,0 +1,32 @@
+{
+  "schema": "w2w.pbc-files.v1",
+  "evidence": "captured",
+  "source": "https://huggingface.co/datasets/core12345/MoE_expert_selection_trace",
+  "revision": "27febb7b2d24169560a9f6f83d38eb53f94916cf",
+  "requests": [
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1536.json",
+      "path": "../../pbc_corpus256/computer_security/request7.json",
+      "sha256": "45fcde8588f880c33140029ef82986094ea023f059d637e9d6ce162658bd73b9",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8561.json",
+      "path": "../../pbc_corpus256/moral_scenarios/request17.json",
+      "sha256": "4dfdac966d8a28bf7ffde22b794af85cfa36456692528fc25718fdd3b555f34a",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/16.json",
+      "path": "../../pbc_corpus256/abstract_algebra/request31.json",
+      "sha256": "66ccf3cf2eebce3d8c50577a2115f61b1c4da02c75d319cfdadb9ad1ff226bff",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2743.json",
+      "path": "../../pbc_corpus256/high_school_biology/request23.json",
+      "sha256": "4b7791035ea2932a84c9bc567e70568427c0d3a68307809fe6635296409f4a6f",
+      "arrival_iteration": 0
+    }
+  ]
+}

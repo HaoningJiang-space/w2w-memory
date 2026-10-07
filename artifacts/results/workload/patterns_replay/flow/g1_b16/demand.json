@@ -1,0 +1,559 @@
+{
+  "schema": "w2w.pbc-demand.v1",
+  "trace_sha256": "81a574627d5be1fb2cbb708f48d4f08d1bf9fa8701089bf35caebd39f0d7f083",
+  "manifest_sha256": "1ffc7c387b3906ede6d3bc50e588ea06f47741d3ff6a57b317592966b9b55d00",
+  "execution_spec_sha256": "af778558b4d0b70d214ca7b16e9cd758e42aebbdc70094f271838d6ccb10e08b",
+  "evidence": "captured",
+  "captured_routing": true,
+  "model": "Qwen/Qwen3-235B-A22B-FP8; config SHA256=702c46d431bb984db9035a1225186bbfdb52c0d19c82104df4a37cd005e0369e",
+  "source": "https://huggingface.co/datasets/core12345/MoE_expert_selection_trace",
+  "revision": "27febb7b2d24169560a9f6f83d38eb53f94916cf",
+  "requests": [
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1569.json",
+      "path": "../../pbc_corpus256/computer_security/request29.json",
+      "sha256": "50724a4fe165358e6677df99f8b30a0b2c8a2ce637389540540b4a5bc93c4971",
+      "arrival_iteration": 0,
+      "prefill_tokens": 15,
+      "raw_decode_steps": 128,
+      "retained_decode_steps": 1,
+      "omitted_decode_steps": 127,
+      "selected_decode_steps": [
+        65
+      ]
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/17.json",
+      "path": "../../pbc_corpus256/abstract_algebra/request30.json",
+      "sha256": "e50d626fd877aef838f0aa62a66055292e26aa74dda5cf5ccb8f8c1e4023b1f3",
+      "arrival_iteration": 0,
+      "prefill_tokens": 25,
+      "raw_decode_steps": 128,
+      "retained_decode_steps": 1,
+      "omitted_decode_steps": 127,
+      "selected_decode_steps": [
+        65
+      ]
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9888.json",
+      "path": "../../pbc_corpus256/philosophy/request10.json",
+      "sha256": "f9fcf1140fa42b9d4871fd6687a7200aa093ff2dbc818d4740846712cdd8ba47",
+      "arrival_iteration": 0,
+      "prefill_tokens": 9,
+      "raw_decode_steps": 128,
+      "retained_decode_steps": 1,
+      "omitted_decode_steps": 127,
+      "selected_decode_steps": [
+        65
+      ]
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/460.json",
+      "path": "../../pbc_corpus256/business_ethics/request12.json",
+      "sha256": "622eed28a876ba863fcba3953b647e7ba4db66d21261d3e830c0fd0179837558",
+      "arrival_iteration": 0,
+      "prefill_tokens": 19,
+      "raw_decode_steps": 128,
+      "retained_decode_steps": 1,
+      "omitted_decode_steps": 127,
+      "selected_decode_steps": [
+        65
+      ]
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4796.json",
+      "path": "../../pbc_corpus256/high_school_physics/request28.json",
+      "sha256": "127065b785064a0c1003b25d974895c9fc2e12efd71c53d6cc16e25430d27133",
+      "arrival_iteration": 0,
+      "prefill_tokens": 51,
+      "raw_decode_steps": 128,
+      "retained_decode_steps": 1,
+      "omitted_decode_steps": 127,
+      "selected_decode_steps": [
+        65
+      ]
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9160.json",
+      "path": "../../pbc_corpus256/moral_scenarios/request0.json",
+      "sha256": "40d6ce10caa5bde5e7f0ac3bd8a2706b02a3be1d725a54e07aa0289c38706e5d",
+      "arrival_iteration": 0,
+      "prefill_tokens": 36,
+      "raw_decode_steps": 128,
+      "retained_decode_steps": 1,
+      "omitted_decode_steps": 127,
+      "selected_decode_steps": [
+        65
+      ]
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12418.json",
+      "path": "../../pbc_corpus256/professional_medicine/request26.json",
+      "sha256": "e82134704ed66168e9ee04f0a87743472e652a8d4d840c2769aa736567ad0d54",
+      "arrival_iteration": 0,
+      "prefill_tokens": 126,
+      "raw_decode_steps": 128,
+      "retained_decode_steps": 1,
+      "omitted_decode_steps": 127,
+      "selected_decode_steps": [
+        65
+      ]
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2698.json",
+      "path": "../../pbc_corpus256/high_school_biology/request19.json",
+      "sha256": "197794a2fb3a230f49efec95f3dc7deff8d2a6c050883ab5c8878fc1dfad5554",
+      "arrival_iteration": 0,
+      "prefill_tokens": 9,
+      "raw_decode_steps": 128,
+      "retained_decode_steps": 1,
+      "omitted_decode_steps": 127,
+      "selected_decode_steps": [
+        65
+      ]
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9342.json",
+      "path": "../../pbc_corpus256/moral_scenarios/request5.json",
+      "sha256": "df33348ca4bdc0b985e90d1e166489bfafd64737b3a06e51370c4660a8d92391",
+      "arrival_iteration": 0,
+      "prefill_tokens": 31,
+      "raw_decode_steps": 128,
+      "retained_decode_steps": 1,
+      "omitted_decode_steps": 127,
+      "selected_decode_steps": [
+        65
+      ]
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1494.json",
+      "path": "../../pbc_corpus256/computer_security/request23.json",
+      "sha256": "5ebb9d028d1fbbbe37c49d81bfbe2c8bc14f825def20ca30e039c44f032f1332",
+      "arrival_iteration": 0,
+      "prefill_tokens": 13,
+      "raw_decode_steps": 128,
+      "retained_decode_steps": 1,
+      "omitted_decode_steps": 127,
+      "selected_decode_steps": [
+        65
+      ]
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12214.json",
+      "path": "../../pbc_corpus256/professional_medicine/request2.json",
+      "sha256": "ad90b21e3086e357b3fc1da88e5209f9d5fad10a49e116e83b7b9a7a027b009d",
+      "arrival_iteration": 0,
+      "prefill_tokens": 87,
+      "raw_decode_steps": 128,
+      "retained_decode_steps": 1,
+      "omitted_decode_steps": 127,
+      "selected_decode_steps": [
+        65
+      ]
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2890.json",
+      "path": "../../pbc_corpus256/high_school_biology/request27.json",
+      "sha256": "30e9031fe55d5e823e73676906068974c5697595ab62b871e8b05b97393ceaf5",
+      "arrival_iteration": 0,
+      "prefill_tokens": 10,
+      "raw_decode_steps": 128,
+      "retained_decode_steps": 1,
+      "omitted_decode_steps": 127,
+      "selected_decode_steps": [
+        65
+      ]
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4792.json",
+      "path": "../../pbc_corpus256/high_school_physics/request5.json",
+      "sha256": "22b47df58cf70d67edc4b0b8fee316d4c4ec1b9261da33ceae9757417b445197",
+      "arrival_iteration": 0,
+      "prefill_tokens": 84,
+      "raw_decode_steps": 128,
+      "retained_decode_steps": 1,
+      "omitted_decode_steps": 127,
+      "selected_decode_steps": [
+        65
+      ]
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/10.json",
+      "path": "../../pbc_corpus256/abstract_algebra/request27.json",
+      "sha256": "9e895dd3edac84a935f919ec363fd4d0aa150ed82ce272aa77cb98a46017b24e",
+      "arrival_iteration": 0,
+      "prefill_tokens": 50,
+      "raw_decode_steps": 128,
+      "retained_decode_steps": 1,
+      "omitted_decode_steps": 127,
+      "selected_decode_steps": [
+        65
+      ]
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/438.json",
+      "path": "../../pbc_corpus256/business_ethics/request1.json",
+      "sha256": "fd6214b511a0616fc046ea7b2a5efd3b91dea61f36c114f8f4e05a9747d337bc",
+      "arrival_iteration": 0,
+      "prefill_tokens": 48,
+      "raw_decode_steps": 128,
+      "retained_decode_steps": 1,
+      "omitted_decode_steps": 127,
+      "selected_decode_steps": [
+        65
+      ]
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9849.json",
+      "path": "../../pbc_corpus256/philosophy/request1.json",
+      "sha256": "13346873f8f5d51e2e8e4ea0c7f7b92ce8b144f6f65dfabe2ebadd84be211042",
+      "arrival_iteration": 0,
+      "prefill_tokens": 41,
+      "raw_decode_steps": 128,
+      "retained_decode_steps": 1,
+      "omitted_decode_steps": 127,
+      "selected_decode_steps": [
+        65
+      ]
+    }
+  ],
+  "windows": [
+    {
+      "id": "batch0/layer0",
+      "iteration": 0,
+      "layer": "39",
+      "request_tokens": [
+        {
+          "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1569.json",
+          "decode_step": 65
+        },
+        {
+          "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/17.json",
+          "decode_step": 65
+        },
+        {
+          "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9888.json",
+          "decode_step": 65
+        },
+        {
+          "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/460.json",
+          "decode_step": 65
+        },
+        {
+          "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4796.json",
+          "decode_step": 65
+        },
+        {
+          "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9160.json",
+          "decode_step": 65
+        },
+        {
+          "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12418.json",
+          "decode_step": 65
+        },
+        {
+          "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2698.json",
+          "decode_step": 65
+        },
+        {
+          "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9342.json",
+          "decode_step": 65
+        },
+        {
+          "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1494.json",
+          "decode_step": 65
+        },
+        {
+          "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12214.json",
+          "decode_step": 65
+        },
+        {
+          "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2890.json",
+          "decode_step": 65
+        },
+        {
+          "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4792.json",
+          "decode_step": 65
+        },
+        {
+          "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/10.json",
+          "decode_step": 65
+        },
+        {
+          "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/438.json",
+          "decode_step": 65
+        },
+        {
+          "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9849.json",
+          "decode_step": 65
+        }
+      ],
+      "token_count": 16,
+      "expert_token_counts": {
+        "0": 1,
+        "2": 1,
+        "4": 3,
+        "8": 1,
+        "10": 3,
+        "11": 1,
+        "12": 4,
+        "14": 1,
+        "15": 1,
+        "16": 3,
+        "18": 1,
+        "19": 1,
+        "20": 1,
+        "21": 1,
+        "22": 1,
+        "23": 1,
+        "24": 1,
+        "25": 1,
+        "26": 2,
+        "27": 2,
+        "29": 1,
+        "33": 1,
+        "34": 3,
+        "35": 2,
+        "36": 1,
+        "37": 1,
+        "38": 1,
+        "40": 4,
+        "41": 2,
+        "46": 5,
+        "47": 3,
+        "48": 1,
+        "49": 4,
+        "54": 2,
+        "55": 4,
+        "56": 2,
+        "57": 4,
+        "59": 2,
+        "61": 1,
+        "64": 2,
+        "66": 3,
+        "69": 1,
+        "71": 1,
+        "73": 5,
+        "75": 1,
+        "76": 1,
+        "79": 2,
+        "82": 1,
+        "87": 1,
+        "88": 2,
+        "90": 2,
+        "91": 1,
+        "95": 2,
+        "97": 3,
+        "102": 1,
+        "103": 1,
+        "105": 2,
+        "107": 2,
+        "114": 2,
+        "115": 1,
+        "119": 4,
+        "120": 2,
+        "122": 2,
+        "123": 2,
+        "124": 3,
+        "125": 1,
+        "127": 2
+      },
+      "activated_experts": [
+        0,
+        2,
+        4,
+        8,
+        10,
+        11,
+        12,
+        14,
+        15,
+        16,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        29,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        40,
+        41,
+        46,
+        47,
+        48,
+        49,
+        54,
+        55,
+        56,
+        57,
+        59,
+        61,
+        64,
+        66,
+        69,
+        71,
+        73,
+        75,
+        76,
+        79,
+        82,
+        87,
+        88,
+        90,
+        91,
+        95,
+        97,
+        102,
+        103,
+        105,
+        107,
+        114,
+        115,
+        119,
+        120,
+        122,
+        123,
+        124,
+        125,
+        127
+      ],
+      "task_ids": [
+        "batch0/layer0/expert0",
+        "batch0/layer0/expert2",
+        "batch0/layer0/expert4",
+        "batch0/layer0/expert8",
+        "batch0/layer0/expert10",
+        "batch0/layer0/expert11",
+        "batch0/layer0/expert12",
+        "batch0/layer0/expert14",
+        "batch0/layer0/expert15",
+        "batch0/layer0/expert16",
+        "batch0/layer0/expert18",
+        "batch0/layer0/expert19",
+        "batch0/layer0/expert20",
+        "batch0/layer0/expert21",
+        "batch0/layer0/expert22",
+        "batch0/layer0/expert23",
+        "batch0/layer0/expert24",
+        "batch0/layer0/expert25",
+        "batch0/layer0/expert26",
+        "batch0/layer0/expert27",
+        "batch0/layer0/expert29",
+        "batch0/layer0/expert33",
+        "batch0/layer0/expert34",
+        "batch0/layer0/expert35",
+        "batch0/layer0/expert36",
+        "batch0/layer0/expert37",
+        "batch0/layer0/expert38",
+        "batch0/layer0/expert40",
+        "batch0/layer0/expert41",
+        "batch0/layer0/expert46",
+        "batch0/layer0/expert47",
+        "batch0/layer0/expert48",
+        "batch0/layer0/expert49",
+        "batch0/layer0/expert54",
+        "batch0/layer0/expert55",
+        "batch0/layer0/expert56",
+        "batch0/layer0/expert57",
+        "batch0/layer0/expert59",
+        "batch0/layer0/expert61",
+        "batch0/layer0/expert64",
+        "batch0/layer0/expert66",
+        "batch0/layer0/expert69",
+        "batch0/layer0/expert71",
+        "batch0/layer0/expert73",
+        "batch0/layer0/expert75",
+        "batch0/layer0/expert76",
+        "batch0/layer0/expert79",
+        "batch0/layer0/expert82",
+        "batch0/layer0/expert87",
+        "batch0/layer0/expert88",
+        "batch0/layer0/expert90",
+        "batch0/layer0/expert91",
+        "batch0/layer0/expert95",
+        "batch0/layer0/expert97",
+        "batch0/layer0/expert102",
+        "batch0/layer0/expert103",
+        "batch0/layer0/expert105",
+        "batch0/layer0/expert107",
+        "batch0/layer0/expert114",
+        "batch0/layer0/expert115",
+        "batch0/layer0/expert119",
+        "batch0/layer0/expert120",
+        "batch0/layer0/expert122",
+        "batch0/layer0/expert123",
+        "batch0/layer0/expert124",
+        "batch0/layer0/expert125",
+        "batch0/layer0/expert127"
+      ],
+      "join_task": "batch0/layer0/join",
+      "read_bytes_per_compute": [
+        37757952,
+        37757952,
+        37757952,
+        18878976,
+        56636928,
+        18878976,
+        18878976,
+        37757952,
+        18878976,
+        0,
+        56636928,
+        56636928,
+        56636928,
+        18878976,
+        37757952,
+        56636928,
+        56636928,
+        18878976,
+        56636928,
+        75515904,
+        37757952,
+        37757952,
+        18878976,
+        56636928,
+        18878976,
+        56636928,
+        18878976,
+        18878976,
+        18878976,
+        18878976,
+        37757952,
+        18878976,
+        0,
+        56636928,
+        18878976,
+        56636928
+      ],
+      "logical_read_bytes": 1264891392,
+      "no_reuse_reference_bytes": 2416508928
+    }
+  ],
+  "total_logical_read_bytes": 1264891392,
+  "total_resident_weight_bytes": 2416508928,
+  "semantics": {
+    "stage": "decode_only; prefill validated but never charged to decode",
+    "reuse": "One full routed-expert weight read per layer/batch; intra-batch reuse; cold across batches",
+    "batching": "Logical decode iterations, not measured wall-clock arrivals or serving throughput",
+    "placement": "Caller-supplied compute_by_expert frozen for all architectures; no trace-fitted assignment",
+    "timing": "Selected layers/batches execute sequentially with joins; GEMM/dispatch/combine/KV/dense/shared experts omitted",
+    "weight_bytes": "Explicit supplied bytes, including chosen precision/metadata; not inferred from token counts",
+    "scope": "Selected routed MoE layers only, not full-model capacity or end-to-end latency"
+  },
+  "window_selection": {
+    "original_decode_step": 65,
+    "preceding_steps_executed": false,
+    "cache_state": "cold by explicit model assumption"
+  }
+}

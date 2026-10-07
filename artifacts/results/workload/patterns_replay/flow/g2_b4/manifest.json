@@ -1,0 +1,32 @@
+{
+  "schema": "w2w.pbc-files.v1",
+  "evidence": "captured",
+  "source": "https://huggingface.co/datasets/core12345/MoE_expert_selection_trace",
+  "revision": "27febb7b2d24169560a9f6f83d38eb53f94916cf",
+  "requests": [
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/408.json",
+      "path": "../../pbc_corpus256/business_ethics/request0.json",
+      "sha256": "3bbcf81357320eeb53674983a27d4fec187b7b301e48f1f5fc69d156260606b0",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2961.json",
+      "path": "../../pbc_corpus256/high_school_biology/request22.json",
+      "sha256": "a7608ccd7c71c3e4873061a9c49c64fae890d2eb0a18c03268366c1749185133",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4747.json",
+      "path": "../../pbc_corpus256/high_school_physics/request26.json",
+      "sha256": "a0e805281d224697573de00f93b2bdeb5a7cff8381758ac54ce77fc90458e5d9",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1548.json",
+      "path": "../../pbc_corpus256/computer_security/request24.json",
+      "sha256": "dbf206aeebfba0b040a4e76ad89149e9c4cc2b339ee9cee980b7a6e4bfc3c23e",
+      "arrival_iteration": 0
+    }
+  ]
+}

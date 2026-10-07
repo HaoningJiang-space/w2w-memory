@@ -1,0 +1,11 @@
+{
+  "schema": "w2w.server-input-integrity.v1",
+  "requests": 256,
+  "bytes": 848969142,
+  "manifest_sha256": "9eb482ad534961f3a3e0db4586b5288ad0f07c5100f64bf2510a6e844fb382bd",
+  "all_file_sha256_match": true,
+  "all_request_ids_and_content_unique": true,
+  "revision": "27febb7b2d24169560a9f6f83d38eb53f94916cf",
+  "root": "/Projects/haoning/w2w-trace-20261007/memory_results/pbc_corpus256",
+  "source_commit": "d5b1f38be72d24e6162eeae41cd1688f9d646270"
+}

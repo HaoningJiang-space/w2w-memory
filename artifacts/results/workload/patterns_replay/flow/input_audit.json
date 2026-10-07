@@ -1,0 +1,113 @@
+{
+  "schema": "w2w.patterns-input-audit.v1",
+  "cases": [
+    {
+      "case": "g0_b1",
+      "requests": 1,
+      "experts": 8,
+      "read_bytes": 151031808,
+      "words": 4719744,
+      "raw_sha_verified": true,
+      "independent_union_matches": true,
+      "full_weights": true,
+      "all_128_experts_resident": true,
+      "recompiled": true
+    },
+    {
+      "case": "g0_b4",
+      "requests": 4,
+      "experts": 31,
+      "read_bytes": 585248256,
+      "words": 18289008,
+      "raw_sha_verified": true,
+      "independent_union_matches": true,
+      "full_weights": true,
+      "all_128_experts_resident": true,
+      "recompiled": true
+    },
+    {
+      "case": "g0_b16",
+      "requests": 16,
+      "experts": 82,
+      "read_bytes": 1548076032,
+      "words": 48377376,
+      "raw_sha_verified": true,
+      "independent_union_matches": true,
+      "full_weights": true,
+      "all_128_experts_resident": true,
+      "recompiled": true
+    },
+    {
+      "case": "g1_b1",
+      "requests": 1,
+      "experts": 8,
+      "read_bytes": 151031808,
+      "words": 4719744,
+      "raw_sha_verified": true,
+      "independent_union_matches": true,
+      "full_weights": true,
+      "all_128_experts_resident": true,
+      "recompiled": true
+    },
+    {
+      "case": "g1_b4",
+      "requests": 4,
+      "experts": 30,
+      "read_bytes": 566369280,
+      "words": 17699040,
+      "raw_sha_verified": true,
+      "independent_union_matches": true,
+      "full_weights": true,
+      "all_128_experts_resident": true,
+      "recompiled": true
+    },
+    {
+      "case": "g1_b16",
+      "requests": 16,
+      "experts": 67,
+      "read_bytes": 1264891392,
+      "words": 39527856,
+      "raw_sha_verified": true,
+      "independent_union_matches": true,
+      "full_weights": true,
+      "all_128_experts_resident": true,
+      "recompiled": true
+    },
+    {
+      "case": "g2_b1",
+      "requests": 1,
+      "experts": 8,
+      "read_bytes": 151031808,
+      "words": 4719744,
+      "raw_sha_verified": true,
+      "independent_union_matches": true,
+      "full_weights": true,
+      "all_128_experts_resident": true,
+      "recompiled": true
+    },
+    {
+      "case": "g2_b4",
+      "requests": 4,
+      "experts": 31,
+      "read_bytes": 585248256,
+      "words": 18289008,
+      "raw_sha_verified": true,
+      "independent_union_matches": true,
+      "full_weights": true,
+      "all_128_experts_resident": true,
+      "recompiled": true
+    },
+    {
+      "case": "g2_b16",
+      "requests": 16,
+      "experts": 78,
+      "read_bytes": 1472560128,
+      "words": 46017504,
+      "raw_sha_verified": true,
+      "independent_union_matches": true,
+      "full_weights": true,
+      "all_128_experts_resident": true,
+      "recompiled": true
+    }
+  ]
+}

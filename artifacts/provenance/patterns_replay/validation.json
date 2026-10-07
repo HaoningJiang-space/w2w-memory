@@ -1,0 +1,32 @@
+{
+  "schema": "w2w.patterns-replay-validation.v1",
+  "execution_commit": "aa9d91115ceff4458789487d0ed72a2796cd5277",
+  "audit_commit": "cde90e5",
+  "server_raw_input_recompiled": true,
+  "local_archive_audit": true,
+  "transport_sha256": "93a472c2ed80650974593b14936aa327ee5dfcae456bf769019f80e4400d0bb3",
+  "replay_count": 48,
+  "delivered_words": 1094980608,
+  "tests_passed": 63,
+  "cleanup_commit": "c83ad536b1a2e362b881ccd61b7d0795a9d3cc5c",
+  "post_cleanup_local_and_server_tests": 63,
+  "post_cleanup_all_audit_records_and_csv_identical": true,
+  "post_cleanup_server_raw_input_recompiled": true,
+  "catalog_identity_checks": {
+    "meta": {
+      "path": "artifacts/results/endpoint/architecture_competition.json.gz",
+      "file_sha256": "865e92db4ade51444356c2a0ac3c60ab0e70af0f468b19a133eef0397d05e9c2",
+      "source_commit": "806fe829dacf4b02c9d0f1a100089e2f135cf613",
+      "selection": "Five preregistered archived representatives plus two implementation ablations; no layout or interface search on evaluation requests"
+    },
+    "designs": [
+      "118be0894887fa965204845c3b689c46482538177b504c80e7306cfa2921f7da",
+      "4cb812d06bfdde84ba85d843190d2ada694f0ecd48c6832d35d984ace11b9296",
+      "94321a975c70ac8fbf00a5330e11c4fbed779a1ae0de6bae5c284b7757c5a8d6",
+      "62a1234afbd04455b6fe3895194bd1b068ba2956cc559de82d5c4e23df03d232",
+      "39cf25ad316630c6913e930e80161f9829911daaaf00dfa9f2928d46fd731b0a",
+      "97338ceb5da9c1eccf3f675edc8ff4652e0513ec06c3b73c5688e834f82d6e4c",
+      "3b5455207e3dc5a2fd471306df55e19b6e9e80b19b2b1dc06484e8ce5fa4d83d"
+    ]
+  }
+}

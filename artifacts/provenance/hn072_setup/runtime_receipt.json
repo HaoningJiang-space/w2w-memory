@@ -1,0 +1,35 @@
+{
+  "schema": "w2w.hn072-runtime.v1",
+  "host": "143.89.78.72",
+  "user": "hn072",
+  "workspace": "/Projects/haoning/w2w",
+  "code_commit": "d5b1f38be72d24e6162eeae41cd1688f9d646270",
+  "python": "3.10.12",
+  "packages": {
+    "numpy": "2.2.6",
+    "scipy": "1.15.3",
+    "networkx": "3.4.2",
+    "shapely": "2.1.2",
+    "pymetis": "2025.2.2",
+    "matplotlib": "3.10.9"
+  },
+  "codex": "codex-cli 0.161.0",
+  "git_remote": "git@github.com:HaoningJiang-space/w2w-memory.git",
+  "branch": "main",
+  "github_auth_scope": "repository-scoped writable deploy key",
+  "data_root": "/Projects/haoning/w2w-trace-20261007/memory_results",
+  "asic_runs": "/Projects/haoning/w2w-memory-slice-20261007",
+  "network_default": "direct; VPS tunnel disabled after paired HF comparison",
+  "tests": {
+    "command": "python -m unittest tests.test_patterns_replay tests.test_patterns_trace tests.test_patterns_batch tests.test_request_window tests.test_read_workload tests.test_repository_layout",
+    "passed": 63,
+    "log": "build/replay_audit_tests.log"
+  },
+  "notes": [
+    "Codex installed; user login still required.",
+    "Development stays local; experiments run on server.",
+    "During transient GitHub 500 errors, committed code was synced by Git bundle; GitHub push subsequently succeeded and all main refs match.",
+    "Raw traces stay outside Git with pinned source identities."
+  ],
+  "github_main_commit": "d5b1f38be72d24e6162eeae41cd1688f9d646270"
+}

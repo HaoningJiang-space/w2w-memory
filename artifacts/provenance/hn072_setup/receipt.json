@@ -1,0 +1,13 @@
+{
+  "source": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/59.json",
+  "revision": "27febb7b2d24169560a9f6f83d38eb53f94916cf",
+  "partial_bytes": 65536,
+  "resume_http": "206",
+  "bytes": 3408360,
+  "sha256": "500f15d6e4f628f7a7fc86379d51821ecfa14c041adbe142eec1a5dcd06bb0da",
+  "git_blob_oid": "f09867a7e7d3f1b7cc08239aa7e2a866eb108503",
+  "sha256_matches_existing": true,
+  "git_blob_matches_hf_metadata": true,
+  "proxy": "socks5h://127.0.0.1:18080",
+  "elapsed_seconds": 10.541307972744107
+}

@@ -7,6 +7,7 @@
 
 ## 当前实现与运行
 
+- [48次真实 routing 多窗口完整回放：结果与成本](reports/PATTERNS_REPLAY_STUDY_REPORT.md) / [当前代码分层](CODE_STRUCTURE.md)
 - [hn072：本地开发、Git 同步、服务器实验与 Codex](operations/HN072_RESEARCH.md) / [可选代理与直连实测](operations/HN072_PROXY.md)
 - [请求窗口：必要界、502回放与同完成目标的最小配置](reports/REQUEST_WINDOW_STUDY_REPORT.md) / [注册协议](methods/REQUEST_WINDOW_STUDY.md)
 - [256 个真实 requests：batch 复用/互补与完整读回放](reports/PATTERNS_BATCH_STUDY_REPORT.md) / [研究协议](methods/PATTERNS_BATCH_STUDY.md)

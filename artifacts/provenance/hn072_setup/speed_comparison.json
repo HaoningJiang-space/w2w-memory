@@ -1,0 +1,38 @@
+[
+  {
+    "mode": "direct",
+    "http": 200,
+    "seconds": 1.645309,
+    "bytes": 3408360,
+    "bytes_per_second": 2071562.0,
+    "final_host": "huggingface.co",
+    "sha256": "500f15d6e4f628f7a7fc86379d51821ecfa14c041adbe142eec1a5dcd06bb0da"
+  },
+  {
+    "mode": "proxy",
+    "http": 200,
+    "seconds": 21.584776,
+    "bytes": 3408360,
+    "bytes_per_second": 157905.0,
+    "final_host": "huggingface.co",
+    "sha256": "500f15d6e4f628f7a7fc86379d51821ecfa14c041adbe142eec1a5dcd06bb0da"
+  },
+  {
+    "mode": "proxy",
+    "http": 200,
+    "seconds": 3.68911,
+    "bytes": 3408360,
+    "bytes_per_second": 923897.0,
+    "final_host": "huggingface.co",
+    "sha256": "500f15d6e4f628f7a7fc86379d51821ecfa14c041adbe142eec1a5dcd06bb0da"
+  },
+  {
+    "mode": "direct",
+    "http": 200,
+    "seconds": 1.42095,
+    "bytes": 3408360,
+    "bytes_per_second": 2398648.0,
+    "final_host": "huggingface.co",
+    "sha256": "500f15d6e4f628f7a7fc86379d51821ecfa14c041adbe142eec1a5dcd06bb0da"
+  }
+]

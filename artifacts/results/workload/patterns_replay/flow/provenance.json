@@ -1,0 +1,104 @@
+{
+  "source_commit": "aa9d91115ceff4458789487d0ed72a2796cd5277",
+  "source_dirty": false,
+  "plan": {
+    "schema": "w2w.patterns-replay-study.v1",
+    "revision": "27febb7b2d24169560a9f6f83d38eb53f94916cf",
+    "corpus_manifest_sha256": "9eb482ad534961f3a3e0db4586b5288ad0f07c5100f64bf2510a6e844fb382bd",
+    "selection_seed": 8301,
+    "groups": [
+      {
+        "id": "g0",
+        "layer": "0",
+        "decode_step": 17,
+        "requests": [
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1536.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8561.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/16.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2743.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4795.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12234.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/406.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9735.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12408.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2809.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/91.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4775.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1481.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/470.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9937.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9152.json"
+        ]
+      },
+      {
+        "id": "g1",
+        "layer": "39",
+        "decode_step": 65,
+        "requests": [
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1569.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/17.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9888.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/460.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4796.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9160.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12418.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2698.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9342.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1494.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12214.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2890.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4792.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/10.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/438.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9849.json"
+        ]
+      },
+      {
+        "id": "g2",
+        "layer": "78",
+        "decode_step": 113,
+        "requests": [
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/408.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2961.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4747.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1548.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8579.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/42.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9728.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12295.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4799.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12360.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1534.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9368.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9714.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/389.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/63.json",
+          "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2674.json"
+        ]
+      }
+    ],
+    "batch_sizes": [
+      1,
+      4,
+      16
+    ],
+    "design_indices": [
+      0,
+      1,
+      2,
+      6
+    ],
+    "primary_outstanding": 192,
+    "control_outstanding": 128,
+    "control_groups": [
+      "g0"
+    ],
+    "max_slots": 500000,
+    "max_trace_words": 80000000,
+    "workers": 4,
+    "window_semantics": "Independently cold selected windows; nested cohorts within each group; no preceding decode execution or inter-window cache; groups have disjoint request IDs.",
+    "scope": "48 full-size finite read replays, not full model inference. Common N192 for all designs, N128 control in group0; fixed geometry/data ownership; no hardware selection or training."
+  },
+  "plan_sha256": "e3996bb4000647612b2c8710bb452265c294f376710764bfb89b42a72adcdcf8",
+  "scope": "Full-size modeled read stages from real routing; not GPU inference or measured DRAM traffic"
+}

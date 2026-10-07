@@ -33,7 +33,8 @@ GitHub 账户公钥 API 当时返回 HTTP 500，因此采用了仓库级授权�
 | 全部 Git 源码、RTL、协议、报告、已归档结果 | `w2w/`, `rtl/`, `docs/`, `artifacts/` 及上游文件 | 完整 main 历史，非浅克隆 |
 | 真实 routing / demand / replay | `memory_results/` | 链接到 `/Projects/haoning/w2w-trace-20261007/memory_results` |
 | 256-request 原始 corpus | `memory_results/pbc_corpus256/` | 849 MB；manifest 记录固定 revision、ID、SHA-256 |
-| 48次多窗口实验 | `memory_results/pbc_multiwindow/` | 旧 checkout 上以 `aa9d911` 启动，保留其 provenance；以 summary 和审计判断是否完成 |
+| 48次多窗口实验 | `memory_results/pbc_multiwindow/` | 以 `aa9d911` 执行，48/48 完成；原始 routing 重编译与结果审计通过 |
+| 归档与审计入口 | `artifacts/results/workload/patterns_replay/` | [报告](../reports/PATTERNS_REPLAY_STUDY_REPORT.md)；`python -m w2w audit_patterns_replay` |
 | ASIC / endpoint 历史展开输出 | `build/asic_runs/` | 链接到 `/Projects/haoning/w2w-memory-slice-20261007`，不移动正在使用的目录 |
 | PDF 技术报告 | `docs/reports/W2W_MEMORY_SERVICE_TECHNICAL_REPORT.pdf` | 已在 Git 中 |
 

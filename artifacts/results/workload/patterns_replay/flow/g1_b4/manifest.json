@@ -1,0 +1,32 @@
+{
+  "schema": "w2w.pbc-files.v1",
+  "evidence": "captured",
+  "source": "https://huggingface.co/datasets/core12345/MoE_expert_selection_trace",
+  "revision": "27febb7b2d24169560a9f6f83d38eb53f94916cf",
+  "requests": [
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1569.json",
+      "path": "../../pbc_corpus256/computer_security/request29.json",
+      "sha256": "50724a4fe165358e6677df99f8b30a0b2c8a2ce637389540540b4a5bc93c4971",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/17.json",
+      "path": "../../pbc_corpus256/abstract_algebra/request30.json",
+      "sha256": "e50d626fd877aef838f0aa62a66055292e26aa74dda5cf5ccb8f8c1e4023b1f3",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9888.json",
+      "path": "../../pbc_corpus256/philosophy/request10.json",
+      "sha256": "f9fcf1140fa42b9d4871fd6687a7200aa093ff2dbc818d4740846712cdd8ba47",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/460.json",
+      "path": "../../pbc_corpus256/business_ethics/request12.json",
+      "sha256": "622eed28a876ba863fcba3953b647e7ba4db66d21261d3e830c0fd0179837558",
+      "arrival_iteration": 0
+    }
+  ]
+}

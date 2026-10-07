@@ -1,0 +1,14 @@
+{
+  "schema": "w2w.pbc-files.v1",
+  "evidence": "captured",
+  "source": "https://huggingface.co/datasets/core12345/MoE_expert_selection_trace",
+  "revision": "27febb7b2d24169560a9f6f83d38eb53f94916cf",
+  "requests": [
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1536.json",
+      "path": "../../pbc_corpus256/computer_security/request7.json",
+      "sha256": "45fcde8588f880c33140029ef82986094ea023f059d637e9d6ce162658bd73b9",
+      "arrival_iteration": 0
+    }
+  ]
+}

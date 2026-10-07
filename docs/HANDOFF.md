@@ -1,10 +1,17 @@
 # 开发交接：Wafer-scale Memory Service Fabric
 
+**2026-10-07 真实 trace 流程完成并整理代码：** 48/48 注册回放、1,094,980,608 个完整模拟读字
+全部核对；原始 routing → 专家 union → 完整权重读 → endpoint/HB/RX → 完成时间已接通。
+三个互不重叠的 request 组，各测嵌套 batch1/4/16；所有窗口及无收益结果都归档。
+63 项定向测试通过。代码整理后七设计身份不变，48 份审计与 CSV 在两端复核一致。
+[结果与复现](reports/PATTERNS_REPLAY_STUDY_REPORT.md) / [模块入口](CODE_STRUCTURE.md)。
+这是 routing 驱动的读阶段模拟，不是端到端 MoE 加速；不自动继续扩 RTL 或 DSE。
+
 **2026-10-07 服务器工作流统一：** 本地开发，推送 `HaoningJiang-space/w2w-memory` 的 main，
 服务器 `/Projects/haoning/w2w` 通过 GitHub SSH 拉取后执行。完整 Git 源码和历史归档已 clone，
 原始 trace 与 ASIC 输出保留原路径并提供入口。Codex CLI 0.161.0 已安装，尚需用户登录。
 HF 实测直连快于 VPS，默认直连。见[运行与交接说明](operations/HN072_RESEARCH.md)。
-48次真实 routing 多窗口回放沿用已注册协议；本条不代表该批实验已完成。
+48次真实 routing 多窗口回放已完成，按上面的结果报告和验证记录交接。
 
 **2026-10-08 请求供给成本：** [必要界与最小窗口实验](reports/REQUEST_WINDOW_STUDY_REPORT.md)
 完成37测试、502回放、29组同服务消融。冻结接口、布局和仲裁，B以N192保持此前N512的
