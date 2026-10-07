@@ -14,6 +14,22 @@ from w2w.service.cost import CostModel
 
 
 class EndpointUnitTests(unittest.TestCase):
+    def test_capacity_matched_ratios_close_native_service(self):
+        options=[]
+        for width in range(32,257,32):
+            for depth in (1,2):
+                trace=execute_periodic(EndpointSpec((width,),(depth,)),(0,))
+                options.append((width,depth,Fraction(trace['delivered_words'][0],trace['period_slots'])))
+        for wh,dh,qh in options:
+            for ws,ds,qs in options:
+                if qh+qs<1:
+                    continue
+                fraction=qh/(qh+qs)
+                sequence=ratio_sequence(0,1,fraction.numerator,fraction.denominator)
+                trace=execute_periodic(EndpointSpec((wh,ws),(dh,ds)),sequence)
+                self.assertEqual(trace['total_per_native'],1.)
+                self.assertAlmostEqual(trace['rate_per_native'][0],float(fraction))
+
     def test_complete_word_tail_and_readiness(self):
         for depth, expected in ((1, .5), (2, .75)):
             spec = EndpointSpec((192,), (depth,))
