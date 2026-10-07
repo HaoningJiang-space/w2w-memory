@@ -39,10 +39,10 @@ def render(source, output):
     handles,labels=axes[0,0].get_legend_handles_labels()
     fig.legend(handles,labels,ncol=3,loc='upper center',frameon=False,bbox_to_anchor=(.5,1.01))
     fig.suptitle('Architecture competition: projections of the 4D Pareto frontier',y=1.055,fontsize=13)
-    fig.text(.5,-.005,'Fixed H/plus · native always-ready · full-load floor = 1 · bank-side serialization\n'
+    fig.text(.5,.005,'Fixed H/plus · native always-ready · full-load floor = 1 · bank-side serialization\n'
              'Points are jointly nondominated in performance, lanes, endpoint storage and access wire; counters are not PPA.',
              ha='center',fontsize=9,color='#555555')
-    fig.tight_layout()
+    fig.tight_layout(rect=(0,.075,1,1))
     path=Path(output)
     path.parent.mkdir(parents=True,exist_ok=True)
     for extension in ('svg','pdf','png'):
