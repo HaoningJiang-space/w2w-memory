@@ -50,6 +50,8 @@ corrected FPGA runs were explicitly stopped and marked interrupted. No corrected
 FPGA timing result or RTL-induced timing improvement is claimed. The simplified
 RTL is instead validated through the ASIC pipeline described in
 [ENDPOINT_ASIC_SLICE.md](../methods/ENDPOINT_ASIC_SLICE.md).
+That pipeline has now completed; its mapped-cell area, functional results and
+remaining STA violations are in the [ASIC report](ENDPOINT_ASIC_SLICE_REPORT.md).
 
 ## Tool and physical boundaries
 

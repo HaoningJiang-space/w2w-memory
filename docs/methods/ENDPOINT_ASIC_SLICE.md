@@ -53,13 +53,19 @@ python3 w2w/experiments/run_endpoint_asic.py \
    through their intended checkers.
 5. Map all four local blocks to the same Liberty and reject unmapped cells.
 6. Run STA, preserving setup/hold paths and electrical constraint violations.
-7. Generate zero-delay functional cell models from that same Liberty and replay
-   the same scoreboard through the mapped TX and RX netlists. This checks mapping
+7. Generate zero-delay functional cell models from that same Liberty, check
+   coverage of every mapped cell, and replay the same scoreboard using compiled
+   Verilator through the mapped TX and RX netlists. This checks mapping
    semantics; it is not SDF timing simulation or formal proof.
 
 Record source hash, tools, library hash, input hashes, source/RX area and cell
 counts, and timing reports. Preserve incomplete runs separately. Do not infer
 power savings, routed area, wirelength or a production Fmax from this pipeline.
+Keep complete-interface and register-to-register slack separate. A completed
+pipeline can still contain hold or electrical violations; report its area as
+pre-repair mapped area until those constraints close. The first completed run
+and these remaining violations are recorded in the
+[ASIC slice report](../reports/ENDPOINT_ASIC_SLICE_REPORT.md).
 
 Relevant primary tool documentation:
 [Yosys ABC mapping](https://yosyshq.readthedocs.io/projects/yosys/en/v0.54/cmd/abc.html),

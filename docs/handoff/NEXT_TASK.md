@@ -1,36 +1,47 @@
-# 下一研究任务：判断可配置source endpoint的局部PPA收益
+# 当前进展：单 slice 标准单元比较已完成
 
-研究主线：用较少共享接口硬件，使邻近compute利用已有闲置DRAM服务。
-接口方向选择固定在source侧、第一次HB之前；每条M→C必须是合法overlap边。
-没有logic侧隐含C→C转发，不实现DRAM array/controller或整个wafer。
+研究主线：用较少共享接口硬件，使邻近 compute 利用已有闲置 DRAM 服务。
+方向选择固定在 source 侧、第一次 HB 之前；每条 M→C 必须是合法 overlap 边。
+不引入 logic 侧 C→C 转发，不实现 DRAM array/controller 或整个 wafer。
 
-## 已完成的最小闭环
+## 最新证据
 
-[最新报告](../reports/ENDPOINT_ROUNDTRIP_REPORT.md)，源码 `2745632`：
-H/plus内提取1M→3C，独立出口与可配置出口共用native word trace、位宽、背压和RX。
-26条成对轨迹全部通过，每个架构208,102个完整字逐bit恢复，301,559个成对周期逐槽等价。
-native/HB/RX停顿保持、位守恒、容量与错误方向检查均通过，两个注入错误被正确捕获。
+[ASIC 报告](../reports/ENDPOINT_ASIC_SLICE_REPORT.md)，执行源码 `5d5a958`，
+在 hn072 的隔离目录完成 Verilator/Icarus、Yosys/ABC、OpenSTA 与映射后零延迟回放。
+Home256/D1、Shared160/D2、同 Nangate45 typical 库、2 ns 约束。
 
-主B：Home256/D1、Shared160/D2；RX处测得Shared-only .625 word/cycle，
-8:5混合为8/13、5/13，合计1。192/D1=.5、192/D2=.75的gearbox回归通过。
-方向配置在epoch内冻结，role与目的metadata由外部地址映射提供，没有endpoint流量sequencer。
+每个后端 14 条成对轨迹通过，每架构 124,834 个完整字逐 bit 恢复，
+181,308 个成对周期；两种 RTL simulator 与映射后外部周期/计数一致。
+两个注入错误均触发预期 checker。
 
-加入明确计费的held-beat寄存器与三个相同RX后，payload存储2,880→2,208 bit（−23.33%），
-数据lane仍576 bit。尚无面积、频率、功耗或真实链路延迟结果。
+Source 单元面积 17,265.528→11,123.854 μm²（−35.6%）；
+计入同样一套 Home RX + 两套 Shared RX，合计 37,762.690→31,621.016 μm²（−16.3%）。
+Lane 不变。所有 setup slack 为正，但输入 hold 和 RX 最大电容有违例；
+尚未时序收敛，未做 P&R 或功耗。面积是修复前映射结果。
 
-## 最近一步
+此前 [roundtrip 报告](../reports/ENDPOINT_ROUNDTRIP_REPORT.md) 保留更宽目录的历史
+26 条轨迹，包括 192/D1=.5、192/D2=.75。不要把历史计数混入本轮 14 条 ASIC 轨迹。
+[Vivado 报告](../reports/ENDPOINT_VIVADO_SLICE_REPORT.md) 记录旧输入约束错误，
+修正后的 FPGA 重跑为优先 ASIC 而中止；没有修正后的 FPGA PPA 结论。
 
-只比较single-source TX＋相同三个RX的局部PPA：同工艺库、同目标时钟和约束，
-独立Shared machinery vs静态共用Shared machinery。先核对可用库和工具，再固定运行范围。
-保留TX/RX、控制与MUX/gearbox各项归因；不把声明寄存器数或generic gate数写成面积。
-若为了时序加入流水/ready往返缓冲，明确新增成本并重验吞吐。
+## 下一步围绕研究判断
 
-32-bank聚合、真实HB延迟和metadata汇聚在single-slice判断后再做。
-原每-M账本不直接加上本轮slice计数，以免重复计pipeline或误算RX制造范围。
-private、k2、full-width direct继续保留为系统层强基线，但当前不扩wafer LP。
+当前结果支持：静态互斥共享方向能够减少 source 硬件；加入 RX 后收益仍在，
+但总收益小于 TX-only 比例。不要再以 FIFO bits 直接推断完整 endpoint 面积。
 
-## 暂停支线
+如继续推进硬件证据，先在相同库和边界约束下修复已知 hold/cap 违例，
+重新核对功能和面积变化，再判断是否值得进入局部物理实现/功耗。
+不把部署更多 EDA 工具本身当研究进展，不自动启动新 sweep 或工程重构。
+Source 位于第一次 HB 之前，Nangate45 仅验证 logic 库相对成本；其具体工艺/层归属
+仍需在最终架构中说明。
 
-新matching/cycle、任意k、深FIFO scheduler、BO/Benders、placement搜索和真实应用trace暂不扩展。
-不继续工程整理。历史架构竞争和slot-credit原型保留原版本证据。
-实验在eex005隔离目录执行，源码提交、trace、配置、工具与结果可追溯。
+## 保持范围
+
+private、k2、full-width direct 保留为系统层基线；当前不扩 wafer LP、
+matching/cycle、任意 k、深 FIFO scheduler、BO/Benders、placement 或真实 trace。
+32-bank 聚合、真实 HB 延迟和 metadata 汇聚留待单 slice 判断之后。
+不把本轮三个 RX 的计费范围直接套入每-M 成本账本，以免重复计费。
+
+当前实验服务器为 `hn072@143.89.78.72`，根目录
+`/Projects/haoning/w2w-memory-slice-20261007`；工具环境在 `asic_tools/env.sh`，
+结果在 `asic_5d5a958`。源码、工具环境、库与输入 SHA、报告均已归档。
