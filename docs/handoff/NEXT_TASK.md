@@ -1,66 +1,43 @@
-# 下一项开发任务：统一服务合同下的 exposure 候选比较
+# 下一研究任务：固定几何、面向目标服务的接口与数据综合
 
-**状态：首轮已完成。** 见 [角色接口报告](../reports/ROLE_INTERFACE_REPORT.md) 与
-[Design API](../DESIGN_API.md)。以下保留原任务范围；尚未覆盖通用多路径、真实DRAM
-时序和placement搜索。下一步优先处理native profile变化导致静态比例失配的问题。
+2026-10-07 更新。工程整理和公平架构竞争已完成；见
+[架构竞争报告](../reports/ARCHITECTURE_COMPETITION_REPORT.md)及
+[冻结设计族](../methods/ARCHITECTURE_COMPETITION.md)。当前用户顺序优先于前轮 native-profile 支线。
 
-## 目标与边界
+## 已经得到的研究判断
 
-回答：在相同资源上限下，home-only、balanced k2 reciprocal、full-bank k3 pair 中，哪种 exposure 与接口实现组合最值得？是否能在保留服务的同时少用连接、lane 或缓冲？
+- Home/k2/k3 均位于性能–lane–endpoint storage–wire 前沿；不能删除 k2 或只扩 sharing。
+- Random9 下 k2 direct 为 1.327731，使用 16,384 lane、8,192 endpoint bits、241,561.6 bit-mm。
+- K3 A 为 1.385714，lane 相同，但 endpoint 存储 3 倍、wire 多 23.16%。
+- K3 B 为 1.482143，代价为 18,432 lane、40,960 endpoint bits、341,664 bit-mm。
+- 接口和数据比例决定独占 γ；伙伴依赖、边界和 workload 决定活动系数 G。
+- Cluster 优化选择与 random 不同；布局在设计阶段冻结，不按活动样本重选。
 
-保持现有 H/plus/36C+36M；暂不搜索新 placement，不新增 FIFO 仲裁算法。各架构的数据布局可以有其合法静态构造，但必须在全部场景前冻结并记录哈希。把“换 exposure”和“换驻留”的贡献分开报告。
+## 最近一步
 
-## 推荐实现顺序
+保持 H/plus 和当前数字原生模型，用本轮精确目录作参照，构建目标服务驱动的筛选：
 
-### A. 定义显式候选与成本账本
+1. 给定目标平均服务 t，按结构的 G 反推 γ_required=1+(t−1)/G。
+2. 用原生、完整字位宽、重复模板及成本下界淘汰不可能实现。
+3. 从剩余接口生成宽度/深度和固定条带比例，执行验证满载与独占服务。
+4. 输出达到目标的成本前沿，以及离当前结构上界的差距。
+5. 与本轮有限精确目录比较结果质量和实际执行次数，再有针对性地放宽 k2 bank 分组或非均匀接口。
 
-放入 `w2w/synthesis/` 的数据结构至少包含：geometry_id、repeated_mask、endpoint_implementation_id、address_policy、物理 route 支持、port_widths、frozen_layout_hash、cost_vector、适用流量条件。
+本轮已自动选择角色接口、比例、方向和配对，下一步应提高逆向综合能力，避免把重新扫描
+同一目录包装成新算法。目标 1.3 的低成本 k2 和目标 1.4 的 k3 成本前沿可作为具体任务。
 
-成本向量至少分开：bank-port connections、wire/bit-mm、export lanes、configured HB、endpoint storage、pipeline storage。先给各项预算和 Pareto，不用未经校准的加权“面积”冒充 PPA。
+## 保持的实验口径
 
-区分“已制造但本场景不用”与“确实不配置”的硬件。mask 指向零宽 port、重复收费或隐含免费输出必须检出。所有 reticle 实例由同一模板提供支持。
+同一逻辑数据、原生服务、满载保底和合成活动分布；每种结构独立设计并冻结物理驻留。
+执行器、LP 与成本读取同一 Design。所有接入线、未用模板方向、endpoint 和 pipeline
+分别计账。保留 direct 强基线、上界与可重复执行见证。最优性只对明确的设计族声明。
 
-### B. 为每个候选定义合法驻留
+本轮精确结果位于 `artifacts/results/endpoint/architecture_competition.json.gz`，
+全部前沿设计通过公共执行器/资源组合检查；作为后续验证参照即可，不必先重做全部历史实验。
+实验在 eex005 隔离目录运行，Git 保持 main 并及时推送研究里程碑。
 
-- Home-only：`StripedLayout.home`，在同样对象内交错能力下评估。
-- k2：`balanced_assignment` + `StripedLayout.reciprocal`；显式保留边缘未配对 bank。
-- k3：`paired_layout`；沿用已验证18对并冻结。
+## 后续顺序
 
-这些是强候选，不预先要求新方案必胜。对照时标明是否改变驻留；不能将 k3 的整个对象配对公式套到 k2 的分组共享。
-
-### C. 接入可兑现服务
-
-优先复用 `FixedService` 字节等式与 `EndpointFixedService` 的资源账本。每种实现需要声明地址可达、物理可达、parent/endpoint/shared-path 约束。
-
-可以先为明确可分解的小结构构造执行见证，再用全局 LP 核验。超出 `execute()` 两目的范围或唯一 route 前提的候选，应标为 unsupported，或者补独立验证后支持；不能默认获得 ideal pooling。
-
-接口应分别返回：流体 upper envelope、可执行 schedule 的 achieved service、适用条件。场景特定 `with_delivered_caps` 不是可任意重用的资源合同。
-
-### D. 先评估再综合
-
-先做三个基线的全负载、单活动、同组活动、独立组活动与 random9。对可解析 pair 用精确期望；k2/混合结构使用正确的活动事件，必要时求服务 LP。不能人为补齐边界。
-
-随后完全枚举有限目录、应用同一预算和服务目标。明确 minimum=0 与 minimum=1 两种 Pareto 目标。先不引入巨大 MILP；当配置共享资源、可组合且可分解条件明确后，再构造配置 ILP。
-
-## 必须通过的验收
-
-- 字节：每个对象/条带仅驻留一次；每个数据源服务等式成立；总容量守恒。
-- 路径：R与Y同时合法；移除必经路线会降低服务或导致不可行，不能自动寻找不存在的路。
-- 资源：bank parent不重复；port/HB/controller聚合不超预算；未选出口不能出流。
-- 合同：固定份额、串行、buffered 的差异真正进入服务求解；不能只改名称或成本。
-- 见证：小构造的完整字执行与服务 LP 相容，明确哪些结果只有上界。
-- 回归：原63项测试继续通过；新测试覆盖k2边缘、非对称活动、不同用户共享父资源以及成本重复计数。
-- 统计：合成分布与真实trace分开；如离线优化布局，只用训练/验证选择，测试冻结。
-- 报告：吞吐、common、保底、不可行/unsupported、成本向量、来源提交和哈希完整。
-
-## 交付物
-
-1. 可复用候选适配器和统一账本，保持模型不依赖实验入口。
-2. `w2w/experiments/` 下一个注册入口，新增命令进入 `commands.py`。
-3. 同预算对照与 Pareto 原始结果，保存 `artifacts/results/`。
-4. 独立核验脚本、必要测试、方法和报告。
-5. 用一句清楚结论说明：改善来自何处，是否超过强基线，或为什么没有。
-
-## 停止扩展的条件
-
-发现接口支持、物理路径或成本账本无法对齐时，先解决这个具体问题，不扩大mask搜索。若全部改进只来自超过预算、把复杂接口视为免费或改变数据语义，该结果不计为改进。若强基线仍最好，保留它并报告约束/上界证据，再决定是否值得打开placement自由度。
+先稳定接口/exposure/静态布局综合，再让 placement 改变方向、路径长度和宽度成本，
+最后接真实 MoE/LLM trace 检验时空不均衡。Native-ready 敏感性已有前轮证据，作为之后
+校准维度保留。本轮结束后不继续工程重构、不新增 FIFO 扫描、不提前释放新 placement。

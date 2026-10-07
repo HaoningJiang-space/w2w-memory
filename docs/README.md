@@ -7,6 +7,8 @@
 
 ## 当前实现与运行
 
+- [最新：home/k2/k3 架构竞争、同预算与同服务前沿](reports/ARCHITECTURE_COMPETITION_REPORT.md)
+- [架构竞争预注册范围与最优性边界](methods/ARCHITECTURE_COMPETITION.md)
 - [不可变 Design、EndpointEnvelope 与共享 ResourceLedger](DESIGN_API.md)
 - [按角色接口与 home/k2/k3 比较协议](methods/ROLE_INTERFACE_METHOD.md)
 - [21设计结果、等价回归与供给敏感性](reports/ROLE_INTERFACE_REPORT.md)

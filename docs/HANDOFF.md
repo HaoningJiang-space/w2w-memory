@@ -1,9 +1,13 @@
 # 开发交接：Wafer-scale Memory Service Fabric
 
-**2026-10-07 后续更新：** 四个模型边界与首轮21设计比较已落地，见
-[Design API](DESIGN_API.md) 和 [角色接口报告](reports/ROLE_INTERFACE_REPORT.md)。
-下面保留前一阶段交接快照。当前下一研究项是native profile驱动的离线比例选择，
-不要把下文的“待开发”当作最新状态。
+**2026-10-07 最新更新：工程整理已结束，固定 H/plus 架构竞争已完成。**
+见[最新报告](reports/ARCHITECTURE_COMPETITION_REPORT.md)：161 个合法候选、54 个实际设计、
+3,402 个 LP；home/k2/k3 均有 Pareto 区域，wire 预算可翻转 k2/k3 的胜负。
+实验源码 `806fe82`，eex005 隔离目录 `/home/wangziheng/Video/w2w-interface-20261007`；
+本地 `/home/abc/jhn/w2w-memory`，研究 remote 为 `origin`，隔离服务器为 `research`。
+四个模型边界与前轮结果见 [Design API](DESIGN_API.md)、[角色接口报告](reports/ROLE_INTERFACE_REPORT.md)。
+当前按用户最新顺序进入[固定几何的目标服务逆向综合](handoff/NEXT_TASK.md)，不再继续整理，
+不先做 placement 或真实 trace。下面保留前阶段交接快照，其版本、路径和“下一项”均为历史记录。
 
 **交接日期：2026-10-07。读这份文件即可接手，不需要重新阅读整段聊天。**
 

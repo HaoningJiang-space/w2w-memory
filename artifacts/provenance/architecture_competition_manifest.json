@@ -1,0 +1,95 @@
+{
+  "experiment_source_commit": "806fe829dacf4b02c9d0f1a100089e2f135cf613",
+  "render_source_commit": "2001a78",
+  "host": "eex005",
+  "remote_checkout": "/home/wangziheng/Video/w2w-interface-20261007",
+  "raw_directory": "memory_results/architecture_competition_806fe82",
+  "raw_results_sha256": "614742383453b642dbdc9e92a1ea04833a7540731695d6206f729f458e21a25f",
+  "registration_sha256": "32530deeabb3986c10f2724646f19d44be16d4659a8af4d7791bb0a1366c0e28",
+  "tests": {
+    "count": 18,
+    "status": "PASS",
+    "source_commit": "806fe829dacf4b02c9d0f1a100089e2f135cf613",
+    "scope": "design contracts, tiny integration, role-interface regressions; not a repeat of all historical tests"
+  },
+  "counts": {
+    "proposed": 657,
+    "rejected_native_sum": 256,
+    "rejected_private_home": 240,
+    "accepted": 161
+  },
+  "local_period_witnesses": 63,
+  "budget_boxes": 240,
+  "verification": {
+    "unique_designs": 54,
+    "aliases": 6,
+    "lp_solves": 3402,
+    "max_coefficient_error": 4.440892098500626e-16,
+    "max_resource_residual": 6.2727600891321345e-15,
+    "all_ratio_bounds_closed": true
+  },
+  "frontiers": {
+    "random9": {
+      "primary_named_designs": 35,
+      "primary_unique_points": 26,
+      "extended_named_designs": 40,
+      "late_serializer_named_designs": 41
+    },
+    "clustered9": {
+      "primary_named_designs": 17,
+      "primary_unique_points": 17,
+      "extended_named_designs": 24,
+      "late_serializer_named_designs": 21
+    }
+  },
+  "elapsed_seconds": 115.74516827426851,
+  "artifact_audit": {
+    "ratios_equal_actual_single_capacities": true,
+    "full_native_rate_and_exact_ratio_in_period": true,
+    "all_frontiers_have_public_evaluator_evidence": true,
+    "primary_frontiers_independently_recomputed": true,
+    "registration_hash_unchanged": true,
+    "compressed_equals_server_raw": true
+  },
+  "figure_review": "PNG visually inspected after footer spacing correction; SVG and PDF archived",
+  "scope": "Family-exact role/interface/reciprocal-layout competition under full-load floor 1; not arbitrary fabric optimality",
+  "files": {
+    "artifacts/figures/architecture_competition/frontier.pdf": {
+      "bytes": 29604,
+      "sha256": "9cf1cff031d2151d4011d328a269af0a32fc6076577a0923ca611b136d3f6530"
+    },
+    "artifacts/figures/architecture_competition/frontier.svg": {
+      "bytes": 142040,
+      "sha256": "4f2e2617f1c70230929db40a65c8bfadb411ffcb37bedd9017a7db6c728a429a"
+    },
+    "artifacts/provenance/architecture_competition_run.log.gz": {
+      "bytes": 1339,
+      "sha256": "e6427bd0007eb242412392d7dea49632b51891f90dfed7c500ecb9d88664501d"
+    },
+    "artifacts/provenance/architecture_competition_tests.log.gz": {
+      "bytes": 661,
+      "sha256": "04f25acbf18c2ccc4b034ec798e1d8a65ba00599e9e121b2051ecc583c039c00"
+    },
+    "artifacts/results/endpoint/architecture_competition.json.gz": {
+      "bytes": 57164,
+      "sha256": "865e92db4ade51444356c2a0ac3c60ab0e70af0f468b19a133eef0397d05e9c2"
+    },
+    "artifacts/results/endpoint/architecture_competition_frontier.csv": {
+      "bytes": 5799,
+      "sha256": "c7f55e0d9e071cc74f64bdb19668f3de824f325ec8e4309995f0477c4e701125"
+    },
+    "artifacts/results/endpoint/architecture_competition_service_targets.csv": {
+      "bytes": 3901,
+      "sha256": "48252c7d3bf816b2efdb84a12739193abdd1e4c5f3e4dc7bdd98951c45de7e46"
+    },
+    "docs/methods/ARCHITECTURE_COMPETITION.md": {
+      "bytes": 4107,
+      "sha256": "32530deeabb3986c10f2724646f19d44be16d4659a8af4d7791bb0a1366c0e28"
+    },
+    "docs/reports/ARCHITECTURE_COMPETITION_REPORT.md": {
+      "bytes": 13114,
+      "sha256": "eba3887bd9235732a04112edb648099ab95efa22e804448d3e02567e8f9a42c7"
+    }
+  },
+  "archive_text_normalization": "SVG trailing spaces removed; CSV uses LF; numeric data unchanged"
+}
