@@ -10,11 +10,17 @@ during synthesis. Selection remains upstream of the first HB. Reuse the 14
 archived 160-bit traces (both directions, seven patterns); validate their hashes
 against the archived roundtrip artifact. No DRAM model, new placement or FIFO sweep.
 
-Use Vivado 2024.2, `xcku040-ffva1156-2-e`, 2 ns period, 0.05 ns uncertainty,
+Use Vivado 2024.2, `xc7z020clg484-1`, 2 ns period, 0.05 ns uncertainty,
 0.2 ns max input/output delay and zero min delay. Reset and frozen configuration
 inputs are excluded from operational timing paths, not tied off for synthesis.
 Use two tool threads, default synthesis/opt/place/route, no candidate-specific
 tuning or additional pipeline stages. Keep any timing failures in the results.
+
+The initial KU040 selection was stopped before synthesis by a missing Synthesis
+license. A separate eight-register tool probe verified that the installed Z020
+can actually synthesize. This part change precedes the architecture measurements;
+both candidates use the same Z020. Completed XSim evidence is reusable because
+the RTL, testbench, activity window, and clock period are unchanged.
 
 Implement four out-of-context blocks: duplicated TX, configurable TX, Home RX,
 Shared RX. The same Home RX plus two copies of the same Shared RX are charged to

@@ -29,6 +29,9 @@ read_xdc $out/constraints.xdc
 synth_design -top $top -part $part -mode out_of_context -flatten_hierarchy rebuilt -generic $generics
 # OOC clock location supplies a common clock-origin assumption without board I/O.
 set clock_site [lindex [lsort [get_sites -filter {SITE_TYPE == BUFGCE}]] 0]
+if {$clock_site eq ""} {
+    set clock_site [lindex [lsort [get_sites -filter {SITE_TYPE == BUFGCTRL}]] 0]
+}
 if {$clock_site ne ""} {set_property HD.CLK_SRC $clock_site [get_ports clk]}
 report_utilization -hierarchical -file $out/synth_utilization.rpt
 opt_design
