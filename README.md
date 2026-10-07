@@ -1,5 +1,7 @@
 # Wafer-scale Memory Service Fabric
 
+**开发交接入口：[HANDOFF](docs/HANDOFF.md)** — 当前状态、复现、接口边界与下一任务。
+
 研究目标：在有限接口与连线预算下，联合组织 **memory service interface、reticle
 placement 和静态数据布局**，使繁忙 compute 能利用已有 DRAM 服务。
 Matching、pooling 和 FIFO 是不同层次的工具，不是独立更换的研究题目。

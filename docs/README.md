@@ -1,5 +1,7 @@
 # 文档索引
 
+**开发交接入口：[HANDOFF](HANDOFF.md)** — 当前状态、复现、接口边界与下一任务。
+
 研究问题固定为 wafer-scale memory service fabric。按所需层次阅读，不必按 Gate
 时间顺序把每个实验当作新的研究题目。
 

@@ -1,0 +1,43 @@
+{
+  "checked_date": "2026-10-07",
+  "baseline_commit": "3fadebefcb3b2ad54de63f705552b141aed744d3",
+  "local": {
+    "python": "3.14.2",
+    "packages": {
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "networkx": "3.7",
+      "shapely": "2.1.2",
+      "matplotlib": "3.11.2",
+      "pymetis": "2025.2.2"
+    }
+  },
+  "eex005": {
+    "python": "3.13.13",
+    "packages": {
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "networkx": "3.7",
+      "shapely": "2.1.2",
+      "matplotlib": "3.11.2",
+      "pymetis": "2025.2.2"
+    },
+    "venv": "/home/wangziheng/Video/w2w-memory/.venv"
+  },
+  "gurobi": {
+    "primary_venv_installed": false,
+    "site_packages": "/home/wangziheng/miniconda3/envs/moe-chiplet-thermal/lib/python3.13/site-packages",
+    "version": "13.0.3",
+    "smoke_test": {
+      "variables": 1,
+      "status": 2,
+      "objective": 1.0
+    },
+    "license_scope": "Historically restricted; current smoke test does not establish large-model entitlement"
+  },
+  "notes": [
+    "Observed package versions, not a solver-performance or dependency lock guarantee.",
+    "No credentials, SSH helper, licenses or virtual environments are included in Git.",
+    "Current endpoint bridge and catalog selection use SciPy/HiGHS and enumeration, not Gurobi."
+  ]
+}
