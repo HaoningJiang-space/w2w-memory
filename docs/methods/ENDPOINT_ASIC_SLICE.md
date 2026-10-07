@@ -149,7 +149,7 @@ Extraction coverage is checked separately: only drivers with no other connected
 fanout may lack annotation (unused QN pins and clock-load outputs, for example).
 
 If a block reaches the 50% hold-buffer effort limit, the same registered policy
-restarts it from the original mapped netlist at 200%. The SDC is unchanged and
+restarts it from the original mapped netlist at 100% (the pinned tool maximum). The SDC is unchanged and
 all additional cells are charged. Successful closed blocks may be reused only
 with identical RTL, SDC, library, period and tool versions; their original
 manifest/hash and source revision remain recorded. This avoids re-running the
