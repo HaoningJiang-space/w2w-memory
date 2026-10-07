@@ -1,3 +1,4 @@
+`timescale 1ns/1ps
 // One native 256-bit admission before output drain per slot. Queue depth
 // includes the transmitting word. No same-slot re-admission after a pop.
 // Direction is a reticle configuration input, held constant between resets.
