@@ -92,7 +92,7 @@ def audit_inputs(source, verify_raw=False):
             if verify_raw:
                 check_routing_union(folder / 'manifest.json', current_spec, case['decode_step'], demand)
                 rebuilt, rebuilt_demand = compile_patterns_window(folder / 'manifest.json', current_spec, case['decode_step'])
-                if rebuilt.sha256 != trace.sha256 or digest(rebuilt_demand) != digest(demand):
+                if rebuilt.sha256 != trace.sha256 or json.loads(json.dumps(rebuilt_demand)) != demand:
                     raise ValueError('Raw routing recompile mismatch')
             traces[case['id'], mode] = trace
     return summary, traces
