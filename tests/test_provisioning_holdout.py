@@ -4,9 +4,23 @@ import unittest
 from w2w.experiments.run_provisioning_holdout import jobs
 from w2w.workloads.patterns_trace import RequestRoutes
 from w2w.workloads.provisioning_holdout import assign_owners, fit_owners, split_requests
+from w2w.validation.provisioning_holdout import frontier, gain_retention
 
 
 class HoldoutTests(unittest.TestCase):
+    def test_gain_retention_is_not_clipped_or_divided_by_zero(self):
+        self.assertAlmostEqual(gain_retention(4, 2, 3), 1/3)
+        self.assertLess(gain_retention(4, 2, 5), 0)
+        self.assertGreater(gain_retention(4, 2, 1), 1)
+        self.assertIsNone(gain_retention(4, 4, 3))
+        self.assertIsNone(gain_retention(4, 5, 3))
+
+    def test_request_capacity_is_charged_on_frontier(self):
+        cost = dict.fromkeys(('export_lane_bits', 'endpoint_storage_bits', 'access_wire_bit_mm',
+                             'pipeline_register_bits', 'fixed_sequence_control_bits', 'bank_port_connections'), 1)
+        rows = [dict(label='same', window=n, makespan_slots=t, cost=cost) for n, t in ((128, 4), (192, 4), (256, 3))]
+        self.assertEqual(frontier(rows), [dict(label='same', window=128), dict(label='same', window=256)])
+
     def test_request_split_is_disjoint_and_ignores_routing(self):
         manifest = dict(requests=[dict(id=f'model/{s}/{i}.json', sha256='irrelevant')
                                   for s in ('a', 'b') for i in range(14)])

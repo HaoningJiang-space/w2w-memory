@@ -11,6 +11,7 @@ COMMANDS = {
     'analyze_service_driven': 'w2w.analysis.analyze_service_driven',
     'analyze_sparse_pooling': 'w2w.analysis.analyze_sparse_pooling',
     'audit_patterns_replay': 'w2w.analysis.patterns_replay',
+    'audit_provisioning_holdout': 'w2w.validation.provisioning_holdout',
     'audit_service_provisioning': 'w2w.validation.service_provisioning',
     'download_patterns_corpus': 'w2w.experiments.download_patterns_corpus',
     'draw_bank_hb_boundary': 'w2w.visualization.draw_bank_hb_boundary',
