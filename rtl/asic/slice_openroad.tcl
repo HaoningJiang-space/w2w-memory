@@ -22,7 +22,7 @@ source $platform/fastroute.tcl
 insert_tiecells LOGIC0_X1/Z
 insert_tiecells LOGIC1_X1/Z
 if {$::env(W2W_TX)} {set_io_pin_constraint -group -order -pin_names {native_data[*]}}
-place_pins -hor_layers metal5 -ver_layers metal6 -random_seed 42
+place_pins -hor_layers metal5 -ver_layers metal6 -random -random_seed 42
 
 set metrics [open $output/stages.csv w]
 puts $metrics "stage,cell_area_um2,hold_buffers,hold_buffer_area_um2,setup_ns,hold_ns"
@@ -49,7 +49,7 @@ proc snapshot {name} {
     return [list $setup $hold]
 }
 snapshot imported
-global_placement -density 0.30
+global_placement -density 0.40
 detailed_placement
 estimate_parasitics -placement
 repair_design

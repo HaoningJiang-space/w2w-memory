@@ -94,7 +94,7 @@ prebuilt), and LEF, track, RC and extraction rules from the same pinned ORFS
 revision as the library. No custom ECO buffers carry into this experiment.
 
 Both sources and the two common receiver types use 30% initial utilization,
-square aspect ratio, 5 um core margin, placement density 0.30, seed 42, two
+square aspect ratio, 5 um core margin, placement density 0.40, seed 42, two
 threads, metal5/6 local I/O pins and the platform's metal2–10 signal / metal4–10
 clock routing settings. CTS uses CLKBUF_X1/X2/X3. The same automatic setup/hold
 repair sequence runs after CTS and with global-route parasitics; hold margin is
