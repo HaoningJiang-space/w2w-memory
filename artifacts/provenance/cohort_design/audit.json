@@ -1,0 +1,24 @@
+{
+  "verified": true,
+  "provenance": {
+    "commit": "eb1f6a8bf7af462a967db93ec76ea5a7f5ab12ba",
+    "git_status": "",
+    "host": "eex005",
+    "python": "3.13.13",
+    "packages": {
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "shapely": "2.1.2",
+      "pymetis": "2025.2.2",
+      "networkx": "3.7",
+      "matplotlib": "3.11.2"
+    }
+  },
+  "source_commit": "9f647c8619c6ecf3c0a5e2a9b67b64b2fba7848f",
+  "raw_sha256": "7aa289ac92aaf8a300211c1397bcd52c20d1ac0b260bb3ed82395129876094dd",
+  "training_windows": 10752,
+  "accepted_swaps": 32,
+  "reconstructed_cross_scores": 24,
+  "unchanged_resident_counts": true,
+  "scope": "Training objective and swap reconstruction, no new finite-task execution or test-set use"
+}

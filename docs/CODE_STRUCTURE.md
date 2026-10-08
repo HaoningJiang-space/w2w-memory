@@ -56,11 +56,11 @@ python -m w2w audit_patterns_replay \
 | 目录 | 应放什么 | 主要模块 |
 |---|---|---|
 | `w2w/domain` | 不可变设计、endpoint 参数与服务包络，不依赖求解器或实验 | `design`、`endpoint` |
-| `w2w/theory` | 解析必要界与纯数学推导 | `interfaces`、`service_provisioning` |
+| `w2w/theory` | 解析必要界与纯数学推导 | `interfaces`、`service_provisioning`、`cohort_service` |
 | `w2w/geometry` | Memory-on-Logic 的几何生成、HB overlap、初始服务包络 | `memory_model` |
 | `w2w/service` | 资源账本、固定数据布局、reticle/bank 服务 LP | `matching_placement`、`bank_sharing`、`guaranteed_service_exchange` |
 | `w2w/endpoints` | 出口服务合同、完整字执行、队列与反压 | `endpoint_contract_probe`、`endpoint_execution`、`slice_exposure_probe` |
-| `w2w/synthesis` | 选择布局或硬件的算法 | `cycle_configurations`、`sparse_pooling`、`service_driven_fabric`、`nonuniform_pooling`、`gurobi_pair_synthesis`、`memory_fabric_dse` |
+| `w2w/synthesis` | 选择布局或硬件的算法 | `cycle_configurations`、`sparse_pooling`、`service_driven_fabric`、`nonuniform_pooling`、`gurobi_pair_synthesis`、`memory_fabric_dse`、`cohort_placement` |
 | `w2w/workloads` | 活动集合、真实 routing、逻辑读任务和冻结地址驻留 | `bank`、`reticle`、`patterns_trace`、`read_trace`、`read_residency` |
 | `w2w/experiments` | 注册参数、train/val/test、冻结、执行和记录 | `run_*` |
 | `w2w/analysis` | 读取结果、独立重算、统计 | `analyze_*` |

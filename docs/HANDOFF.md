@@ -16,12 +16,13 @@
 | 验收 | 服务器完整 Python 测试 148/148；48 记录重新解析原始输入与资源审计；[范围](reports/TRACE_FLOW_ACCEPTANCE.md) |
 | 静态可配置出口 | 每 bank 一个共享发送结构，方向按 memory 实例冻结；不是跨 bank engine pool |
 | 局部物理实现 | Nangate45 单角、提取后 timing 和路由器 DRC；[ASIC 报告](reports/ENDPOINT_ASIC_SLICE_REPORT.md) |
-| DRAM 命令时序 | 尚未接入 ACT/PRE/RD/refresh；当前是有限资源的读 slot 模型 |
+| DRAM 命令时序 | 已合入可选completion后端与Ramulator桥接；本轮只验证接口合同，3项原生库集成测试未配置；默认仍是slot模型 |
 | 整片 PPA 与 signoff | 尚未完成；局部面积不能直接当整片面积、功耗或工艺签核 |
 | 请求容量与驻留联合配置 | 新比例已完成 189 次合成回放；真实 48 记录仅增加下界，未重跑新比例；[报告](reports/SERVICE_PROVISIONING_REPORT.md) |
 | 新比例的独立 routing 验证 | 87主实验＋47目标扩展＋32 RX诊断已完成并审计，共166次；[完整报告](reports/RETURN_PATH_PROVISIONING_REPORT.md) |
 | 完整返回路径配置 | RX2使160/192-bit实际率受限；RX3及匹配比例在5个有正参考收益的窗口保留81.82%–83.32%增量，增加RX成本；不是新RTL结果 |
 | 新 service-engine pool | 研究提案，未实现；[问题分析与形式化](methods/SERVICE_PROVISIONING_ASSESSMENT.md) |
+| cohort静态owner | layer0训练探针在固定硬件上改善评分4.90%–7.77%；非测试集/任务加速；[设计报告](reports/COHORT_SERVICE_DESIGN_REPORT.md) |
 
 运行基线：真实回放 `aa9d911`；强化审计 `6d1827b`；完整测试与验收记录 `ce549ce`。另已合入 `11fd2ab` 的比例推导、189 次合成回放及独立审计，原执行源码为 `eefe539`。后续文档提交不会改变这些实验的源码身份。GPU 推理不是当前流程的必需步骤。
 
@@ -29,6 +30,10 @@
 共交付3,006,327,648个32-byte字；57项执行相关测试及后续21项定向测试通过（有重叠，非78项唯一测试）。
 本轮在eex005隔离worktree执行，hn072核对原始routing；另一开发者的RTL和DRAM后端任务未修改。
 训练owner仍有两窗口退化，下一项系统设计应评估共同完成感知的静态映射，不直接扩跨bank pool。
+
+最新设计探针`9f647c8`已由`eb1f6a8`独立核对：32次owner交换、24项交叉评分；
+合并后42项测试通过、3项原生桥接集成跳过。`b4b8ce6`已包含于祖先链；另外已合入并行
+DRAM提交`4dc61f8`和`5d6710a`。模型整字RX预留与RTL beat-reservoir应区分，见新设计报告。
 
 ## 工作区和 Git
 
