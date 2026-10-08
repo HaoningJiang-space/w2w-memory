@@ -18,11 +18,11 @@ from w2w.system.builder import SystemBuilder
 
 
 class SystemExecution:
-    def __init__(self, spec, graph, native=None):
+    def __init__(self, spec, graph, native=None, *, network_factory=None):
         self.spec, self.graph = spec, graph
         self.builder = SystemBuilder(spec).validate_graph(graph)
         self.events = []
-        self.network = CreditNetwork(self.builder, self.events)
+        self.network = (network_factory or CreditNetwork)(self.builder, self.events)
         self.native = native if native is not None else IdealBanks(spec)
         if self.native.boundary not in ('memory_word_ready_before_explicit_HB',
                                         'controller_payload_ready_after_native_bus'):
@@ -243,6 +243,9 @@ class SystemExecution:
             pending = {k: dict(allocated=s['allocated'], started=s['start_ps'], read_bytes=s['read_bytes'])
                        for k, s in self.state.items() if not s.get('done')}
             raise RuntimeError(f'System stalled or exceeded explicit time limit; no forced releases: {pending}')
+        if hasattr(self.network, 'close'):
+            self.network.close()
+        self.events.sort(key=lambda event: event['time_ps'])
         record = dict(schema='w2w.system-execution.v2', scope='system_execution_v2_prototype',
                       makespan_ps=makespan, drained_ps=self.now, quantum_ps=quantum,
                       spec=asdict(self.spec), graph=asdict(self.graph),
@@ -255,5 +258,11 @@ class SystemExecution:
         return record
 
 
-def execute_system(spec, graph, *, native=None, max_ps=10_000_000):
-    return SystemExecution(spec, graph, native).run(max_ps)
+def execute_system(spec, graph, *, native=None, network_factory=None, max_ps=10_000_000):
+    execution = SystemExecution(spec, graph, native, network_factory=network_factory)
+    try:
+        return execution.run(max_ps)
+    except BaseException:
+        if hasattr(execution.network, 'abort'):
+            execution.network.abort()
+        raise

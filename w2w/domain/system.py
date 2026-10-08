@@ -77,6 +77,7 @@ class SystemSpec:
     outstanding_per_tile: int = 4
     dram_period_ps: int = 1000
     ideal_dram_cycles: int = 5
+    rx_write_bytes_per_cycle: int = 16
 
     def __post_init__(self):
         for key in ('tiles', 'memories', 'links'):
@@ -85,7 +86,8 @@ class SystemSpec:
             raise ValueError('Only B0/B1 are executable; Direct HB is not implicit')
         for key in ('noc_period_ps', 'flit_bytes', 'router_cycles', 'input_buffer_flits',
                     'injection_flits', 'ejection_packets', 'packet_payload_bytes',
-                    'header_bytes', 'outstanding_per_tile', 'dram_period_ps', 'ideal_dram_cycles'):
+                    'header_bytes', 'outstanding_per_tile', 'dram_period_ps', 'ideal_dram_cycles',
+                    'rx_write_bytes_per_cycle'):
             positive(getattr(self, key), key)
         if self.packet_payload_bytes < 32:
             raise ValueError('Packet payload must fit one native word')
