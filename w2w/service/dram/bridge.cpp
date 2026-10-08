@@ -21,7 +21,8 @@ class IncrementalMemory {
   bool closed = false;
  public:
   explicit IncrementalMemory(nb::dict config) {
-    channels = nb::len(nb::cast<nb::dict>(config["memory_system"])["controllers"]);
+    channels = nb::len(nb::cast<nb::list>(
+        nb::cast<nb::dict>(config["memory_system"])["controllers"]));
     auto cfg = py_to_confignode(config);
     frontend.reset(Factory::create_frontend(cfg));
     memory.reset(Factory::create_memory_system(cfg));
