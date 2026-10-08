@@ -46,6 +46,8 @@ memory_results/            本地/服务器实验工作目录（不入 Git）
 
 ## 从这里开始
 
+- [从wafer模板和DRAM原生服务出发的设计原则](docs/methods/WAFER_DRAM_SERVICE_PRINCIPLES.md)
+- [同一原生组织下调整静态比例：完整对象读时间减少17.44%](docs/reports/NATIVE_MATCHED_RESIDENCY_REPORT.md)
 - [最新：完整返回路径配置、166次回放与位宽/RX成本选择](docs/reports/RETURN_PATH_PROVISIONING_REPORT.md)
 - [静态驻留与请求容量联合设计：解析比例、189回放和服务硬件取舍](docs/reports/SERVICE_PROVISIONING_REPORT.md)
 - [当前：真实 trace 工作流、主入口与验收范围](docs/guides/TRACE_WORKFLOW.md)
