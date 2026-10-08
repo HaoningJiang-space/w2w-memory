@@ -29,6 +29,12 @@ class SystemExecution:
             raise ValueError('Unknown DRAM callback boundary')
         self.native_at_controller = self.native.boundary.startswith('controller_')
         self.tasks = {t.id: t for t in graph.tasks}
+        self.predecessors = {t.id: {e.producer for e in (*graph.control, *graph.data) if e.consumer == t.id}
+                             for t in graph.tasks}
+        self.task_order = sorted(self.tasks)
+        self.unallocated = set(self.tasks)
+        self.ready_tasks = set()
+        self.reading = set()
         self.state = {t.id: dict(allocated=False, start_ps=None, finish_ps=None,
                                 read_bytes=0, issued_all=False, next_read=None,
                                 iterator=iter(words_for_task(t, graph, self.builder))) for t in graph.tasks}
@@ -88,6 +94,7 @@ class SystemExecution:
                 self.outstanding[req.requester] -= 1
                 self.log('read_deliver', request=key, task=req.task, bytes=req.size_bytes,
                          memory=req.memory, bank=req.bank, word_address=req.word_address)
+                del self.requests[key]
             else:
                 raise RuntimeError('Unknown transaction packet')
         del self.packet_info[packet.id]
@@ -106,11 +113,11 @@ class SystemExecution:
             self.log('task_finish', task=key, tile=tile)
 
     def _allocate(self):
-        for key in sorted(self.tasks):
+        for key in sorted(self.unallocated):
             state, task = self.state[key], self.tasks[key]
             if state['allocated'] or self.now < task.release_ps:
                 continue
-            predecessors = {e.producer for e in (*self.graph.control, *self.graph.data) if e.consumer == key}
+            predecessors = self.predecessors[key]
             if any(not self.state[p].get('done') for p in predecessors):
                 continue
             size = self.builder.footprint[key]
@@ -118,6 +125,9 @@ class SystemExecution:
                 continue
             self._sram(task.tile, size, key)
             state['allocated'] = True
+            self.unallocated.remove(key)
+            self.ready_tasks.add(key)
+            self.reading.add(key)
             self.log('task_allocate', task=key, tile=task.tile)
 
     def _data_transfers(self):
@@ -135,26 +145,30 @@ class SystemExecution:
                 self.log('data_issue', edge=key, bytes=size)
 
     def _read_issue(self):
-        # One command per tile per network cycle; all classes share the NI output.
-        used = set()
-        for key in sorted(self.tasks):
+        # Explicit descriptor issue slots; all classes share the finite NI output.
+        used = Counter()
+        for key in sorted(self.reading):
             task, state = self.tasks[key], self.state[key]
-            if (not state['allocated'] or state['issued_all'] or task.tile in used
+            if (not state['allocated'] or state['issued_all'] or used[task.tile] >= self.spec.read_requests_per_tile_cycle
                     or self.outstanding[task.tile] >= self.spec.outstanding_per_tile):
                 continue
-            if state['next_read'] is None:
-                state['next_read'] = next(state['iterator'], None)
-            req = state['next_read']
-            if req is None:
-                state['issued_all'] = True
-                continue
-            mc = self.builder.memories[req.memory].home_tile
-            if self._send(req.id+'/req', task.tile, mc, 'request', 0, 'request', req.id):
+            while (used[task.tile] < self.spec.read_requests_per_tile_cycle
+                   and self.outstanding[task.tile] < self.spec.outstanding_per_tile):
+                if state['next_read'] is None:
+                    state['next_read'] = next(state['iterator'], None)
+                req = state['next_read']
+                if req is None:
+                    state['issued_all'] = True
+                    self.reading.remove(key)
+                    break
+                mc = self.builder.memories[req.memory].home_tile
+                if not self._send(req.id+'/req', task.tile, mc, 'request', 0, 'request', req.id):
+                    break
                 self.requests[req.id] = dict(request=req, stage='request_flight')
                 state['next_read'] = None
                 self.outstanding[task.tile] += 1
                 self.outstanding_peak[task.tile] = max(self.outstanding_peak[task.tile], self.outstanding[task.tile])
-                used.add(task.tile)
+                used[task.tile] += 1
                 self.log('read_issue', request=req.id, task=key, memory=req.memory,
                          bank=req.bank, word_address=req.word_address, bytes=req.size_bytes)
 
@@ -182,7 +196,7 @@ class SystemExecution:
                     self.log('mc_release', request=key, memory=req.memory)
 
     def _start_compute(self):
-        for key in sorted(self.tasks):
+        for key in sorted(self.ready_tasks):
             task, state = self.tasks[key], self.state[key]
             tile = self.builder.tiles[task.tile]
             if (not state['allocated'] or state['start_ps'] is not None
@@ -197,6 +211,7 @@ class SystemExecution:
             duration = task.compute_cycles*tile.compute_period_ps
             state['finish_ps'] = self.now+duration
             self.engine[task.tile] = key
+            self.ready_tasks.remove(key)
             self.busy_ps[task.tile] += duration
             self.log('task_start', task=key, tile=task.tile)
 

@@ -26,5 +26,5 @@ class MemoryRequest:
     operation: str = 'READ'
 
     def __post_init__(self):
-        if self.operation != 'READ' or self.size_bytes != 32:
-            raise ValueError('The first system backend supports exactly 32-byte READs')
+        if self.operation != 'READ' or self.size_bytes < 32 or self.size_bytes % 32:
+            raise ValueError('A READ descriptor must contain positive whole 32-byte native words')

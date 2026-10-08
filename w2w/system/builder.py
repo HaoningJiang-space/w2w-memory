@@ -29,7 +29,8 @@ class SystemBuilder:
                 raise ValueError('A physical resource cannot be duplicated into independent capacities')
             resources.add(link.resource_id)
             self.edges[link.src, link.dst] = link.id
-            if link.width_bits != spec.flit_bytes*8 or link.period_ps != spec.noc_period_ps:
+            if (link.kind != 'HB' and link.width_bits != spec.flit_bytes*8
+                    or link.period_ps != spec.noc_period_ps):
                 raise ValueError('First network requires one link clock/flit width; no implicit CDC/SerDes')
             if link.src in self.tiles and link.dst in self.tiles:
                 a, b = self.tiles[link.src], self.tiles[link.dst]

@@ -23,6 +23,8 @@ class Flit:
 class CreditNetwork:
     def __init__(self, builder, events=None):
         self.builder, self.spec = builder, builder.spec
+        if any(l.width_bits != self.spec.flit_bytes*8 for l in self.spec.links):
+            raise ValueError('Python reference requires uniform link width; use the native adapter for separate HB width')
         self.events = events if events is not None else []
         self.queues = {}
         self.credits = {}

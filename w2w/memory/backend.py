@@ -11,19 +11,23 @@ class IdealBanks:
         self.bank_free = Counter()
         self.last_ps = -1
         self.accepted = self.completed = self.rejected = 0
+        self.native_words = 0
 
     def submit(self, request, now):
         if now % self.spec.dram_period_ps:
             return False
-        bank = request.memory, request.bank
-        if self.bank_free[bank] > now:
+        banks = next(m.banks for m in self.spec.memories if m.id == request.memory)
+        counts = Counter((request.memory, (request.bank+i) % banks) for i in range(request.size_bytes//32))
+        if any(self.bank_free[bank] > now for bank in counts):
             self.rejected += 1
             return False
         if request.id in self.pending:
             raise RuntimeError('Repeated native transaction')
-        self.pending[request.id] = now+self.spec.ideal_dram_cycles*self.spec.dram_period_ps
+        self.pending[request.id] = now+(max(counts.values())-1+self.spec.ideal_dram_cycles)*self.spec.dram_period_ps
         # Independent, pipelined bank reference: one word per bank clock.
-        self.bank_free[bank] = now+self.spec.dram_period_ps
+        for bank, count in counts.items():
+            self.bank_free[bank] = now+count*self.spec.dram_period_ps
+        self.native_words += request.size_bytes//32
         self.accepted += 1
         return True
 
@@ -40,7 +44,8 @@ class IdealBanks:
     def record(self):
         return dict(kind='ideal_independent_banks', boundary=self.boundary,
                     accepted=self.accepted, completed=self.completed, rejected=self.rejected,
-                    pending=len(self.pending), dram_period_ps=self.spec.dram_period_ps)
+                    pending=len(self.pending), native_words=self.native_words,
+                    dram_period_ps=self.spec.dram_period_ps)
 
 
 class RamulatorAbsolute:
@@ -62,6 +67,8 @@ class RamulatorAbsolute:
         self.tickets = {}
 
     def submit(self, request, now):
+        if request.size_bytes != 32:
+            raise ValueError('RamulatorAbsolute currently accepts native words; grouped descriptors need explicit expansion')
         if now % 1000:
             return False
         ticket = self.backend.submit(dict(bank=self.channels[request.memory]*32+request.bank,

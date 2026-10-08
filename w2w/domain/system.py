@@ -78,6 +78,8 @@ class SystemSpec:
     dram_period_ps: int = 1000
     ideal_dram_cycles: int = 5
     rx_write_bytes_per_cycle: int = 16
+    read_requests_per_tile_cycle: int = 1
+    memory_request_bytes: int = 32
 
     def __post_init__(self):
         for key in ('tiles', 'memories', 'links'):
@@ -87,8 +89,10 @@ class SystemSpec:
         for key in ('noc_period_ps', 'flit_bytes', 'router_cycles', 'input_buffer_flits',
                     'injection_flits', 'ejection_packets', 'packet_payload_bytes',
                     'header_bytes', 'outstanding_per_tile', 'dram_period_ps', 'ideal_dram_cycles',
-                    'rx_write_bytes_per_cycle'):
+                    'rx_write_bytes_per_cycle', 'read_requests_per_tile_cycle', 'memory_request_bytes'):
             positive(getattr(self, key), key)
+        if self.memory_request_bytes % 32 or self.memory_request_bytes > self.packet_payload_bytes:
+            raise ValueError('Read descriptor must contain whole native words and fit the packet payload')
         if self.packet_payload_bytes < 32:
             raise ValueError('Packet payload must fit one native word')
         if (self.packet_payload_bytes + self.header_bytes + self.flit_bytes - 1) // self.flit_bytes > self.injection_flits:

@@ -99,5 +99,6 @@ def audit_system_result(result):
         link_count = Counter(network['link_flits'])
     if dict(link_count) != network['link_flits'] or dict(sram_peak) != result['sram_peak_bytes']:
         raise ValueError('Recorded resource totals disagree with events')
-    return dict(passed=True, packets=len(packets), read_words=len(requests), data_bytes=sum(data.values()),
+    return dict(passed=True, packets=len(packets), read_descriptors=len(requests),
+                read_words=sum(r['bytes']//32 for r in requests.values()), data_bytes=sum(data.values()),
                 physical_link_flits=sum(link_count.values()), tasks=len(tasks))
