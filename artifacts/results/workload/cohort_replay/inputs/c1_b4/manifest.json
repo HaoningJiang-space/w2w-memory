@@ -1,0 +1,32 @@
+{
+  "schema": "w2w.pbc-files.v1",
+  "evidence": "captured",
+  "source": "https://huggingface.co/datasets/core12345/MoE_expert_selection_trace",
+  "revision": "27febb7b2d24169560a9f6f83d38eb53f94916cf",
+  "requests": [
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1517.json",
+      "path": "/Projects/haoning/w2w-trace-20261007/memory_results/pbc_corpus256/computer_security/request8.json",
+      "sha256": "c89f139c014c8eaf0f2654cc0342fe896a92012d42d43ce238e2c0b69d60c633",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/26.json",
+      "path": "/Projects/haoning/w2w-trace-20261007/memory_results/pbc_corpus256/abstract_algebra/request3.json",
+      "sha256": "39d11b4403a39411cf52611cbc1d0a63b9a286a46eaed219e75c8aa65fb0aca4",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4861.json",
+      "path": "/Projects/haoning/w2w-trace-20261007/memory_results/pbc_corpus256/high_school_physics/request22.json",
+      "sha256": "aa8ecd58814f6bec9ac55196e5ecf4ddaf31cf7b98ea1f28876f205e5e05f136",
+      "arrival_iteration": 0
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12231.json",
+      "path": "/Projects/haoning/w2w-trace-20261007/memory_results/pbc_corpus256/professional_medicine/request7.json",
+      "sha256": "e66e41c36b838da61c727efb11710c96a22b5e73f9e978167482a967f6873829",
+      "arrival_iteration": 0
+    }
+  ]
+}

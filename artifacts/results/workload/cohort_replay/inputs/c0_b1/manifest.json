@@ -1,0 +1,14 @@
+{
+  "schema": "w2w.pbc-files.v1",
+  "evidence": "captured",
+  "source": "https://huggingface.co/datasets/core12345/MoE_expert_selection_trace",
+  "revision": "27febb7b2d24169560a9f6f83d38eb53f94916cf",
+  "requests": [
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/98.json",
+      "path": "/Projects/haoning/w2w-trace-20261007/memory_results/pbc_corpus256/abstract_algebra/request8.json",
+      "sha256": "0a9933a9207fd02d20dd2a66b67537dd2c48e7320d54a298b78fb6078b729dae",
+      "arrival_iteration": 0
+    }
+  ]
+}

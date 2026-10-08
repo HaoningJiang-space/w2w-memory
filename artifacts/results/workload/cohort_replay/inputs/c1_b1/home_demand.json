@@ -1,0 +1,127 @@
+{
+  "schema": "w2w.pbc-demand.v1",
+  "trace_sha256": "3c4ed8d09ea6ea43e9fb0c9576bda23f46cbb268d7f92b7234c3b4cf8bf39f55",
+  "manifest_sha256": "5a783071ab209a435d474357505d8b9d55a88ebcba86c563542c1259886306c5",
+  "execution_spec_sha256": "2964a447b9d869031764260ce7f9588d222caba200d49d57a98c59bb63ffc334",
+  "evidence": "captured",
+  "captured_routing": true,
+  "model": "Qwen/Qwen3-235B-A22B-FP8; config SHA256=702c46d431bb984db9035a1225186bbfdb52c0d19c82104df4a37cd005e0369e",
+  "source": "https://huggingface.co/datasets/core12345/MoE_expert_selection_trace",
+  "revision": "27febb7b2d24169560a9f6f83d38eb53f94916cf",
+  "requests": [
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1517.json",
+      "path": "/Projects/haoning/w2w-trace-20261007/memory_results/pbc_corpus256/computer_security/request8.json",
+      "sha256": "c89f139c014c8eaf0f2654cc0342fe896a92012d42d43ce238e2c0b69d60c633",
+      "arrival_iteration": 0,
+      "prefill_tokens": 26,
+      "raw_decode_steps": 128,
+      "retained_decode_steps": 1,
+      "omitted_decode_steps": 127,
+      "selected_decode_steps": [
+        65
+      ]
+    }
+  ],
+  "windows": [
+    {
+      "id": "batch0/layer0",
+      "iteration": 0,
+      "layer": "0",
+      "request_tokens": [
+        {
+          "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1517.json",
+          "decode_step": 65
+        }
+      ],
+      "token_count": 1,
+      "expert_token_counts": {
+        "17": 1,
+        "33": 1,
+        "35": 1,
+        "36": 1,
+        "45": 1,
+        "64": 1,
+        "106": 1,
+        "107": 1
+      },
+      "activated_experts": [
+        17,
+        33,
+        35,
+        36,
+        45,
+        64,
+        106,
+        107
+      ],
+      "task_ids": [
+        "batch0/layer0/expert17",
+        "batch0/layer0/expert33",
+        "batch0/layer0/expert35",
+        "batch0/layer0/expert36",
+        "batch0/layer0/expert45",
+        "batch0/layer0/expert64",
+        "batch0/layer0/expert106",
+        "batch0/layer0/expert107"
+      ],
+      "join_task": "batch0/layer0/join",
+      "read_bytes_per_compute": [
+        0,
+        0,
+        0,
+        18878976,
+        18878976,
+        0,
+        0,
+        18878976,
+        18878976,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        18878976,
+        18878976,
+        0,
+        0,
+        0,
+        0,
+        18878976,
+        0,
+        0,
+        0,
+        0,
+        0,
+        18878976,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "logical_read_bytes": 151031808,
+      "no_reuse_reference_bytes": 151031808
+    }
+  ],
+  "total_logical_read_bytes": 151031808,
+  "total_resident_weight_bytes": 2416508928,
+  "semantics": {
+    "stage": "decode_only; prefill validated but never charged to decode",
+    "reuse": "One full routed-expert weight read per layer/batch; intra-batch reuse; cold across batches",
+    "batching": "Logical decode iterations, not measured wall-clock arrivals or serving throughput",
+    "placement": "Caller-supplied compute_by_expert frozen for all architectures; no trace-fitted assignment",
+    "timing": "Selected layers/batches execute sequentially with joins; GEMM/dispatch/combine/KV/dense/shared experts omitted",
+    "weight_bytes": "Explicit supplied bytes, including chosen precision/metadata; not inferred from token counts",
+    "scope": "Selected routed MoE layers only, not full-model capacity or end-to-end latency"
+  },
+  "window_selection": {
+    "original_decode_step": 65,
+    "preceding_steps_executed": false,
+    "cache_state": "cold by explicit model assumption"
+  }
+}
