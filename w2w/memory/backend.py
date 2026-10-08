@@ -65,12 +65,19 @@ class RamulatorAbsolute:
         self.backend = RamulatorHBM2(len(spec.memories), slot_ps=1)
         self.channels = {m.id: i for i, m in enumerate(spec.memories)}
         self.tickets = {}
+        self.groups = {}
+        self.group_accepted = self.group_completed = 0
 
     def submit(self, request, now):
-        if request.size_bytes != 32:
-            raise ValueError('RamulatorAbsolute currently accepts native words; grouped descriptors need explicit expansion')
         if now % 1000:
             return False
+        if request.size_bytes != 32:
+            if request.id in self.groups:
+                raise RuntimeError('Repeated grouped native request')
+            self.groups[request.id] = dict(request=request, issued=0, completed=0,
+                                           words=request.size_bytes//32)
+            self.group_accepted += 1
+            return True
         ticket = self.backend.submit(dict(bank=self.channels[request.memory]*32+request.bank,
                                           address=request.word_address))
         if ticket is None:
@@ -79,12 +86,45 @@ class RamulatorAbsolute:
         return True
 
     def advance(self, now):
-        return [self.tickets.pop(ticket) for ticket in self.backend.advance(now)]
+        result = []
+        for ticket in self.backend.advance(now):
+            key = self.tickets.pop(ticket)
+            if key not in self.groups:
+                result.append(key)
+                continue
+            row = self.groups[key]
+            row['completed'] += 1
+            if row['completed'] == row['words']:
+                result.append(key)
+                del self.groups[key]
+                self.group_completed += 1
+        # MC expands a descriptor to its exact contiguous, bank-interleaved
+        # native addresses. Queue rejection retains the unissued word. Limit
+        # expansion to 32 words/channel/tCK; DRAM commands still belong to Ramulator.
+        if now % 1000 == 0:
+            issued, blocked = Counter(), set()
+            for key, row in self.groups.items():
+                req = row['request']
+                start = req.word_address*32+req.bank
+                while row['issued'] < row['words'] and issued[req.memory] < 32 and req.memory not in blocked:
+                    word = start+row['issued']
+                    ticket = self.backend.submit(dict(bank=self.channels[req.memory]*32+word%32,
+                                                      address=word//32))
+                    if ticket is None:
+                        blocked.add(req.memory)
+                        break
+                    self.tickets[ticket] = key
+                    row['issued'] += 1
+                    issued[req.memory] += 1
+        return result
 
     def record(self):
         result = self.backend.record()
         result.update(boundary=self.boundary, accepted=self.backend.accepted,
-                      completed=self.backend.completed, pending=len(self.tickets))
+                      completed=self.backend.completed, pending=len(self.tickets)+len(self.groups),
+                      grouped_descriptors_accepted=self.group_accepted,
+                      grouped_descriptors_completed=self.group_completed,
+                      grouped_expansion_words_per_channel_cycle=32)
         return result
 
     def close(self):

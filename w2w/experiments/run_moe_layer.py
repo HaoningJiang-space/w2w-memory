@@ -53,6 +53,7 @@ def main():
     p.add_argument('--output', type=Path, required=True)
     p.add_argument('--booksim-source', type=Path, required=True)
     p.add_argument('--booksim-binary', type=Path, required=True)
+    p.add_argument('--dram', choices=('ideal', 'ramulator'), default='ideal')
     args = p.parse_args()
     args.output.mkdir(parents=True, exist_ok=False)
     graph, metadata = compile_layer()
@@ -61,7 +62,7 @@ def main():
     cases = [('B1-real', False, False), ('B1-return-ideal', False, True), ('B1-wide-NoC', True, False)]
     registration = dict(schema='w2w.moe-layer-study.v1', source_commit=subprocess.check_output(
         ['git','rev-parse','HEAD'],text=True).strip(), host=platform.node(),
-        graph_sha256=graph_sha, python=platform.python_version(),
+        graph_sha256=graph_sha, python=platform.python_version(), dram_backend=args.dram,
         cases=[dict(name=name, ideal_return=ideal, spec=asdict(machine(wide=wide))) for name,wide,ideal in cases])
     write(args.output/'registration.json', registration)
     summaries = {}
@@ -69,10 +70,18 @@ def main():
         start = time.monotonic()
         print(json.dumps(dict(starting=name, weight_bytes=metadata['weight_read_bytes'],
                               graph_sha256=graph_sha)), flush=True)
-        result = execute_system(machine(wide=wide), graph,
-            network_factory=factory(source=args.booksim_source, binary=args.booksim_binary,
-                                    directory=args.output/name, ideal_return=ideal),
-            max_ps=2_000_000_000)
+        spec = machine(wide=wide)
+        native = None
+        if args.dram == 'ramulator':
+            from w2w.memory.backend import RamulatorAbsolute
+            native = RamulatorAbsolute(spec)
+        try:
+            result = execute_system(spec, graph, native=native,
+                network_factory=factory(source=args.booksim_source, binary=args.booksim_binary,
+                                        directory=args.output/name, ideal_return=ideal),
+                max_ps=2_000_000_000)
+        finally:
+            if native is not None: native.close()
         result['audit'] = audit_system_result(result)
         result['scope'] = 'one_routed_ffn_layer_timing'
         with gzip.open(args.output/(name+'.json.gz'), 'wt', compresslevel=5) as f:

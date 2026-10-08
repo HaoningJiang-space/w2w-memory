@@ -161,7 +161,8 @@ class BookSimNetwork:
     def _write(self, packet, size, at, fid=None):
         # All activation and response writes contend for one declared tile port.
         # Header-only requests are copied into pre-reserved finite MC NI storage.
-        if packet.dst in self.nodes and size:
+        to_sram = packet.traffic_class == 'activation' or packet.id.endswith('/resp')
+        if packet.dst in self.nodes and size and to_sram:
             start = max(at, self.write_free[packet.dst])
             duration = ceil(size/self.spec.rx_write_bytes_per_cycle)*self.spec.noc_period_ps
             at = start+duration
