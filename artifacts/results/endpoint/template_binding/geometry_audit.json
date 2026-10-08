@@ -1,0 +1,1195 @@
+{
+  "schema": "w2w.template-binding-audit.v1",
+  "source_commit": "fe061f8893d0b5d861e86a8df4ef933e66c9b1fa",
+  "source_sha256": {
+    "w2w/analysis/template_binding.py": "899575a0c51103cb6b89acf87d16b0c6051eeca86bf0a0acbfb78d05210e5ef7",
+    "w2w/synthesis/provisioning_catalog.py": "02a21f3c1125f4376606e5621588822c122311eafdc6f9ba681c9a979ca61eac",
+    "w2w/service/guaranteed_service_exchange.py": "2f63ed9358afdd5207e813d3bbce8e0b698a10635432e9203b7408bd5ddc95e3",
+    "Reticle.py": "d62374fa01653307c7903be863bcfad8130d1fcfe7907a07d7ecb3e184bca2d3"
+  },
+  "frozen_layout_sha256": "21980ddbeb67d3f279d64944d9c77041405337e2e6d2eaf9bda88f35628778a1",
+  "direction_counts": {
+    "2": 18,
+    "3": 18
+  },
+  "symmetries": [
+    {
+      "degrees": 0,
+      "bank_permutation": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ],
+      "port_permutation": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "contour_difference_mm2": 0.0,
+      "port_difference_mm2": 0.0,
+      "region_and_bank_point_symmetry": true
+    },
+    {
+      "degrees": 90,
+      "bank_permutation": null,
+      "port_permutation": null,
+      "contour_difference_mm2": 366.72,
+      "port_difference_mm2": null,
+      "region_and_bank_point_symmetry": false
+    },
+    {
+      "degrees": 180,
+      "bank_permutation": [
+        31,
+        30,
+        29,
+        28,
+        27,
+        26,
+        25,
+        24,
+        23,
+        22,
+        21,
+        20,
+        19,
+        18,
+        17,
+        16,
+        15,
+        14,
+        13,
+        12,
+        11,
+        10,
+        9,
+        8,
+        7,
+        6,
+        5,
+        4,
+        3,
+        2,
+        1,
+        0
+      ],
+      "port_permutation": [
+        0,
+        4,
+        3,
+        2,
+        1
+      ],
+      "contour_difference_mm2": 2.3447910280083306e-13,
+      "port_difference_mm2": 0.0,
+      "region_and_bank_point_symmetry": true
+    },
+    {
+      "degrees": 270,
+      "bank_permutation": null,
+      "port_permutation": null,
+      "contour_difference_mm2": 366.72,
+      "port_difference_mm2": null,
+      "region_and_bank_point_symmetry": false
+    }
+  ],
+  "uniform_fixed_direction": [
+    {
+      "shared_port": 1,
+      "missing_frozen_bank_dependencies": 1152,
+      "affected_compute": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35
+      ],
+      "missing_fraction_by_compute": {
+        "0": 0.38461538461538486,
+        "1": 0.38461538461538486,
+        "2": 0.38461538461538486,
+        "3": 0.38461538461538486,
+        "4": 0.38461538461538486,
+        "5": 0.38461538461538486,
+        "6": 0.38461538461538486,
+        "7": 0.38461538461538486,
+        "8": 0.38461538461538486,
+        "9": 0.38461538461538486,
+        "10": 0.38461538461538486,
+        "11": 0.38461538461538486,
+        "12": 0.38461538461538486,
+        "13": 0.38461538461538486,
+        "14": 0.38461538461538486,
+        "15": 0.38461538461538486,
+        "16": 0.38461538461538486,
+        "17": 0.38461538461538486,
+        "18": 0.38461538461538486,
+        "19": 0.38461538461538486,
+        "20": 0.38461538461538486,
+        "21": 0.38461538461538486,
+        "22": 0.38461538461538486,
+        "23": 0.38461538461538486,
+        "24": 0.38461538461538486,
+        "25": 0.38461538461538486,
+        "26": 0.38461538461538486,
+        "27": 0.38461538461538486,
+        "28": 0.38461538461538486,
+        "29": 0.38461538461538486,
+        "30": 0.38461538461538486,
+        "31": 0.38461538461538486,
+        "32": 0.38461538461538486,
+        "33": 0.38461538461538486,
+        "34": 0.38461538461538486,
+        "35": 0.38461538461538486
+      },
+      "balanced_layout_relaxation": {
+        "edges": 63,
+        "matching_usable_edges": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            6,
+            6
+          ],
+          [
+            7,
+            7
+          ],
+          [
+            8,
+            8
+          ],
+          [
+            9,
+            9
+          ],
+          [
+            10,
+            10
+          ],
+          [
+            11,
+            11
+          ],
+          [
+            12,
+            12
+          ],
+          [
+            13,
+            13
+          ],
+          [
+            14,
+            14
+          ],
+          [
+            15,
+            15
+          ],
+          [
+            16,
+            16
+          ],
+          [
+            17,
+            17
+          ],
+          [
+            18,
+            18
+          ],
+          [
+            19,
+            19
+          ],
+          [
+            20,
+            20
+          ],
+          [
+            21,
+            21
+          ],
+          [
+            22,
+            22
+          ],
+          [
+            23,
+            23
+          ],
+          [
+            24,
+            24
+          ],
+          [
+            25,
+            25
+          ],
+          [
+            26,
+            26
+          ],
+          [
+            27,
+            27
+          ],
+          [
+            28,
+            28
+          ],
+          [
+            29,
+            29
+          ],
+          [
+            30,
+            30
+          ],
+          [
+            31,
+            31
+          ],
+          [
+            32,
+            32
+          ],
+          [
+            33,
+            33
+          ],
+          [
+            34,
+            34
+          ],
+          [
+            35,
+            35
+          ]
+        ],
+        "maximum_total_nonhome_fraction": 0.0,
+        "equality_residual": 0.0,
+        "lp_scope": "Unit row/column sums; endpoint/HB caps relaxed; no routing or replication"
+      }
+    },
+    {
+      "shared_port": 2,
+      "missing_frozen_bank_dependencies": 576,
+      "affected_compute": [
+        0,
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        14,
+        16,
+        18,
+        20,
+        22,
+        24,
+        26,
+        28,
+        30,
+        32,
+        34
+      ],
+      "missing_fraction_by_compute": {
+        "0": 0.38461538461538486,
+        "2": 0.38461538461538486,
+        "4": 0.38461538461538486,
+        "6": 0.38461538461538486,
+        "8": 0.38461538461538486,
+        "10": 0.38461538461538486,
+        "12": 0.38461538461538486,
+        "14": 0.38461538461538486,
+        "16": 0.38461538461538486,
+        "18": 0.38461538461538486,
+        "20": 0.38461538461538486,
+        "22": 0.38461538461538486,
+        "24": 0.38461538461538486,
+        "26": 0.38461538461538486,
+        "28": 0.38461538461538486,
+        "30": 0.38461538461538486,
+        "32": 0.38461538461538486,
+        "34": 0.38461538461538486
+      },
+      "balanced_layout_relaxation": {
+        "edges": 64,
+        "matching_usable_edges": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            6,
+            6
+          ],
+          [
+            7,
+            7
+          ],
+          [
+            8,
+            8
+          ],
+          [
+            9,
+            9
+          ],
+          [
+            10,
+            10
+          ],
+          [
+            11,
+            11
+          ],
+          [
+            12,
+            12
+          ],
+          [
+            13,
+            13
+          ],
+          [
+            14,
+            14
+          ],
+          [
+            15,
+            15
+          ],
+          [
+            16,
+            16
+          ],
+          [
+            17,
+            17
+          ],
+          [
+            18,
+            18
+          ],
+          [
+            19,
+            19
+          ],
+          [
+            20,
+            20
+          ],
+          [
+            21,
+            21
+          ],
+          [
+            22,
+            22
+          ],
+          [
+            23,
+            23
+          ],
+          [
+            24,
+            24
+          ],
+          [
+            25,
+            25
+          ],
+          [
+            26,
+            26
+          ],
+          [
+            27,
+            27
+          ],
+          [
+            28,
+            28
+          ],
+          [
+            29,
+            29
+          ],
+          [
+            30,
+            30
+          ],
+          [
+            31,
+            31
+          ],
+          [
+            32,
+            32
+          ],
+          [
+            33,
+            33
+          ],
+          [
+            34,
+            34
+          ],
+          [
+            35,
+            35
+          ]
+        ],
+        "maximum_total_nonhome_fraction": 0.0,
+        "equality_residual": 0.0,
+        "lp_scope": "Unit row/column sums; endpoint/HB caps relaxed; no routing or replication"
+      }
+    },
+    {
+      "shared_port": 3,
+      "missing_frozen_bank_dependencies": 576,
+      "affected_compute": [
+        1,
+        3,
+        5,
+        7,
+        9,
+        11,
+        13,
+        15,
+        17,
+        19,
+        21,
+        23,
+        25,
+        27,
+        29,
+        31,
+        33,
+        35
+      ],
+      "missing_fraction_by_compute": {
+        "1": 0.38461538461538486,
+        "3": 0.38461538461538486,
+        "5": 0.38461538461538486,
+        "7": 0.38461538461538486,
+        "9": 0.38461538461538486,
+        "11": 0.38461538461538486,
+        "13": 0.38461538461538486,
+        "15": 0.38461538461538486,
+        "17": 0.38461538461538486,
+        "19": 0.38461538461538486,
+        "21": 0.38461538461538486,
+        "23": 0.38461538461538486,
+        "25": 0.38461538461538486,
+        "27": 0.38461538461538486,
+        "29": 0.38461538461538486,
+        "31": 0.38461538461538486,
+        "33": 0.38461538461538486,
+        "35": 0.38461538461538486
+      },
+      "balanced_layout_relaxation": {
+        "edges": 64,
+        "matching_usable_edges": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            6,
+            6
+          ],
+          [
+            7,
+            7
+          ],
+          [
+            8,
+            8
+          ],
+          [
+            9,
+            9
+          ],
+          [
+            10,
+            10
+          ],
+          [
+            11,
+            11
+          ],
+          [
+            12,
+            12
+          ],
+          [
+            13,
+            13
+          ],
+          [
+            14,
+            14
+          ],
+          [
+            15,
+            15
+          ],
+          [
+            16,
+            16
+          ],
+          [
+            17,
+            17
+          ],
+          [
+            18,
+            18
+          ],
+          [
+            19,
+            19
+          ],
+          [
+            20,
+            20
+          ],
+          [
+            21,
+            21
+          ],
+          [
+            22,
+            22
+          ],
+          [
+            23,
+            23
+          ],
+          [
+            24,
+            24
+          ],
+          [
+            25,
+            25
+          ],
+          [
+            26,
+            26
+          ],
+          [
+            27,
+            27
+          ],
+          [
+            28,
+            28
+          ],
+          [
+            29,
+            29
+          ],
+          [
+            30,
+            30
+          ],
+          [
+            31,
+            31
+          ],
+          [
+            32,
+            32
+          ],
+          [
+            33,
+            33
+          ],
+          [
+            34,
+            34
+          ],
+          [
+            35,
+            35
+          ]
+        ],
+        "maximum_total_nonhome_fraction": 0.0,
+        "equality_residual": 0.0,
+        "lp_scope": "Unit row/column sums; endpoint/HB caps relaxed; no routing or replication"
+      }
+    },
+    {
+      "shared_port": 4,
+      "missing_frozen_bank_dependencies": 1152,
+      "affected_compute": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35
+      ],
+      "missing_fraction_by_compute": {
+        "0": 0.38461538461538486,
+        "1": 0.38461538461538486,
+        "2": 0.38461538461538486,
+        "3": 0.38461538461538486,
+        "4": 0.38461538461538486,
+        "5": 0.38461538461538486,
+        "6": 0.38461538461538486,
+        "7": 0.38461538461538486,
+        "8": 0.38461538461538486,
+        "9": 0.38461538461538486,
+        "10": 0.38461538461538486,
+        "11": 0.38461538461538486,
+        "12": 0.38461538461538486,
+        "13": 0.38461538461538486,
+        "14": 0.38461538461538486,
+        "15": 0.38461538461538486,
+        "16": 0.38461538461538486,
+        "17": 0.38461538461538486,
+        "18": 0.38461538461538486,
+        "19": 0.38461538461538486,
+        "20": 0.38461538461538486,
+        "21": 0.38461538461538486,
+        "22": 0.38461538461538486,
+        "23": 0.38461538461538486,
+        "24": 0.38461538461538486,
+        "25": 0.38461538461538486,
+        "26": 0.38461538461538486,
+        "27": 0.38461538461538486,
+        "28": 0.38461538461538486,
+        "29": 0.38461538461538486,
+        "30": 0.38461538461538486,
+        "31": 0.38461538461538486,
+        "32": 0.38461538461538486,
+        "33": 0.38461538461538486,
+        "34": 0.38461538461538486,
+        "35": 0.38461538461538486
+      },
+      "balanced_layout_relaxation": {
+        "edges": 63,
+        "matching_usable_edges": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            6,
+            6
+          ],
+          [
+            7,
+            7
+          ],
+          [
+            8,
+            8
+          ],
+          [
+            9,
+            9
+          ],
+          [
+            10,
+            10
+          ],
+          [
+            11,
+            11
+          ],
+          [
+            12,
+            12
+          ],
+          [
+            13,
+            13
+          ],
+          [
+            14,
+            14
+          ],
+          [
+            15,
+            15
+          ],
+          [
+            16,
+            16
+          ],
+          [
+            17,
+            17
+          ],
+          [
+            18,
+            18
+          ],
+          [
+            19,
+            19
+          ],
+          [
+            20,
+            20
+          ],
+          [
+            21,
+            21
+          ],
+          [
+            22,
+            22
+          ],
+          [
+            23,
+            23
+          ],
+          [
+            24,
+            24
+          ],
+          [
+            25,
+            25
+          ],
+          [
+            26,
+            26
+          ],
+          [
+            27,
+            27
+          ],
+          [
+            28,
+            28
+          ],
+          [
+            29,
+            29
+          ],
+          [
+            30,
+            30
+          ],
+          [
+            31,
+            31
+          ],
+          [
+            32,
+            32
+          ],
+          [
+            33,
+            33
+          ],
+          [
+            34,
+            34
+          ],
+          [
+            35,
+            35
+          ]
+        ],
+        "maximum_total_nonhome_fraction": 0.0,
+        "equality_residual": 0.0,
+        "lp_scope": "Unit row/column sums; endpoint/HB caps relaxed; no routing or replication"
+      }
+    }
+  ],
+  "conditional_instance_rotation": {
+    "instances": [
+      {
+        "memory": 0,
+        "degrees": 0,
+        "selected_port": 2
+      },
+      {
+        "memory": 1,
+        "degrees": 180,
+        "selected_port": 3
+      },
+      {
+        "memory": 2,
+        "degrees": 0,
+        "selected_port": 2
+      },
+      {
+        "memory": 3,
+        "degrees": 180,
+        "selected_port": 3
+      },
+      {
+        "memory": 4,
+        "degrees": 0,
+        "selected_port": 2
+      },
+      {
+        "memory": 5,
+        "degrees": 180,
+        "selected_port": 3
+      },
+      {
+        "memory": 6,
+        "degrees": 0,
+        "selected_port": 2
+      },
+      {
+        "memory": 7,
+        "degrees": 180,
+        "selected_port": 3
+      },
+      {
+        "memory": 8,
+        "degrees": 0,
+        "selected_port": 2
+      },
+      {
+        "memory": 9,
+        "degrees": 180,
+        "selected_port": 3
+      },
+      {
+        "memory": 10,
+        "degrees": 0,
+        "selected_port": 2
+      },
+      {
+        "memory": 11,
+        "degrees": 180,
+        "selected_port": 3
+      },
+      {
+        "memory": 12,
+        "degrees": 0,
+        "selected_port": 2
+      },
+      {
+        "memory": 13,
+        "degrees": 180,
+        "selected_port": 3
+      },
+      {
+        "memory": 14,
+        "degrees": 0,
+        "selected_port": 2
+      },
+      {
+        "memory": 15,
+        "degrees": 180,
+        "selected_port": 3
+      },
+      {
+        "memory": 16,
+        "degrees": 0,
+        "selected_port": 2
+      },
+      {
+        "memory": 17,
+        "degrees": 180,
+        "selected_port": 3
+      },
+      {
+        "memory": 18,
+        "degrees": 0,
+        "selected_port": 2
+      },
+      {
+        "memory": 19,
+        "degrees": 180,
+        "selected_port": 3
+      },
+      {
+        "memory": 20,
+        "degrees": 0,
+        "selected_port": 2
+      },
+      {
+        "memory": 21,
+        "degrees": 180,
+        "selected_port": 3
+      },
+      {
+        "memory": 22,
+        "degrees": 0,
+        "selected_port": 2
+      },
+      {
+        "memory": 23,
+        "degrees": 180,
+        "selected_port": 3
+      },
+      {
+        "memory": 24,
+        "degrees": 0,
+        "selected_port": 2
+      },
+      {
+        "memory": 25,
+        "degrees": 180,
+        "selected_port": 3
+      },
+      {
+        "memory": 26,
+        "degrees": 0,
+        "selected_port": 2
+      },
+      {
+        "memory": 27,
+        "degrees": 180,
+        "selected_port": 3
+      },
+      {
+        "memory": 28,
+        "degrees": 0,
+        "selected_port": 2
+      },
+      {
+        "memory": 29,
+        "degrees": 180,
+        "selected_port": 3
+      },
+      {
+        "memory": 30,
+        "degrees": 0,
+        "selected_port": 2
+      },
+      {
+        "memory": 31,
+        "degrees": 180,
+        "selected_port": 3
+      },
+      {
+        "memory": 32,
+        "degrees": 0,
+        "selected_port": 2
+      },
+      {
+        "memory": 33,
+        "degrees": 180,
+        "selected_port": 3
+      },
+      {
+        "memory": 34,
+        "degrees": 0,
+        "selected_port": 2
+      },
+      {
+        "memory": 35,
+        "degrees": 180,
+        "selected_port": 3
+      }
+    ],
+    "orientation_counts": {
+      "0": 18,
+      "180": 18
+    },
+    "rebuilt_overlap_edges": 146,
+    "maximum_capacity_fraction_error": 1.5987211554602254e-14,
+    "maximum_static_byte_fraction_error": 0.0,
+    "selected_home_shared_wire_mm_per_memory": 1162.1000000000074,
+    "identical_point_wire_proxy": true,
+    "status": "Geometric witness conditional on per-instance orientation and bank/address relabeling"
+  },
+  "wiring_only": {
+    "port2_to_port3_manhattan_mm": 33.849999999999994,
+    "status": "A direct far-port redirection requires wiring; bank-side alternative needs a separate layout and cost"
+  },
+  "manufacturing": {
+    "uniform_orientation_policy": "No single fixed direction covers this frozen deployment",
+    "per_instance_rotation": "Region-level witness exists, but process/reticle exposure and full-template legality unverified",
+    "unknown": [
+      "HB pad bit order and signals",
+      "command/control/clock/reset/PDN correspondence",
+      "actual DRAM macro bank/address orientation",
+      "lithography orientation policy",
+      "full source+wire+RX timing and area"
+    ]
+  },
+  "interpretation": "Keep pruned source as a conditional strong baseline; neither claim it impossible nor claim a manufactured rotated implementation"
+}

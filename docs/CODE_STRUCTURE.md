@@ -167,3 +167,5 @@ python -m unittest discover -s tests -v
 服务配置提案见 [分析与形式化](methods/SERVICE_PROVISIONING_ASSESSMENT.md)。
 当前交接只看 [HANDOFF](HANDOFF.md) 与 [NEXT_TASK](handoff/NEXT_TASK.md)；
 逐轮状态已另存历史页，避免旧“下一步”与当前任务相互冲突。
+
+`analysis/template_binding.py`检查固定出口的均匀方向限制与条件旋转构造，输出几何/字节份额证据；不修改几何生产模型或endpoint执行器。制造未知项保留在报告中。
