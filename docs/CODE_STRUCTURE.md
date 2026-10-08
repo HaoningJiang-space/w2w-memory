@@ -161,11 +161,27 @@ python -m unittest discover -s tests -v
 静态 binding、并发容量和互连成本，不能仅更改旧字段名称。
 
 当前 native ready pattern 和读 slot 也不表示 ACT/PRE/RD/refresh。
-命令时序后端计划放在 `service/dram`，通过接受、推进、完成接口与读执行器交互；
-该目录尚未实现。旧 slot 模型继续用于历史复现。
+命令时序后端已在 `service/dram` 实现，通过接受、推进、完成接口与读执行器交互；
+公开HBM2参考与旧slot具有不同原生服务预算。旧 slot 模型继续用于历史复现。
 
 服务配置提案见 [分析与形式化](methods/SERVICE_PROVISIONING_ASSESSMENT.md)。
 当前交接只看 [HANDOFF](HANDOFF.md) 与 [NEXT_TASK](handoff/NEXT_TASK.md)；
 逐轮状态已另存历史页，避免旧“下一步”与当前任务相互冲突。
 
 `analysis/template_binding.py`检查固定出口的均匀方向限制与条件旋转构造，输出几何/字节份额证据；不修改几何生产模型或endpoint执行器。制造未知项保留在报告中。
+
+## 冻结cohort回放与原生供给诊断
+
+| 职责 | 入口 |
+|---|---|
+| 固定请求划分、owner身份和逻辑任务 | `workloads/cohort_replay.py` |
+| 固定Home/k2/wide/C及同服务duplicated | `synthesis/cohort_replay.py` |
+| 导入与81次有限读回放 | `prepare_cohort_replay`、`run_cohort_replay` |
+| 原始输入重编译、独立结果核验 | `audit_cohort_replay` |
+| 逐窗口配对统计与图 | `analyze_cohort_replay`、`render_cohort_replay` |
+| 局部beat周期与完整payload计数 | `theory/beat_return.py`、`probe_beat_return` |
+| 已归档原生容量、延迟与在途必要界 | `analyze_dram_service_limits` |
+| 同一原生profile的两种静态比例 | `probe_native_residency`、`audit_native_residency` |
+
+这些入口均经`python -m w2w`调用。分析和核验不触发训练或长回放；
+beat计数合同、旧slot任务时间和HBM2命令结果分别保存，不覆盖历史执行语义。
