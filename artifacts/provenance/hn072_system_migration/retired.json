@@ -1,0 +1,69 @@
+{
+  "retired": true,
+  "removed": [
+    "/home/wangziheng/Video/w2w-beat-contract-20261008",
+    "/home/wangziheng/Video/w2w-cohort-design-20261008",
+    "/home/wangziheng/Video/w2w-cohort-replay-20261008",
+    "/home/wangziheng/Video/w2w-connectivity-20261008",
+    "/home/wangziheng/Video/w2w-provisioning-audit-20261008",
+    "/home/wangziheng/Video/w2w-provisioning-holdout-20261008",
+    "/home/wangziheng/Video/w2w-provisioning-target-20261008",
+    "/home/wangziheng/Video/w2w-return-path-20261008",
+    "/home/wangziheng/Video/w2w-system-v2-20261008"
+  ],
+  "destination": {
+    "passed": true,
+    "archive_sha256": "967db0e4689618bf5c9e7c7820a5584a6c9c1cc6595b0a5de0df1b580611ab6b",
+    "manifest_sha256": "20d9cc016af76ad7d3f6aa2158c075f4c1555deb2a1fcc7a8d1edb102ffe99da",
+    "files": 1630,
+    "source_commits_available": true,
+    "restored_checkout": "/Projects/haoning/w2w-migration-20261009/retired-worktrees/restore-check",
+    "destination": "/Projects/haoning/w2w-migration-20261009/retired-worktrees",
+    "host": "ee4e072"
+  },
+  "free_bytes_before": 105350279168,
+  "free_bytes_after": 107033939968,
+  "observed_free_bytes_change": 1683660800,
+  "source_rechecked": true,
+  "uninspectable_service_processes": [
+    {
+      "pid": "1205902",
+      "comm": "sshd"
+    },
+    {
+      "pid": "1359711",
+      "comm": "sshd"
+    },
+    {
+      "pid": "2218357",
+      "comm": "sshd"
+    },
+    {
+      "pid": "2370815",
+      "comm": "sshd"
+    },
+    {
+      "pid": "2417722",
+      "comm": "sshd"
+    },
+    {
+      "pid": "2480532",
+      "comm": "(sd-pam)"
+    },
+    {
+      "pid": "3268251",
+      "comm": "sshd"
+    },
+    {
+      "pid": "3292309",
+      "comm": "sshd"
+    }
+  ],
+  "preserved": [
+    "primary repositories",
+    "other W2W worktrees",
+    "environments",
+    "wafer_simulator",
+    "other projects"
+  ]
+}

@@ -1,5 +1,31 @@
 # eex005 实验归档
 
+## 2026-10-09：CPU 实验迁至 hn072，退役九个旧 W2W 工作树
+
+用户指定后续实验改在 `hn072@143.89.78.72`。本轮完整系统独立目录为
+`/Projects/haoning/w2w-full-system-20261009`，沿用 hn072 已有 Python 3.10
+环境和 Ramulator 桥，不修改另一位开发者的 RTL 工作区。
+
+九个已结束、Git 干净的 `Video/w2w-*20261008` 工作树已退役，列表和源码提交见
+[删除记录](../../artifacts/provenance/hn072_system_migration/retired.json)。
+其中 1,630 个未入 Git 的文件（结果、日志及缓存）归档为 10,951,686-byte
+`ignored.tar.gz`，已在 hn072 逐文件核对内容/链接与文件集合。九个源码提交均已在
+目标主仓库确认存在，另恢复完整 `19a10b1` 工作树并核对其忽略文件与干净 Git 状态。
+删除前重新核对源文件、Git HEAD、工作区状态及可读取的本账号进程引用。
+
+归档位置：`/Projects/haoning/w2w-migration-20261009/retired-worktrees`。
+压缩包 SHA-256：`967db0e4689618bf5c9e7c7820a5584a6c9c1cc6595b0a5de0df1b580611ab6b`。
+[文件清单](../../artifacts/provenance/hn072_system_migration/manifest.json.gz)和三个维护脚本
+一并保留。需要旧结果时，先按清单 commit 建立 worktree，再从压缩包中解出对应目录。
+
+删除窗口可用空间从 105,350,279,168 增至 107,033,939,968 bytes，
+观测增加 **1,683,660,800 bytes（1.68 GB / 1.57 GiB）**。服务器有其他清理与写入，
+不将开工到收尾的整个磁盘变化归因于本次操作。
+
+主仓库、公共 Git 对象、其他工作树、环境、许可证与其他项目保留。
+`wafer_simulator` 已有另一位开发者负责迁移，本轮未删除其结果或构建。
+最初的大范围临时压缩副本已删除；未将未完成传输当作已验证归档。
+
 ## 2026-10-07：缓存与传输包清理
 
 用户授权清理 `wangziheng@eex005`。先检查账号目录占用与活动进程，再确认目标路径
