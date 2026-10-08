@@ -1,8 +1,12 @@
 # Wafer scale memory service 开发交接
 
-当前目标是在重复 reticle 的 WoW 系统中，联合组织 DRAM 服务接口、物理连接和静态数据驻留，使空闲服务能够被繁忙 compute 利用。Matching、endpoint 与 RTL 是方法组件。
+当前目标：先建立完整 compute 通信网络上的 Memory-on-Logic B0/B1，再判断额外 Direct HB 是否值得。
 
-**当前优先级：[原生服务域与静态驻留联合配置](methods/WAFER_DRAM_SERVICE_PRINCIPLES.md)。** 81次独立请求回放已收齐；结合[研究证据与强基线](RESEARCH_STATUS.md)选择下一项配置，不重复该批实验。
+**当前优先级：[完整通信重构与首个闭环](methods/SYSTEM_EXECUTION_V2.md)。** `19a10b1` 已有2×2 C＋4M
+的 ideal prototype、25项通过/1项native跳过和五项事件审计。随后核查了另一个项目的
+[已优化在线 BookSim](methods/BOOKSIM_REUSE_ASSESSMENT.md)，14项原生接口复验通过。
+下一步优先复用其 C++/bounded 接口；Python 网络留作小型参考，尚未完成 native 系统接入。
+下面的81次回放、比例优化和endpoint结论是历史读子系统证据，不再定义完整系统主线。
 
 **互联核查补充：[当前没有compute间通信网络](reports/SIMULATOR_CONNECTIVITY_AUDIT.md)。**
 仅直接C–M读返回，禁止C–M–C转发；任务依赖不含通信字节/延迟。

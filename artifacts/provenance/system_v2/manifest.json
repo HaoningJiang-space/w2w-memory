@@ -1,0 +1,97 @@
+{
+  "host": "eex005",
+  "date": "2026-10-09",
+  "scope": "system_execution_v2_prototype",
+  "files": {
+    "compatibility.log.gz": {
+      "sha256": "5255b7048144d8b49ffc23e1e464f22e0e6d40cc6cf5a9435eee8057b3a4222c",
+      "uncompressed_sha256": "a3f29cbf66db159c83f2993d647b693c258b381cc49c2a15a7b28bcc7a8c8be5"
+    },
+    "ideal-initial.json.gz": {
+      "sha256": "9bc7d17f08f4dc5cce19bc84c94040e4063e94cb9a74290921aacf32dbfee83d",
+      "uncompressed_sha256": "6021aa6e32fcd6a08fd0e19a5ece69d91ca1de31008f6e6bcc2c2a071c9716cd"
+    },
+    "tests-initial.log.gz": {
+      "sha256": "1eee1d422887183938833fa3044052b241da6afcd7f8e53b1a203f1b5ea23730",
+      "uncompressed_sha256": "832cbad41ae4ed01c10705981be4613e8f69050ff6c1d8865d81ac733b3b9870"
+    }
+  },
+  "source_commit": "19a10b1affb7ad9711c76e7e6331608d4e3af6a1",
+  "git_status": "",
+  "python": "3.13.13",
+  "cases": [
+    {
+      "name": "B1",
+      "makespan_ps": 97000,
+      "drained_ps": 97000,
+      "audit": {
+        "passed": true,
+        "packets": 35,
+        "read_words": 8,
+        "data_bytes": 192,
+        "physical_link_flits": 79,
+        "tasks": 3
+      }
+    },
+    {
+      "name": "long_links",
+      "makespan_ps": 161000,
+      "drained_ps": 163000,
+      "audit": {
+        "passed": true,
+        "packets": 35,
+        "read_words": 8,
+        "data_bytes": 192,
+        "physical_link_flits": 79,
+        "tasks": 3
+      }
+    },
+    {
+      "name": "small_window",
+      "makespan_ps": 246000,
+      "drained_ps": 246000,
+      "audit": {
+        "passed": true,
+        "packets": 35,
+        "read_words": 8,
+        "data_bytes": 192,
+        "physical_link_flits": 79,
+        "tasks": 3
+      }
+    },
+    {
+      "name": "B0_local_weights",
+      "makespan_ps": 95000,
+      "drained_ps": 95000,
+      "audit": {
+        "passed": true,
+        "packets": 35,
+        "read_words": 8,
+        "data_bytes": 192,
+        "physical_link_flits": 47,
+        "tasks": 3
+      }
+    },
+    {
+      "name": "control_only",
+      "makespan_ps": 6000,
+      "drained_ps": 6000,
+      "audit": {
+        "passed": true,
+        "packets": 0,
+        "read_words": 0,
+        "data_bytes": 0,
+        "physical_link_flits": 0,
+        "tasks": 2
+      }
+    }
+  ],
+  "tests": {
+    "new_tests_run": 26,
+    "passed": 25,
+    "skipped": 1,
+    "skip_reason": "Optional pinned native bridge not supplied",
+    "v1_and_entrypoint_tests_passed": 36
+  },
+  "native_adapter_status": "Implemented, not exercised with a native library. Separate dependency download attempt stopped; no native execution result."
+}

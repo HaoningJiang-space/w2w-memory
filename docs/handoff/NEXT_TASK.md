@@ -1,4 +1,12 @@
-# 下一步 验证完整设计相对强基线的价值
+# 下一步 完整通信基线与已有 native 后端复用
+
+2026-10-09：以 [SYSTEM_EXECUTION_V2](../methods/SYSTEM_EXECUTION_V2.md) 为当前任务。
+已建立 B0/B1 ideal 小闭环；接下来复用 `wafer_simulator` 已优化的在线/有限接收端 BookSim，
+先对齐包化、注入容量、VC/协议依赖和 ps 时钟，再验证 native DRAM 事务。
+不要继续扩写独立 Python 主 NoC；不要先加 Direct HB、endpoint 机制或搜索算法。
+详见[组件审计和14项原生复验](../methods/BOOKSIM_REUSE_ASSESSMENT.md)。
+
+## 以下为此前子系统计划，保留历史依据
 
 研究主线是有限成本下的wafer-scale memory service provisioning。先读[81次新请求结果](../reports/COHORT_REPLAY_REPORT.md)和[wafer/DRAM第一性约束](../methods/WAFER_DRAM_SERVICE_PRINCIPLES.md)，再结合[强基线](../RESEARCH_STATUS.md)选择配置。原生命令接口已接通，不重复开发后端。
 

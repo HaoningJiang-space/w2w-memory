@@ -1,0 +1,29 @@
+{
+  "host": "eex005",
+  "date": "2026-10-09",
+  "scope": "native_component_revalidation",
+  "files": {
+    "components.sha256": {
+      "sha256": "3f39e91defaaf0b302315765838d363bae39b71d0cf42444e966f98743968720",
+      "uncompressed_sha256": "3f39e91defaaf0b302315765838d363bae39b71d0cf42444e966f98743968720"
+    },
+    "source_commit": {
+      "sha256": "f7e9f4443caa94eb1a374b7d8efc9d11031bf907d07001cb26dde3131e1c7e4a",
+      "uncompressed_sha256": "f7e9f4443caa94eb1a374b7d8efc9d11031bf907d07001cb26dde3131e1c7e4a"
+    },
+    "tests.log.gz": {
+      "sha256": "4bc975750e417c973b06f791be9c9832976e8b4c27ef8fccb1d29e80df30c96a",
+      "uncompressed_sha256": "e4816a4fa7aa6e3cc04a90b4ea6e5c1a0f740b7d52db1571492164a269d6afd6"
+    }
+  },
+  "wafer_simulator_source_commit": "0c56c24b4bf602b8b2c036681f526971305dde99",
+  "tests": {
+    "run": 14,
+    "passed": 14,
+    "skipped": 0,
+    "seconds": 2.106
+  },
+  "runtime_output": "/home/wangziheng/wafer_simulator/runs/w2w-booksim-reuse-20261009-001",
+  "scope_detail": "Existing online and bounded component tests. Not a new performance measurement or integration with w2w system kernel.",
+  "source_scope_note": "56e9371 -> 0c56c24 changed machine audit only; selected adapter/native/test files unchanged."
+}

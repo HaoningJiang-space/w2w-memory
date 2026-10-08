@@ -1,6 +1,15 @@
 # 代码结构与开发入口
 
-## 当前主流程：真实 routing 到有限读回放
+## 新系统执行与历史读回放分开
+
+2026-10-09：`domain/system.py`、`execution.py`、`protocol.py` 定义 v2 架构与数据依赖；
+`system/builder.py` 核查合法路径，`system/kernel.py` 管统一 ps 时间和资源生命周期；
+`memory` 放地址/事务后端适配，`network/router.py` 为有限队列的小型参考。
+`run_system_microbench` 只编排实验，`validation/system_execution.py` 独立读事件核验。
+参见[当前合同](methods/SYSTEM_EXECUTION_V2.md)和[优先复用的 native BookSim](methods/BOOKSIM_REUSE_ASSESSMENT.md)。
+下述读回放保持 v1 身份，未迁移/改写旧 runner；不将其结果与 v2 自动合并。
+
+## 历史 v1 主流程：真实 routing 到有限读回放
 
 2026-10-07 完成输入闭环后的整理：冻结设计目录不再藏在 `run_read_workload.py` 中，
 审计与绘图分层；旧模块入口保留兼容导出。没有改变注册实验、设计顺序或服务语义。

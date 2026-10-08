@@ -1,5 +1,10 @@
 # 研究主线与当前证据
 
+**2026-10-09 主线更新：** 已接受“完整 compute NoC＋DRAM wafer”基线。
+先建立 B0/B1 的真实数据路径和反馈，再判断 B2 Direct HB；不再预设 configurable 为系统答案。
+[首个微基准合同与结果](methods/SYSTEM_EXECUTION_V2.md)和[复用已有加速 BookSim 的决定](methods/BOOKSIM_REUSE_ASSESSMENT.md)
+记录当前进度。其余本页为旧读子系统及硬件证据，数字与适用范围保持原样。
+
 研究目标保持不变：在 repeated-reticle WoW Memory-on-Logic 中，联合配置服务接口、物理连接和静态数据驻留，使已有闲置 DRAM 服务能够被繁忙 compute 利用。
 
 **当前最值得验证的是完整设计的收益与成本，而不是再增加一个 simulator 或接口机制。** 已有证据支持共享机会和静态方向复用，但尚未证明一个优于强基线的完整架构。新补的静态裁剪对照说明：configurable 的主要价值是以小幅 source 面积开销保留模板的方向选择能力，不能再把它描述成相对最佳固定实现节省三成面积。
