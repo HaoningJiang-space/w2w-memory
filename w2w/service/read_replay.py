@@ -42,8 +42,11 @@ def design_record(design):
     return row
 
 
-def replay_reads(design, trace, config=ReadReplayConfig()):
+def replay_reads(design, trace, config=ReadReplayConfig(), *, native_backend=None):
     residence = ReadResidency(design, trace)
+    if native_backend is not None:
+        native_backend.validate(design, trace, config, residence)
+    native_pending = {}
     spec = design.endpoint
     task_by_id = {t.id: t for t in trace.tasks}
     words = {t.id: sum(r.size_bytes for r in t.reads) // trace.word_bytes for t in trace.tasks}
@@ -76,6 +79,13 @@ def replay_reads(design, trace, config=ReadReplayConfig()):
     last_slot = 0
 
     for tick in range(config.max_slots + 1):
+        # Accepted DRAM requests have already reserved their bounded source
+        # slots. Only a command-backend completion makes their payload ready.
+        if native_backend is not None:
+            for ticket in native_backend.advance(tick):
+                if ticket not in native_pending:
+                    raise RuntimeError('Unknown or repeated native completion')
+                native_pending.pop(ticket)['ready_at'] = tick
         # Completion at a slot boundary feeds the DAG before issuing new work.
         if config.rx_ready[tick % len(config.rx_ready)]:
             for key in sorted(receiver):
@@ -181,9 +191,20 @@ def replay_reads(design, trace, config=ReadReplayConfig()):
                 if occupancy >= capacity:
                     blocked['source_full_bank_slots'] += 1
                     break
-                request = requests.popleft()
-                source[bank, p].append(dict(request=request, remaining=spec.word_bits,
-                                            ready_at=tick + config.native_latency_slots, rx=None))
+                request = requests[0]
+                ticket = None
+                if native_backend is not None:
+                    ticket = native_backend.submit(request)
+                    if ticket is None:
+                        blocked['dram_queue_full_bank_slots'] += 1
+                        break
+                requests.popleft()
+                item = dict(request=request, remaining=spec.word_bits,
+                            ready_at=(tick + config.native_latency_slots if native_backend is None
+                                      else float('inf')), rx=None)
+                source[bank, p].append(item)
+                if native_backend is not None:
+                    native_pending[ticket] = item
                 admitted += 1
                 native_by_bank[bank] += 1
                 cursor[bank] = (index + 1) % len(sequence)
@@ -231,7 +252,8 @@ def replay_reads(design, trace, config=ReadReplayConfig()):
         raise RuntimeError('Replay did not complete')
 
     if not (expected == issued == admitted == transmitted == delivered
-            and sent_bits == expected * spec.word_bits and not any(outstanding)):
+            and sent_bits == expected * spec.word_bits and not any(outstanding)
+            and not native_pending):
         raise RuntimeError('Final read conservation failure')
     if residence.sha256 != digest(residence.record()):
         raise RuntimeError('Frozen address mapping changed during execution')
@@ -256,7 +278,7 @@ def replay_reads(design, trace, config=ReadReplayConfig()):
                    peak_rx_words=peak_rx[b, p],
                    tx_utilization=sent_by_route[b, p] / (last_slot * spec.widths[p]) if last_slot else 0.)
               for b, p in sorted(sent_by_route)]
-    return dict(schema='w2w.read-replay.v1', trace_sha256=trace.sha256,
+    result = dict(schema='w2w.read-replay.v1', trace_sha256=trace.sha256,
                 design_sha256=digest(design_record(design)), residence_sha256=residence.sha256,
                 design=design_record(design), residence=residence.record(), config=asdict(config),
                 evidence=trace.evidence, source=trace.source,
@@ -272,3 +294,13 @@ def replay_reads(design, trace, config=ReadReplayConfig()):
                 audit=dict(issued_words=issued, admitted_words=admitted, transmitted_words=transmitted,
                            delivered_words=delivered, sent_bits=sent_bits,
                            every_slot_conserved=True, frozen_residence=True))
+    if native_backend is not None:
+        native = native_backend.record()
+        if (native['accepted_words'] != expected or native['completed_words'] != expected
+                or native['pending_words'] or native['upstream_pending']):
+            raise RuntimeError('DRAM backend final conservation failure')
+        result.update(schema='w2w.read-replay.dram.v1', native_backend=native,
+                      scope='Finite read-return replay with pinned public DRAM command timing; '
+                            'endpoint/HB/RX slot timing remains modeled; no WoW process calibration, '
+                            'payload or end-to-end inference claim')
+    return result
