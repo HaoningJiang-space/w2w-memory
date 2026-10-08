@@ -26,6 +26,7 @@ COMMANDS = {
     'download_patterns_corpus': 'w2w.experiments.download_patterns_corpus',
     'draw_bank_hb_boundary': 'w2w.visualization.draw_bank_hb_boundary',
     'endpoint_contract_probe': 'w2w.endpoints.endpoint_contract_probe',
+    'finalize_cohort_replay': 'w2w.experiments.finalize_cohort_replay',
     'fetch_patterns_sample': 'w2w.experiments.fetch_patterns_sample',
     'import_patterns_trace': 'w2w.experiments.import_patterns_trace',
     'plot_bank_gate': 'w2w.visualization.plot_bank_gate',

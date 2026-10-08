@@ -170,6 +170,8 @@ python -m unittest discover -s tests -v
 
 `analysis/template_binding.py`检查固定出口的均匀方向限制与条件旋转构造，输出几何/字节份额证据；不修改几何生产模型或endpoint执行器。制造未知项保留在报告中。
 
+`experiments/finalize_cohort_replay.py`仅串联已有cohort审计、成对分析和绘图；先拒绝缺失/不一致的回放，再导出结果与原始证据包，不改变服务模型。
+
 ## 冻结cohort回放与原生供给诊断
 
 | 职责 | 入口 |

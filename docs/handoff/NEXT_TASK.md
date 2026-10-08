@@ -40,3 +40,11 @@ python -m w2w audit_static_binding --output build/static_binding_audit.json
 ```
 
 历史逐轮建议见[NEXT_TASK_HISTORY](NEXT_TASK_HISTORY.md)及各阶段报告；不要将其中的“下一步”重新当作当前任务。整片signoff仍依赖实际PDK、DRAM宏和HB资产，当前不以新增仿真器代替。
+
+## hn072独立复核运行
+
+同一注册输入已在`/Projects/haoning/w2w-cohort-independent-20261008`以源码`a626eff`、4 workers启动81次独立回放。48个原始请求已重新编译、45份逻辑输入通过核对；不改变eex005的注册任务或结果。结果待完整审计前不作为性能结论。原始输入复核与启动身份在`artifacts/provenance/cohort_replay_replica/`。
+
+完成后调用`python -m w2w finalize_cohort_replay --source <run>/build/replay --inputs <run>/artifacts/results/workload/cohort_replay/inputs --output <fresh-output>`：先验证81项覆盖与逐字账本，再生成成对比较和证据包；不会从部分结果发布平均收益。
+
+该复核的自动收尾进程已启动，固定使用`ed12c69`的finalizer；完成后审计、CSV、图和原始证据包写到上述运行目录`build/finalized/`。回放PID为3815735，收尾PID为3815934；PID只对应本次启动，复查时先确认命令与目录。过程日志为`build/replay.log`与`build/finalize.log`。本条不是完成声明，须看到完整summary、81项审计和`FINALIZATION_COMPLETE`后再发布性能结论。
