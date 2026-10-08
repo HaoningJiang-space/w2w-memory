@@ -198,3 +198,5 @@ beat计数合同、旧slot任务时间和HBM2命令结果分别保存，不覆�
 主回放`service/read_replay.py`不调用BookSim；可选Ramulator仅替换DRAM完成时序，不增加C–C网络。
 上游`export_to_rapidchiplet.py`的router/BookSim路径仍独立存在；memory_endpoint没有被自动变成上游router。
 几何连通、直接memory可访问、可执行packet转发三种含义必须分开。
+
+两份诊断分工：`topology_scope`使用正式36C/36M目录检查直接路径与非邻接LP；`simulator_connectivity`使用2C/2M夹具检查流水成本/时延分离，并检查归档trace的计算字段。两者均不改服务模型。

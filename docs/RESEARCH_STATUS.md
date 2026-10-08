@@ -14,6 +14,8 @@
 
 因此1.287×仍是**规定直接访问合同下的读阶段比较**。当前没有证据表明compute消息“经过DRAM上层转发”；实际上这类消息尚未进入模型。若要声称完整wafer架构或与网络转发比较，必须先给compute通信选择合法路径，并明确router/直通网络是否位于memory wafer的数字区域；转发不能自动等同读写DRAM阵列。还需计入其与memory流量共享的HB/链路和请求通路。当前不新增NoC机制，也不改变旧模型或结果来掩盖缺口。
 
+补充合并另一开发者的`validation/simulator_connectivity.py`小模型审计：将流水间距从2mm改为0.5mm，寄存代理从768变为2560 bits，读任务仍为4槽，确认成本参数未接入链路时延。归档45份trace的所有任务compute_slots均为0。两项检查不能替代网络仿真；本轮50项相关测试通过。
+
 复查：`python -m w2w audit_topology_scope --output build/topology_scope.json`。
 核对源码在`validation/topology_scope.py`，证据在[拓扑审计](../artifacts/provenance/topology_scope/audit.json)。
 
