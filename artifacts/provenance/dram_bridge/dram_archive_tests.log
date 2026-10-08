@@ -1,0 +1,8 @@
+test_frozen_pilot_readback (tests.test_dram_archive.DRAMArchiveTests) ... ok
+test_missing_design_cannot_claim_a_complete_pilot (tests.test_dram_archive.DRAMArchiveTests) ... ok
+test_native_controller_under_delivery_is_rejected (tests.test_dram_archive.DRAMArchiveTests) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 6.481s
+
+OK
