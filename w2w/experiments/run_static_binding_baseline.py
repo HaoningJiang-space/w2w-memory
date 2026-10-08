@@ -100,7 +100,7 @@ write_json {folder/'netlist.json'}
         (folder/'synth.ys').write_text(script)
         command(['yosys', '-s', folder/'synth.ys'], folder, folder/'synth.log')
         module = json.loads((folder/'netlist.json').read_text())['modules']['mapped_'+name]
-        cells = Counter(c['type'] for c in module['cells'].values())
+        cells = Counter(c['type'] for c in module['cells'].values() if c['type'] != '$scopeinfo')
         if any(k.startswith('$') for k in cells): raise ValueError('Unmapped cell')
         stat = json.loads((folder/'stat.json').read_text())['modules']['\\mapped_'+name]
         manifest['blocks'][name] = dict(area_um2=stat['area'], cells=dict(cells),
