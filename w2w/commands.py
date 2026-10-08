@@ -1,5 +1,6 @@
 """Lazy command registry; importing the package never runs an experiment."""
 COMMANDS = {
+    'run_system_microbench': 'w2w.experiments.run_system_microbench',
     'analyze_cohort_replay': 'w2w.analysis.cohort_replay',
     'analyze_dram_service_limits': 'w2w.analysis.dram_service_limits',
     'analyze_bank_structure': 'w2w.analysis.analyze_bank_structure',
@@ -77,4 +78,14 @@ COMMANDS = {
     'verify_egress_reachability': 'w2w.validation.verify_egress_reachability',
     'verify_matching_theory': 'w2w.validation.verify_matching_theory',
     'verify_role_interfaces': 'w2w.validation.verify_role_interfaces',
+}
+
+# Scope metadata is separate from lazy module dispatch. Existing names/results
+# retain their v1 meaning; a new system command cannot silently reinterpret them.
+COMMAND_SCOPES = {
+    name: ('system_execution_v2_prototype' if name == 'run_system_microbench' else
+           'endpoint_microarchitecture' if any(token in name for token in
+               ('endpoint', 'egress', 'role_interface', 'beat_return', 'static_binding', 'shared_fifo'))
+           else 'read_subsystem_v1')
+    for name in COMMANDS
 }

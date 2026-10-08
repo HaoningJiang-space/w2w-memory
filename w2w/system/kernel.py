@@ -1,0 +1,259 @@
+"""One integer-ps clock for data delivery, SRAM, compute, network and DRAM.
+
+Blocking task working sets are reserved before input DMA; users must provide
+explicitly tiled tasks when they exceed SRAM. Source output storage is freed
+when copied into a bounded NI, not by a free remote completion acknowledgement.
+"""
+from collections import Counter
+from dataclasses import asdict
+from hashlib import sha256
+from math import gcd
+import json
+
+from w2w.domain.protocol import Packet
+from w2w.memory.address_map import words_for_task
+from w2w.memory.backend import IdealBanks
+from w2w.network.router import CreditNetwork
+from w2w.system.builder import SystemBuilder
+
+
+class SystemExecution:
+    def __init__(self, spec, graph, native=None):
+        self.spec, self.graph = spec, graph
+        self.builder = SystemBuilder(spec).validate_graph(graph)
+        self.events = []
+        self.network = CreditNetwork(self.builder, self.events)
+        self.native = native if native is not None else IdealBanks(spec)
+        if self.native.boundary not in ('memory_word_ready_before_explicit_HB',
+                                        'controller_payload_ready_after_native_bus'):
+            raise ValueError('Unknown DRAM callback boundary')
+        self.native_at_controller = self.native.boundary.startswith('controller_')
+        self.tasks = {t.id: t for t in graph.tasks}
+        self.state = {t.id: dict(allocated=False, start_ps=None, finish_ps=None,
+                                read_bytes=0, issued_all=False, next_read=None,
+                                iterator=iter(words_for_task(t, graph, self.builder))) for t in graph.tasks}
+        self.edges = {e.id: dict(edge=e, sent=0, delivered=0) for e in graph.data}
+        self.requests = {}
+        self.packet_info = {}
+        self.sram = Counter()
+        self.sram_peak = Counter()
+        self.engine = {}
+        self.busy_ps = Counter()
+        self.outstanding = Counter()
+        self.outstanding_peak = Counter()
+        self.mc_slots = Counter()
+        self.mc_peak = Counter()
+        self.now = 0
+
+    def log(self, kind, **data):
+        self.events.append(dict(time_ps=self.now, kind=kind, **data))
+
+    def _sram(self, tile, amount, task):
+        self.sram[tile] += amount
+        if not 0 <= self.sram[tile] <= self.builder.tiles[tile].sram_bytes:
+            raise RuntimeError('SRAM reservation conservation failure')
+        self.sram_peak[tile] = max(self.sram_peak[tile], self.sram[tile])
+        self.log('sram_change', tile=tile, task=task, bytes=amount)
+
+    def _send(self, key, src, dst, cls, size, kind, item):
+        packet = Packet(key, src, dst, cls, size, self.builder.route(src, dst))
+        if not self.network.try_send(packet, self.now):
+            return False
+        self.packet_info[key] = kind, item, size
+        return True
+
+    def _receive(self, packet):
+        kind, key, size = self.packet_info[packet.id]
+        if kind == 'data':
+            self.edges[key]['delivered'] += size
+            self.log('data_deliver', edge=key, bytes=size)
+        else:
+            row = self.requests[key]
+            req = row['request']
+            if kind == 'request':
+                memory = self.builder.memories[req.memory]
+                if self.mc_slots[req.memory] >= memory.transaction_slots:
+                    return False
+                self.mc_slots[req.memory] += 1
+                self.mc_peak[req.memory] = max(self.mc_peak[req.memory], self.mc_slots[req.memory])
+                row['stage'] = 'native_wait' if self.native_at_controller else 'command_send'
+                self.log('mc_accept', request=key, memory=req.memory)
+            elif kind == 'command':
+                row['stage'] = 'native_wait'
+            elif kind == 'hb_return':
+                row['stage'] = 'response_send'
+            elif kind == 'response':
+                row['stage'] = 'delivered'
+                self.state[req.task]['read_bytes'] += req.size_bytes
+                self.outstanding[req.requester] -= 1
+                self.log('read_deliver', request=key, task=req.task, bytes=req.size_bytes,
+                         memory=req.memory, bank=req.bank, word_address=req.word_address)
+            else:
+                raise RuntimeError('Unknown transaction packet')
+        del self.packet_info[packet.id]
+        return True
+
+    def _compute_completions(self):
+        for tile, key in list(self.engine.items()):
+            state = self.state[key]
+            if state['finish_ps'] > self.now:
+                continue
+            task = self.tasks[key]
+            del self.engine[tile]
+            output = sum(e.size_bytes for e in self.graph.data if e.producer == key)
+            self._sram(tile, -(self.builder.footprint[key]-output), key)
+            state['done'] = True
+            self.log('task_finish', task=key, tile=tile)
+
+    def _allocate(self):
+        for key in sorted(self.tasks):
+            state, task = self.state[key], self.tasks[key]
+            if state['allocated'] or self.now < task.release_ps:
+                continue
+            predecessors = {e.producer for e in (*self.graph.control, *self.graph.data) if e.consumer == key}
+            if any(not self.state[p].get('done') for p in predecessors):
+                continue
+            size = self.builder.footprint[key]
+            if self.sram[task.tile]+size > self.builder.tiles[task.tile].sram_bytes:
+                continue
+            self._sram(task.tile, size, key)
+            state['allocated'] = True
+            self.log('task_allocate', task=key, tile=task.tile)
+
+    def _data_transfers(self):
+        for key in sorted(self.edges):
+            row = self.edges[key]
+            edge = row['edge']
+            if (not self.state[edge.producer].get('done')
+                    or not self.state[edge.consumer]['allocated'] or row['sent'] == edge.size_bytes):
+                continue
+            src, dst = self.tasks[edge.producer].tile, self.tasks[edge.consumer].tile
+            size = min(self.spec.packet_payload_bytes, edge.size_bytes-row['sent'])
+            if self._send(f'data/{key}/{row["sent"]}', src, dst, 'activation', size, 'data', key):
+                row['sent'] += size
+                self._sram(src, -size, edge.producer)
+                self.log('data_issue', edge=key, bytes=size)
+
+    def _read_issue(self):
+        # One command per tile per network cycle; all classes share the NI output.
+        used = set()
+        for key in sorted(self.tasks):
+            task, state = self.tasks[key], self.state[key]
+            if (not state['allocated'] or state['issued_all'] or task.tile in used
+                    or self.outstanding[task.tile] >= self.spec.outstanding_per_tile):
+                continue
+            if state['next_read'] is None:
+                state['next_read'] = next(state['iterator'], None)
+            req = state['next_read']
+            if req is None:
+                state['issued_all'] = True
+                continue
+            mc = self.builder.memories[req.memory].home_tile
+            if self._send(req.id+'/req', task.tile, mc, 'request', 0, 'request', req.id):
+                self.requests[req.id] = dict(request=req, stage='request_flight')
+                state['next_read'] = None
+                self.outstanding[task.tile] += 1
+                self.outstanding_peak[task.tile] = max(self.outstanding_peak[task.tile], self.outstanding[task.tile])
+                used.add(task.tile)
+                self.log('read_issue', request=req.id, task=key, memory=req.memory,
+                         bank=req.bank, word_address=req.word_address, bytes=req.size_bytes)
+
+    def _memory_progress(self, network_boundary):
+        for key in sorted(self.requests):
+            row = self.requests[key]
+            req = row['request']
+            mc = self.builder.memories[req.memory].home_tile
+            stage = row['stage']
+            if stage == 'native_wait':
+                if self.native.submit(req, self.now):
+                    row['stage'] = 'native_pending'
+                    self.log('native_accept', request=key)
+            elif network_boundary and stage == 'command_send':
+                if self._send(key+'/cmd', mc, req.memory, 'request', 0, 'command', key):
+                    row['stage'] = 'command_flight'
+            elif network_boundary and stage == 'hb_send':
+                if self._send(key+'/hb', req.memory, mc, 'response', req.size_bytes, 'hb_return', key):
+                    row['stage'] = 'hb_flight'
+            elif network_boundary and stage == 'response_send':
+                if self._send(key+'/resp', mc, req.requester, 'response', req.size_bytes, 'response', key):
+                    row['stage'] = 'response_flight'
+                    # Data copied into a finite NI. MC transaction/return slot is now reusable.
+                    self.mc_slots[req.memory] -= 1
+                    self.log('mc_release', request=key, memory=req.memory)
+
+    def _start_compute(self):
+        for key in sorted(self.tasks):
+            task, state = self.tasks[key], self.state[key]
+            tile = self.builder.tiles[task.tile]
+            if (not state['allocated'] or state['start_ps'] is not None
+                    or task.tile in self.engine or self.now % tile.compute_period_ps):
+                continue
+            if state['read_bytes'] != sum(r.size_bytes for r in task.reads):
+                continue
+            if any(row['delivered'] != row['edge'].size_bytes for row in self.edges.values()
+                   if row['edge'].consumer == key):
+                continue
+            state['start_ps'] = self.now
+            duration = task.compute_cycles*tile.compute_period_ps
+            state['finish_ps'] = self.now+duration
+            self.engine[task.tile] = key
+            self.busy_ps[task.tile] += duration
+            self.log('task_start', task=key, tile=task.tile)
+
+    def run(self, max_ps=10_000_000):
+        periods = [self.spec.noc_period_ps, self.spec.dram_period_ps,
+                   *(t.compute_period_ps for t in self.spec.tiles)]
+        quantum = gcd(*periods)
+        makespan = None
+        for self.now in range(0, max_ps+1, quantum):
+            self.network.arrive(self.now)
+            # Packet acceptance happens before new local arbitration, with finite endpoint storage.
+            if self.now % self.spec.noc_period_ps == 0:
+                self.network.deliver(self.now, self._receive)
+            for key in self.native.advance(self.now):
+                if key not in self.requests or self.requests[key]['stage'] != 'native_pending':
+                    raise RuntimeError('Repeated or unknown native callback')
+                self.requests[key]['stage'] = 'response_send' if self.native_at_controller else 'hb_send'
+                self.log('native_ready', request=key)
+            # Resolve local zero-duration control nodes, never bypass data delivery.
+            for _ in range(len(self.tasks)+1):
+                before = sum(bool(s.get('done')) for s in self.state.values())
+                self._compute_completions()
+                self._allocate()
+                self._start_compute()
+                after = sum(bool(s.get('done')) for s in self.state.values())
+                if before == after and not any(self.state[k]['finish_ps'] == self.now for k in self.engine.values()):
+                    break
+            boundary = self.now % self.spec.noc_period_ps == 0
+            if boundary:
+                self._data_transfers()
+                self._read_issue()
+            self._memory_progress(boundary)
+            if boundary:
+                self.network.step(self.now)
+            if all(s.get('done') for s in self.state.values()) and makespan is None:
+                makespan = self.now
+            if makespan is not None and self.network.drained():
+                if (any(self.outstanding.values()) or any(self.sram.values()) or any(self.mc_slots.values())
+                        or any(row['stage'] != 'delivered' for row in self.requests.values())
+                        or self.native.record()['pending']):
+                    raise RuntimeError('System completed with live resources')
+                break
+        else:
+            pending = {k: dict(allocated=s['allocated'], started=s['start_ps'], read_bytes=s['read_bytes'])
+                       for k, s in self.state.items() if not s.get('done')}
+            raise RuntimeError(f'System stalled or exceeded explicit time limit; no forced releases: {pending}')
+        record = dict(schema='w2w.system-execution.v2', scope='system_execution_v2_prototype',
+                      makespan_ps=makespan, drained_ps=self.now, quantum_ps=quantum,
+                      spec=asdict(self.spec), graph=asdict(self.graph),
+                      tasks={k: {v: s[v] for v in ('start_ps', 'finish_ps', 'read_bytes')} for k, s in self.state.items()},
+                      sram_peak_bytes=dict(self.sram_peak), compute_busy_ps=dict(self.busy_ps),
+                      outstanding_peak=dict(self.outstanding_peak), mc_peak=dict(self.mc_peak),
+                      network=self.network.record(), native=self.native.record(),
+                      physical=self.builder.physical_record(), events=self.events)
+        record['input_sha256'] = sha256(json.dumps([record['spec'], record['graph']], sort_keys=True).encode()).hexdigest()
+        return record
+
+
+def execute_system(spec, graph, *, native=None, max_ps=10_000_000):
+    return SystemExecution(spec, graph, native).run(max_ps)

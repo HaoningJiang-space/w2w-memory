@@ -2,7 +2,7 @@
 import argparse
 import runpy
 import sys
-from w2w.commands import COMMANDS
+from w2w.commands import COMMANDS, COMMAND_SCOPES
 
 
 def main(argv=None):
@@ -13,7 +13,7 @@ def main(argv=None):
         for group in ('experiments', 'endpoints', 'analysis', 'validation', 'visualization'):
             print('\n  '+group+':')
             for name,module in COMMANDS.items():
-                if module.split('.')[1] == group: print('    '+name)
+                if module.split('.')[1] == group: print('    '+name+' ['+COMMAND_SCOPES.get(name, 'unclassified')+']')
         print('\nTests: python -m unittest discover -s tests -v')
         return
     command = argv.pop(0).removesuffix('.py')
