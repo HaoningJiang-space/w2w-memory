@@ -2,6 +2,8 @@
 
 当前目标是在重复 reticle 的 WoW 系统中，联合组织 DRAM 服务接口、物理连接和静态数据驻留，使空闲服务能够被繁忙 compute 利用。Matching、endpoint 与 RTL 是方法组件。
 
+**当前优先级：[研究证据与强基线](RESEARCH_STATUS.md)。** 暂停扩大DRAM/FIFO/topology支线，先检验有限共享相对同等优化的Home及静态裁剪实现的价值。
+
 本页只记录当前状态。此前逐轮交接完整保存在 [历史记录](HANDOFF_HISTORY.md)，其中“当前”“下一步”、路径和测试数只适用于各自提交，不作为新开发任务。
 
 本次分层整理通过 62 项相关测试，八个候选和三个对照身份不变；189 份合成归档及
@@ -21,6 +23,7 @@
 | 请求容量与驻留联合配置 | 新比例已完成 189 次合成回放；真实 48 记录仅增加下界，未重跑新比例；[报告](reports/SERVICE_PROVISIONING_REPORT.md) |
 | 新比例的独立 routing 验证 | 87主实验＋47目标扩展＋32 RX诊断已完成并审计，共166次；[完整报告](reports/RETURN_PATH_PROVISIONING_REPORT.md) |
 | 完整返回路径配置 | RX2使160/192-bit实际率受限；RX3及匹配比例在5个有正参考收益的窗口保留81.82%–83.32%增量，增加RX成本；不是新RTL结果 |
+| 静态裁剪强基线 | 六项映射、28项mapped配对回放完成；固定专用更小，可配置以约4% source面积代价保留选择；[结论](RESEARCH_STATUS.md) |
 | 新 service-engine pool | 研究提案，未实现；[问题分析与形式化](methods/SERVICE_PROVISIONING_ASSESSMENT.md) |
 | cohort静态owner | layer0训练探针在固定硬件上改善评分4.90%–7.77%；非测试集/任务加速；[设计报告](reports/COHORT_SERVICE_DESIGN_REPORT.md) |
 
@@ -78,4 +81,4 @@ python -m w2w audit_patterns_replay --source artifacts/results/workload/patterns
 
 服务器对原始输入重编译的命令见 [TRACE_WORKFLOW](guides/TRACE_WORKFLOW.md)。实验参数、冻结布局和旧结果不随目录整理变化。当前回放是 routing 驱动的权重读阶段，不是实测 DRAM traffic 或端到端 LLM latency。
 
-随后按 [NEXT_TASK](handoff/NEXT_TASK.md) 扩展已接通的 DRAM 参考与层级成本，评估 service provisioning 提案。不要把历史 Gate 的“下一步”重新当成未完成任务。
+随后按 [NEXT_TASK](handoff/NEXT_TASK.md) 比较同等优化的Home和共享设计，并核实模板复用价值。不要把历史 Gate 的“下一步”重新当成未完成任务。

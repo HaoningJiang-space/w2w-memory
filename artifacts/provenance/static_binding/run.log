@@ -1,0 +1,10 @@
+MAPPED duplicated 17265.528
+MAPPED configurable 11123.854
+MAPPED pruned_dup_l 10713.948
+MAPPED pruned_dup_r 10722.46
+MAPPED pruned_cfg_l 10652.236
+MAPPED pruned_cfg_r 10654.896
+VERIFIED pruned_dup_l 7 paired mapped cases
+VERIFIED pruned_dup_r 7 paired mapped cases
+VERIFIED pruned_cfg_l 7 paired mapped cases
+VERIFIED pruned_cfg_r 7 paired mapped cases

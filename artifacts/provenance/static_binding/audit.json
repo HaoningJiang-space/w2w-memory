@@ -1,0 +1,12 @@
+{
+  "schema": "w2w.static-binding-audit.v1",
+  "source_commit": "85a27c021324243bb22c5da192b1471dc49c043b",
+  "mapped_blocks": 6,
+  "paired_cases": 28,
+  "paired_cycles": 362616,
+  "words_per_side": 249668,
+  "stat_cells_and_area_reconstructed": true,
+  "frozen_service_and_logs_equal": true,
+  "reference_mapped_archive_sha256": "64b980aebbcaeaf3e4ec134e975ffe3568f73b6a654a260eee40fe7bb7622dc3",
+  "scope": "Matched library mapping and zero-delay mapped payload replay; not physical timing closure"
+}

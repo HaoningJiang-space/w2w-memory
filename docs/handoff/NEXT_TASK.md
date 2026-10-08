@@ -1,47 +1,42 @@
-# 下一阶段的服务配置与物理验证
+# 下一步 验证完整设计相对强基线的价值
 
-真实 routing 输入闭环已经完成；本阶段接真实 DRAM 命令时序、建立层级物理成本，并判断静态 service provisioning 是否值得扩展。以下为待实现任务，不是新增实验结果。研究判断及数学边界见 [分析](../methods/SERVICE_PROVISIONING_ASSESSMENT.md)。此前 ASIC 交接全文保存在 [历史记录](NEXT_TASK_HISTORY.md)。
+研究主线是有限成本下的wafer-scale memory service provisioning。当前首先读[统一证据与新强基线](../RESEARCH_STATUS.md)。DRAM接口验证已经归档，不再作为主研究任务。
 
-## 已合入的新进展与最近实验
+## 已完成 不重复开发
 
-最新：[完整返回路径研究](../reports/RETURN_PATH_PROVISIONING_REPORT.md)已完成87＋47＋32次回放，
-下述注册实验已执行。RX占位解释并修复了192-bit目标未兑现的问题，所有166记录独立审计通过。
-当前系统研究的具体后续是：保留硬件与几何，按训练cohort的共同完成资源下界选择静态owner/伙伴，
-与modulo和边际LPT比较；新测试请求另行保留。完整成本、DRAM后端仍按下述独立任务推进。
+- 真实routing导入、冻结读任务、166次独立请求回放与逐字审计。
+- bank-local configurable source及局部RTL/P&R；不是跨bank engine pool。
+- 本轮新增六项同库映射、28项配对mapped回放：固定专用source更小，可配置source以约4%面积开销保留部署方向选择。
+- cohort owner有训练侧有限交换探针；新81次回放协议与准备/运行/审计代码已由另一开发者提交，尚未在此核验其完成结果。
+- 公开HBM2后端与8次完整对象探针保留为可选验证，不用于当前性能排名。
 
-`11fd2ab` 已加入请求容量感知比例与 189 次合成回放：N128 下 A/B 的 Home=4/5，分散任务均为 73 槽；原来是 79/77 槽。N192 下原 B 更快，比例不能逐窗口免费切换。48 份真实记录只重算下界，没有回放新比例。
+## 当前唯一主要实验
 
-先在独立 routing 输入上验证这些冻结候选，保留同等优化的 Home/k2/宽 k3，比较同 N 完成时间与同目标成本。若优化 owner，只用训练部分并冻结，val 用于选配置，test 用于最终报告。候选已存在，不重复开发或先扩跨 bank pool。以下 DRAM 后端与物理成本是此前用户要求，仍需推进。
+固定现有几何、原生服务、HB/位宽和N预算，比较Home、k2、B及wide参考，在同等cohort训练预算下选择并冻结owner/数据组织。保留modulo、边际LPT、共同owner对照。注册测试requests、layer和step之前排除已有训练/选型/计时集合；已经看过的窗口只用于诊断。
 
-`55a4fec` 已加入[独立请求协议与准备/运行入口](../methods/PROVISIONING_HOLDOUT_STUDY.md)，
-注册 87 个组合；此处不将协议注册称为实验完成。它使用固定解析候选，未调超参数，
-因此当前只需训练/测试划分；若以后用验证结果选模型，再单独划分 validation。
+输出每个窗口的完成时间、负例和成本分项，而不是只报同owner Home上的平均speedup。wide不是full pooling；固定专用、未裁剪duplicated、configurable也不是同一服务范围。若不改变硬件而改善owner，必须单列其贡献。
 
-## 第一项 扩展已接通的 DRAM 命令参考
+已有[冻结cohort回放协议](../methods/COHORT_REPLAY_STUDY.md)及`prepare_cohort_replay`、`run_cohort_replay`、`validation/cohort_replay.py`，优先完成并审计这批注册的81次回放，不重复另建测试集。该批是Home/k2/wide/C与LPT对照，不能改称B实验或等同完整成本比较。
 
-已完成 `service/dram` 可替换后端：公开 HBM2、有限接受队列、真实命令推进与完成回调，source 容量先预留，再接受原生请求。8次完整对象回放及193项服务器测试通过；[结果](../reports/DRAM_COMMAND_BRIDGE_REPORT.md)和[复现](../methods/DRAM_COMMAND_BRIDGE.md)已归档。旧 slot 默认语义不变。
+当前已有`synthesis/cohort_placement.py`、`theory/cohort_service.py`和训练探针，先复用，不增加新优化框架。训练、冻结、测试分开；需要调超参数时再划validation，不能用测试窗口决定布局。
 
-下一步在相同 HBM2 资源下扩展完整冻结 batch 和 outstanding/queue 敏感性。当前只抽取了 h0_b1 的第一个完整 expert 任务；不能把这个接口探针当成整个推理结果。HBM2 channel 与原每 memory 1 TB/s 模型预算不同，且公开时序含估算，后续需要可追溯的 WoW 原生数据路径参数，不能用缩放时序去迎合旧结果。
+## 同步核实的实现边界
 
-## 第二项 先验证 service provisioning 的可优化空间
+本轮pruned Left/Right都是综合前固定的实现。当前36个实例有两种方向；若要声称可配置模板比固定模板更值得，必须检查固定模板的合法旋转/布线复用，以及保留配置能力的实际需求。不能仅以“不是我们的模板”排除强基线。
 
-现有实现是每 bank 的静态方向复用；不能直接称作多 bank 共享一个发送 engine。先固定几何、地址驻留和 lane/HB 总预算，比较独立出口、删去静态未使用方向的强基线、少量 engine 绑定。明确 engine 属于 bank、bank group 还是整个 reticle。
+B的RTL beat reservoir与C/RX3的系统整字预留不是同一合同。完整性能–面积点只能使用同一设计的执行与成本；未知面积保留未知，proxy不合并成PPA。只对有价值的候选补这个合同连接，不另起接口机制研究。
 
-静态 binding 一次覆盖注册的全部层、对象和需求窗口，测试时不能重绑定。若更少 engine 只能靠未计费跨 bank 互连或逐窗口换方向维持服务，应报告这个缺口。先在流体放松中估计机会，再用有限执行核验；仅对值得继续的设计扩 RTL。布局联合优化在单因素服务实验之后进行，不能将两种收益混在一个数字中。
+## 代码与复查
 
-## 第三项 建立完整路径的层级成本
+- 公共模型：`domain`、`service`；设计选择：`synthesis`；输入：`workloads`。
+- 静态专用对照：`rtl/baselines/endpoint_fixed_source.sv`。
+- 运行：`experiments/run_static_binding_baseline.py`；独立核对：`validation/static_binding.py`。
+- 统一证据账本：`analysis/research_evidence.py`，只读已有归档，不启动性能实验。
+- 本地开发 → 唯一main → Git同步服务器实验。原始trace、大构建和凭据不入Git。
 
-复用已通过检查的 Nangate45 slice，补 engine binding、跨 bank 连线、仲裁/ID/credit、RX、HB pad 与时钟等资源账本。未实现块用分项区间，不将 bit-mm 换名为面积。分别报告 source、完整数据路径、reticle 和整片估计，区分 measured 与 estimated。
+```sh
+python -m w2w analyze_research_evidence --output build/research_evidence
+python -m w2w audit_static_binding --output build/static_binding_audit.json
+```
 
-真实工艺 signoff 仍需指定的 logic/DRAM PDK、多角库、DRAM 宏、HB/RDL 寄生和规则、顶层网表、时钟/功耗约束及 DRC/LVS/IR/EM 流程。现有公开单角 slice 结果不能代替这些资产；当前资料路径仍待确认。先完成可复现的公开模型评估。
-
-## 代码放置和交付
-
-- 不可变参数与身份：`domain`；DRAM 后端实现：`service/dram`（已接入）。
-- 绑定与布局选择：`synthesis`；endpoint 执行：`endpoints`。
-- 参数注册与 CPU 作业：`experiments`；独立证书：`validation`。
-- 结果统计：`analysis`；图形：`visualization`；不新增根目录研究脚本。
-- 每次新增实现先有最小构造及反例验证，再扩大实验；保留版本、输入与合同身份。
-- 本地开发 → 唯一 main 推送 → 服务器拉取实验。原始 trace 与大中间文件留服务器。
-
-本轮文档整理没有安装 DRAM 模拟器、创建上述新包或完成新 RTL/signoff。
+历史逐轮建议见[NEXT_TASK_HISTORY](NEXT_TASK_HISTORY.md)及各阶段报告；不要将其中的“下一步”重新当作当前任务。整片signoff仍依赖实际PDK、DRAM宏和HB资产，当前不以新增仿真器代替。

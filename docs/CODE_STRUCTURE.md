@@ -42,6 +42,10 @@ python -m w2w audit_patterns_replay \
 镜像需显式 `--endpoint`，不会自动转站。没有新增部分文件 Range 恢复行为。
 [结果与完整命令](reports/PATTERNS_REPLAY_STUDY_REPORT.md) / [服务器工作流](operations/HN072_RESEARCH.md)。
 
+## 研究证据与强基线
+
+`analysis/research_evidence.py`重建既有性能/成本对照，未知PPA不补零。`rtl/baselines/endpoint_fixed_source.sv`只做综合前静态特化；`experiments/run_static_binding_baseline.py`执行同库映射与配对回放；`validation/static_binding.py`重建原始stat和日志。三者职责分离，不修改主执行器、冻结候选或旧结果。
+
 ## 既有模型层次
 
 2026-10-07 新增不可变设计与契约边界，详见 [Design API](DESIGN_API.md)。
