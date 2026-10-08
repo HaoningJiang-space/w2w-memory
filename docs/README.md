@@ -1,5 +1,7 @@
 # 文档索引
 
+- [当前研究主线、强基线结果与统一证据](RESEARCH_STATUS.md)
+
 - [DRAM 命令后端闭环与8次完整对象回放](reports/DRAM_COMMAND_BRIDGE_REPORT.md) / [构建与模型边界](methods/DRAM_COMMAND_BRIDGE.md)
 
 **开发交接入口：[HANDOFF](HANDOFF.md)** — 当前状态、复现、接口边界与下一任务。

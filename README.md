@@ -1,5 +1,7 @@
 # Wafer-scale Memory Service Fabric
 
+**当前研究判断：[统一证据与静态裁剪强基线](docs/RESEARCH_STATUS.md)。** 主线是有限成本的共享服务配置，DRAM与RTL为验证组件。
+
 **开发交接入口：[HANDOFF](docs/HANDOFF.md)** — 当前状态、复现、接口边界与下一任务。
 
 **当前可用流程：[真实 trace 完整工作流](docs/guides/TRACE_WORKFLOW.md)。**
