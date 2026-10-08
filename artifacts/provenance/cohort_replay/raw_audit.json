@@ -1,0 +1,21 @@
+{
+  "verified": true,
+  "provenance": {
+    "commit": "0e66ff7ce0d80d1ed8d98f2e6ab436128d0d13aa",
+    "git_status": "",
+    "host": "ee4e072",
+    "python": "3.10.12",
+    "packages": {
+      "numpy": "2.2.6",
+      "scipy": "1.15.3",
+      "shapely": "2.1.2",
+      "pymetis": "2025.2.2",
+      "networkx": "3.4.2",
+      "matplotlib": "3.10.9"
+    }
+  },
+  "traces": 45,
+  "fresh_requests": 48,
+  "raw_inputs_recompiled": true,
+  "input_source_commit": "0e66ff7ce0d80d1ed8d98f2e6ab436128d0d13aa"
+}
