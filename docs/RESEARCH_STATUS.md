@@ -4,6 +4,21 @@
 
 **当前最值得验证的是完整设计的收益与成本，而不是再增加一个 simulator 或接口机制。** 已有证据支持共享机会和静态方向复用，但尚未证明一个优于强基线的完整架构。新补的静态裁剪对照说明：configurable 的主要价值是以小幅 source 面积开销保留模板的方向选择能力，不能再把它描述成相对最佳固定实现节省三成面积。
 
+## 本轮拓扑审计：当前是直接读子系统，不是完整wafer通信系统
+
+`audit_topology_scope`实际构造当前Home/k2/wide/C目录并执行小探针。36C+36M只有146条C–M物理邻接，C–C和M–M直接边均为0。图论上存在C0–M0–C1路径，但memory是服务终点，不是可转发router；当前执行器不运行这条通信路径。`memory_model.summary()`已明确输出`forwarding_supported=False`。复用上游几何不等于复用了BookSim网络。
+
+实际检验：C0到M30在结构图上有11跳路径，但无直接HB邻接；固定其字节驻留后服务LP只能给0，有正保底则不可行。一个224字的合法读全部由单条C–M边返回，没有中继。两个不同compute的纯DAG任务（5槽后依赖1槽）在link latency为1和100时都6槽结束且没有route流量：任务依赖仅表达顺序，不模拟消息传输。
+
+最新81次runner调用`replay_reads`，没有传入Ramulator后端，也没有调用BookSim。请求按每compute发起/在途额度进入memory pending队列，使用固定request latency；没有共享请求链路的包宽/仲裁。返回有endpoint位宽、有限RX和信用约束，但使用统一link latency，未模拟逐跳路由或由距离决定的链路流水。MoE编译器只生成被激活专家的完整权重读和join，显式省略dispatch/combine、GEMM、KV等。
+
+因此1.287×仍是**规定直接访问合同下的读阶段比较**。当前没有证据表明compute消息“经过DRAM上层转发”；实际上这类消息尚未进入模型。若要声称完整wafer架构或与网络转发比较，必须先给compute通信选择合法路径，并明确router/直通网络是否位于memory wafer的数字区域；转发不能自动等同读写DRAM阵列。还需计入其与memory流量共享的HB/链路和请求通路。当前不新增NoC机制，也不改变旧模型或结果来掩盖缺口。
+
+补充合并另一开发者的`validation/simulator_connectivity.py`小模型审计：将流水间距从2mm改为0.5mm，寄存代理从768变为2560 bits，读任务仍为4槽，确认成本参数未接入链路时延。归档45份trace的所有任务compute_slots均为0。两项检查不能替代网络仿真；本轮50项相关测试通过。
+
+复查：`python -m w2w audit_topology_scope --output build/topology_scope.json`。
+核对源码在`validation/topology_scope.py`，证据在[拓扑审计](../artifacts/provenance/topology_scope/audit.json)。
+
 ## 哪些结果可以一起比较
 
 | 比较 | 固定什么 | 能回答什么 | 当前结论 |

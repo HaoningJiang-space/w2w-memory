@@ -1,0 +1,96 @@
+{
+  "schema": "w2w.simulator-connectivity-audit.v1",
+  "provenance": {
+    "commit": "accf3eaf8dc3a76e6f571ba3e4f1cf6157bd7381",
+    "git_status": "",
+    "host": "haonings-MacBook-Air.local",
+    "python": "3.14.2",
+    "packages": {
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "shapely": "2.1.2",
+      "pymetis": "2025.2.2",
+      "networkx": "3.7",
+      "matplotlib": "3.11.2"
+    }
+  },
+  "topology": {
+    "computes": 36,
+    "memories": 36,
+    "physical_cm_port_edges": 146,
+    "distinct_cm_pairs": 146,
+    "cc_edges": 0,
+    "mm_edges": 0,
+    "structural_components": 1,
+    "geometric_two_hop_example": [
+      [
+        "C",
+        0
+      ],
+      [
+        "M",
+        0
+      ],
+      [
+        "C",
+        1
+      ]
+    ],
+    "forwarding_supported": false
+  },
+  "non_direct_read": {
+    "geometric_path": [
+      [
+        "C",
+        0
+      ],
+      [
+        "M",
+        0
+      ],
+      [
+        "C",
+        1
+      ],
+      [
+        "M",
+        1
+      ]
+    ],
+    "rejected": true,
+    "error_type": "KeyError",
+    "error": "(0, 1)"
+  },
+  "cross_compute_precedence": {
+    "start": 7,
+    "finish": 10,
+    "configured_memory_link_latency": 100,
+    "sent_bits": 0,
+    "meaning": "Control-only precedence accepted; no C-to-C packet or synchronization transport modeled"
+  },
+  "pipeline_cost_vs_latency": {
+    "spacings_mm": [
+      2.0,
+      0.5
+    ],
+    "pipeline_bits": [
+      768,
+      2560
+    ],
+    "makespan_slots": [
+      4,
+      4
+    ],
+    "meaning": "Physical pipeline spacing is a cost proxy, not an input to replay link latency"
+  },
+  "published_cohort": {
+    "source_commit": "0e66ff7ce0d80d1ed8d98f2e6ab436128d0d13aa",
+    "replay_records": 81,
+    "logical_traces": 45,
+    "tasks_with_compute_time": 0,
+    "dependency_transport_fields": [],
+    "summary_sha256": "0d67ecbda09e9dc874bfe30d230463ab755c81ff0260b2fa343adc09c0c4ae6b",
+    "scope": "Captured expert choices compile to full weight reads and zero-time joins; no dispatch/combine/GEMM"
+  },
+  "verified": true
+}
