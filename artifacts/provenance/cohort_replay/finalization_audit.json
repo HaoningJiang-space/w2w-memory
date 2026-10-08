@@ -1,0 +1,26 @@
+{
+  "verified": true,
+  "provenance": {
+    "commit": "a1c9bb3a124dd210f3747e8a503a62454264dbac",
+    "git_status": "",
+    "host": "eex005",
+    "python": "3.13.13",
+    "packages": {
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "shapely": "2.1.2",
+      "pymetis": "2025.2.2",
+      "networkx": "3.7",
+      "matplotlib": "3.11.2"
+    }
+  },
+  "source_commit": "0e66ff7ce0d80d1ed8d98f2e6ab436128d0d13aa",
+  "records": 81,
+  "delivered_words": 1815921504,
+  "fresh_requests": 48,
+  "excluded_requests": 160,
+  "windows": 9,
+  "identical_ablations": 9,
+  "raw_inputs_recompiled": false,
+  "scope": "Full modeled read completion and independent resource accounting, not native DRAM or application execution"
+}

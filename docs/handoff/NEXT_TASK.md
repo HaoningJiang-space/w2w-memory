@@ -1,22 +1,33 @@
 # 下一步 验证完整设计相对强基线的价值
 
-研究主线是有限成本下的wafer-scale memory service provisioning。当前首先读[统一证据与新强基线](../RESEARCH_STATUS.md)。DRAM接口验证已经归档，不再作为主研究任务。
+研究主线是有限成本下的wafer-scale memory service provisioning。先读[81次新请求结果](../reports/COHORT_REPLAY_REPORT.md)和[wafer/DRAM第一性约束](../methods/WAFER_DRAM_SERVICE_PRINCIPLES.md)，再结合[强基线](../RESEARCH_STATUS.md)选择配置。原生命令接口已接通，不重复开发后端。
 
 ## 已完成 不重复开发
 
 - 真实routing导入、冻结读任务、166次独立请求回放与逐字审计。
 - bank-local configurable source及局部RTL/P&R；不是跨bank engine pool。
 - 本轮新增六项同库映射、28项配对mapped回放：固定专用source更小，可配置source以约4%面积开销保留部署方向选择。
-- cohort owner有训练侧有限交换探针；新81次回放协议与准备/运行/审计代码已由另一开发者提交，尚未在此核验其完成结果。
+- cohort owner的81次独立请求回放已在eex005完成并审计，九组C duplicated/configurable服务相同；报告与全结果已归档。
 - 公开HBM2后端与8次完整对象探针保留为可选验证，不用于当前性能排名。
+- 同一HBM2/B接口的两次比例诊断已完成，1/2比8/13少17.44%完整对象读时间；不与旧slot排名混用。
 
-## 当前唯一主要实验
+## 当前结果决定的下一项设计
 
-固定现有几何、原生服务、HB/位宽和N预算，比较Home、k2、B及wide参考，在同等cohort训练预算下选择并冻结owner/数据组织。保留modulo、边际LPT、共同owner对照。注册测试requests、layer和step之前排除已有训练/选型/计时集合；已经看过的窗口只用于诊断。
+下一次先固定同一DRAM原生profile、几何、接口和请求预算，保留既有owner及合法pair，
+对照旧比例与原生供给匹配比例，并单独核对请求/返回容量限制。Home/k2保持相同原生预算。
+诊断窗口提前登记，已经看过的窗口用于机制定位；若以后重新训练owner，另划验证和测试，
+保留modulo、边际LPT及共同owner对照，不回用已发布的新请求成绩选型。
 
 输出每个窗口的完成时间、负例和成本分项，而不是只报同owner Home上的平均speedup。wide不是full pooling；固定专用、未裁剪duplicated、configurable也不是同一服务范围。若不改变硬件而改善owner，必须单列其贡献。
 
-已有[冻结cohort回放协议](../methods/COHORT_REPLAY_STUDY.md)及`prepare_cohort_replay`、`run_cohort_replay`、`validation/cohort_replay.py`，优先完成并审计这批注册的81次回放，不重复另建测试集。该批是Home/k2/wide/C与LPT对照，不能改称B实验或等同完整成本比较。
+已有[冻结cohort回放协议](../methods/COHORT_REPLAY_STUDY.md)及完整81次结果，**不再次启动同类批次**。
+该批是Home/k2/wide/C与LPT对照，不能改称B实验、modulo对照或完整成本比较。
+Home/k2本轮映射九窗持平，C两窗改善，宽k3有退化；各自cohort布局下C六窗快于Home。
+固定合同的执行距离必要资源下界最多11槽，继续调仲裁缺乏明显空间。
+
+下一项应固定一个明确原生组织，联合安排其服务域字节份额与请求/返回容量：先标出独立
+RWDL或共享数据总线，再检查每域速率×占用寿命。用完整多对象读诊断原生竞争与返回预留，
+不从当前新测试结果反向调owner。HBM2两次比例结果只是已完成的单对象依据，不能外推整批。
 
 当前已有`synthesis/cohort_placement.py`、`theory/cohort_service.py`和训练探针，先复用，不增加新优化框架。训练、冻结、测试分开；需要调超参数时再划validation，不能用测试窗口决定布局。
 

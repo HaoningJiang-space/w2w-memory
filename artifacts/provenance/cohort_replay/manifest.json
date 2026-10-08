@@ -1,0 +1,1341 @@
+{
+  "schema": "w2w.cohort-replay-archive.v1",
+  "preparation": {
+    "commit": "0e66ff7ce0d80d1ed8d98f2e6ab436128d0d13aa",
+    "git_status": "",
+    "host": "ee4e072",
+    "python": "3.10.12",
+    "packages": {
+      "numpy": "2.2.6",
+      "scipy": "1.15.3",
+      "shapely": "2.1.2",
+      "pymetis": "2025.2.2",
+      "networkx": "3.4.2",
+      "matplotlib": "3.10.9"
+    }
+  },
+  "execution": {
+    "commit": "0e66ff7ce0d80d1ed8d98f2e6ab436128d0d13aa",
+    "git_status": "",
+    "host": "eex005",
+    "python": "3.13.13",
+    "packages": {
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "shapely": "2.1.2",
+      "pymetis": "2025.2.2",
+      "networkx": "3.7",
+      "matplotlib": "3.11.2"
+    }
+  },
+  "audit": {
+    "commit": "35c059293c814356234de03a3f2776844fb0748e",
+    "git_status": "",
+    "host": "eex005",
+    "python": "3.13.13",
+    "packages": {
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "shapely": "2.1.2",
+      "pymetis": "2025.2.2",
+      "networkx": "3.7",
+      "matplotlib": "3.11.2"
+    }
+  },
+  "finalization": {
+    "commit": "a1c9bb3a124dd210f3747e8a503a62454264dbac",
+    "git_status": "",
+    "host": "eex005",
+    "python": "3.13.13",
+    "packages": {
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "shapely": "2.1.2",
+      "pymetis": "2025.2.2",
+      "networkx": "3.7",
+      "matplotlib": "3.11.2"
+    }
+  },
+  "registration_sha256": "74a054b835ceee5b83bcb6bc9c0b01d439bfb5d228e7af6db34f0ca11780d593",
+  "input_summary_sha256": "d89858d7c3ed437916bb9f43c27aaf07242e67d87eacf185e19d85b1b3905374",
+  "records": 81,
+  "delivered_words": 1815921504,
+  "fresh_requests": 48,
+  "excluded_requests": 160,
+  "elapsed_seconds": 1922.743315152824,
+  "tests": [
+    {
+      "commit": "f44023fe29d810328ed3b2276795ea81a145046d",
+      "count": 53,
+      "path": "artifacts/provenance/cohort_replay/final_tests.log.gz"
+    },
+    {
+      "commit": "a626eff2d4fe2e268c3c0c5e7d96dbefcd4bca33",
+      "count": 4,
+      "path": "artifacts/provenance/cohort_replay/entrypoint_tests.log.gz"
+    }
+  ],
+  "files": [
+    {
+      "path": "artifacts/results/workload/cohort_replay/analysis/analysis.json",
+      "bytes": 32867,
+      "sha256": "9486252ff9ee38de7d62b502251d4155c535b10a11287d7f99bcb58e90a7a00f"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/analysis/paired_times.csv",
+      "bytes": 2705,
+      "sha256": "a648a625745abc9a5c236a5ab72977e418f3b0a831b06c7d9f81d5c6ecc3ae5d"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c0_b1/c_cohort.json.gz",
+      "bytes": 14755,
+      "sha256": "5d5071c8e9f51766fee517411714adbf6dc9dc722f818aa3585b7eeb60bb45a6"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c0_b1/c_dup_cohort.json.gz",
+      "bytes": 14760,
+      "sha256": "8abf8768b5f0bd2ff0638c2de1b2442177b875b5164fa17c56bb525f123f6f35"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c0_b1/c_marginal.json.gz",
+      "bytes": 14522,
+      "sha256": "584598719f1b4f9cd5fce9740f181510baa152a12912e151585c58520a91077b"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c0_b1/home_cohort.json.gz",
+      "bytes": 11397,
+      "sha256": "63d378fbcde428b78bf907f0e1e0c055ef0326be9735de0d6c59264af629feaa"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c0_b1/home_marginal.json.gz",
+      "bytes": 11412,
+      "sha256": "0b36cd287995a76aed4f3bef0747d3b2189e05f42e288ee9906a7818157ac5d0"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c0_b1/k2_cohort.json.gz",
+      "bytes": 14232,
+      "sha256": "6f029d8d8ead62136448ab03213280c029036eaf5082e152241203df96875793"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c0_b1/k2_marginal.json.gz",
+      "bytes": 14384,
+      "sha256": "1d408849fa0946d56b45c6525c5f3df063006dd502cf9a0dca672d49e97f7aef"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c0_b1/wide_cohort.json.gz",
+      "bytes": 14108,
+      "sha256": "7f2d2772563992ef61c9c11e2e06d2459be7412429967e8a43329be72199efe9"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c0_b1/wide_marginal.json.gz",
+      "bytes": 13410,
+      "sha256": "d2240627d94f52b72466e42fb57e4522dc1316dc898a982b89f4df387f26d925"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c0_b16/c_cohort.json.gz",
+      "bytes": 31685,
+      "sha256": "ee521cc6e26400fffb57c18c94461ad24d5b9054992df5d45f04ff3a9fdec492"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c0_b16/c_dup_cohort.json.gz",
+      "bytes": 31692,
+      "sha256": "7673b676f3665af71b814b9f800f90339ad03cd6ff754f6764521ec6985e32f4"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c0_b16/c_marginal.json.gz",
+      "bytes": 31555,
+      "sha256": "98fac699755b11583ea4ad4fd887ca42166a692d58b5b753e184170263801eab"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c0_b16/home_cohort.json.gz",
+      "bytes": 21344,
+      "sha256": "d5aef7ed7d0349b6b971e1227646b35de12aaef442bb3627ad4f5f835f4ef7b8"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c0_b16/home_marginal.json.gz",
+      "bytes": 21433,
+      "sha256": "592f6c895717f3dfd631a8e6331affe86b5a937f726bc4d72fa3882858c691c4"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c0_b16/k2_cohort.json.gz",
+      "bytes": 29047,
+      "sha256": "97d19cc796d31f89c12309a5ec046f086217fead92a4f8d02a993b39d6f50182"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c0_b16/k2_marginal.json.gz",
+      "bytes": 28984,
+      "sha256": "9467053dd35c00b9ae45aab896d30748ab524f662082c08d66a4a43e85345b20"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c0_b16/wide_cohort.json.gz",
+      "bytes": 26877,
+      "sha256": "b7f6add7268244f7a7d2c2a8300e189adc2e73415e4be17b9cf70e945bf8e90b"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c0_b16/wide_marginal.json.gz",
+      "bytes": 26616,
+      "sha256": "e6e03eb92560c9e670fba53147c4c728a2ea4d883a6a2402c5525fe7e5dc0009"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c0_b4/c_cohort.json.gz",
+      "bytes": 24706,
+      "sha256": "32a4986f7c63fb4955f6720a717977ab70c182d6d0e6f847b8e29f9976bfc938"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c0_b4/c_dup_cohort.json.gz",
+      "bytes": 24711,
+      "sha256": "20c13d5e13684326e71ba28ba61b38214ca4db97d3ccf7d9c54430d3db089974"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c0_b4/c_marginal.json.gz",
+      "bytes": 25547,
+      "sha256": "ac2b6d6fad2cd3a6413ff66c373bca48c8e03face4496d96851f5e5c459bc3ad"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c0_b4/home_cohort.json.gz",
+      "bytes": 17857,
+      "sha256": "ae05ecb7cd2a82bab766ce7ed01bae97892b6c11dd0a4cf5794cb262c39499af"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c0_b4/home_marginal.json.gz",
+      "bytes": 17888,
+      "sha256": "6aa1a76453132d5011c036ddf18c5ae266be66e4f10bc3a18841f0d55cf74c6b"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c0_b4/k2_cohort.json.gz",
+      "bytes": 23520,
+      "sha256": "985dc1a520d1b65c861d319ca16a3739ae6aa65c0b7f1c6ebbc8fd068dd9528f"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c0_b4/k2_marginal.json.gz",
+      "bytes": 24033,
+      "sha256": "ab719654641ea5024d73bf42b9c8caab8665c5da130fd4203bedf6236be05460"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c0_b4/wide_cohort.json.gz",
+      "bytes": 23226,
+      "sha256": "620a8a82eafea4b5acd98429441910c496462cf1e93b1ad18618e659a2096125"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c0_b4/wide_marginal.json.gz",
+      "bytes": 22814,
+      "sha256": "75295a93fc0a670da82247f555c913b6779014bc5870b468d3f4431adca9357c"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c1_b1/c_cohort.json.gz",
+      "bytes": 14656,
+      "sha256": "93cc08f251dbb53aef48e2987e80e584e24b10feae18d0a2328d68cce5ed84fb"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c1_b1/c_dup_cohort.json.gz",
+      "bytes": 14658,
+      "sha256": "30af6d490441865c2082c28ce38716b0bfc5b51a22a3e85e6cdeabff0760a613"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c1_b1/c_marginal.json.gz",
+      "bytes": 14622,
+      "sha256": "5948f70b413e5f9a2d08fa29ce5c25bc25e4e34c17d0301d934c2ec9f6e96815"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c1_b1/home_cohort.json.gz",
+      "bytes": 11367,
+      "sha256": "c578c51fefe7b261d1119e1abc028b7d2f03859c3d6aef6b09b29c5ee58bc7e0"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c1_b1/home_marginal.json.gz",
+      "bytes": 11361,
+      "sha256": "252bfcd115ae8ea4b5087a5774022ca5bd8fe3fec18bb46a8c3dd096c93b9fb8"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c1_b1/k2_cohort.json.gz",
+      "bytes": 14312,
+      "sha256": "5bafe5b0b6fe8d6236c68efd1fe643463c37ae9f4b310bcb6eceffd073cda583"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c1_b1/k2_marginal.json.gz",
+      "bytes": 14240,
+      "sha256": "9a3f52fc991adcbdf075fbd71a31add32f547f99c04146004d37db41ca377213"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c1_b1/wide_cohort.json.gz",
+      "bytes": 13758,
+      "sha256": "248456f4616c7d48f509b751f44b7f61d2474a2f4ba4228b7997357871d3b1bd"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c1_b1/wide_marginal.json.gz",
+      "bytes": 13757,
+      "sha256": "0025120f56240883428ef69a66e48fc0ad7acbe07837d1acb8109d9a67d29d04"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c1_b16/c_cohort.json.gz",
+      "bytes": 30002,
+      "sha256": "d9ecea4264e275526aae621c6ff1e3e1b0bf939912e4cb1dfd70c39bfc583597"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c1_b16/c_dup_cohort.json.gz",
+      "bytes": 30004,
+      "sha256": "0c254eac467389e26fc8296b7dcb0c9b145986591af87886fd73966d1bc48599"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c1_b16/c_marginal.json.gz",
+      "bytes": 30516,
+      "sha256": "e10d44ab76de00a1818364a2d102e16ff3cd97a039edac37b45e4baf79978412"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c1_b16/home_cohort.json.gz",
+      "bytes": 20555,
+      "sha256": "13ad58f729909ad3800eca7ceaa92137eb0b9b2de4614a970dd08d99f30cf6f0"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c1_b16/home_marginal.json.gz",
+      "bytes": 20488,
+      "sha256": "af72606619906bbbd2aad7b057725b27b2ffec91409d38fe2d7857f9566ed35f"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c1_b16/k2_cohort.json.gz",
+      "bytes": 28289,
+      "sha256": "a9f23124c4e3638f45423a72d4419f6f530a0a839f049c124ceaafa8d74308f4"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c1_b16/k2_marginal.json.gz",
+      "bytes": 28322,
+      "sha256": "de8224f206b056bad53fb792dde5ca199656694ac1574b47a7e171ecdf104861"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c1_b16/wide_cohort.json.gz",
+      "bytes": 25260,
+      "sha256": "fba1c639892b4d94d6b1cee8b1932c8a353cfedeeddae9bd1daddf61cce2f072"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c1_b16/wide_marginal.json.gz",
+      "bytes": 25368,
+      "sha256": "9cb9aee6a8f93310f83e42f0dd8264b04a3d1dc58a4e91a3b23edc7103863bb0"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c1_b4/c_cohort.json.gz",
+      "bytes": 24897,
+      "sha256": "43b1570efad38fb00fb54f380535164056ba12423040a37b07ef5fe41db9c79e"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c1_b4/c_dup_cohort.json.gz",
+      "bytes": 24900,
+      "sha256": "3c8111ca33bae2022b597654e631313466021339b5af25717578e53422926eea"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c1_b4/c_marginal.json.gz",
+      "bytes": 23848,
+      "sha256": "16d8a35ce9478d52a80b6920bcf0855568eabc7a3198dda6740a976852d04140"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c1_b4/home_cohort.json.gz",
+      "bytes": 17015,
+      "sha256": "d9b647ec6090c48fa5a07a3a644a21b528b5bc9d904ddab3c2ba901e8f0b89f7"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c1_b4/home_marginal.json.gz",
+      "bytes": 17006,
+      "sha256": "ee56f5540586b2d3127b85d764176b7d346365436a40e5aaba96c68fbb9923d2"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c1_b4/k2_cohort.json.gz",
+      "bytes": 22884,
+      "sha256": "4b06845cdcad6e5a019a918af6a1b9b6715a6eebacb36c8bf820329140ff8b6a"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c1_b4/k2_marginal.json.gz",
+      "bytes": 22875,
+      "sha256": "35f9b3c119c543230ec42f18e1518d9164e64e3d901f26d4103787e5d24160b0"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c1_b4/wide_cohort.json.gz",
+      "bytes": 21022,
+      "sha256": "2a291de1adbbf0758144f70311b40cd700420be6c5b225f3c8fa5ed53068c4b1"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c1_b4/wide_marginal.json.gz",
+      "bytes": 21554,
+      "sha256": "8a46a8de53cdf46d3b13090ac956f79461659055411a7f2481422b2a07f3d236"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c2_b1/c_cohort.json.gz",
+      "bytes": 14828,
+      "sha256": "ecea196d1109595a8c1a4f0f09e7199eeb8393656633c0122d0f9e5d46757f00"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c2_b1/c_dup_cohort.json.gz",
+      "bytes": 14832,
+      "sha256": "891fb3be9b6d227ee15728a7003cb024ed03516fdf57f495d5d6b96fa5c82e80"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c2_b1/c_marginal.json.gz",
+      "bytes": 14691,
+      "sha256": "540386a8aa122c101ee79436c80635610bdf90852ca922c59f1abbf424ffcf40"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c2_b1/home_cohort.json.gz",
+      "bytes": 11424,
+      "sha256": "694674cf716ef9cfe6678fd6a93d7093bf02c7af5a1f65c611f26c0f8bda7126"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c2_b1/home_marginal.json.gz",
+      "bytes": 11418,
+      "sha256": "c36200b93790cda3d54408eb6f6d06e7c7c3f8cbc8e8778c0ff1ee274be7d9c7"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c2_b1/k2_cohort.json.gz",
+      "bytes": 14354,
+      "sha256": "ea89c842e450988994e9870a3936053f8660dd64718d19649707c490fe85843c"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c2_b1/k2_marginal.json.gz",
+      "bytes": 14344,
+      "sha256": "ac078d15e9410a9b85dad4f820b345545de817eff7410257110938ed58f1e696"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c2_b1/wide_cohort.json.gz",
+      "bytes": 14059,
+      "sha256": "66d361dfb8b68f917ca0147b2a3c82d2cee32c6ecf5b104da40eb613fa8ebee8"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c2_b1/wide_marginal.json.gz",
+      "bytes": 13765,
+      "sha256": "aa5b2793e8818ee9d554439d8427fa5226e64a50a8941bd6ae56dd7a6109b4dc"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c2_b16/c_cohort.json.gz",
+      "bytes": 31983,
+      "sha256": "f604f6a95d0ca766b63cd1e6d64637a2a8434d15dae543ad5daef0b82ecf5db8"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c2_b16/c_dup_cohort.json.gz",
+      "bytes": 31992,
+      "sha256": "6b4daddb020c9d6a2f18f26958c8662c18e2fb16e8b8ec471029296c4decf3e1"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c2_b16/c_marginal.json.gz",
+      "bytes": 32136,
+      "sha256": "d7fc784b1cfa8b781441943e418334b9a9e8c2e14e8962d2dc03c13c0091604b"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c2_b16/home_cohort.json.gz",
+      "bytes": 20910,
+      "sha256": "cbf5a300381fd5a59aa3193e1ea50eaf8f92add95879b6467d34fb4833236c2c"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c2_b16/home_marginal.json.gz",
+      "bytes": 21237,
+      "sha256": "c5b39e394b4b42c79bce96ce96280d5c35404f6b4e6c8c980378fd7d3953bbb5"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c2_b16/k2_cohort.json.gz",
+      "bytes": 29055,
+      "sha256": "d2edce531843735e76f3969e1eb79582e8e734b57a8d7392319332d73ccdcd9d"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c2_b16/k2_marginal.json.gz",
+      "bytes": 29536,
+      "sha256": "0b3a5ba50cc8374bd73159e87c0339541c4388ff6408fcc345aadcc3051d4a1e"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c2_b16/wide_cohort.json.gz",
+      "bytes": 27130,
+      "sha256": "7f790fbd496b851d835e5d171e59df9bdabc775528409fe08e358258e6e49eee"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c2_b16/wide_marginal.json.gz",
+      "bytes": 27219,
+      "sha256": "6ac6df99e1ef0063b888cc0fde7a71b216f706550f2755c12163aa53fd197823"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c2_b4/c_cohort.json.gz",
+      "bytes": 22430,
+      "sha256": "c95018f2c89a22d11aa66965ef8194287ee7bd7b94eeb7a8c79d925fb6a24a8a"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c2_b4/c_dup_cohort.json.gz",
+      "bytes": 22430,
+      "sha256": "f092a7971523be95a977565fecb855c40db33d8d18bfb23ea10ca6f443e73338"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c2_b4/c_marginal.json.gz",
+      "bytes": 22754,
+      "sha256": "3b0c203d04fb3703b229b5b72d93f7e8f66868d5f6c8d2cba7f88270797af1c4"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c2_b4/home_cohort.json.gz",
+      "bytes": 15803,
+      "sha256": "4f924e60a00e6ceefbdb7bac75c8b6dade8dd7f54bbd116ea53fac158bf69882"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c2_b4/home_marginal.json.gz",
+      "bytes": 16136,
+      "sha256": "e4af0deea610fd8bb4bcb5b773b727420d42c9f2c3270ef021db807e23304170"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c2_b4/k2_cohort.json.gz",
+      "bytes": 21843,
+      "sha256": "a1ea2b843750967e0389eb0c0aa19f2690a24659001c26ec002e8afdcf342aa8"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c2_b4/k2_marginal.json.gz",
+      "bytes": 21498,
+      "sha256": "173f6fca94bb520c8c23499dd7fbf8514b2e0b8449eefef8eb7bc7a44b0a720d"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c2_b4/wide_cohort.json.gz",
+      "bytes": 21311,
+      "sha256": "a9b4e710db678ca6a23c17188c8596452d13b41c49145a926788d8d6d482df69"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/c2_b4/wide_marginal.json.gz",
+      "bytes": 20776,
+      "sha256": "5dc8c6692d0d8f293f4f2f4961c95cd7cd017fd70a2bd8e5af057adbf7ce5089"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/completed.jsonl",
+      "bytes": 337404,
+      "sha256": "79d13c5614665274c2771748722a2d3dc61c0e2445691abc637c3255e5340c93"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/provenance.json",
+      "bytes": 5227,
+      "sha256": "12f39cd2a763546a6d472a7ecf71d65498741a10ee4f2e81f8b4a9c9eee16391"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/flow/summary.json",
+      "bytes": 510782,
+      "sha256": "0d67ecbda09e9dc874bfe30d230463ab755c81ff0260b2fa343adc09c0c4ae6b"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b1/c_demand.json",
+      "bytes": 3643,
+      "sha256": "339ae009cde1b510afaa5a0be8b8251dd34d80dca8150a66da9f4401a6b78b29"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b1/c_spec.json",
+      "bytes": 2246,
+      "sha256": "47d6be25fef1140c3b827aa3bf17e0d6f3a292a8c8648826af65eb1624cb8965"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b1/c_trace.json",
+      "bytes": 15541,
+      "sha256": "476fa84279877c68eab783acdb3a428d9918549e0752783025c89269a6473c5c"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b1/home_demand.json",
+      "bytes": 3643,
+      "sha256": "c1229f254d497fb2d88c2fb24033134c83e3d0bb8013012f1890aa7f01df831c"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b1/home_spec.json",
+      "bytes": 2246,
+      "sha256": "c47cec55b65d3a52dda681377b4d60c567d119461f616e592a3581cbc1d16555"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b1/home_trace.json",
+      "bytes": 15541,
+      "sha256": "191046e1fa66c23067b32b9e6c0ab1707561a4037de1c8e07b33a2848d4624a8"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b1/k2_demand.json",
+      "bytes": 3643,
+      "sha256": "cee038c1f7ed79c20e0af29854a5e396c0dca93c3e232ee829682e2219871185"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b1/k2_spec.json",
+      "bytes": 2246,
+      "sha256": "53c447c7553afaf755df77cbc807047bd59a35a924934d0a54931c4915cdc42a"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b1/k2_trace.json",
+      "bytes": 15540,
+      "sha256": "493c5519acbbca216b8f9ffb6ef951490dff2dc0f60c2c023e1753e21cb56557"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b1/manifest.json",
+      "bytes": 533,
+      "sha256": "1c2444d8e1f9651ad457ecd1595deae78bb47d9a05e120720254fc69fdfeb9ed"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b1/marginal_demand.json",
+      "bytes": 3643,
+      "sha256": "c0a5c3867f718f7b024dcdc2e42c64ce4b5d4a4a059aca0c9476fec936abf481"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b1/marginal_spec.json",
+      "bytes": 2246,
+      "sha256": "6f77623400a2223256b4a1fd712e7c102d304b47b74a07f24814175e3b31db1d"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b1/marginal_trace.json",
+      "bytes": 15542,
+      "sha256": "43dfb719acad2a515a081264929ba0ecffcc5c69ebab655145a39ca5785f2d7a"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b1/wide_demand.json",
+      "bytes": 3643,
+      "sha256": "4edbabded526335e86a47ad0850a022c7ebac99f2d64ec95c20c7077f76ec38f"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b1/wide_spec.json",
+      "bytes": 2246,
+      "sha256": "ba55de44408dda6affb52d3c81a8c8de8040885bebad4765da22d1203e3c158f"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b1/wide_trace.json",
+      "bytes": 15541,
+      "sha256": "59f00e14c85b02c34615eb00f1a84935af26efc77e62dd9eed34b9ed28554c29"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b16/c_demand.json",
+      "bytes": 17577,
+      "sha256": "e59a1935ba94609171c495378aacb6b67a7ce57ae14ff984b4cba385438208a7"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b16/c_spec.json",
+      "bytes": 2247,
+      "sha256": "d8983f3ff06604e857e5fb0aae0983a5ff1cb496eb2d46dd01886b0816afe730"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b16/c_trace.json",
+      "bytes": 38714,
+      "sha256": "74a73e100b104431d0f2038ed46185676f1149ad3da93dc8bbbf072082b086ed"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b16/home_demand.json",
+      "bytes": 17577,
+      "sha256": "2b103b46907873e500fc46a86b1be5d0368460c55eeceb9ef0efb78a313299ea"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b16/home_spec.json",
+      "bytes": 2247,
+      "sha256": "b7b986554d821ff0ad24eea467309b26180ae8839deb83c2e3e2c2c70ad2904e"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b16/home_trace.json",
+      "bytes": 38714,
+      "sha256": "a90f59de634cdd046b384fc354cd1b655c160cab0a20cc1da6f34d7ecdf7b2f9"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b16/k2_demand.json",
+      "bytes": 17577,
+      "sha256": "456e2c1b1d3bb817ac7625cc277c7dc07b372be5e050c4e9a0582add45fd8cfc"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b16/k2_spec.json",
+      "bytes": 2247,
+      "sha256": "30688b98c2a0c446807dccb3e2abdbdcb11489cb20296403460d6bd9c82a8305"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b16/k2_trace.json",
+      "bytes": 38714,
+      "sha256": "e07670923c0479dfd8a91c099cbe8949296beba6c4ce6b0d0f0891d4c8fbbdfc"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b16/manifest.json",
+      "bytes": 5235,
+      "sha256": "b1ca882f886b85f0136ab96e61938f5ca5ae2b3505beacf3ec5a5d581d2905f8"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b16/marginal_demand.json",
+      "bytes": 17577,
+      "sha256": "ca33c9867c86c5af0bd88e604da67e3ba3d359d588dd2865617f77751dbc5aaa"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b16/marginal_spec.json",
+      "bytes": 2247,
+      "sha256": "33ba82493c9bd6c33347b53fe056582332bc56b02354a2570935ff3b7315e64c"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b16/marginal_trace.json",
+      "bytes": 38714,
+      "sha256": "952f35e18a2a467e61541082b5b03c4158f610be2fca09f7f26ffe415cd843ec"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b16/wide_demand.json",
+      "bytes": 17577,
+      "sha256": "276af50ec480625a64954fc0a7d30244ee242338821663fce7deaee1ef891bde"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b16/wide_spec.json",
+      "bytes": 2247,
+      "sha256": "b5ebfea1d7a57fc842211691b6061b04ec979427c8e2a7971cdfd4771c0530c5"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b16/wide_trace.json",
+      "bytes": 38714,
+      "sha256": "1d6673a4c4efcb666115498b0c059eb1c54ac4eead0a07f0c97551375f58bd6b"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b4/c_demand.json",
+      "bytes": 7175,
+      "sha256": "d5e06251ea20cfc71cf9af03799e22a6c7f56c49c03e2d770c6e3dca493e2c91"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b4/c_spec.json",
+      "bytes": 2246,
+      "sha256": "08c8c0541ca2054a8ff24bf8d4711f09a66cab72ea9ccbf8fbd6467af3f9337f"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b4/c_trace.json",
+      "bytes": 23485,
+      "sha256": "d0f158d0fda6e051f318c49968592406de6ecbde65c6aea1404907e2bfcd29d2"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b4/home_demand.json",
+      "bytes": 7189,
+      "sha256": "51bf5588120939b01c880a0b486ea2abd171c7531634667009c4d1ff3c7c5377"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b4/home_spec.json",
+      "bytes": 2246,
+      "sha256": "f69b3d1937457da5dd60ee829a40cd5e796187b2d42008f15fccb8a53a000ab5"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b4/home_trace.json",
+      "bytes": 23485,
+      "sha256": "449752f336437ce571525a77d2e2531a0377ca89ac8b642526aa827155c1329b"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b4/k2_demand.json",
+      "bytes": 7182,
+      "sha256": "5cab35e6297dc1dd074edc2753740cc881cfbfd398e3dd3e682864b3e07c5af8"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b4/k2_spec.json",
+      "bytes": 2246,
+      "sha256": "a8572f9703772bf0a3afa6506ce555377163ca1550120bbdf9cb40b09bbd0588"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b4/k2_trace.json",
+      "bytes": 23485,
+      "sha256": "b561cbb74dcab2bebed79ef84c36344d158216c689bae1df38b092ab1be36f1b"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b4/manifest.json",
+      "bytes": 1489,
+      "sha256": "5238d6c8ee2c812341678caf0c76866a8494414f48aaae477bd724e5dc1b7576"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b4/marginal_demand.json",
+      "bytes": 7189,
+      "sha256": "81809b685cc6b219d858a6b2515f52102d80df99bc33a7055af787abbc64dfed"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b4/marginal_spec.json",
+      "bytes": 2246,
+      "sha256": "cd749faeb2cc9ff7a61f1a12aa55490d261d9d1b775f097ad93faad1348f7048"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b4/marginal_trace.json",
+      "bytes": 23486,
+      "sha256": "6741e3441078aa3bf7599610eaa7284aa6161336c9c16b64a02be06f26fba19f"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b4/wide_demand.json",
+      "bytes": 7196,
+      "sha256": "585414b05bc96ca235a4731faa1834189d2d0539ac46573c4ea6ad4486a49fb2"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b4/wide_spec.json",
+      "bytes": 2246,
+      "sha256": "7686c41d17f01a64b6c7ac6d62ffaaacde13cf7c176ef510aa06501619285496"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c0_b4/wide_trace.json",
+      "bytes": 23485,
+      "sha256": "d6f42ed6854c5355100be78b70107e416a4d70b42d27dbd71fb73fd0ac0eed70"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b1/c_demand.json",
+      "bytes": 3650,
+      "sha256": "f744494249eca2ad293bce2db203780bb7e3bfb699443fbfc66bc5db43c87ac7"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b1/c_spec.json",
+      "bytes": 2246,
+      "sha256": "47d6be25fef1140c3b827aa3bf17e0d6f3a292a8c8648826af65eb1624cb8965"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b1/c_trace.json",
+      "bytes": 15539,
+      "sha256": "9d201860661a7cd52ccaf99a763084d6b749957da4bfdfd21913b9fea51cda3d"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b1/home_demand.json",
+      "bytes": 3650,
+      "sha256": "a1c269c401c9635fa9343de687b7e09216ab39d65674f2057d9abe6bff806cfe"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b1/home_spec.json",
+      "bytes": 2246,
+      "sha256": "c47cec55b65d3a52dda681377b4d60c567d119461f616e592a3581cbc1d16555"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b1/home_trace.json",
+      "bytes": 15538,
+      "sha256": "d3b3bc7b9d8bb7ae903b468a12fc930a42f6519023e265adba8212041b0ce3a8"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b1/k2_demand.json",
+      "bytes": 3650,
+      "sha256": "f3a28e395d83480c0ca5f2489402f47b1f9a100847e7aded0f63d73aca3c4f83"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b1/k2_spec.json",
+      "bytes": 2246,
+      "sha256": "53c447c7553afaf755df77cbc807047bd59a35a924934d0a54931c4915cdc42a"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b1/k2_trace.json",
+      "bytes": 15537,
+      "sha256": "72e504e59f66f725e791f195bbf16c3e813aa8fc44998822219e959c5c072d19"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b1/manifest.json",
+      "bytes": 537,
+      "sha256": "92c486b82653daac26927e0e85388851d2e306143a75b18ceaf49bc696678d6e"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b1/marginal_demand.json",
+      "bytes": 3650,
+      "sha256": "fae1a1a3dcb2c0d3fad2d06f2bf41675442b81cbccdbd8673b7f045819b3c0dd"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b1/marginal_spec.json",
+      "bytes": 2246,
+      "sha256": "6f77623400a2223256b4a1fd712e7c102d304b47b74a07f24814175e3b31db1d"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b1/marginal_trace.json",
+      "bytes": 15538,
+      "sha256": "23e2a33111d963515e88292b445a935bcb9396f2a4d6f6a7e7ad06870e445f82"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b1/wide_demand.json",
+      "bytes": 3650,
+      "sha256": "8fd6449c21e72a246d1ec23357839012c3fec1f5f53d46004ad2b65871c1a8b2"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b1/wide_spec.json",
+      "bytes": 2246,
+      "sha256": "ba55de44408dda6affb52d3c81a8c8de8040885bebad4765da22d1203e3c158f"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b1/wide_trace.json",
+      "bytes": 15538,
+      "sha256": "52045fb7136d8fd252400a13df674686e3ac7d60622788ab0ae025bf73ce76e7"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b16/c_demand.json",
+      "bytes": 16861,
+      "sha256": "6260847d56b3fa4b8a2eb518dd191d1b44ab28457f06754d2d1cb17b3f4c1688"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b16/c_spec.json",
+      "bytes": 2247,
+      "sha256": "d8983f3ff06604e857e5fb0aae0983a5ff1cb496eb2d46dd01886b0816afe730"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b16/c_trace.json",
+      "bytes": 35075,
+      "sha256": "dca3d04d24e74e78069622d89df05763dd7985742cb4cbb2664d9db0060e9056"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b16/home_demand.json",
+      "bytes": 16875,
+      "sha256": "6162e24aec36ba05277fd173a15215048c37937d364396e15dfa2073080744d8"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b16/home_spec.json",
+      "bytes": 2247,
+      "sha256": "b7b986554d821ff0ad24eea467309b26180ae8839deb83c2e3e2c2c70ad2904e"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b16/home_trace.json",
+      "bytes": 35077,
+      "sha256": "577044919d9be7c8aecdede0b7b5757b77a81c6cc36c01cfb53b4232efb36cfb"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b16/k2_demand.json",
+      "bytes": 16875,
+      "sha256": "46e073ff141ff1e797fa6ebae6b304b7843b4fb2fbdb63e3b2d159af29915529"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b16/k2_spec.json",
+      "bytes": 2247,
+      "sha256": "30688b98c2a0c446807dccb3e2abdbdcb11489cb20296403460d6bd9c82a8305"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b16/k2_trace.json",
+      "bytes": 35077,
+      "sha256": "0808010a91cab95d651cdf88d49e6b738948b5a20ace010a40c4e147d00e962d"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b16/manifest.json",
+      "bytes": 5234,
+      "sha256": "df35999edbf52535f46ac9395f681ee25f4582b9bf21e7c6514e74083b063caf"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b16/marginal_demand.json",
+      "bytes": 16875,
+      "sha256": "3559cdbb8ae6c4ba3df355bfec86f05680e58571ff0277000341019932095a5a"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b16/marginal_spec.json",
+      "bytes": 2247,
+      "sha256": "33ba82493c9bd6c33347b53fe056582332bc56b02354a2570935ff3b7315e64c"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b16/marginal_trace.json",
+      "bytes": 35077,
+      "sha256": "6a86204c9cd07a26868acc57ef3f3ca772dced557c97919f8f09d04cf4377abd"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b16/wide_demand.json",
+      "bytes": 16861,
+      "sha256": "bdd91dc0019dcf23bddbad4e426cf34dea2007eef7f56561a8044c07bcad3b52"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b16/wide_spec.json",
+      "bytes": 2247,
+      "sha256": "b5ebfea1d7a57fc842211691b6061b04ec979427c8e2a7971cdfd4771c0530c5"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b16/wide_trace.json",
+      "bytes": 35075,
+      "sha256": "4d866b7b302b2834bacb41d89f9d06f8ad38042542216de79ea56c66793796f6"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b4/c_demand.json",
+      "bytes": 7122,
+      "sha256": "4cc981fcbb4d73b4c1abe8582b17628a18a98271b1b58cd78106dc741a144421"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b4/c_spec.json",
+      "bytes": 2246,
+      "sha256": "08c8c0541ca2054a8ff24bf8d4711f09a66cab72ea9ccbf8fbd6467af3f9337f"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b4/c_trace.json",
+      "bytes": 23158,
+      "sha256": "69c5e0b381a5c2531eea87259c12606a552b32daef5829777807baa08c79201b"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b4/home_demand.json",
+      "bytes": 7108,
+      "sha256": "675c3d621c8ec060d9897913c5a9a4fb55e925d644971d850fd717ac0bd0cc79"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b4/home_spec.json",
+      "bytes": 2246,
+      "sha256": "f69b3d1937457da5dd60ee829a40cd5e796187b2d42008f15fccb8a53a000ab5"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b4/home_trace.json",
+      "bytes": 23157,
+      "sha256": "805bba134b3b5db3e0e241496685348606d5dbbc246ea7a852ba4d07ec3ef19f"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b4/k2_demand.json",
+      "bytes": 7108,
+      "sha256": "fb20607be3913a4ec026b134ceec36988fa5dcccb6f37094b4df6504fc8815e7"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b4/k2_spec.json",
+      "bytes": 2246,
+      "sha256": "a8572f9703772bf0a3afa6506ce555377163ca1550120bbdf9cb40b09bbd0588"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b4/k2_trace.json",
+      "bytes": 23156,
+      "sha256": "9e99057ae39dba6ea877d6e7df7d7159c1f49b27fad8f0e7c917be0011fb128a"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b4/manifest.json",
+      "bytes": 1489,
+      "sha256": "fa1a273ab10fb75888f84f69adbb16a4a9a17cd84d9d1d0e750dae1909ef321d"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b4/marginal_demand.json",
+      "bytes": 7108,
+      "sha256": "16148e3a2df390c8e517084cc3308081eb2a2416ca8d0baa264609f2c05d6486"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b4/marginal_spec.json",
+      "bytes": 2246,
+      "sha256": "cd749faeb2cc9ff7a61f1a12aa55490d261d9d1b775f097ad93faad1348f7048"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b4/marginal_trace.json",
+      "bytes": 23156,
+      "sha256": "919bf3a73cffcdbd2ddbca3febd7b6c8ee5cea91a23fd5c644514556bbb7356e"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b4/wide_demand.json",
+      "bytes": 7094,
+      "sha256": "d0ae0fc0da799f643b4a46890d77e1ecbe7288f9adfc5f43e65937017e6b1149"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b4/wide_spec.json",
+      "bytes": 2246,
+      "sha256": "7686c41d17f01a64b6c7ac6d62ffaaacde13cf7c176ef510aa06501619285496"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c1_b4/wide_trace.json",
+      "bytes": 23156,
+      "sha256": "67a7bdea72f83c5d5ad17c1222e840475f40c7233ba0b3227240ed8bd41c820e"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b1/c_demand.json",
+      "bytes": 3627,
+      "sha256": "6f2addb4c1d5bdefcd8ea5ea39228b51dd8931022e8cbeb4c7e50e972f87e9cc"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b1/c_spec.json",
+      "bytes": 2246,
+      "sha256": "47d6be25fef1140c3b827aa3bf17e0d6f3a292a8c8648826af65eb1624cb8965"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b1/c_trace.json",
+      "bytes": 15537,
+      "sha256": "f6deff4019c731d52b0892a5eb9b7f8f77f7e3c559a26559db980c1466cd7a6b"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b1/home_demand.json",
+      "bytes": 3627,
+      "sha256": "1fd8ba8e97898fe573a0b2720d97a6f7948f511df75b1b77a02e5c70ba4aadf8"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b1/home_spec.json",
+      "bytes": 2246,
+      "sha256": "c47cec55b65d3a52dda681377b4d60c567d119461f616e592a3581cbc1d16555"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b1/home_trace.json",
+      "bytes": 15537,
+      "sha256": "70d4beaf9733c523d74305271de7e5215cc3913255fb69f4403cc2a7cfbdb1fa"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b1/k2_demand.json",
+      "bytes": 3627,
+      "sha256": "317a1f82117227c1694c62e33166cdbd1d597dbb4f5decc1cb987910c6a050f6"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b1/k2_spec.json",
+      "bytes": 2246,
+      "sha256": "53c447c7553afaf755df77cbc807047bd59a35a924934d0a54931c4915cdc42a"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b1/k2_trace.json",
+      "bytes": 15537,
+      "sha256": "8d4435a363beaf4bd70a46bbe649766bc310a713d600149e1a8f1309c5d6e55a"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b1/manifest.json",
+      "bytes": 524,
+      "sha256": "f2343972c802ce7064de1133b93d8a90cab5305b688c95fef5c929f203801dbd"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b1/marginal_demand.json",
+      "bytes": 3627,
+      "sha256": "dc4364b9675ae69cd8ece38a0c7c3ec9019f5bfe83f0ef0def5c1a65e68f2705"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b1/marginal_spec.json",
+      "bytes": 2246,
+      "sha256": "6f77623400a2223256b4a1fd712e7c102d304b47b74a07f24814175e3b31db1d"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b1/marginal_trace.json",
+      "bytes": 15537,
+      "sha256": "24e71f6b2951a930f401deb20488f691f44d1b73fd23d7b4990a006916bb79c2"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b1/wide_demand.json",
+      "bytes": 3627,
+      "sha256": "64bb385e988e9930cd9f0353f6b9603ad266c03db300f892ef50c087bda6dadc"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b1/wide_spec.json",
+      "bytes": 2246,
+      "sha256": "ba55de44408dda6affb52d3c81a8c8de8040885bebad4765da22d1203e3c158f"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b1/wide_trace.json",
+      "bytes": 15536,
+      "sha256": "e64809ed11254b673c65d8ffccf1a021b808e8cdbcf9d40bdfee522d24e0394c"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b16/c_demand.json",
+      "bytes": 17797,
+      "sha256": "04ccb612699007a519ba5114cd2609f8242f724fb831663da5029322857e8490"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b16/c_spec.json",
+      "bytes": 2247,
+      "sha256": "d8983f3ff06604e857e5fb0aae0983a5ff1cb496eb2d46dd01886b0816afe730"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b16/c_trace.json",
+      "bytes": 39711,
+      "sha256": "386a33fcf684f55e3e03b9a0fc7f15effd0292c7f226ffdf349d8200db228095"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b16/home_demand.json",
+      "bytes": 17790,
+      "sha256": "07389312c54b9ad402d96f4b8478295426dda14e30d69b758a708dafcb85022b"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b16/home_spec.json",
+      "bytes": 2247,
+      "sha256": "b7b986554d821ff0ad24eea467309b26180ae8839deb83c2e3e2c2c70ad2904e"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b16/home_trace.json",
+      "bytes": 39709,
+      "sha256": "3462a6f3e8df027793dd8b4592610f4c561e634a48d562116998a5bbc0f33c11"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b16/k2_demand.json",
+      "bytes": 17790,
+      "sha256": "2f114539b89009b3d061da112ebc27a815a8a6d82aa45930a4008f32ffd1d372"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b16/k2_spec.json",
+      "bytes": 2247,
+      "sha256": "30688b98c2a0c446807dccb3e2abdbdcb11489cb20296403460d6bd9c82a8305"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b16/k2_trace.json",
+      "bytes": 39709,
+      "sha256": "7338242b45cd92f12adf505d9391b425696acf2b9ead8656eda4ffa8fb25a4d4"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b16/manifest.json",
+      "bytes": 5238,
+      "sha256": "131dfe6133cdabd8d26fd1f07d66369a0d5a92f09289f5642df9f03560d57341"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b16/marginal_demand.json",
+      "bytes": 17797,
+      "sha256": "bf778e4bd2b3ad86a5d907814c68863f64e1972e521d7cd14b39fae0d81d16e8"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b16/marginal_spec.json",
+      "bytes": 2247,
+      "sha256": "33ba82493c9bd6c33347b53fe056582332bc56b02354a2570935ff3b7315e64c"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b16/marginal_trace.json",
+      "bytes": 39710,
+      "sha256": "14aa638450d5486fa694307fd3e31a98768eacb0b07e6c9952fa12542f7174b1"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b16/wide_demand.json",
+      "bytes": 17804,
+      "sha256": "b1bf5881a0c5168fa76dbcd1a45c66fd355d646915ecd2ccd6a7d89692362a20"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b16/wide_spec.json",
+      "bytes": 2247,
+      "sha256": "b5ebfea1d7a57fc842211691b6061b04ec979427c8e2a7971cdfd4771c0530c5"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b16/wide_trace.json",
+      "bytes": 39710,
+      "sha256": "693d2151e71c2828668d08a6d218b1970a6d667d8ec42bae28215c658a802c90"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b4/c_demand.json",
+      "bytes": 6900,
+      "sha256": "685f186c0e42924ada1de2c7635382f820701d73e158098df8ee9b6141d81134"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b4/c_spec.json",
+      "bytes": 2246,
+      "sha256": "08c8c0541ca2054a8ff24bf8d4711f09a66cab72ea9ccbf8fbd6467af3f9337f"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b4/c_trace.json",
+      "bytes": 22486,
+      "sha256": "468120950e9ccb3b6670259096aa503df1a268306dca35543e525eadd8ff46a8"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b4/home_demand.json",
+      "bytes": 6900,
+      "sha256": "e171ffb730cc267bd2ead165f3f1dbf82970595de1a52ecd80acfb66f3c6c854"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b4/home_spec.json",
+      "bytes": 2246,
+      "sha256": "f69b3d1937457da5dd60ee829a40cd5e796187b2d42008f15fccb8a53a000ab5"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b4/home_trace.json",
+      "bytes": 22485,
+      "sha256": "86101d8b9a04c1f1ace948d5d22ac6490eb8fedcdb4c0cff2b1d05481baac1d0"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b4/k2_demand.json",
+      "bytes": 6914,
+      "sha256": "b97461733aab38e2361a3857a0dc415f257314d5885a1f87e882398f7ddf094a"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b4/k2_spec.json",
+      "bytes": 2246,
+      "sha256": "a8572f9703772bf0a3afa6506ce555377163ca1550120bbdf9cb40b09bbd0588"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b4/k2_trace.json",
+      "bytes": 22485,
+      "sha256": "df3e6b5335f475d478db76b497f1dcc08f9ce0f9b49da43dda992ec4e1d57903"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b4/manifest.json",
+      "bytes": 1459,
+      "sha256": "b35bfbfcc36eb064a11f5bd1c7bed6502d352dd72697aea9f952786f4f2f12ed"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b4/marginal_demand.json",
+      "bytes": 6907,
+      "sha256": "fde121487b24d83f44e92661bdfe79836a2c4ade3aec766365964638d23709dd"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b4/marginal_spec.json",
+      "bytes": 2246,
+      "sha256": "cd749faeb2cc9ff7a61f1a12aa55490d261d9d1b775f097ad93faad1348f7048"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b4/marginal_trace.json",
+      "bytes": 22485,
+      "sha256": "5f24513d4f00b251a812c1f686f343231a625c5d58bf5a5388a082c638c013ea"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b4/wide_demand.json",
+      "bytes": 6914,
+      "sha256": "1652f90d2cee449089159e511ef58b642c685d5a86fbc06395a21f95a8387858"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b4/wide_spec.json",
+      "bytes": 2246,
+      "sha256": "7686c41d17f01a64b6c7ac6d62ffaaacde13cf7c176ef510aa06501619285496"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/c2_b4/wide_trace.json",
+      "bytes": 22485,
+      "sha256": "3c94375647a553ed1a8635e5f418670ac025083f3695bf0cb4eed023bed096db"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/corpus_manifest.json",
+      "bytes": 63567,
+      "sha256": "9eb482ad534961f3a3e0db4586b5288ad0f07c5100f64bf2510a6e844fb382bd"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/owners.json",
+      "bytes": 5042,
+      "sha256": "6b192b881afc0c8171d1bc07e91c089dca9a196753c6cdad1384139c4a2c88c5"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/raw_manifest.json",
+      "bytes": 15261,
+      "sha256": "4adbf62edd9463256d3fbe78d52bcb603b9cc5f15637d881f2a1fed90d9161d5"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/routes.json.gz",
+      "bytes": 46914,
+      "sha256": "758fcb88aaafbbef12fe5d4e64e7680438f39c9c666cf9aae3b82c0ec3000ca1"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay/inputs/summary.json",
+      "bytes": 44983,
+      "sha256": "d89858d7c3ed437916bb9f43c27aaf07242e67d87eacf185e19d85b1b3905374"
+    },
+    {
+      "path": "artifacts/provenance/cohort_replay/cohort_analysis.log.gz",
+      "bytes": 532,
+      "sha256": "b68c8d30b1ce249a648e3c7c9717c01fec0ec8b22adbc63c5e4225f3e01fe42f"
+    },
+    {
+      "path": "artifacts/provenance/cohort_replay/cohort_audit.json",
+      "bytes": 719,
+      "sha256": "9c3ca33ac097c2e4d1932999d694242eb583ff89013c054b7f3ceffc40de99c5"
+    },
+    {
+      "path": "artifacts/provenance/cohort_replay/cohort_audit.log.gz",
+      "bytes": 412,
+      "sha256": "fe0f7d5aec788967b799aaa1a4514b3c1b3d73b893ffaae4ccdf97481c1a1095"
+    },
+    {
+      "path": "artifacts/provenance/cohort_replay/cohort_finalized.log.gz",
+      "bytes": 66,
+      "sha256": "65012b4e57f1302c2dd32aba0d17daecb1c990c7bf857bc9f03dab891f9c0f32"
+    },
+    {
+      "path": "artifacts/provenance/cohort_replay/entrypoint_tests.log.gz",
+      "bytes": 227,
+      "sha256": "76a585fd36001bc6865fe44301eb763808638409d44018744e69e9829217518d"
+    },
+    {
+      "path": "artifacts/provenance/cohort_replay/final_tests.log.gz",
+      "bytes": 1730,
+      "sha256": "463af2856b2b8af1e9a395eed9542f8e90cb18508b462ccbaebcec6097552174"
+    },
+    {
+      "path": "artifacts/provenance/cohort_replay/finalization_audit.json",
+      "bytes": 719,
+      "sha256": "df4ee48b74824a91f4dc3ba25d354429e901996438129a7f704b4a2afe6671d1"
+    },
+    {
+      "path": "artifacts/provenance/cohort_replay/finalization_receipt.json",
+      "bytes": 9280,
+      "sha256": "97ac20e0b957e2aec229470c430da79740e7c13760643832f9cf996be4854183"
+    },
+    {
+      "path": "artifacts/provenance/cohort_replay/preparation_tests.log.gz",
+      "bytes": 439,
+      "sha256": "629b68aae5a77a98c5564e61172a16031db399f30c712016ef92141311e6be9d"
+    },
+    {
+      "path": "artifacts/provenance/cohort_replay/prepare.log.gz",
+      "bytes": 74,
+      "sha256": "2809566f4d5ab01b7ec1b3ae99e823550fa1b8ac0c0b0b0456f51a931c4bccc6"
+    },
+    {
+      "path": "artifacts/provenance/cohort_replay/raw_audit.json",
+      "bytes": 500,
+      "sha256": "473d36a85bbc411ef176b4be2037344c89b66af0ce95b02001dc83be6f009baa"
+    },
+    {
+      "path": "artifacts/provenance/cohort_replay/raw_audit.log.gz",
+      "bytes": 257,
+      "sha256": "48541ef22883ff84e15c8d5750cc485a778b1ab19f5fee908c88f9dfd1acb8af"
+    },
+    {
+      "path": "artifacts/provenance/cohort_replay/replay.exit",
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "path": "artifacts/provenance/cohort_replay/replay.log.gz",
+      "bytes": 613,
+      "sha256": "4bd3a3d1011e640c8b458d3e432ba4b3ea9f90fbe3f2693de780eb5d8fbf4467"
+    },
+    {
+      "path": "artifacts/figures/cohort_replay/cohort.pdf",
+      "bytes": 20836,
+      "sha256": "e7644ae3d12df7b21f5cce4b89376653ee172c9a5c597189f4e781e09c6097f8"
+    },
+    {
+      "path": "artifacts/figures/cohort_replay/cohort.svg",
+      "bytes": 59115,
+      "sha256": "3f1706158cdc405779fb41f3d9625beb074491f885eb048680833b8ab3d23696"
+    }
+  ],
+  "scope": "Eex005 complete cohort batch; independent hn072 replica excluded; raw routing stays on server; no new RTL/PPA or native execution in these 81 runs",
+  "remote_locations": {
+    "execution": "wangziheng@eex005:/home/wangziheng/Video/w2w-cohort-replay-20261008/memory_results",
+    "finalization": "wangziheng@eex005:/home/wangziheng/Video/w2w-beat-contract-20261008/memory_results/cohort_finalized",
+    "raw_preparation": "hn072@143.89.78.72:/Projects/haoning/w2w-cohort-replay-20261008/memory_results/inputs"
+  }
+}

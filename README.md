@@ -46,6 +46,7 @@ memory_results/            本地/服务器实验工作目录（不入 Git）
 
 ## 从这里开始
 
+- [81次独立请求回放：冻结cohort映射、完整资源下界与负例](docs/reports/COHORT_REPLAY_REPORT.md)
 - [从wafer模板和DRAM原生服务出发的设计原则](docs/methods/WAFER_DRAM_SERVICE_PRINCIPLES.md)
 - [同一原生组织下调整静态比例：完整对象读时间减少17.44%](docs/reports/NATIVE_MATCHED_RESIDENCY_REPORT.md)
 - [最新：完整返回路径配置、166次回放与位宽/RX成本选择](docs/reports/RETURN_PATH_PROVISIONING_REPORT.md)

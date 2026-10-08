@@ -61,16 +61,22 @@ wide k3 是固定 pair 的较宽参考，不是任意数据路由或 full poolin
 
 C/RX3在五个有正wide收益的窗口保留约81.82%–83.32%的增量，同时增加接收状态。它相对wide少16.67% lane、少18.63% wire proxy，TX+RX payload proxy却多71.43%。这些坐标各有取舍，不能总结成总体成本只剩55%–70%。现有RTL beat reservoir与系统整字RX reservation还不同，不能把C的模型收益直接配上B的P&R面积。
 
-## 下一项研究只回答一个问题
+## 本轮已检验的研究问题
 
 > 在同等离线优化机会、冻结部署和完整成本口径下，有限共享是否仍比优化后的private memory有值得制造的收益？
 
-先保持现有H/plus、原生服务与请求预算不变。Home、k2、B及wide参考各自获得相同的cohort训练预算，保留modulo和边际LPT起点；训练后冻结owner、伙伴、数据比例和方向，用未用于选型的请求/层/步回放。另保留共同owner的单因素对照，把布局收益与fabric收益分开。当前cohort探针只有训练评分改善，不能提前写成测试集加速。
+已保持H/plus、slot原生服务与请求预算不变，完成Home/k2/wide/C各自冻结cohort owner与边际LPT的81次回放。它没有额外运行新的modulo Home，也没有优化伙伴或释放placement；不能称全局最佳静态组织。旧同owner单因素对照继续保留，布局收益与fabric收益分别报告。
 
 成本侧将未裁剪、固定专用、可配置三个实现并排保留。最终要报告的是：任务完成收益、模板适应范围，以及为这种适应范围多付出的完整路径资源。先用现有RTL明确哪个服务合同可以兑现，不扩展新的FIFO搜索或跨bank engine pool。
 
 若优化后的Home消除了大部分收益，或固定专用/合法重用方式同样便宜好用，就应缩小或修正贡献；若共享在独立需求上仍有稳定的同成本优势，再扩展制造模板和物理验证。DRAM后端作为可选敏感性工具保留，暂不继续批量扩跑。
 
-同步补记：已合并另一开发者注册的[81次冻结cohort回放](methods/COHORT_REPLAY_STUDY.md)及独立beat状态模型。前者将Home/k2/wide/C分别与LPT起点比较，尚未在本轮核验执行完成；后者不修改该回放合同。后续先收齐既定回放及独立审计，不重复开展同类实验。
+## 2026-10-08新增结果与设计方向
+
+[81次冻结cohort回放](reports/COHORT_REPLAY_REPORT.md)已完成：Home/k2九窗映射持平，C改善两个，宽k3改善四个但退化一个。各自冻结cohort布局后，C六窗口快于Home，一个相同，两个慢2槽。全部81项距必要资源下界最多11槽/0.0173%；九组C duplicated/configurable服务相同。原166次/66行汇总仍为历史实验，不悄悄并入新成绩。
+
+同一B接口与HBM2组织的[两次原生驻留诊断](reports/NATIVE_MATCHED_RESIDENCY_REPORT.md)已完成：8/13改1/2使完整对象读时间减少17.44%，没有增加原生或接口能力。这支持按真实原生服务域选择比例，尚非完整batch结果。另有[48项局部beat见证](reports/BEAT_RETURN_CONTRACT_REPORT.md)，显式计费HB流水和RX，没有改RTL或替换系统合同。
+
+接下来优先联合配置原生服务域、静态驻留和请求/返回容量，保留真正独立的DRAM并行度；具体顺序与必要界见[第一性推导](methods/WAFER_DRAM_SERVICE_PRINCIPLES.md)。跨bank聚合是否值得，由原生共享总线和新增汇聚成本决定。hn072另一份独立复跑按其启动身份单列，不与已完成eex005结果混合。
 
 原文与代码核对补记：上游要求identical reticles，但未明确禁止混合朝向；公开构造器采用整层统一模板，没有逐实例orientation参数。我们将同朝向、条件混合朝向和静态变体分开比较，不能借原文排除旋转裁剪强基线。[具体原文定位与推论边界](reports/TEMPLATE_BINDING_REPORT.md#对照-nw-design-for-wsi-原文与代码)。

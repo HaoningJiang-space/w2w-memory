@@ -2,7 +2,7 @@
 
 当前目标是在重复 reticle 的 WoW 系统中，联合组织 DRAM 服务接口、物理连接和静态数据驻留，使空闲服务能够被繁忙 compute 利用。Matching、endpoint 与 RTL 是方法组件。
 
-**当前优先级：[研究证据与强基线](RESEARCH_STATUS.md)。** 暂停扩大DRAM/FIFO/topology支线，先检验有限共享相对同等优化的Home及静态裁剪实现的价值。
+**当前优先级：[原生服务域与静态驻留联合配置](methods/WAFER_DRAM_SERVICE_PRINCIPLES.md)。** 81次独立请求回放已收齐；结合[研究证据与强基线](RESEARCH_STATUS.md)选择下一项配置，不重复该批实验。
 
 本页只记录当前状态。此前逐轮交接完整保存在 [历史记录](HANDOFF_HISTORY.md)，其中“当前”“下一步”、路径和测试数只适用于各自提交，不作为新开发任务。
 
@@ -26,13 +26,22 @@
 | 静态裁剪强基线 | 六项映射、28项mapped配对回放完成；固定专用更小，可配置以约4% source面积代价保留选择；[结论](RESEARCH_STATUS.md) |
 | 新 service-engine pool | 研究提案，未实现；[问题分析与形式化](methods/SERVICE_PROVISIONING_ASSESSMENT.md) |
 | cohort静态owner | layer0训练探针在固定硬件上改善评分4.90%–7.77%；非测试集/任务加速；[设计报告](reports/COHORT_SERVICE_DESIGN_REPORT.md) |
+| 冻结cohort独立请求回放 | 48新请求、九窗口、81次全部完成，1,815,921,504字；C映射改善2/9、宽k3有负例；[报告](reports/COHORT_REPLAY_REPORT.md) |
+| 原生供给匹配驻留 | 同一B接口与HBM2，8/13改1/2，完整单对象时间减少17.44%；[两次诊断](reports/NATIVE_MATCHED_RESIDENCY_REPORT.md) |
+| 长路径返回状态 | 48项局部beat周期见证，显式计链路/RX；未改RTL或系统RX3合同；[报告](reports/BEAT_RETURN_CONTRACT_REPORT.md) |
 
 运行基线：真实回放 `aa9d911`；强化审计 `6d1827b`；完整测试与验收记录 `ce549ce`。另已合入 `11fd2ab` 的比例推导、189 次合成回放及独立审计，原执行源码为 `eefe539`。后续文档提交不会改变这些实验的源码身份。GPU 推理不是当前流程的必需步骤。
 
 返回路径CPU实验：准备`23e2711`，87＋47回放`5c425e5`，32 RX诊断`34932c6`，独立审计/图`0fdb4b7`。
 共交付3,006,327,648个32-byte字；57项执行相关测试及后续21项定向测试通过（有重叠，非78项唯一测试）。
 本轮在eex005隔离worktree执行，hn072核对原始routing；另一开发者的RTL和DRAM后端任务未修改。
-训练owner仍有两窗口退化；共同完成感知的静态映射已有训练探针，下一项系统验证应冻结它并做held-out回放，不直接扩跨bank pool。
+旧训练owner的两窗口退化继续保留。共同完成感知映射现已完成新的冻结回放：Home/k2九窗持平，
+C两窗改善、七窗持平；宽k3四窗改善、四窗持平、一窗退化。不直接扩跨bank pool。
+
+新81次执行源码`0e66ff7`，eex005，1922.74 s；输入raw在hn072核对。
+53项相关测试、4项入口测试通过；结果审计`35c0592`、最终证据整理`a1c9bb3`。
+最大资源下界差11槽/0.0173%，后续先检查原生资源域与字节分配。
+另一开发者的hn072独立复跑另存`cohort_replay_replica`，不拼入本批完成统计。
 
 最新设计探针`9f647c8`已由`eb1f6a8`独立核对：32次owner交换、24项交叉评分；
 在eex005对`4422cc4`的定向检查中42项通过、5项原生桥接集成跳过；这是该隔离环境的检查，
