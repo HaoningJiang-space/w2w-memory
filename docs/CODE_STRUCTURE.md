@@ -191,3 +191,10 @@ beat计数合同、旧slot任务时间和HBM2命令结果分别保存，不覆�
 跨主机复现核对由`validation/cohort_replica.py`负责，入口`audit_cohort_replica`。
 先独立审计两套完整81项结果，再精确比较执行字段；仅容许成本浮点尾数差异和运行耗时不同。
 它不启动仿真、不参与设计选择，也不将重复执行计为新的测试样本。
+
+## 拓扑与通信范围核对
+
+`validation/topology_scope.py` / `audit_topology_scope`检查当前直接HB读路径、拒绝隐含多跳服务，并用纯依赖DAG说明compute任务排序不是通信。
+主回放`service/read_replay.py`不调用BookSim；可选Ramulator仅替换DRAM完成时序，不增加C–C网络。
+上游`export_to_rapidchiplet.py`的router/BookSim路径仍独立存在；memory_endpoint没有被自动变成上游router。
+几何连通、直接memory可访问、可执行packet转发三种含义必须分开。

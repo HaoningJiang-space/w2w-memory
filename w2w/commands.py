@@ -16,6 +16,7 @@ COMMANDS = {
     'audit_patterns_replay': 'w2w.analysis.patterns_replay',
     'audit_cohort_replay': 'w2w.validation.cohort_replay',
     'audit_cohort_replica': 'w2w.validation.cohort_replica',
+    'audit_topology_scope': 'w2w.validation.topology_scope',
     'audit_native_residency': 'w2w.validation.native_residency',
     'audit_dram_bridge': 'w2w.validation.dram_bridge',
     'audit_provisioning_holdout': 'w2w.validation.provisioning_holdout',
