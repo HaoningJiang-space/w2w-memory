@@ -8,6 +8,8 @@
 [验收复查与边界](docs/reports/TRACE_FLOW_ACCEPTANCE.md)。代码本地开发，经唯一 `main` 同步到 CPU 服务器运行。
 这是 routing 驱动的读阶段模拟，不代表完整 MoE 推理或整片物理签核。
 
+新增可选 [DRAM 命令后端](docs/reports/DRAM_COMMAND_BRIDGE_REPORT.md)：公开 HBM2 参考已接入有限读返回闭环，8次完整对象探针与193项服务器测试通过。它不替代 WoW 工艺标定或整片 signoff。
+
 研究目标：在有限接口与连线预算下，联合组织 **memory service interface、reticle
 placement 和静态数据布局**，使繁忙 compute 能利用已有 DRAM 服务。
 Matching、pooling 和 FIFO 是不同层次的工具，不是独立更换的研究题目。

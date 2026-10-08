@@ -11,6 +11,7 @@
 | routing → distinct experts → 完整权重读任务 | `workloads/patterns_trace.py`、`read_trace.py` | `import_patterns_trace`；执行假设在 `spec.json` |
 | 重建冻结硬件/布局 | `synthesis/read_catalog.py` | 检查历史 catalog 的布局身份和成本；不针对请求搜索 |
 | 有限 credit、地址驻留、endpoint/HB/RX 执行 | `service/read_replay.py`、`workloads/read_residency.py` | `replay_patterns_window`；逐字与逐槽守恒 |
+| 可选 DRAM 命令后端 | `service/dram/ramulator.py`、`bridge.cpp` | `run_dram_bridge` / `audit_dram_bridge`；[范围与构建](methods/DRAM_COMMAND_BRIDGE.md) |
 | 注册窗口与 CPU 作业编排 | `experiments/run_patterns_replay_study.py` | 九窗口、48组合；`plan.json` 冻结样本/设计/预算 |
 | 输入与结果独立核对 | `validation/patterns_replay.py` | 原始 union、字节、哈希、覆盖、资源必要界 |
 | 报告导出 | `analysis/patterns_replay.py` | `audit_patterns_replay` → JSON / CSV |

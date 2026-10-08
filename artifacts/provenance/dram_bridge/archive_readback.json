@@ -1,0 +1,12 @@
+{
+  "schema": "w2w.dram-bridge-audit.v1",
+  "records": 8,
+  "delivered_words": 4719744,
+  "native_delivered_words": 2359872,
+  "trace_sha256": "f0101fd2525f885aaffb743338f75a5a9df637c32c5b4b532ecd49c7f40f1bb5",
+  "artifact_hashes": true,
+  "frozen_route_and_bank_accounting": true,
+  "native_completions_drained": true,
+  "native_controller_and_clock_accounting": true,
+  "scope": "Independent artifact/accounting reconstruction; not independent DRAM timing validation"
+}

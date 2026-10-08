@@ -1,0 +1,13 @@
+test_delayed_completion_and_bounded_return_reservation (tests.test_dram_backend.CompletionContractTests) ... ok
+test_duplicate_completion_is_rejected (tests.test_dram_backend.CompletionContractTests) ... ok
+test_stalled_receiver_keeps_requests_live (tests.test_dram_backend.CompletionContractTests) ... ok
+test_command_completion_to_finite_hb_receiver (tests.test_dram_backend.NativeHBM2Tests) ... ok
+test_native_queue_backpressure (tests.test_dram_backend.NativeHBM2Tests) ... ok
+test_refresh_commands_and_recovery (tests.test_dram_backend.NativeHBM2Tests) ... ok
+test_row_hit_conflict_and_exact_burst (tests.test_dram_backend.NativeHBM2Tests) ... ok
+test_same_bank_conflicts_cost_more_than_parallel_banks (tests.test_dram_backend.NativeHBM2Tests) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 1.006s
+
+OK

@@ -1,5 +1,7 @@
 # 文档索引
 
+- [DRAM 命令后端闭环与8次完整对象回放](reports/DRAM_COMMAND_BRIDGE_REPORT.md) / [构建与模型边界](methods/DRAM_COMMAND_BRIDGE.md)
+
 **开发交接入口：[HANDOFF](HANDOFF.md)** — 当前状态、复现、接口边界与下一任务。
 
 研究问题固定为 wafer-scale memory service fabric。按所需层次阅读，不必按 Gate

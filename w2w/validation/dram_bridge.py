@@ -64,6 +64,18 @@ def audit(source, trace_source):
                     b['slot_ps'] != 1024 or b['tck_ps'] != 1000 or
                     item['backend_counts'] != {k: b[k] for k in item['backend_counts']}):
                 raise ValueError('Native service accounting mismatch')
+            controllers = b['stats']['controller']
+            if len(controllers) != 36:
+                raise ValueError('Unexpected reference channel count')
+            for memory, controller in enumerate(controllers):
+                bank_words = sum(count for bank, count in row['native_words_by_bank'].items()
+                                 if int(bank) // 32 == memory)
+                if (controller['num_read_reqs'] != bank_words or
+                        controller['num_read_reqs_served'] != bank_words or
+                        controller['num_read_reqs_forwarded'] != 0 or
+                        controller['num_write_reqs'] != 0 or
+                        controller['cycles'] != row['makespan_slots'] * 1024 // 1000):
+                    raise ValueError('Native controller/clock differs from frozen memory traffic')
         elif 'native_backend' in row:
             raise ValueError('Legacy reference has a native backend')
         rows[key] = row
@@ -78,6 +90,7 @@ def audit(source, trace_source):
                                            if k[1] == 'hbm2_reference'),
                 trace_sha256=trace.sha256, artifact_hashes=True,
                 frozen_route_and_bank_accounting=True, native_completions_drained=True,
+                native_controller_and_clock_accounting=True,
                 scope='Independent artifact/accounting reconstruction; not independent DRAM timing validation')
 
 

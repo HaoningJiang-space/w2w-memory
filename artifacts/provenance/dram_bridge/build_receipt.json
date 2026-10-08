@@ -1,0 +1,15 @@
+{
+  "platform": "Linux-6.8.0-40-generic-x86_64-with-glibc2.35",
+  "python": "3.10.12",
+  "compiler": "g++ (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0\nCopyright (C) 2021 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+  "cmake": "cmake version 3.22.1\n\nCMake suite maintained and supported by Kitware (kitware.com/cmake).",
+  "upstream_commit": "72427a1bba3771564c4fb0e494ba02242fd1eaa7",
+  "upstream_status": "M src/ramulator/dram/impl/DDR3.cpp\n M src/ramulator/dram/impl/DDR4.cpp\n M src/ramulator/dram/impl/DDR4_VRR.cpp\n M src/ramulator/dram/impl/DDR5.cpp\n M src/ramulator/dram/impl/DDR5_VRR.cpp\n M src/ramulator/dram/impl/GDDR6.cpp\n M src/ramulator/dram/impl/GDDR7.cpp\n M src/ramulator/dram/impl/HBM1.cpp\n M src/ramulator/dram/impl/HBM2.cpp\n M src/ramulator/dram/impl/HBM3.cpp\n M src/ramulator/dram/impl/HBM4.cpp\n M src/ramulator/dram/impl/LPDDR5.cpp\n M src/ramulator/dram/impl/LPDDR6.cpp",
+  "bridge_sha256": "cce879a1122e45abb4220f3e90e6b3ed23285077c01dce04993af63fd6d3a34a",
+  "library_sha256": "bdee8df7ac4486e77f4ce8689cdb9eed814ca222cbd1322b2bfaf342af203120",
+  "linked_libraries": "linux-vdso.so.1 (0x00007ffed3186000)\n\tlibramulator.so => /Projects/haoning/w2w-tools/ramulator2-72427a1/libramulator.so (0x000073b53ec00000)\n\tlibstdc++.so.6 => /lib/x86_64-linux-gnu/libstdc++.so.6 (0x000073b53e800000)\n\tlibgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x000073b53ee64000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x000073b53e400000)\n\tlibm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x000073b53eb19000)\n\t/lib64/ld-linux-x86-64.so.2 (0x000073b53ef2a000)",
+  "test_source_commit": "5d20b500c6439617c1dab11366955d69e88b8006",
+  "tests": 193,
+  "native_tests": 8,
+  "scope": "CPU command-reference integration; no GPU, calibrated WoW DRAM, or foundry signoff"
+}

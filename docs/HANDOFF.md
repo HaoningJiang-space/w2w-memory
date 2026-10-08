@@ -16,7 +16,7 @@
 | 验收 | 服务器完整 Python 测试 148/148；48 记录重新解析原始输入与资源审计；[范围](reports/TRACE_FLOW_ACCEPTANCE.md) |
 | 静态可配置出口 | 每 bank 一个共享发送结构，方向按 memory 实例冻结；不是跨 bank engine pool |
 | 局部物理实现 | Nangate45 单角、提取后 timing 和路由器 DRC；[ASIC 报告](reports/ENDPOINT_ASIC_SLICE_REPORT.md) |
-| DRAM 命令时序 | 已合入可选completion后端、Ramulator桥接及pilot注册；本轮只验证接口合同，5项原生库集成测试未配置；默认仍是slot模型 |
+| DRAM 命令时序 | 已接公开 Ramulator HBM2 参考：ACT/PRE/RD/refresh、有限队列与完成回调；8次完整对象回放、193项测试；[结果与边界](reports/DRAM_COMMAND_BRIDGE_REPORT.md) |
 | 整片 PPA 与 signoff | 尚未完成；局部面积不能直接当整片面积、功耗或工艺签核 |
 | 请求容量与驻留联合配置 | 新比例已完成 189 次合成回放；真实 48 记录仅增加下界，未重跑新比例；[报告](reports/SERVICE_PROVISIONING_REPORT.md) |
 | 新比例的独立 routing 验证 | 87主实验＋47目标扩展＋32 RX诊断已完成并审计，共166次；[完整报告](reports/RETURN_PATH_PROVISIONING_REPORT.md) |
@@ -32,8 +32,9 @@
 训练owner仍有两窗口退化，下一项系统设计应评估共同完成感知的静态映射，不直接扩跨bank pool。
 
 最新设计探针`9f647c8`已由`eb1f6a8`独立核对：32次owner交换、24项交叉评分；
-最终合并`4422cc4`后42项测试通过、5项原生桥接集成跳过。`b4b8ce6`已包含于祖先链；
-并行DRAM提交已保留至`8eb990c`。模型整字RX预留与RTL beat-reservoir应区分，见新设计报告。
+在eex005对`4422cc4`的定向检查中42项通过、5项原生桥接集成跳过；这是该隔离环境的检查，
+与hn072已归档的193项通过分开记录。`b4b8ce6`已包含于祖先链，并行DRAM代码及原生证据
+已保留至`a4b4f7c`。模型整字RX预留与RTL beat-reservoir应区分，见新设计报告。
 
 ## 工作区和 Git
 
@@ -57,7 +58,7 @@
 | 请求容量感知候选 | `w2w/synthesis/provisioning_catalog.py`，候选比例由解析界生成 |
 | 冻结设计重建 | `w2w/synthesis/read_catalog.py`，不依赖 experiment runner |
 | 资源约束与服务 LP | `w2w/service/resources.py`、`solver.py`、`evaluator.py` |
-| 有限读执行 | `w2w/service/read_replay.py` |
+| 有限读执行 | `w2w/service/read_replay.py`；可选 `service/dram` 命令后端，默认仍为 slot 参考 |
 | Endpoint 微架构执行 | `w2w/endpoints/endpoint_execution.py`、`role_execution.py` |
 | 实验注册 | `w2w/experiments/`；统一入口 `w2w/commands.py` |
 | 独立审计 | `w2w/validation/patterns_replay.py` |
@@ -77,4 +78,4 @@ python -m w2w audit_patterns_replay --source artifacts/results/workload/patterns
 
 服务器对原始输入重编译的命令见 [TRACE_WORKFLOW](guides/TRACE_WORKFLOW.md)。实验参数、冻结布局和旧结果不随目录整理变化。当前回放是 routing 驱动的权重读阶段，不是实测 DRAM traffic 或端到端 LLM latency。
 
-随后按 [NEXT_TASK](handoff/NEXT_TASK.md) 接真实 DRAM 时序与层级成本，评估 service provisioning 提案。不要把历史 Gate 的“下一步”重新当成未完成任务。
+随后按 [NEXT_TASK](handoff/NEXT_TASK.md) 扩展已接通的 DRAM 参考与层级成本，评估 service provisioning 提案。不要把历史 Gate 的“下一步”重新当成未完成任务。

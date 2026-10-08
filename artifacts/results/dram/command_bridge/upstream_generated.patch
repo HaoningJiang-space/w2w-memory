@@ -1,0 +1,1707 @@
+diff --git a/src/ramulator/dram/impl/DDR3.cpp b/src/ramulator/dram/impl/DDR3.cpp
+index 2ebab2c..dd79fd6 100644
+--- a/src/ramulator/dram/impl/DDR3.cpp
++++ b/src/ramulator/dram/impl/DDR3.cpp
+@@ -6,6 +6,9 @@
+  *
+  * Regenerate:   python -m ramulator codegen DDR3
+  ******************************************************************************/
++#include "ramulator/dram/dram_spec.h"
++
++#include "ramulator/dram/commands/populate.h"
+ #include "ramulator/dram/commands/ACT.h"
+ #include "ramulator/dram/commands/PREab.h"
+ #include "ramulator/dram/commands/PREpb.h"
+@@ -14,8 +17,6 @@
+ #include "ramulator/dram/commands/REFab.h"
+ #include "ramulator/dram/commands/WR.h"
+ #include "ramulator/dram/commands/WRA.h"
+-#include "ramulator/dram/commands/populate.h"
+-#include "ramulator/dram/dram_spec.h"
+ 
+ namespace Ramulator {
+ 
+@@ -32,30 +33,14 @@ class DDR3 : public DRAMSpec {
+   };
+   struct Timing {
+     enum : int {
+-      rate,
+-      nBL,
+-      nCL,
+-      nRCD,
+-      nRP,
+-      nRAS,
+-      nRC,
+-      nWR,
+-      nRTP,
+-      nCWL,
+-      nCCD,
+-      nRRD,
+-      nWTR,
+-      nFAW,
+-      nRFC,
+-      nREFI,
+-      nCS,
+-      tCK_ps,
+-      COUNT
++    rate, nBL, nCL, nRCD, nRP, nRAS, nRC, nWR, nRTP, nCWL, nCCD, nRRD, nWTR, nFAW, nRFC, nREFI, nCS, tCK_ps, COUNT
+     };
+   };
+ 
+-  using CommandImpls = std::tuple<Cmd::ACT<DDR3>, Cmd::PREpb<DDR3>, Cmd::PREab<DDR3>, Cmd::RD<DDR3>, Cmd::WR<DDR3>,
+-                                  Cmd::RDA<DDR3>, Cmd::WRA<DDR3>, Cmd::REFab<DDR3> >;
++  using CommandImpls = std::tuple<
++      Cmd::ACT<DDR3>, Cmd::PREpb<DDR3>, Cmd::PREab<DDR3>, Cmd::RD<DDR3>, Cmd::WR<DDR3>, Cmd::RDA<DDR3>,
++      Cmd::WRA<DDR3>, Cmd::REFab<DDR3>
++  >;
+ 
+   DDR3(const ConfigNode& config) {
+     // Counts
+@@ -68,22 +53,23 @@ class DDR3 : public DRAMSpec {
+     set_names(levels, level_names, {"Channel", "Rank", "Bank", "Row", "Column"});
+     set_names(commands, command_names, {"ACT", "PREpb", "PREab", "RD", "WR", "RDA", "WRA", "REFab"});
+     set_names(states, state_names, {"Opened", "Closed", "N_A"});
+-    set_names(timings, timing_names,
+-              {"rate", "nBL", "nCL", "nRCD", "nRP", "nRAS", "nRC", "nWR", "nRTP", "nCWL", "nCCD", "nRRD", "nWTR",
+-               "nFAW", "nRFC", "nREFI", "nCS", "tCK_ps"});
++    set_names(timings, timing_names, {
++        "rate", "nBL", "nCL", "nRCD", "nRP", "nRAS", "nRC", "nWR", "nRTP", "nCWL", "nCCD", "nRRD", "nWTR", "nFAW",
++        "nRFC", "nREFI", "nCS", "tCK_ps"
++    });
+ 
+     // Static spec data
+     internal_prefetch_size = 8;
+     init_states = {
+-        State::N_A,     // Channel
+-        State::N_A,     // Rank
+-        State::Closed,  // Bank
+-        State::Closed,  // Row
+-        State::N_A,     // Column
++        State::N_A,           // Channel
++        State::N_A,           // Rank
++        State::Closed,        // Bank
++        State::Closed,        // Row
++        State::N_A,           // Column
+     };
+     supported_requests = {
+-        Command::RD,  // Read -> RD
+-        Command::WR,  // Write -> WR
++        Command::RD,        // Read -> RD
++        Command::WR,        // Write -> WR
+     };
+ 
+     // Runtime config (organization, timing values, timing constraints)
+@@ -95,7 +81,7 @@ class DDR3 : public DRAMSpec {
+ };
+ 
+ // Self-registration
+-static bool _dram_ddr3 =
+-    DRAMSpec::register_standard("DDR3", [](const ConfigNode& config) { return std::make_unique<DDR3>(config); });
++static bool _dram_ddr3 = DRAMSpec::register_standard(
++    "DDR3", [](const ConfigNode& config) { return std::make_unique<DDR3>(config); });
+ 
+ }  // namespace Ramulator
+diff --git a/src/ramulator/dram/impl/DDR4.cpp b/src/ramulator/dram/impl/DDR4.cpp
+index 68bc06f..b97749f 100644
+--- a/src/ramulator/dram/impl/DDR4.cpp
++++ b/src/ramulator/dram/impl/DDR4.cpp
+@@ -6,6 +6,9 @@
+  *
+  * Regenerate:   python -m ramulator codegen DDR4
+  ******************************************************************************/
++#include "ramulator/dram/dram_spec.h"
++
++#include "ramulator/dram/commands/populate.h"
+ #include "ramulator/dram/commands/ACT.h"
+ #include "ramulator/dram/commands/PREab.h"
+ #include "ramulator/dram/commands/PREpb.h"
+@@ -14,8 +17,6 @@
+ #include "ramulator/dram/commands/REFab.h"
+ #include "ramulator/dram/commands/WR.h"
+ #include "ramulator/dram/commands/WRA.h"
+-#include "ramulator/dram/commands/populate.h"
+-#include "ramulator/dram/dram_spec.h"
+ 
+ namespace Ramulator {
+ 
+@@ -32,33 +33,15 @@ class DDR4 : public DRAMSpec {
+   };
+   struct Timing {
+     enum : int {
+-      rate,
+-      nBL,
+-      nCL,
+-      nRCD,
+-      nRP,
+-      nRAS,
+-      nRC,
+-      nWR,
+-      nRTP,
+-      nCWL,
+-      nCCDS,
+-      nCCDL,
+-      nRRDS,
+-      nRRDL,
+-      nWTRS,
+-      nWTRL,
+-      nFAW,
+-      nRFC,
+-      nREFI,
+-      nCS,
+-      tCK_ps,
+-      COUNT
++    rate, nBL, nCL, nRCD, nRP, nRAS, nRC, nWR, nRTP, nCWL, nCCDS, nCCDL, nRRDS, nRRDL, nWTRS, nWTRL, nFAW, nRFC,
++    nREFI, nCS, tCK_ps, COUNT
+     };
+   };
+ 
+-  using CommandImpls = std::tuple<Cmd::ACT<DDR4>, Cmd::PREpb<DDR4>, Cmd::PREab<DDR4>, Cmd::RD<DDR4>, Cmd::WR<DDR4>,
+-                                  Cmd::RDA<DDR4>, Cmd::WRA<DDR4>, Cmd::REFab<DDR4> >;
++  using CommandImpls = std::tuple<
++      Cmd::ACT<DDR4>, Cmd::PREpb<DDR4>, Cmd::PREab<DDR4>, Cmd::RD<DDR4>, Cmd::WR<DDR4>, Cmd::RDA<DDR4>,
++      Cmd::WRA<DDR4>, Cmd::REFab<DDR4>
++  >;
+ 
+   DDR4(const ConfigNode& config) {
+     // Counts
+@@ -71,23 +54,24 @@ class DDR4 : public DRAMSpec {
+     set_names(levels, level_names, {"Channel", "Rank", "BankGroup", "Bank", "Row", "Column"});
+     set_names(commands, command_names, {"ACT", "PREpb", "PREab", "RD", "WR", "RDA", "WRA", "REFab"});
+     set_names(states, state_names, {"Opened", "Closed", "N_A"});
+-    set_names(timings, timing_names,
+-              {"rate",  "nBL",   "nCL",   "nRCD",  "nRP",   "nRAS", "nRC",  "nWR",   "nRTP", "nCWL",  "nCCDS",
+-               "nCCDL", "nRRDS", "nRRDL", "nWTRS", "nWTRL", "nFAW", "nRFC", "nREFI", "nCS",  "tCK_ps"});
++    set_names(timings, timing_names, {
++        "rate", "nBL", "nCL", "nRCD", "nRP", "nRAS", "nRC", "nWR", "nRTP", "nCWL", "nCCDS", "nCCDL", "nRRDS",
++        "nRRDL", "nWTRS", "nWTRL", "nFAW", "nRFC", "nREFI", "nCS", "tCK_ps"
++    });
+ 
+     // Static spec data
+     internal_prefetch_size = 8;
+     init_states = {
+-        State::N_A,     // Channel
+-        State::N_A,     // Rank
+-        State::N_A,     // BankGroup
+-        State::Closed,  // Bank
+-        State::Closed,  // Row
+-        State::N_A,     // Column
++        State::N_A,           // Channel
++        State::N_A,           // Rank
++        State::N_A,           // BankGroup
++        State::Closed,        // Bank
++        State::Closed,        // Row
++        State::N_A,           // Column
+     };
+     supported_requests = {
+-        Command::RD,  // Read -> RD
+-        Command::WR,  // Write -> WR
++        Command::RD,        // Read -> RD
++        Command::WR,        // Write -> WR
+     };
+ 
+     // Runtime config (organization, timing values, timing constraints)
+@@ -99,7 +83,7 @@ class DDR4 : public DRAMSpec {
+ };
+ 
+ // Self-registration
+-static bool _dram_ddr4 =
+-    DRAMSpec::register_standard("DDR4", [](const ConfigNode& config) { return std::make_unique<DDR4>(config); });
++static bool _dram_ddr4 = DRAMSpec::register_standard(
++    "DDR4", [](const ConfigNode& config) { return std::make_unique<DDR4>(config); });
+ 
+ }  // namespace Ramulator
+diff --git a/src/ramulator/dram/impl/DDR4_VRR.cpp b/src/ramulator/dram/impl/DDR4_VRR.cpp
+index 842b820..ee2b255 100644
+--- a/src/ramulator/dram/impl/DDR4_VRR.cpp
++++ b/src/ramulator/dram/impl/DDR4_VRR.cpp
+@@ -6,6 +6,9 @@
+  *
+  * Regenerate:   python -m ramulator codegen DDR4_VRR
+  ******************************************************************************/
++#include "ramulator/dram/dram_spec.h"
++
++#include "ramulator/dram/commands/populate.h"
+ #include "ramulator/dram/commands/ACT.h"
+ #include "ramulator/dram/commands/PREab.h"
+ #include "ramulator/dram/commands/PREpb.h"
+@@ -15,8 +18,6 @@
+ #include "ramulator/dram/commands/VRR.h"
+ #include "ramulator/dram/commands/WR.h"
+ #include "ramulator/dram/commands/WRA.h"
+-#include "ramulator/dram/commands/populate.h"
+-#include "ramulator/dram/dram_spec.h"
+ 
+ namespace Ramulator {
+ 
+@@ -33,35 +34,15 @@ class DDR4_VRR : public DRAMSpec {
+   };
+   struct Timing {
+     enum : int {
+-      rate,
+-      nBL,
+-      nCL,
+-      nRCD,
+-      nRP,
+-      nRAS,
+-      nRC,
+-      nWR,
+-      nRTP,
+-      nCWL,
+-      nCCDS,
+-      nCCDL,
+-      nRRDS,
+-      nRRDL,
+-      nWTRS,
+-      nWTRL,
+-      nFAW,
+-      nRFC,
+-      nREFI,
+-      nCS,
+-      tCK_ps,
+-      nVRR,
+-      COUNT
++    rate, nBL, nCL, nRCD, nRP, nRAS, nRC, nWR, nRTP, nCWL, nCCDS, nCCDL, nRRDS, nRRDL, nWTRS, nWTRL, nFAW, nRFC,
++    nREFI, nCS, tCK_ps, nVRR, COUNT
+     };
+   };
+ 
+-  using CommandImpls =
+-      std::tuple<Cmd::ACT<DDR4_VRR>, Cmd::PREpb<DDR4_VRR>, Cmd::PREab<DDR4_VRR>, Cmd::RD<DDR4_VRR>, Cmd::WR<DDR4_VRR>,
+-                 Cmd::RDA<DDR4_VRR>, Cmd::WRA<DDR4_VRR>, Cmd::REFab<DDR4_VRR>, Cmd::VRR<DDR4_VRR> >;
++  using CommandImpls = std::tuple<
++      Cmd::ACT<DDR4_VRR>, Cmd::PREpb<DDR4_VRR>, Cmd::PREab<DDR4_VRR>, Cmd::RD<DDR4_VRR>, Cmd::WR<DDR4_VRR>,
++      Cmd::RDA<DDR4_VRR>, Cmd::WRA<DDR4_VRR>, Cmd::REFab<DDR4_VRR>, Cmd::VRR<DDR4_VRR>
++  >;
+ 
+   DDR4_VRR(const ConfigNode& config) {
+     // Counts
+@@ -74,23 +55,24 @@ class DDR4_VRR : public DRAMSpec {
+     set_names(levels, level_names, {"Channel", "Rank", "BankGroup", "Bank", "Row", "Column"});
+     set_names(commands, command_names, {"ACT", "PREpb", "PREab", "RD", "WR", "RDA", "WRA", "REFab", "VRR"});
+     set_names(states, state_names, {"Opened", "Closed", "N_A"});
+-    set_names(timings, timing_names,
+-              {"rate",  "nBL",   "nCL",   "nRCD",  "nRP",   "nRAS", "nRC",  "nWR",   "nRTP", "nCWL",   "nCCDS",
+-               "nCCDL", "nRRDS", "nRRDL", "nWTRS", "nWTRL", "nFAW", "nRFC", "nREFI", "nCS",  "tCK_ps", "nVRR"});
++    set_names(timings, timing_names, {
++        "rate", "nBL", "nCL", "nRCD", "nRP", "nRAS", "nRC", "nWR", "nRTP", "nCWL", "nCCDS", "nCCDL", "nRRDS",
++        "nRRDL", "nWTRS", "nWTRL", "nFAW", "nRFC", "nREFI", "nCS", "tCK_ps", "nVRR"
++    });
+ 
+     // Static spec data
+     internal_prefetch_size = 8;
+     init_states = {
+-        State::N_A,     // Channel
+-        State::N_A,     // Rank
+-        State::N_A,     // BankGroup
+-        State::Closed,  // Bank
+-        State::Closed,  // Row
+-        State::N_A,     // Column
++        State::N_A,           // Channel
++        State::N_A,           // Rank
++        State::N_A,           // BankGroup
++        State::Closed,        // Bank
++        State::Closed,        // Row
++        State::N_A,           // Column
+     };
+     supported_requests = {
+-        Command::RD,  // Read -> RD
+-        Command::WR,  // Write -> WR
++        Command::RD,        // Read -> RD
++        Command::WR,        // Write -> WR
+     };
+ 
+     // Runtime config (organization, timing values, timing constraints)
+diff --git a/src/ramulator/dram/impl/DDR5.cpp b/src/ramulator/dram/impl/DDR5.cpp
+index 6f92c71..ae67feb 100644
+--- a/src/ramulator/dram/impl/DDR5.cpp
++++ b/src/ramulator/dram/impl/DDR5.cpp
+@@ -6,6 +6,9 @@
+  *
+  * Regenerate:   python -m ramulator codegen DDR5
+  ******************************************************************************/
++#include "ramulator/dram/dram_spec.h"
++
++#include "ramulator/dram/commands/populate.h"
+ #include "ramulator/dram/commands/ACT.h"
+ #include "ramulator/dram/commands/PREab.h"
+ #include "ramulator/dram/commands/PREpb.h"
+@@ -18,8 +21,6 @@
+ #include "ramulator/dram/commands/RFMsb.h"
+ #include "ramulator/dram/commands/WR.h"
+ #include "ramulator/dram/commands/WRA.h"
+-#include "ramulator/dram/commands/populate.h"
+-#include "ramulator/dram/dram_spec.h"
+ 
+ namespace Ramulator {
+ 
+@@ -36,45 +37,15 @@ class DDR5 : public DRAMSpec {
+   };
+   struct Timing {
+     enum : int {
+-      rate,
+-      nBL,
+-      nCL,
+-      nRCD,
+-      nRP,
+-      nRAS,
+-      nRC,
+-      nWR,
+-      nRTP,
+-      nCWL,
+-      nPPD,
+-      nCCDS,
+-      nCCDL,
+-      nCCDS_WR,
+-      nCCDL_WR,
+-      nCCDM,
+-      nCCDM_WR,
+-      nWTRM,
+-      nRTW,
+-      nRRDS,
+-      nRRDL,
+-      nWTRS,
+-      nWTRL,
+-      nFAW,
+-      nRFC,
+-      nREFI,
+-      nRFCsb,
+-      nCS,
+-      tCK_ps,
+-      nRFM,
+-      nRFMsb,
+-      nREFSBRD,
+-      COUNT
++    rate, nBL, nCL, nRCD, nRP, nRAS, nRC, nWR, nRTP, nCWL, nPPD, nCCDS, nCCDL, nCCDS_WR, nCCDL_WR, nCCDM, nCCDM_WR,
++    nWTRM, nRTW, nRRDS, nRRDL, nWTRS, nWTRL, nFAW, nRFC, nREFI, nRFCsb, nCS, tCK_ps, nRFM, nRFMsb, nREFSBRD, COUNT
+     };
+   };
+ 
+-  using CommandImpls = std::tuple<Cmd::ACT<DDR5>, Cmd::PREpb<DDR5>, Cmd::PREab<DDR5>, Cmd::RD<DDR5>, Cmd::WR<DDR5>,
+-                                  Cmd::RDA<DDR5>, Cmd::WRA<DDR5>, Cmd::REFab<DDR5>, Cmd::PREsb<DDR5>, Cmd::REFsb<DDR5>,
+-                                  Cmd::RFMab<DDR5>, Cmd::RFMsb<DDR5> >;
++  using CommandImpls = std::tuple<
++      Cmd::ACT<DDR5>, Cmd::PREpb<DDR5>, Cmd::PREab<DDR5>, Cmd::RD<DDR5>, Cmd::WR<DDR5>, Cmd::RDA<DDR5>,
++      Cmd::WRA<DDR5>, Cmd::REFab<DDR5>, Cmd::PREsb<DDR5>, Cmd::REFsb<DDR5>, Cmd::RFMab<DDR5>, Cmd::RFMsb<DDR5>
++  >;
+ 
+   DDR5(const ConfigNode& config) {
+     // Counts
+@@ -85,28 +56,27 @@ class DDR5 : public DRAMSpec {
+ 
+     // String name maps + reverse lookup vectors
+     set_names(levels, level_names, {"Channel", "Rank", "BankGroup", "Bank", "Row", "Column"});
+-    set_names(commands, command_names,
+-              {"ACT", "PREpb", "PREab", "RD", "WR", "RDA", "WRA", "REFab", "PREsb", "REFsb", "RFMab", "RFMsb"});
++    set_names(commands, command_names, {"ACT", "PREpb", "PREab", "RD", "WR", "RDA", "WRA", "REFab", "PREsb", "REFsb", "RFMab", "RFMsb"});
+     set_names(states, state_names, {"Opened", "Closed", "N_A"});
+-    set_names(
+-        timings, timing_names,
+-        {"rate",  "nBL",   "nCL",      "nRCD",     "nRP",    "nRAS",     "nRC",    "nWR",  "nRTP",   "nCWL",    "nPPD",
+-         "nCCDS", "nCCDL", "nCCDS_WR", "nCCDL_WR", "nCCDM",  "nCCDM_WR", "nWTRM",  "nRTW", "nRRDS",  "nRRDL",   "nWTRS",
+-         "nWTRL", "nFAW",  "nRFC",     "nREFI",    "nRFCsb", "nCS",      "tCK_ps", "nRFM", "nRFMsb", "nREFSBRD"});
++    set_names(timings, timing_names, {
++        "rate", "nBL", "nCL", "nRCD", "nRP", "nRAS", "nRC", "nWR", "nRTP", "nCWL", "nPPD", "nCCDS", "nCCDL",
++        "nCCDS_WR", "nCCDL_WR", "nCCDM", "nCCDM_WR", "nWTRM", "nRTW", "nRRDS", "nRRDL", "nWTRS", "nWTRL", "nFAW",
++        "nRFC", "nREFI", "nRFCsb", "nCS", "tCK_ps", "nRFM", "nRFMsb", "nREFSBRD"
++    });
+ 
+     // Static spec data
+     internal_prefetch_size = 16;
+     init_states = {
+-        State::N_A,     // Channel
+-        State::N_A,     // Rank
+-        State::N_A,     // BankGroup
+-        State::Closed,  // Bank
+-        State::Closed,  // Row
+-        State::N_A,     // Column
++        State::N_A,           // Channel
++        State::N_A,           // Rank
++        State::N_A,           // BankGroup
++        State::Closed,        // Bank
++        State::Closed,        // Row
++        State::N_A,           // Column
+     };
+     supported_requests = {
+-        Command::RD,  // Read -> RD
+-        Command::WR,  // Write -> WR
++        Command::RD,        // Read -> RD
++        Command::WR,        // Write -> WR
+     };
+ 
+     // Runtime config (organization, timing values, timing constraints)
+@@ -118,7 +88,7 @@ class DDR5 : public DRAMSpec {
+ };
+ 
+ // Self-registration
+-static bool _dram_ddr5 =
+-    DRAMSpec::register_standard("DDR5", [](const ConfigNode& config) { return std::make_unique<DDR5>(config); });
++static bool _dram_ddr5 = DRAMSpec::register_standard(
++    "DDR5", [](const ConfigNode& config) { return std::make_unique<DDR5>(config); });
+ 
+ }  // namespace Ramulator
+diff --git a/src/ramulator/dram/impl/DDR5_VRR.cpp b/src/ramulator/dram/impl/DDR5_VRR.cpp
+index 2a4cc66..2d8bc98 100644
+--- a/src/ramulator/dram/impl/DDR5_VRR.cpp
++++ b/src/ramulator/dram/impl/DDR5_VRR.cpp
+@@ -6,6 +6,9 @@
+  *
+  * Regenerate:   python -m ramulator codegen DDR5_VRR
+  ******************************************************************************/
++#include "ramulator/dram/dram_spec.h"
++
++#include "ramulator/dram/commands/populate.h"
+ #include "ramulator/dram/commands/ACT.h"
+ #include "ramulator/dram/commands/PREab.h"
+ #include "ramulator/dram/commands/PREpb.h"
+@@ -19,8 +22,6 @@
+ #include "ramulator/dram/commands/VRR.h"
+ #include "ramulator/dram/commands/WR.h"
+ #include "ramulator/dram/commands/WRA.h"
+-#include "ramulator/dram/commands/populate.h"
+-#include "ramulator/dram/dram_spec.h"
+ 
+ namespace Ramulator {
+ 
+@@ -37,47 +38,17 @@ class DDR5_VRR : public DRAMSpec {
+   };
+   struct Timing {
+     enum : int {
+-      rate,
+-      nBL,
+-      nCL,
+-      nRCD,
+-      nRP,
+-      nRAS,
+-      nRC,
+-      nWR,
+-      nRTP,
+-      nCWL,
+-      nPPD,
+-      nCCDS,
+-      nCCDL,
+-      nCCDS_WR,
+-      nCCDL_WR,
+-      nCCDM,
+-      nCCDM_WR,
+-      nWTRM,
+-      nRTW,
+-      nRRDS,
+-      nRRDL,
+-      nWTRS,
+-      nWTRL,
+-      nFAW,
+-      nRFC,
+-      nREFI,
+-      nRFCsb,
+-      nCS,
+-      tCK_ps,
+-      nRFM,
+-      nRFMsb,
+-      nREFSBRD,
+-      nVRR,
+-      COUNT
++    rate, nBL, nCL, nRCD, nRP, nRAS, nRC, nWR, nRTP, nCWL, nPPD, nCCDS, nCCDL, nCCDS_WR, nCCDL_WR, nCCDM, nCCDM_WR,
++    nWTRM, nRTW, nRRDS, nRRDL, nWTRS, nWTRL, nFAW, nRFC, nREFI, nRFCsb, nCS, tCK_ps, nRFM, nRFMsb, nREFSBRD, nVRR,
++    COUNT
+     };
+   };
+ 
+-  using CommandImpls =
+-      std::tuple<Cmd::ACT<DDR5_VRR>, Cmd::PREpb<DDR5_VRR>, Cmd::PREab<DDR5_VRR>, Cmd::RD<DDR5_VRR>, Cmd::WR<DDR5_VRR>,
+-                 Cmd::RDA<DDR5_VRR>, Cmd::WRA<DDR5_VRR>, Cmd::REFab<DDR5_VRR>, Cmd::PREsb<DDR5_VRR>,
+-                 Cmd::REFsb<DDR5_VRR>, Cmd::RFMab<DDR5_VRR>, Cmd::RFMsb<DDR5_VRR>, Cmd::VRR<DDR5_VRR> >;
++  using CommandImpls = std::tuple<
++      Cmd::ACT<DDR5_VRR>, Cmd::PREpb<DDR5_VRR>, Cmd::PREab<DDR5_VRR>, Cmd::RD<DDR5_VRR>, Cmd::WR<DDR5_VRR>,
++      Cmd::RDA<DDR5_VRR>, Cmd::WRA<DDR5_VRR>, Cmd::REFab<DDR5_VRR>, Cmd::PREsb<DDR5_VRR>, Cmd::REFsb<DDR5_VRR>,
++      Cmd::RFMab<DDR5_VRR>, Cmd::RFMsb<DDR5_VRR>, Cmd::VRR<DDR5_VRR>
++  >;
+ 
+   DDR5_VRR(const ConfigNode& config) {
+     // Counts
+@@ -88,28 +59,27 @@ class DDR5_VRR : public DRAMSpec {
+ 
+     // String name maps + reverse lookup vectors
+     set_names(levels, level_names, {"Channel", "Rank", "BankGroup", "Bank", "Row", "Column"});
+-    set_names(commands, command_names,
+-              {"ACT", "PREpb", "PREab", "RD", "WR", "RDA", "WRA", "REFab", "PREsb", "REFsb", "RFMab", "RFMsb", "VRR"});
++    set_names(commands, command_names, {"ACT", "PREpb", "PREab", "RD", "WR", "RDA", "WRA", "REFab", "PREsb", "REFsb", "RFMab", "RFMsb", "VRR"});
+     set_names(states, state_names, {"Opened", "Closed", "N_A"});
+-    set_names(timings, timing_names,
+-              {"rate", "nBL",    "nCL",   "nRCD",   "nRP",      "nRAS",     "nRC",   "nWR",      "nRTP",
+-               "nCWL", "nPPD",   "nCCDS", "nCCDL",  "nCCDS_WR", "nCCDL_WR", "nCCDM", "nCCDM_WR", "nWTRM",
+-               "nRTW", "nRRDS",  "nRRDL", "nWTRS",  "nWTRL",    "nFAW",     "nRFC",  "nREFI",    "nRFCsb",
+-               "nCS",  "tCK_ps", "nRFM",  "nRFMsb", "nREFSBRD", "nVRR"});
++    set_names(timings, timing_names, {
++        "rate", "nBL", "nCL", "nRCD", "nRP", "nRAS", "nRC", "nWR", "nRTP", "nCWL", "nPPD", "nCCDS", "nCCDL",
++        "nCCDS_WR", "nCCDL_WR", "nCCDM", "nCCDM_WR", "nWTRM", "nRTW", "nRRDS", "nRRDL", "nWTRS", "nWTRL", "nFAW",
++        "nRFC", "nREFI", "nRFCsb", "nCS", "tCK_ps", "nRFM", "nRFMsb", "nREFSBRD", "nVRR"
++    });
+ 
+     // Static spec data
+     internal_prefetch_size = 16;
+     init_states = {
+-        State::N_A,     // Channel
+-        State::N_A,     // Rank
+-        State::N_A,     // BankGroup
+-        State::Closed,  // Bank
+-        State::Closed,  // Row
+-        State::N_A,     // Column
++        State::N_A,           // Channel
++        State::N_A,           // Rank
++        State::N_A,           // BankGroup
++        State::Closed,        // Bank
++        State::Closed,        // Row
++        State::N_A,           // Column
+     };
+     supported_requests = {
+-        Command::RD,  // Read -> RD
+-        Command::WR,  // Write -> WR
++        Command::RD,        // Read -> RD
++        Command::WR,        // Write -> WR
+     };
+ 
+     // Runtime config (organization, timing values, timing constraints)
+diff --git a/src/ramulator/dram/impl/GDDR6.cpp b/src/ramulator/dram/impl/GDDR6.cpp
+index e2d9276..f48d498 100644
+--- a/src/ramulator/dram/impl/GDDR6.cpp
++++ b/src/ramulator/dram/impl/GDDR6.cpp
+@@ -6,6 +6,9 @@
+  *
+  * Regenerate:   python -m ramulator codegen GDDR6
+  ******************************************************************************/
++#include "ramulator/dram/dram_spec.h"
++
++#include "ramulator/dram/commands/populate.h"
+ #include "ramulator/dram/commands/ACT.h"
+ #include "ramulator/dram/commands/PREab.h"
+ #include "ramulator/dram/commands/PREpb.h"
+@@ -15,8 +18,6 @@
+ #include "ramulator/dram/commands/REFpb.h"
+ #include "ramulator/dram/commands/WR.h"
+ #include "ramulator/dram/commands/WRA.h"
+-#include "ramulator/dram/commands/populate.h"
+-#include "ramulator/dram/dram_spec.h"
+ 
+ namespace Ramulator {
+ 
+@@ -33,38 +34,15 @@ class GDDR6 : public DRAMSpec {
+   };
+   struct Timing {
+     enum : int {
+-      rate,
+-      nBL,
+-      nCL,
+-      nRCDRD,
+-      nRCDWR,
+-      nRP,
+-      nRAS,
+-      nRC,
+-      nWR,
+-      nRTP,
+-      nCWL,
+-      nCCDS,
+-      nCCDL,
+-      nRRDS,
+-      nRRDL,
+-      nWTRS,
+-      nWTRL,
+-      nRTW,
+-      nFAW,
+-      nRFCpb,
+-      nRREFD,
+-      nREFI,
+-      nREFIpb,
+-      tCK_ps,
+-      nRFCab,
+-      nPPD,
+-      COUNT
++    rate, nBL, nCL, nRCDRD, nRCDWR, nRP, nRAS, nRC, nWR, nRTP, nCWL, nCCDS, nCCDL, nRRDS, nRRDL, nWTRS, nWTRL, nRTW,
++    nFAW, nRFCpb, nRREFD, nREFI, nREFIpb, tCK_ps, nRFCab, nPPD, COUNT
+     };
+   };
+ 
+-  using CommandImpls = std::tuple<Cmd::ACT<GDDR6>, Cmd::PREab<GDDR6>, Cmd::PREpb<GDDR6>, Cmd::RD<GDDR6>, Cmd::WR<GDDR6>,
+-                                  Cmd::RDA<GDDR6>, Cmd::WRA<GDDR6>, Cmd::REFab<GDDR6>, Cmd::REFpb<GDDR6> >;
++  using CommandImpls = std::tuple<
++      Cmd::ACT<GDDR6>, Cmd::PREab<GDDR6>, Cmd::PREpb<GDDR6>, Cmd::RD<GDDR6>, Cmd::WR<GDDR6>, Cmd::RDA<GDDR6>,
++      Cmd::WRA<GDDR6>, Cmd::REFab<GDDR6>, Cmd::REFpb<GDDR6>
++  >;
+ 
+   GDDR6(const ConfigNode& config) {
+     // Counts
+@@ -77,23 +55,24 @@ class GDDR6 : public DRAMSpec {
+     set_names(levels, level_names, {"Channel", "BankGroup", "Bank", "Row", "Column"});
+     set_names(commands, command_names, {"ACT", "PREab", "PREpb", "RD", "WR", "RDA", "WRA", "REFab", "REFpb"});
+     set_names(states, state_names, {"Opened", "Closed", "N_A"});
+-    set_names(timings, timing_names,
+-              {"rate", "nBL",    "nCL",    "nRCDRD", "nRCDWR",  "nRP",    "nRAS",   "nRC",   "nWR",
+-               "nRTP", "nCWL",   "nCCDS",  "nCCDL",  "nRRDS",   "nRRDL",  "nWTRS",  "nWTRL", "nRTW",
+-               "nFAW", "nRFCpb", "nRREFD", "nREFI",  "nREFIpb", "tCK_ps", "nRFCab", "nPPD"});
++    set_names(timings, timing_names, {
++        "rate", "nBL", "nCL", "nRCDRD", "nRCDWR", "nRP", "nRAS", "nRC", "nWR", "nRTP", "nCWL", "nCCDS", "nCCDL",
++        "nRRDS", "nRRDL", "nWTRS", "nWTRL", "nRTW", "nFAW", "nRFCpb", "nRREFD", "nREFI", "nREFIpb", "tCK_ps",
++        "nRFCab", "nPPD"
++    });
+ 
+     // Static spec data
+     internal_prefetch_size = 16;
+     init_states = {
+-        State::N_A,     // Channel
+-        State::N_A,     // BankGroup
+-        State::Closed,  // Bank
+-        State::Closed,  // Row
+-        State::N_A,     // Column
++        State::N_A,           // Channel
++        State::N_A,           // BankGroup
++        State::Closed,        // Bank
++        State::Closed,        // Row
++        State::N_A,           // Column
+     };
+     supported_requests = {
+-        Command::RD,  // Read -> RD
+-        Command::WR,  // Write -> WR
++        Command::RD,        // Read -> RD
++        Command::WR,        // Write -> WR
+     };
+ 
+     // Runtime config (organization, timing values, timing constraints)
+@@ -105,7 +84,7 @@ class GDDR6 : public DRAMSpec {
+ };
+ 
+ // Self-registration
+-static bool _dram_gddr6 =
+-    DRAMSpec::register_standard("GDDR6", [](const ConfigNode& config) { return std::make_unique<GDDR6>(config); });
++static bool _dram_gddr6 = DRAMSpec::register_standard(
++    "GDDR6", [](const ConfigNode& config) { return std::make_unique<GDDR6>(config); });
+ 
+ }  // namespace Ramulator
+diff --git a/src/ramulator/dram/impl/GDDR7.cpp b/src/ramulator/dram/impl/GDDR7.cpp
+index 096d95a..c9c2340 100644
+--- a/src/ramulator/dram/impl/GDDR7.cpp
++++ b/src/ramulator/dram/impl/GDDR7.cpp
+@@ -6,6 +6,9 @@
+  *
+  * Regenerate:   python -m ramulator codegen GDDR7
+  ******************************************************************************/
++#include "ramulator/dram/dram_spec.h"
++
++#include "ramulator/dram/commands/populate.h"
+ #include "ramulator/dram/commands/ACT.h"
+ #include "ramulator/dram/commands/PREab.h"
+ #include "ramulator/dram/commands/PREpb.h"
+@@ -19,8 +22,6 @@
+ #include "ramulator/dram/commands/RFMpb.h"
+ #include "ramulator/dram/commands/WR.h"
+ #include "ramulator/dram/commands/WRA.h"
+-#include "ramulator/dram/commands/populate.h"
+-#include "ramulator/dram/dram_spec.h"
+ 
+ namespace Ramulator {
+ 
+@@ -37,50 +38,17 @@ class GDDR7 : public DRAMSpec {
+   };
+   struct Timing {
+     enum : int {
+-      rate,
+-      nBL,
+-      nRL,
+-      nWL,
+-      nDQERL,
+-      nRCDRD,
+-      nRCDWR,
+-      nRP,
+-      nRAS,
+-      nRC,
+-      nRRD,
+-      nRREFD,
+-      nRPD,
+-      nRTPSB,
+-      nPPD,
+-      nWR,
+-      nCCD,
+-      nCCDSB,
+-      nWTR,
+-      nWTRSB,
+-      nRTW,
+-      nREFI,
+-      nREFIpb,
+-      nRFCab,
+-      nRFCpb,
+-      nRDREFab,
+-      nRFMab,
+-      nRFMpb,
+-      nRCKSTRT2RD,
+-      nRD2RCKSTOP,
+-      nRCKSP2ST,
+-      nRCKST2SP,
+-      nRCKSTOP_LAT,
+-      nRCKEN,
+-      nRCK_LS,
+-      nRCKPST,
+-      tCK_ps,
+-      COUNT
++    rate, nBL, nRL, nWL, nDQERL, nRCDRD, nRCDWR, nRP, nRAS, nRC, nRRD, nRREFD, nRPD, nRTPSB, nPPD, nWR, nCCD, nCCDSB,
++    nWTR, nWTRSB, nRTW, nREFI, nREFIpb, nRFCab, nRFCpb, nRDREFab, nRFMab, nRFMpb, nRCKSTRT2RD, nRD2RCKSTOP,
++    nRCKSP2ST, nRCKST2SP, nRCKSTOP_LAT, nRCKEN, nRCK_LS, nRCKPST, tCK_ps, COUNT
+     };
+   };
+ 
+-  using CommandImpls = std::tuple<Cmd::ACT<GDDR7>, Cmd::PREpb<GDDR7>, Cmd::PREab<GDDR7>, Cmd::RD<GDDR7>, Cmd::WR<GDDR7>,
+-                                  Cmd::RDA<GDDR7>, Cmd::WRA<GDDR7>, Cmd::REFab<GDDR7>, Cmd::REFpb<GDDR7>,
+-                                  Cmd::RFMab<GDDR7>, Cmd::RFMpb<GDDR7>, Cmd::RCKSTRT<GDDR7>, Cmd::RCKSTOP<GDDR7> >;
++  using CommandImpls = std::tuple<
++      Cmd::ACT<GDDR7>, Cmd::PREpb<GDDR7>, Cmd::PREab<GDDR7>, Cmd::RD<GDDR7>, Cmd::WR<GDDR7>, Cmd::RDA<GDDR7>,
++      Cmd::WRA<GDDR7>, Cmd::REFab<GDDR7>, Cmd::REFpb<GDDR7>, Cmd::RFMab<GDDR7>, Cmd::RFMpb<GDDR7>,
++      Cmd::RCKSTRT<GDDR7>, Cmd::RCKSTOP<GDDR7>
++  >;
+ 
+   GDDR7(const ConfigNode& config) {
+     // Counts
+@@ -91,28 +59,26 @@ class GDDR7 : public DRAMSpec {
+ 
+     // String name maps + reverse lookup vectors
+     set_names(levels, level_names, {"Channel", "Bank", "Row", "Column"});
+-    set_names(
+-        commands, command_names,
+-        {"ACT", "PREpb", "PREab", "RD", "WR", "RDA", "WRA", "REFab", "REFpb", "RFMab", "RFMpb", "RCKSTRT", "RCKSTOP"});
++    set_names(commands, command_names, {"ACT", "PREpb", "PREab", "RD", "WR", "RDA", "WRA", "REFab", "REFpb", "RFMab", "RFMpb", "RCKSTRT", "RCKSTOP"});
+     set_names(states, state_names, {"Opened", "Closed", "N_A"});
+-    set_names(timings, timing_names,
+-              {"rate",         "nBL",      "nRL",     "nWL",     "nDQERL",      "nRCDRD",      "nRCDWR",    "nRP",
+-               "nRAS",         "nRC",      "nRRD",    "nRREFD",  "nRPD",        "nRTPSB",      "nPPD",      "nWR",
+-               "nCCD",         "nCCDSB",   "nWTR",    "nWTRSB",  "nRTW",        "nREFI",       "nREFIpb",   "nRFCab",
+-               "nRFCpb",       "nRDREFab", "nRFMab",  "nRFMpb",  "nRCKSTRT2RD", "nRD2RCKSTOP", "nRCKSP2ST", "nRCKST2SP",
+-               "nRCKSTOP_LAT", "nRCKEN",   "nRCK_LS", "nRCKPST", "tCK_ps"});
++    set_names(timings, timing_names, {
++        "rate", "nBL", "nRL", "nWL", "nDQERL", "nRCDRD", "nRCDWR", "nRP", "nRAS", "nRC", "nRRD", "nRREFD", "nRPD",
++        "nRTPSB", "nPPD", "nWR", "nCCD", "nCCDSB", "nWTR", "nWTRSB", "nRTW", "nREFI", "nREFIpb", "nRFCab", "nRFCpb",
++        "nRDREFab", "nRFMab", "nRFMpb", "nRCKSTRT2RD", "nRD2RCKSTOP", "nRCKSP2ST", "nRCKST2SP", "nRCKSTOP_LAT",
++        "nRCKEN", "nRCK_LS", "nRCKPST", "tCK_ps"
++    });
+ 
+     // Static spec data
+     internal_prefetch_size = 32;
+     init_states = {
+-        State::N_A,     // Channel
+-        State::Closed,  // Bank
+-        State::Closed,  // Row
+-        State::N_A,     // Column
++        State::N_A,           // Channel
++        State::Closed,        // Bank
++        State::Closed,        // Row
++        State::N_A,           // Column
+     };
+     supported_requests = {
+-        Command::RD,  // Read -> RD
+-        Command::WR,  // Write -> WR
++        Command::RD,        // Read -> RD
++        Command::WR,        // Write -> WR
+     };
+ 
+     // Runtime config (organization, timing values, timing constraints)
+@@ -121,25 +87,25 @@ class GDDR7 : public DRAMSpec {
+     // Command handlers (function pointers, metadata, bank targets)
+     populate_commands(CommandImpls{}, *this);
+ 
+-    // Bus classification (for dual-bus controllers)
+-    command_meta[Command::ACT].is_row_command = true;
+-    command_meta[Command::PREpb].is_row_command = true;
+-    command_meta[Command::PREab].is_row_command = true;
+-    command_meta[Command::REFab].is_row_command = true;
+-    command_meta[Command::REFpb].is_row_command = true;
+-    command_meta[Command::RFMab].is_row_command = true;
+-    command_meta[Command::RFMpb].is_row_command = true;
+-    command_meta[Command::RD].is_column_command = true;
+-    command_meta[Command::WR].is_column_command = true;
+-    command_meta[Command::RDA].is_column_command = true;
+-    command_meta[Command::WRA].is_column_command = true;
+-    command_meta[Command::RCKSTRT].is_column_command = true;
+-    command_meta[Command::RCKSTOP].is_column_command = true;
++      // Bus classification (for dual-bus controllers)
++      command_meta[Command::ACT].is_row_command = true;
++      command_meta[Command::PREpb].is_row_command = true;
++      command_meta[Command::PREab].is_row_command = true;
++      command_meta[Command::REFab].is_row_command = true;
++      command_meta[Command::REFpb].is_row_command = true;
++      command_meta[Command::RFMab].is_row_command = true;
++      command_meta[Command::RFMpb].is_row_command = true;
++      command_meta[Command::RD].is_column_command = true;
++      command_meta[Command::WR].is_column_command = true;
++      command_meta[Command::RDA].is_column_command = true;
++      command_meta[Command::WRA].is_column_command = true;
++      command_meta[Command::RCKSTRT].is_column_command = true;
++      command_meta[Command::RCKSTOP].is_column_command = true;
+   }
+ };
+ 
+ // Self-registration
+-static bool _dram_gddr7 =
+-    DRAMSpec::register_standard("GDDR7", [](const ConfigNode& config) { return std::make_unique<GDDR7>(config); });
++static bool _dram_gddr7 = DRAMSpec::register_standard(
++    "GDDR7", [](const ConfigNode& config) { return std::make_unique<GDDR7>(config); });
+ 
+ }  // namespace Ramulator
+diff --git a/src/ramulator/dram/impl/HBM1.cpp b/src/ramulator/dram/impl/HBM1.cpp
+index 7ddd130..9b2ae1c 100644
+--- a/src/ramulator/dram/impl/HBM1.cpp
++++ b/src/ramulator/dram/impl/HBM1.cpp
+@@ -6,6 +6,9 @@
+  *
+  * Regenerate:   python -m ramulator codegen HBM1
+  ******************************************************************************/
++#include "ramulator/dram/dram_spec.h"
++
++#include "ramulator/dram/commands/populate.h"
+ #include "ramulator/dram/commands/ACT.h"
+ #include "ramulator/dram/commands/PREab.h"
+ #include "ramulator/dram/commands/PREpb.h"
+@@ -15,8 +18,6 @@
+ #include "ramulator/dram/commands/REFpb.h"
+ #include "ramulator/dram/commands/WR.h"
+ #include "ramulator/dram/commands/WRA.h"
+-#include "ramulator/dram/commands/populate.h"
+-#include "ramulator/dram/dram_spec.h"
+ 
+ namespace Ramulator {
+ 
+@@ -33,37 +34,15 @@ class HBM1 : public DRAMSpec {
+   };
+   struct Timing {
+     enum : int {
+-      rate,
+-      nBL,
+-      nCL,
+-      nRCDRD,
+-      nRCDWR,
+-      nRP,
+-      nRAS,
+-      nRC,
+-      nWR,
+-      nRTPL,
+-      nCWL,
+-      nCCDS,
+-      nCCDL,
+-      nRRDS,
+-      nRRDL,
+-      nWTRS,
+-      nWTRL,
+-      nRTW,
+-      nFAW,
+-      nRFC,
+-      nRFCpb,
+-      nRREFD,
+-      nREFI,
+-      nREFIpb,
+-      tCK_ps,
+-      COUNT
++    rate, nBL, nCL, nRCDRD, nRCDWR, nRP, nRAS, nRC, nWR, nRTPL, nCWL, nCCDS, nCCDL, nRRDS, nRRDL, nWTRS, nWTRL, nRTW,
++    nFAW, nRFC, nRFCpb, nRREFD, nREFI, nREFIpb, tCK_ps, COUNT
+     };
+   };
+ 
+-  using CommandImpls = std::tuple<Cmd::ACT<HBM1>, Cmd::PREpb<HBM1>, Cmd::PREab<HBM1>, Cmd::RD<HBM1>, Cmd::WR<HBM1>,
+-                                  Cmd::RDA<HBM1>, Cmd::WRA<HBM1>, Cmd::REFab<HBM1>, Cmd::REFpb<HBM1> >;
++  using CommandImpls = std::tuple<
++      Cmd::ACT<HBM1>, Cmd::PREpb<HBM1>, Cmd::PREab<HBM1>, Cmd::RD<HBM1>, Cmd::WR<HBM1>, Cmd::RDA<HBM1>,
++      Cmd::WRA<HBM1>, Cmd::REFab<HBM1>, Cmd::REFpb<HBM1>
++  >;
+ 
+   HBM1(const ConfigNode& config) {
+     // Counts
+@@ -76,23 +55,23 @@ class HBM1 : public DRAMSpec {
+     set_names(levels, level_names, {"Channel", "BankGroup", "Bank", "Row", "Column"});
+     set_names(commands, command_names, {"ACT", "PREpb", "PREab", "RD", "WR", "RDA", "WRA", "REFab", "REFpb"});
+     set_names(states, state_names, {"Opened", "Closed", "N_A"});
+-    set_names(timings, timing_names,
+-              {"rate",  "nBL",  "nCL",    "nRCDRD", "nRCDWR", "nRP",     "nRAS",  "nRC",   "nWR",
+-               "nRTPL", "nCWL", "nCCDS",  "nCCDL",  "nRRDS",  "nRRDL",   "nWTRS", "nWTRL", "nRTW",
+-               "nFAW",  "nRFC", "nRFCpb", "nRREFD", "nREFI",  "nREFIpb", "tCK_ps"});
++    set_names(timings, timing_names, {
++        "rate", "nBL", "nCL", "nRCDRD", "nRCDWR", "nRP", "nRAS", "nRC", "nWR", "nRTPL", "nCWL", "nCCDS", "nCCDL",
++        "nRRDS", "nRRDL", "nWTRS", "nWTRL", "nRTW", "nFAW", "nRFC", "nRFCpb", "nRREFD", "nREFI", "nREFIpb", "tCK_ps"
++    });
+ 
+     // Static spec data
+     internal_prefetch_size = 2;
+     init_states = {
+-        State::N_A,     // Channel
+-        State::N_A,     // BankGroup
+-        State::Closed,  // Bank
+-        State::Closed,  // Row
+-        State::N_A,     // Column
++        State::N_A,           // Channel
++        State::N_A,           // BankGroup
++        State::Closed,        // Bank
++        State::Closed,        // Row
++        State::N_A,           // Column
+     };
+     supported_requests = {
+-        Command::RD,  // Read -> RD
+-        Command::WR,  // Write -> WR
++        Command::RD,        // Read -> RD
++        Command::WR,        // Write -> WR
+     };
+ 
+     // Runtime config (organization, timing values, timing constraints)
+@@ -101,21 +80,21 @@ class HBM1 : public DRAMSpec {
+     // Command handlers (function pointers, metadata, bank targets)
+     populate_commands(CommandImpls{}, *this);
+ 
+-    // Bus classification (for dual-bus controllers)
+-    command_meta[Command::ACT].is_row_command = true;
+-    command_meta[Command::PREpb].is_row_command = true;
+-    command_meta[Command::PREab].is_row_command = true;
+-    command_meta[Command::REFab].is_row_command = true;
+-    command_meta[Command::REFpb].is_row_command = true;
+-    command_meta[Command::RD].is_column_command = true;
+-    command_meta[Command::WR].is_column_command = true;
+-    command_meta[Command::RDA].is_column_command = true;
+-    command_meta[Command::WRA].is_column_command = true;
++      // Bus classification (for dual-bus controllers)
++      command_meta[Command::ACT].is_row_command = true;
++      command_meta[Command::PREpb].is_row_command = true;
++      command_meta[Command::PREab].is_row_command = true;
++      command_meta[Command::REFab].is_row_command = true;
++      command_meta[Command::REFpb].is_row_command = true;
++      command_meta[Command::RD].is_column_command = true;
++      command_meta[Command::WR].is_column_command = true;
++      command_meta[Command::RDA].is_column_command = true;
++      command_meta[Command::WRA].is_column_command = true;
+   }
+ };
+ 
+ // Self-registration
+-static bool _dram_hbm1 =
+-    DRAMSpec::register_standard("HBM1", [](const ConfigNode& config) { return std::make_unique<HBM1>(config); });
++static bool _dram_hbm1 = DRAMSpec::register_standard(
++    "HBM1", [](const ConfigNode& config) { return std::make_unique<HBM1>(config); });
+ 
+ }  // namespace Ramulator
+diff --git a/src/ramulator/dram/impl/HBM2.cpp b/src/ramulator/dram/impl/HBM2.cpp
+index 274d579..5c0ad29 100644
+--- a/src/ramulator/dram/impl/HBM2.cpp
++++ b/src/ramulator/dram/impl/HBM2.cpp
+@@ -6,6 +6,9 @@
+  *
+  * Regenerate:   python -m ramulator codegen HBM2
+  ******************************************************************************/
++#include "ramulator/dram/dram_spec.h"
++
++#include "ramulator/dram/commands/populate.h"
+ #include "ramulator/dram/commands/ACT.h"
+ #include "ramulator/dram/commands/PREab.h"
+ #include "ramulator/dram/commands/PREpb.h"
+@@ -15,8 +18,6 @@
+ #include "ramulator/dram/commands/REFpb.h"
+ #include "ramulator/dram/commands/WR.h"
+ #include "ramulator/dram/commands/WRA.h"
+-#include "ramulator/dram/commands/populate.h"
+-#include "ramulator/dram/dram_spec.h"
+ 
+ namespace Ramulator {
+ 
+@@ -33,38 +34,15 @@ class HBM2 : public DRAMSpec {
+   };
+   struct Timing {
+     enum : int {
+-      rate,
+-      nBL,
+-      nCL,
+-      nRCDRD,
+-      nRCDWR,
+-      nRP,
+-      nRAS,
+-      nRC,
+-      nWR,
+-      nRTPL,
+-      nCWL,
+-      nCCDS,
+-      nCCDL,
+-      nCCDR,
+-      nRRDS,
+-      nRRDL,
+-      nWTRS,
+-      nWTRL,
+-      nRTW,
+-      nFAW,
+-      nRFC,
+-      nRFCpb,
+-      nRREFD,
+-      nREFI,
+-      nREFIpb,
+-      tCK_ps,
+-      COUNT
++    rate, nBL, nCL, nRCDRD, nRCDWR, nRP, nRAS, nRC, nWR, nRTPL, nCWL, nCCDS, nCCDL, nCCDR, nRRDS, nRRDL, nWTRS,
++    nWTRL, nRTW, nFAW, nRFC, nRFCpb, nRREFD, nREFI, nREFIpb, tCK_ps, COUNT
+     };
+   };
+ 
+-  using CommandImpls = std::tuple<Cmd::ACT<HBM2>, Cmd::PREpb<HBM2>, Cmd::PREab<HBM2>, Cmd::RD<HBM2>, Cmd::WR<HBM2>,
+-                                  Cmd::RDA<HBM2>, Cmd::WRA<HBM2>, Cmd::REFab<HBM2>, Cmd::REFpb<HBM2> >;
++  using CommandImpls = std::tuple<
++      Cmd::ACT<HBM2>, Cmd::PREpb<HBM2>, Cmd::PREab<HBM2>, Cmd::RD<HBM2>, Cmd::WR<HBM2>, Cmd::RDA<HBM2>,
++      Cmd::WRA<HBM2>, Cmd::REFab<HBM2>, Cmd::REFpb<HBM2>
++  >;
+ 
+   HBM2(const ConfigNode& config) {
+     // Counts
+@@ -77,25 +55,26 @@ class HBM2 : public DRAMSpec {
+     set_names(levels, level_names, {"Channel", "PseudoChannel", "Sid", "BankGroup", "Bank", "Row", "Column"});
+     set_names(commands, command_names, {"ACT", "PREpb", "PREab", "RD", "WR", "RDA", "WRA", "REFab", "REFpb"});
+     set_names(states, state_names, {"Opened", "Closed", "N_A"});
+-    set_names(timings, timing_names,
+-              {"rate",  "nBL",  "nCL",   "nRCDRD", "nRCDWR", "nRP",   "nRAS",    "nRC",   "nWR",
+-               "nRTPL", "nCWL", "nCCDS", "nCCDL",  "nCCDR",  "nRRDS", "nRRDL",   "nWTRS", "nWTRL",
+-               "nRTW",  "nFAW", "nRFC",  "nRFCpb", "nRREFD", "nREFI", "nREFIpb", "tCK_ps"});
++    set_names(timings, timing_names, {
++        "rate", "nBL", "nCL", "nRCDRD", "nRCDWR", "nRP", "nRAS", "nRC", "nWR", "nRTPL", "nCWL", "nCCDS", "nCCDL",
++        "nCCDR", "nRRDS", "nRRDL", "nWTRS", "nWTRL", "nRTW", "nFAW", "nRFC", "nRFCpb", "nRREFD", "nREFI", "nREFIpb",
++        "tCK_ps"
++    });
+ 
+     // Static spec data
+     internal_prefetch_size = 4;
+     init_states = {
+-        State::N_A,     // Channel
+-        State::N_A,     // PseudoChannel
+-        State::N_A,     // Sid
+-        State::N_A,     // BankGroup
+-        State::Closed,  // Bank
+-        State::Closed,  // Row
+-        State::N_A,     // Column
++        State::N_A,           // Channel
++        State::N_A,           // PseudoChannel
++        State::N_A,           // Sid
++        State::N_A,           // BankGroup
++        State::Closed,        // Bank
++        State::Closed,        // Row
++        State::N_A,           // Column
+     };
+     supported_requests = {
+-        Command::RD,  // Read -> RD
+-        Command::WR,  // Write -> WR
++        Command::RD,        // Read -> RD
++        Command::WR,        // Write -> WR
+     };
+ 
+     // Runtime config (organization, timing values, timing constraints)
+@@ -104,21 +83,21 @@ class HBM2 : public DRAMSpec {
+     // Command handlers (function pointers, metadata, bank targets)
+     populate_commands(CommandImpls{}, *this);
+ 
+-    // Bus classification (for dual-bus controllers)
+-    command_meta[Command::ACT].is_row_command = true;
+-    command_meta[Command::PREpb].is_row_command = true;
+-    command_meta[Command::PREab].is_row_command = true;
+-    command_meta[Command::REFab].is_row_command = true;
+-    command_meta[Command::REFpb].is_row_command = true;
+-    command_meta[Command::RD].is_column_command = true;
+-    command_meta[Command::WR].is_column_command = true;
+-    command_meta[Command::RDA].is_column_command = true;
+-    command_meta[Command::WRA].is_column_command = true;
++      // Bus classification (for dual-bus controllers)
++      command_meta[Command::ACT].is_row_command = true;
++      command_meta[Command::PREpb].is_row_command = true;
++      command_meta[Command::PREab].is_row_command = true;
++      command_meta[Command::REFab].is_row_command = true;
++      command_meta[Command::REFpb].is_row_command = true;
++      command_meta[Command::RD].is_column_command = true;
++      command_meta[Command::WR].is_column_command = true;
++      command_meta[Command::RDA].is_column_command = true;
++      command_meta[Command::WRA].is_column_command = true;
+   }
+ };
+ 
+ // Self-registration
+-static bool _dram_hbm2 =
+-    DRAMSpec::register_standard("HBM2", [](const ConfigNode& config) { return std::make_unique<HBM2>(config); });
++static bool _dram_hbm2 = DRAMSpec::register_standard(
++    "HBM2", [](const ConfigNode& config) { return std::make_unique<HBM2>(config); });
+ 
+ }  // namespace Ramulator
+diff --git a/src/ramulator/dram/impl/HBM3.cpp b/src/ramulator/dram/impl/HBM3.cpp
+index e1c5f5f..c683cdc 100644
+--- a/src/ramulator/dram/impl/HBM3.cpp
++++ b/src/ramulator/dram/impl/HBM3.cpp
+@@ -6,6 +6,9 @@
+  *
+  * Regenerate:   python -m ramulator codegen HBM3
+  ******************************************************************************/
++#include "ramulator/dram/dram_spec.h"
++
++#include "ramulator/dram/commands/populate.h"
+ #include "ramulator/dram/commands/ACT.h"
+ #include "ramulator/dram/commands/PREab.h"
+ #include "ramulator/dram/commands/PREpb.h"
+@@ -17,8 +20,6 @@
+ #include "ramulator/dram/commands/RFMpb.h"
+ #include "ramulator/dram/commands/WR.h"
+ #include "ramulator/dram/commands/WRA.h"
+-#include "ramulator/dram/commands/populate.h"
+-#include "ramulator/dram/dram_spec.h"
+ 
+ namespace Ramulator {
+ 
+@@ -35,42 +36,15 @@ class HBM3 : public DRAMSpec {
+   };
+   struct Timing {
+     enum : int {
+-      rate,
+-      nBL,
+-      nCL,
+-      nRCDRD,
+-      nRCDWR,
+-      nRP,
+-      nRAS,
+-      nRC,
+-      nWR,
+-      nRTP,
+-      nCWL,
+-      nCCDS,
+-      nCCDL,
+-      nCCDR,
+-      nRRDS,
+-      nRRDL,
+-      nWTRS,
+-      nWTRL,
+-      nRTW,
+-      nFAW,
+-      nPPD,
+-      nRFC,
+-      nRFCpb,
+-      nRFMab,
+-      nRFMpb,
+-      nRREFD,
+-      nREFI,
+-      nREFIpb,
+-      tCK_ps,
+-      COUNT
++    rate, nBL, nCL, nRCDRD, nRCDWR, nRP, nRAS, nRC, nWR, nRTP, nCWL, nCCDS, nCCDL, nCCDR, nRRDS, nRRDL, nWTRS, nWTRL,
++    nRTW, nFAW, nPPD, nRFC, nRFCpb, nRFMab, nRFMpb, nRREFD, nREFI, nREFIpb, tCK_ps, COUNT
+     };
+   };
+ 
+-  using CommandImpls =
+-      std::tuple<Cmd::ACT<HBM3>, Cmd::PREpb<HBM3>, Cmd::PREab<HBM3>, Cmd::RD<HBM3>, Cmd::WR<HBM3>, Cmd::RDA<HBM3>,
+-                 Cmd::WRA<HBM3>, Cmd::REFab<HBM3>, Cmd::REFpb<HBM3>, Cmd::RFMab<HBM3>, Cmd::RFMpb<HBM3> >;
++  using CommandImpls = std::tuple<
++      Cmd::ACT<HBM3>, Cmd::PREpb<HBM3>, Cmd::PREab<HBM3>, Cmd::RD<HBM3>, Cmd::WR<HBM3>, Cmd::RDA<HBM3>,
++      Cmd::WRA<HBM3>, Cmd::REFab<HBM3>, Cmd::REFpb<HBM3>, Cmd::RFMab<HBM3>, Cmd::RFMpb<HBM3>
++  >;
+ 
+   HBM3(const ConfigNode& config) {
+     // Counts
+@@ -81,28 +55,28 @@ class HBM3 : public DRAMSpec {
+ 
+     // String name maps + reverse lookup vectors
+     set_names(levels, level_names, {"Channel", "PseudoChannel", "Sid", "BankGroup", "Bank", "Row", "Column"});
+-    set_names(commands, command_names,
+-              {"ACT", "PREpb", "PREab", "RD", "WR", "RDA", "WRA", "REFab", "REFpb", "RFMab", "RFMpb"});
++    set_names(commands, command_names, {"ACT", "PREpb", "PREab", "RD", "WR", "RDA", "WRA", "REFab", "REFpb", "RFMab", "RFMpb"});
+     set_names(states, state_names, {"Opened", "Closed", "N_A"});
+-    set_names(timings, timing_names,
+-              {"rate", "nBL",   "nCL",    "nRCDRD", "nRCDWR", "nRP",    "nRAS",  "nRC",     "nWR",   "nRTP",
+-               "nCWL", "nCCDS", "nCCDL",  "nCCDR",  "nRRDS",  "nRRDL",  "nWTRS", "nWTRL",   "nRTW",  "nFAW",
+-               "nPPD", "nRFC",  "nRFCpb", "nRFMab", "nRFMpb", "nRREFD", "nREFI", "nREFIpb", "tCK_ps"});
++    set_names(timings, timing_names, {
++        "rate", "nBL", "nCL", "nRCDRD", "nRCDWR", "nRP", "nRAS", "nRC", "nWR", "nRTP", "nCWL", "nCCDS", "nCCDL",
++        "nCCDR", "nRRDS", "nRRDL", "nWTRS", "nWTRL", "nRTW", "nFAW", "nPPD", "nRFC", "nRFCpb", "nRFMab", "nRFMpb",
++        "nRREFD", "nREFI", "nREFIpb", "tCK_ps"
++    });
+ 
+     // Static spec data
+     internal_prefetch_size = 8;
+     init_states = {
+-        State::N_A,     // Channel
+-        State::N_A,     // PseudoChannel
+-        State::N_A,     // Sid
+-        State::N_A,     // BankGroup
+-        State::Closed,  // Bank
+-        State::Closed,  // Row
+-        State::N_A,     // Column
++        State::N_A,           // Channel
++        State::N_A,           // PseudoChannel
++        State::N_A,           // Sid
++        State::N_A,           // BankGroup
++        State::Closed,        // Bank
++        State::Closed,        // Row
++        State::N_A,           // Column
+     };
+     supported_requests = {
+-        Command::RD,  // Read -> RD
+-        Command::WR,  // Write -> WR
++        Command::RD,        // Read -> RD
++        Command::WR,        // Write -> WR
+     };
+ 
+     // Runtime config (organization, timing values, timing constraints)
+@@ -111,23 +85,23 @@ class HBM3 : public DRAMSpec {
+     // Command handlers (function pointers, metadata, bank targets)
+     populate_commands(CommandImpls{}, *this);
+ 
+-    // Bus classification (for dual-bus controllers)
+-    command_meta[Command::ACT].is_row_command = true;
+-    command_meta[Command::PREpb].is_row_command = true;
+-    command_meta[Command::PREab].is_row_command = true;
+-    command_meta[Command::REFab].is_row_command = true;
+-    command_meta[Command::REFpb].is_row_command = true;
+-    command_meta[Command::RFMab].is_row_command = true;
+-    command_meta[Command::RFMpb].is_row_command = true;
+-    command_meta[Command::RD].is_column_command = true;
+-    command_meta[Command::WR].is_column_command = true;
+-    command_meta[Command::RDA].is_column_command = true;
+-    command_meta[Command::WRA].is_column_command = true;
++      // Bus classification (for dual-bus controllers)
++      command_meta[Command::ACT].is_row_command = true;
++      command_meta[Command::PREpb].is_row_command = true;
++      command_meta[Command::PREab].is_row_command = true;
++      command_meta[Command::REFab].is_row_command = true;
++      command_meta[Command::REFpb].is_row_command = true;
++      command_meta[Command::RFMab].is_row_command = true;
++      command_meta[Command::RFMpb].is_row_command = true;
++      command_meta[Command::RD].is_column_command = true;
++      command_meta[Command::WR].is_column_command = true;
++      command_meta[Command::RDA].is_column_command = true;
++      command_meta[Command::WRA].is_column_command = true;
+   }
+ };
+ 
+ // Self-registration
+-static bool _dram_hbm3 =
+-    DRAMSpec::register_standard("HBM3", [](const ConfigNode& config) { return std::make_unique<HBM3>(config); });
++static bool _dram_hbm3 = DRAMSpec::register_standard(
++    "HBM3", [](const ConfigNode& config) { return std::make_unique<HBM3>(config); });
+ 
+ }  // namespace Ramulator
+diff --git a/src/ramulator/dram/impl/HBM4.cpp b/src/ramulator/dram/impl/HBM4.cpp
+index 247af11..634089d 100644
+--- a/src/ramulator/dram/impl/HBM4.cpp
++++ b/src/ramulator/dram/impl/HBM4.cpp
+@@ -6,6 +6,9 @@
+  *
+  * Regenerate:   python -m ramulator codegen HBM4
+  ******************************************************************************/
++#include "ramulator/dram/dram_spec.h"
++
++#include "ramulator/dram/commands/populate.h"
+ #include "ramulator/dram/commands/ACT.h"
+ #include "ramulator/dram/commands/PREab.h"
+ #include "ramulator/dram/commands/PREpb.h"
+@@ -17,8 +20,6 @@
+ #include "ramulator/dram/commands/RFMpb.h"
+ #include "ramulator/dram/commands/WR.h"
+ #include "ramulator/dram/commands/WRA.h"
+-#include "ramulator/dram/commands/populate.h"
+-#include "ramulator/dram/dram_spec.h"
+ 
+ namespace Ramulator {
+ 
+@@ -35,42 +36,15 @@ class HBM4 : public DRAMSpec {
+   };
+   struct Timing {
+     enum : int {
+-      rate,
+-      nBL,
+-      nCL,
+-      nRCDRD,
+-      nRCDWR,
+-      nRP,
+-      nRAS,
+-      nRC,
+-      nWR,
+-      nRTP,
+-      nCWL,
+-      nCCDS,
+-      nCCDL,
+-      nCCDR,
+-      nRRDS,
+-      nRRDL,
+-      nWTRS,
+-      nWTRL,
+-      nRTW,
+-      nFAW,
+-      nPPD,
+-      nRFC,
+-      nRFCpb,
+-      nRFMab,
+-      nRFMpb,
+-      nRREFD,
+-      nREFI,
+-      nREFIpb,
+-      tCK_ps,
+-      COUNT
++    rate, nBL, nCL, nRCDRD, nRCDWR, nRP, nRAS, nRC, nWR, nRTP, nCWL, nCCDS, nCCDL, nCCDR, nRRDS, nRRDL, nWTRS, nWTRL,
++    nRTW, nFAW, nPPD, nRFC, nRFCpb, nRFMab, nRFMpb, nRREFD, nREFI, nREFIpb, tCK_ps, COUNT
+     };
+   };
+ 
+-  using CommandImpls =
+-      std::tuple<Cmd::ACT<HBM4>, Cmd::PREpb<HBM4>, Cmd::PREab<HBM4>, Cmd::RD<HBM4>, Cmd::WR<HBM4>, Cmd::RDA<HBM4>,
+-                 Cmd::WRA<HBM4>, Cmd::REFab<HBM4>, Cmd::REFpb<HBM4>, Cmd::RFMab<HBM4>, Cmd::RFMpb<HBM4> >;
++  using CommandImpls = std::tuple<
++      Cmd::ACT<HBM4>, Cmd::PREpb<HBM4>, Cmd::PREab<HBM4>, Cmd::RD<HBM4>, Cmd::WR<HBM4>, Cmd::RDA<HBM4>,
++      Cmd::WRA<HBM4>, Cmd::REFab<HBM4>, Cmd::REFpb<HBM4>, Cmd::RFMab<HBM4>, Cmd::RFMpb<HBM4>
++  >;
+ 
+   HBM4(const ConfigNode& config) {
+     // Counts
+@@ -81,28 +55,28 @@ class HBM4 : public DRAMSpec {
+ 
+     // String name maps + reverse lookup vectors
+     set_names(levels, level_names, {"Channel", "PseudoChannel", "Sid", "BankGroup", "Bank", "Row", "Column"});
+-    set_names(commands, command_names,
+-              {"ACT", "PREpb", "PREab", "RD", "WR", "RDA", "WRA", "REFab", "REFpb", "RFMab", "RFMpb"});
++    set_names(commands, command_names, {"ACT", "PREpb", "PREab", "RD", "WR", "RDA", "WRA", "REFab", "REFpb", "RFMab", "RFMpb"});
+     set_names(states, state_names, {"Opened", "Closed", "N_A"});
+-    set_names(timings, timing_names,
+-              {"rate", "nBL",   "nCL",    "nRCDRD", "nRCDWR", "nRP",    "nRAS",  "nRC",     "nWR",   "nRTP",
+-               "nCWL", "nCCDS", "nCCDL",  "nCCDR",  "nRRDS",  "nRRDL",  "nWTRS", "nWTRL",   "nRTW",  "nFAW",
+-               "nPPD", "nRFC",  "nRFCpb", "nRFMab", "nRFMpb", "nRREFD", "nREFI", "nREFIpb", "tCK_ps"});
++    set_names(timings, timing_names, {
++        "rate", "nBL", "nCL", "nRCDRD", "nRCDWR", "nRP", "nRAS", "nRC", "nWR", "nRTP", "nCWL", "nCCDS", "nCCDL",
++        "nCCDR", "nRRDS", "nRRDL", "nWTRS", "nWTRL", "nRTW", "nFAW", "nPPD", "nRFC", "nRFCpb", "nRFMab", "nRFMpb",
++        "nRREFD", "nREFI", "nREFIpb", "tCK_ps"
++    });
+ 
+     // Static spec data
+     internal_prefetch_size = 8;
+     init_states = {
+-        State::N_A,     // Channel
+-        State::N_A,     // PseudoChannel
+-        State::N_A,     // Sid
+-        State::N_A,     // BankGroup
+-        State::Closed,  // Bank
+-        State::Closed,  // Row
+-        State::N_A,     // Column
++        State::N_A,           // Channel
++        State::N_A,           // PseudoChannel
++        State::N_A,           // Sid
++        State::N_A,           // BankGroup
++        State::Closed,        // Bank
++        State::Closed,        // Row
++        State::N_A,           // Column
+     };
+     supported_requests = {
+-        Command::RD,  // Read -> RD
+-        Command::WR,  // Write -> WR
++        Command::RD,        // Read -> RD
++        Command::WR,        // Write -> WR
+     };
+ 
+     // Runtime config (organization, timing values, timing constraints)
+@@ -111,23 +85,23 @@ class HBM4 : public DRAMSpec {
+     // Command handlers (function pointers, metadata, bank targets)
+     populate_commands(CommandImpls{}, *this);
+ 
+-    // Bus classification (for dual-bus controllers)
+-    command_meta[Command::ACT].is_row_command = true;
+-    command_meta[Command::PREpb].is_row_command = true;
+-    command_meta[Command::PREab].is_row_command = true;
+-    command_meta[Command::REFab].is_row_command = true;
+-    command_meta[Command::REFpb].is_row_command = true;
+-    command_meta[Command::RFMab].is_row_command = true;
+-    command_meta[Command::RFMpb].is_row_command = true;
+-    command_meta[Command::RD].is_column_command = true;
+-    command_meta[Command::WR].is_column_command = true;
+-    command_meta[Command::RDA].is_column_command = true;
+-    command_meta[Command::WRA].is_column_command = true;
++      // Bus classification (for dual-bus controllers)
++      command_meta[Command::ACT].is_row_command = true;
++      command_meta[Command::PREpb].is_row_command = true;
++      command_meta[Command::PREab].is_row_command = true;
++      command_meta[Command::REFab].is_row_command = true;
++      command_meta[Command::REFpb].is_row_command = true;
++      command_meta[Command::RFMab].is_row_command = true;
++      command_meta[Command::RFMpb].is_row_command = true;
++      command_meta[Command::RD].is_column_command = true;
++      command_meta[Command::WR].is_column_command = true;
++      command_meta[Command::RDA].is_column_command = true;
++      command_meta[Command::WRA].is_column_command = true;
+   }
+ };
+ 
+ // Self-registration
+-static bool _dram_hbm4 =
+-    DRAMSpec::register_standard("HBM4", [](const ConfigNode& config) { return std::make_unique<HBM4>(config); });
++static bool _dram_hbm4 = DRAMSpec::register_standard(
++    "HBM4", [](const ConfigNode& config) { return std::make_unique<HBM4>(config); });
+ 
+ }  // namespace Ramulator
+diff --git a/src/ramulator/dram/impl/LPDDR5.cpp b/src/ramulator/dram/impl/LPDDR5.cpp
+index 020b826..2301354 100644
+--- a/src/ramulator/dram/impl/LPDDR5.cpp
++++ b/src/ramulator/dram/impl/LPDDR5.cpp
+@@ -6,6 +6,9 @@
+  *
+  * Regenerate:   python -m ramulator codegen LPDDR5
+  ******************************************************************************/
++#include "ramulator/dram/dram_spec.h"
++
++#include "ramulator/dram/commands/populate.h"
+ #include "ramulator/dram/commands/ACT1.h"
+ #include "ramulator/dram/commands/ACT2.h"
+ #include "ramulator/dram/commands/CAS_RD.h"
+@@ -18,8 +21,6 @@
+ #include "ramulator/dram/commands/REFpb.h"
+ #include "ramulator/dram/commands/WR.h"
+ #include "ramulator/dram/commands/WRA.h"
+-#include "ramulator/dram/commands/populate.h"
+-#include "ramulator/dram/dram_spec.h"
+ 
+ namespace Ramulator {
+ 
+@@ -36,46 +37,17 @@ class LPDDR5 : public DRAMSpec {
+   };
+   struct Timing {
+     enum : int {
+-      rate,
+-      nBL_min,
+-      nBL_max,
+-      nCL,
+-      nRCD,
+-      nRP,
+-      nRPab,
+-      nRAS,
+-      nRC,
+-      nWR,
+-      nRTP,
+-      nCWL,
+-      nPPD,
+-      nCCDS,
+-      nCCDL,
+-      nCCDS_WR,
+-      nCCDL_WR,
+-      nRRDS,
+-      nRRDL,
+-      nWTRS,
+-      nWTRL,
+-      nFAW,
+-      nRFC,
+-      nRFCpb,
+-      nREFI,
+-      nREFIpb,
+-      nWCKPST,
+-      nCAS,
+-      nAAD,
+-      nCS,
+-      tCK_ps,
+-      nPBR2PBR,
+-      nPBR2ACT,
+-      COUNT
++    rate, nBL_min, nBL_max, nCL, nRCD, nRP, nRPab, nRAS, nRC, nWR, nRTP, nCWL, nPPD, nCCDS, nCCDL, nCCDS_WR,
++    nCCDL_WR, nRRDS, nRRDL, nWTRS, nWTRL, nFAW, nRFC, nRFCpb, nREFI, nREFIpb, nWCKPST, nCAS, nAAD, nCS, tCK_ps,
++    nPBR2PBR, nPBR2ACT, COUNT
+     };
+   };
+ 
+-  using CommandImpls = std::tuple<Cmd::ACT1<LPDDR5>, Cmd::ACT2<LPDDR5>, Cmd::PREpb<LPDDR5>, Cmd::PREab<LPDDR5>,
+-                                  Cmd::CAS_RD<LPDDR5>, Cmd::CAS_WR<LPDDR5>, Cmd::RD<LPDDR5>, Cmd::WR<LPDDR5>,
+-                                  Cmd::RDA<LPDDR5>, Cmd::WRA<LPDDR5>, Cmd::REFab<LPDDR5>, Cmd::REFpb<LPDDR5> >;
++  using CommandImpls = std::tuple<
++      Cmd::ACT1<LPDDR5>, Cmd::ACT2<LPDDR5>, Cmd::PREpb<LPDDR5>, Cmd::PREab<LPDDR5>, Cmd::CAS_RD<LPDDR5>,
++      Cmd::CAS_WR<LPDDR5>, Cmd::RD<LPDDR5>, Cmd::WR<LPDDR5>, Cmd::RDA<LPDDR5>, Cmd::WRA<LPDDR5>, Cmd::REFab<LPDDR5>,
++      Cmd::REFpb<LPDDR5>
++  >;
+ 
+   LPDDR5(const ConfigNode& config) {
+     // Counts
+@@ -86,28 +58,27 @@ class LPDDR5 : public DRAMSpec {
+ 
+     // String name maps + reverse lookup vectors
+     set_names(levels, level_names, {"Channel", "Rank", "BankGroup", "Bank", "Row", "Column"});
+-    set_names(commands, command_names,
+-              {"ACT1", "ACT2", "PREpb", "PREab", "CAS_RD", "CAS_WR", "RD", "WR", "RDA", "WRA", "REFab", "REFpb"});
++    set_names(commands, command_names, {"ACT1", "ACT2", "PREpb", "PREab", "CAS_RD", "CAS_WR", "RD", "WR", "RDA", "WRA", "REFab", "REFpb"});
+     set_names(states, state_names, {"Opened", "Closed", "Activating", "N_A"});
+-    set_names(timings, timing_names,
+-              {"rate",  "nBL_min", "nBL_max", "nCL",    "nRCD",     "nRP",     "nRPab",    "nRAS",     "nRC",
+-               "nWR",   "nRTP",    "nCWL",    "nPPD",   "nCCDS",    "nCCDL",   "nCCDS_WR", "nCCDL_WR", "nRRDS",
+-               "nRRDL", "nWTRS",   "nWTRL",   "nFAW",   "nRFC",     "nRFCpb",  "nREFI",    "nREFIpb",  "nWCKPST",
+-               "nCAS",  "nAAD",    "nCS",     "tCK_ps", "nPBR2PBR", "nPBR2ACT"});
++    set_names(timings, timing_names, {
++        "rate", "nBL_min", "nBL_max", "nCL", "nRCD", "nRP", "nRPab", "nRAS", "nRC", "nWR", "nRTP", "nCWL", "nPPD",
++        "nCCDS", "nCCDL", "nCCDS_WR", "nCCDL_WR", "nRRDS", "nRRDL", "nWTRS", "nWTRL", "nFAW", "nRFC", "nRFCpb",
++        "nREFI", "nREFIpb", "nWCKPST", "nCAS", "nAAD", "nCS", "tCK_ps", "nPBR2PBR", "nPBR2ACT"
++    });
+ 
+     // Static spec data
+     internal_prefetch_size = 16;
+     init_states = {
+-        State::N_A,     // Channel
+-        State::N_A,     // Rank
+-        State::N_A,     // BankGroup
+-        State::Closed,  // Bank
+-        State::Closed,  // Row
+-        State::N_A,     // Column
++        State::N_A,           // Channel
++        State::N_A,           // Rank
++        State::N_A,           // BankGroup
++        State::Closed,        // Bank
++        State::Closed,        // Row
++        State::N_A,           // Column
+     };
+     supported_requests = {
+-        Command::RD,  // Read -> RD
+-        Command::WR,  // Write -> WR
++        Command::RD,        // Read -> RD
++        Command::WR,        // Write -> WR
+     };
+ 
+     // Runtime config (organization, timing values, timing constraints)
+@@ -119,7 +90,7 @@ class LPDDR5 : public DRAMSpec {
+ };
+ 
+ // Self-registration
+-static bool _dram_lpddr5 =
+-    DRAMSpec::register_standard("LPDDR5", [](const ConfigNode& config) { return std::make_unique<LPDDR5>(config); });
++static bool _dram_lpddr5 = DRAMSpec::register_standard(
++    "LPDDR5", [](const ConfigNode& config) { return std::make_unique<LPDDR5>(config); });
+ 
+ }  // namespace Ramulator
+diff --git a/src/ramulator/dram/impl/LPDDR6.cpp b/src/ramulator/dram/impl/LPDDR6.cpp
+index 8f5b5be..e6c0b05 100644
+--- a/src/ramulator/dram/impl/LPDDR6.cpp
++++ b/src/ramulator/dram/impl/LPDDR6.cpp
+@@ -6,6 +6,9 @@
+  *
+  * Regenerate:   python -m ramulator codegen LPDDR6
+  ******************************************************************************/
++#include "ramulator/dram/dram_spec.h"
++
++#include "ramulator/dram/commands/populate.h"
+ #include "ramulator/dram/commands/ACT1.h"
+ #include "ramulator/dram/commands/ACT2.h"
+ #include "ramulator/dram/commands/CAS.h"
+@@ -20,8 +23,6 @@
+ #include "ramulator/dram/commands/WRA_S.h"
+ #include "ramulator/dram/commands/WR_L.h"
+ #include "ramulator/dram/commands/WR_S.h"
+-#include "ramulator/dram/commands/populate.h"
+-#include "ramulator/dram/dram_spec.h"
+ 
+ namespace Ramulator {
+ 
+@@ -38,57 +39,18 @@ class LPDDR6 : public DRAMSpec {
+   };
+   struct Timing {
+     enum : int {
+-      rate,
+-      nBL_min,
+-      nBL_max,
+-      nBL_min_L,
+-      nBL_max_L,
+-      nRL,
+-      nWL,
+-      nACU,
+-      nRCDr,
+-      nRCDw,
+-      nRP,
+-      nRPab,
+-      nRAS,
+-      nRC,
+-      nWTP,
+-      nRTP,
+-      nRTP_L,
+-      nPPD,
+-      nCCDS,
+-      nCCDL,
+-      nCCDL_L,
+-      nCCDS_WR,
+-      nCCDL_WR,
+-      nCCDL_WR_L,
+-      nRRD,
+-      nWTRS,
+-      nWTRL,
+-      nRTW_S,
+-      nRTW_L,
+-      nRTW_S_L,
+-      nRTW_L_L,
+-      nWCK2DQO,
+-      nRPST,
+-      nODTLon,
+-      nODTon_min,
+-      nFAW,
+-      nRFC,
+-      nREFI,
+-      nWCKPST,
+-      nCAS,
+-      nAAD,
+-      nCS,
+-      tCK_ps,
+-      COUNT
++    rate, nBL_min, nBL_max, nBL_min_L, nBL_max_L, nRL, nWL, nACU, nRCDr, nRCDw, nRP, nRPab, nRAS, nRC, nWTP, nRTP,
++    nRTP_L, nPPD, nCCDS, nCCDL, nCCDL_L, nCCDS_WR, nCCDL_WR, nCCDL_WR_L, nRRD, nWTRS, nWTRL, nRTW_S, nRTW_L,
++    nRTW_S_L, nRTW_L_L, nWCK2DQO, nRPST, nODTLon, nODTon_min, nFAW, nRFC, nREFI, nWCKPST, nCAS, nAAD, nCS, tCK_ps,
++    COUNT
+     };
+   };
+ 
+-  using CommandImpls =
+-      std::tuple<Cmd::ACT1<LPDDR6>, Cmd::ACT2<LPDDR6>, Cmd::PREpb<LPDDR6>, Cmd::PREab<LPDDR6>, Cmd::CAS<LPDDR6>,
+-                 Cmd::RD_S<LPDDR6>, Cmd::WR_S<LPDDR6>, Cmd::RDA_S<LPDDR6>, Cmd::WRA_S<LPDDR6>, Cmd::RD_L<LPDDR6>,
+-                 Cmd::WR_L<LPDDR6>, Cmd::RDA_L<LPDDR6>, Cmd::WRA_L<LPDDR6>, Cmd::REFab<LPDDR6> >;
++  using CommandImpls = std::tuple<
++      Cmd::ACT1<LPDDR6>, Cmd::ACT2<LPDDR6>, Cmd::PREpb<LPDDR6>, Cmd::PREab<LPDDR6>, Cmd::CAS<LPDDR6>,
++      Cmd::RD_S<LPDDR6>, Cmd::WR_S<LPDDR6>, Cmd::RDA_S<LPDDR6>, Cmd::WRA_S<LPDDR6>, Cmd::RD_L<LPDDR6>,
++      Cmd::WR_L<LPDDR6>, Cmd::RDA_L<LPDDR6>, Cmd::WRA_L<LPDDR6>, Cmd::REFab<LPDDR6>
++  >;
+ 
+   LPDDR6(const ConfigNode& config) {
+     // Counts
+@@ -99,31 +61,28 @@ class LPDDR6 : public DRAMSpec {
+ 
+     // String name maps + reverse lookup vectors
+     set_names(levels, level_names, {"Channel", "Rank", "BankGroup", "Bank", "Row", "Column"});
+-    set_names(commands, command_names,
+-              {"ACT1", "ACT2", "PREpb", "PREab", "CAS", "RD_S", "WR_S", "RDA_S", "WRA_S", "RD_L", "WR_L", "RDA_L",
+-               "WRA_L", "REFab"});
++    set_names(commands, command_names, {"ACT1", "ACT2", "PREpb", "PREab", "CAS", "RD_S", "WR_S", "RDA_S", "WRA_S", "RD_L", "WR_L", "RDA_L", "WRA_L", "REFab"});
+     set_names(states, state_names, {"Opened", "Closed", "Activating", "N_A"});
+-    set_names(
+-        timings, timing_names,
+-        {"rate",   "nBL_min", "nBL_max",  "nBL_min_L", "nBL_max_L", "nRL",        "nWL",     "nACU",       "nRCDr",
+-         "nRCDw",  "nRP",     "nRPab",    "nRAS",      "nRC",       "nWTP",       "nRTP",    "nRTP_L",     "nPPD",
+-         "nCCDS",  "nCCDL",   "nCCDL_L",  "nCCDS_WR",  "nCCDL_WR",  "nCCDL_WR_L", "nRRD",    "nWTRS",      "nWTRL",
+-         "nRTW_S", "nRTW_L",  "nRTW_S_L", "nRTW_L_L",  "nWCK2DQO",  "nRPST",      "nODTLon", "nODTon_min", "nFAW",
+-         "nRFC",   "nREFI",   "nWCKPST",  "nCAS",      "nAAD",      "nCS",        "tCK_ps"});
++    set_names(timings, timing_names, {
++        "rate", "nBL_min", "nBL_max", "nBL_min_L", "nBL_max_L", "nRL", "nWL", "nACU", "nRCDr", "nRCDw", "nRP",
++        "nRPab", "nRAS", "nRC", "nWTP", "nRTP", "nRTP_L", "nPPD", "nCCDS", "nCCDL", "nCCDL_L", "nCCDS_WR",
++        "nCCDL_WR", "nCCDL_WR_L", "nRRD", "nWTRS", "nWTRL", "nRTW_S", "nRTW_L", "nRTW_S_L", "nRTW_L_L", "nWCK2DQO",
++        "nRPST", "nODTLon", "nODTon_min", "nFAW", "nRFC", "nREFI", "nWCKPST", "nCAS", "nAAD", "nCS", "tCK_ps"
++    });
+ 
+     // Static spec data
+     internal_prefetch_size = 16;
+     init_states = {
+-        State::N_A,     // Channel
+-        State::N_A,     // Rank
+-        State::N_A,     // BankGroup
+-        State::Closed,  // Bank
+-        State::Closed,  // Row
+-        State::N_A,     // Column
++        State::N_A,           // Channel
++        State::N_A,           // Rank
++        State::N_A,           // BankGroup
++        State::Closed,        // Bank
++        State::Closed,        // Row
++        State::N_A,           // Column
+     };
+     supported_requests = {
+-        Command::RD_S,  // Read -> RD_S
+-        Command::WR_S,  // Write -> WR_S
++        Command::RD_S,      // Read -> RD_S
++        Command::WR_S,      // Write -> WR_S
+     };
+ 
+     // Runtime config (organization, timing values, timing constraints)
+@@ -135,7 +94,7 @@ class LPDDR6 : public DRAMSpec {
+ };
+ 
+ // Self-registration
+-static bool _dram_lpddr6 =
+-    DRAMSpec::register_standard("LPDDR6", [](const ConfigNode& config) { return std::make_unique<LPDDR6>(config); });
++static bool _dram_lpddr6 = DRAMSpec::register_standard(
++    "LPDDR6", [](const ConfigNode& config) { return std::make_unique<LPDDR6>(config); });
+ 
+ }  // namespace Ramulator
