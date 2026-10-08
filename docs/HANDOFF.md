@@ -4,6 +4,10 @@
 
 **当前优先级：[原生服务域与静态驻留联合配置](methods/WAFER_DRAM_SERVICE_PRINCIPLES.md)。** 81次独立请求回放已收齐；结合[研究证据与强基线](RESEARCH_STATUS.md)选择下一项配置，不重复该批实验。
 
+**互联核查补充：[当前没有compute间通信网络](reports/SIMULATOR_CONNECTIVITY_AUDIT.md)。**
+仅直接C–M读返回，禁止C–M–C转发；任务依赖不含通信字节/延迟。
+完整wafer/MoE评估须先明确合法compute通信路径及其成本，不能以读阶段结果代替整任务结果。
+
 本页只记录当前状态。此前逐轮交接完整保存在 [历史记录](HANDOFF_HISTORY.md)，其中“当前”“下一步”、路径和测试数只适用于各自提交，不作为新开发任务。
 
 本次分层整理通过 62 项相关测试，八个候选和三个对照身份不变；189 份合成归档及

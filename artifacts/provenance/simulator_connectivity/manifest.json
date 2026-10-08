@@ -1,0 +1,33 @@
+{
+  "provenance": {
+    "commit": "a3fe95bd248f5d09f5255c18f0ba19dc74ce1f03",
+    "git_status": "",
+    "host": "eex005",
+    "python": "3.13.13",
+    "packages": {
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "shapely": "2.1.2",
+      "pymetis": "2025.2.2",
+      "networkx": "3.7",
+      "matplotlib": "3.11.2"
+    }
+  },
+  "test_command": "python -m unittest tests.test_read_workload tests.test_memory_model -v",
+  "tests_passed": 32,
+  "scope": "Connectivity and model boundary audit; no execution semantics changed",
+  "files": [
+    {
+      "path": "artifacts/provenance/simulator_connectivity/audit.json",
+      "sha256": "44987964f81abbdcffb0953f42a70adf4e81d2b23d2beb538ffbedec765ff71f"
+    },
+    {
+      "path": "artifacts/provenance/simulator_connectivity/audit.log.gz",
+      "sha256": "452171297357af61efb343a04d868e3f89ab563630f475471407fd35ac07dc25"
+    },
+    {
+      "path": "artifacts/provenance/simulator_connectivity/tests.log.gz",
+      "sha256": "f9bf2c414182e4314076586a2bf1d3deed1aa73068b68713626166f4743b17fa"
+    }
+  ]
+}
