@@ -1,0 +1,14 @@
+{
+  "schema": "w2w.cohort-independent-launch.v1",
+  "host": "hn072@143.89.78.72",
+  "run_directory": "/Projects/haoning/w2w-cohort-independent-20261008",
+  "run_commit": "a626eff2d4fe2e268c3c0c5e7d96dbefcd4bca33",
+  "workers": 4,
+  "registered_records": 81,
+  "replay_pid": 3815735,
+  "finalization_pid": 3815934,
+  "finalization_commit": "ed12c69",
+  "status_at_registration": "running; no complete result or performance claim",
+  "independent_of": "eex005 registered execution; do not overwrite or merge partial results across runs",
+  "finish_command": "set -eu\ncd /Projects/haoning/w2w-cohort-finalize-20261008\nwhile [ ! -f /Projects/haoning/w2w-cohort-independent-20261008/build/replay/summary.json ]; do\n  if ! kill -0 3815735 2>/dev/null; then\n    echo 'ERROR: replay exited without complete summary'\n    exit 1\n  fi\n  sleep 15\ndone\nOPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 /Projects/haoning/w2w/.venv/bin/python -m w2w finalize_cohort_replay --source /Projects/haoning/w2w-cohort-independent-20261008/build/replay --inputs /Projects/haoning/w2w-cohort-independent-20261008/artifacts/results/workload/cohort_replay/inputs --output /Projects/haoning/w2w-cohort-independent-20261008/build/finalized\necho 'FINALIZATION_COMPLETE'"
+}
