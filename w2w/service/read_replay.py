@@ -1,7 +1,8 @@
 """Bounded closed-loop read-return model with explicit request and RX credits.
 
-This is a word/bit-budget system model, not an RTL or DRAM timing simulator.
-There is one native admission per bank slot. Accepted native returns reserve
+The default is a word/bit-budget model. An optional command-timing backend
+controls native completion; neither mode is an RTL simulator.
+There is at most one native admission per bank slot. Accepted returns reserve
 source storage until serialized; partial words reserve finite RX storage.
 """
 from collections import Counter, defaultdict, deque

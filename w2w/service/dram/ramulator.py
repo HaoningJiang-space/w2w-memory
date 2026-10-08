@@ -4,6 +4,7 @@ One reference channel per memory: 2 pseudochannels, 32 banks, 32-byte bursts.
 No implicit burst splitting, address truncation, profile scaling or downloads.
 """
 from fractions import Fraction
+from functools import lru_cache
 from hashlib import sha256
 import importlib.util
 import math
@@ -16,6 +17,7 @@ UPSTREAM_COMMIT = '72427a1bba3771564c4fb0e494ba02242fd1eaa7'
 BANK_WORDS = 1 << 19
 
 
+@lru_cache(maxsize=1)
 def load_bridge():
     path = Path(os.environ.get('W2W_RAMULATOR_BRIDGE', ''))
     if not path.is_file():
