@@ -1,15 +1,20 @@
 # 研究主线与当前证据
 
-**2026-10-09 主线更新：** 已接受“完整 compute NoC＋DRAM wafer”基线。
-先建立 B0/B1 的真实数据路径和反馈，再判断 B2 Direct HB；不再预设 configurable 为系统答案。
-[首个微基准合同与结果](methods/SYSTEM_EXECUTION_V2.md)和[复用已有加速 BookSim 的决定](methods/BOOKSIM_REUSE_ASSESSMENT.md)
-记录当前进度。其余本页为旧读子系统及硬件证据，数字与适用范围保持原样。
+**2026-10-09 完整层结果：** native BookSim 已接入统一 kernel。相同 routing、owner、
+驻留下，B1 / 理想返回 / 宽 NoC 在 IdealBanks 为 170.899 / 131.631 / 139.675 μs，
+在原生 HBM2 为 681.736 / 712.581 / 691.823 μs。HBM2 未因改返回网络获益，
+后续先研究 MC/DRAM 与静态驻留。[完整报告](reports/MOE_LAYER_SYSTEM_REPORT.md)
+记录输入、反馈、机器预算及局限；[合同](methods/MOE_LAYER_SYSTEM.md)可复现。
+六项在 hn072 完成，源码 `3a498c1`；旧结果身份保持不变。
+
+以下为历史读子系统及局部硬件研究状态，其中“当前”“下一步”仅适用于原实验。
+新的 compute 网络采用显式 stitching，不沿用旧 H/plus 的纯直接读路径语义。
 
 研究目标保持不变：在 repeated-reticle WoW Memory-on-Logic 中，联合配置服务接口、物理连接和静态数据驻留，使已有闲置 DRAM 服务能够被繁忙 compute 利用。
 
 **当前最值得验证的是完整设计的收益与成本，而不是再增加一个 simulator 或接口机制。** 已有证据支持共享机会和静态方向复用，但尚未证明一个优于强基线的完整架构。新补的静态裁剪对照说明：configurable 的主要价值是以小幅 source 面积开销保留模板的方向选择能力，不能再把它描述成相对最佳固定实现节省三成面积。
 
-## 本轮拓扑审计：当前是直接读子系统，不是完整wafer通信系统
+## 历史 v1 拓扑审计：直接读子系统的适用范围
 
 `audit_topology_scope`实际构造当前Home/k2/wide/C目录并执行小探针。36C+36M只有146条C–M物理邻接，C–C和M–M直接边均为0。图论上存在C0–M0–C1路径，但memory是服务终点，不是可转发router；当前执行器不运行这条通信路径。`memory_model.summary()`已明确输出`forwarding_supported=False`。复用上游几何不等于复用了BookSim网络。
 

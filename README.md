@@ -1,27 +1,29 @@
 # Wafer-scale Memory Service Fabric
 
-**当前研究判断：[统一证据与静态裁剪强基线](docs/RESEARCH_STATUS.md)。** 主线是有限成本的共享服务配置，DRAM与RTL为验证组件。
+**当前结果：[native BookSim＋DRAM 上的完整 routed MoE 层](docs/reports/MOE_LAYER_SYSTEM_REPORT.md)。**
+已完成同一真实 routing 的 dispatch、分块权重读取、计算与 combine，并比较真实网络、
+理想返回和加宽 NoC。HBM2 下完成时间分别为 681.736、712.581、691.823 μs；
+这一配置优先推进 MC/DRAM 服务与静态驻留，尚未证明额外 Direct HB 值得。
 
-**开发交接入口：[HANDOFF](docs/HANDOFF.md)** — 当前状态、复现、接口边界与下一任务。
+**开发入口：[HANDOFF](docs/HANDOFF.md)** — 当前状态、复现、接口边界与唯一下一任务。
+[执行合同](docs/methods/MOE_LAYER_SYSTEM.md)明确机器、地址、缓冲和时钟；
+当前是一个 routed FFN 层的时序模型，不是完整 LLM 或数值推理验证。
+新构建、测试、实验只在 `hn072@143.89.78.72` 的隔离目录运行，源码通过 `main` 同步。
 
-**当前可用流程：[真实 trace 完整工作流](docs/guides/TRACE_WORKFLOW.md)。**
-256 个独立 requests 已取得；48/48 个完整读阶段回放通过原始输入重编译、逐字守恒和归档审计。
-148 项 Python 测试通过（含当前流程的 65 项定向测试）；
-[验收复查与边界](docs/reports/TRACE_FLOW_ACCEPTANCE.md)。代码本地开发，经唯一 `main` 同步到 CPU 服务器运行。
-这是 routing 驱动的读阶段模拟，不代表完整 MoE 推理或整片物理签核。
-
-新增可选 [DRAM 命令后端](docs/reports/DRAM_COMMAND_BRIDGE_REPORT.md)：公开 HBM2 参考已接入有限读返回闭环，8次完整对象探针与193项服务器测试通过。它不替代 WoW 工艺标定或整片 signoff。
-
-研究目标：在有限接口与连线预算下，联合组织 **memory service interface、reticle
-placement 和静态数据布局**，使繁忙 compute 能利用已有 DRAM 服务。
-Matching、pooling 和 FIFO 是不同层次的工具，不是独立更换的研究题目。
-主贡献是 **wafer-scale memory-service sharing architecture**；静态可配置 shared
-egress 是关键机制，RTL 是该机制的功能与局部硬件成本验证。
+研究问题：在已有完整 compute NoC 的 Memory-on-Logic 系统上，远端 DRAM 服务
+是否需要额外直接路径，以及怎样联合配置原生供给、有限请求容量与静态驻留。
+现有 DRAM 桥、固定字节语义和 endpoint RTL 是可复用组件；系统结果决定架构取舍。
+历史 [读阶段回放](docs/guides/TRACE_WORKFLOW.md)、[局部 ASIC](docs/reports/ENDPOINT_ASIC_SLICE_REPORT.md)
+保留原范围，不自动合并为新系统性能或成本。
 
 ## 目录与职责
 
 ```text
 w2w/                       研究代码（Python package）
+├── domain/                不可变系统、物理路径、任务和事务定义
+├── system/                唯一执行时间线、任务与资源生命周期
+├── network/               native BookSim 适配；Python 小系统参考
+├── memory/                地址、MC 与现有 DRAM 后端适配
 ├── geometry/              Memory-on-Logic 几何、HB overlap 与原始服务包络
 ├── service/               Reticle / bank 资源、服务 LP、有限逻辑读执行
 ├── endpoints/             出口合同、完整字执行、有限队列与反压
@@ -46,12 +48,14 @@ memory_results/            本地/服务器实验工作目录（不入 Git）
 
 ## 从这里开始
 
+- [当前：完整层六项结果、反馈与下一步判断](docs/reports/MOE_LAYER_SYSTEM_REPORT.md)
+- [当前完整层执行合同与机器参数](docs/methods/MOE_LAYER_SYSTEM.md)
 - [81次独立请求回放：冻结cohort映射、完整资源下界与负例](docs/reports/COHORT_REPLAY_REPORT.md)
 - [从wafer模板和DRAM原生服务出发的设计原则](docs/methods/WAFER_DRAM_SERVICE_PRINCIPLES.md)
 - [同一原生组织下调整静态比例：完整对象读时间减少17.44%](docs/reports/NATIVE_MATCHED_RESIDENCY_REPORT.md)
-- [最新：完整返回路径配置、166次回放与位宽/RX成本选择](docs/reports/RETURN_PATH_PROVISIONING_REPORT.md)
+- [历史读子系统：完整返回路径配置、166次回放与位宽/RX成本选择](docs/reports/RETURN_PATH_PROVISIONING_REPORT.md)
 - [静态驻留与请求容量联合设计：解析比例、189回放和服务硬件取舍](docs/reports/SERVICE_PROVISIONING_REPORT.md)
-- [当前：真实 trace 工作流、主入口与验收范围](docs/guides/TRACE_WORKFLOW.md)
+- [历史读子系统：真实 trace 工作流、主入口与验收范围](docs/guides/TRACE_WORKFLOW.md)
 - [48 次多窗口完整回放：全部结果、供给控制和成本](docs/reports/PATTERNS_REPLAY_STUDY_REPORT.md)
 - [服务器：本地开发 → Git → CPU 实验](docs/operations/HN072_RESEARCH.md)
 - [逻辑读任务导入与依赖回放：固定 H/plus、公平对照和证据范围](docs/methods/READ_WORKLOAD_REPLAY.md)
@@ -68,8 +72,8 @@ memory_results/            本地/服务器实验工作目录（不入 Git）
 - [该闭环的模型、参数与复现范围](docs/methods/ENDPOINT_BRIDGE_METHOD.md)
 - [全部阶段文档索引](docs/README.md)
 
-当前固定 H/plus，利用静态数据组织同时争取运行时共享机会和硬件复用机会。
-系统侧已接通真实 routing 导入、专家 union、完整权重读任务、冻结地址布局与依赖回放。
+历史 v1 固定 H/plus，利用静态数据组织研究运行时共享机会和硬件复用机会。
+该读子系统已接通真实 routing 导入、专家 union、完整权重读任务、冻结地址布局与依赖回放。
 合成任务保留为机制测试。Home、k2、k3 保留结构对照，duplicated/configurable 保留同服务成本消融。
 Matching、布局与执行模型服务于这项架构验证；暂不扩新优化框架。
 当前[source-side TX→HB→RX最小闭环](docs/reports/ENDPOINT_ROUNDTRIP_REPORT.md)

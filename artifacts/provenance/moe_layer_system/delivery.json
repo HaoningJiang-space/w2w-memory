@@ -1,0 +1,73 @@
+{
+  "simulation_source": "3a498c1b9347e298e7c5766885069d8d57ddf9ba",
+  "analysis_source": "719b61b",
+  "host": "hn072@143.89.78.72 (ee4e072)",
+  "server_root": "/Projects/haoning/w2w-full-system-20261009",
+  "scope": "one_routed_ffn_layer_timing",
+  "runtime_source": "0c56c24b4bf602b8b2c036681f526971305dde99",
+  "runtime_checkout": "wafer-runtime is a clean sparse/partial checkout of the pinned Python wrapper and required vendor modules; native binary reused unchanged",
+  "native_regression": {
+    "passed": 34,
+    "skipped": 0,
+    "modules": [
+      "tests.test_system_execution",
+      "tests.test_dram_backend"
+    ]
+  },
+  "excluded_initial_run": {
+    "source": "6578ee6",
+    "directory": "layer-ideal-6578ee6",
+    "reason": "MC home HB buffers incorrectly charged the tile SRAM write port; fixed before canonical six runs"
+  },
+  "raw_results": "Six full compressed event records stay on hn072; their exact paths, sizes and hashes are in analysis.json files",
+  "files": {
+    "artifacts/results/system/moe_layer/analysis.json": {
+      "bytes": 52325,
+      "sha256": "ff09655fac9c71431a0621eab480b02626cdd662cb91aaa82ce2ee77f8d62411"
+    },
+    "artifacts/results/system/moe_layer/hbm2/completion.json.gz": {
+      "bytes": 175,
+      "sha256": "14123f075a877a39712be8c8d83b1f2ff8e2ac67b464395fa28ffca9839ae89d"
+    },
+    "artifacts/results/system/moe_layer/hbm2/input.json.gz": {
+      "bytes": 17631,
+      "sha256": "e0f092707b29ecf7ef48be305179542798291155275b9eedb89f2b0b14455c53"
+    },
+    "artifacts/results/system/moe_layer/hbm2/registration.json.gz": {
+      "bytes": 10547,
+      "sha256": "70116e298d476a5422f87cb281d1015c19470da24ab05effdda54ad768d96a0b"
+    },
+    "artifacts/results/system/moe_layer/hbm2/summary.json.gz": {
+      "bytes": 46152,
+      "sha256": "ed1b255b5a9171142a9ed7ceb7c1beb63391509a716927eef1863b00f8146061"
+    },
+    "artifacts/results/system/moe_layer/ideal/completion.json.gz": {
+      "bytes": 174,
+      "sha256": "0725e05dfbfab5c175dbc16b934f3611e9e10936890c34784028266b71263bd4"
+    },
+    "artifacts/results/system/moe_layer/ideal/input.json.gz": {
+      "bytes": 17631,
+      "sha256": "e0f092707b29ecf7ef48be305179542798291155275b9eedb89f2b0b14455c53"
+    },
+    "artifacts/results/system/moe_layer/ideal/registration.json.gz": {
+      "bytes": 10540,
+      "sha256": "8215d7814534d4f268557fe2d02aceaaf257c240ccbe677f975e45dea1cb0d38"
+    },
+    "artifacts/results/system/moe_layer/ideal/summary.json.gz": {
+      "bytes": 14531,
+      "sha256": "03f0a51bd8232236becd75f55a9005bad642aded75eba6e0ef9b7a3d96dcc3b9"
+    },
+    "artifacts/provenance/moe_layer_system/layer-hbm2.log.gz": {
+      "bytes": 365,
+      "sha256": "0bd3781e69bfcc4e573d27f8e052cf6ac9a42b2a50342228cea5a3141ad7e20b"
+    },
+    "artifacts/provenance/moe_layer_system/layer-ideal-v2.log.gz": {
+      "bytes": 361,
+      "sha256": "687f1a99fb385f138292a37cef1a3179cb6e3cbd012298c66622530efb7e1980"
+    },
+    "artifacts/provenance/moe_layer_system/native-regression.log.gz": {
+      "bytes": 870,
+      "sha256": "b73c996c0d16ee952f49e5d2f21f1aa0c965a74c8ae4b371be1768c2914e3c1d"
+    }
+  }
+}

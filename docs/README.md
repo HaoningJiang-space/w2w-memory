@@ -1,5 +1,9 @@
 # 文档索引
 
+2026-10-09 当前入口：[完整 routed MoE 层系统结果](reports/MOE_LAYER_SYSTEM_REPORT.md)、
+[执行合同](methods/MOE_LAYER_SYSTEM.md)、[开发交接](HANDOFF.md)。
+以下历史文档中的“当前/下一步”按原实验版本理解。
+
 - [当前研究主线、强基线结果与统一证据](RESEARCH_STATUS.md)
 
 - [DRAM 命令后端闭环与8次完整对象回放](reports/DRAM_COMMAND_BRIDGE_REPORT.md) / [构建与模型边界](methods/DRAM_COMMAND_BRIDGE.md)

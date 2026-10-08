@@ -1,13 +1,13 @@
 # hn072 CPU 研究服务器：Git 与实验入口
 
-本地开发目录：`/Users/haoning/project/w2w/nw-design-for-wsi`。
+当前本地开发目录：`/home/abc/jhn/w2w-memory`。
 服务器：`hn072@143.89.78.72`；主工作区：`/Projects/haoning/w2w`。
 唯一研究远端：[HaoningJiang-space/w2w-memory](https://github.com/HaoningJiang-space/w2w-memory)，
 只维护 `main`。服务器工作区直接通过 GitHub SSH 完整 clone，没有源码压缩包同步。
 
 ## 分工与同步
 
-在本地修改、测试、commit；推送 `research-origin main`。服务器随后：
+2026-10-09 起，本地只编辑与 Git 操作，构建、测试、实验都在 hn072。当前本地远端名为 `origin`；服务器主仓库仍为 `research-origin`。完整层实验使用隔离目录 `/Projects/haoning/w2w-full-system-20261009`，不能在其他开发者的主工作区直接运行或更改 HEAD。以下为主仓库无人使用且干净时的历史同步示例：
 
 ```sh
 cd /Projects/haoning/w2w
@@ -20,7 +20,7 @@ git rev-parse HEAD
 实验从干净提交启动，记录完整 commit、协议和输入哈希。结果核对后回收到本地归档提交，
 再 push/pull。不要在运行中的旧 checkout 上 pull；不要 force-push、reset 或覆盖另一位开发者的修改。
 
-两端保留 `origin=https://github.com/spcl/nw-design-for-wsi.git` 作为原论文 upstream；
+历史 macOS/hn072 主工作区保留 `origin=https://github.com/spcl/nw-design-for-wsi.git` 作为原论文 upstream；当前 Linux 开发目录的 `origin` 指向研究仓库。
 服务器的 `research-origin=git@github.com:HaoningJiang-space/w2w-memory.git`，main 跟踪它。
 服务器已验证 SSH `ls-remote` 和 `push --dry-run`。使用仓库专用可写 Deploy Key；
 不是 GitHub 账户全仓库授权。私钥仅在服务器 `~/.ssh/id_ed25519_github`，不入 Git。
@@ -40,7 +40,7 @@ GitHub 账户公钥 API 当时返回 HTTP 500，因此采用了仓库级授权�
 
 历史实验的压缩证据和元数据已在 `artifacts`；原始大 trace、PDK/工具安装、密钥、许可证、
 venv、临时 build 缓存不进入 Git。其他开发者的 ASIC 目录保留原样；其工具或授权条件不代表
-新 CPU venv 自动具备 ASIC 重跑能力。旧 eex005 的全部工作区也没有因此被删除或迁走。
+新 CPU venv 自动具备 ASIC 重跑能力。eex005 已退役九个停用 W2W 工作树，归档和实际释放量见 [清理记录](SERVER_STORAGE.md)。
 
 ## Python 与 Codex
 

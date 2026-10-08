@@ -6,7 +6,12 @@
 `system/builder.py` 核查合法路径，`system/kernel.py` 管统一 ps 时间和资源生命周期；
 `memory` 放地址/事务后端适配，`network/router.py` 为有限队列的小型参考。
 `run_system_microbench` 只编排实验，`validation/system_execution.py` 独立读事件核验。
-参见[当前合同](methods/SYSTEM_EXECUTION_V2.md)和[优先复用的 native BookSim](methods/BOOKSIM_REUSE_ASSESSMENT.md)。
+正式层实验通过 `network/booksim_backend.py` 复用 pinned native BookSim，未替换任务调度器。
+`workloads/moe_task_graph.py` 从现有逐 token routing 编译完整 routed FFN 数据图；
+`experiments/run_moe_layer.py` 注册并执行三种返回/带宽条件，
+`analysis/moe_layer.py` 只读取已完成记录，核对图/地址集合并统计关键任务与原生资源。
+入口为 `run_moe_layer` / `analyze_moe_layer`，scope 为 `one_routed_ffn_layer_timing`。
+见[执行合同](methods/MOE_LAYER_SYSTEM.md)、[结果](reports/MOE_LAYER_SYSTEM_REPORT.md)。
 下述读回放保持 v1 身份，未迁移/改写旧 runner；不将其结果与 v2 自动合并。
 
 ## 历史 v1 主流程：真实 routing 到有限读回放
