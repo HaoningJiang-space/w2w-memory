@@ -15,9 +15,10 @@ from w2w.provenance import provenance
 
 def required_inflight(rate_bytes_per_ns, minimum_latency_ns, burst_bytes):
     """Necessary count from conservation; queueing and return latency add more."""
-    q=Fraction(str(rate_bytes_per_ns))*Fraction(str(minimum_latency_ns))/burst_bytes
-    if q<0 or burst_bytes<=0:
+    rate,latency=Fraction(str(rate_bytes_per_ns)),Fraction(str(minimum_latency_ns))
+    if rate<0 or latency<0 or burst_bytes<=0:
         raise ValueError('Nonnegative rate/latency and positive burst required')
+    q=rate*latency/burst_bytes
     return (q.numerator+q.denominator-1)//q.denominator
 
 
