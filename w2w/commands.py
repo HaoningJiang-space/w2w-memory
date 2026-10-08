@@ -11,6 +11,7 @@ COMMANDS = {
     'analyze_service_driven': 'w2w.analysis.analyze_service_driven',
     'analyze_sparse_pooling': 'w2w.analysis.analyze_sparse_pooling',
     'audit_patterns_replay': 'w2w.analysis.patterns_replay',
+    'audit_dram_bridge': 'w2w.validation.dram_bridge',
     'audit_provisioning_holdout': 'w2w.validation.provisioning_holdout',
     'audit_provisioning_target': 'w2w.validation.provisioning_target',
     'audit_return_path': 'w2w.validation.return_path',
