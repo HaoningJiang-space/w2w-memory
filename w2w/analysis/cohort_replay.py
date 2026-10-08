@@ -5,6 +5,7 @@ import json
 from math import exp,log
 from pathlib import Path
 
+from w2w.provenance import provenance
 from w2w.workloads.cohort_replay import STRUCTURES, BATCHES, read_json, jobs
 
 
@@ -41,7 +42,20 @@ def summarize(source):
     aggregates={label:dict(all=group([r for r in metrics if r['structure']==label]),
         by_batch={str(b):group([r for r in metrics if r['structure']==label and r['batch']==b]) for b in BATCHES})
         for label in STRUCTURES}
-    return dict(metrics=metrics,aggregates=aggregates,
+    gaps=[dict(case=r['case'],structure=r['label'],mode=r['mode'],
+               slots=r['makespan_slots']-r['provisioning_bound']['lower_slots'],
+               relative_percent=100*(r['makespan_slots']/r['provisioning_bound']['lower_slots']-1))
+          for r in summary['results']]
+    comparisons={}
+    for label in STRUCTURES:
+        speeds=[r['speedup_over_optimized_home'] for r in metrics if r['structure']==label]
+        comparisons[label]=dict(faster=sum(s>1 for s in speeds),tied=sum(s==1 for s in speeds),
+            slower=sum(s<1 for s in speeds),geometric_mean_speedup=exp(sum(map(log,speeds))/len(speeds)),
+            scope='Each structure uses its own frozen cohort owner; not a common-owner fabric ablation')
+    return dict(provenance=provenance(),metrics=metrics,aggregates=aggregates,
+        versus_cohort_home=comparisons,
+        bound_gap=dict(max_slots=max(g['slots'] for g in gaps),
+                       max_relative_percent=max(g['relative_percent'] for g in gaps),records=gaps),
         source_commit=summary['provenance']['commit'],elapsed_seconds=summary['elapsed_seconds'],
         delivered_words=summary['delivered_words'],
         scope='Nine registered layer0 cold-read windows; independent requests, correlated nested batches; no full inference claim')
