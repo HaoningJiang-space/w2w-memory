@@ -32,6 +32,7 @@ COMMANDS = {
     'run_bank_gate': 'w2w.experiments.run_bank_gate',
     'run_contract_selection': 'w2w.experiments.run_contract_selection',
     'run_cycle_configuration_gate': 'w2w.experiments.run_cycle_configuration_gate',
+    'run_dram_bridge': 'w2w.experiments.run_dram_bridge',
     'run_endpoint_bridge': 'w2w.experiments.run_endpoint_bridge',
     'run_gate0': 'w2w.experiments.run_gate0',
     'run_guaranteed_exchange': 'w2w.experiments.run_guaranteed_exchange',

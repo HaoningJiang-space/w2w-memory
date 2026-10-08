@@ -118,5 +118,36 @@ class NativeHBM2Tests(unittest.TestCase):
             self.assertIn('REFab', trace)
             self.assertIn(',RD,', trace)
 
+    def test_command_completion_to_finite_hb_receiver(self):
+        from w2w.synthesis.read_catalog import load_designs
+        from w2w.service.dram.ramulator import RamulatorHBM2
+        from w2w.workloads.read_trace import ReadObject, ReadSpan, ReadTask, ReadTrace
+        from w2w.validation.patterns_replay import check_delivery
+        design = load_designs()[0][0]
+        trace = ReadTrace((ReadObject('x', 8192, 0),),
+                          (ReadTask('read', 0, (ReadSpan('x', 0, 8192),)),),
+                          'synthetic', 'native/HB/RX integration fixture')
+        backend = RamulatorHBM2(36, queue_depth=2)
+        self.addCleanup(backend.close)
+        row = replay_reads(design, trace, replace(FAST, native_latency_slots=0,
+                           rx_ready=(1, 0, 0, 0), rx_depth_words=1), native_backend=backend)
+        check_delivery(trace, row)
+        self.assertEqual(backend.record()['completed_words'], 256)
+        self.assertGreater(backend.record()['rejected_attempts'], 0)
+        self.assertEqual(backend.record()['upstream_pending'], 0)
+        self.assertTrue(all(r['peak_rx_words'] <= 1 for r in row['routes']))
+
+    def test_same_bank_conflicts_cost_more_than_parallel_banks(self):
+        def run(banks):
+            b = self.make(refresh=False)
+            tickets = [b.submit(dict(bank=bank, address=i * 32)) for i, bank in enumerate(banks)]
+            self.assertNotIn(None, tickets)
+            done = []
+            for tick in range(1, 3000):
+                done.extend(b.advance(tick))
+                if len(done) == len(tickets): return tick
+            self.fail('DRAM requests failed to complete')
+        self.assertGreater(run([0] * 8), run(list(range(8))))
+
 
 if __name__ == '__main__': unittest.main()
