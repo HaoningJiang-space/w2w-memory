@@ -38,7 +38,9 @@
   "tests": {
     "initial_passed": 15,
     "merged_passed": 42,
-    "merged_native_bridge_skipped": 3
+    "merged_native_bridge_skipped": 3,
+    "final_merge_passed": 42,
+    "final_merge_native_bridge_skipped": 5
   },
   "merge": {
     "already_ancestor": "b4b8ce6",
@@ -46,7 +48,9 @@
       "4dc61f8",
       "5d6710a"
     ],
-    "merge_commit": "eb1f6a8"
+    "merge_commit": "eb1f6a8",
+    "final_merge_commit": "4422cc498ca4d4874e19dd21ac8c99baf3a2d26a",
+    "final_incoming_tip": "8eb990c"
   },
   "scope": "Continuous service scores on old training requests; no new finite task or held-out execution; RTL unchanged",
   "sources": [
@@ -69,6 +73,16 @@
       "path": "artifacts/provenance/cohort_design/audit.log.gz",
       "bytes": 421,
       "sha256": "cd46a4c6b2b52547c6a25ebbb20c50e0eaafaae7526ed28544abcadc08581a2e"
+    },
+    {
+      "path": "artifacts/provenance/cohort_design/final_merge_receipt.json",
+      "bytes": 1042,
+      "sha256": "89351b939b00b4e9f31407f7f3387d53f3bb17e0d3a8e88f147ac0eba756f9cf"
+    },
+    {
+      "path": "artifacts/provenance/cohort_design/final_merge_tests.log.gz",
+      "bytes": 1529,
+      "sha256": "4868975ad83ffd7e1b5aa08fce889a4f204eefc9c27997b1794f0abfec7545f1"
     },
     {
       "path": "artifacts/provenance/cohort_design/merged_tests.log.gz",
@@ -102,8 +116,8 @@
     },
     {
       "path": "docs/reports/COHORT_SERVICE_DESIGN_REPORT.md",
-      "bytes": 10302,
-      "sha256": "f06e611005f6a54de0942b8136999b8789d0c458b8cf014e9fa9ca360272deb0"
+      "bytes": 10711,
+      "sha256": "91b0401ba9e6898239675529ce77ae999fac8ef5f52389453ff659ffbad0d3ae"
     }
   ]
 }
