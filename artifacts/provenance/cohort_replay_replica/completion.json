@@ -1,0 +1,58 @@
+{
+  "schema": "w2w.cohort-replica-archive.v1",
+  "status": "complete",
+  "scope": "Independent execution of the same registered 81 jobs; no additional workload samples",
+  "replay_commit": "a626eff2d4fe2e268c3c0c5e7d96dbefcd4bca33",
+  "finalizer_commit": "ed12c690f6aa2d834ebf5e001beb25c4f3a42795",
+  "primary_commit": "0e66ff7ce0d80d1ed8d98f2e6ab436128d0d13aa",
+  "model_source_diff": "No differences in w2w/service, w2w/domain, workloads/cohort_replay.py, synthesis/cohort_replay.py, experiments/run_cohort_replay.py between primary and replica source commits",
+  "validator_sha256": "73261d465e4defcbed9dd54aee300eb9b7fc6298cfcf54fe3ba8dc58e21a787f",
+  "tests": "11 passed: test_cohort_replica, test_cohort_replay, test_repository_layout",
+  "files": [
+    {
+      "path": "artifacts/results/workload/cohort_replay_replica/replay_evidence.tar.gz",
+      "bytes": 1389989,
+      "sha256": "75afa99a716460390e97dc054db4b2577dccf10c57f9d849f5f9efaf36878dc2"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay_replica/analysis.json",
+      "bytes": 18831,
+      "sha256": "bbf8ddbafe1c6078bc82a0a64f9d00c9f403a545712c7e33cd19ed55ecc8c6d7"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_replay_replica/paired_times.csv",
+      "bytes": 2705,
+      "sha256": "a648a625745abc9a5c236a5ab72977e418f3b0a831b06c7d9f81d5c6ecc3ae5d"
+    },
+    {
+      "path": "artifacts/provenance/cohort_replay_replica/audit.json",
+      "bytes": 722,
+      "sha256": "0f1d3e77cfb459dd5644c30a407e118a9ce91492a16ba114af2aeb93e78cb393"
+    },
+    {
+      "path": "artifacts/provenance/cohort_replay_replica/local_audit.json",
+      "bytes": 738,
+      "sha256": "6e3c9b984eb5e3452b60f2d6b67bf2b7e9626aeff2d0058d003cb475b07f0f8f"
+    },
+    {
+      "path": "artifacts/provenance/cohort_replay_replica/receipt.json",
+      "bytes": 9283,
+      "sha256": "c817ca01567c52d1e78bf9f35ec0231ed7d06517ef56a5413ff883b9d183730c"
+    },
+    {
+      "path": "artifacts/provenance/cohort_replay_replica/cross_host_check.json",
+      "bytes": 1248,
+      "sha256": "1d65db7757e11667e504bd0d8f86ee6f4983b68e0fd5557c5eacec660a8cf6e5"
+    },
+    {
+      "path": "artifacts/provenance/cohort_replay_replica/replay.log.gz",
+      "bytes": 609,
+      "sha256": "31e6afc3d2c1c74145bdc962fbdbd09a4a10ae1b4017cad0159783140d85715c"
+    },
+    {
+      "path": "artifacts/provenance/cohort_replay_replica/finalize.log.gz",
+      "bytes": 88,
+      "sha256": "abf38d7e642b25c518ab76ba2a41dc2af3f94fc00c88cc1b90bf0c55f46513ee"
+    }
+  ]
+}

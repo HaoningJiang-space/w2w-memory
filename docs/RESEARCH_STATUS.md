@@ -77,6 +77,6 @@ C/RX3在五个有正wide收益的窗口保留约81.82%–83.32%的增量，同�
 
 同一B接口与HBM2组织的[两次原生驻留诊断](reports/NATIVE_MATCHED_RESIDENCY_REPORT.md)已完成：8/13改1/2使完整对象读时间减少17.44%，没有增加原生或接口能力。这支持按真实原生服务域选择比例，尚非完整batch结果。另有[48项局部beat见证](reports/BEAT_RETURN_CONTRACT_REPORT.md)，显式计费HB流水和RX，没有改RTL或替换系统合同。
 
-接下来优先联合配置原生服务域、静态驻留和请求/返回容量，保留真正独立的DRAM并行度；具体顺序与必要界见[第一性推导](methods/WAFER_DRAM_SERVICE_PRINCIPLES.md)。跨bank聚合是否值得，由原生共享总线和新增汇聚成本决定。hn072另一份独立复跑按其启动身份单列，不与已完成eex005结果混合。
+接下来优先联合配置原生服务域、静态驻留和请求/返回容量，保留真正独立的DRAM并行度；具体顺序与必要界见[第一性推导](methods/WAFER_DRAM_SERVICE_PRINCIPLES.md)。跨bank聚合是否值得，由原生共享总线和新增汇聚成本决定。hn072独立81次复跑现已完成，服务器与本地审计均通过；与eex005的全部执行字段精确一致，只有运行耗时和线长代理浮点尾数不同。[复现身份与核对](../artifacts/provenance/cohort_replay_replica/completion.json)单列，不作为更多workload样本。
 
 原文与代码核对补记：上游要求identical reticles，但未明确禁止混合朝向；公开构造器采用整层统一模板，没有逐实例orientation参数。我们将同朝向、条件混合朝向和静态变体分开比较，不能借原文排除旋转裁剪强基线。[具体原文定位与推论边界](reports/TEMPLATE_BINDING_REPORT.md#对照-nw-design-for-wsi-原文与代码)。

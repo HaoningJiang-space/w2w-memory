@@ -187,3 +187,7 @@ python -m unittest discover -s tests -v
 
 这些入口均经`python -m w2w`调用。分析和核验不触发训练或长回放；
 beat计数合同、旧slot任务时间和HBM2命令结果分别保存，不覆盖历史执行语义。
+
+跨主机复现核对由`validation/cohort_replica.py`负责，入口`audit_cohort_replica`。
+先独立审计两套完整81项结果，再精确比较执行字段；仅容许成本浮点尾数差异和运行耗时不同。
+它不启动仿真、不参与设计选择，也不将重复执行计为新的测试样本。

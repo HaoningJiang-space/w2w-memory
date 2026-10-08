@@ -132,5 +132,24 @@ python -m w2w finalize_cohort_replay \
   --source artifacts/results/workload/cohort_replay/flow --output build/cohort_finalized
 ```
 
-两条命令核对/汇总归档，不重新训练或长回放。hn072另有另一开发者启动的独立81次复跑，
-其启动记录单独保存于`cohort_replay_replica`；本报告只发布已完成的eex005批次，不拼接两批结果。
+两条命令核对/汇总归档，不重新训练或长回放。以上性能表来自eex005批次；hn072独立复现如下，不拼接为更多测试样本。
+
+## 跨主机复现已完成
+
+hn072以`a626eff`、Python 3.10.12、4 workers执行相同81项，耗时5038.48 s；
+eex005原执行为`0e66ff7`、Python 3.13.13、12 workers。两个提交之间的service、domain、
+本实验workload/设计/runner代码无差异。服务模型未因跨主机复核而修改。
+
+- hn072重新读取48份原始routing，核对45份逻辑输入；该raw核验与后续结果审计分开记录。
+- hn072完整交付1,815,921,504个32-byte字，服务器自动审计及下载后的本地独立审计均通过。
+- 两主机81项的完成时间、task/route、stall、交付hash、bank工作量、峰值在途和必要资源界全部精确一致。
+- 唯一行字段差异为实际运行耗时和`cost.wire_mm`的浮点累加尾数；后者按1e-12相对/绝对容差核对，不把成本字段整体忽略。
+- 新核对器的篡改拒绝测试、原cohort测试和仓库入口测试共11项通过。
+
+[跨主机核对](../../artifacts/provenance/cohort_replay_replica/cross_host_check.json) ·
+[完成与哈希记录](../../artifacts/provenance/cohort_replay_replica/completion.json) ·
+[独立执行原始证据包](../../artifacts/results/workload/cohort_replay_replica/replay_evidence.tar.gz)。
+
+这提高了执行结果的可复现性，**没有增加workload覆盖或证明DRAM实现正确**。
+九窗口仍为同一套冻结研究；C/Home几何平均速度比约1.2874，宽k3/Home约1.3430，k2/Home为1。
+这些汇总不是完整LLM速度比，更不能与不同合同的B面积拼接成端到端Pareto点。

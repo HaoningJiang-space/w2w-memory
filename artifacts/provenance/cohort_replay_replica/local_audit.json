@@ -1,0 +1,26 @@
+{
+  "verified": true,
+  "provenance": {
+    "commit": "5b761ef3bc2e4d936674088a399ce9f9b2595214",
+    "git_status": "",
+    "host": "haonings-MacBook-Air.local",
+    "python": "3.14.2",
+    "packages": {
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "shapely": "2.1.2",
+      "pymetis": "2025.2.2",
+      "networkx": "3.7",
+      "matplotlib": "3.11.2"
+    }
+  },
+  "source_commit": "a626eff2d4fe2e268c3c0c5e7d96dbefcd4bca33",
+  "records": 81,
+  "delivered_words": 1815921504,
+  "fresh_requests": 48,
+  "excluded_requests": 160,
+  "windows": 9,
+  "identical_ablations": 9,
+  "raw_inputs_recompiled": false,
+  "scope": "Full modeled read completion and independent resource accounting, not native DRAM or application execution"
+}

@@ -1,0 +1,46 @@
+{
+  "schema": "w2w.cohort-cross-host.v1",
+  "verified": true,
+  "records": 81,
+  "delivered_words_per_run": 1815921504,
+  "executions": [
+    {
+      "commit": "0e66ff7ce0d80d1ed8d98f2e6ab436128d0d13aa",
+      "git_status": "",
+      "host": "eex005",
+      "python": "3.13.13",
+      "packages": {
+        "numpy": "2.5.3",
+        "scipy": "1.18.1",
+        "shapely": "2.1.2",
+        "pymetis": "2025.2.2",
+        "networkx": "3.7",
+        "matplotlib": "3.11.2"
+      }
+    },
+    {
+      "commit": "a626eff2d4fe2e268c3c0c5e7d96dbefcd4bca33",
+      "git_status": "",
+      "host": "ee4e072",
+      "python": "3.10.12",
+      "packages": {
+        "numpy": "2.2.6",
+        "scipy": "1.15.3",
+        "shapely": "2.1.2",
+        "pymetis": "2025.2.2",
+        "networkx": "3.4.2",
+        "matplotlib": "3.10.9"
+      }
+    }
+  ],
+  "summary_sha256": [
+    "0d67ecbda09e9dc874bfe30d230463ab755c81ff0260b2fa343adc09c0c4ae6b",
+    "cc0397aff69e5291c8efbdde530d11e887641d2c8254b5eb1a52dafdd7447e02"
+  ],
+  "exact_execution_fields": true,
+  "cost_rounding_max_abs": {
+    "wire_mm": 1.8189894035458565e-12
+  },
+  "ignored_field": "wall_seconds",
+  "scope": "Same 81 registered cases repeated on two hosts; not 162 independent workload samples"
+}
