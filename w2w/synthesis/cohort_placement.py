@@ -7,6 +7,7 @@ from fractions import Fraction
 import numpy as np
 
 from w2w.theory.return_path import return_path_period
+from w2w.theory.cohort_service import pair_score, independent_object_floor_possible
 
 
 def resource_matrix(design, window=192, rx_depth=3):
@@ -32,26 +33,6 @@ Native arrivals are one word/bank/slot; paths use the exact isolated period.
     coefficients = np.column_stack((banks * shares, np.diag(np.maximum(path, banks * life / window))))
     # Identical uniformly striped banks impose the same continuous constraint.
     return np.unique(coefficients, axis=1)
-
-
-def pair_score(a, b, home_fraction):
-    """Native work for a reciprocal, capacity-matched pair (lambda >= 1/2)."""
-    f = Fraction(home_fraction)
-    if not Fraction(1, 2) <= f <= 1 or min(a, b) < 0:
-        raise ValueError('Nonnegative work and reciprocal fraction >= 1/2 required')
-    return Fraction(a+b, 2) + (f-Fraction(1, 2))*abs(a-b)
-
-
-def independent_object_floor_possible(left_fractions, right_fractions):
-    """Necessary and sufficient native-load test for any independent object pair.
-
-Each active compute needs unit service; all byte fractions are reciprocal
-Home fractions. Output/window feasibility is additional, not established here.
-"""
-    left, right = tuple(map(Fraction, left_fractions)), tuple(map(Fraction, right_fractions))
-    if not left or not right or any(not 0 <= f <= 1 for f in left+right):
-        raise ValueError('Nonempty fractions in [0,1] required')
-    return max(left) <= min(right) and max(right) <= min(left)
 
 
 def cohort_matrix(requests, layer_index, expert_count, batches=(1, 4, 16)):
