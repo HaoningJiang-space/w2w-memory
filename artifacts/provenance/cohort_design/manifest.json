@@ -1,0 +1,109 @@
+{
+  "schema": "w2w.cohort-design-manifest.v1",
+  "experiment": {
+    "commit": "9f647c8619c6ecf3c0a5e2a9b67b64b2fba7848f",
+    "git_status": "",
+    "host": "eex005",
+    "python": "3.13.13",
+    "packages": {
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "shapely": "2.1.2",
+      "pymetis": "2025.2.2",
+      "networkx": "3.7",
+      "matplotlib": "3.11.2"
+    }
+  },
+  "audit": {
+    "commit": "eb1f6a8bf7af462a967db93ec76ea5a7f5ab12ba",
+    "git_status": "",
+    "host": "eex005",
+    "python": "3.13.13",
+    "packages": {
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "shapely": "2.1.2",
+      "pymetis": "2025.2.2",
+      "networkx": "3.7",
+      "matplotlib": "3.11.2"
+    }
+  },
+  "registration_sha256": "2ce4c77c46ef894d789a765846f3997d38b136a3f239316c2316bdce2ce82323",
+  "training_only": true,
+  "layer": "0",
+  "windows": 10752,
+  "elapsed_seconds": 16.42945509776473,
+  "accepted_swaps": 32,
+  "cross_scores": 24,
+  "tests": {
+    "initial_passed": 15,
+    "merged_passed": 42,
+    "merged_native_bridge_skipped": 3
+  },
+  "merge": {
+    "already_ancestor": "b4b8ce6",
+    "additional_incoming": [
+      "4dc61f8",
+      "5d6710a"
+    ],
+    "merge_commit": "eb1f6a8"
+  },
+  "scope": "Continuous service scores on old training requests; no new finite task or held-out execution; RTL unchanged",
+  "sources": [
+    {
+      "path": "rtl/endpoint_link.sv",
+      "sha256": "c98760413c198ec83f71984bc0a9a993a052ce54e8997feeff76ab6f5242ab00"
+    },
+    {
+      "path": "docs/reports/ENDPOINT_ROUNDTRIP_REPORT.md",
+      "sha256": "8d7cffaecb38ddd6e3b980d1de6ab388009ce2cec56b3aa9e66f0c4130e41223"
+    }
+  ],
+  "files": [
+    {
+      "path": "artifacts/provenance/cohort_design/audit.json",
+      "bytes": 731,
+      "sha256": "edc112b590347919ef6d47933ea3c95474f54eeb8f791566f2452d37878bcfd1"
+    },
+    {
+      "path": "artifacts/provenance/cohort_design/audit.log.gz",
+      "bytes": 421,
+      "sha256": "cd46a4c6b2b52547c6a25ebbb20c50e0eaafaae7526ed28544abcadc08581a2e"
+    },
+    {
+      "path": "artifacts/provenance/cohort_design/merged_tests.log.gz",
+      "bytes": 1480,
+      "sha256": "c8ba2c62a88e12ca742046e5b2cf7e5745e014fa7960a114aeea14b9fce01acf"
+    },
+    {
+      "path": "artifacts/provenance/cohort_design/probe.log.gz",
+      "bytes": 145,
+      "sha256": "3367b8ec1029cab8941f0b1373ce784feece41b6e1a67d963c38aae63e552231"
+    },
+    {
+      "path": "artifacts/provenance/cohort_design/tests.log.gz",
+      "bytes": 585,
+      "sha256": "3bcd2a6b941e30cc09ffc5815d9c36ec9be5766eab30813380312c399f8d734b"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_design/probe.json.gz",
+      "bytes": 2225,
+      "sha256": "0aecb504642006baca0559d834cf9b90255d7e3175abf3f86bfb0644b5cd57cc"
+    },
+    {
+      "path": "artifacts/results/workload/cohort_design/scores.csv",
+      "bytes": 529,
+      "sha256": "3d24c06102d3d968915fe6bb0667893049db7f405d7c85737e20dcbe0853d055"
+    },
+    {
+      "path": "docs/methods/COHORT_PLACEMENT_PROBE.md",
+      "bytes": 1273,
+      "sha256": "2ce4c77c46ef894d789a765846f3997d38b136a3f239316c2316bdce2ce82323"
+    },
+    {
+      "path": "docs/reports/COHORT_SERVICE_DESIGN_REPORT.md",
+      "bytes": 10302,
+      "sha256": "f06e611005f6a54de0942b8136999b8789d0c458b8cf014e9fa9ca360272deb0"
+    }
+  ]
+}
