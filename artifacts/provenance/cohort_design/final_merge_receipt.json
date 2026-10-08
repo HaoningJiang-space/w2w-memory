@@ -1,0 +1,20 @@
+{
+  "schema": "w2w.cohort-final-merge.v1",
+  "source_commit": "4422cc498ca4d4874e19dd21ac8c99baf3a2d26a",
+  "host": "eex005",
+  "worktree": "/home/wangziheng/Video/w2w-cohort-design-20261008",
+  "git_status": "",
+  "incoming_tip": "8eb990c",
+  "preserved_experiment_commit": "9f647c8619c6ecf3c0a5e2a9b67b64b2fba7848f",
+  "preserved_audit_commit": "eb1f6a8bf7af462a967db93ec76ea5a7f5ab12ba",
+  "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 /home/wangziheng/Video/w2w-memory/.venv/bin/python -m unittest tests.test_cohort_placement tests.test_provisioning_holdout tests.test_read_workload tests.test_dram_backend -v",
+  "tests": {
+    "total": 47,
+    "passed": 42,
+    "skipped": 5,
+    "skip_reason": "optional native bridge not configured"
+  },
+  "scope": "Default slot replay, completion interface and cohort theory/search regression. No new native DRAM command execution, RTL change or old performance rerun.",
+  "log_sha256": "c0ff230192e610b37a3ff6b8468cd19718216c9b2afb4c48b64f842c976d4367",
+  "rtl_changed_since_start": false
+}

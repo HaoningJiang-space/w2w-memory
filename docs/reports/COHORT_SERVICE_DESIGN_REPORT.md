@@ -166,6 +166,7 @@ batch1/4/16形成10752个冷读cohort，三个batch大小等权。
 
 `b4b8ce6`已在本轮起点`dc57f76`的祖先链中；无需重复合并。
 过程中又收到`4dc61f8`、`5d6710a`的可选DRAM后端/桥接代码，已无冲突合入`eb1f6a8`。
+随后保留`4e3fbfe`、`8eb990c`的DRAM pilot注册、接口集成检查及审计入口，合入`4422cc4`。
 本轮没有修改这些代码、编译桥接原生库或重跑旧性能结果。
 
 ```sh
@@ -175,9 +176,12 @@ OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python -m w2w.validation.cohort_placeme
   --source memory_results/cohort_probe.json --output memory_results/cohort_audit.json
 ```
 
-合并后45项测试中42项通过、3项原生桥接集成测试因未配置库而跳过。
+首次合并`eb1f6a8`的45项测试中42项通过、3项原生桥接集成测试因未配置库而跳过。
+最终合并`4422cc4`增加两项原生桥接测试；47项中42项通过、5项因未配置库而跳过。
 其中覆盖默认slot读回放、延迟完成/反压接口及新增7项理论/搜索测试。
 独立审计重建32次接受交换和24个交叉评分，容量、输入SHA和注册参数一致。
+最终合并核验另存[记录](../../artifacts/provenance/cohort_design/final_merge_receipt.json)，
+不改写探针`9f647c8`和独立审计`eb1f6a8`的执行源码身份。
 
 [原始训练结果](../../artifacts/results/workload/cohort_design/probe.json.gz) ·
 [交叉评分CSV](../../artifacts/results/workload/cohort_design/scores.csv) ·
