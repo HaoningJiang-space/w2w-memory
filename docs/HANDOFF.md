@@ -16,7 +16,7 @@
 | 验收 | 服务器完整 Python 测试 148/148；48 记录重新解析原始输入与资源审计；[范围](reports/TRACE_FLOW_ACCEPTANCE.md) |
 | 静态可配置出口 | 每 bank 一个共享发送结构，方向按 memory 实例冻结；不是跨 bank engine pool |
 | 局部物理实现 | Nangate45 单角、提取后 timing 和路由器 DRC；[ASIC 报告](reports/ENDPOINT_ASIC_SLICE_REPORT.md) |
-| DRAM 命令时序 | 尚未接入 ACT/PRE/RD/refresh；当前是有限资源的读 slot 模型 |
+| DRAM 命令时序 | 已接公开 Ramulator HBM2 参考：ACT/PRE/RD/refresh、有限队列与完成回调；8次完整对象回放、193项测试；[结果与边界](reports/DRAM_COMMAND_BRIDGE_REPORT.md) |
 | 整片 PPA 与 signoff | 尚未完成；局部面积不能直接当整片面积、功耗或工艺签核 |
 | 请求容量与驻留联合配置 | 新比例已完成 189 次合成回放；真实 48 记录仅增加下界，未重跑新比例；[报告](reports/SERVICE_PROVISIONING_REPORT.md) |
 | 新比例的独立 routing 验证 | 87主实验＋47目标扩展＋32 RX诊断已完成并审计，共166次；[完整报告](reports/RETURN_PATH_PROVISIONING_REPORT.md) |
@@ -52,7 +52,7 @@
 | 请求容量感知候选 | `w2w/synthesis/provisioning_catalog.py`，候选比例由解析界生成 |
 | 冻结设计重建 | `w2w/synthesis/read_catalog.py`，不依赖 experiment runner |
 | 资源约束与服务 LP | `w2w/service/resources.py`、`solver.py`、`evaluator.py` |
-| 有限读执行 | `w2w/service/read_replay.py` |
+| 有限读执行 | `w2w/service/read_replay.py`；可选 `service/dram` 命令后端，默认仍为 slot 参考 |
 | Endpoint 微架构执行 | `w2w/endpoints/endpoint_execution.py`、`role_execution.py` |
 | 实验注册 | `w2w/experiments/`；统一入口 `w2w/commands.py` |
 | 独立审计 | `w2w/validation/patterns_replay.py` |

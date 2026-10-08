@@ -17,13 +17,11 @@
 注册 87 个组合；此处不将协议注册称为实验完成。它使用固定解析候选，未调超参数，
 因此当前只需训练/测试划分；若以后用验证结果选模型，再单独划分 validation。
 
-## 第一项 把 DRAM 时序作为可替换后端接入
+## 第一项 扩展已接通的 DRAM 命令参考
 
-保留当前 slot 模型作为明确命名的参考后端，不改旧结果或默认语义。新增公共后端负责有限接受队列、读地址、推进时间和完成回调；endpoint 队列、HB、RX 与 outstanding 继续由现有执行层管理。命令后端必须接收反压并遵守返回容量预留，不能先离线算完 DRAM latency，再把它作为固定延迟贴回执行器。
+已完成 `service/dram` 可替换后端：公开 HBM2、有限接受队列、真实命令推进与完成回调，source 容量先预留，再接受原生请求。8次完整对象回放及193项服务器测试通过；[结果](../reports/DRAM_COMMAND_BRIDGE_REPORT.md)和[复现](../methods/DRAM_COMMAND_BRIDGE.md)已归档。旧 slot 默认语义不变。
 
-先固定一个公开 DRAM 组织和时序 profile，记录模型版本、地址映射、burst 大小、bank group/channel 共享约束、刷新与控制器策略。公开 HBM profile 是参考模型，不等于定制 WoW DRAM 的真实工艺。将 32-byte 逻辑字与实际 burst 合并/拆分，防止重复服务。
-
-最小核验包括 row hit/miss/conflict、同 bank 与跨 bank 竞争、刷新、HB/RX 反压，以及完成字节恰好一次。之后在相同物理 DRAM 资源和请求预算下重跑少量已冻结窗口。
+下一步在相同 HBM2 资源下扩展完整冻结 batch 和 outstanding/queue 敏感性。当前只抽取了 h0_b1 的第一个完整 expert 任务；不能把这个接口探针当成整个推理结果。HBM2 channel 与原每 memory 1 TB/s 模型预算不同，且公开时序含估算，后续需要可追溯的 WoW 原生数据路径参数，不能用缩放时序去迎合旧结果。
 
 ## 第二项 先验证 service provisioning 的可优化空间
 
@@ -39,7 +37,7 @@
 
 ## 代码放置和交付
 
-- 不可变参数与身份：`domain`；DRAM 后端实现：后续新增 `service/dram`。
+- 不可变参数与身份：`domain`；DRAM 后端实现：`service/dram`（已接入）。
 - 绑定与布局选择：`synthesis`；endpoint 执行：`endpoints`。
 - 参数注册与 CPU 作业：`experiments`；独立证书：`validation`。
 - 结果统计：`analysis`；图形：`visualization`；不新增根目录研究脚本。
