@@ -7,7 +7,7 @@
 - 真实routing导入、冻结读任务、166次独立请求回放与逐字审计。
 - bank-local configurable source及局部RTL/P&R；不是跨bank engine pool。
 - 本轮新增六项同库映射、28项配对mapped回放：固定专用source更小，可配置source以约4%面积开销保留部署方向选择。
-- cohort owner有训练侧有限交换探针；尚无其新held-out完成时间。
+- cohort owner有训练侧有限交换探针；新81次回放协议与准备/运行/审计代码已由另一开发者提交，尚未在此核验其完成结果。
 - 公开HBM2后端与8次完整对象探针保留为可选验证，不用于当前性能排名。
 
 ## 当前唯一主要实验
@@ -15,6 +15,8 @@
 固定现有几何、原生服务、HB/位宽和N预算，比较Home、k2、B及wide参考，在同等cohort训练预算下选择并冻结owner/数据组织。保留modulo、边际LPT、共同owner对照。注册测试requests、layer和step之前排除已有训练/选型/计时集合；已经看过的窗口只用于诊断。
 
 输出每个窗口的完成时间、负例和成本分项，而不是只报同owner Home上的平均speedup。wide不是full pooling；固定专用、未裁剪duplicated、configurable也不是同一服务范围。若不改变硬件而改善owner，必须单列其贡献。
+
+已有[冻结cohort回放协议](../methods/COHORT_REPLAY_STUDY.md)及`prepare_cohort_replay`、`run_cohort_replay`、`validation/cohort_replay.py`，优先完成并审计这批注册的81次回放，不重复另建测试集。该批是Home/k2/wide/C与LPT对照，不能改称B实验或等同完整成本比较。
 
 当前已有`synthesis/cohort_placement.py`、`theory/cohort_service.py`和训练探针，先复用，不增加新优化框架。训练、冻结、测试分开；需要调超参数时再划validation，不能用测试窗口决定布局。
 
