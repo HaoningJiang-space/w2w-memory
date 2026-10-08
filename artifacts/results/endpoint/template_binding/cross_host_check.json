@@ -1,0 +1,9 @@
+{
+  "local_sha256": "0fe5b57583c4b67cfbdb1a2118b3bff8fb56af38e50fd25613e53351fa5021cc",
+  "server_sha256": "25282184540c54a9d4b1fed2a3adacb41e63d7a5e239e2493d8742f25ae9c864",
+  "structural_fields_equal": true,
+  "float_absolute_tolerance": 1e-12,
+  "float_fields_differing": 108,
+  "maximum_float_difference": 2.220446049250313e-16,
+  "scope": "Independent local/server execution; numeric agreement, not byte-identical JSON"
+}
