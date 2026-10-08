@@ -18,6 +18,7 @@ COMMANDS = {
     'audit_return_path': 'w2w.validation.return_path',
     'audit_service_provisioning': 'w2w.validation.service_provisioning',
     'audit_static_binding': 'w2w.validation.static_binding',
+    'audit_template_binding': 'w2w.analysis.template_binding',
     'download_patterns_corpus': 'w2w.experiments.download_patterns_corpus',
     'draw_bank_hb_boundary': 'w2w.visualization.draw_bank_hb_boundary',
     'endpoint_contract_probe': 'w2w.endpoints.endpoint_contract_probe',
