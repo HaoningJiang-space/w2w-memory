@@ -1,0 +1,63 @@
+{
+  "verified": true,
+  "provenance": {
+    "commit": "f44023fe29d810328ed3b2276795ea81a145046d",
+    "git_status": "",
+    "host": "ee4e072",
+    "python": "3.10.12",
+    "packages": {
+      "numpy": "2.2.6",
+      "scipy": "1.15.3",
+      "shapely": "2.1.2",
+      "pymetis": "2025.2.2",
+      "networkx": "3.4.2",
+      "matplotlib": "3.10.9"
+    }
+  },
+  "source_commit": "a6003b32ebc343c71143878711e7cd2077d15de8",
+  "records": 2,
+  "words_per_run": 589968,
+  "results": [
+    {
+      "label": "original",
+      "makespan_slots": 386025,
+      "makespan_ns": 395289.60000000003,
+      "active_memories": [
+        {
+          "memory": 8,
+          "words": 363056,
+          "effective_GB_s": 29.390583511430606,
+          "row_hit_fraction": 0.9598712044422899
+        },
+        {
+          "memory": 9,
+          "words": 226912,
+          "effective_GB_s": 18.369276601256395,
+          "row_hit_fraction": 0.9550530602171767
+        }
+      ]
+    },
+    {
+      "label": "native_half",
+      "makespan_slots": 318712,
+      "makespan_ns": 326361.088,
+      "active_memories": [
+        {
+          "memory": 8,
+          "words": 294992,
+          "effective_GB_s": 28.92423253595723,
+          "row_hit_fraction": 0.9599616260779953
+        },
+        {
+          "memory": 9,
+          "words": 294976,
+          "effective_GB_s": 28.922663721478955,
+          "row_hit_fraction": 0.956464254719028
+        }
+      ]
+    }
+  ],
+  "observed_time_ratio": 0.8256252833365715,
+  "completion_time_reduction": 0.17437471666342852,
+  "scope": "Same native profile and endpoint; full single-object diagnostic, not application speedup"
+}
