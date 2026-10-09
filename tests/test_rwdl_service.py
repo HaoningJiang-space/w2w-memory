@@ -12,6 +12,8 @@ from w2w.memory.rwdl_backend import RWDLAbsolute
 from w2w.network.booksim_backend import factory
 from w2w.system.kernel import execute_system
 from w2w.validation.system_execution import audit_system_result
+from w2w.machine.service_profiles import RWDLProfile,RWDLController
+from w2w.service.dram.rwdl import RamulatorRWDL
 
 
 class ClockTests(unittest.TestCase):
@@ -32,11 +34,24 @@ class ClockTests(unittest.TestCase):
 
 @unittest.skipUnless(os.environ.get('W2W_RAMULATOR_BRIDGE'),'Native RWDL extension required')
 class RWDLTests(unittest.TestCase):
-    def backend(self, aggregation=256, refresh=True):
+    def backend(self, aggregation=256, refresh=True,profile=None):
         spec=replace(mesh_system(1,2,flit_bytes=256,input_buffer_flits=16,injection_flits=256,
                                 packet_payload_bytes=4096,memory_request_bytes=4096),dram_period_ps=3760)
         spec=replace(spec,tiles=tuple(replace(t,sram_bytes=65536) for t in spec.tiles))
-        return RWDLAbsolute(spec,aggregation_bytes_per_cycle=aggregation,refresh=refresh)
+        return RWDLAbsolute(spec,aggregation_bytes_per_cycle=aggregation,refresh=refresh,profile=profile)
+
+    def test_row_hit_and_contiguous_row_transition_match_native_clock(self):
+        native=RamulatorRWDL(1,refresh=False)
+        next_atom=0;ready={}
+        try:
+            for cycle in range(300):
+                ready.update(native.advance(cycle*3760))
+                if next_atom<128 and native.submit(0,next_atom) is not None:next_atom+=1
+                if len(ready)==128:break
+            self.assertEqual(len(ready),128)
+            self.assertEqual(ready[63]-ready[0],63)
+            self.assertEqual(ready[64]-ready[0],73)
+        finally:native.close()
 
     def test_two_halves_keep_logical_bank_word_mapping(self):
         backend=self.backend()

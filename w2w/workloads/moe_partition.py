@@ -19,9 +19,9 @@ def semantic_work(metadata):
     return {k:metadata[k] for k in ('model','shape','precision','tokens','owners','weight_read_bytes')}
 
 
-def compile_partitioned_layer(inputs=INPUTS,*,cohort='c2_b4',routing=None):
+def compile_partitioned_layer(inputs=INPUTS,*,cohort='c2_b4',routing=None,compute_service=None):
     if routing is None:routing=load_layer_routing(inputs,cohort=cohort)
-    base,original=compile_routed_layer(routing,residency='four_way')
+    base,original=compile_routed_layer(routing,residency='four_way',compute_service=compute_service)
     h=original['shape']['hidden'];width=original['shape']['intermediate_tile']
     tile_weight=3*h*width+3*(h//128)*4
     layout=[]
@@ -85,9 +85,9 @@ def clockwise_compute(tile):
     return f'c{target}'
 
 
-def compile_rotated_partition_layer(inputs=INPUTS,*,cohort='c2_b4',routing=None):
+def compile_rotated_partition_layer(inputs=INPUTS,*,cohort='c2_b4',routing=None,compute_service=None):
     """Same content, addresses and four chains; move each chain one hop clockwise."""
-    base,original=compile_partitioned_layer(inputs,cohort=cohort,routing=routing)
+    base,original=compile_partitioned_layer(inputs,cohort=cohort,routing=routing,compute_service=compute_service)
     graph=replace(base,tasks=tuple(replace(t,tile=clockwise_compute(t.tile)) if t.reads else t
                                    for t in base.tasks))
     metadata=deepcopy(original)

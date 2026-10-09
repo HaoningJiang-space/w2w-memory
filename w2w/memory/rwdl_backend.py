@@ -19,7 +19,7 @@ class RWDLAbsolute:
     reservations_per_channel = 8
 
     def __init__(self, spec, *, aggregation_bytes_per_cycle=256, refresh=True, command_trace=None,
-                 streaming=True):
+                 streaming=True,profile=None):
         from w2w.service.dram.rwdl import RamulatorRWDL
         if spec.dram_period_ps != self.period_ps or any(
                 m.banks != 32 or m.capacity_bytes != 512*1024**2 for m in spec.memories):
@@ -28,13 +28,20 @@ class RWDLAbsolute:
                 or aggregation_bytes_per_cycle % 16):
             raise ValueError('Aggregation port must contain whole 16 B beats')
         self.spec = spec
+        self.profile=profile
+        self.descriptor_window=1 if profile is None else profile.controller.descriptor_window
+        if profile is not None:
+            aggregation_bytes_per_cycle=profile.aggregation.bytes_per_cycle
+            self.cdc_cycles=profile.aggregation.cdc_cycles
+            self.reservations_per_channel=profile.aggregation.reserved_atoms_per_array
         self.streaming=streaming
-        self.backend = RamulatorRWDL(len(spec.memories), refresh=refresh, command_trace=command_trace)
+        self.backend = RamulatorRWDL(len(spec.memories), refresh=refresh, command_trace=command_trace,profile=profile)
         self.channels = {m.id: i for i,m in enumerate(spec.memories)}
         self.slots = {m.id: m.transaction_slots for m in spec.memories}
         self.aggregation_bytes_per_cycle = aggregation_bytes_per_cycle
         self.groups = {}
         self.queues = defaultdict(deque)
+        self.round_robin=Counter()
         self.tickets = {}
         self.reserved = Counter()
         self.reservation_peak = Counter()
@@ -134,7 +141,8 @@ class RWDLAbsolute:
                 if self.reserved[channel] >= self.reservations_per_channel:
                     self.reservation_stalls += 1
                     continue
-                key = queue[0]
+                index=self.round_robin[channel]%min(self.descriptor_window,len(queue))
+                key = queue[index]
                 row = self.groups[key]
                 req = row['request']
                 offset = row['cursors'][channel%32]
@@ -149,10 +157,11 @@ class RWDLAbsolute:
                 self.reserved[channel] += 1
                 self.reservation_peak[channel] = max(self.reservation_peak[channel],self.reserved[channel])
                 self.channel_atoms[channel] += 1
+                self.round_robin[channel]+=1
                 offset += 16 if offset % 32 == 0 else 1008
                 row['cursors'][channel%32] = offset
                 if offset >= req.size_bytes:
-                    queue.popleft()
+                    queue.remove(key)
         return result
 
     def take_ready(self):
@@ -164,15 +173,17 @@ class RWDLAbsolute:
         return result
 
     def resources(self):
-        return dict(arrays_per_memory=32, capacity_bytes_per_array=16*1024**2,
+        value=dict(arrays_per_memory=32, capacity_bytes_per_array=16*1024**2,
             rw_dl_and_hb_same_lanes=True, data_lanes_per_array=128, data_lanes_per_memory=4096,
             interface_period_ps=3760, interface_peak_GBps_per_memory=32*16*1000/3760,
-            command_read_entries_per_array=1, command_read_entries_per_memory=32,
+            command_read_entries_per_array=1 if self.profile is None else self.profile.controller.read_entries,
+            command_read_entries_per_memory=32*(1 if self.profile is None else self.profile.controller.read_entries),
             command_write_entries_per_array=1, writes_used=False,
             active_entries_per_array=1, refresh_priority_entries_per_array=1,
             controller_command_issues_per_array_cycle=1, controller_instances_per_memory=32,
             dispatcher_atoms_per_memory_cycle=32,
-            reserved_atoms_per_array=8, shared_return_reservation_bytes_per_memory=32*8*16,
+            reserved_atoms_per_array=self.reservations_per_channel,
+            shared_return_reservation_bytes_per_memory=32*self.reservations_per_channel*16,
             return_reservation_lifetime='before native read acceptance through CDC and aggregate drain',
             cdc_cycles=self.cdc_cycles, cdc_policy='ceil native tail to NoC edge, then two NoC cycles',
             native_ready_location=self.native_ready_location,stream_origin=self.stream_origin,
@@ -184,6 +195,17 @@ class RWDLAbsolute:
             descriptor_return_bytes_per_memory=max(self.slots.values())*self.spec.memory_request_bytes,
             shared_mc_slots_per_memory=max(self.slots.values()),
             array_command_control_bits=None, controller_area_um2=None, energy_j=None)
+        if self.profile is not None:
+            from dataclasses import asdict
+            c=self.profile.controller
+            value.update(profile=asdict(self.profile),descriptor_candidate_window=c.descriptor_window,
+                expansion_policy='per-domain round-robin among first finite descriptor window; native FRFCFS among visible atoms',
+                command_entry_bare_min_bits=24,
+                command_queue_bare_min_bits_per_memory=32*c.read_entries*24,
+                command_queue_extra_entries_per_memory=32*(c.read_entries-1),
+                bare_min_bits_scope='20-bit array column address + 3-bit reserved return slot + valid; timestamp/control/comparator excluded',
+                controller_selection_area_um2=None,refresh_trigger_phase=c.refresh_phase)
+        return value
 
     def record(self):
         value = self.backend.record()

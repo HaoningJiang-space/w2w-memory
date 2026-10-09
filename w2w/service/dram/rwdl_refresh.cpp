@@ -7,7 +7,7 @@ namespace Ramulator {
 class W2WRWDLRefresh : public IRefreshManager, public Implementation {
   RAMULATOR_REGISTER_IMPLEMENTATION(IRefreshManager, W2WRWDLRefresh, "W2WRWDLRefresh")
   ControllerBase* ctrl;
-  int interval, command;
+  int interval, command, phase;
  public:
   void init() override {
     ctrl = cast_parent<ControllerBase>();
@@ -15,10 +15,12 @@ class W2WRWDLRefresh : public IRefreshManager, public Implementation {
     if (spec.standard_name != "W2WRWDL")
       throw std::runtime_error("RWDL refresh requires W2WRWDL");
     interval = spec.get_timing_value("nREFI");
+    phase = param<int>("phase_cycles").default_val(0);
+    if (phase < 0 || phase >= interval) throw std::runtime_error("RWDL refresh phase outside interval");
     command = spec.get_command_id("REFab");
   }
   void tick() override {
-    if (ctrl->m_clk % interval) return;
+    if ((ctrl->m_clk-phase) % interval) return;
     AddrVec_t address{ctrl->m_channel_id, 0, -1, -1, -1};
     Request req(address, Request::Cmd, command);
     if (!ctrl->priority_send(req))

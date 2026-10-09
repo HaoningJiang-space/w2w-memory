@@ -27,11 +27,14 @@ def native_gap(result,summary):
     Counts are endogenous to this executed trace, not a universal workload bound.
     """
     native=result['native'];period=native['tck_ps'];rows=[]
+    timing=native['resources'].get('profile',{}).get('timing',dict(nBL=1,nRTP=2,nRP=4,nRCD=4,nRFC=43))
+    if timing['nBL']!=1:raise ValueError('Conditional duty formula requires one-cycle RD')
     for c in native['stats']['controller']:
         reads=c['num_read_reqs_served'];conflicts=c['read_row_conflicts'];misses=c['read_row_misses']
         refresh=c['num_maintenance_reqs_served']
-        pieces=dict(rd_command_ps=reads*period,row_transition_min_ps=(9*conflicts+4*misses)*period,
-                    completed_refresh_block_min_ps=max(refresh-1,0)*43*period)
+        pieces=dict(rd_command_ps=reads*period,
+            row_transition_min_ps=((timing['nRTP']+timing['nRP']+timing['nRCD']-1)*conflicts+timing['nRCD']*misses)*period,
+            completed_refresh_block_min_ps=max(refresh-1,0)*timing['nRFC']*period)
         bound=sum(pieces.values())
         if bound>c['cycles']*period:raise ValueError('Conditional command duty exceeds elapsed native cycles')
         if reads:rows.append(dict(channel=c['id'],memory='m'+str(int(c['id'].split()[-1])//32),
@@ -184,16 +187,16 @@ def analyze(source):
         del result
     if any(len(v)!=1 for v in (semantic,native_ids,network_ids,machines)):
         raise ValueError('Cases changed semantic work, native configuration or shared wafer resources')
-    a,b=rows['gather-stream'],rows['gather-whole']
-    if a['graph_sha256']!=b['graph_sha256'] or a['pressure']['receive_write_ports'].keys()!=b['pressure']['receive_write_ports'].keys():
+    a,b=rows['gather-stream'],rows.get('gather-whole')
+    if b is not None and (a['graph_sha256']!=b['graph_sha256'] or a['pressure']['receive_write_ports'].keys()!=b['pressure']['receive_write_ports'].keys()):
         raise ValueError('Readiness contrast changed graph or receiver set')
     for tile,p in a['pressure']['receive_write_ports'].items():
-        if p['busy_cycles']!=b['pressure']['receive_write_ports'][tile]['busy_cycles']:
+        if b is not None and p['busy_cycles']!=b['pressure']['receive_write_ports'][tile]['busy_cycles']:
             raise ValueError('Whole/streaming consumed different SRAM write service')
     value=dict(schema='w2w.compute-placement-analysis.v1',source_commit=reg['source_commit'],passed=True,
         scope=reg['scope'],cases=rows,raw_result_provenance=proofs,
         near_shard_completion_reduction_percent=100*(1-rows['near-shard-stream']['makespan_us']/a['makespan_us']),
-        stream_completion_change_vs_whole_percent=100*(a['makespan_us']/b['makespan_us']-1),
+        stream_completion_change_vs_whole_percent=100*(a['makespan_us']/b['makespan_us']-1) if b is not None else None,
         interpretation='Fixed uncalibrated resource reference and ideal receive reservation; tensor partition changes graph, not hardware capacity')
     if 'rotated-shard-stream' in rows:
         near=frozen_records['near-shard-stream'];rotated=frozen_records['rotated-shard-stream']

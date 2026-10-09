@@ -35,7 +35,7 @@ def compile_layer(inputs=INPUTS, *, cohort='c0_b1', residency='pair'):
     return compile_routed_layer(load_layer_routing(inputs, cohort=cohort), residency=residency)
 
 
-def compile_routed_layer(routing, *, residency='pair'):
+def compile_routed_layer(routing, *, residency='pair', compute_service=None):
     """Compile supplied routing, owners and residency; no file selection or I/O."""
     cohort, owners, tokens = routing.cohort, routing.owners, routing.tokens
     h, intermediate, width, experts, topk = 4096, 1536, 128, 128, 8
@@ -79,7 +79,8 @@ def compile_routed_layer(routing, *, residency='pair'):
                                             min(65536, share-start)))
             macs = 3*n*h*width
             vector_ops = n*(9*width+2*h)
-            cycles = ceil(macs/4096)+ceil(vector_ops/256)
+            cycles = (ceil(macs/4096)+ceil(vector_ops/256) if compute_service is None else
+                      compute_service.cycles(macs,vector_ops,tile_weight))
             tasks.append(ComputeTask(key, owner, cycles, tuple(reads), scratch_bytes=4*n*width))
             descriptions[key] = dict(stage='expert_up_gate_silu_down_accumulate', expert=expert,
                                      intermediate_tile=block, tokens=members, macs=macs,
@@ -111,4 +112,5 @@ def compile_routed_layer(routing, *, residency='pair'):
         task_semantics=descriptions,
         omitted=['attention', 'routing projection (selections supplied)', 'KV', 'whole-model serving', 'numerical values'],
         source_hashes=routing.source_hashes)
+    if compute_service is not None:metadata['compute_model']=compute_service.record()
     return graph, metadata

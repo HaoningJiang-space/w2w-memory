@@ -8,23 +8,27 @@ from w2w.common.fingerprints import digest_read_v1 as digest
 from w2w.common.validators import integer
 
 
-def candidate_config(memories, *, refresh=True, command_trace=None):
+def candidate_config(memories, *, refresh=True, command_trace=None,profile=None):
     import ramulator
     integer(memories, 'memories', 1)
     controllers = []
-    for _ in range(memories * 32):
+    for channel in range(memories * 32):
         plugins = ([] if command_trace is None else
                    [ramulator.controller_plugin.CmdTraceRecorder(path=str(command_trace))])
         controller = ramulator.controller.GenericDDR(
-            dram=W2WRWDL(org_preset='array128Mbit', timing_preset='candidate3760ps'),
+            dram=W2WRWDL(org_preset='array128Mbit', timing_preset='candidate3760ps',
+                **({} if profile is None else vars(profile.timing))),
             scheduler=ramulator.scheduler.FRFCFS(),
             refresh_manager=ramulator.refresh_manager.NoRefresh(),
             row_policy=ramulator.row_policy.Open(),
             addr_mapper=ramulator.addr_mapper.PassThroughAddrMapper(),
-            read_buffer_size=1, write_buffer_size=1, priority_buffer_size=1,
+            read_buffer_size=1 if profile is None else profile.controller.read_entries,
+            write_buffer_size=1, priority_buffer_size=1,
             controller_plugins=plugins).to_config()
         if refresh:
             controller['refresh_manager'] = {'impl': 'W2WRWDLRefresh'}
+            if profile is not None and profile.controller.refresh_phase=='staggered':
+                controller['refresh_manager']['phase_cycles']=(channel%32)*profile.timing.nREFI//32
         controllers.append(controller)
     memory = ramulator.memory_system.GenericDRAM(
         clock_ratio=1, controllers=[],

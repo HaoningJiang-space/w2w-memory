@@ -21,30 +21,41 @@ from w2w.workloads.moe_task_graph import compile_routed_layer
 from w2w.workloads.routing_input import load_layer_routing
 from w2w.workloads.moe_partition import compile_partitioned_layer,compile_rotated_partition_layer,semantic_work
 from w2w.validation.compute_placement import matched_partition_contract
+from w2w.machine.service_profiles import RWDLProfile,RWDLController,ComputeService,effective_resources
 
 CASES={'gather-stream':('gather',True),'gather-whole':('gather',False),'near-shard-stream':('near_shard',True)}
 BASE_CASES=tuple(CASES)
 CASES['rotated-shard-stream']=('rotated_shard',True)
 
 
-def inputs(name):
+def services(name):
+    if name=='legacy':return None,None
+    if name=='controller4-compute4096':
+        return RWDLProfile(controller=RWDLController(read_entries=4,descriptor_window=4)),ComputeService()
+    raise ValueError('Unknown fixed service profile')
+
+
+def inputs(name,service_profile='legacy'):
     architecture,streaming=CASES[name]
     routing=load_layer_routing(cohort='c2_b4')
-    if architecture=='gather':graph,metadata=compile_routed_layer(routing,residency='four_way')
+    memory,compute=services(service_profile)
+    if architecture=='gather':graph,metadata=compile_routed_layer(routing,residency='four_way',compute_service=compute)
     else:
         compiler=compile_rotated_partition_layer if architecture=='rotated_shard' else compile_partitioned_layer
-        graph,metadata=compiler(routing=routing)
+        graph,metadata=compiler(routing=routing,compute_service=compute)
     spec,physical=from_coordinates(replace(machine(),dram_period_ps=3760))
-    return graph,spec,dict(graph=asdict(graph),metadata=metadata,spec=asdict(spec),physical=physical,
-                          architecture=architecture,streaming=streaming)
+    record=dict(graph=asdict(graph),metadata=metadata,spec=asdict(spec),physical=physical,
+                architecture=architecture,streaming=streaming)
+    if memory is not None:record['services']=dict(memory=asdict(memory),compute=compute.record())
+    return graph,spec,record
 
 
-def prepare(output,names=BASE_CASES,reference=None):
+def prepare(output,names=BASE_CASES,reference=None,service_profile='legacy'):
     output.mkdir(parents=True,exist_ok=False);(output/'inputs').mkdir()
     cases=[];signatures=set();machines=set()
     reference_reg=(json.loads((reference/'registration.json').read_text()) if reference is not None else None)
     for name in names:
-        _,_,record=inputs(name)
+        _,_,record=inputs(name,service_profile)
         semantic=digest(semantic_work(record['metadata']))
         signatures.add(semantic);machines.add(digest(record['spec']))
         write(output/'inputs'/(name+'.json'),record)
@@ -71,9 +82,10 @@ def prepare(output,names=BASE_CASES,reference=None):
         comparisons='gather readiness only; near-shard changes static intermediate weight/compute placement and bills FP32 reduction',
         excluded='Direct HB, endpoint RTL, prefetch, dynamic migration, reticle area DSE')
     if 'rotated-shard-stream' in names:
-        near,spec,a=inputs('near-shard-stream');rotated,_,b=inputs('rotated-shard-stream')
+        near,spec,a=inputs('near-shard-stream',service_profile);rotated,_,b=inputs('rotated-shard-stream',service_profile)
         registration['matched_parallel_control']=matched_partition_contract(near,a['metadata'],rotated,b['metadata'],spec)
         registration['comparisons']+='; matched four-chain clockwise rotation changes only block compute locations'
+    if service_profile!='legacy':registration['service_profile']=service_profile
     write(output/'registration.json',registration)
     print(json.dumps(dict(prepared=str(output),cases=list(names))),flush=True)
 
@@ -82,11 +94,13 @@ def run(output,name,binary):
     reg=json.loads((output/'registration.json').read_text())
     case=next(c for c in reg['cases'] if c['name']==name)
     if 'reference_directory' in case:raise ValueError('Archived reference is read-only; do not rerun it')
-    graph,spec,record=inputs(name)
+    profile_name=reg.get('service_profile','legacy')
+    graph,spec,record=inputs(name,profile_name)
+    memory,compute=services(profile_name)
     if revision()!=reg['source_commit'] or digest(record)!=case['input_sha256']:
         raise ValueError('Frozen source or input changed')
     directory=output/'cases'/name;directory.mkdir(parents=True,exist_ok=False)
-    native=RWDLAbsolute(spec,streaming=record['streaming'])
+    native=RWDLAbsolute(spec,streaming=record['streaming'],profile=memory)
     start=time.monotonic()
     print(json.dumps(dict(starting=name,source_commit=revision(),weight_bytes=record['metadata']['weight_read_bytes'])),flush=True)
     try:
@@ -97,6 +111,7 @@ def run(output,name,binary):
     finally:native.close()
     result.update(scope=reg['scope'],wafer_machine=record['physical'])
     result['audit']=audit_system_result(result)
+    if memory is not None:result['effective_resources']=effective_resources(spec,result['native']['resources'],compute.record())
     n=result['native']
     if (n['pending'] or n['upstream_pending'] or n['reservations_live']
             or n['completed_atoms']*16!=record['metadata']['weight_read_bytes']):
@@ -105,6 +120,7 @@ def run(output,name,binary):
     summary=summarize(result)
     summary.update(wall_seconds=time.monotonic()-start,kernel_iterations=result['kernel_iterations'],
                    sram_read_bytes=result['sram_read_bytes'],sram_read_busy_cycles=result['sram_read_busy_cycles'])
+    if 'effective_resources' in result:summary['effective_resources']=result['effective_resources']
     write(directory/'summary.json',summary)
     write(directory/'completion.json',dict(complete=True,case=name,source_commit=reg['source_commit'],
         input_sha256=case['input_sha256'],makespan_ps=result['makespan_ps'],audit=result['audit']))
@@ -118,9 +134,10 @@ def main():
     mode.add_argument('--prepare',action='store_true');mode.add_argument('--case',choices=CASES)
     p.add_argument('--cases',nargs='+',choices=CASES,default=BASE_CASES,help='Cases to register; original three by default')
     p.add_argument('--reference',type=Path,help='Reuse completed original cases from an immutable full study')
+    p.add_argument('--service-profile',choices=('legacy','controller4-compute4096'),default='legacy')
     p.add_argument('--booksim-binary',type=Path)
     args=p.parse_args()
-    if args.prepare:prepare(args.output,args.cases,args.reference)
+    if args.prepare:prepare(args.output,args.cases,args.reference,args.service_profile)
     else:
         if args.booksim_binary is None:p.error('--booksim-binary required')
         run(args.output,args.case,args.booksim_binary)

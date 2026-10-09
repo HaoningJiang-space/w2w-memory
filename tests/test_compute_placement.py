@@ -13,9 +13,19 @@ from w2w.system.wafer_machine import WaferRecipe,from_coordinates
 from w2w.workloads.moe_task_graph import compile_layer,machine
 from w2w.workloads.moe_partition import compile_partitioned_layer,compile_rotated_partition_layer,semantic_work,clockwise_compute
 from w2w.validation.compute_placement import matched_partition_contract
+from w2w.machine.service_profiles import ComputeService
 
 
 class PartitionTests(unittest.TestCase):
+    def test_compute_weight_supply_limits_without_equating_it_to_external_port(self):
+        fast=ComputeService();limited=replace(fast,weight_read_bytes_per_bank_cycle=8)
+        for n,expected in ((1,422),(2,841),(4,1682)):
+            macs=3*n*4096*128;vec=n*(9*128+2*4096)
+            self.assertEqual(fast.cycles(macs,vec,1573248),expected)
+            self.assertGreater(limited.cycles(macs,vec,1573248),expected)
+        self.assertEqual(limited.cycles(1572864,9344,1573248),6183)
+        self.assertEqual(fast.external_write_bytes_per_cycle,limited.external_write_bytes_per_cycle)
+
     def test_rotated_control_preserves_parallelism_content_and_each_engine_work(self):
         near,a=compile_partitioned_layer()
         rotated,b=compile_rotated_partition_layer()
