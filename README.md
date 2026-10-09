@@ -1,9 +1,11 @@
 # Wafer-scale Memory Service Fabric
 
-**当前结果：[native BookSim＋DRAM 上的完整 routed MoE 层](docs/reports/MOE_LAYER_SYSTEM_REPORT.md)。**
-已完成同一真实 routing 的 dispatch、分块权重读取、计算与 combine，并比较真实网络、
-理想返回和加宽 NoC。HBM2 下完成时间分别为 681.736、712.581、691.823 μs；
-这一配置优先推进 MC/DRAM 服务与静态驻留，尚未证明额外 Direct HB 值得。
+**当前结果：[Home / Pair / 4-way 的完整 routed FFN 层比较](docs/reports/B1_RESIDENCY_STUDY_REPORT.md)。**
+两个单 token 与预定四 token batch 中，4-way 相对 Pair 的层时间分别缩短
+49.00%、23.07%、38.96%；两单 token 的 Pair 均比同 owner Home 慢约 3.11%。
+这些结果属于 36-channel HBM2 reference＋合成 stitched mesh、整 descriptor 返回。
+**物理 wafer 尚未校准**；下一步按[机器与返回边界合同](docs/methods/WAFER_MACHINE_CLOSURE.md)
+连接几何、原生服务、HB 与 NoC，不继续扩大驻留 DSE 或预设 Direct HB 必需。
 
 **开发入口：[HANDOFF](docs/HANDOFF.md)** — 当前状态、复现、接口边界与唯一下一任务。
 [执行合同](docs/methods/MOE_LAYER_SYSTEM.md)明确机器、地址、缓冲和时钟；
@@ -48,7 +50,10 @@ memory_results/            本地/服务器实验工作目录（不入 Git）
 
 ## 从这里开始
 
-- [当前：完整层六项结果、反馈与下一步判断](docs/reports/MOE_LAYER_SYSTEM_REPORT.md)
+- [当前：Home / Pair / 4-way，固定驻留与完整层结果](docs/reports/B1_RESIDENCY_STUDY_REPORT.md)
+- [下一步：Wafer machine 定义、DRAM–HB 边界与有限流式返回](docs/methods/WAFER_MACHINE_CLOSURE.md)
+
+- [前轮：完整层六项网络条件结果与反馈](docs/reports/MOE_LAYER_SYSTEM_REPORT.md)
 - [当前完整层执行合同与机器参数](docs/methods/MOE_LAYER_SYSTEM.md)
 - [81次独立请求回放：冻结cohort映射、完整资源下界与负例](docs/reports/COHORT_REPLAY_REPORT.md)
 - [从wafer模板和DRAM原生服务出发的设计原则](docs/methods/WAFER_DRAM_SERVICE_PRINCIPLES.md)

@@ -12,6 +12,10 @@
 `analysis/moe_layer.py` 只读取已完成记录，核对图/地址集合并统计关键任务与原生资源。
 入口为 `run_moe_layer` / `analyze_moe_layer`，scope 为 `one_routed_ffn_layer_timing`。
 见[执行合同](methods/MOE_LAYER_SYSTEM.md)、[结果](reports/MOE_LAYER_SYSTEM_REPORT.md)。
+`experiments/run_residency_study.py` 在运行前冻结全体 expert 的布局与三个 cohort；
+`analysis/residency_study.py` 读取完成记录，核对相同逻辑工作、物理机器和 native 身份。
+Home-only 使用单独注册与源码，不改写原 Pair/4-way 六项。参见
+[驻留结果](reports/B1_RESIDENCY_STUDY_REPORT.md)和[物理机器后续合同](methods/WAFER_MACHINE_CLOSURE.md)。
 下述读回放保持 v1 身份，未迁移/改写旧 runner；不将其结果与 v2 自动合并。
 
 ## 历史 v1 主流程：真实 routing 到有限读回放

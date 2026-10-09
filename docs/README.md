@@ -1,7 +1,8 @@
 # 文档索引
 
-2026-10-09 当前入口：[完整 routed MoE 层系统结果](reports/MOE_LAYER_SYSTEM_REPORT.md)、
-[执行合同](methods/MOE_LAYER_SYSTEM.md)、[开发交接](HANDOFF.md)。
+2026-10-09 当前入口：[Home / Pair / 4-way 的完整层结果](reports/B1_RESIDENCY_STUDY_REPORT.md)、
+[机器物理定义与流式返回合同](methods/WAFER_MACHINE_CLOSURE.md)、[开发交接](HANDOFF.md)。
+前轮[三种网络条件结果](reports/MOE_LAYER_SYSTEM_REPORT.md)保持原始身份。
 以下历史文档中的“当前/下一步”按原实验版本理解。
 
 - [当前研究主线、强基线结果与统一证据](RESEARCH_STATUS.md)

@@ -1,0 +1,23 @@
+{
+  "home": {
+    "total_resident_bytes": 2416508928,
+    "total_capacity_bytes": 19327352832,
+    "utilization_percent": 12.5030517578125,
+    "max_memory_bytes": 75515904,
+    "max_memory_capacity_percent": 14.065933227539062
+  },
+  "pair": {
+    "total_resident_bytes": 2416508928,
+    "total_capacity_bytes": 19327352832,
+    "utilization_percent": 12.5030517578125,
+    "max_memory_bytes": 75515904,
+    "max_memory_capacity_percent": 14.065933227539062
+  },
+  "four_way": {
+    "total_resident_bytes": 2416508928,
+    "total_capacity_bytes": 19327352832,
+    "utilization_percent": 12.5030517578125,
+    "max_memory_bytes": 75515904,
+    "max_memory_capacity_percent": 14.065933227539062
+  }
+}

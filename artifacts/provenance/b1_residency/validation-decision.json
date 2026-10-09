@@ -1,0 +1,38 @@
+{
+  "primary_results": {
+    "pair": {
+      "complete": true,
+      "name": "c0_b1-pair",
+      "makespan_ps": 681736000,
+      "source_commit": "fb23c3caa558540b99d2f474af0fe54d40b82418",
+      "input_sha256": "c6b717eebbbf41e4d64c8a378c9ec4e979f3c22e4e242016288845c258b913d9",
+      "audit": {
+        "passed": true,
+        "packets": 74672,
+        "read_descriptors": 37056,
+        "read_words": 4719744,
+        "data_bytes": 2293760,
+        "physical_link_flits": 334756,
+        "tasks": 98
+      }
+    },
+    "four_way": {
+      "complete": true,
+      "name": "c0_b1-four_way",
+      "makespan_ps": 347679000,
+      "source_commit": "fb23c3caa558540b99d2f474af0fe54d40b82418",
+      "input_sha256": "9a0d8004d65013316b6df13cf1a4711f2f565e4e1bd4738f0d90a38e83e93cd5",
+      "audit": {
+        "passed": true,
+        "packets": 75056,
+        "read_descriptors": 37248,
+        "read_words": 4719744,
+        "data_bytes": 2293760,
+        "physical_link_flits": 667108,
+        "tasks": 98
+      }
+    }
+  },
+  "decision": "Run both predeclared independent cohorts; no layout or parameter change",
+  "source_commit": "fb23c3caa558540b99d2f474af0fe54d40b82418"
+}

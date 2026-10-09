@@ -1,11 +1,15 @@
 # 研究主线与当前证据
 
-**2026-10-09 完整层结果：** native BookSim 已接入统一 kernel。相同 routing、owner、
-驻留下，B1 / 理想返回 / 宽 NoC 在 IdealBanks 为 170.899 / 131.631 / 139.675 μs，
-在原生 HBM2 为 681.736 / 712.581 / 691.823 μs。HBM2 未因改返回网络获益，
-后续先研究 MC/DRAM 与静态驻留。[完整报告](reports/MOE_LAYER_SYSTEM_REPORT.md)
-记录输入、反馈、机器预算及局限；[合同](methods/MOE_LAYER_SYSTEM.md)可复现。
-六项在 hn072 完成，源码 `3a498c1`；旧结果身份保持不变。
+**2026-10-09 固定驻留系统结果：** 同机器、owner 和逻辑工作下，4-way 相对 Pair
+在两个单 token 和预定四 token batch 分别缩短层时间 49.00%、23.07%、38.96%。
+两单 token 的 Pair 比同 owner Home 慢约 3.11%。[结果报告](reports/B1_RESIDENCY_STUDY_REPORT.md)
+保留 NoC 额外流量、native 等待与所有边界。前轮六项返回/网络条件结果在
+[原报告](reports/MOE_LAYER_SYSTEM_REPORT.md)，原始身份不变。
+
+当前系统执行已存在，但物理平台仍是 HBM2 reference＋合成 stitched mesh，且采用
+整 descriptor 返回。下一步为[机器与服务边界闭合](methods/WAFER_MACHINE_CLOSURE.md)：
+坐标导出长度/时序/成本、有限流式供数、具备明确资源组织的原生 profile。
+这些新能力尚未实现，不将当前结果宣称为物理校准后的 WoW 最佳架构。
 
 以下为历史读子系统及局部硬件研究状态，其中“当前”“下一步”仅适用于原实验。
 新的 compute 网络采用显式 stitching，不沿用旧 H/plus 的纯直接读路径语义。

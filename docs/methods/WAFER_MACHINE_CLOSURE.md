@@ -58,6 +58,13 @@ kernel、BookSim 或 Ramulator 的调度。
 的“每 2 mm 一周期”规则，分别是 14 / 17 个传输周期，credit 同样计入。
 此规则是工程模型，不能称为工艺时序收敛。真实值应由线、驱动、retiming 与时钟确定。
 
+这个改动还会改变**可持续带宽**。当前输入 VC 为 16 flits（4 KiB），保持窗口不变、
+数据/credit 单程分别为 14 或 17 周期时，光传播往返就至少需要 28 / 34 周期。
+在这些 credit 合同下，连续发射率必要界为 `min(1, 16/RTT)` flits/cycle，因而
+256 B/ns 名义链路的相应上界约为 146.3 / 120.5 GB/s，尚未计 router 驻留与竞争。
+这只是该流水假设下的守恒界，不是新模拟结果。要保持每拍一 flit，需要增加真实
+credit/缓冲窗口并计成本；不能只改线长成本而保持旧吞吐，也不能免费扩 buffer。
+
 **完全对齐的矩形只有 Home overlap，没有邻居 Direct HB。** B2 必须给出改变后的
 memory placement、轮廓或其他合法 attachment，同时计入数据在 memory wafer 内
 到 HB 落点的路径。不允许在这张几何图上凭空添加 M1→C0 垂直边。
@@ -84,6 +91,10 @@ memory placement、轮廓或其他合法 attachment，同时计入数据在 memo
 它不是把 HBM2 channel 带宽乘四：必须重新给出每域命令状态、刷新、行/列时序、
 地址映射、MC 分布和有限返回预约。继续用 Ramulator 的框架表达这些资源；公开资料
 不足的时序先列为假设/范围，不用 HBM2 的所有常数冒充 SeDRAM。
+128-bit RWDL 每拍为 16 B；现有 32 B 请求若沿用，须实际经历两拍或显式并行域，
+不能沿用旧的一拍 ready。逻辑请求粒度与物理原子传输分别记录。
+266 MHz 与当前 1 GHz NoC 之间的时钟转换、采样和缓冲也要显式定义；例如采用
+整数 3760 ps 周期时应按该周期重算带宽，不能一边使用它一边声称精确 266 MHz。
 
 136.192 GB/s 仍低于当前声明的 256 GB/s Home transport；一个 compute 从四个域群
 读数据时，聚合供给却可能超过其 NI/RX。瓶颈应按实际路径及活动字节分析。
@@ -116,6 +127,8 @@ compute NoC。B1 与 B2 共享同一阵列命令/列数据资源，分叉位于�
 
 1. 每个已接纳 descriptor 预约至多 4 KiB payload 槽及 readiness bitmap；native
    回调可能乱序，按 offset 标记，不能用“累计完成数”假定连续前缀已经可发送。
+   32 槽的最大 payload 为 128 KiB/M，32 B 就绪粒度的 bitmap 合计 512 B/M，
+   另计事务标签。它们是明确的存储预算，不是 Python 容器带来的免费缓冲。
 2. NI 可以拒绝 admission；尚未接纳时数据留在已预约的 MC 槽，不能进入无限队列。
    接纳只创建消息，不等于 payload 已全部就绪。
 3. 第 j 个 flit 覆盖 `header + payload` 字节流中的确定区间。只有该区间涉及的

@@ -1,45 +1,45 @@
 # W2W Memory-on-Logic 开发交接
 
-2026-10-09：native BookSim 已接入现有 `SystemExecution`；真实 routing 驱动的一个
-routed MoE FFN 层已执行 dispatch、分块权重读取、计算与 combine。
-**当前结果与下一步判断：[完整层报告](reports/MOE_LAYER_SYSTEM_REPORT.md)。**
+2026-10-09：Home / Pair / 4-way 的九项完整 routed FFN 层执行与事件核验已完成。
+**当前结果：[驻留系统报告](reports/B1_RESIDENCY_STUDY_REPORT.md)。**
 
-| 运行 | IdealBanks 层完成时间 | Ramulator HBM2 层完成时间 |
-|---|---:|---:|
-| B1-real | 170.899 μs | 681.736 μs |
-| B1-return-ideal | 131.631 μs | 712.581 μs |
-| B1-wide-NoC | 139.675 μs | 691.823 μs |
+| 输入 | Home-only | Pair | 4-way |
+|---|---:|---:|---:|
+| c0_b1 原单 token | 661.173 μs | 681.736 μs | 347.679 μs |
+| c1_b1 独立单 token | 661.163 μs | 681.726 μs | 524.448 μs |
+| c2_b4 预定四 token | 1,981.770 μs | 1,706.464 μs | 1,041.569 μs |
 
-六项使用相同任务图、expert owner 与地址驻留。两种 DRAM profile 的原生预算不同，
-只能在各自列内比较。本轮覆盖一个 token、八个专家、一个 routed FFN 层；不是完整
-LLM 延迟，也没有验证数值输出。34 项既有 system/DRAM 回归通过，无 native skip。
+全部保持同一机器、冻结 expert owner 与逻辑任务。Pair 两单请求比 Home 慢 3.11%，
+四 token 则快 13.89%；4-way 相对 Pair 快 49.00%、23.07%、38.96%，约增加一倍
+NoC wire 流量。这里“快”指本层完成时间缩短，不是完整 LLM 加速。
 
-HBM2 下，最忙 compute 链路平均利用率 6.09%，改变返回网络未改善完成时间；
-关键 expert 的等待主要在最后 native-ready 之前。下一步只研究既有 NoC 上的
-MC/DRAM 服务与静态驻留，具体对照见 [唯一当前任务](handoff/NEXT_TASK.md)。
-暂不增加 Direct HB、endpoint RTL 或新的跨 bank engine pool。
+现有系统属于 HBM2 reference＋合成 stitched mesh，整 descriptor ready 后返回。
+**物理 wafer 建模尚未闭合。** 下一步是[机器定义与流式返回](methods/WAFER_MACHINE_CLOSURE.md)，
+具体顺序见[唯一当前任务](handoff/NEXT_TASK.md)。保留 kernel、BookSim、Ramulator，
+不扩驻留 DSE、不开发 Direct HB/RTL 变体，不把 HBM2 重命名成定制 WoW DRAM。
 
 ## 代码与证据入口
 
 | 内容 | 入口 |
 |---|---|
 | 统一任务/事务时间线 | `w2w/system/kernel.py` |
-| 复用 native 网络 | `w2w/network/booksim_backend.py`；wafer_simulator pin `0c56c24` |
-| 完整层任务编译 | `w2w/workloads/moe_task_graph.py` |
-| Ideal / pinned Ramulator | `w2w/memory/backend.py`、`w2w/service/dram/` |
-| 运行与静态分析 | `run_moe_layer`、`analyze_moe_layer` |
-| 输入/机器/接口合同 | [MOE_LAYER_SYSTEM](methods/MOE_LAYER_SYSTEM.md) |
-| 六项摘要与哈希 | `artifacts/results/system/moe_layer/` |
-| 原始完整事务记录 | hn072 的 `w2w-full-system-20261009/layer-*-3a498c1/` |
+| native 网络 / 原生内存 | `network/booksim_backend.py` / `memory/backend.py` |
+| 三种全专家驻留与 FFN 编译 | `workloads/moe_task_graph.py` |
+| 注册与运行 / 完成记录分析 | `run_residency_study` / `analyze_residency_study` |
+| 固定样本与对照协议 | [B1_RESIDENCY_STUDY](methods/B1_RESIDENCY_STUDY.md) |
+| 九项摘要、输入、哈希 | `artifacts/results/system/b1_residency/` |
+| 运行日志与导出清单 | `artifacts/provenance/b1_residency/` |
+| 完整事件与冻结源码 | hn072 `w2w-full-system-residency-20261009` |
 
-执行源码固定 `3a498c1b9347e298e7c5766885069d8d57ddf9ba`。分析与报告提交不重写
-旧实验身份。Python CreditNetwork 留作小型参考；历史 LP/read replay、匹配与 RTL
-保留原 scope，导航见 [历史交接](HANDOFF_HISTORY.md)、[研究状态](RESEARCH_STATUS.md)。
+Pair/4-way 执行源码 `fb23c3c`；用户随后要求的 Home 独立登记，源码 `c9599bd`；
+分析 `b0aeb4b`。37 项相关回归在原六项运行前通过；各 case 都做原有事件/资源审计。
+前轮[三种网络条件结果](reports/MOE_LAYER_SYSTEM_REPORT.md)与历史 RTL/read-only
+证据保留原身份；旧交接在 [历史](HANDOFF_HISTORY.md)，不按旧“下一步”重复实验。
 
 ## 服务器与协作
 
 - 新构建、测试、实验只在 `hn072@143.89.78.72`，本轮目录
-  `/Projects/haoning/w2w-full-system-20261009`，复用 `/Projects/haoning/w2w/.venv`。
+  `/Projects/haoning/w2w-full-system-residency-20261009`，复用 `/Projects/haoning/w2w/.venv`。
 - 本地 `/home/abc/jhn/w2w-memory` 开发源代码，`origin` 指向
   [HaoningJiang-space/w2w-memory](https://github.com/HaoningJiang-space/w2w-memory)，维护 `main`。
   hn072 主仓库使用 `research-origin`；拉取前检查工作区，不修改运行中的源码树。
