@@ -15,6 +15,8 @@ def inventory(stack):
         native=dict(domains=len(domains), capacity_bytes=sum(d.capacity_bytes for d in domains),
             interface_peak_bytes_per_ps=sum(d.data_bits/8/d.period_ps for d in domains),
             command_entries=sum(d.command_read_entries for d in domains),
+            command_metadata_bare_min_bits=sum(d.command_read_entries*((d.capacity_bytes//16-1).bit_length()
+                +(d.return_atoms-1).bit_length()+1) for d in domains),
             reserved_return_bytes=sum(d.return_atoms*16 for d in domains)),
         vertical=dict(ports=len(stack.vertical_ports), data_bits=sum(p.data_bits for p in stack.vertical_ports),
             control_bits=sum(p.control_bits for p in stack.vertical_ports),

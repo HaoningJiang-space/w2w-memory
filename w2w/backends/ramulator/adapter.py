@@ -19,6 +19,7 @@ class VerticalRWDL:
         self.spec=spec;self.stack=spec.stack
         self.domains={d.id:d for d in self.stack.dram_domains}
         self.channels={key:i for i,key in enumerate(self.domains)}
+        self.domain_names=tuple(self.domains)
         self.interfaces={m.id:m for m in spec.memories}
         self.gateways={g.id:g for g in (*self.stack.gateways,*self.stack.external_ports)}
         self.paths={(p.domain_id,p.gateway_id):p for p in self.stack.collection_paths}
@@ -75,7 +76,7 @@ class VerticalRWDL:
             key,offset,channel=self.tickets.pop(ticket);row=self.groups[key]
             at=cycle*self.period_ps;memory=self.interfaces[row['request'].memory]
             gateway=self.gateways[memory.gateway_id]
-            domain=next(d for d,c in self.channels.items() if c==channel)
+            domain=self.domain_names[channel]
             path=self.paths.get((domain,memory.gateway_id))
             # External service is an off-wafer proxy with a declared edge link;
             # its shared gateway throughput, rather than a vertical lane, limits I/O.

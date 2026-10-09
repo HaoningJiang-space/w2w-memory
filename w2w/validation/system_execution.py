@@ -17,6 +17,7 @@ def audit_system_result(result):
     last = -1
     stream_ready,stream_scale,stream_consumed,stream_macs,stream_ticks=Counter(),Counter(),Counter(),Counter(),set()
     last_compute={}
+    scale_consumed=Counter()
     for event in result['events']:
         at, kind = event['time_ps'], event['kind']
         if at < last: raise ValueError('Nonmonotonic event ledger')
@@ -72,11 +73,14 @@ def audit_system_result(result):
             tick=(event['tile'],at)
             if key not in starts or key in finishes or tick in stream_ticks:raise ValueError('Invalid streamed engine service')
             stream_ticks.add(tick);last_compute[key]=at
+            scale_consumed[key]+=event['scale_bytes']
             if (event['macs']>rule['macs_per_cycle'] or event['weight_bytes']>rule['weight_read_bytes_per_cycle']
                     or event['macs']*rule['weight_data_bytes']!=event['weight_bytes']*rule['macs']):
                 raise ValueError('Streamed compute exceeds arithmetic/SRAM service')
             stream_consumed[key]+=event['weight_bytes'];stream_macs[key]+=event['macs']
-            if stream_consumed[key]>stream_ready[key] or stream_scale[key]!=rule['scale_bytes']:
+            if (stream_consumed[key]>stream_ready[key] or stream_scale[key]!=rule['scale_bytes']
+                    or scale_consumed[key]>rule['scale_bytes'] or
+                    event['scale_bytes']+event['weight_bytes']>rule['weight_read_bytes_per_cycle']):
                 raise ValueError('Streamed arithmetic consumed unavailable operands')
         elif kind == 'task_start':
             key = event['task']
@@ -101,6 +105,7 @@ def audit_system_result(result):
             rule=tasks[key].get('stream')
             if rule:
                 if (stream_consumed[key]!=rule['weight_data_bytes'] or stream_macs[key]!=rule['macs']
+                        or scale_consumed[key]!=rule['scale_bytes']
                         or read[key]!=sum(r['size_bytes'] for r in tasks[key]['reads']) or at!=last_compute[key]+period):
                     raise ValueError('Invalid streamed GEMM completion')
             elif key not in starts or at != starts[key]+tasks[key]['compute_cycles']*period:
