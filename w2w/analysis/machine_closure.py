@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 
 from w2w.analysis.moe_layer import digest, file_record, inspect
+from w2w.analysis.residency_study import network_parameters
 from w2w.validation.system_execution import audit_system_result
 
 
@@ -30,8 +31,9 @@ def analyze(source):
         if not check['passed'] or check!=result['audit']:
             raise ValueError('Independent event audit differs')
         row=inspect(result,summary)
+        network_inputs, network_files=network_parameters(directory,result['network']['identity'])
         signatures.add((row['graph_sha256'],row['logical_read_set_sha256'],
-                        digest(row['native_identity']),result['network']['identity']['binary_sha256']))
+                        digest(row['native_identity']),digest(network_inputs)))
         native=result['native']
         if (native['streaming']!=(name=='hbm2-stream') or native['pending']
                 or native['upstream_pending'] or result['network']['runtime_source']['kind']!='bundled_w2w'):
@@ -51,6 +53,7 @@ def analyze(source):
         row['wall_seconds']=summary['wall_seconds']
         records[name]=row
         proofs[name]={p:file_record(directory/p) for p in ('result.json.gz','summary.json','completion.json')}
+        proofs[name].update({str(p.relative_to(directory)):file_record(p) for p in network_files})
         del result
     if len(signatures)!=1:
         raise ValueError('Cases changed workload, native configuration, or network executable')

@@ -12,6 +12,10 @@
 当前是一个 routed FFN 层的时序模型，不是完整 LLM 或数值推理验证。
 新构建、测试、实验只在 `hn072@143.89.78.72` 的隔离目录运行，源码通过 `main` 同步。
 
+**仿真工具统一在本仓库维护。** 优化版 BookSim 的源码补丁、在线 native 接口、
+Python runtime 与 DRAM bridge 均已收齐；[统一构建入口](docs/methods/NATIVE_TOOLCHAIN.md)
+已在 hn072 独立重建验证。新运行不依赖另一个开发者的 `wafer_simulator` 工作目录。
+
 研究问题：在已有完整 compute NoC 的 Memory-on-Logic 系统上，远端 DRAM 服务
 是否需要额外直接路径，以及怎样联合配置原生供给、有限请求容量与静态驻留。
 现有 DRAM 桥、固定字节语义和 endpoint RTL 是可复用组件；系统结果决定架构取舍。
@@ -37,6 +41,8 @@ w2w/                       研究代码（Python package）
 └── visualization/         论文图与研究图生成
 
 tests/                     单元与回归测试
+third_party/booksim_runtime/ 优化补丁、native 在线接口、来源与许可证
+tools/build_native.py       从本仓库构建 BookSim 和锁定版 DRAM bridge
 docs/                      方法、报告、理论、背景及运行说明
 artifacts/results/         按研究阶段归档的结果与摘要
 artifacts/figures/         版本化 SVG；PNG 预览不入 Git

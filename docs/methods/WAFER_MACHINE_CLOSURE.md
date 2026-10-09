@@ -1,8 +1,9 @@
 # 从可执行系统到有物理依据的 wafer machine
 
 2026-10-09。核查源码 `b0aeb4b`；接续完整 routed FFN 和固定驻留实验。
-本文件给出后续实现合同。除下表“现有实现”外，几何生成、细粒度返回和独立
-RWDL profile 均是待实现设计，不能引用为已经完成的 simulator 能力。
+本文件保留分阶段实现合同。10-09 已新增 `system/wafer_machine.py` 坐标导出，以及
+HBM2 的有限前缀供数（本地和远端）；`run_machine_closure` 固定四 token 作完整层对照。
+独立 RWDL profile 尚未实现。工具现已统一进入本仓库，见[独立构建](NATIVE_TOOLCHAIN.md)。
 
 ## 1. 当前结果属于哪台机器
 
@@ -10,7 +11,7 @@ RWDL profile 均是待实现设计，不能引用为已经完成的 simulator �
 它已经执行有限网络、DRAM 命令、SRAM、计算和完整 FFN 数据依赖；尚未校准成
 某个 WoW 制造平台。新物理机器使用新 machine ID，保留旧结果及其输入身份。
 
-| 边界 | 现有实现与源码 | 后续需要改变的合同 |
+| 边界 | 旧九项结果的实现与源码 | 新合同 |
 |---|---|---|
 | reticle / tile | `domain/system.py:mesh_system`，整数网格坐标、每 reticle 一个聚合 tile | reticle 外形、µm 坐标、router / MC / HB 落点分开表达 |
 | C–C | 每邻接边 10 mm、2-cycle pipeline；native BookSim | 由路径段生成长度、延迟、credit 延迟和成本 |
@@ -118,8 +119,8 @@ compute NoC。B1 与 B2 共享同一阵列命令/列数据资源，分叉位于�
 
 ## 6. 先修正返回粒度，保持其他实验因素不变
 
-当前适配器只把 native ticket 映射到 descriptor ID，等该组所有 words 完成才回调。
-拟增加 `WordReady(request_id, byte_offset, bytes, ready_ps)`，ticket 同时保存 offset。
+旧适配器只把 native ticket 映射到 descriptor ID，等该组所有 words 完成才回调。
+新 streaming 模式的 ticket 同时保存 offset；kernel 在对应 native 时刻消费逐字就绪。
 保留现有 4 KiB descriptor、32 outstanding、MC32、原始地址和请求头数量，网络仍是
 同一持久 BookSim。旧 `descriptor_complete` 模式作为显式对照保留。
 
