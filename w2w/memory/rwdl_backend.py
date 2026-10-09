@@ -42,6 +42,7 @@ class RWDLAbsolute:
         self.groups = {}
         self.queues = defaultdict(deque)
         self.round_robin=Counter()
+        self.selected_row={}
         self.tickets = {}
         self.reserved = Counter()
         self.reservation_peak = Counter()
@@ -141,7 +142,14 @@ class RWDLAbsolute:
                 if self.reserved[channel] >= self.reservations_per_channel:
                     self.reservation_stalls += 1
                     continue
-                index=self.round_robin[channel]%min(self.descriptor_window,len(queue))
+                policy='fifo' if self.profile is None else self.profile.controller.descriptor_policy
+                index=0
+                if policy=='round_robin':index=self.round_robin[channel]%min(self.descriptor_window,len(queue))
+                elif policy=='row_batched' and channel in self.selected_row:
+                    for i in range(min(self.descriptor_window,len(queue))):
+                        candidate=self.groups[queue[i]]
+                        _,address=self.address(candidate['request'],candidate['cursors'][channel%32])
+                        if address//64==self.selected_row[channel]:index=i;break
                 key = queue[index]
                 row = self.groups[key]
                 req = row['request']
@@ -158,6 +166,7 @@ class RWDLAbsolute:
                 self.reservation_peak[channel] = max(self.reservation_peak[channel],self.reserved[channel])
                 self.channel_atoms[channel] += 1
                 self.round_robin[channel]=(index+1)%self.descriptor_window
+                if policy=='row_batched':self.selected_row[channel]=address//64
                 offset += 16 if offset % 32 == 0 else 1008
                 row['cursors'][channel%32] = offset
                 if offset >= req.size_bytes:
@@ -199,11 +208,14 @@ class RWDLAbsolute:
             from dataclasses import asdict
             c=self.profile.controller
             value.update(profile=asdict(self.profile),descriptor_candidate_window=c.descriptor_window,
-                expansion_policy='per-domain round-robin among first finite descriptor window; native FRFCFS among visible atoms',
+                expansion_policy=c.descriptor_policy+' among first finite descriptor window; native FRFCFS among visible atoms',
                 command_entry_bare_min_bits=24,
                 command_queue_bare_min_bits_per_memory=32*c.read_entries*24,
                 command_queue_extra_entries_per_memory=32*(c.read_entries-1),
-                dispatcher_round_robin_bits_per_memory=32*(c.descriptor_window-1).bit_length(),
+                dispatcher_round_robin_bits_per_memory=32*(c.descriptor_window-1).bit_length() if c.descriptor_policy=='round_robin' else 0,
+                dispatcher_row_hint_bits_per_memory=32*15 if c.descriptor_policy=='row_batched' else 0,
+                dispatcher_row_comparators_per_memory=32*c.descriptor_window if c.descriptor_policy=='row_batched' else 0,
+                dispatcher_row_comparator_bits=14 if c.descriptor_policy=='row_batched' else 0,
                 bare_min_bits_scope='20-bit array column address + 3-bit reserved return slot + valid; timestamp/control/comparator excluded',
                 controller_selection_area_um2=None,refresh_trigger_phase=c.refresh_phase)
         return value

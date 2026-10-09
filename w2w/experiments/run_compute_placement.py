@@ -31,7 +31,9 @@ CASES['rotated-shard-stream']=('rotated_shard',True)
 def services(name):
     if name=='legacy':return None,None
     if name=='controller4-compute4096':
-        return RWDLProfile(controller=RWDLController(read_entries=4,descriptor_window=4)),ComputeService()
+        return RWDLProfile(controller=RWDLController(read_entries=4,descriptor_window=4,descriptor_policy='round_robin')),ComputeService()
+    if name=='controller4-row-compute4096':
+        return RWDLProfile(controller=RWDLController(read_entries=4,descriptor_window=4,descriptor_policy='row_batched')),ComputeService()
     raise ValueError('Unknown fixed service profile')
 
 
@@ -134,7 +136,7 @@ def main():
     mode.add_argument('--prepare',action='store_true');mode.add_argument('--case',choices=CASES)
     p.add_argument('--cases',nargs='+',choices=CASES,default=BASE_CASES,help='Cases to register; original three by default')
     p.add_argument('--reference',type=Path,help='Reuse completed original cases from an immutable full study')
-    p.add_argument('--service-profile',choices=('legacy','controller4-compute4096'),default='legacy')
+    p.add_argument('--service-profile',choices=('legacy','controller4-compute4096','controller4-row-compute4096'),default='legacy')
     p.add_argument('--booksim-binary',type=Path)
     args=p.parse_args()
     if args.prepare:prepare(args.output,args.cases,args.reference,args.service_profile)

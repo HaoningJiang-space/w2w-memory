@@ -33,11 +33,13 @@ class RWDLController:
     read_entries: int = 1
     descriptor_window: int = 1
     refresh_phase: str = 'synchronous'
+    descriptor_policy: str = 'fifo'
 
     def __post_init__(self):
         if (type(self.read_entries) is not int or not 1<=self.read_entries<=4
                 or type(self.descriptor_window) is not int or not 1<=self.descriptor_window<=4
-                or self.refresh_phase not in ('synchronous','staggered')):
+                or self.refresh_phase not in ('synchronous','staggered')
+                or self.descriptor_policy not in ('fifo','round_robin','row_batched')):
             raise ValueError('Declared candidate supports 1..4 entries/window and explicit refresh phase')
 
 

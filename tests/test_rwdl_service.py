@@ -114,10 +114,16 @@ class RWDLTests(unittest.TestCase):
         finally:backend.close()
 
     def test_four_entry_candidate_drains_with_same_reserved_data_budget(self):
-        _,r=self.drain(256,profile=RWDLProfile(controller=RWDLController(read_entries=4,descriptor_window=4)))
+        _,r=self.drain(256,profile=RWDLProfile(controller=RWDLController(read_entries=4,descriptor_window=4,descriptor_policy='round_robin')))
         self.assertEqual(r['resources']['command_read_entries_per_memory'],128)
         self.assertEqual(r['resources']['shared_return_reservation_bytes_per_memory'],4096)
         self.assertEqual(r['resources']['dispatcher_round_robin_bits_per_memory'],64)
+
+    def test_row_batched_window_has_explicit_bounded_selection_state(self):
+        _,r=self.drain(256,profile=RWDLProfile(controller=RWDLController(read_entries=4,descriptor_window=4,descriptor_policy='row_batched')))
+        self.assertEqual(r['resources']['shared_return_reservation_bytes_per_memory'],4096)
+        self.assertEqual(r['resources']['dispatcher_row_hint_bits_per_memory'],480)
+        self.assertEqual(r['resources']['dispatcher_row_comparators_per_memory'],128)
 
     def test_refresh_phase_is_explicit_and_preserves_synchronous_default(self):
         native=RamulatorRWDL(1,profile=RWDLProfile(controller=RWDLController(refresh_phase='staggered')))
