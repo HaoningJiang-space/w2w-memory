@@ -10,6 +10,66 @@ from w2w.analysis.residency_study import network_parameters
 from w2w.common.fingerprints import digest_system_v2 as digest
 from w2w.validation.system_execution import audit_system_result
 from w2w.workloads.moe_partition import semantic_work
+from w2w.validation.compute_placement import matched_partition_contract
+from w2w.domain.execution import ComputeTask,ReadAccess,ResidentObject,DataEdge,ControlEdge,ExecutionGraph
+from w2w.domain.system import SystemSpec,TileSpec,MemorySpec,PhysicalLink
+
+
+def native_gap(result,summary):
+    """Trace-conditioned single-bank duty bound; separate from the peak byte bound.
+
+    RD takes one command cycle. A counted row conflict requires PRE then ACT:
+    2+4+4 cycles between row-changing RD commands versus 1 for consecutive RD.
+    A closed-row miss needs ACT plus four cycles to RD. REF prohibits RD for 43
+    cycles; exclude the last served REF because its cooldown may be unfinished.
+    These are disjoint command opportunities on the *same* single-bank domain.
+    They do not include nRAS/nRC extra bubbles, refresh PRE or arrival idleness.
+    Counts are endogenous to this executed trace, not a universal workload bound.
+    """
+    native=result['native'];period=native['tck_ps'];rows=[]
+    for c in native['stats']['controller']:
+        reads=c['num_read_reqs_served'];conflicts=c['read_row_conflicts'];misses=c['read_row_misses']
+        refresh=c['num_maintenance_reqs_served']
+        pieces=dict(rd_command_ps=reads*period,row_transition_min_ps=(9*conflicts+4*misses)*period,
+                    completed_refresh_block_min_ps=max(refresh-1,0)*43*period)
+        bound=sum(pieces.values())
+        if bound>c['cycles']*period:raise ValueError('Conditional command duty exceeds elapsed native cycles')
+        if reads:rows.append(dict(channel=c['id'],memory='m'+str(int(c['id'].split()[-1])//32),
+            reads=reads,row_conflicts=conflicts,row_misses=misses,served_refresh=refresh,
+            **pieces,conditional_bound_ps=bound))
+    rows.sort(key=lambda r:r['conditional_bound_ps'],reverse=True)
+    timelines=summary['task_timelines'];final=max(timelines,key=lambda t:timelines[t]['finish_ps'])
+    edge_arrival={}
+    for e in result['events']:
+        if e['kind']=='data_deliver':edge_arrival[e['edge']]=e['time_ps']
+    chain=[];current=final
+    while True:
+        row=timelines[current];incoming=[e for e in result['graph']['data'] if e['consumer']==current]
+        latest=max(incoming,key=lambda e:edge_arrival[e['id']]) if incoming else None
+        input_at=edge_arrival[latest['id']] if latest else 0
+        chain.append(dict(task=current,**row))
+        if row['last_read_delivery_ps'] is not None and row['last_read_delivery_ps']>=input_at:break
+        if latest is None:break
+        current=latest['producer']
+    chain.reverse()
+    return dict(peak_memory_byte_bound_ps=max(result['native']['aggregation_bytes'].values())*period/512,
+        peak_array_rd_bound_ps=max(c['num_read_reqs_served'] for c in native['stats']['controller'])*period,
+        busiest_conditional_domains=rows[:8],conditional_bound_ps=rows[0]['conditional_bound_ps'],
+        residual_above_conditional_bound_ps=result['makespan_ps']-rows[0]['conditional_bound_ps'],
+        final_rw_dl_hb_tail_ps=native['native_last_tail_ps'],
+        native_tail_to_layer_finish_ps=result['makespan_ps']-native['native_last_tail_ps'],
+        latest_input_or_weight_barrier_chain=chain,
+        assumptions='Only current one-bank/read-only candidate3760ps timing; row/refresh counts are trace-conditioned, not exogenous performance attribution')
+
+
+def frozen_types(record):
+    g=record['graph'];s=record['spec']
+    graph=ExecutionGraph(tuple(ComputeTask(**dict(t,reads=tuple(ReadAccess(**r) for r in t['reads']))) for t in g['tasks']),
+        tuple(ResidentObject(**o) for o in g['objects']),tuple(DataEdge(**e) for e in g['data']),
+        tuple(ControlEdge(**e) for e in g['control']))
+    spec=SystemSpec(**dict(s,tiles=tuple(TileSpec(**t) for t in s['tiles']),
+        memories=tuple(MemorySpec(**m) for m in s['memories']),links=tuple(PhysicalLink(**l) for l in s['links'])))
+    return graph,spec
 
 
 def pressure(result,metadata):
@@ -80,15 +140,16 @@ def pressure(result,metadata):
 
 def analyze(source):
     reg=json.loads((source/'registration.json').read_text())
-    rows,proofs={},{}
+    rows,proofs,frozen_records={},{},{}
     semantic,native_ids,network_ids,machines=set(),set(),set(),set()
     for case in reg['cases']:
-        name=case['name'];directory=source/'cases'/name
+        name=case['name'];directory=Path(case.get('reference_directory',source/'cases'/name))
         frozen=json.loads((source/'inputs'/(name+'.json')).read_text())
         done=json.loads((directory/'completion.json').read_text())
         summary=json.loads((directory/'summary.json').read_text())
         with gzip.open(directory/'result.json.gz','rt') as f:result=json.load(f)
-        if (not done['complete'] or done['source_commit']!=reg['source_commit']
+        case_source=case.get('source_commit',reg['source_commit'])
+        if (not done['complete'] or done['source_commit']!=case_source
                 or digest(frozen)!=case['input_sha256'] or done['input_sha256']!=case['input_sha256']
                 or result['graph']!=frozen['graph'] or result['spec']!=frozen['spec']
                 or result['wafer_machine']!=frozen['physical']
@@ -110,12 +171,14 @@ def analyze(source):
         if set(array_last)!=set(ready) or any(
                 e['beat_tail_ps']!=e['time_ps']+3760 or e['beat_tail_ps']>ready[k] for k,e in array_last.items()):
             raise ValueError('Array ready, RWDL/HB tail and controller-ready boundary differ')
-        row.update(architecture=case['architecture'],streaming=case['streaming'],
+        row.update(architecture=case['architecture'],streaming=case['streaming'],execution_source_commit=case_source,
             semantic_work_sha256=case['semantic_work_sha256'],pressure=pressure(result,frozen['metadata']),
             wall_seconds=summary['wall_seconds'],kernel_iterations=result['kernel_iterations'],
             total_compute_busy_ps=sum(result['compute_busy_ps'].values()),
-            extra_reduce_vector_ops=frozen['metadata'].get('additional_reduction_vector_ops',0))
+            extra_reduce_vector_ops=frozen['metadata'].get('additional_reduction_vector_ops',0),
+            native_gap=native_gap(result,summary))
         rows[name]=row
+        frozen_records[name]=frozen
         proofs[name]={p:file_record(directory/p) for p in ('result.json.gz','summary.json','completion.json')}
         proofs[name].update({str(p.relative_to(directory)):file_record(p) for p in files})
         del result
@@ -127,11 +190,23 @@ def analyze(source):
     for tile,p in a['pressure']['receive_write_ports'].items():
         if p['busy_cycles']!=b['pressure']['receive_write_ports'][tile]['busy_cycles']:
             raise ValueError('Whole/streaming consumed different SRAM write service')
-    return dict(schema='w2w.compute-placement-analysis.v1',source_commit=reg['source_commit'],passed=True,
+    value=dict(schema='w2w.compute-placement-analysis.v1',source_commit=reg['source_commit'],passed=True,
         scope=reg['scope'],cases=rows,raw_result_provenance=proofs,
         near_shard_completion_reduction_percent=100*(1-rows['near-shard-stream']['makespan_us']/a['makespan_us']),
         stream_completion_change_vs_whole_percent=100*(a['makespan_us']/b['makespan_us']-1),
         interpretation='Fixed uncalibrated resource reference and ideal receive reservation; tensor partition changes graph, not hardware capacity')
+    if 'rotated-shard-stream' in rows:
+        near=frozen_records['near-shard-stream'];rotated=frozen_records['rotated-shard-stream']
+        ng,spec=frozen_types(near);rg,_=frozen_types(rotated)
+        proof=matched_partition_contract(ng,near['metadata'],rg,rotated['metadata'],spec)
+        n,r=rows['near-shard-stream'],rows['rotated-shard-stream']
+        if (proof!=reg['matched_parallel_control'] or n['logical_read_set_sha256']!=r['logical_read_set_sha256']
+                or n['memory_read_bytes']!=r['memory_read_bytes']
+                or n['total_compute_busy_ps']!=r['total_compute_busy_ps']):
+            raise ValueError('Executed rotated control changed matched work or physical read addresses')
+        value.update(matched_parallel_control=proof,
+            near_vs_rotated_completion_reduction_percent=100*(1-n['makespan_us']/r['makespan_us']))
+    return value
 
 
 def main():
