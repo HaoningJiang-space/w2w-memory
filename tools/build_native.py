@@ -30,6 +30,11 @@ def main():
     p.add_argument('--ramulator-source', type=Path,
                    help='Reuse a built pinned upstream; otherwise clone/build into output')
     args = p.parse_args()
+    required = ['cmake','g++','git']
+    if args.tool in ('booksim','all'): required += ['make','flex','bison']
+    missing = [name for name in required if shutil.which(name) is None]
+    if missing:
+        p.error('Missing build tools: '+', '.join(missing))
     out = args.output.resolve()
     if out == ROOT or ROOT in out.parents or args.jobs < 1:
         p.error('Use a new build directory outside the source checkout and positive --jobs')
@@ -44,6 +49,7 @@ def main():
 
         manifest = dict(schema='w2w.native-build.v1', host=platform.node(),
                         python=sys.version, commands=commands, outputs={}, sources={})
+        manifest['tools'] = {name: shutil.which(name) for name in required}
         manifest['w2w_commit'] = subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
         try:
             if args.tool in ('booksim','all'):

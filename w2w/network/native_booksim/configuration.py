@@ -39,13 +39,13 @@ def export_booksim_config(inputs, run_identifier, load):
     else:
         router_latencies = [chiplets[x["name"]]["router_latency"] for x in placement["chiplets"]]
         router_latency = int(math.ceil(sum(router_latencies) / len(router_latencies)))
-        if len(set(router_latencies)) > 1:    
+        if len(set(router_latencies)) > 1:
             print("WARNING: In BookSim simulations, all routers (on-chip or on-interposer) have the same latency. " + \
               "In your configuration, these latencies are not identical. RapidChiplet will use the average " + \
               "latency which is %d cycles. To manually set the router-latency, " % router_latency + \
               "specify the parameter \"router_latency\" in the booksim-config input file.")
     # 1) Simulation parameters
-    bsc["topology"] = "anynet" 
+    bsc["topology"] = "anynet"
     bsc["network_file"] = "rapidchiplet/booksim2/src/rc_topologies/%s.anynet" % run_identifier          # NOTE: path relative to parent directory
     bsc["injection_rate"] = 1.0 if bsc["mode"] == "trace" else load
     # 3) Parameters related to the timing/latencies:
@@ -83,4 +83,3 @@ def prepare_config(inputs, directory, trace_path, seed, timeout=120, skip_idle=T
     with working_directory(directory):
         export_booksim_config(modified, "network", 1.0)
     return directory / "rapidchiplet/booksim2/src/rc_configs/network.conf"
-
