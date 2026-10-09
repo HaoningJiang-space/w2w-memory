@@ -29,8 +29,7 @@
  int TrafficManager::_Step()
  {
      bool flits_in_flight = false;
-@@ -1269,6 +1276,8 @@
-   
+@@ -1270,5 +1277,7 @@
      if ( !_empty_network ) {
 +        _EndpointPrepareInject();
          _Inject();
