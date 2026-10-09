@@ -51,6 +51,7 @@ class PhysicalResourceGraph:
 
     def __post_init__(self):
         routers = {r.id: r for r in self.routers}
+        if not routers:raise ValueError('Compute fabric needs a physical router')
         if len(routers) != len(self.routers): raise ValueError('Duplicate router identity')
         ids, edges = set(), set()
         degrees = {r: 1 for r in routers}  # one shared local injection/ejection port
@@ -66,6 +67,9 @@ class PhysicalResourceGraph:
             for s in c.segments:
                 if s.kind not in ('intra_reticle', 'boundary_stitch') or s.pipeline_cycles < 1:
                     raise ValueError('Unknown or untimed wire segment')
+            if (sum(s.pipeline_cycles for s in c.segments)!=c.fine_hops
+                    or c.channel_cycles+routers[c.src].cycles!=c.fine_hops):
+                raise ValueError('Channel plus source router must equal declared segment/fine-hop pipeline')
             ids.add(c.id); edges.add((c.src, c.dst)); degrees[c.src] += 1
         if any(degrees[k] > r.port_budget for k, r in routers.items()):
             raise ValueError('Physical router port budget exceeded')

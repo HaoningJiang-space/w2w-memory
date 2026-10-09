@@ -29,7 +29,11 @@ def vertical_memory(organization='distributed', *, rows=2, columns=2):
         if organization=='external':
             # One declared edge I/O per physical region. Native service is an
             # off-wafer proxy; there is no HB and no uncharged local shortcut.
-            edge=(regions[0].origin_um[0],region.origin_um[1]+region.size_um[1]//2)
+            # Distinct locations along the two active-array perimeter sides.
+            # This replaces the archived four-port/two-location reference.
+            half=ceil(columns/2);column=n%columns
+            side=regions[0].origin_um[0] if column<half else max(r.origin_um[0]+r.size_um[0] for r in regions)
+            edge=(side,region.origin_um[1]+(column%half+1)*region.size_um[1]//(half+1))
             entry=min(routers,key=lambda r:(sum(abs(a-b) for a,b in zip(edge,r.position_um)),r.id))
             e=ExternalPort(f'io{n}',edge,entry.id,32,128*1024,32); external.append(e)
         for k, subset in enumerate(quadrant):
@@ -50,6 +54,6 @@ def vertical_memory(organization='distributed', *, rows=2, columns=2):
                     length=sum(abs(a-b) for a,b in zip(d.position_um,p.position_um))
                     collection.append(CollectionPath(f'{d.id}>{p.id}',d.id,p.id,g.id,length,
                         pipeline_cycles=max(1,ceil(length/1000))))
-    return WaferStack(f'v3-{organization}-{rows}x{columns}',regions,clusters,routers,
+    return WaferStack(f'v3-{organization}{"-perimeter" if organization=="external" else ""}-{rows}x{columns}',regions,clusters,routers,
         tuple(memories),tuple(domains),lateral,tuple(ports),tuple(gateways),tuple(groups),
         tuple(collection),tuple(external))

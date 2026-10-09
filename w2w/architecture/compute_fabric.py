@@ -65,3 +65,8 @@ class Router:
     input_buffer_bytes: int = 32*1024
     injection_buffer_bytes: int = 64*1024
     cycles: int = 3
+
+    def __post_init__(self):
+        if any(type(getattr(self,k)) is not int or getattr(self,k)<1
+               for k in ('port_budget','input_buffer_bytes','injection_buffer_bytes','cycles')):
+            raise ValueError('Router requires positive integer physical service')

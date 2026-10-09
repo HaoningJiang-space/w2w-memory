@@ -54,7 +54,7 @@ class WaferStack:
             if c.router_id not in routers: raise ValueError('Unknown cluster router')
             if c.position_um!=routers[c.router_id].position_um:
                 raise ValueError('First compiler requires co-located cluster/router or an explicit attachment path')
-        for r in self.compute_reticles:
+        for r in (*self.compute_reticles,*self.memory_regions):
             x, y = r.origin_um; w, h = r.size_um
             if any(a*a+b*b > (self.wafer_diameter_um//2)**2 for a in (x, x+w) for b in (y, y+h)):
                 raise ValueError('Reticle outside wafer boundary')
@@ -67,6 +67,18 @@ class WaferStack:
                 raise ValueError('HB landing or site budget invalid')
             if p.position_um!=gateways[p.gateway_id].position_um:
                 raise ValueError('Vertical HB landing is not aligned with its logic gateway')
+            memory_region=regions[p.region_id];logic_region=regions[gateways[p.gateway_id].reticle_id]
+            if memory_region.origin_um!=logic_region.origin_um or memory_region.size_um!=logic_region.size_um:
+                raise ValueError('First aligned stack requires registered HB-region shapes and origins')
+            x,y,a,b=p.landing_bounds_um
+            if not all(r.contains(q) for r in (memory_region,logic_region) for q in ((x,y),(a,b))):
+                raise ValueError('HB landing footprint exceeds a paired region')
+        for i,p in enumerate(self.vertical_ports):
+            ax,ay,bx,by=p.landing_bounds_um
+            for other in self.vertical_ports[i+1:]:
+                cx,cy,dx,dy=other.landing_bounds_um
+                if ax<dx and cx<bx and ay<dy and cy<by:
+                    raise ValueError('HB landing footprints overlap')
         for group in self.bank_groups:
             if not group.domain_ids or len(set(group.domain_ids))!=len(group.domain_ids) or any(d not in domains for d in group.domain_ids):
                 raise ValueError('Unknown native domain in memory view')

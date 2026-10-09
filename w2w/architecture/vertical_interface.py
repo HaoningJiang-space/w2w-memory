@@ -13,6 +13,18 @@ class VerticalPort:
     period_ps: int = 3760
     control_bits: int = 64
     hb_sites: int = 0
+    landing_pitch_um: int = 4
+
+    @property
+    def landing_bounds_um(self):
+        from math import ceil,isqrt
+        if type(self.landing_pitch_um) is not int or self.landing_pitch_um<1 or self.hb_sites<1:
+            raise ValueError('HB needs a declared positive pitch/site inventory')
+        columns=isqrt(self.hb_sites)
+        if columns*columns<self.hb_sites:columns+=1
+        width=columns*self.landing_pitch_um;height=ceil(self.hb_sites/columns)*self.landing_pitch_um
+        x,y=self.position_um;left=x-width//2;bottom=y-height//2
+        return (left,bottom,left+width,bottom+height)
 
 
 @dataclass(frozen=True)

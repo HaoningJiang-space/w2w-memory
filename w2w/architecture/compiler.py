@@ -87,6 +87,8 @@ def compile_machine(stack):
     links=tuple(ExecutableChannel(c.id,c.src,c.dst,'compute_fabric',c.id,c.data_bits,
         c.period_ps,c.channel_cycles,c.channel_cycles,c.length_um,c.segments) for c in stack.lateral_links)
     machine=ExecutableMachine(stack,tiles,memories,links,stack.routers)
+    if any(r.cycles!=machine.router_cycles for r in stack.routers):
+        raise ValueError('First native compiler supports uniformly declared three-cycle routers')
     if len({c.profile.period_ps for c in stack.compute_clusters})!=1:
         raise ValueError('First aggregate backend requires one compute/fabric clock')
     if any(r.input_buffer_bytes != machine.input_buffer_flits*machine.flit_bytes or
