@@ -31,7 +31,8 @@ def prepare(output):
     with gzip.open(BASELINE/'input.json.gz','rt') as f: baseline=json.load(f)
     analysis=json.loads((BASELINE/'analysis.json').read_text())
     four_graph,spec,four=inputs('four_way')
-    if four['graph'] != baseline['graph'] or asdict(replace(spec,dram_period_ps=1000)) != baseline['spec']:
+    if (digest(four['graph']) != digest(baseline['graph'])
+            or digest(asdict(replace(spec,dram_period_ps=1000))) != digest(baseline['spec'])):
         raise ValueError('RWDL comparison changed archived graph or common machine')
     output.mkdir(parents=True,exist_ok=False)
     (output/'inputs').mkdir()

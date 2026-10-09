@@ -35,6 +35,7 @@ class RWDLTests(unittest.TestCase):
     def backend(self, aggregation=256, refresh=True):
         spec=replace(mesh_system(1,2,flit_bytes=256,input_buffer_flits=16,injection_flits=256,
                                 packet_payload_bytes=4096,memory_request_bytes=4096),dram_period_ps=3760)
+        spec=replace(spec,tiles=tuple(replace(t,sram_bytes=65536) for t in spec.tiles))
         return RWDLAbsolute(spec,aggregation_bytes_per_cycle=aggregation,refresh=refresh)
 
     def test_two_halves_keep_logical_bank_word_mapping(self):
@@ -74,21 +75,23 @@ class RWDLTests(unittest.TestCase):
 
     def drain(self, aggregation):
         backend=self.backend(aggregation)
-        req=MemoryRequest('r','t','c0','m0',0,0,4096)
         try:
-            self.assertTrue(backend.submit(req,0))
-            ready=[]
+            for n in range(4):
+                self.assertTrue(backend.submit(MemoryRequest(str(n),'t','c0','m0',0,4*n,4096),0))
+            ready,completed=[],[]
             for now in range(0,2_000_000,40):
                 done=backend.advance(now)
                 ready.extend(backend.take_ready())
-                if done:
-                    self.assertEqual(done,['r'])
+                completed.extend(done)
+                if len(completed)==4:
+                    self.assertEqual(sorted(completed),['0','1','2','3'])
                     break
             else:self.fail('RWDL did not drain')
-            self.assertEqual(sorted(offset for _,offset,size in ready),list(range(0,4096,16)))
+            for n in range(4):
+                self.assertEqual(sorted(offset for key,offset,size in ready if key==str(n)),list(range(0,4096,16)))
             self.assertTrue(all(size==16 for _,_,size in ready))
             record=backend.record()
-            self.assertEqual(record['completed_atoms'],256)
+            self.assertEqual(record['completed_atoms'],1024)
             self.assertEqual(record['pending'],0)
             self.assertEqual(record['reservations_live'],0)
             self.assertLessEqual(max(record['reservation_peak_atoms'].values()),8)

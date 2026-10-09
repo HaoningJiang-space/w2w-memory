@@ -56,7 +56,8 @@ class RWDLAbsolute:
     def submit(self, req, now):
         if now % self.period_ps:
             return False
-        if req.id in self.groups or req.size_bytes % 32 or req.memory not in self.channels:
+        if (req.id in self.groups or req.size_bytes % 32 or req.memory not in self.channels
+                or req.size_bytes > self.spec.memory_request_bytes):
             raise ValueError('Invalid/duplicate RWDL descriptor')
         if self.memory_groups[req.memory] >= self.slots[req.memory]:
             return False
