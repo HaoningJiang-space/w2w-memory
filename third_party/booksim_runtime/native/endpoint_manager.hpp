@@ -1,6 +1,7 @@
 // Endpoint-only extension; linked with the reviewed hooks in an isolated build.
 // Router scheduling, internal buffers, routing, links and packet generation are reused.
 #include <deque>
+#include <set>
 #include "iq_router.hpp"
 
 class BoundaryTrafficManager : public OnlineTrafficManager {
@@ -14,6 +15,7 @@ class BoundaryTrafficManager : public OnlineTrafficManager {
     std::vector<json> progress;
     std::vector<uint64_t> unsupplied_head, ready_behind, ready_behind_with_credit, ready_head_credit_wait;
     std::map<int,uint64_t> unsupplied_by_message, ready_behind_by_message;
+    std::vector<std::set<int>> ready_sources;
 
     bool _EndpointCanInject(Flit const *f) override {
         if (!streaming) return true;
@@ -25,19 +27,18 @@ class BoundaryTrafficManager : public OnlineTrafficManager {
             return true;
         }
         ++unsupplied_head[f->src];++unsupplied_by_message[f->mid];
-        const auto &queue=_partial_packets[f->src][f->cl];
-        for (const auto *other:queue) {
-            if (other->mid!=f->mid && sent.at(other->mid)<supplied.at(other->mid)) {
-                ++ready_behind[f->src];++ready_behind_by_message[f->mid];
-                if (credit) ++ready_behind_with_credit[f->src];
-                break;
-            }
+        // Trace mode generates the next message only after its partial queue
+        // empties. Count supplied admitted messages in BOTH source stages.
+        if (!ready_sources[f->src].empty()) {
+            ++ready_behind[f->src];++ready_behind_by_message[f->mid];
+            if (credit) ++ready_behind_with_credit[f->src];
         }
         return false;
     }
     void _EndpointInjected(Flit const *f) override {
         if (!streaming) return;
         int ordinal=sent.at(f->mid)++;
+        if (sent.at(f->mid)==supplied.at(f->mid)) ready_sources[f->src].erase(f->mid);
         ordinals[f->id]=ordinal;
         progress.push_back({{"event","inject"},{"id",f->mid},{"flit",f->id},
             {"ordinal",ordinal},{"cycle",_time+1},{"source",f->src}});
@@ -71,7 +72,7 @@ public:
     BoundaryTrafficManager(const BookSimConfig &config,const std::vector<Network*> &net)
         : OnlineTrafficManager(config,net), original(config), returns(_nodes),
           unsupplied_head(_nodes),ready_behind(_nodes),ready_behind_with_credit(_nodes),
-          ready_head_credit_wait(_nodes) {}
+          ready_head_credit_wait(_nodes),ready_sources(_nodes) {}
     bool Idle() const override {
         if (!held.empty()) return false;
         for (const auto &q:returns) if (!q.empty()) return false;
@@ -106,6 +107,7 @@ public:
                 count<=0 || supplied[mid]+count>msg_packets[mid])
                 throw std::runtime_error("Invalid or excess supplied payload");
             supplied[mid]+=count;
+            if (sent[mid]<supplied[mid]) ready_sources[msg_source[mid]].insert(mid);
         } else if (command=="commit") {
             int fid=r.at("flit");
             if (!enabled || !bounded || !held.count(fid)) throw std::runtime_error("Unknown committed flit");

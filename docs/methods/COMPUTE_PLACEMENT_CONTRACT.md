@@ -17,7 +17,9 @@ memory、每 tile 2 MiB SRAM、相同坐标/NoC/credit/MC32/requester32；没有
 3. 接收预约与 tag 分配明确为**理想的全局预约参考**；尚未模拟远端 grant/ACK 的
    控制流量或 RTT。它保证存储有限，但不是已物理实现的协议，不据此声称 WoW 闭合。
 4. Native source FIFO 不改变仲裁。只统计队头缺数据、后方有数据、其中注入 credit
-   可用的周期，并保留阻塞 message 身份；这些指标互相重叠，不相加为总 stall。
+   可用的周期，并保留阻塞 message 身份。trace 模式在当前 partial queue 排空后才生成
+   后续 message，因此统计包含已准入/已供数但还没有生成 flit 的 source 队列；
+   不能只扫描 partial queue。这些指标互相重叠，不相加为总 stall。
 5. 两项架构都显式提供一个独立 256 B/ns activation/partial-state SRAM 读口与
    一个 256 B/ns 接收写口。源端先预约有限 NI，再逐拍读取并释放 SRAM，不能瞬间
    免费复制一整个 activation。计算内部权重读服务仍包含在既有计算吞吐假设中。
