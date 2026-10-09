@@ -1,0 +1,1 @@
+{"scope": "native one-array examples, read queue one, no refresh; 32-domain rate is an analytical projection", "observed_row_start_intervals_cycles": [73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73], "projected_interface_peak_GBps": 136.17021276595744, "projected_row_stream_GBps": 119.38210434275722, "row_stream_reference_us_for_28318464_bytes": 237.20861812500002}

@@ -1,0 +1,2 @@
+{"starting": "rotated-shard-stream", "source_commit": "492affaa4b72fb2866a26343fcf0c4ae47dc2137", "weight_bytes": 585248256}
+{"completed": "rotated-shard-stream", "makespan_us": 307.813, "wall_seconds": 886.4922378431074}

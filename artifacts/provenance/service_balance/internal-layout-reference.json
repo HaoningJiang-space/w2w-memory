@@ -1,0 +1,651 @@
+{
+  "scope": "coarse 26x33mm, 8x4 domain-port cost reference; NOT charged in current execution",
+  "spatially_calibrated": false,
+  "included_in_runtime": false,
+  "domains": [
+    {
+      "domain": 0,
+      "array_port_um": [
+        -11375,
+        -12375
+      ],
+      "hb_logic_landing_um": [
+        -11375,
+        -12375
+      ],
+      "aggregation_um": [
+        0,
+        0
+      ],
+      "logic_collection_manhattan_um": 23750,
+      "data_bits": 128,
+      "pipeline_cycles_reference": 12,
+      "data_wire_bit_mm": 3040.0,
+      "data_pipeline_bits_reference": 1536
+    },
+    {
+      "domain": 1,
+      "array_port_um": [
+        -8125,
+        -12375
+      ],
+      "hb_logic_landing_um": [
+        -8125,
+        -12375
+      ],
+      "aggregation_um": [
+        0,
+        0
+      ],
+      "logic_collection_manhattan_um": 20500,
+      "data_bits": 128,
+      "pipeline_cycles_reference": 11,
+      "data_wire_bit_mm": 2624.0,
+      "data_pipeline_bits_reference": 1408
+    },
+    {
+      "domain": 2,
+      "array_port_um": [
+        -4875,
+        -12375
+      ],
+      "hb_logic_landing_um": [
+        -4875,
+        -12375
+      ],
+      "aggregation_um": [
+        0,
+        0
+      ],
+      "logic_collection_manhattan_um": 17250,
+      "data_bits": 128,
+      "pipeline_cycles_reference": 9,
+      "data_wire_bit_mm": 2208.0,
+      "data_pipeline_bits_reference": 1152
+    },
+    {
+      "domain": 3,
+      "array_port_um": [
+        -1625,
+        -12375
+      ],
+      "hb_logic_landing_um": [
+        -1625,
+        -12375
+      ],
+      "aggregation_um": [
+        0,
+        0
+      ],
+      "logic_collection_manhattan_um": 14000,
+      "data_bits": 128,
+      "pipeline_cycles_reference": 7,
+      "data_wire_bit_mm": 1792.0,
+      "data_pipeline_bits_reference": 896
+    },
+    {
+      "domain": 4,
+      "array_port_um": [
+        1625,
+        -12375
+      ],
+      "hb_logic_landing_um": [
+        1625,
+        -12375
+      ],
+      "aggregation_um": [
+        0,
+        0
+      ],
+      "logic_collection_manhattan_um": 14000,
+      "data_bits": 128,
+      "pipeline_cycles_reference": 7,
+      "data_wire_bit_mm": 1792.0,
+      "data_pipeline_bits_reference": 896
+    },
+    {
+      "domain": 5,
+      "array_port_um": [
+        4875,
+        -12375
+      ],
+      "hb_logic_landing_um": [
+        4875,
+        -12375
+      ],
+      "aggregation_um": [
+        0,
+        0
+      ],
+      "logic_collection_manhattan_um": 17250,
+      "data_bits": 128,
+      "pipeline_cycles_reference": 9,
+      "data_wire_bit_mm": 2208.0,
+      "data_pipeline_bits_reference": 1152
+    },
+    {
+      "domain": 6,
+      "array_port_um": [
+        8125,
+        -12375
+      ],
+      "hb_logic_landing_um": [
+        8125,
+        -12375
+      ],
+      "aggregation_um": [
+        0,
+        0
+      ],
+      "logic_collection_manhattan_um": 20500,
+      "data_bits": 128,
+      "pipeline_cycles_reference": 11,
+      "data_wire_bit_mm": 2624.0,
+      "data_pipeline_bits_reference": 1408
+    },
+    {
+      "domain": 7,
+      "array_port_um": [
+        11375,
+        -12375
+      ],
+      "hb_logic_landing_um": [
+        11375,
+        -12375
+      ],
+      "aggregation_um": [
+        0,
+        0
+      ],
+      "logic_collection_manhattan_um": 23750,
+      "data_bits": 128,
+      "pipeline_cycles_reference": 12,
+      "data_wire_bit_mm": 3040.0,
+      "data_pipeline_bits_reference": 1536
+    },
+    {
+      "domain": 8,
+      "array_port_um": [
+        -11375,
+        -4125
+      ],
+      "hb_logic_landing_um": [
+        -11375,
+        -4125
+      ],
+      "aggregation_um": [
+        0,
+        0
+      ],
+      "logic_collection_manhattan_um": 15500,
+      "data_bits": 128,
+      "pipeline_cycles_reference": 8,
+      "data_wire_bit_mm": 1984.0,
+      "data_pipeline_bits_reference": 1024
+    },
+    {
+      "domain": 9,
+      "array_port_um": [
+        -8125,
+        -4125
+      ],
+      "hb_logic_landing_um": [
+        -8125,
+        -4125
+      ],
+      "aggregation_um": [
+        0,
+        0
+      ],
+      "logic_collection_manhattan_um": 12250,
+      "data_bits": 128,
+      "pipeline_cycles_reference": 7,
+      "data_wire_bit_mm": 1568.0,
+      "data_pipeline_bits_reference": 896
+    },
+    {
+      "domain": 10,
+      "array_port_um": [
+        -4875,
+        -4125
+      ],
+      "hb_logic_landing_um": [
+        -4875,
+        -4125
+      ],
+      "aggregation_um": [
+        0,
+        0
+      ],
+      "logic_collection_manhattan_um": 9000,
+      "data_bits": 128,
+      "pipeline_cycles_reference": 5,
+      "data_wire_bit_mm": 1152.0,
+      "data_pipeline_bits_reference": 640
+    },
+    {
+      "domain": 11,
+      "array_port_um": [
+        -1625,
+        -4125
+      ],
+      "hb_logic_landing_um": [
+        -1625,
+        -4125
+      ],
+      "aggregation_um": [
+        0,
+        0
+      ],
+      "logic_collection_manhattan_um": 5750,
+      "data_bits": 128,
+      "pipeline_cycles_reference": 3,
+      "data_wire_bit_mm": 736.0,
+      "data_pipeline_bits_reference": 384
+    },
+    {
+      "domain": 12,
+      "array_port_um": [
+        1625,
+        -4125
+      ],
+      "hb_logic_landing_um": [
+        1625,
+        -4125
+      ],
+      "aggregation_um": [
+        0,
+        0
+      ],
+      "logic_collection_manhattan_um": 5750,
+      "data_bits": 128,
+      "pipeline_cycles_reference": 3,
+      "data_wire_bit_mm": 736.0,
+      "data_pipeline_bits_reference": 384
+    },
+    {
+      "domain": 13,
+      "array_port_um": [
+        4875,
+        -4125
+      ],
+      "hb_logic_landing_um": [
+        4875,
+        -4125
+      ],
+      "aggregation_um": [
+        0,
+        0
+      ],
+      "logic_collection_manhattan_um": 9000,
+      "data_bits": 128,
+      "pipeline_cycles_reference": 5,
+      "data_wire_bit_mm": 1152.0,
+      "data_pipeline_bits_reference": 640
+    },
+    {
+      "domain": 14,
+      "array_port_um": [
+        8125,
+        -4125
+      ],
+      "hb_logic_landing_um": [
+        8125,
+        -4125
+      ],
+      "aggregation_um": [
+        0,
+        0
+      ],
+      "logic_collection_manhattan_um": 12250,
+      "data_bits": 128,
+      "pipeline_cycles_reference": 7,
+      "data_wire_bit_mm": 1568.0,
+      "data_pipeline_bits_reference": 896
+    },
+    {
+      "domain": 15,
+      "array_port_um": [
+        11375,
+        -4125
+      ],
+      "hb_logic_landing_um": [
+        11375,
+        -4125
+      ],
+      "aggregation_um": [
+        0,
+        0
+      ],
+      "logic_collection_manhattan_um": 15500,
+      "data_bits": 128,
+      "pipeline_cycles_reference": 8,
+      "data_wire_bit_mm": 1984.0,
+      "data_pipeline_bits_reference": 1024
+    },
+    {
+      "domain": 16,
+      "array_port_um": [
+        -11375,
+        4125
+      ],
+      "hb_logic_landing_um": [
+        -11375,
+        4125
+      ],
+      "aggregation_um": [
+        0,
+        0
+      ],
+      "logic_collection_manhattan_um": 15500,
+      "data_bits": 128,
+      "pipeline_cycles_reference": 8,
+      "data_wire_bit_mm": 1984.0,
+      "data_pipeline_bits_reference": 1024
+    },
+    {
+      "domain": 17,
+      "array_port_um": [
+        -8125,
+        4125
+      ],
+      "hb_logic_landing_um": [
+        -8125,
+        4125
+      ],
+      "aggregation_um": [
+        0,
+        0
+      ],
+      "logic_collection_manhattan_um": 12250,
+      "data_bits": 128,
+      "pipeline_cycles_reference": 7,
+      "data_wire_bit_mm": 1568.0,
+      "data_pipeline_bits_reference": 896
+    },
+    {
+      "domain": 18,
+      "array_port_um": [
+        -4875,
+        4125
+      ],
+      "hb_logic_landing_um": [
+        -4875,
+        4125
+      ],
+      "aggregation_um": [
+        0,
+        0
+      ],
+      "logic_collection_manhattan_um": 9000,
+      "data_bits": 128,
+      "pipeline_cycles_reference": 5,
+      "data_wire_bit_mm": 1152.0,
+      "data_pipeline_bits_reference": 640
+    },
+    {
+      "domain": 19,
+      "array_port_um": [
+        -1625,
+        4125
+      ],
+      "hb_logic_landing_um": [
+        -1625,
+        4125
+      ],
+      "aggregation_um": [
+        0,
+        0
+      ],
+      "logic_collection_manhattan_um": 5750,
+      "data_bits": 128,
+      "pipeline_cycles_reference": 3,
+      "data_wire_bit_mm": 736.0,
+      "data_pipeline_bits_reference": 384
+    },
+    {
+      "domain": 20,
+      "array_port_um": [
+        1625,
+        4125
+      ],
+      "hb_logic_landing_um": [
+        1625,
+        4125
+      ],
+      "aggregation_um": [
+        0,
+        0
+      ],
+      "logic_collection_manhattan_um": 5750,
+      "data_bits": 128,
+      "pipeline_cycles_reference": 3,
+      "data_wire_bit_mm": 736.0,
+      "data_pipeline_bits_reference": 384
+    },
+    {
+      "domain": 21,
+      "array_port_um": [
+        4875,
+        4125
+      ],
+      "hb_logic_landing_um": [
+        4875,
+        4125
+      ],
+      "aggregation_um": [
+        0,
+        0
+      ],
+      "logic_collection_manhattan_um": 9000,
+      "data_bits": 128,
+      "pipeline_cycles_reference": 5,
+      "data_wire_bit_mm": 1152.0,
+      "data_pipeline_bits_reference": 640
+    },
+    {
+      "domain": 22,
+      "array_port_um": [
+        8125,
+        4125
+      ],
+      "hb_logic_landing_um": [
+        8125,
+        4125
+      ],
+      "aggregation_um": [
+        0,
+        0
+      ],
+      "logic_collection_manhattan_um": 12250,
+      "data_bits": 128,
+      "pipeline_cycles_reference": 7,
+      "data_wire_bit_mm": 1568.0,
+      "data_pipeline_bits_reference": 896
+    },
+    {
+      "domain": 23,
+      "array_port_um": [
+        11375,
+        4125
+      ],
+      "hb_logic_landing_um": [
+        11375,
+        4125
+      ],
+      "aggregation_um": [
+        0,
+        0
+      ],
+      "logic_collection_manhattan_um": 15500,
+      "data_bits": 128,
+      "pipeline_cycles_reference": 8,
+      "data_wire_bit_mm": 1984.0,
+      "data_pipeline_bits_reference": 1024
+    },
+    {
+      "domain": 24,
+      "array_port_um": [
+        -11375,
+        12375
+      ],
+      "hb_logic_landing_um": [
+        -11375,
+        12375
+      ],
+      "aggregation_um": [
+        0,
+        0
+      ],
+      "logic_collection_manhattan_um": 23750,
+      "data_bits": 128,
+      "pipeline_cycles_reference": 12,
+      "data_wire_bit_mm": 3040.0,
+      "data_pipeline_bits_reference": 1536
+    },
+    {
+      "domain": 25,
+      "array_port_um": [
+        -8125,
+        12375
+      ],
+      "hb_logic_landing_um": [
+        -8125,
+        12375
+      ],
+      "aggregation_um": [
+        0,
+        0
+      ],
+      "logic_collection_manhattan_um": 20500,
+      "data_bits": 128,
+      "pipeline_cycles_reference": 11,
+      "data_wire_bit_mm": 2624.0,
+      "data_pipeline_bits_reference": 1408
+    },
+    {
+      "domain": 26,
+      "array_port_um": [
+        -4875,
+        12375
+      ],
+      "hb_logic_landing_um": [
+        -4875,
+        12375
+      ],
+      "aggregation_um": [
+        0,
+        0
+      ],
+      "logic_collection_manhattan_um": 17250,
+      "data_bits": 128,
+      "pipeline_cycles_reference": 9,
+      "data_wire_bit_mm": 2208.0,
+      "data_pipeline_bits_reference": 1152
+    },
+    {
+      "domain": 27,
+      "array_port_um": [
+        -1625,
+        12375
+      ],
+      "hb_logic_landing_um": [
+        -1625,
+        12375
+      ],
+      "aggregation_um": [
+        0,
+        0
+      ],
+      "logic_collection_manhattan_um": 14000,
+      "data_bits": 128,
+      "pipeline_cycles_reference": 7,
+      "data_wire_bit_mm": 1792.0,
+      "data_pipeline_bits_reference": 896
+    },
+    {
+      "domain": 28,
+      "array_port_um": [
+        1625,
+        12375
+      ],
+      "hb_logic_landing_um": [
+        1625,
+        12375
+      ],
+      "aggregation_um": [
+        0,
+        0
+      ],
+      "logic_collection_manhattan_um": 14000,
+      "data_bits": 128,
+      "pipeline_cycles_reference": 7,
+      "data_wire_bit_mm": 1792.0,
+      "data_pipeline_bits_reference": 896
+    },
+    {
+      "domain": 29,
+      "array_port_um": [
+        4875,
+        12375
+      ],
+      "hb_logic_landing_um": [
+        4875,
+        12375
+      ],
+      "aggregation_um": [
+        0,
+        0
+      ],
+      "logic_collection_manhattan_um": 17250,
+      "data_bits": 128,
+      "pipeline_cycles_reference": 9,
+      "data_wire_bit_mm": 2208.0,
+      "data_pipeline_bits_reference": 1152
+    },
+    {
+      "domain": 30,
+      "array_port_um": [
+        8125,
+        12375
+      ],
+      "hb_logic_landing_um": [
+        8125,
+        12375
+      ],
+      "aggregation_um": [
+        0,
+        0
+      ],
+      "logic_collection_manhattan_um": 20500,
+      "data_bits": 128,
+      "pipeline_cycles_reference": 11,
+      "data_wire_bit_mm": 2624.0,
+      "data_pipeline_bits_reference": 1408
+    },
+    {
+      "domain": 31,
+      "array_port_um": [
+        11375,
+        12375
+      ],
+      "hb_logic_landing_um": [
+        11375,
+        12375
+      ],
+      "aggregation_um": [
+        0,
+        0
+      ],
+      "logic_collection_manhattan_um": 23750,
+      "data_bits": 128,
+      "pipeline_cycles_reference": 12,
+      "data_wire_bit_mm": 3040.0,
+      "data_pipeline_bits_reference": 1536
+    }
+  ],
+  "data_wire_bit_mm_per_memory": 60416.0,
+  "data_pipeline_bits_per_memory_reference": 31744,
+  "total_domain_to_center_manhattan_mm": 472.0,
+  "notes": "data only; no assumed controller/array area, clock tree, command/address, CDC metadata or return-control cost"
+}

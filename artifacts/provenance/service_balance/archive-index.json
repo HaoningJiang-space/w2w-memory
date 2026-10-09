@@ -1,0 +1,616 @@
+{
+  "files": {
+    "artifacts/provenance/service_balance/controller_row-analysis.log": {
+      "archive_sha256": "2c5a34f9fe27c1cef0d68f69d9550cf0c4ed2fb9a62bbf242886505058e09546",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/service-row-analysis.log",
+      "source_sha256": "2c5a34f9fe27c1cef0d68f69d9550cf0c4ed2fb9a62bbf242886505058e09546"
+    },
+    "artifacts/provenance/service_balance/controller_row-periodic-checks.log": {
+      "archive_sha256": "bd4e0b31f6fd2f73cb07470be5f93099b57681014f5b8e9e82c57e345d54cba9",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/service-row-study-v1/periodic-checks.log",
+      "source_sha256": "bd4e0b31f6fd2f73cb07470be5f93099b57681014f5b8e9e82c57e345d54cba9"
+    },
+    "artifacts/provenance/service_balance/controller_rr-analysis.log": {
+      "archive_sha256": "4de13f89db067640125436b7a0cf5a9d5842dba782cdccf7ef6f7761c4150c38",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/service-analysis.log",
+      "source_sha256": "4de13f89db067640125436b7a0cf5a9d5842dba782cdccf7ef6f7761c4150c38"
+    },
+    "artifacts/provenance/service_balance/controller_rr-periodic-checks.log": {
+      "archive_sha256": "49283a07d375e70f11e7e18f1598e2bcb82b125203c966440facc8854c685885",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/service-study-v1/periodic-checks.log",
+      "source_sha256": "49283a07d375e70f11e7e18f1598e2bcb82b125203c966440facc8854c685885"
+    },
+    "artifacts/provenance/service_balance/internal-layout-reference.json": {
+      "archive_sha256": "044e3e7518f3c0659aec37863ffb93622165d704a7e06e362f92c1f521b93bc7",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/internal-layout-reference.json",
+      "source_sha256": "044e3e7518f3c0659aec37863ffb93622165d704a7e06e362f92c1f521b93bc7"
+    },
+    "artifacts/provenance/service_balance/native-row-reference.json": {
+      "archive_sha256": "fe3a6abf8e5ea4d201857dfc56b6f0dda2ccbd010b3a0d017df60638fcf28ff7",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/native-row-reference.json",
+      "source_sha256": "fe3a6abf8e5ea4d201857dfc56b6f0dda2ccbd010b3a0d017df60638fcf28ff7"
+    },
+    "artifacts/provenance/service_balance/native-row-reference.log": {
+      "archive_sha256": "424ddc4ba66079ab9171a8fc45d238d7e68468e7c70fc057b128ff8027a52f6f",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/native-row-reference.log",
+      "source_sha256": "424ddc4ba66079ab9171a8fc45d238d7e68468e7c70fc057b128ff8027a52f6f"
+    },
+    "artifacts/provenance/service_balance/native-service-policy/build-manifest.json": {
+      "archive_sha256": "0c701d9e7f80daa480ede79d7cae0f6b00f223fb0191bee9f8378f780ce15e5e",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/native-service-policy/build-manifest.json",
+      "source_sha256": "0c701d9e7f80daa480ede79d7cae0f6b00f223fb0191bee9f8378f780ce15e5e"
+    },
+    "artifacts/provenance/service_balance/native-service-policy/build.log": {
+      "archive_sha256": "816e593a350928f0666f5bf69db43669d10ce57ecf6d4daca88c8c5931d73863",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/native-service-policy/build.log",
+      "source_sha256": "816e593a350928f0666f5bf69db43669d10ce57ecf6d4daca88c8c5931d73863"
+    },
+    "artifacts/provenance/service_balance/rotation-analysis.log": {
+      "archive_sha256": "d3e588a805b8e60a3777cbd30f12ec594baec682b41a6787936631c716bc1a00",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/rotation-analysis-v2.log",
+      "source_sha256": "d3e588a805b8e60a3777cbd30f12ec594baec682b41a6787936631c716bc1a00"
+    },
+    "artifacts/provenance/service_balance/rotation-periodic-checks.log": {
+      "archive_sha256": "3606cd3a6fdc93c1452629219ac0a50ed0925cddf2a1535e3e796cd59f410ba3",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/periodic-rotation-checks.log",
+      "source_sha256": "3606cd3a6fdc93c1452629219ac0a50ed0925cddf2a1535e3e796cd59f410ba3"
+    },
+    "artifacts/provenance/service_balance/tests-rotation.log": {
+      "archive_sha256": "9a7fe90b03526b4e73add79363261b5130b24a2904c0a18593f3264fe13a5cd1",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/tests-rotation.log",
+      "source_sha256": "9a7fe90b03526b4e73add79363261b5130b24a2904c0a18593f3264fe13a5cd1"
+    },
+    "artifacts/provenance/service_balance/tests-service-final.log": {
+      "archive_sha256": "417e4cec7295dc99cf932376df5c9d80da84c02de4681912ee939767493e43fa",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/tests-service-final.log",
+      "source_sha256": "417e4cec7295dc99cf932376df5c9d80da84c02de4681912ee939767493e43fa"
+    },
+    "artifacts/provenance/service_balance/tests-service-policy.log": {
+      "archive_sha256": "a746c358647233ae2b7bc6e1a1bd2c8d10b047764d4475a3bc7c8167b36bb71b",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/tests-service-policy.log",
+      "source_sha256": "a746c358647233ae2b7bc6e1a1bd2c8d10b047764d4475a3bc7c8167b36bb71b"
+    },
+    "artifacts/provenance/service_balance/tests-service-row.log": {
+      "archive_sha256": "d40f57384ff510344d24f057fd3a761635db0026df0d94b79cc9f30035f134d7",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/tests-service-row.log",
+      "source_sha256": "d40f57384ff510344d24f057fd3a761635db0026df0d94b79cc9f30035f134d7"
+    },
+    "artifacts/results/system/service_balance/controller_row/analysis.json.gz": {
+      "archive_sha256": "23e2b687bbac28c0ec573f8936092ca8e5e0196d7317ca6fe89688c2a5b27656",
+      "gzip_of_exact_source_bytes": true,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/service-row-analysis.json",
+      "source_sha256": "ac3135f64a97214b2b184af00fa128840d68cb1468beddc71cdb4eb4f74b7e48"
+    },
+    "artifacts/results/system/service_balance/controller_row/cases/gather-stream/completion.json": {
+      "archive_sha256": "a05e9e37f0cc854c117409169eb6a46be6534d6d37f2148dfc7ecf3e4a10c238",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/service-row-study-v1/cases/gather-stream/completion.json",
+      "source_sha256": "a05e9e37f0cc854c117409169eb6a46be6534d6d37f2148dfc7ecf3e4a10c238"
+    },
+    "artifacts/results/system/service_balance/controller_row/cases/gather-stream/network/rapidchiplet/booksim2/src/rc_configs/network.conf": {
+      "archive_sha256": "80d885ce044a817e0b2e04e88fd332a4a6e2d112339ece2443eb46ef5d36f483",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/service-row-study-v1/cases/gather-stream/network/rapidchiplet/booksim2/src/rc_configs/network.conf",
+      "source_sha256": "80d885ce044a817e0b2e04e88fd332a4a6e2d112339ece2443eb46ef5d36f483"
+    },
+    "artifacts/results/system/service_balance/controller_row/cases/gather-stream/network/rapidchiplet/booksim2/src/rc_topologies/network.anynet": {
+      "archive_sha256": "551e82843d7c7a75c9105b9f8d2a310d933cda70aa49c6afac42ec254250d5d6",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/service-row-study-v1/cases/gather-stream/network/rapidchiplet/booksim2/src/rc_topologies/network.anynet",
+      "source_sha256": "551e82843d7c7a75c9105b9f8d2a310d933cda70aa49c6afac42ec254250d5d6"
+    },
+    "artifacts/results/system/service_balance/controller_row/cases/gather-stream/run.log": {
+      "archive_sha256": "d30e68377a4c21b4b4bdf9413e977c8c3214b05d68201a96a44911ff6965979d",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/service-row-study-v1/logs/gather-stream.log",
+      "source_sha256": "d30e68377a4c21b4b4bdf9413e977c8c3214b05d68201a96a44911ff6965979d"
+    },
+    "artifacts/results/system/service_balance/controller_row/cases/gather-stream/summary.json.gz": {
+      "archive_sha256": "c6ff92c5613c91765213c1ac8383cc110b3852dad3c2a276be85bf32ebe54a29",
+      "gzip_of_exact_source_bytes": true,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/service-row-study-v1/cases/gather-stream/summary.json",
+      "source_sha256": "30e9415ea5e2d706bd5b433713a7742fc27ace41dd8c85d332ed1ae9332359bc"
+    },
+    "artifacts/results/system/service_balance/controller_row/cases/near-shard-stream/completion.json": {
+      "archive_sha256": "8d79ec2878140bc963e25fba1df81ede617174592bd9ea3fff8951bebcbd19ff",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/service-row-study-v1/cases/near-shard-stream/completion.json",
+      "source_sha256": "8d79ec2878140bc963e25fba1df81ede617174592bd9ea3fff8951bebcbd19ff"
+    },
+    "artifacts/results/system/service_balance/controller_row/cases/near-shard-stream/network/rapidchiplet/booksim2/src/rc_configs/network.conf": {
+      "archive_sha256": "73d2da23879b1ff1be564b2375a5d24fd6765d4010fc7b797125b1e31279f98b",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/service-row-study-v1/cases/near-shard-stream/network/rapidchiplet/booksim2/src/rc_configs/network.conf",
+      "source_sha256": "73d2da23879b1ff1be564b2375a5d24fd6765d4010fc7b797125b1e31279f98b"
+    },
+    "artifacts/results/system/service_balance/controller_row/cases/near-shard-stream/network/rapidchiplet/booksim2/src/rc_topologies/network.anynet": {
+      "archive_sha256": "551e82843d7c7a75c9105b9f8d2a310d933cda70aa49c6afac42ec254250d5d6",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/service-row-study-v1/cases/near-shard-stream/network/rapidchiplet/booksim2/src/rc_topologies/network.anynet",
+      "source_sha256": "551e82843d7c7a75c9105b9f8d2a310d933cda70aa49c6afac42ec254250d5d6"
+    },
+    "artifacts/results/system/service_balance/controller_row/cases/near-shard-stream/run.log": {
+      "archive_sha256": "98b43a81fb7534f04d440533ac2b9a273e84a9e754f954379f8dcab93f3885bc",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/service-row-study-v1/logs/near-shard-stream.log",
+      "source_sha256": "98b43a81fb7534f04d440533ac2b9a273e84a9e754f954379f8dcab93f3885bc"
+    },
+    "artifacts/results/system/service_balance/controller_row/cases/near-shard-stream/summary.json.gz": {
+      "archive_sha256": "bdf99cd5c842b64bf522bef42f7579351c99232222a49a7f39485afc76b4dc8f",
+      "gzip_of_exact_source_bytes": true,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/service-row-study-v1/cases/near-shard-stream/summary.json",
+      "source_sha256": "30cac652ec7d5f07fe11b99d7b96e0806ca041f36f7ef3dc7a5fe9a7b33bfd2a"
+    },
+    "artifacts/results/system/service_balance/controller_row/inputs/gather-stream.json.gz": {
+      "archive_sha256": "7ad3f23550958f580ee1f4aa1e009135f4668d03eed7be75b302ad895302071e",
+      "gzip_of_exact_source_bytes": true,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/service-row-study-v1/inputs/gather-stream.json",
+      "source_sha256": "47d4e91a2a73790cef07f64d923f5bf9b6b1db30a0d5e3bc080e3aa3ac980026"
+    },
+    "artifacts/results/system/service_balance/controller_row/inputs/near-shard-stream.json.gz": {
+      "archive_sha256": "f4f78b8e5da29b14ce93a7272dcef7027321d06b2c432bcee26ddc3bbb6f0a68",
+      "gzip_of_exact_source_bytes": true,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/service-row-study-v1/inputs/near-shard-stream.json",
+      "source_sha256": "c559fe277a6f35408b819bb809a1c97e3540bab0f9d7c80b45111121211940c1"
+    },
+    "artifacts/results/system/service_balance/controller_row/registration.json": {
+      "archive_sha256": "ab177f79446e69e4d4fefb9e7ef000b874f457e9cd98e959bb8e5f9b2faafefd",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/service-row-study-v1/registration.json",
+      "source_sha256": "ab177f79446e69e4d4fefb9e7ef000b874f457e9cd98e959bb8e5f9b2faafefd"
+    },
+    "artifacts/results/system/service_balance/controller_rr/analysis.json.gz": {
+      "archive_sha256": "f0c331bc96ea4882db4a3258c1d7b00143173c5a7b644c2bd7d24c660c27f888",
+      "gzip_of_exact_source_bytes": true,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/service-analysis.json",
+      "source_sha256": "4dd372b5cdd87230952079aa0b6cc95d797ba078b5052812c5be9d79c2c15881"
+    },
+    "artifacts/results/system/service_balance/controller_rr/cases/gather-stream/completion.json": {
+      "archive_sha256": "5305e3bdc2d6d0242982f28e7f2cc350ae05476e6d8964958ea31749a487272e",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/service-study-v1/cases/gather-stream/completion.json",
+      "source_sha256": "5305e3bdc2d6d0242982f28e7f2cc350ae05476e6d8964958ea31749a487272e"
+    },
+    "artifacts/results/system/service_balance/controller_rr/cases/gather-stream/network/rapidchiplet/booksim2/src/rc_configs/network.conf": {
+      "archive_sha256": "c75ae593eaf81b22d63188c53144c04b10bd7c7eac60be11d3c059cbac3f2ffa",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/service-study-v1/cases/gather-stream/network/rapidchiplet/booksim2/src/rc_configs/network.conf",
+      "source_sha256": "c75ae593eaf81b22d63188c53144c04b10bd7c7eac60be11d3c059cbac3f2ffa"
+    },
+    "artifacts/results/system/service_balance/controller_rr/cases/gather-stream/network/rapidchiplet/booksim2/src/rc_topologies/network.anynet": {
+      "archive_sha256": "551e82843d7c7a75c9105b9f8d2a310d933cda70aa49c6afac42ec254250d5d6",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/service-study-v1/cases/gather-stream/network/rapidchiplet/booksim2/src/rc_topologies/network.anynet",
+      "source_sha256": "551e82843d7c7a75c9105b9f8d2a310d933cda70aa49c6afac42ec254250d5d6"
+    },
+    "artifacts/results/system/service_balance/controller_rr/cases/gather-stream/run.log": {
+      "archive_sha256": "4b7cd3a236fefa749d3ea726bd215ff9c20a4bc34ab3812416ee5143c8846242",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/service-study-v1/logs/gather-stream.log",
+      "source_sha256": "4b7cd3a236fefa749d3ea726bd215ff9c20a4bc34ab3812416ee5143c8846242"
+    },
+    "artifacts/results/system/service_balance/controller_rr/cases/gather-stream/summary.json.gz": {
+      "archive_sha256": "cd417e159818d44d976227e1cf1fe69c7a607b11eb9561b743ed0cb3885252ad",
+      "gzip_of_exact_source_bytes": true,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/service-study-v1/cases/gather-stream/summary.json",
+      "source_sha256": "2fbd7afea041a8e01d640ab70414714d9e4fe28e8366cc6069b64a9633d710e6"
+    },
+    "artifacts/results/system/service_balance/controller_rr/cases/near-shard-stream/completion.json": {
+      "archive_sha256": "1bc6290fbb90b47687a0d01cc5eb55f776605fae238f43ae8fef525738d16811",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/service-study-v1/cases/near-shard-stream/completion.json",
+      "source_sha256": "1bc6290fbb90b47687a0d01cc5eb55f776605fae238f43ae8fef525738d16811"
+    },
+    "artifacts/results/system/service_balance/controller_rr/cases/near-shard-stream/network/rapidchiplet/booksim2/src/rc_configs/network.conf": {
+      "archive_sha256": "b8bb4f3e10cd32c4a33aa19ce90fae861b266e1c48bf257717853d4afbe4f579",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/service-study-v1/cases/near-shard-stream/network/rapidchiplet/booksim2/src/rc_configs/network.conf",
+      "source_sha256": "b8bb4f3e10cd32c4a33aa19ce90fae861b266e1c48bf257717853d4afbe4f579"
+    },
+    "artifacts/results/system/service_balance/controller_rr/cases/near-shard-stream/network/rapidchiplet/booksim2/src/rc_topologies/network.anynet": {
+      "archive_sha256": "551e82843d7c7a75c9105b9f8d2a310d933cda70aa49c6afac42ec254250d5d6",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/service-study-v1/cases/near-shard-stream/network/rapidchiplet/booksim2/src/rc_topologies/network.anynet",
+      "source_sha256": "551e82843d7c7a75c9105b9f8d2a310d933cda70aa49c6afac42ec254250d5d6"
+    },
+    "artifacts/results/system/service_balance/controller_rr/cases/near-shard-stream/run.log": {
+      "archive_sha256": "beab8fbabfa939d05b86e1ce10088c558a73882f711da2d86e4786cbb409e549",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/service-study-v1/logs/near-shard-stream.log",
+      "source_sha256": "beab8fbabfa939d05b86e1ce10088c558a73882f711da2d86e4786cbb409e549"
+    },
+    "artifacts/results/system/service_balance/controller_rr/cases/near-shard-stream/summary.json.gz": {
+      "archive_sha256": "672ed81a6f3276340cdfca2769f1dc07633a66c776a1e1f729d11d8d0733ef93",
+      "gzip_of_exact_source_bytes": true,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/service-study-v1/cases/near-shard-stream/summary.json",
+      "source_sha256": "fd7a7d088439cbec3853c9a932e2e6e4f53f5dd705382539e1654535b8325f75"
+    },
+    "artifacts/results/system/service_balance/controller_rr/inputs/gather-stream.json.gz": {
+      "archive_sha256": "ca664c476d5138da4d89d6bcac668a860a8cd49e70e4384fa60f7071e094f24d",
+      "gzip_of_exact_source_bytes": true,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/service-study-v1/inputs/gather-stream.json",
+      "source_sha256": "c3bb221f03bd75740c64292cb808285f417b498f541fe7708e164199e6504ddd"
+    },
+    "artifacts/results/system/service_balance/controller_rr/inputs/near-shard-stream.json.gz": {
+      "archive_sha256": "117764741e3c239160880bcf1c6f41dd963288ec459dd37a0961687a25397f11",
+      "gzip_of_exact_source_bytes": true,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/service-study-v1/inputs/near-shard-stream.json",
+      "source_sha256": "12e567886fb68c35c5d14ce35cc387a691e606bebdde112dd3fc50aaa0c32170"
+    },
+    "artifacts/results/system/service_balance/controller_rr/registration.json": {
+      "archive_sha256": "4ddf0ddc27ae46b67c7435a9f5162cfe83d77672765d7ab4bb421b27745fef4d",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/service-study-v1/registration.json",
+      "source_sha256": "4ddf0ddc27ae46b67c7435a9f5162cfe83d77672765d7ab4bb421b27745fef4d"
+    },
+    "artifacts/results/system/service_balance/rotation/analysis.json.gz": {
+      "archive_sha256": "1871c9ecaf7e5ac24168f9a8f0f7eb7f6ad0337fbc89a47957aebfb6a709e74d",
+      "gzip_of_exact_source_bytes": true,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/rotation-analysis-v2.json",
+      "source_sha256": "e2812a814d6f5140c33c1e8e7d578bea21fe39a002a794ea4408ff79a6016dab"
+    },
+    "artifacts/results/system/service_balance/rotation/cases/rotated-shard-stream/completion.json": {
+      "archive_sha256": "37221dc06f8f5c1dc43ea61ed1dd81c7d3e7b2429b4bf737d95d17bea6b1f52e",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/rotation-study-v1/cases/rotated-shard-stream/completion.json",
+      "source_sha256": "37221dc06f8f5c1dc43ea61ed1dd81c7d3e7b2429b4bf737d95d17bea6b1f52e"
+    },
+    "artifacts/results/system/service_balance/rotation/cases/rotated-shard-stream/network/rapidchiplet/booksim2/src/rc_configs/network.conf": {
+      "archive_sha256": "e317360f1c10b6dc663c24851944b4dec867cc38ff5b9457491ab8f56e06eafc",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/rotation-study-v1/cases/rotated-shard-stream/network/rapidchiplet/booksim2/src/rc_configs/network.conf",
+      "source_sha256": "e317360f1c10b6dc663c24851944b4dec867cc38ff5b9457491ab8f56e06eafc"
+    },
+    "artifacts/results/system/service_balance/rotation/cases/rotated-shard-stream/network/rapidchiplet/booksim2/src/rc_topologies/network.anynet": {
+      "archive_sha256": "551e82843d7c7a75c9105b9f8d2a310d933cda70aa49c6afac42ec254250d5d6",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/rotation-study-v1/cases/rotated-shard-stream/network/rapidchiplet/booksim2/src/rc_topologies/network.anynet",
+      "source_sha256": "551e82843d7c7a75c9105b9f8d2a310d933cda70aa49c6afac42ec254250d5d6"
+    },
+    "artifacts/results/system/service_balance/rotation/cases/rotated-shard-stream/run.log": {
+      "archive_sha256": "7f0a9acdf228a73da43f1a90b503fb2be6284b3ce7c84f2e622529973419c4ec",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/rotated-shard-stream.log",
+      "source_sha256": "7f0a9acdf228a73da43f1a90b503fb2be6284b3ce7c84f2e622529973419c4ec"
+    },
+    "artifacts/results/system/service_balance/rotation/cases/rotated-shard-stream/summary.json.gz": {
+      "archive_sha256": "5b8c4f518bf36546b9744d95ecdb9cdad2a4bac3b602307ebed8fc3643968fb8",
+      "gzip_of_exact_source_bytes": true,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/rotation-study-v1/cases/rotated-shard-stream/summary.json",
+      "source_sha256": "345be0c404c90411898fa93999b0f0812e1f5f0b098bbc14329496b0b6b219b8"
+    },
+    "artifacts/results/system/service_balance/rotation/inputs/gather-stream.json.gz": {
+      "archive_sha256": "56b92f954c935415e64358344639cc86edc47692ba5b838d6559dc2c37d6d6b5",
+      "gzip_of_exact_source_bytes": true,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/rotation-study-v1/inputs/gather-stream.json",
+      "source_sha256": "1975acb6d83a6e794f3e977d4a5ce37b046e6558edbb7f61ab40bfccffa0d395"
+    },
+    "artifacts/results/system/service_balance/rotation/inputs/gather-whole.json.gz": {
+      "archive_sha256": "60929434792dbb160d0fc3010ab4635c081085a41c73ae13fbeadfa586c71133",
+      "gzip_of_exact_source_bytes": true,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/rotation-study-v1/inputs/gather-whole.json",
+      "source_sha256": "807645c98c5d5b33aa4285be5f676145eb03eaa422f7b58653b25c98f0242951"
+    },
+    "artifacts/results/system/service_balance/rotation/inputs/near-shard-stream.json.gz": {
+      "archive_sha256": "fb4a50f6597c2ccd6aad0deb59e4077fb505796dd6f7467970794cb9ddc8c0f2",
+      "gzip_of_exact_source_bytes": true,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/rotation-study-v1/inputs/near-shard-stream.json",
+      "source_sha256": "e1ec1fa1e59bacbc32b35d8623c496f1608ff1f2c0b69f2e64c76c3868c2127c"
+    },
+    "artifacts/results/system/service_balance/rotation/inputs/rotated-shard-stream.json.gz": {
+      "archive_sha256": "7bb1daf3d9f6d8ac9b669692a0ec6cafdeb1d5421dca50fe4d6329d80a430cb6",
+      "gzip_of_exact_source_bytes": true,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/rotation-study-v1/inputs/rotated-shard-stream.json",
+      "source_sha256": "fb28924ea834ef96bc11c6c461fdc7073fe75713b846950cc39a02cde644df6d"
+    },
+    "artifacts/results/system/service_balance/rotation/registration.json": {
+      "archive_sha256": "7f9687af540dd7382cd456413f3c7327813b7eb4c389b1ce044902590a550819",
+      "gzip_of_exact_source_bytes": false,
+      "remote_source": "/Projects/haoning/w2w-full-system-rwdl-20261008/rotation-study-v1/registration.json",
+      "source_sha256": "7f9687af540dd7382cd456413f3c7327813b7eb4c389b1ce044902590a550819"
+    }
+  },
+  "raw_events_in_git": false,
+  "raw_result_provenance": {
+    "controller_row": {
+      "gather-stream": {
+        "completion.json": {
+          "bytes": 428,
+          "sha256": "a05e9e37f0cc854c117409169eb6a46be6534d6d37f2148dfc7ecf3e4a10c238"
+        },
+        "network/empty_network_input.json": {
+          "bytes": 3,
+          "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "network/rapidchiplet/booksim2/src/rc_configs/network.conf": {
+          "bytes": 1145,
+          "sha256": "80d885ce044a817e0b2e04e88fd332a4a6e2d112339ece2443eb46ef5d36f483"
+        },
+        "network/rapidchiplet/booksim2/src/rc_topologies/network.anynet": {
+          "bytes": 2229,
+          "sha256": "551e82843d7c7a75c9105b9f8d2a310d933cda70aa49c6afac42ec254250d5d6"
+        },
+        "result.json.gz": {
+          "bytes": 24240921,
+          "sha256": "7de090a3f2bdceeb542a2c51be262e500c8ed23004a971aedca778bda94bd82e"
+        },
+        "summary.json": {
+          "bytes": 9712386,
+          "sha256": "30e9415ea5e2d706bd5b433713a7742fc27ace41dd8c85d332ed1ae9332359bc"
+        }
+      },
+      "near-shard-stream": {
+        "completion.json": {
+          "bytes": 430,
+          "sha256": "8d79ec2878140bc963e25fba1df81ede617174592bd9ea3fff8951bebcbd19ff"
+        },
+        "network/empty_network_input.json": {
+          "bytes": 3,
+          "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "network/rapidchiplet/booksim2/src/rc_configs/network.conf": {
+          "bytes": 1153,
+          "sha256": "73d2da23879b1ff1be564b2375a5d24fd6765d4010fc7b797125b1e31279f98b"
+        },
+        "network/rapidchiplet/booksim2/src/rc_topologies/network.anynet": {
+          "bytes": 2229,
+          "sha256": "551e82843d7c7a75c9105b9f8d2a310d933cda70aa49c6afac42ec254250d5d6"
+        },
+        "result.json.gz": {
+          "bytes": 18786475,
+          "sha256": "55a10f727ab5fd627a2cd716aec6d6a1ddfb2045fe7b0bbaedebbc23ca633cc8"
+        },
+        "summary.json": {
+          "bytes": 7713263,
+          "sha256": "30cac652ec7d5f07fe11b99d7b96e0806ca041f36f7ef3dc7a5fe9a7b33bfd2a"
+        }
+      }
+    },
+    "controller_rr": {
+      "gather-stream": {
+        "completion.json": {
+          "bytes": 428,
+          "sha256": "5305e3bdc2d6d0242982f28e7f2cc350ae05476e6d8964958ea31749a487272e"
+        },
+        "network/empty_network_input.json": {
+          "bytes": 3,
+          "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "network/rapidchiplet/booksim2/src/rc_configs/network.conf": {
+          "bytes": 1137,
+          "sha256": "c75ae593eaf81b22d63188c53144c04b10bd7c7eac60be11d3c059cbac3f2ffa"
+        },
+        "network/rapidchiplet/booksim2/src/rc_topologies/network.anynet": {
+          "bytes": 2229,
+          "sha256": "551e82843d7c7a75c9105b9f8d2a310d933cda70aa49c6afac42ec254250d5d6"
+        },
+        "result.json.gz": {
+          "bytes": 24844037,
+          "sha256": "ed39fcaa94a59065a67933d08a16d53614087d0c972aea9e2e1060958d67ef6e"
+        },
+        "summary.json": {
+          "bytes": 12123920,
+          "sha256": "2fbd7afea041a8e01d640ab70414714d9e4fe28e8366cc6069b64a9633d710e6"
+        }
+      },
+      "near-shard-stream": {
+        "completion.json": {
+          "bytes": 430,
+          "sha256": "1bc6290fbb90b47687a0d01cc5eb55f776605fae238f43ae8fef525738d16811"
+        },
+        "network/empty_network_input.json": {
+          "bytes": 3,
+          "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "network/rapidchiplet/booksim2/src/rc_configs/network.conf": {
+          "bytes": 1145,
+          "sha256": "b8bb4f3e10cd32c4a33aa19ce90fae861b266e1c48bf257717853d4afbe4f579"
+        },
+        "network/rapidchiplet/booksim2/src/rc_topologies/network.anynet": {
+          "bytes": 2229,
+          "sha256": "551e82843d7c7a75c9105b9f8d2a310d933cda70aa49c6afac42ec254250d5d6"
+        },
+        "result.json.gz": {
+          "bytes": 20135730,
+          "sha256": "295494e355226b0e659670fbb593963c9342366f0cb6921afee1db4266b64cc8"
+        },
+        "summary.json": {
+          "bytes": 7718664,
+          "sha256": "fd7a7d088439cbec3853c9a932e2e6e4f53f5dd705382539e1654535b8325f75"
+        }
+      }
+    },
+    "rotation": {
+      "gather-stream": {
+        "completion.json": {
+          "bytes": 428,
+          "sha256": "6b8eedfc4c4871624aa21ee0955167f96cb087d4d98cf5b84faca417216bb1c2"
+        },
+        "network/empty_network_input.json": {
+          "bytes": 3,
+          "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "network/rapidchiplet/booksim2/src/rc_configs/network.conf": {
+          "bytes": 1141,
+          "sha256": "d7adf5658d65a3d5bbee7ae324230b21dfd7b8cdedcd976037af53f142886b07"
+        },
+        "network/rapidchiplet/booksim2/src/rc_topologies/network.anynet": {
+          "bytes": 2229,
+          "sha256": "551e82843d7c7a75c9105b9f8d2a310d933cda70aa49c6afac42ec254250d5d6"
+        },
+        "result.json.gz": {
+          "bytes": 24281592,
+          "sha256": "f2b8721035d850a6eaa0543af735cc50569cece5c5a8c9e55b0de62e0021083b"
+        },
+        "summary.json": {
+          "bytes": 10116954,
+          "sha256": "31d133ea1d235e4b0dc3fa6d98fc4cfc16815a41ed684854470142303ade20ab"
+        }
+      },
+      "gather-whole": {
+        "completion.json": {
+          "bytes": 427,
+          "sha256": "04e9b3ab22696eb8373630eb11408c1a1ebd319eca08f96a7daceaa60ee5c5fc"
+        },
+        "network/empty_network_input.json": {
+          "bytes": 3,
+          "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "network/rapidchiplet/booksim2/src/rc_configs/network.conf": {
+          "bytes": 1139,
+          "sha256": "b587c6b82028931f7262286559369f1e4ade41001b497e739d4f386905c85b79"
+        },
+        "network/rapidchiplet/booksim2/src/rc_topologies/network.anynet": {
+          "bytes": 2229,
+          "sha256": "551e82843d7c7a75c9105b9f8d2a310d933cda70aa49c6afac42ec254250d5d6"
+        },
+        "result.json.gz": {
+          "bytes": 20386448,
+          "sha256": "c5e54be229ba563b6cc8df0b0827da422067f586823e0bca59ca2fece094ce01"
+        },
+        "summary.json": {
+          "bytes": 7647846,
+          "sha256": "f5ee365f3fb91ffae87c08112b8dd7d84c4ba02ae78d57e59e2795e0db103364"
+        }
+      },
+      "near-shard-stream": {
+        "completion.json": {
+          "bytes": 430,
+          "sha256": "7d6bb9df1e1626d524c0907ed457e430a36cd1f672c8ff76e826e0e76a204531"
+        },
+        "network/empty_network_input.json": {
+          "bytes": 3,
+          "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "network/rapidchiplet/booksim2/src/rc_configs/network.conf": {
+          "bytes": 1149,
+          "sha256": "e26829b34f05a620365604a096c69ddad3f2c60a427e5e9b405bc54c4465b3e4"
+        },
+        "network/rapidchiplet/booksim2/src/rc_topologies/network.anynet": {
+          "bytes": 2229,
+          "sha256": "551e82843d7c7a75c9105b9f8d2a310d933cda70aa49c6afac42ec254250d5d6"
+        },
+        "result.json.gz": {
+          "bytes": 18488233,
+          "sha256": "5c1f41ed4d12c5cf2c9434007575a2190340c0b812470c9d3eb29c44a51063a4"
+        },
+        "summary.json": {
+          "bytes": 7664030,
+          "sha256": "fb19f498e8446d653155b6b12e0c4da050a480fbc70b8b016945ffc668b04261"
+        }
+      },
+      "rotated-shard-stream": {
+        "completion.json": {
+          "bytes": 435,
+          "sha256": "37221dc06f8f5c1dc43ea61ed1dd81c7d3e7b2429b4bf737d95d17bea6b1f52e"
+        },
+        "network/empty_network_input.json": {
+          "bytes": 3,
+          "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+        },
+        "network/rapidchiplet/booksim2/src/rc_configs/network.conf": {
+          "bytes": 1153,
+          "sha256": "e317360f1c10b6dc663c24851944b4dec867cc38ff5b9457491ab8f56e06eafc"
+        },
+        "network/rapidchiplet/booksim2/src/rc_topologies/network.anynet": {
+          "bytes": 2229,
+          "sha256": "551e82843d7c7a75c9105b9f8d2a310d933cda70aa49c6afac42ec254250d5d6"
+        },
+        "result.json.gz": {
+          "bytes": 24629616,
+          "sha256": "8f51007ba41c090d7430f3159db84b582db68cd475f38cae682c060ca3548a0a"
+        },
+        "summary.json": {
+          "bytes": 12474105,
+          "sha256": "345be0c404c90411898fa93999b0f0812e1f5f0b098bbc14329496b0b6b219b8"
+        }
+      }
+    }
+  },
+  "remote_root": "/Projects/haoning/w2w-full-system-rwdl-20261008",
+  "schema": "w2w.service-balance-archive.v1",
+  "studies": {
+    "controller_row": {
+      "analysis_code_commit": "e41214cd8f2108d2271dbd422deea428f5f2d7a1",
+      "analysis_file": "service-row-analysis.json",
+      "execution_commit": "e41214cd8f2108d2271dbd422deea428f5f2d7a1",
+      "reference_cases": {},
+      "source_directory": "service-row-study-v1"
+    },
+    "controller_rr": {
+      "analysis_code_commit": "f147993e65e2c7f542b8538ee9604d5ab1f23238",
+      "analysis_file": "service-analysis.json",
+      "execution_commit": "123c4e14493738946cda47fdbc2afc0c915e7d1b",
+      "reference_cases": {},
+      "source_directory": "service-study-v1"
+    },
+    "rotation": {
+      "analysis_code_commit": "f147993e65e2c7f542b8538ee9604d5ab1f23238",
+      "analysis_file": "rotation-analysis-v2.json",
+      "execution_commit": "492affaa4b72fb2866a26343fcf0c4ae47dc2137",
+      "reference_cases": {
+        "gather-stream": "/Projects/haoning/w2w-full-system-rwdl-20261008/placement-study-v2/cases/gather-stream",
+        "gather-whole": "/Projects/haoning/w2w-full-system-rwdl-20261008/placement-study-v2/cases/gather-whole",
+        "near-shard-stream": "/Projects/haoning/w2w-full-system-rwdl-20261008/placement-study-v2/cases/near-shard-stream"
+      },
+      "source_directory": "rotation-study-v1"
+    }
+  },
+  "verification": {
+    "controller_row/gather-stream": {
+      "actual_native_read_entries": 4,
+      "atom_count": 36578016,
+      "audit_passed": true,
+      "made_and_drained_ps": 463263000,
+      "native_drained": true,
+      "refresh_phase": "synchronous"
+    },
+    "controller_row/near-shard-stream": {
+      "actual_native_read_entries": 4,
+      "atom_count": 36578016,
+      "audit_passed": true,
+      "made_and_drained_ps": 258830000,
+      "native_drained": true,
+      "refresh_phase": "synchronous"
+    },
+    "controller_rr/gather-stream": {
+      "actual_native_read_entries": 4,
+      "atom_count": 36578016,
+      "audit_passed": true,
+      "made_and_drained_ps": 544581000,
+      "native_drained": true,
+      "refresh_phase": "synchronous"
+    },
+    "controller_rr/near-shard-stream": {
+      "actual_native_read_entries": 4,
+      "atom_count": 36578016,
+      "audit_passed": true,
+      "made_and_drained_ps": 341507000,
+      "native_drained": true,
+      "refresh_phase": "synchronous"
+    },
+    "rotation/rotated-shard-stream": {
+      "actual_native_read_entries": 1,
+      "atom_count": 36578016,
+      "audit_passed": true,
+      "made_and_drained_ps": 307813000,
+      "native_drained": true,
+      "refresh_phase": "synchronous"
+    }
+  }
+}

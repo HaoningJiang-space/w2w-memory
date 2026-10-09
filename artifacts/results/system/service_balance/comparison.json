@@ -1,0 +1,229 @@
+{
+  "controller_row": {
+    "cases": {
+      "gather-stream": {
+        "busiest_compute_utilization": 0.032793467209770694,
+        "busiest_rx_write_service_us": 234.966,
+        "hop_flits": 2584780,
+        "makespan_us": 463.263,
+        "max_ready_behind_with_credit_us": 10.709,
+        "max_ready_head_credit_wait_us": 302.512,
+        "native_gap": {
+          "assumptions": "Only current one-bank/read-only candidate3760ps timing; row/refresh counts are trace-conditioned, not exogenous performance attribution",
+          "conditional_bound_ps": 276262240,
+          "final_rw_dl_hb_tail_ps": 461085040,
+          "native_tail_to_layer_finish_ps": 2177960,
+          "peak_array_rd_bound_ps": 207965600,
+          "peak_memory_byte_bound_ps": 207963720.0,
+          "residual_above_conditional_bound_ps": 187000760
+        },
+        "queue_rejection_attempts": 8416120,
+        "reservation_rejection_attempts": 369042,
+        "row_totals": {
+          "read_row_conflicts": 822293,
+          "read_row_hits": 35665981,
+          "read_row_misses": 89742
+        },
+        "total_compute_busy_ps": 163036000,
+        "weight_bytes": 585248256
+      },
+      "near-shard-stream": {
+        "busiest_compute_utilization": 0.029903797859598964,
+        "busiest_rx_write_service_us": 112.788,
+        "hop_flits": 34918,
+        "makespan_us": 258.83,
+        "max_ready_behind_with_credit_us": 0.394,
+        "max_ready_head_credit_wait_us": 2.168,
+        "native_gap": {
+          "assumptions": "Only current one-bank/read-only candidate3760ps timing; row/refresh counts are trace-conditioned, not exogenous performance attribution",
+          "conditional_bound_ps": 248678880,
+          "final_rw_dl_hb_tail_ps": 257026080,
+          "native_tail_to_layer_finish_ps": 1803920,
+          "peak_array_rd_bound_ps": 207965600,
+          "peak_memory_byte_bound_ps": 207963720.0,
+          "residual_above_conditional_bound_ps": 10151120
+        },
+        "queue_rejection_attempts": 6940092,
+        "reservation_rejection_attempts": 299660,
+        "row_totals": {
+          "read_row_conflicts": 571584,
+          "read_row_hits": 35965384,
+          "read_row_misses": 41048
+        },
+        "total_compute_busy_ps": 164572000,
+        "weight_bytes": 585248256
+      }
+    },
+    "near_completion_reduction_percent": 44.1289289237431,
+    "passed": true
+  },
+  "controller_rr": {
+    "cases": {
+      "gather-stream": {
+        "busiest_compute_utilization": 0.027896676527458725,
+        "busiest_rx_write_service_us": 234.966,
+        "hop_flits": 2584780,
+        "makespan_us": 544.581,
+        "max_ready_behind_with_credit_us": 146.28,
+        "max_ready_head_credit_wait_us": 249.849,
+        "native_gap": {
+          "assumptions": "Only current one-bank/read-only candidate3760ps timing; row/refresh counts are trace-conditioned, not exogenous performance attribution",
+          "conditional_bound_ps": 388389200,
+          "final_rw_dl_hb_tail_ps": 542646960,
+          "native_tail_to_layer_finish_ps": 1934040,
+          "peak_array_rd_bound_ps": 207965600,
+          "peak_memory_byte_bound_ps": 207963720.0,
+          "residual_above_conditional_bound_ps": 156191800
+        },
+        "queue_rejection_attempts": 24924510,
+        "reservation_rejection_attempts": 477524,
+        "row_totals": {
+          "read_row_conflicts": 2551755,
+          "read_row_hits": 33933599,
+          "read_row_misses": 92662
+        },
+        "total_compute_busy_ps": 163036000,
+        "weight_bytes": 585248256
+      },
+      "near-shard-stream": {
+        "busiest_compute_utilization": 0.022664249927527108,
+        "busiest_rx_write_service_us": 112.788,
+        "hop_flits": 34918,
+        "makespan_us": 341.507,
+        "max_ready_behind_with_credit_us": 0.264,
+        "max_ready_head_credit_wait_us": 2.157,
+        "native_gap": {
+          "assumptions": "Only current one-bank/read-only candidate3760ps timing; row/refresh counts are trace-conditioned, not exogenous performance attribution",
+          "conditional_bound_ps": 319615040,
+          "final_rw_dl_hb_tail_ps": 339700960,
+          "native_tail_to_layer_finish_ps": 1806040,
+          "peak_array_rd_bound_ps": 207965600,
+          "peak_memory_byte_bound_ps": 207963720.0,
+          "residual_above_conditional_bound_ps": 21891960
+        },
+        "queue_rejection_attempts": 18345084,
+        "reservation_rejection_attempts": 479340,
+        "row_totals": {
+          "read_row_conflicts": 1762364,
+          "read_row_hits": 34765140,
+          "read_row_misses": 50512
+        },
+        "total_compute_busy_ps": 164572000,
+        "weight_bytes": 585248256
+      }
+    },
+    "near_completion_reduction_percent": 37.28995319337252,
+    "passed": true
+  },
+  "rotation": {
+    "cases": {
+      "gather-stream": {
+        "busiest_compute_utilization": 0.03208393136121731,
+        "busiest_rx_write_service_us": 234.966,
+        "hop_flits": 2584780,
+        "makespan_us": 472.386,
+        "max_ready_behind_with_credit_us": 10.452,
+        "max_ready_head_credit_wait_us": 302.132,
+        "native_gap": {
+          "assumptions": "Only current one-bank/read-only candidate3760ps timing; row/refresh counts are trace-conditioned, not exogenous performance attribution",
+          "conditional_bound_ps": 292482880,
+          "final_rw_dl_hb_tail_ps": 470244400,
+          "native_tail_to_layer_finish_ps": 2141600,
+          "peak_array_rd_bound_ps": 207965600,
+          "peak_memory_byte_bound_ps": 207963720.0,
+          "residual_above_conditional_bound_ps": 179903120
+        },
+        "queue_rejection_attempts": 11946519,
+        "reservation_rejection_attempts": 0,
+        "row_totals": {
+          "read_row_conflicts": 1037576,
+          "read_row_hits": 35451047,
+          "read_row_misses": 89393
+        },
+        "total_compute_busy_ps": 162676000,
+        "weight_bytes": 585248256
+      },
+      "gather-whole": {
+        "busiest_compute_utilization": 0.031894476337985485,
+        "busiest_rx_write_service_us": 234.966,
+        "hop_flits": 2584780,
+        "makespan_us": 475.192,
+        "max_ready_behind_with_credit_us": 0.045,
+        "max_ready_head_credit_wait_us": 305.086,
+        "native_gap": {
+          "assumptions": "Only current one-bank/read-only candidate3760ps timing; row/refresh counts are trace-conditioned, not exogenous performance attribution",
+          "conditional_bound_ps": 292497920,
+          "final_rw_dl_hb_tail_ps": 473056880,
+          "native_tail_to_layer_finish_ps": 2135120,
+          "peak_array_rd_bound_ps": 207965600,
+          "peak_memory_byte_bound_ps": 207963720.0,
+          "residual_above_conditional_bound_ps": 182694080
+        },
+        "queue_rejection_attempts": 11982757,
+        "reservation_rejection_attempts": 0,
+        "row_totals": {
+          "read_row_conflicts": 1037246,
+          "read_row_hits": 35451425,
+          "read_row_misses": 89345
+        },
+        "total_compute_busy_ps": 162676000,
+        "weight_bytes": 585248256
+      },
+      "near-shard-stream": {
+        "busiest_compute_utilization": 0.029834830483917704,
+        "busiest_rx_write_service_us": 112.788,
+        "hop_flits": 34918,
+        "makespan_us": 258.825,
+        "max_ready_behind_with_credit_us": 0.367,
+        "max_ready_head_credit_wait_us": 2.248,
+        "native_gap": {
+          "assumptions": "Only current one-bank/read-only candidate3760ps timing; row/refresh counts are trace-conditioned, not exogenous performance attribution",
+          "conditional_bound_ps": 248663840,
+          "final_rw_dl_hb_tail_ps": 257022320,
+          "native_tail_to_layer_finish_ps": 1802680,
+          "peak_array_rd_bound_ps": 207965600,
+          "peak_memory_byte_bound_ps": 207963720.0,
+          "residual_above_conditional_bound_ps": 10161160
+        },
+        "queue_rejection_attempts": 7290904,
+        "reservation_rejection_attempts": 0,
+        "row_totals": {
+          "read_row_conflicts": 572372,
+          "read_row_hits": 35964484,
+          "read_row_misses": 41160
+        },
+        "total_compute_busy_ps": 164212000,
+        "weight_bytes": 585248256
+      },
+      "rotated-shard-stream": {
+        "busiest_compute_utilization": 0.025086659757710038,
+        "busiest_rx_write_service_us": 119.7,
+        "hop_flits": 2607298,
+        "makespan_us": 307.813,
+        "max_ready_behind_with_credit_us": 21.106,
+        "max_ready_head_credit_wait_us": 170.249,
+        "native_gap": {
+          "assumptions": "Only current one-bank/read-only candidate3760ps timing; row/refresh counts are trace-conditioned, not exogenous performance attribution",
+          "conditional_bound_ps": 250855920,
+          "final_rw_dl_hb_tail_ps": 304909680,
+          "native_tail_to_layer_finish_ps": 2903320,
+          "peak_array_rd_bound_ps": 207965600,
+          "peak_memory_byte_bound_ps": 207963720.0,
+          "residual_above_conditional_bound_ps": 56957080
+        },
+        "queue_rejection_attempts": 7383088,
+        "reservation_rejection_attempts": 0,
+        "row_totals": {
+          "read_row_conflicts": 571136,
+          "read_row_hits": 35958524,
+          "read_row_misses": 48356
+        },
+        "total_compute_busy_ps": 164212000,
+        "weight_bytes": 585248256
+      }
+    },
+    "near_completion_reduction_percent": 45.209002807026465,
+    "near_vs_rotated_completion_reduction_percent": 15.914857397185955,
+    "passed": true
+  }
+}

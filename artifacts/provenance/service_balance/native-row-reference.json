@@ -1,0 +1,167 @@
+{
+  "scope": "native one-array examples, read queue one, no refresh; 32-domain rate is an analytical projection",
+  "row_hit": {
+    "first_callback_cycle": 8,
+    "last_callback_cycle": 135,
+    "row_start_callback_cycles": [
+      8,
+      72
+    ],
+    "atoms": 128,
+    "peak_native_live_atoms": 4,
+    "stats": {
+      "addr_mapper": {
+        "impl": "PassThroughAddrMapper"
+      },
+      "avg_read_latency": 4.0625,
+      "cycles": 135,
+      "id": "Channel 0",
+      "impl": "GenericDDR",
+      "num_maintenance_reqs": 0,
+      "num_maintenance_reqs_served": 0,
+      "num_read_reqs": 128,
+      "num_read_reqs_forwarded": 0,
+      "num_read_reqs_served": 128,
+      "num_write_reqs": 0,
+      "num_write_reqs_coalesced": 0,
+      "num_write_reqs_served": 0,
+      "priority_queue_len": 0,
+      "priority_queue_len_avg": 0.0,
+      "queue_len": 132,
+      "queue_len_avg": 0.977778,
+      "read_latency": 520,
+      "read_queue_len": 132,
+      "read_queue_len_avg": 0.977778,
+      "read_row_conflicts": 0,
+      "read_row_conflicts_core_0": 0,
+      "read_row_hits": 127,
+      "read_row_hits_core_0": 127,
+      "read_row_misses": 1,
+      "read_row_misses_core_0": 1,
+      "read_throughput_MBps": 4034.672852,
+      "refresh_manager": {
+        "impl": "NoRefresh"
+      },
+      "row_conflicts": 0,
+      "row_hits": 127,
+      "row_misses": 1,
+      "row_policy": {
+        "impl": "Open"
+      },
+      "scheduler": {
+        "impl": "FRFCFS"
+      },
+      "total_throughput_MBps": 4034.672852,
+      "write_queue_len": 0,
+      "write_queue_len_avg": 0.0,
+      "write_row_conflicts": 0,
+      "write_row_hits": 0,
+      "write_row_misses": 0,
+      "write_throughput_MBps": 0.0
+    },
+    "native_identity": {
+      "upstream_commit": "72427a1bba3771564c4fb0e494ba02242fd1eaa7",
+      "bridge_sha256": "e4a09bdd6f60adba53a2505fe5f4172d7af4cff991f84a4df03c725841f5e4bd",
+      "config_sha256": "2304c928aa24b88d8e6e0db9aabbec63187cca8bf8ae13b0a31afcc99ea751a7"
+    }
+  },
+  "row_stream": {
+    "first_callback_cycle": 8,
+    "last_callback_cycle": 1166,
+    "row_start_callback_cycles": [
+      8,
+      81,
+      154,
+      227,
+      300,
+      373,
+      446,
+      519,
+      592,
+      665,
+      738,
+      811,
+      884,
+      957,
+      1030,
+      1103
+    ],
+    "atoms": 1024,
+    "peak_native_live_atoms": 4,
+    "stats": {
+      "addr_mapper": {
+        "impl": "PassThroughAddrMapper"
+      },
+      "avg_read_latency": 4.198242,
+      "cycles": 1166,
+      "id": "Channel 0",
+      "impl": "GenericDDR",
+      "num_maintenance_reqs": 0,
+      "num_maintenance_reqs_served": 0,
+      "num_read_reqs": 1024,
+      "num_read_reqs_forwarded": 0,
+      "num_read_reqs_served": 1024,
+      "num_write_reqs": 0,
+      "num_write_reqs_coalesced": 0,
+      "num_write_reqs_served": 0,
+      "priority_queue_len": 0,
+      "priority_queue_len_avg": 0.0,
+      "queue_len": 1163,
+      "queue_len_avg": 0.997427,
+      "read_latency": 4299,
+      "read_queue_len": 1163,
+      "read_queue_len_avg": 0.997427,
+      "read_row_conflicts": 15,
+      "read_row_conflicts_core_0": 15,
+      "read_row_hits": 1008,
+      "read_row_hits_core_0": 1008,
+      "read_row_misses": 1,
+      "read_row_misses_core_0": 1,
+      "read_throughput_MBps": 3737.089844,
+      "refresh_manager": {
+        "impl": "NoRefresh"
+      },
+      "row_conflicts": 15,
+      "row_hits": 1008,
+      "row_misses": 1,
+      "row_policy": {
+        "impl": "Open"
+      },
+      "scheduler": {
+        "impl": "FRFCFS"
+      },
+      "total_throughput_MBps": 3737.089844,
+      "write_queue_len": 0,
+      "write_queue_len_avg": 0.0,
+      "write_row_conflicts": 0,
+      "write_row_hits": 0,
+      "write_row_misses": 0,
+      "write_throughput_MBps": 0.0
+    },
+    "native_identity": {
+      "upstream_commit": "72427a1bba3771564c4fb0e494ba02242fd1eaa7",
+      "bridge_sha256": "e4a09bdd6f60adba53a2505fe5f4172d7af4cff991f84a4df03c725841f5e4bd",
+      "config_sha256": "2304c928aa24b88d8e6e0db9aabbec63187cca8bf8ae13b0a31afcc99ea751a7"
+    }
+  },
+  "observed_row_start_intervals_cycles": [
+    73,
+    73,
+    73,
+    73,
+    73,
+    73,
+    73,
+    73,
+    73,
+    73,
+    73,
+    73,
+    73,
+    73,
+    73
+  ],
+  "projected_interface_peak_GBps": 136.17021276595744,
+  "projected_row_stream_GBps": 119.38210434275722,
+  "row_stream_reference_us_for_28318464_bytes": 237.20861812500002
+}

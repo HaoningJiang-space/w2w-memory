@@ -7,11 +7,14 @@ Ramulator 的路由/credit、原生命令/刷新框架；这是时序模型，�
 [当前交接与下一任务](docs/HANDOFF.md) · [代码职责](docs/CODE_STRUCTURE.md) ·
 [全部阶段文档索引](docs/README.md)
 
-当前[完整层结果](docs/reports/RWDL_COMPUTE_PLACEMENT_REPORT.md)：统一合同下集中 streaming 472.386 μs，靠近分片计算 258.825 μs，时间减少 45.21%。
-当前研究入口为独立 RWDL 与“集中取权重 / 靠近分片计算”对照。
-[RWDL 合同](docs/methods/RWDL_NATIVE_SERVICE.md) 明确原子地址、3760 ps 时钟、
-有限队列、CDC 与共享汇聚。机器仍是未标定候选；资源代理不代表真实 PPA。
-接收预约是理想参考，reticle 内部资源密度与距离尚未闭合。
+当前[完整层结果](docs/reports/COMPUTE_LOCALITY_SERVICE_BALANCE_REPORT.md)：四条计算链匹配后，
+远端执行307.813 μs，就近执行258.825 μs，减少15.915%。明确供数预算与有限行选择
+controller下，集中/就近为463.263/258.830 μs，减少44.129%；简单轮转的负结果也保留。
+[上一阶段45.21%](docs/reports/RWDL_COMPUTE_PLACEMENT_REPORT.md)同时改变布局与并行结构。
+当前入口复用固定routing、36个共享引擎，分开声明RWDL接口、阵列时序、controller、
+汇聚和计算SRAM服务。[原生合同](docs/methods/RWDL_NATIVE_SERVICE.md)区分接口峰值、
+行/刷新约束与实际返回路径。机器是未标定候选，计算bank/内部汇聚与预约协议尚未
+物理闭合，资源代理不代表真实PPA。
 
 已冻结的 [HBM2 驻留结果](docs/reports/B1_RESIDENCY_STUDY_REPORT.md) 和
 [几何／整包／流式报告](docs/reports/WAFER_MACHINE_CLOSURE_REPORT.md) 保持原身份。

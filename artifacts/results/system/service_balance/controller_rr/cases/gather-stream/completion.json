@@ -1,0 +1,16 @@
+{
+  "complete": true,
+  "case": "gather-stream",
+  "source_commit": "123c4e14493738946cda47fdbc2afc0c915e7d1b",
+  "input_sha256": "e656e732a1555f142d673581dd441b8617ea6b79a6b324a9d42fafd133063229",
+  "makespan_ps": 544581000,
+  "audit": {
+    "passed": true,
+    "packets": 290912,
+    "read_descriptors": 144336,
+    "read_words": 18289008,
+    "data_bytes": 9175040,
+    "physical_link_flits": 2584780,
+    "tasks": 380
+  }
+}

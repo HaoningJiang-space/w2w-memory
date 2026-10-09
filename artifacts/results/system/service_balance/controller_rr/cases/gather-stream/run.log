@@ -1,0 +1,2 @@
+{"starting": "gather-stream", "source_commit": "123c4e14493738946cda47fdbc2afc0c915e7d1b", "weight_bytes": 585248256}
+{"completed": "gather-stream", "makespan_us": 544.581, "wall_seconds": 954.9621689859778}

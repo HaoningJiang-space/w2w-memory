@@ -10,6 +10,8 @@
 |---|---|
 | `w2w/domain/` | 机器、任务、对象、事务与路径的数据结构 |
 | `w2w/machine/presets.py` | 固定资源机器；修改 SRAM、链路、窗口不需要改 MoE 编译器 |
+| `w2w/machine/service_profiles.py` | 独立服务预算与权威有效资源；计算供数、controller窗口显式声明 |
+| `w2w/machine/rwdl_layout.py` | 内部收集的粗成本参考，未进入执行时序 |
 | `w2w/machine/geometry.py` | 坐标、线长、data/credit 延迟与资源代理；面积密度仍未标定 |
 | `w2w/workloads/routing_input.py` | 显式选择冻结 routing、owner 和 cohort，核对输入身份 |
 | `w2w/workloads/moe_task_graph.py` | `compile_routed_layer(routing, residency=...)`，纯任务图编译 |

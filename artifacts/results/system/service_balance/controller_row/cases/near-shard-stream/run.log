@@ -1,0 +1,2 @@
+{"starting": "near-shard-stream", "source_commit": "e41214cd8f2108d2271dbd422deea428f5f2d7a1", "weight_bytes": 585248256}
+{"completed": "near-shard-stream", "makespan_us": 258.83, "wall_seconds": 1035.1069852830842}

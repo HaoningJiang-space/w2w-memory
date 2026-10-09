@@ -1,10 +1,12 @@
 # 文档索引
 
-当前：[RWDL 与同资源计算放置结果](reports/RWDL_COMPUTE_PLACEMENT_REPORT.md)、
+当前：[计算局部性、原生控制器与片上供数](reports/COMPUTE_LOCALITY_SERVICE_BALANCE_REPORT.md)、
 [开发交接与唯一下一任务](HANDOFF.md)、[代码地图](CODE_STRUCTURE.md)、
 [结构整理一致性](reports/STRUCTURE_REFACTOR_REPORT.md)。
 
 以下为各阶段历史文档；正文的“当前/下一步”按冻结研究版本理解，不替代 HANDOFF。
+
+- [上一阶段 RWDL 与计算放置结果](reports/RWDL_COMPUTE_PLACEMENT_REPORT.md)
 
 - [历史研究主线、强基线结果与统一证据](RESEARCH_STATUS.md)
 

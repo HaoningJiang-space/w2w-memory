@@ -1,0 +1,56 @@
+{
+  "commands": [
+    {
+      "argv": [
+        "cmake",
+        "-S",
+        "/Projects/haoning/w2w-full-system-rwdl-20261008/service-source/w2w/service/dram",
+        "-B",
+        "/Projects/haoning/w2w-full-system-rwdl-20261008/native-service-policy/dram_bridge",
+        "-DRAMULATOR_SOURCE=/Projects/haoning/w2w-full-system-closure-20261009/dram-clean-a9066bc/ramulator2",
+        "-DPython_EXECUTABLE=/Projects/haoning/w2w/.venv/bin/python"
+      ],
+      "cwd": "/Projects/haoning/w2w-full-system-rwdl-20261008/service-source"
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "/Projects/haoning/w2w-full-system-rwdl-20261008/native-service-policy/dram_bridge",
+        "-j4"
+      ],
+      "cwd": "/Projects/haoning/w2w-full-system-rwdl-20261008/service-source"
+    }
+  ],
+  "compiler": "g++ (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0\nCopyright (C) 2021 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+  "complete": true,
+  "host": "ee4e072",
+  "outputs": {
+    "dram_bridge": {
+      "path": "/Projects/haoning/w2w-full-system-rwdl-20261008/native-service-policy/dram_bridge/_w2w_ramulator.cpython-310-x86_64-linux-gnu.so",
+      "sha256": "e4a09bdd6f60adba53a2505fe5f4172d7af4cff991f84a4df03c725841f5e4bd"
+    }
+  },
+  "python": "3.10.12 (main, Jul 29 2024, 16:56:48) [GCC 11.4.0]",
+  "ramulator": {
+    "commit": "72427a1bba3771564c4fb0e494ba02242fd1eaa7",
+    "library_sha256": "bdee8df7ac4486e77f4ce8689cdb9eed814ca222cbd1322b2bfaf342af203120",
+    "path": "/Projects/haoning/w2w-full-system-closure-20261009/dram-clean-a9066bc/ramulator2"
+  },
+  "schema": "w2w.native-build.v1",
+  "sources": {
+    "w2w/service/dram/CMakeLists.txt": "44a9f6550f8eafb98c75f53c58d4f791d5a8767c6f82f5bf16ae7294199cd77b",
+    "w2w/service/dram/__init__.py": "5e4dffeaf3fe22d4ae121425e1ab84959f96124cdee6729fd2eb521c82c87e9c",
+    "w2w/service/dram/bridge.cpp": "b99e3c3ef47cbfb1f008da3f182bedbeb41c7b7c3a9707e4627899d2dd2473c9",
+    "w2w/service/dram/ramulator.py": "714e80f6e0bd4785dc4fe210cff40d63591b683d3f0c6a75e71411a93d0bee0d",
+    "w2w/service/dram/rwdl.py": "ebfe465dee08578a843bd3a59f7de1e89256e89d1a9b3851a10ebcd3101a81e2",
+    "w2w/service/dram/rwdl_refresh.cpp": "854ce5c8238012ccf8adcc702a3e6c0dd58996f268abe318fdd551d8d927e316",
+    "w2w/service/dram/rwdl_spec.py": "d18dc53c02738e8d96376fa1055d20537175bb3d3d959677b71b5485f25166c5"
+  },
+  "tools": {
+    "cmake": "/usr/bin/cmake",
+    "g++": "/usr/bin/g++",
+    "git": "/usr/bin/git"
+  },
+  "w2w_commit": "5f88feab029644c73bb0e9ba41bf549cecc3acca"
+}

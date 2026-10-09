@@ -1,0 +1,271 @@
+{
+  "schema": "w2w.compute-placement-study.v1",
+  "cases": [
+    {
+      "name": "gather-stream",
+      "input_sha256": "7b8d43df17a9e21b3445e4e83a71111554fcb98c88546206ce9be2186ca3756b",
+      "semantic_work_sha256": "034d3137e74877ae3e68875615f714f008ee609b4365390e096d1d3654fbecb2",
+      "graph_sha256": "ee8931487eee0ae9b04207116a2cde18b7c3ae384c5a3071cf3ca0b25e4a11ed",
+      "architecture": "gather",
+      "streaming": true,
+      "reference_directory": "/Projects/haoning/w2w-full-system-rwdl-20261008/placement-study-v2/cases/gather-stream",
+      "source_commit": "1b086e0affbf6a25aa765e09ee9a9fa8e1aa25d1"
+    },
+    {
+      "name": "gather-whole",
+      "input_sha256": "f782d2d1e84c1ea0fbb66f37f71053df620a893a73ac8d138ea67e256f63be46",
+      "semantic_work_sha256": "034d3137e74877ae3e68875615f714f008ee609b4365390e096d1d3654fbecb2",
+      "graph_sha256": "ee8931487eee0ae9b04207116a2cde18b7c3ae384c5a3071cf3ca0b25e4a11ed",
+      "architecture": "gather",
+      "streaming": false,
+      "reference_directory": "/Projects/haoning/w2w-full-system-rwdl-20261008/placement-study-v2/cases/gather-whole",
+      "source_commit": "1b086e0affbf6a25aa765e09ee9a9fa8e1aa25d1"
+    },
+    {
+      "name": "near-shard-stream",
+      "input_sha256": "4a348942031e6360c3e3488ec828e6488ded17097ab50861a79fb0b23ef681e2",
+      "semantic_work_sha256": "034d3137e74877ae3e68875615f714f008ee609b4365390e096d1d3654fbecb2",
+      "graph_sha256": "082c8d0b7ffa5036d8dcc733c52cb75bd4a41309e77171d274dd37f22199bf1c",
+      "architecture": "near_shard",
+      "streaming": true,
+      "reference_directory": "/Projects/haoning/w2w-full-system-rwdl-20261008/placement-study-v2/cases/near-shard-stream",
+      "source_commit": "1b086e0affbf6a25aa765e09ee9a9fa8e1aa25d1"
+    },
+    {
+      "name": "rotated-shard-stream",
+      "input_sha256": "c4c6044263816c710589a1e768d79339a8d23150bd262868b1bb11fdc5b62751",
+      "semantic_work_sha256": "034d3137e74877ae3e68875615f714f008ee609b4365390e096d1d3654fbecb2",
+      "graph_sha256": "a2cdaaae3ae0bff52a7547d6a63f49604d5e79f234abac5135abfacf1f056fd8",
+      "architecture": "rotated_shard",
+      "streaming": true
+    }
+  ],
+  "source_commit": "492affaa4b72fb2866a26343fcf0c4ae47dc2137",
+  "host": "ee4e072",
+  "max_ps": 20000000000,
+  "scope": "one_routed_ffn_layer_timing",
+  "local_dma": "payload_beats",
+  "cell_sideband_bits": 64,
+  "receive_reservation": "ideal global reference; protocol RTT not modeled",
+  "source_sram_read_bytes_per_cycle": 256,
+  "source_write_ports": "one independent read and one receive write per aggregate tile",
+  "time_advance": "boundaries",
+  "controls": "36 shared engines, 36x512MiB memory, 36x2MiB SRAM; same owner, tokens, RWDL, NoC/credit, MC32/requester32",
+  "comparisons": "gather readiness only; near-shard changes static intermediate weight/compute placement and bills FP32 reduction; matched four-chain clockwise rotation changes only block compute locations",
+  "excluded": "Direct HB, endpoint RTL, prefetch, dynamic migration, reticle area DSE",
+  "matched_parallel_control": {
+    "passed": true,
+    "dependency_and_read_graph_without_tiles_sha256": "be28e6ce1a7ca2b72cc9cf045ec8afc4ec4b2542559f0b3d6c782599a6e237b5",
+    "content_and_addresses_sha256": "720aaacb316c1b15dab60a726390b7e44b22de324af3fcd12ee6124aad32e3c7",
+    "per_engine_work": {
+      "c0": {
+        "tasks": 2,
+        "cycles": 256,
+        "weight_bytes": 0
+      },
+      "c1": {
+        "tasks": 2,
+        "cycles": 256,
+        "weight_bytes": 0
+      },
+      "c2": {
+        "tasks": 11,
+        "cycles": 4045,
+        "weight_bytes": 14159232
+      },
+      "c3": {
+        "tasks": 11,
+        "cycles": 4045,
+        "weight_bytes": 14159232
+      },
+      "c15": {
+        "tasks": 20,
+        "cycles": 7674,
+        "weight_bytes": 28318464
+      },
+      "c14": {
+        "tasks": 21,
+        "cycles": 7722,
+        "weight_bytes": 28318464
+      },
+      "c21": {
+        "tasks": 18,
+        "cycles": 7578,
+        "weight_bytes": 28318464
+      },
+      "c20": {
+        "tasks": 19,
+        "cycles": 7626,
+        "weight_bytes": 28318464
+      },
+      "c29": {
+        "tasks": 15,
+        "cycles": 5196,
+        "weight_bytes": 18878976
+      },
+      "c28": {
+        "tasks": 12,
+        "cycles": 5052,
+        "weight_bytes": 18878976
+      },
+      "c35": {
+        "tasks": 12,
+        "cycles": 5052,
+        "weight_bytes": 18878976
+      },
+      "c34": {
+        "tasks": 13,
+        "cycles": 5100,
+        "weight_bytes": 18878976
+      },
+      "c11": {
+        "tasks": 8,
+        "cycles": 2622,
+        "weight_bytes": 9439488
+      },
+      "c10": {
+        "tasks": 6,
+        "cycles": 2526,
+        "weight_bytes": 9439488
+      },
+      "c5": {
+        "tasks": 6,
+        "cycles": 2526,
+        "weight_bytes": 9439488
+      },
+      "c4": {
+        "tasks": 6,
+        "cycles": 2526,
+        "weight_bytes": 9439488
+      },
+      "c25": {
+        "tasks": 11,
+        "cycles": 3885,
+        "weight_bytes": 14159232
+      },
+      "c24": {
+        "tasks": 10,
+        "cycles": 3837,
+        "weight_bytes": 14159232
+      },
+      "c31": {
+        "tasks": 9,
+        "cycles": 3789,
+        "weight_bytes": 14159232
+      },
+      "c30": {
+        "tasks": 9,
+        "cycles": 3789,
+        "weight_bytes": 14159232
+      },
+      "c9": {
+        "tasks": 11,
+        "cycles": 3885,
+        "weight_bytes": 14159232
+      },
+      "c8": {
+        "tasks": 10,
+        "cycles": 3837,
+        "weight_bytes": 14159232
+      },
+      "c32": {
+        "tasks": 13,
+        "cycles": 5100,
+        "weight_bytes": 18878976
+      },
+      "c33": {
+        "tasks": 14,
+        "cycles": 5148,
+        "weight_bytes": 18878976
+      },
+      "c26": {
+        "tasks": 12,
+        "cycles": 5052,
+        "weight_bytes": 18878976
+      },
+      "c27": {
+        "tasks": 13,
+        "cycles": 5100,
+        "weight_bytes": 18878976
+      },
+      "c17": {
+        "tasks": 18,
+        "cycles": 6459,
+        "weight_bytes": 23598720
+      },
+      "c16": {
+        "tasks": 16,
+        "cycles": 6363,
+        "weight_bytes": 23598720
+      },
+      "c23": {
+        "tasks": 15,
+        "cycles": 6315,
+        "weight_bytes": 23598720
+      },
+      "c22": {
+        "tasks": 16,
+        "cycles": 6363,
+        "weight_bytes": 23598720
+      },
+      "c18": {
+        "tasks": 13,
+        "cycles": 6408,
+        "weight_bytes": 18878976
+      },
+      "c19": {
+        "tasks": 12,
+        "cycles": 6312,
+        "weight_bytes": 18878976
+      },
+      "c12": {
+        "tasks": 14,
+        "cycles": 6408,
+        "weight_bytes": 18878976
+      },
+      "c13": {
+        "tasks": 13,
+        "cycles": 6360,
+        "weight_bytes": 18878976
+      }
+    },
+    "semantic_work_sha256": "034d3137e74877ae3e68875615f714f008ee609b4365390e096d1d3654fbecb2",
+    "rotated_remote_weight_bytes": 585248256,
+    "rotated_weight_payload_by_link": {
+      "c15>c21": 28318464,
+      "c14>c15": 28318464,
+      "c21>c20": 28318464,
+      "c20>c14": 28318464,
+      "c29>c35": 18878976,
+      "c28>c29": 18878976,
+      "c35>c34": 18878976,
+      "c34>c28": 18878976,
+      "c11>c10": 9439488,
+      "c10>c4": 9439488,
+      "c5>c11": 9439488,
+      "c4>c5": 9439488,
+      "c25>c31": 14159232,
+      "c24>c25": 14159232,
+      "c31>c30": 14159232,
+      "c30>c24": 14159232,
+      "c9>c8": 14159232,
+      "c8>c2": 14159232,
+      "c3>c9": 14159232,
+      "c2>c3": 14159232,
+      "c32>c26": 18878976,
+      "c33>c32": 18878976,
+      "c26>c27": 18878976,
+      "c27>c33": 18878976,
+      "c17>c23": 23598720,
+      "c16>c17": 23598720,
+      "c23>c22": 23598720,
+      "c22>c16": 23598720,
+      "c18>c12": 18878976,
+      "c19>c18": 18878976,
+      "c12>c13": 18878976,
+      "c13>c19": 18878976
+    },
+    "tensor_route_payload_multiset_sha256": "be48258fc6135a38abe6a20ed50069f4835c289373e77c43095a269ee4e365fe",
+    "scope": "fixed four chains, exact reads/content/addresses, fixed reduction and per-engine work; runtime order remains a consequence"
+  }
+}

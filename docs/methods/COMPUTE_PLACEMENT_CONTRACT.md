@@ -56,3 +56,19 @@ FP32 scales 不复制，总权重/MAC 工作保持相同，所有 128 expert 布
 输出原生服务、关键链路、源 FIFO、SRAM 读写和 compute engine 的压力表。native
 admission、RX job wait 等含有重叠等待；只报告各自原始计数、服务工作和任务时间线。
 没有证据前不加 Direct HB，不换 router，不做大规模验收或 reticle/endpoint DSE。
+
+## 匹配并行度与显式供数的后续合同（2026-10-09）
+
+历史三项保持上述原计算吞吐合同。`rotated-shard-stream`与near-shard保持四条链、
+内容/地址、reduce owner和逐物理engine工作量，block compute只沿固定2×2顺时针
+环轮换一跳。静态冻结全部expert，匹配proof不能只检查全系统总MAC。
+
+新增controller4 profile的两边同时采用显式计算SRAM读预算：32bank×64KiB、
+每bank128B/1ns的宽计算读，外部activation/状态读与接收写各独立256B/ns。
+`max(MAC_cycles, weight_scale_read_cycles) + vector_cycles`使单token tile从历史421ns
+变为422ns。理想bank条带化、多端口macro与内部activation/dequant支持未物理验证。
+
+新profile另有有限native readq4和前置窗口4，RR与row-batched是分别冻结的策略，
+新增选择状态与比较器单列；不是把扩大queue等同为相同硬件或已优化controller。
+[匹配规则、供数定义、资源成本和实测](../reports/COMPUTE_LOCALITY_SERVICE_BALANCE_REPORT.md)
+给出完整边界。原45.21%与匹配局部性的15.915%不是同一个消融问题。
