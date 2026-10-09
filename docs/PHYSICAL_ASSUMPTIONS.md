@@ -13,6 +13,12 @@ SRAM supplies separate 8 B weight and 8 B activation reads per PE/cycle; the
 external fabric receive path is 128 B/cluster/cycle. Macro bank conflicts and
 numerical FP8 execution are not validated. No claim of area feasibility follows.
 
+The field envelope follows the publicly documented
+[ASML 26 × 33 mm exposure field](https://www.asml.com/en/products/duv-lithography-systems/twinscan-xt-1060k),
+not the retired network artifact. The named recipe fixes field dimensions and
+service ratios. Uncalibrated core/array/interface densities do not support an
+area-optimization claim or arbitrary field shrinking with unchanged resources.
+
 A 128 B macro channel represents 64 fine 16-bit data lanes. A separate 1024-bit
 control cut pays for metadata. Intra-field and boundary macro paths represent
 64 and 65 fine hops respectively; BookSim's three-cycle macro router is included
@@ -32,6 +38,11 @@ distance from the domain's coarse grid position to the HB landing, one registere
 stage per millimeter at the native clock, one HB beat, two logic CDC cycles and
 the declared gateway-to-router access. This is a spatial sensitivity model, not
 wire timing signoff. Finite atom reservations cover the entire transport.
+
+There are 64 reserved 16 B atoms per physical domain, counted once across access
+views, giving 32 KiB/region of native return capacity. Gateway return storage is
+another declared 128 KiB/region. Controller command entries, finite cell metadata,
+gateway-to-router wires and edge access resources are separately recorded.
 
 The [TSMC 2025 annual report](https://investor.tsmc.com/sites/ir/annual-report/2025/2025%20TSMC%20Annual%20Report.E.pdf)
 separately describes logic/DRAM WoW progress and wafer-scale system integration.

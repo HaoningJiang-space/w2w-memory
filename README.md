@@ -1,69 +1,53 @@
-# W2W Memory-on-Logic
+# W2W Memory Architecture
 
-研究空间分布的原生 DRAM 服务，如何与跨晶粒通信、有限 SRAM 和计算放置配平。
-当前系统执行真实 routing 的一个完整 gated FFN 层，复用 native BookSim 与
-Ramulator 的路由/credit、原生命令/刷新框架；这是时序模型，不是完整 LLM 或数值推理验证。
+Architecture V3 studies vertical DRAM access for a distributed wafer-scale
+compute fabric. Physical regions, compute clusters, routers, native DRAM domains,
+HB ports and memory gateways have separate identities. Static workload mapping
+is separate from the physical machine. The existing unified kernel executes
+native BookSim and pinned Ramulator; it has not been replaced.
 
-[当前交接与下一任务](docs/HANDOFF.md) · [代码职责](docs/CODE_STRUCTURE.md) ·
-[全部阶段文档索引](docs/README.md)
+The first candidate models four physical regions, sixteen aggregate clusters,
+65,536 candidate PEs, 3 GiB SRAM and 8 GiB DRAM. It uses public distributed-compute
+architecture as a reference, with declared aggregate service assumptions.
+It does not reproduce proprietary Cerebras microarchitecture or an existing
+logic–DRAM wafer product.
 
-当前[完整层结果](docs/reports/COMPUTE_LOCALITY_SERVICE_BALANCE_REPORT.md)：四条计算链匹配后，
-远端执行307.813 μs，就近执行258.825 μs，减少15.915%。明确供数预算与有限行选择
-controller下，集中/就近为463.263/258.830 μs，减少44.129%；简单轮转的负结果也保留。
-[上一阶段45.21%](docs/reports/RWDL_COMPUTE_PLACEMENT_REPORT.md)同时改变布局与并行结构。
-当前入口复用固定routing、36个共享引擎，分开声明RWDL接口、阵列时序、controller、
-汇聚和计算SRAM服务。[原生合同](docs/methods/RWDL_NATIVE_SERVICE.md)区分接口峰值、
-行/刷新约束与实际返回路径。机器是未标定候选，计算bank/内部汇聚与预约协议尚未
-物理闭合，资源代理不代表真实PPA。
+The first matched, cold, one-token routed FFN comparison completes in
+**843.182 µs with central vertical access and 581.749 µs with distributed access**:
+31.006% lower completion time. Both read 151,031,808 B through the same 128 native
+domains, compute placement and arithmetic plan. The raw collection wire proxy
+falls by 50%; extra gateway/control resources are recorded. These are candidate
+machine results and resource proxies. See [the report](docs/reports/ARCHITECTURE_V3_REPORT.md).
 
-已冻结的 [HBM2 驻留结果](docs/reports/B1_RESIDENCY_STUDY_REPORT.md) 和
-[几何／整包／流式报告](docs/reports/WAFER_MACHINE_CLOSURE_REPORT.md) 保持原身份。
-历史 LP、read replay 和 endpoint RTL 保留复现入口，从完整索引进入。
-
-## 开发与运行
-
-源码本地编辑，保持 `main`；构建、测试、实验只在 `hn072@143.89.78.72` 的
-`/Projects/haoning/w2w-full-system-*` 隔离目录。通过 Git 同步冻结源码，运行时不更新。
-不修改其他开发者的 RTL 或 `wafer_simulator` 工作区。
+Builds, tests and execution run in isolated directories on `hn072`; edit source
+locally and synchronize committed revisions through Git. No sibling simulator
+checkout is needed. From the repository root on the execution host:
 
 ```sh
-python -m w2w --help
-python -m w2w --list --scope current
-python -m w2w --list --scope reference
-python tools/build_native.py --help
-python -m w2w run_compute_placement --help
-python -m w2w analyze_compute_placement --help
+python tools/build_native.py --tool all --output /absolute/new/native-build
+export W2W_BOOKSIM_BINARY=/absolute/new/native-build/booksim/endpoint_booksim
+export W2W_RAMULATOR_BRIDGE=/absolute/new/native-build/dram_bridge/_w2w_ramulator.cpython-310-x86_64-linux-gnu.so
+export PYTHONPATH=/absolute/new/native-build/ramulator2/python
+python -m w2w compile_machine --organization distributed --output /absolute/new/machine
+python -m w2w run_vertical_access --prepare --cases central distributed --output /absolute/new/study
+python -m w2w run_vertical_access --case central --output /absolute/new/study
+python -m w2w run_vertical_access --case distributed --output /absolute/new/study
+python -m w2w analyze_vertical_access --source /absolute/new/study --output /absolute/new/analysis.json
 ```
 
-依赖见 `requirements-memory.txt`；[统一 native 构建](docs/methods/NATIVE_TOOLCHAIN.md)
-从本仓库补丁/runtime 与锁定 Ramulator 构建到外部目录。原始事件、二进制、环境、
-凭据不入 Git。[服务器流程](docs/operations/HN072_RESEARCH.md) 与
-[Git 同步](docs/operations/GIT_WORKFLOW.md) 给出复现约束。
+Native builds require CMake, C++, make, flex, bison, Python development headers
+and the pinned upstream Ramulator Python package. Reuse a built pinned upstream
+with `--ramulator-source` and point `PYTHONPATH` to its Python package. Build and
+result directories remain outside the source checkout.
 
-命令继续惰性加载，旧名称与 `.py` 后缀可用。默认帮助突出 Current；完整列表按
-Current / Reference / Legacy 分组。新实验直接使用公共 I/O、两种历史指纹、Git
-身份与纯摘要，不从另一个 runner 借实现。
+[Architecture](docs/ARCHITECTURE.md), [physical assumptions](docs/PHYSICAL_ASSUMPTIONS.md),
+[simulator contracts](docs/SIMULATOR.md), [baselines](docs/BASELINES.md),
+[source map](docs/CODE_STRUCTURE.md) and [handoff](docs/HANDOFF.md) describe the
+current platform. `python -m w2w --help` lists the three current entrypoints.
 
-## 执行链
-
-```text
-machine + workloads → experiments → system.kernel
-                                      ├── memory + service/dram
-                                      └── network + 本地 DMA / SRAM
-                          events → analysis / validation
-```
-
-`w2w/machine/` 定义机器与坐标，`workloads/` 选择 routing 并编译任务；
-`system/` 维护统一时间和资源生命周期。native 源码/补丁布局和原始上游目录保留。
-本地 DMA 和共享接收写口已独立提取；结构整理保持原语义，模型修正另行提交。
-
-## Upstream artifact
-
-Based on [spcl/nw-design-for-wsi](https://github.com/spcl/nw-design-for-wsi),
-retaining its history and original attribution below.
-
-### Network Design for Wafer-Scale Systems with Wafer-on-Wafer Hybrid Bonding
-
-This repository contains the artifacts accompanying the paper:
-
-**“Network Design for Wafer-Scale Systems with Wafer-on-Wafer Hybrid Bonding.”**
+Historical V2 commands/results are available at `v2-frozen-37400e6` and the
+separate cost-study tags. [The freeze inventory](docs/legacy/V2_FREEZE.md) records
+source, binary and server archive identities. V2 results remain V2 evidence.
+[Software provenance](docs/legacy/SOFTWARE_PROVENANCE.md) preserves reused code
+origins and licenses. `rtl/` is independently owned and unchanged; it does not
+execute in V3. `wafer_simulator` remains an independent project.

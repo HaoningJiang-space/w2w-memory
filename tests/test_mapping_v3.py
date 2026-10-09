@@ -10,6 +10,11 @@ from w2w.system.builder import SystemBuilder
 
 
 class MappingV3(unittest.TestCase):
+    def test_scale_storage_tracks_matrix_shape(self):
+        logical=build_moe(((0,),),intermediate=1024,block_width=256,experts=4,topk=1)
+        self.assertEqual(sum(size for name,size in logical.weight_sizes if name.startswith('weight/e0/')),
+            3*4096*1024+3*(4096//128)*(1024//128)*4)
+
     def test_same_workload_different_fabric_and_gateway(self):
         logical=build_moe(((0,1,2,3,4,5,6,7),))
         plans=[]

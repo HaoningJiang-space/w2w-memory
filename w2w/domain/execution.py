@@ -44,6 +44,8 @@ class StreamGemm:
         for name in ('weight_data_bytes','scale_bytes','macs','macs_per_cycle','weight_read_bytes_per_cycle'):
             positive(getattr(self,name),name)
         if self.macs%self.weight_data_bytes:raise ValueError('Integral token reuse required')
+        if self.macs//self.weight_data_bytes>self.macs_per_cycle:
+            raise ValueError('Streaming primitive requires a smaller explicit token microbatch')
 
 
 @dataclass(frozen=True)

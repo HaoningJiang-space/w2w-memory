@@ -5,7 +5,7 @@ from .ir import LogicalWorkload,Operation,Tensor
 
 def build_moe(token_experts, *, name='routed-ffn', hidden=4096, intermediate=1536,
               block_width=128, experts=128, topk=8, partitions=4, source_identity=()):
-    if intermediate%block_width or (intermediate//block_width)%partitions or hidden%128:
+    if block_width%128 or intermediate%block_width or (intermediate//block_width)%partitions or hidden%128:
         raise ValueError('Explicit 128-aligned scales and integral intermediate partitions required')
     tokens=tuple(tuple(e) for e in token_experts)
     if not tokens or any(len(t)!=topk or len(set(t))!=topk or any(not 0<=e<experts for e in t) for t in tokens):
@@ -14,7 +14,7 @@ def build_moe(token_experts, *, name='routed-ffn', hidden=4096, intermediate=153
     for n,es in enumerate(tokens):
         for e in es: members[e].append(n)
     blocks=intermediate//block_width; per_part=blocks//partitions
-    matrix_bytes=hidden*block_width+(hidden//128)*4
+    matrix_bytes=hidden*block_width+(hidden//128)*(block_width//128)*4
     weights=tuple((f'weight/e{e}/b{b}/{phase}',matrix_bytes)
         for e in range(experts) for b in range(blocks) for phase in ('gate','up','down'))
     ops=[]; tensors=[];input_consumers=defaultdict(list)

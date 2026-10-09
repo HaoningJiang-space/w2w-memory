@@ -44,6 +44,7 @@ def analyze(source,external_reference=None):
         interface_bound=peak*3760/16
         link=max(network['link_flits'],key=network['link_flits'].get,default=None)
         pressure=network.get('final',{}).get('source_pressure',{})
+        pressure={k:v for k,v in pressure.items() if not k.endswith('_by_message')}
         rows[case]=dict(makespan_us=r['makespan_ps']/1e6,makespan_ps=r['makespan_ps'],audit=audit,
             source_commit=case_registration['source_commit'],input_sha256=case_reg['input_sha256'],
             logical_sha256=data['metadata']['logical_sha256'],weight_layout_sha256=data['metadata']['weight_layout_sha256'],
