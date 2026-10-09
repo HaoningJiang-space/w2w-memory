@@ -7,6 +7,11 @@
 `memory` 放地址/事务后端适配，`network/router.py` 为有限队列的小型参考。
 `run_system_microbench` 只编排实验，`validation/system_execution.py` 独立读事件核验。
 正式层实验通过 `network/booksim_backend.py` 复用 pinned native BookSim，未替换任务调度器。
+优化补丁和 C++ 在线接口在 `third_party/booksim_runtime`，Python runtime 在
+`network/native_booksim`；新默认不再依赖另一个项目的 checkout。
+`tools/build_native.py` 从本仓库重建网络与 DRAM bridge，见[构建入口](methods/NATIVE_TOOLCHAIN.md)。
+`system/wafer_machine.py` 从坐标生成有新身份的线长、流水、credit 与成本；
+`run_machine_closure` / `analyze_machine_closure` 固定四 token、4-way，比较整包与有限前缀返回。
 `workloads/moe_task_graph.py` 从现有逐 token routing 编译完整 routed FFN 数据图；
 `experiments/run_moe_layer.py` 注册并执行三种返回/带宽条件，
 `analysis/moe_layer.py` 只读取已完成记录，核对图/地址集合并统计关键任务与原生资源。

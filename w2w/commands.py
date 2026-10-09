@@ -1,5 +1,7 @@
 """Lazy command registry; importing the package never runs an experiment."""
 COMMANDS = {
+    'run_machine_closure': 'w2w.experiments.run_machine_closure',
+    'analyze_machine_closure': 'w2w.analysis.machine_closure',
     'analyze_residency_study': 'w2w.analysis.residency_study',
     'run_residency_study': 'w2w.experiments.run_residency_study',
     'analyze_moe_layer': 'w2w.analysis.moe_layer',
@@ -88,7 +90,8 @@ COMMANDS = {
 # retain their v1 meaning; a new system command cannot silently reinterpret them.
 COMMAND_SCOPES = {
     name: ('one_routed_ffn_layer_timing' if name in ('run_moe_layer', 'analyze_moe_layer',
-           'run_residency_study', 'analyze_residency_study') else
+           'run_residency_study', 'analyze_residency_study',
+           'run_machine_closure', 'analyze_machine_closure') else
            'system_execution_v2_prototype' if name == 'run_system_microbench' else
            'endpoint_microarchitecture' if any(token in name for token in
                ('endpoint', 'egress', 'role_interface', 'beat_return', 'static_binding', 'shared_fifo'))

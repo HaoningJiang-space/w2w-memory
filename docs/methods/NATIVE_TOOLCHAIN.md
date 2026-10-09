@@ -33,6 +33,11 @@ cd /Projects/haoning/w2w-full-system-closure-20261009/source
 bridge。这个模式仍需要获取第三方原始依赖，不能称为离线构建。若只需 BookSim，
 使用 `--tool booksim`；它的全部源码和 JSON header 已在本仓库，无需外部 checkout。
 
+hn072 的系统 PATH 最初没有 flex/bison。本轮在隔离目录提取 Ubuntu 22.04 的
+`flex=2.6.4-8build2`、`bison=2:3.8.2+dfsg-1ubuntu0.22.04.1` 包，未安装到系统或更改
+其他开发者的环境。复用时把该目录的 `usr/bin` 加入 PATH，并设置
+`BISON_PKGDATADIR=<parser-tools>/usr/share/bison`；包哈希随下方构建证据保存。
+
 输出 `build-manifest.json` 记录真实路径和 SHA256，`build.log` 保存构建日志。失败会
 保留诊断文件并不标记完成。脚本拒绝覆盖已有输出，重试请使用新目录。
 
@@ -46,3 +51,17 @@ Ramulator 的 `python` 目录。**不要设置 `W2W_BOOKSIM_SOURCE`**，新默�
 显式 `--booksim-source` 仍支持固定旧版本，仅用于历史复现。它不决定新主线的
 源码归属。后续 native 修改直接提交本仓库，重建后使用新的二进制身份，不覆盖
 旧报告中的执行文件、结果或 source hashes。
+
+## 已完成的独立重建
+
+源 `a9066bc` 在 hn072 完成两条构建路径：
+
+- 仓库内 BookSim 源码／补丁／在线 C++，加本仓库 bridge（复用已构建的锁定 Ramulator）。
+  41 项现有相关回归通过，未配置 `W2W_BOOKSIM_SOURCE`。
+- 从新目录 clone 锁定 Ramulator，构建它和本仓库 bridge；12 项 DRAM／新返回合同
+  检查通过，无 skip。这个路径未使用原 Ramulator checkout 或其二进制。
+
+首次构建缺少 flex 的失败日志也保留。没有把已存在的网络二进制冒充本次重建结果。
+构建身份、原始日志和测试输出在
+[`artifacts/provenance/native_toolchain`](../../artifacts/provenance/native_toolchain)。
+这是工具独立可构建的证据；完整层性能结果另按冻结实验记录。

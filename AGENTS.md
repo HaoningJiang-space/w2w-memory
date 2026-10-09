@@ -10,6 +10,11 @@ developers' work. RTL and `/Projects/haoning/wafer_simulator` have separate
 owners; do not modify or delete their working directories. Keep credentials,
 raw captures, native builds and environments out of Git.
 
+Keep every project modification to simulator tools in this repository, including
+native BookSim patches/runtime and DRAM extensions. New runs use the bundled
+BookSim interface; use `tools/build_native.py` to build into an isolated external
+directory. Unmodified third-party dependencies may be fetched at recorded pins.
+
 The current task is in `docs/handoff/NEXT_TASK.md`: deliver complete routed MoE
 layer timing with existing native BookSim and DRAM components. Do not replace
 the kernel, expand component acceptance campaigns, or promote read-only

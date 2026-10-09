@@ -1,0 +1,92 @@
+{
+  "commands": [
+    {
+      "argv": [
+        "git",
+        "clone",
+        "https://github.com/CMU-SAFARI/ramulator2.git",
+        "/Projects/haoning/w2w-full-system-closure-20261009/dram-clean-a9066bc/ramulator2"
+      ],
+      "cwd": "/Projects/haoning/w2w-full-system-closure-20261009/source"
+    },
+    {
+      "argv": [
+        "git",
+        "checkout",
+        "--detach",
+        "72427a1bba3771564c4fb0e494ba02242fd1eaa7"
+      ],
+      "cwd": "/Projects/haoning/w2w-full-system-closure-20261009/dram-clean-a9066bc/ramulator2"
+    },
+    {
+      "argv": [
+        "cmake",
+        "-S",
+        "/Projects/haoning/w2w-full-system-closure-20261009/dram-clean-a9066bc/ramulator2",
+        "-B",
+        "/Projects/haoning/w2w-full-system-closure-20261009/dram-clean-a9066bc/ramulator2/build",
+        "-DPython_EXECUTABLE=/Projects/haoning/w2w/.venv/bin/python",
+        "-DCMAKE_BUILD_TYPE=Release"
+      ],
+      "cwd": "/Projects/haoning/w2w-full-system-closure-20261009/source"
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "/Projects/haoning/w2w-full-system-closure-20261009/dram-clean-a9066bc/ramulator2/build",
+        "-j4"
+      ],
+      "cwd": "/Projects/haoning/w2w-full-system-closure-20261009/source"
+    },
+    {
+      "argv": [
+        "cmake",
+        "-S",
+        "/Projects/haoning/w2w-full-system-closure-20261009/source/w2w/service/dram",
+        "-B",
+        "/Projects/haoning/w2w-full-system-closure-20261009/dram-clean-a9066bc/dram_bridge",
+        "-DRAMULATOR_SOURCE=/Projects/haoning/w2w-full-system-closure-20261009/dram-clean-a9066bc/ramulator2",
+        "-DPython_EXECUTABLE=/Projects/haoning/w2w/.venv/bin/python"
+      ],
+      "cwd": "/Projects/haoning/w2w-full-system-closure-20261009/source"
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "/Projects/haoning/w2w-full-system-closure-20261009/dram-clean-a9066bc/dram_bridge",
+        "-j4"
+      ],
+      "cwd": "/Projects/haoning/w2w-full-system-closure-20261009/source"
+    }
+  ],
+  "compiler": "g++ (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0\nCopyright (C) 2021 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+  "complete": true,
+  "host": "ee4e072",
+  "outputs": {
+    "dram_bridge": {
+      "path": "/Projects/haoning/w2w-full-system-closure-20261009/dram-clean-a9066bc/dram_bridge/_w2w_ramulator.cpython-310-x86_64-linux-gnu.so",
+      "sha256": "249ac2f3f963167d8e82397c1c3d827178a65cdf17111ecf7938fe4b3878c2e6"
+    }
+  },
+  "python": "3.10.12 (main, Jul 29 2024, 16:56:48) [GCC 11.4.0]",
+  "ramulator": {
+    "commit": "72427a1bba3771564c4fb0e494ba02242fd1eaa7",
+    "library_sha256": "bdee8df7ac4486e77f4ce8689cdb9eed814ca222cbd1322b2bfaf342af203120",
+    "path": "/Projects/haoning/w2w-full-system-closure-20261009/dram-clean-a9066bc/ramulator2"
+  },
+  "schema": "w2w.native-build.v1",
+  "sources": {
+    "w2w/service/dram/CMakeLists.txt": "e430b3fb02e75847064107312c8f4535c2633527f31302921cea922df923ce10",
+    "w2w/service/dram/__init__.py": "5e4dffeaf3fe22d4ae121425e1ab84959f96124cdee6729fd2eb521c82c87e9c",
+    "w2w/service/dram/bridge.cpp": "b43b93ea67c5565cf92e0d57f8e020da202f4c52c1cfaa187cabceac176d7b43",
+    "w2w/service/dram/ramulator.py": "ea1d0c67bb19255d16cc919391613cb101e5e373fcda4caa5a6f64e1be325daa"
+  },
+  "tools": {
+    "cmake": "/usr/bin/cmake",
+    "g++": "/usr/bin/g++",
+    "git": "/usr/bin/git"
+  },
+  "w2w_commit": "a9066bced8b54a90c4f9cc1099fe7d209f5f15a6"
+}

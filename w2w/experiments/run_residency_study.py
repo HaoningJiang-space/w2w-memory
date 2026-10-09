@@ -115,8 +115,8 @@ def main():
     if args.prepare:
         prepare(args.output, args.policies)
     else:
-        if args.booksim_source is None or args.booksim_binary is None:
-            parser.error('Running a case requires the existing BookSim source and binary')
+        if args.booksim_binary is None:
+            parser.error('Running a case requires --booksim-binary; bundled runtime is the default')
         run_case(args.output, args.case, args.booksim_source, args.booksim_binary)
 
 

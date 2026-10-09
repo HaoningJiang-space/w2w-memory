@@ -1,4 +1,4 @@
-"""Thin boundary adapter to wafer_simulator's pinned native BookSim.
+"""Thin boundary adapter to the bundled optimized native BookSim.
 
 SystemExecution owns time and transactions. The native process owns compute
 routers, arbitration and credits. Local copies and home-HB segments are finite
