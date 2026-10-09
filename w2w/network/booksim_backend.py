@@ -15,6 +15,9 @@ from pathlib import Path
 import subprocess
 import sys
 
+from w2w.system.local_dma import LocalDma
+from w2w.system.receive_write import ReceiveWritePort
+
 PIN = '0c56c24b4bf602b8b2c036681f526971305dde99'
 
 
@@ -94,7 +97,8 @@ class BookSimNetwork:
         self.next_id = 0
         self.source_occupied, self.rx_reserved = Counter(), Counter()
         self.rx_peak, self.source_peak = Counter(), Counter()
-        self.local_free, self.write_free = Counter(), Counter()
+        self.dma = LocalDma(self.spec)
+        self.write_port = ReceiveWritePort(self.spec.rx_write_bytes_per_cycle, self.spec.noc_period_ps)
         self.future, self.serial = [], 0
         self.link_flits, self.wire_bytes = Counter(), Counter()
         self.accepted_bytes, self.delivered_bytes = Counter(), Counter()
@@ -102,8 +106,6 @@ class BookSimNetwork:
         self.rejections = self.accepted = self.delivered = 0
         self.native_idle = True
         self.final = None
-        self.rx_write_bytes,self.rx_write_cycles,self.rx_write_wait_ps=Counter(),Counter(),Counter()
-        self.rx_write_cycles_by_class=Counter()
         self.injection_flits_by_source=Counter()
         self.admission_rejections=Counter()
         if cell_sideband_bits not in (0,64):raise ValueError('Supported cell sideband is legacy unspecified or 64 bits')
@@ -187,8 +189,7 @@ class BookSimNetwork:
             if hb:
                 link = hb[0]
                 beats = ceil((packet.payload_bytes+self.spec.header_bytes)*8/link.width_bits)
-                first = max(now, self.local_free[link.id])
-                self.local_free[link.id] = first+beats*link.period_ps
+                first = self.dma.reserve(link.id, now, beats, link.period_ps)
                 at = first+(beats-1+link.pipeline_cycles)*link.period_ps
                 for index in range(beats):
                     self._link_send(packet, link, index, first+index*link.period_ps)
@@ -217,12 +218,7 @@ class BookSimNetwork:
                                           cycle=self.client.now,flits=count))
                 self.native_idle = False
             else:
-                for ordinal in range(row['supplied'],eligible):
-                    first = ordinal*self.spec.flit_bytes
-                    size = max(0,min(first+self.spec.flit_bytes,packet.payload_bytes+self.spec.header_bytes)
-                               -max(first,self.spec.header_bytes))
-                    at = max(now,self.local_free[packet.src])+self.spec.noc_period_ps
-                    self.local_free[packet.src] = at
+                for at,size in self.dma.legacy_fragments(packet,row['supplied'],eligible,now):
                     self._future(at,'stream_local',key,size)
             if row['supplied'] == 0:
                 self._supply_log(now,'first',packet,prefix_bytes)
@@ -239,10 +235,7 @@ class BookSimNetwork:
         row=self.pending[key];packet=row['packet']
         width=self.spec.rx_write_bytes_per_cycle
         eligible=prefix//width if prefix<packet.payload_bytes else row['local_beats']
-        for ordinal in range(row['supplied'],eligible):
-            size=min(width,max(0,packet.payload_bytes-ordinal*width))
-            at=max(now,self.local_free[packet.src])+self.spec.noc_period_ps
-            self.local_free[packet.src]=at
+        for at,size in self.dma.payload_beats(packet,row['supplied'],eligible,now):
             self._future(at,'local_payload',key,size)
         if eligible>row['supplied']:
             if row['streaming'] and row['supplied']==0:self._supply_log(now,'first',packet,prefix)
@@ -270,17 +263,9 @@ class BookSimNetwork:
         # Header-only requests are copied into pre-reserved finite MC NI storage.
         to_sram = packet.traffic_class == 'activation' or packet.id.endswith('/resp')
         if packet.dst in self.nodes and size and to_sram:
-            start = max(at, self.write_free[packet.dst])
-            cycles=ceil(size/self.spec.rx_write_bytes_per_cycle)
-            duration = cycles*self.spec.noc_period_ps
-            self.rx_write_bytes[packet.dst]+=size
-            self.rx_write_cycles[packet.dst]+=cycles
-            self.rx_write_cycles_by_class[packet.dst+'/'+packet.traffic_class]+=cycles
-            self.rx_write_wait_ps[packet.dst]+=start-at
+            at,cycles,wait_ps = self.write_port.reserve(packet.dst,packet.traffic_class,size,at)
             row=self.pending[packet.id]
-            row['rx_cycles']+=cycles;row['rx_bytes']+=size;row['rx_wait_ps']+=start-at
-            at = start+duration
-            self.write_free[packet.dst] = at
+            row['rx_cycles']+=cycles;row['rx_bytes']+=size;row['rx_wait_ps']+=wait_ps
         self._future(at, 'commit', packet.id, fid)
 
     def _advance(self, now):
@@ -390,9 +375,9 @@ class BookSimNetwork:
                     link_flits=dict(self.link_flits), wire_bytes_by_class=dict(self.wire_bytes),
                     source_peak_flits=dict(self.source_peak),
                     source_injected_flits=dict(self.injection_flits_by_source),
-                    rx_write_bytes=dict(self.rx_write_bytes),rx_write_cycles=dict(self.rx_write_cycles),
-                    rx_write_cycles_by_class=dict(self.rx_write_cycles_by_class),
-                    rx_job_wait_sum_ps=dict(self.rx_write_wait_ps),
+                    rx_write_bytes=dict(self.write_port.bytes),rx_write_cycles=dict(self.write_port.cycles),
+                    rx_write_cycles_by_class=dict(self.write_port.cycles_by_class),
+                    rx_job_wait_sum_ps=dict(self.write_port.wait_ps),
                     admission_rejection_attempts=dict(self.admission_rejections),
                     rx_reserved_peak={str(k): v for k, v in self.rx_peak.items()},
                     ni_rx_capacity_bytes_per_node=3*self.spec.ejection_packets*(self.spec.packet_payload_bytes+self.spec.header_bytes),
