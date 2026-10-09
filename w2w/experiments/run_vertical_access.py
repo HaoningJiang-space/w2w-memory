@@ -35,6 +35,7 @@ def inputs(case,cohort='c0_b1'):
 
 def prepare(output,*,cohort='c0_b1',cases=CASES):
     output.mkdir(parents=True,exist_ok=False)
+    (output/'inputs').mkdir()
     records={}
     for case in cases:
         _,_,record=inputs(case,cohort)
