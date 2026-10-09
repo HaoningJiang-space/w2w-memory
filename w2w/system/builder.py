@@ -53,11 +53,15 @@ class SystemBuilder:
                         raise ValueError('Distinct resident content overlaps through native-domain aliases')
                 physical_occupied[domain].append((a,b,storage))
         self.footprint = {}
+        edge_storage=defaultdict(int)
+        for edge in graph.data:
+            edge_storage[edge.producer]+=edge.size_bytes
+            edge_storage[edge.consumer]+=edge.size_bytes
         for task in graph.tasks:
             if task.tile not in self.tiles:
                 raise ValueError('Unknown compute tile')
             size = task.scratch_bytes
-            size += sum(e.size_bytes for e in graph.data if task.id in (e.producer, e.consumer))
+            size += edge_storage[task.id]
             for read in task.reads:
                 if read.object_id not in objects:
                     raise ValueError('Unknown read object')

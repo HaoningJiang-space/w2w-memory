@@ -41,8 +41,17 @@ class SystemExecution:
         self.activation_sram_read_bytes_per_cycle=activation_sram_read_bytes_per_cycle
         self.sram_read_bytes,self.sram_read_cycles=Counter(),Counter()
         self.tasks = {t.id: t for t in graph.tasks}
-        self.predecessors = {t.id: {e.producer for e in (*graph.control, *graph.data) if e.consumer == t.id}
-                             for t in graph.tasks}
+        self.predecessors={t.id:set() for t in graph.tasks}
+        self.followers={t.id:set() for t in graph.tasks}
+        self.incoming={t.id:[] for t in graph.tasks};self.outgoing={t.id:[] for t in graph.tasks}
+        for edge in (*graph.control,*graph.data):
+            self.predecessors[edge.consumer].add(edge.producer)
+            self.followers[edge.producer].add(edge.consumer)
+        for edge in graph.data:
+            self.incoming[edge.consumer].append(edge.id);self.outgoing[edge.producer].append(edge.id)
+        self.remaining_deps={k:set(v) for k,v in self.predecessors.items()}
+        self.alloc_candidates={k for k,v in self.remaining_deps.items() if not v}
+        self.active_edges=set();self.done_count=0
         self.task_order = sorted(self.tasks)
         self.unallocated = set(self.tasks)
         self.ready_tasks = set()
@@ -140,11 +149,15 @@ class SystemExecution:
             output = sum(e.size_bytes for e in self.graph.data if e.producer == key)
             self._sram(tile, -(self.builder.footprint[key]-output), key)
             state['done'] = True
+            self.done_count+=1;self.active_edges.update(self.outgoing[key])
+            for consumer in self.followers[key]:
+                self.remaining_deps[consumer].remove(key)
+                if not self.remaining_deps[consumer]:self.alloc_candidates.add(consumer)
             self.engine_context_ps[tile]+=self.now-state['start_ps']
             self.log('task_finish', task=key, tile=tile)
 
     def _allocate(self):
-        for key in sorted(self.unallocated):
+        for key in sorted(self.alloc_candidates):
             state, task = self.state[key], self.tasks[key]
             if state['allocated'] or self.now < task.release_ps:
                 continue
@@ -157,6 +170,7 @@ class SystemExecution:
             self._sram(task.tile, size, key)
             state['allocated'] = True
             self.unallocated.remove(key)
+            self.alloc_candidates.remove(key)
             self.ready_tasks.add(key)
             self.reading.add(key)
             self.log('task_allocate', task=key, tile=task.tile)
@@ -164,7 +178,7 @@ class SystemExecution:
     def _data_transfers(self):
         if self.activation_sram_read_bytes_per_cycle is not None:
             return self._ported_data_transfers()
-        for key in sorted(self.edges):
+        for key in sorted(self.active_edges):
             row = self.edges[key]
             edge = row['edge']
             if (not self.state[edge.producer].get('done')
@@ -176,10 +190,11 @@ class SystemExecution:
                 row['sent'] += size
                 self._sram(src, -size, edge.producer)
                 self.log('data_issue', edge=key, bytes=size)
+                if row['sent']==edge.size_bytes:self.active_edges.remove(key)
 
     def _ported_data_transfers(self):
         used=Counter()
-        for key in sorted(self.edges):
+        for key in sorted(self.active_edges):
             row=self.edges[key];edge=row['edge']
             if (not self.state[edge.producer].get('done')
                     or not self.state[edge.consumer]['allocated'] or row['sent']==edge.size_bytes):
@@ -202,6 +217,7 @@ class SystemExecution:
             if copy['prefix']==copy['size']:
                 if not complete:raise RuntimeError('Source SRAM read completed without full NI supply')
                 del row['copy']
+                self.active_edges.remove(key)
         for src in used:self.sram_read_cycles[src]+=1
 
     def _read_issue(self):
@@ -332,8 +348,7 @@ class SystemExecution:
                 continue
             if stream is not None and state.get('stream_scale_delivered',0)!=stream.scale_bytes:
                 continue
-            if any(row['delivered'] != row['edge'].size_bytes for row in self.edges.values()
-                   if row['edge'].consumer == key):
+            if any(self.edges[e]['delivered']!=self.edges[e]['edge'].size_bytes for e in self.incoming[key]):
                 continue
             state['start_ps'] = self.now
             duration = task.compute_cycles*tile.compute_period_ps
@@ -405,12 +420,12 @@ class SystemExecution:
             self._native_progress()
             # Resolve local zero-duration control nodes, never bypass data delivery.
             for _ in range(len(self.tasks)+1):
-                before = sum(bool(s.get('done')) for s in self.state.values())
+                before = self.done_count
                 self._compute_completions()
                 self._allocate()
                 self._start_compute()
                 self._stream_compute_progress()
-                after = sum(bool(s.get('done')) for s in self.state.values())
+                after = self.done_count
                 if before == after and not any(self.state[k]['finish_ps'] == self.now for k in self.engine.values()):
                     break
             boundary = self.now % self.spec.noc_period_ps == 0
@@ -420,7 +435,7 @@ class SystemExecution:
             self._memory_progress(boundary)
             if boundary:
                 self.network.step(self.now)
-            if all(s.get('done') for s in self.state.values()) and makespan is None:
+            if self.done_count==len(self.tasks) and makespan is None:
                 makespan = self.now
             if makespan is not None and self.network.drained():
                 if (any(self.outstanding.values()) or any(self.sram.values()) or any(self.mc_slots.values())
