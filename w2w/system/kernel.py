@@ -17,7 +17,7 @@ from w2w.system.builder import SystemBuilder
 
 class SystemExecution:
     def __init__(self, spec, graph, native=None, *, network_factory=None,
-                 activation_sram_read_bytes_per_cycle=None):
+                 activation_sram_read_bytes_per_cycle=None,compute_contexts=1):
         self.spec, self.graph = spec, graph
         self.builder = SystemBuilder(spec).validate_graph(graph)
         self.events = []
@@ -67,6 +67,10 @@ class SystemExecution:
         self.engine = {}
         self.busy_ps = Counter()
         self.engine_context_ps=Counter()
+        if type(compute_contexts) is not int or not 1<=compute_contexts<=8:
+            raise ValueError('Declare 1..8 finite shared-service contexts per cluster')
+        self.compute_contexts=compute_contexts;self.context_peak=Counter()
+        self.context_cursor=Counter();self.compute_service_tick={}
         self.outstanding = Counter()
         self.outstanding_peak = Counter()
         self.mc_slots = Counter()
@@ -74,6 +78,9 @@ class SystemExecution:
         self.mc_pool_slots=Counter()
         self.mc_pool_peak=Counter()
         self.now = 0
+        self.context_metadata_bytes=(compute_contexts-1)*64
+        for tile in self.builder.tiles:
+            if self.context_metadata_bytes:self._sram(tile,self.context_metadata_bytes,'compute-context-state')
 
     def log(self, kind, **data):
         self.events.append(dict(time_ps=self.now, kind=kind, **data))
@@ -140,12 +147,13 @@ class SystemExecution:
         return True
 
     def _compute_completions(self):
-        for tile, key in list(self.engine.items()):
+        for tile,key in [(tile,key) for tile,keys in self.engine.items() for key in keys]:
             state = self.state[key]
             if state['finish_ps'] is None or state['finish_ps'] > self.now:
                 continue
             task = self.tasks[key]
-            del self.engine[tile]
+            self.engine[tile].remove(key)
+            if not self.engine[tile]:del self.engine[tile]
             output = sum(self.edges[e]['edge'].size_bytes for e in self.outgoing[key])
             self._sram(tile, -(self.builder.footprint[key]-output), key)
             state['done'] = True
@@ -341,7 +349,7 @@ class SystemExecution:
             task, state = self.tasks[key], self.state[key]
             tile = self.builder.tiles[task.tile]
             if (not state['allocated'] or state['start_ps'] is not None
-                    or task.tile in self.engine or self.now % tile.compute_period_ps):
+                    or len(self.engine.get(task.tile,()))>=self.compute_contexts or self.now % tile.compute_period_ps):
                 continue
             stream=getattr(task,'stream',None)
             if stream is None and state['read_bytes'] != sum(r.size_bytes for r in task.reads):
@@ -352,17 +360,31 @@ class SystemExecution:
                 continue
             state['start_ps'] = self.now
             duration = task.compute_cycles*tile.compute_period_ps
-            state['finish_ps'] = self.now+duration if stream is None else None
-            self.engine[task.tile] = key
+            state['finish_ps'] = self.now if stream is None and not duration else None
+            state['compute_remaining']=task.compute_cycles
+            self.engine.setdefault(task.tile,[]).append(key)
+            self.context_peak[task.tile]=max(self.context_peak[task.tile],len(self.engine[task.tile]))
             self.ready_tasks.remove(key)
-            if stream is None:self.busy_ps[task.tile] += duration
             self.log('task_start', task=key, tile=task.tile)
 
     def _stream_compute_progress(self):
-        for tile,key in self.engine.items():
-            task=self.tasks[key];stream=getattr(task,'stream',None);state=self.state[key]
+        for tile,keys in self.engine.items():
             period=self.builder.tiles[tile].compute_period_ps
-            if stream is None or state['finish_ps'] is not None or self.now%period or state.get('stream_tick')==self.now:
+            if self.now%period or self.compute_service_tick.get(tile)==self.now:continue
+            key=None
+            for i in range(len(keys)):
+                index=(self.context_cursor[tile]+i)%len(keys);candidate=keys[index]
+                state=self.state[candidate];stream=self.tasks[candidate].stream
+                if state['finish_ps'] is not None:continue
+                if stream is None or not state.get('stream_scale_consumed') or state.get('stream_weight_delivered',0)>state.get('stream_consumed',0):
+                    key=candidate;self.context_cursor[tile]=(index+1)%len(keys);break
+            if key is None:continue
+            self.compute_service_tick[tile]=self.now
+            task=self.tasks[key];stream=task.stream;state=self.state[key]
+            if stream is None:
+                state['compute_remaining']-=1;self.busy_ps[tile]+=period
+                self.log('compute_service',task=key,tile=tile,cycles=1)
+                if not state['compute_remaining']:state['finish_ps']=self.now+period
                 continue
             state['stream_tick']=self.now
             if not state.get('stream_scale_consumed'):
@@ -397,7 +419,7 @@ class SystemExecution:
             while releases and releases[0] <= now:
                 releases.pop(0)
             if releases: candidates.append(releases[0])
-            candidates.extend(self.state[k]['finish_ps'] for k in self.engine.values()
+            candidates.extend(self.state[k]['finish_ps'] for keys in self.engine.values() for k in keys
                               if self.state[k]['finish_ps'] is not None and self.state[k]['finish_ps'] > now)
             for component in (self.network,self.native):
                 future = getattr(component,'future',None)
@@ -426,7 +448,7 @@ class SystemExecution:
                 self._start_compute()
                 self._stream_compute_progress()
                 after = self.done_count
-                if before == after and not any(self.state[k]['finish_ps'] == self.now for k in self.engine.values()):
+                if before == after and not any(self.state[k]['finish_ps'] == self.now for keys in self.engine.values() for k in keys):
                     break
             boundary = self.now % self.spec.noc_period_ps == 0
             if boundary:
@@ -438,6 +460,8 @@ class SystemExecution:
             if self.done_count==len(self.tasks) and makespan is None:
                 makespan = self.now
             if makespan is not None and self.network.drained():
+                if self.context_metadata_bytes:
+                    for tile in self.builder.tiles:self._sram(tile,-self.context_metadata_bytes,'compute-context-state')
                 if (any(self.outstanding.values()) or any(self.sram.values()) or any(self.mc_slots.values())
                         or any(row['stage'] != 'delivered' for row in self.requests.values())
                         or self.native.record()['pending']):
@@ -458,6 +482,9 @@ class SystemExecution:
                       tasks={k: {v: s[v] for v in ('start_ps', 'finish_ps', 'read_bytes')} for k, s in self.state.items()},
                       sram_peak_bytes=dict(self.sram_peak), compute_busy_ps=dict(self.busy_ps),
                       engine_context_ps=dict(self.engine_context_ps),
+                      compute_execution=dict(contexts_per_cluster=self.compute_contexts,context_peak=dict(self.context_peak),
+                          additional_context_state_bytes_per_cluster=self.context_metadata_bytes,
+                          policy='round-robin among ready contexts, one shared arithmetic/read grant per cluster cycle; full working sets paid'),
                       activation_sram_read_bytes_per_cycle=self.activation_sram_read_bytes_per_cycle,
                       sram_read_bytes=dict(self.sram_read_bytes),sram_read_busy_cycles=dict(self.sram_read_cycles),
                       outstanding_peak=dict(self.outstanding_peak), mc_peak=dict(self.mc_peak),
@@ -469,9 +496,9 @@ class SystemExecution:
 
 
 def execute_system(spec, graph, *, native=None, network_factory=None, max_ps=10_000_000,
-                   time_advance='gcd',activation_sram_read_bytes_per_cycle=None):
+                   time_advance='gcd',activation_sram_read_bytes_per_cycle=None,compute_contexts=1):
     execution = SystemExecution(spec, graph, native, network_factory=network_factory,
-                                activation_sram_read_bytes_per_cycle=activation_sram_read_bytes_per_cycle)
+                                activation_sram_read_bytes_per_cycle=activation_sram_read_bytes_per_cycle,compute_contexts=compute_contexts)
     try:
         return execution.run(max_ps,time_advance=time_advance)
     except BaseException:

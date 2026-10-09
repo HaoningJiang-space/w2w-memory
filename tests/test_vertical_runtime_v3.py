@@ -13,10 +13,26 @@ from w2w.backends.booksim.adapter import factory
 from w2w.system.kernel import execute_system
 from w2w.validation.vertical_access import audit_vertical_result
 from w2w.domain.protocol import MemoryRequest
+from w2w.domain.execution import ComputeTask,ExecutionGraph
 
 
 @unittest.skipUnless(os.getenv('W2W_BOOKSIM_BINARY') and os.getenv('W2W_RAMULATOR_BRIDGE'),'Native tools required')
 class VerticalRuntime(unittest.TestCase):
+    def test_finite_contexts_share_one_arithmetic_service(self):
+        spec=compile_machine(vertical_memory('central'))
+        graph=ExecutionGraph((ComputeTask('a','c0',10),ComputeTask('b','c0',10)))
+        native=VerticalRWDL(spec,refresh=False)
+        try:
+            with tempfile.TemporaryDirectory() as d:
+                r=execute_system(spec,graph,native=native,compute_contexts=2,time_advance='boundaries',max_ps=1000000,
+                    network_factory=factory(binary=Path(os.environ['W2W_BOOKSIM_BINARY']),directory=Path(d)/'network'))
+                self.assertTrue(audit_vertical_result(r)['passed'])
+                self.assertEqual(r['compute_execution']['context_peak']['c0'],2)
+                self.assertEqual(r['makespan_ps'],20000)
+                self.assertEqual(r['compute_busy_ps']['c0'],20000)
+                self.assertEqual(r['tasks']['a']['start_ps'],r['tasks']['b']['start_ps'])
+        finally:native.close()
+
     def test_small_complete_ffn(self):
         for organization in ('central','distributed','external'):
             stack=vertical_memory(organization);spec=compile_machine(stack)
