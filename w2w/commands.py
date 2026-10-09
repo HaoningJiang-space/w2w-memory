@@ -1,5 +1,6 @@
 """Lazy command registry; importing the package never runs an experiment."""
 COMMANDS = {
+    'run_residency_study': 'w2w.experiments.run_residency_study',
     'analyze_moe_layer': 'w2w.analysis.moe_layer',
     'run_moe_layer': 'w2w.experiments.run_moe_layer',
     'run_system_microbench': 'w2w.experiments.run_system_microbench',
@@ -85,7 +86,7 @@ COMMANDS = {
 # Scope metadata is separate from lazy module dispatch. Existing names/results
 # retain their v1 meaning; a new system command cannot silently reinterpret them.
 COMMAND_SCOPES = {
-    name: ('one_routed_ffn_layer_timing' if name in ('run_moe_layer', 'analyze_moe_layer') else
+    name: ('one_routed_ffn_layer_timing' if name in ('run_moe_layer', 'analyze_moe_layer', 'run_residency_study') else
            'system_execution_v2_prototype' if name == 'run_system_microbench' else
            'endpoint_microarchitecture' if any(token in name for token in
                ('endpoint', 'egress', 'role_interface', 'beat_return', 'static_binding', 'shared_fifo'))
