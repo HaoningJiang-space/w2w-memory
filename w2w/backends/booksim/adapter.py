@@ -382,10 +382,10 @@ class BookSimNetwork:
             value['cell_format'].update(self.cell_layout,sideband_bits=self.cell_sideband_bits)
         value['source_arbiter']=dict(policy='bounded oldest-ready' if self.arbiter_sources else 'FIFO',
             routers=sorted(self.arbiter_sources),slots_per_router=self.arbiter_slots if self.arbiter_sources else 0,
-            peak_messages=dict(self.arbiter_peak),additional_metadata_bits=len(self.arbiter_sources)*self.arbiter_slots*64,
+            peak_messages=dict(self.arbiter_peak),additional_metadata_bits=len(self.arbiter_sources)*self.arbiter_slots*96,
             data_buffer_bytes_added=0,physical_ports_added=0,selection_cycles=1,
             selection_logic_area_um2=None,
-            contract='64-bit control entry/message; select one cell/cycle from existing paid NI; router/VC/credits unchanged')
+            contract='96-bit control entry/message including tag, head pointer, prefix/ordinal, destination and age; one selected cell/cycle from existing NI; router/VC/credits unchanged')
         return value
 
     def close(self):
