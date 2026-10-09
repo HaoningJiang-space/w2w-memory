@@ -31,10 +31,13 @@ def communication_resources(record):
     paths=[p for p in physical['paths'] if p['resource_id'] in ids]
     n=len(spec['tiles']);m=len(spec['memories']);sideband=64
     width=spec['flit_bytes'];slots=spec['input_buffer_flits'];ni=spec['injection_flits']
+    interface=record['services']['memory']['interface']
+    controller=record['services']['memory']['controller']
+    arrays=interface['arrays'];lanes=arrays*interface['bits_per_array']
     internal=grid_collection_reference()
     return dict(schema='w2w.communication-resources.v1',calibrated=False,area_um2=None,energy_j=None,
-        rw_dl_hb=dict(shared_data_lanes_per_memory=4096,total_shared_data_lanes=m*4096,
-            period_ps=3760,duplicate_rw_dl_hb_charge=False,command_address_lanes=None,
+        rw_dl_hb=dict(shared_data_lanes_per_memory=lanes,total_shared_data_lanes=m*lanes,
+            period_ps=interface['period_ps'],duplicate_rw_dl_hb_charge=False,command_address_lanes=None,
             interface_area_um2=None),
         internal_collection=dict(reference=internal['scope'],included_in_runtime=False,
             data_wire_bit_mm=internal['data_wire_bit_mm_per_memory']*m,
@@ -59,6 +62,12 @@ def communication_resources(record):
             destination_message_reservation_slots=n*3*spec['ejection_packets'],
             destination_message_capacity_bytes=n*3*spec['ejection_packets']*(spec['packet_payload_bytes']+spec['header_bytes']),
             message_tag_pool_slots=65536,message_tag_bits=16,
+            native_command_entries_per_memory=arrays*controller['read_entries'],
+            native_command_entry_bare_min_bits_per_memory=arrays*controller['read_entries']*24,
+            native_row_hint_bits_per_memory=arrays*15,
+            native_row_comparators_per_memory=arrays*controller['descriptor_window'],
+            native_cdc_reservation_bytes_per_memory=arrays*8*16,
+            shared_mc_return_bytes_per_memory=max(mm['transaction_slots'] for mm in spec['memories'])*spec['memory_request_bytes'],
             credit_counter_min_bits_per_input=ceil(log2(slots+1)),
             counter_scope='one occupancy/credit count per input, not a complete controller cost',
             cell_sideband_storage_scope='64 bits/cell retained in router/endpoint storage; source NI is a storage reference, descriptor packing not implemented',
