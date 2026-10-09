@@ -17,7 +17,7 @@ from w2w.system.builder import SystemBuilder
 
 class SystemExecution:
     def __init__(self, spec, graph, native=None, *, network_factory=None,
-                 activation_sram_read_bytes_per_cycle=None,compute_contexts=1):
+                 activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None):
         self.spec, self.graph = spec, graph
         self.builder = SystemBuilder(spec).validate_graph(graph)
         self.events = []
@@ -41,6 +41,7 @@ class SystemExecution:
         self.activation_sram_read_bytes_per_cycle=activation_sram_read_bytes_per_cycle
         self.sram_read_bytes,self.sram_read_cycles=Counter(),Counter()
         self.tasks = {t.id: t for t in graph.tasks}
+        self.objects={o.id:o for o in graph.objects}
         self.predecessors={t.id:set() for t in graph.tasks}
         self.followers={t.id:set() for t in graph.tasks}
         self.incoming={t.id:[] for t in graph.tasks};self.outgoing={t.id:[] for t in graph.tasks}
@@ -81,6 +82,14 @@ class SystemExecution:
         self.context_metadata_bytes=(compute_contexts-1)*64
         for tile in self.builder.tiles:
             if self.context_metadata_bytes:self._sram(tile,self.context_metadata_bytes,'compute-context-state')
+        self.weight_cache=None;self.cache_reserved_bytes=0;self.cache_waiting={}
+        if weight_cache is not None:
+            from w2w.system.weight_cache import WeightCache
+            self.weight_cache=WeightCache(weight_cache,self.builder.tiles,self.log)
+            self.cache_reserved_bytes=weight_cache.data_bytes_per_cluster+weight_cache.metadata_bytes_per_cluster
+            for tile in self.builder.tiles:self._sram(tile,self.cache_reserved_bytes,'weight-cache-partition')
+            objects={o.id:o for o in graph.objects}
+            for tile,key in weight_cache.initial_resident:self.weight_cache.preload(tile,key,objects[key].size_bytes)
 
     def log(self, kind, **data):
         self.events.append(dict(time_ps=self.now, kind=kind, **data))
@@ -140,6 +149,8 @@ class SystemExecution:
                 if stream is not None:
                     self.log('stream_operand_ready',task=req.task,request=key,object=req.object_id,
                         object_offset=req.object_offset,bytes=req.size_bytes)
+                    if self.weight_cache and state['read_bytes']==sum(r.size_bytes for r in self.tasks[req.task].reads):
+                        self.weight_cache.filled(req.requester,stream.weight_object,req.task)
                 del self.requests[key]
             else:
                 raise RuntimeError('Unknown transaction packet')
@@ -155,7 +166,11 @@ class SystemExecution:
             self.engine[tile].remove(key)
             if not self.engine[tile]:del self.engine[tile]
             output = sum(self.edges[e]['edge'].size_bytes for e in self.outgoing[key])
-            self._sram(tile, -(self.builder.footprint[key]-output), key)
+            size=self.builder.footprint[key]
+            if self.weight_cache and task.stream:
+                size-=sum(r.size_bytes for r in task.reads)
+                self.weight_cache.release(tile,task.stream.weight_object)
+            self._sram(tile, -(size-output), key)
             state['done'] = True
             self.done_count+=1;self.active_edges.update(self.outgoing[key])
             for consumer in self.followers[key]:
@@ -173,14 +188,27 @@ class SystemExecution:
             if any(not self.state[p].get('done') for p in predecessors):
                 continue
             size = self.builder.footprint[key]
+            cache=self.weight_cache if task.stream is not None else None
+            if self.weight_cache and task.reads and cache is None:raise ValueError('Cache primitive requires explicit whole-matrix streaming GEMM')
+            if cache:size-=sum(r.size_bytes for r in task.reads)
             if self.sram[task.tile]+size > self.builder.tiles[task.tile].sram_bytes:
                 continue
+            if cache:
+                total=sum(r.size_bytes for r in task.reads)
+                expected=self.objects[task.stream.weight_object].size_bytes
+                if total!=expected:raise ValueError('Cache access must cover the whole matrix and scales')
+                hit=cache.acquire(task.tile,task.stream.weight_object,total,key,self.now,self.builder.tiles[task.tile].compute_period_ps)
+                if hit is None:continue
+                state['cache_hit']=hit
+                self.cache_waiting[key]=cache.lookup_times[key]
             self._sram(task.tile, size, key)
             state['allocated'] = True
             self.unallocated.remove(key)
             self.alloc_candidates.remove(key)
             self.ready_tasks.add(key)
-            self.reading.add(key)
+            if cache and hit:
+                state['issued_all']=True
+            else:self.reading.add(key)
             self.log('task_allocate', task=key, tile=task.tile)
 
     def _data_transfers(self):
@@ -233,7 +261,7 @@ class SystemExecution:
         used = Counter()
         for key in sorted(self.reading):
             task, state = self.tasks[key], self.state[key]
-            if (not state['allocated'] or state['issued_all'] or used[task.tile] >= self.spec.read_requests_per_tile_cycle
+            if (not state['allocated'] or key in self.cache_waiting or state['issued_all'] or used[task.tile] >= self.spec.read_requests_per_tile_cycle
                     or self.outstanding[task.tile] >= self.spec.outstanding_per_tile):
                 continue
             while (used[task.tile] < self.spec.read_requests_per_tile_cycle
@@ -255,6 +283,18 @@ class SystemExecution:
                 used[task.tile] += 1
                 self.log('read_issue', request=req.id, task=key, memory=req.memory,
                          bank=req.bank, word_address=req.word_address, bytes=req.size_bytes)
+
+    def _cache_lookup_progress(self):
+        for key,at in list(self.cache_waiting.items()):
+            if at>self.now:continue
+            task=self.tasks[key];state=self.state[key];stream=task.stream
+            self.weight_cache.lookup_complete(task.tile,key);del self.cache_waiting[key]
+            self.log('cache_lookup_complete',task=key,tile=task.tile)
+            if state['cache_hit']:
+                total=sum(r.size_bytes for r in task.reads)
+                state.update(read_bytes=total,stream_scale_delivered=stream.scale_bytes,stream_weight_delivered=stream.weight_data_bytes)
+                self.log('cache_operands_ready',task=key,tile=task.tile,object=stream.weight_object,
+                    bytes=total,weight_bytes=stream.weight_data_bytes,scale_bytes=stream.scale_bytes)
 
     def _memory_progress(self, network_boundary):
         for key in sorted(self.requests):
@@ -440,6 +480,7 @@ class SystemExecution:
             if self.now % self.spec.noc_period_ps == 0:
                 self.network.deliver(self.now, self._receive)
             self._native_progress()
+            self._cache_lookup_progress()
             # Resolve local zero-duration control nodes, never bypass data delivery.
             for _ in range(len(self.tasks)+1):
                 before = self.done_count
@@ -462,6 +503,8 @@ class SystemExecution:
             if makespan is not None and self.network.drained():
                 if self.context_metadata_bytes:
                     for tile in self.builder.tiles:self._sram(tile,-self.context_metadata_bytes,'compute-context-state')
+                if self.weight_cache:
+                    for tile in self.builder.tiles:self._sram(tile,-self.cache_reserved_bytes,'weight-cache-partition')
                 if (any(self.outstanding.values()) or any(self.sram.values()) or any(self.mc_slots.values())
                         or any(row['stage'] != 'delivered' for row in self.requests.values())
                         or self.native.record()['pending']):
@@ -491,14 +534,15 @@ class SystemExecution:
                       mc_pool_peak=dict(self.mc_pool_peak),
                       network=self.network.record(), native=self.native.record(),
                       physical=self.builder.physical_record(), events=self.events)
+        if self.weight_cache:record['weight_cache']=self.weight_cache.record()
         record['input_sha256'] = sha256(json.dumps([record['spec'], record['graph']], sort_keys=True).encode()).hexdigest()
         return record
 
 
 def execute_system(spec, graph, *, native=None, network_factory=None, max_ps=10_000_000,
-                   time_advance='gcd',activation_sram_read_bytes_per_cycle=None,compute_contexts=1):
+                   time_advance='gcd',activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None):
     execution = SystemExecution(spec, graph, native, network_factory=network_factory,
-                                activation_sram_read_bytes_per_cycle=activation_sram_read_bytes_per_cycle,compute_contexts=compute_contexts)
+                                activation_sram_read_bytes_per_cycle=activation_sram_read_bytes_per_cycle,compute_contexts=compute_contexts,weight_cache=weight_cache)
     try:
         return execution.run(max_ps,time_advance=time_advance)
     except BaseException:

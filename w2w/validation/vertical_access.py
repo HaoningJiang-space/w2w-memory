@@ -8,6 +8,7 @@ def audit_vertical_result(result):
     stack=result['spec']['stack'];native=result['native']
     domains={d['id']:d for d in stack['dram_domains']}
     expected=sum(r['size_bytes'] for t in result['graph']['tasks'] for r in t['reads'])
+    expected-=result.get('weight_cache',{}).get('stats',{}).get('hit_bytes',0)
     if native['physical_domain_count']!=len(domains) or native['physical_capacity_bytes']!=sum(d['capacity_bytes'] for d in domains.values()):
         raise ValueError('Native physical service/capacity was duplicated')
     if (native['completed_atoms']*16!=expected or sum(native['gateway_bytes'].values())!=expected
