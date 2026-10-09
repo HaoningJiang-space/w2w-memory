@@ -8,6 +8,14 @@ class SystemBuilder:
         self.tiles = {t.id: t for t in spec.tiles}
         self.memories = {m.id: m for m in spec.memories}
         self.links = {link.id: link for link in spec.links}
+        self.v3 = hasattr(spec, 'stack')
+        if self.v3:
+            self.routers = {r.id:r for r in spec.routers}
+            self.edges = {(l.src,l.dst):l.id for l in spec.links}
+            if len(self.tiles)!=len(spec.tiles) or len(self.memories)!=len(spec.memories):
+                raise ValueError('Duplicate execution endpoint')
+            self.physical_graph = spec.stack.physical_graph
+            return
         if (len(self.tiles) != len(spec.tiles) or len(self.memories) != len(spec.memories)
                 or set(self.tiles) & set(self.memories) or len(self.links) != len(spec.links)):
             raise ValueError('Duplicate physical node/link ID')
@@ -47,6 +55,8 @@ class SystemBuilder:
 
     def route(self, src, dst):
         """Memory nodes may terminate/inject packets, never transit other traffic."""
+        if self.v3:
+            return self.physical_graph.route(self.spec.endpoint_router(src),self.spec.endpoint_router(dst))
         if src == dst:
             if src not in self.tiles:
                 raise ValueError('Local memory-to-memory communication is unsupported')
@@ -116,6 +126,9 @@ class SystemBuilder:
         return self
 
     def physical_record(self):
+        if self.v3:
+            from w2w.architecture.resources import inventory
+            return inventory(self.spec.stack)
         return dict(reticle_count=len({t.reticle for t in self.spec.tiles}),
                     tile_count=len(self.tiles), compute_engine_count=len(self.tiles),
                     memory_count=len(self.memories),
