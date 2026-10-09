@@ -116,6 +116,15 @@ class BookSimNetwork:
     def log(self, now, kind, **values):
         self.events.append(dict(time_ps=now, kind=kind, **values))
 
+    @property
+    def rx_write_bytes(self):
+        """Compatibility view; the receive port is the sole state owner."""
+        return self.write_port.bytes
+
+    @property
+    def rx_write_cycles(self):
+        return self.write_port.cycles
+
     def _future(self, at, kind, key, item=None):
         self.serial += 1
         heapq.heappush(self.future, (at, self.serial, kind, key, item))
