@@ -19,9 +19,12 @@ class IncrementalMemory {
   uint64_t cycle = 0;
   int channels = 0;
   int transaction_bytes = 0;
+  uint64_t array_atoms = 1u << 20;
   bool closed = false;
  public:
-  explicit IncrementalMemory(nb::dict config) {
+  explicit IncrementalMemory(nb::dict config, uint64_t atom_limit = 1u << 20) : array_atoms(atom_limit) {
+    if (array_atoms != (1u << 20) && array_atoms != (1u << 22))
+      throw std::runtime_error("Unsupported explicitly declared RWDL array capacity");
     channels = nb::len(nb::cast<nb::list>(
         nb::cast<nb::dict>(config["memory_system"])["controllers"]));
     auto cfg = py_to_confignode(config);
@@ -44,13 +47,13 @@ class IncrementalMemory {
       address = {bank / 32, local / 16, 0, (local % 16) / 4,
                  local % 4, int(word_address / 32), int((word_address % 32) * 4)};
     } else {
-      // RWDL: one 16 MiB array/controller, 64 sixteen-byte columns/row.
-      if (bank < 0 || bank >= channels || word_address >= (1u << 20))
+      // One shared physical array/controller, 64 sixteen-byte columns/row.
+      if (bank < 0 || bank >= channels || word_address >= array_atoms)
         throw std::runtime_error("Address outside RWDL candidate array");
       address = {bank, 0, 0, int(word_address / 64), int(word_address % 64)};
     }
     Request req(address, Request::Type::Read);
-    req.addr = (uint64_t(bank) * (transaction_bytes == 32 ? (1u << 19) : (1u << 20))
+    req.addr = (uint64_t(bank) * (transaction_bytes == 32 ? (1u << 19) : array_atoms)
                 + word_address) * transaction_bytes;
     req.source_id = 0;
     req.size_bytes = transaction_bytes;
@@ -82,7 +85,7 @@ class IncrementalMemory {
 NB_MODULE(_w2w_ramulator, m) {
   m.attr("upstream_commit") = W2W_RAMULATOR_COMMIT;
   nb::class_<IncrementalMemory>(m, "IncrementalMemory")
-    .def(nb::init<nb::dict>())
+    .def(nb::init<nb::dict,uint64_t>(), nb::arg("config"), nb::arg("array_atoms") = (1u << 20))
     .def("send", &IncrementalMemory::send)
     .def("advance", &IncrementalMemory::advance)
     .def("stats", &IncrementalMemory::stats)

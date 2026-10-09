@@ -18,7 +18,9 @@ class W2WRWDL(DRAMStandard):
     timing_params = ['nBL', 'nCL', 'nRCD', 'nRP', 'nRAS', 'nRC', 'nWR',
                      'nRTP', 'nCWL', 'nWTR', 'nRTW', 'nRFC', 'nREFI', 'tCK_ps']
     org_presets = {'array128Mbit': dict(dq=128, channel_width=128, rank=1,
-                                       bank=1, row=1 << 14, column=64)}
+                                       bank=1, row=1 << 14, column=64),
+                   'array512Mbit': dict(dq=128, channel_width=128, rank=1,
+                                       bank=1, row=1 << 16, column=64)}
     # 3.76 ns interface and 6 ns CAS-to-data are public interface anchors.
     # CAS rounded up to 2 CK; callback includes one complete 16 B data beat.
     # All other values below are declared study assumptions, NOT SeDRAM bins.

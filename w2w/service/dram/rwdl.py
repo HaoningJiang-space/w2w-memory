@@ -8,15 +8,18 @@ from w2w.common.fingerprints import digest_read_v1 as digest
 from w2w.common.validators import integer
 
 
-def candidate_config(memories, *, refresh=True, command_trace=None,profile=None):
+def candidate_config(memories, *, refresh=True, command_trace=None,profile=None,
+                     domain_count=None,array_bytes=16*1024**2):
     import ramulator
     integer(memories, 'memories', 1)
     controllers = []
-    for channel in range(memories * 32):
+    count=memories*32 if domain_count is None else domain_count
+    if array_bytes not in (16*1024**2,64*1024**2):raise ValueError('Unsupported declared array capacity')
+    for channel in range(count):
         plugins = ([] if command_trace is None else
                    [ramulator.controller_plugin.CmdTraceRecorder(path=str(command_trace))])
         controller = ramulator.controller.GenericDDR(
-            dram=W2WRWDL(org_preset='array128Mbit', timing_preset='candidate3760ps',
+            dram=W2WRWDL(org_preset='array128Mbit' if array_bytes==16*1024**2 else 'array512Mbit', timing_preset='candidate3760ps',
                 **({} if profile is None else vars(profile.timing))),
             scheduler=ramulator.scheduler.FRFCFS(),
             refresh_manager=ramulator.refresh_manager.NoRefresh(),
@@ -43,7 +46,10 @@ class RamulatorRWDL:
     def __init__(self, memories, **kwargs):
         self.config = candidate_config(memories, **kwargs)
         bridge, path = load_bridge()
-        self.impl = bridge.IncrementalMemory(self.config)
+        self.domain_count=memories*32 if kwargs.get('domain_count') is None else kwargs['domain_count']
+        self.atom_limit=kwargs.get('array_bytes',16*1024**2)//16
+        self.impl = (bridge.IncrementalMemory(self.config) if self.atom_limit==1 << 20
+                     else bridge.IncrementalMemory(self.config,self.atom_limit))
         self.bridge_sha256 = sha256(path.read_bytes()).hexdigest()
         self.accepted = self.completed = self.rejected = 0
         self.pending = set()
@@ -51,7 +57,7 @@ class RamulatorRWDL:
         self.last_ps = 0
 
     def submit(self, channel, atom_address):
-        if not 0 <= channel < self.memories*32 or not 0 <= atom_address < 1 << 20:
+        if not 0 <= channel < self.domain_count or not 0 <= atom_address < self.atom_limit:
             raise ValueError('Out-of-range RWDL array address')
         ticket = self.accepted
         if not self.impl.send(ticket, channel, atom_address):

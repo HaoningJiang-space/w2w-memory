@@ -11,7 +11,7 @@ class DRAMDomain:
     data_bits: int = 128
     period_ps: int = 3760
     command_read_entries: int = 4
-    return_atoms: int = 8
+    return_atoms: int = 64
 
 
 @dataclass(frozen=True)

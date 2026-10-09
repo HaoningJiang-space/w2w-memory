@@ -61,6 +61,8 @@ class SystemExecution:
         self.outstanding_peak = Counter()
         self.mc_slots = Counter()
         self.mc_peak = Counter()
+        self.mc_pool_slots=Counter()
+        self.mc_pool_peak=Counter()
         self.now = 0
 
     def log(self, kind, **data):
@@ -92,9 +94,12 @@ class SystemExecution:
             req = row['request']
             if kind == 'request':
                 memory = self.builder.memories[req.memory]
-                if self.mc_slots[req.memory] >= memory.transaction_slots:
+                pool=getattr(memory,'mc_pool_id',req.memory)
+                if self.mc_pool_slots[pool] >= memory.transaction_slots:
                     return False
                 self.mc_slots[req.memory] += 1
+                self.mc_pool_slots[pool]+=1
+                self.mc_pool_peak[pool]=max(self.mc_pool_peak[pool],self.mc_pool_slots[pool])
                 self.mc_peak[req.memory] = max(self.mc_peak[req.memory], self.mc_slots[req.memory])
                 row['stage'] = 'native_wait' if self.native_at_controller else 'command_send'
                 self.log('mc_accept', request=key, memory=req.memory)
@@ -244,7 +249,7 @@ class SystemExecution:
                 if self._send(key+'/resp', mc, req.requester, 'response', req.size_bytes, 'response', key):
                     row['stage'] = 'response_flight'
                     # Data copied into a finite NI. MC transaction/return slot is now reusable.
-                    self.mc_slots[req.memory] -= 1
+                    self._release_mc(req)
                     self.log('mc_release', request=key, memory=req.memory)
 
     def _stream_response(self, key, row, mc):
@@ -264,9 +269,13 @@ class SystemExecution:
             if not row['native_done']:
                 raise RuntimeError('Response supplied before all native words completed')
             # Full NI reservation now owns all bytes; MC slot remains held until this point.
-            self.mc_slots[req.memory] -= 1
+            self._release_mc(req)
             row['mc_released'] = True
             self.log('mc_release',request=key,memory=req.memory)
+
+    def _release_mc(self,req):
+        self.mc_slots[req.memory]-=1
+        self.mc_pool_slots[getattr(self.builder.memories[req.memory],'mc_pool_id',req.memory)]-=1
 
     def _native_progress(self):
         complete = self.native.advance(self.now)
@@ -398,6 +407,7 @@ class SystemExecution:
                       activation_sram_read_bytes_per_cycle=self.activation_sram_read_bytes_per_cycle,
                       sram_read_bytes=dict(self.sram_read_bytes),sram_read_busy_cycles=dict(self.sram_read_cycles),
                       outstanding_peak=dict(self.outstanding_peak), mc_peak=dict(self.mc_peak),
+                      mc_pool_peak=dict(self.mc_pool_peak),
                       network=self.network.record(), native=self.native.record(),
                       physical=self.builder.physical_record(), events=self.events)
         record['input_sha256'] = sha256(json.dumps([record['spec'], record['graph']], sort_keys=True).encode()).hexdigest()
