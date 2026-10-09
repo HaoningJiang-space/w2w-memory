@@ -29,10 +29,11 @@ CASES['rotated-shard-stream']=('rotated_shard',True)
 
 def inputs(name):
     architecture,streaming=CASES[name]
-    graph,metadata=(compile_routed_layer(load_layer_routing(cohort='c2_b4'),residency='four_way') if architecture=='gather'
-                    else compile_partitioned_layer(routing=load_layer_routing(cohort='c2_b4')))
-    if architecture=='rotated_shard':
-        graph,metadata=compile_rotated_partition_layer(routing=load_layer_routing(cohort='c2_b4'))
+    routing=load_layer_routing(cohort='c2_b4')
+    if architecture=='gather':graph,metadata=compile_routed_layer(routing,residency='four_way')
+    else:
+        compiler=compile_rotated_partition_layer if architecture=='rotated_shard' else compile_partitioned_layer
+        graph,metadata=compiler(routing=routing)
     spec,physical=from_coordinates(replace(machine(),dram_period_ps=3760))
     return graph,spec,dict(graph=asdict(graph),metadata=metadata,spec=asdict(spec),physical=physical,
                           architecture=architecture,streaming=streaming)
@@ -54,7 +55,8 @@ def prepare(output,names=BASE_CASES,reference=None):
             frozen=json.loads((reference/'inputs'/(name+'.json')).read_text())
             done=json.loads((reference/'cases'/name/'completion.json').read_text())
             if (digest(frozen)!=case['input_sha256'] or old['input_sha256']!=case['input_sha256']
-                    or not done['complete'] or done['source_commit']!=reference_reg['source_commit']):
+                    or not done['complete'] or done['source_commit']!=reference_reg['source_commit']
+                    or done['input_sha256']!=case['input_sha256']):
                 raise ValueError('Archived matched reference differs or is incomplete')
             case.update(reference_directory=str((reference/'cases'/name).resolve()),
                         source_commit=reference_reg['source_commit'])
@@ -69,9 +71,8 @@ def prepare(output,names=BASE_CASES,reference=None):
         comparisons='gather readiness only; near-shard changes static intermediate weight/compute placement and bills FP32 reduction',
         excluded='Direct HB, endpoint RTL, prefetch, dynamic migration, reticle area DSE')
     if 'rotated-shard-stream' in names:
-        near,spec,_=inputs('near-shard-stream');rotated,_,_=inputs('rotated-shard-stream')
-        near_meta=inputs('near-shard-stream')[2]['metadata'];rotated_meta=inputs('rotated-shard-stream')[2]['metadata']
-        registration['matched_parallel_control']=matched_partition_contract(near,near_meta,rotated,rotated_meta,spec)
+        near,spec,a=inputs('near-shard-stream');rotated,_,b=inputs('rotated-shard-stream')
+        registration['matched_parallel_control']=matched_partition_contract(near,a['metadata'],rotated,b['metadata'],spec)
         registration['comparisons']+='; matched four-chain clockwise rotation changes only block compute locations'
     write(output/'registration.json',registration)
     print(json.dumps(dict(prepared=str(output),cases=list(names))),flush=True)

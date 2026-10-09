@@ -14,10 +14,12 @@ args=p.parse_args()
 if args.interval<1 or args.checks<1:p.error('Positive interval/check count required')
 registration=json.loads((args.study/'registration.json').read_text())
 names=[c['name'] for c in registration['cases']]
+directories={c['name']:Path(c.get('reference_directory',args.study/'cases'/c['name']))
+             for c in registration['cases']}
 for _ in range(args.checks):
     status={}
     for name in names:
-        done=args.study/'cases'/name/'completion.json'
+        done=directories[name]/'completion.json'
         log=args.logs/(name+'.log')
         if done.exists():status[name]=json.loads(done.read_text())
         elif log.exists() and 'Traceback (most recent call last)' in log.read_text():status[name]={'failed':True}
