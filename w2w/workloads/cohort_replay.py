@@ -16,12 +16,7 @@ STEPS = (17, 65, 113)
 BATCHES = (1, 4, 16)
 
 
-def read_json(path):
-    path = Path(path)
-    if not path.exists() and path.suffix != '.gz':
-        path = path.with_suffix(path.suffix + '.gz')
-    raw = path.read_bytes()
-    return json.loads(gzip.decompress(raw) if path.suffix == '.gz' else raw)
+from w2w.common.io import read_json
 
 
 def frozen_owners():

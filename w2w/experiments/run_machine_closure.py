@@ -7,9 +7,10 @@ from pathlib import Path
 import platform
 import time
 
-from w2w.analysis.moe_layer import digest
-from w2w.experiments.run_moe_layer import summarize, write
-from w2w.experiments.run_residency_study import revision
+from w2w.common.fingerprints import digest_system_v2 as digest
+from w2w.common.io import write_json as write
+from w2w.analysis.system_summary import summarize
+from w2w.provenance import revision
 from w2w.memory.backend import RamulatorAbsolute
 from w2w.network.booksim_backend import factory
 from w2w.system.kernel import execute_system

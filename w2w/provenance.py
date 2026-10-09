@@ -3,8 +3,11 @@ import subprocess
 import platform
 import importlib.metadata
 
+def revision():
+    return subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+
 def provenance():
-    return dict(commit=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
+    return dict(commit=revision(),
                 git_status=subprocess.check_output(['git','status','--porcelain'],text=True),
                 host=platform.node(), python=platform.python_version(),
                 packages={m:importlib.metadata.version(m) for m in ['numpy','scipy','shapely','pymetis','networkx','matplotlib']})

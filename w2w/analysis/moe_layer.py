@@ -8,8 +8,7 @@ from pathlib import Path
 import subprocess
 
 
-def digest(value):
-    return sha256(json.dumps(value, sort_keys=True).encode()).hexdigest()
+from w2w.common.fingerprints import digest_system_v2 as digest
 
 
 def file_record(path):

@@ -8,21 +8,16 @@ import platform
 import subprocess
 import time
 
-from w2w.analysis.moe_layer import digest
-from w2w.experiments.run_moe_layer import summarize, write
+from w2w.common.fingerprints import digest_system_v2 as digest
+from w2w.common.io import write_json as write
+from w2w.analysis.system_summary import summarize
+from w2w.provenance import revision
+from w2w.workloads.semantics import logical_work
 from w2w.memory.backend import RamulatorAbsolute
 from w2w.network.booksim_backend import factory
 from w2w.system.kernel import execute_system
 from w2w.validation.system_execution import audit_system_result
 from w2w.workloads.moe_task_graph import LAYER_COHORTS, compile_layer, machine
-
-
-def logical_work(graph):
-    """Logical task work, independent of how weight bytes are physically split."""
-    graph = asdict(graph) if not isinstance(graph, dict) else graph
-    return dict(tasks=[dict(**{k: v for k, v in t.items() if k != 'reads'},
-                            weight_bytes=sum(r['size_bytes'] for r in t['reads']))
-                       for t in graph['tasks']], data=graph['data'], control=graph['control'])
 
 
 def prepare(output, policies=('pair', 'four_way')):
@@ -58,10 +53,6 @@ def prepare(output, policies=('pair', 'four_way')):
         policy='all 128 experts; home / horizontal pair / aligned 2x2; fixed owner geometry, no trace fitting',
         max_ps=20_000_000_000))
     print(json.dumps(dict(prepared=str(output), cases=len(cases), layouts=layouts)), flush=True)
-
-
-def revision():
-    return subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip()
 
 
 def run_case(output, name, source, binary):

@@ -4,14 +4,10 @@ from hashlib import sha256
 import json
 
 
-def digest(value):
-    return sha256(json.dumps(value, sort_keys=True, separators=(',', ':'),
-                             allow_nan=False).encode()).hexdigest()
+from w2w.common.fingerprints import digest_read_v1 as digest
 
 
-def integer(value, name, minimum=0):
-    if type(value) is not int or value < minimum:
-        raise ValueError(f'{name} must be an integer >= {minimum}')
+from w2w.common.validators import integer
 
 
 @dataclass(frozen=True)

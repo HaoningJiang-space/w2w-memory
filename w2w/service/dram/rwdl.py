@@ -4,7 +4,8 @@ import math
 
 from w2w.service.dram.ramulator import UPSTREAM_COMMIT, load_bridge
 from w2w.service.dram.rwdl_spec import W2WRWDL
-from w2w.workloads.read_trace import digest, integer
+from w2w.common.fingerprints import digest_read_v1 as digest
+from w2w.common.validators import integer
 
 
 def candidate_config(memories, *, refresh=True, command_trace=None):

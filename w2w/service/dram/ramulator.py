@@ -11,7 +11,8 @@ import math
 import os
 from pathlib import Path
 
-from w2w.workloads.read_trace import digest, integer
+from w2w.common.fingerprints import digest_read_v1 as digest
+from w2w.common.validators import integer
 
 UPSTREAM_COMMIT = '72427a1bba3771564c4fb0e494ba02242fd1eaa7'
 BANK_WORDS = 1 << 19

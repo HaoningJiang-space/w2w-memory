@@ -7,7 +7,7 @@ from pathlib import Path
 
 from w2w.analysis.moe_layer import digest, file_record, inspect
 from w2w.analysis.residency_study import network_parameters
-from w2w.experiments.run_residency_study import logical_work
+from w2w.workloads.semantics import logical_work
 from w2w.validation.system_execution import audit_system_result
 
 
