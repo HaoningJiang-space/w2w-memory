@@ -31,6 +31,21 @@ class ReadAccess:
 
 
 @dataclass(frozen=True)
+class StreamGemm:
+    weight_object: str
+    weight_data_bytes: int
+    scale_bytes: int
+    macs: int
+    macs_per_cycle: int
+    weight_read_bytes_per_cycle: int
+
+    def __post_init__(self):
+        for name in ('weight_data_bytes','scale_bytes','macs','macs_per_cycle','weight_read_bytes_per_cycle'):
+            positive(getattr(self,name),name)
+        if self.macs%self.weight_data_bytes:raise ValueError('Integral token reuse required')
+
+
+@dataclass(frozen=True)
 class ComputeTask:
     id: str
     tile: str
@@ -38,6 +53,7 @@ class ComputeTask:
     reads: tuple[ReadAccess, ...] = ()
     scratch_bytes: int = 0
     release_ps: int = 0
+    stream: StreamGemm | None = None
 
     def __post_init__(self):
         object.__setattr__(self, 'reads', tuple(self.reads))

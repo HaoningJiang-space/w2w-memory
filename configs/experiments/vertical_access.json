@@ -1,0 +1,11 @@
+{
+  "schema": "w2w.experiment-recipe.v3",
+  "machine": "configs/machine/v3-small.json",
+  "cohort": "c0_b1",
+  "cases": ["central", "distributed", "external"],
+  "matched": ["central", "distributed"],
+  "native_policy": "q4 finite row-batched, staggered refresh, 64 atom reservations/domain",
+  "compute_policy": "scale first, committed descriptor-driven GEMM; complete GEMM before nonlinear operation",
+  "storage_policy": "full matrix reservation, explicit per-consumer copies",
+  "external_scope": "same compute fabric, separate external DRAM proxy and 4x32 B/cycle edge I/O budget"
+}

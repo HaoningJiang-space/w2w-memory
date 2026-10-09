@@ -3,7 +3,7 @@ from collections import Counter
 
 
 def audit_system_result(result):
-    if result['schema'] != 'w2w.system-execution.v2':
+    if result['schema'] not in ('w2w.system-execution.v2','w2w.system-execution.v3'):
         raise ValueError('Incompatible result scope')
     spec, graph = result['spec'], result['graph']
     links = {l['id']: l for l in spec['links']}
@@ -15,6 +15,8 @@ def audit_system_result(result):
     sram, sram_peak, data, read, link_count, packet_flits = Counter(), Counter(), Counter(), Counter(), Counter(), Counter()
     slots = set()
     last = -1
+    stream_ready,stream_scale,stream_consumed,stream_macs,stream_ticks=Counter(),Counter(),Counter(),Counter(),set()
+    last_compute={}
     for event in result['events']:
         at, kind = event['time_ps'], event['kind']
         if at < last: raise ValueError('Nonmonotonic event ledger')
@@ -60,6 +62,22 @@ def audit_system_result(result):
                 for field in ('task', 'memory', 'bank', 'word_address', 'bytes'):
                     if event[field] != issued[field]: raise ValueError('Read address identity changed')
                 read[event['task']] += event['bytes']
+        elif kind == 'stream_operand_ready':
+            task=tasks[event['task']];rule=task['stream']
+            if event['object']!=rule['weight_object']:raise ValueError('Wrong streamed weight object')
+            if event['object_offset']>=rule['weight_data_bytes']:stream_scale[event['task']]+=event['bytes']
+            else:stream_ready[event['task']]+=event['bytes']
+        elif kind == 'stream_compute':
+            key=event['task'];rule=tasks[key]['stream']
+            tick=(event['tile'],at)
+            if key not in starts or key in finishes or tick in stream_ticks:raise ValueError('Invalid streamed engine service')
+            stream_ticks.add(tick);last_compute[key]=at
+            if (event['macs']>rule['macs_per_cycle'] or event['weight_bytes']>rule['weight_read_bytes_per_cycle']
+                    or event['macs']*rule['weight_data_bytes']!=event['weight_bytes']*rule['macs']):
+                raise ValueError('Streamed compute exceeds arithmetic/SRAM service')
+            stream_consumed[key]+=event['weight_bytes'];stream_macs[key]+=event['macs']
+            if stream_consumed[key]>stream_ready[key] or stream_scale[key]!=rule['scale_bytes']:
+                raise ValueError('Streamed arithmetic consumed unavailable operands')
         elif kind == 'task_start':
             key = event['task']
             if key in starts: raise ValueError('Task started twice')
@@ -69,8 +87,10 @@ def audit_system_result(result):
             for edge in graph['control']:
                 if edge['consumer'] == key and edge['producer'] not in finishes:
                     raise ValueError('Control predecessor incomplete')
-            if read[key] != sum(r['size_bytes'] for r in tasks[key]['reads']):
+            if not tasks[key].get('stream') and read[key] != sum(r['size_bytes'] for r in tasks[key]['reads']):
                 raise ValueError('Compute started before memory delivery')
+            if tasks[key].get('stream') and stream_scale[key]!=tasks[key]['stream']['scale_bytes']:
+                raise ValueError('Streamed GEMM started before scale delivery')
             for other in starts:
                 if tasks[other]['tile'] == event['tile'] and other not in finishes:
                     raise ValueError('Compute engine overallocated')
@@ -78,7 +98,12 @@ def audit_system_result(result):
         elif kind == 'task_finish':
             key = event['task']
             period = next(t['compute_period_ps'] for t in spec['tiles'] if t['id'] == tasks[key]['tile'])
-            if key not in starts or at != starts[key]+tasks[key]['compute_cycles']*period:
+            rule=tasks[key].get('stream')
+            if rule:
+                if (stream_consumed[key]!=rule['weight_data_bytes'] or stream_macs[key]!=rule['macs']
+                        or read[key]!=sum(r['size_bytes'] for r in tasks[key]['reads']) or at!=last_compute[key]+period):
+                    raise ValueError('Invalid streamed GEMM completion')
+            elif key not in starts or at != starts[key]+tasks[key]['compute_cycles']*period:
                 raise ValueError('Invalid compute duration')
             finishes[key] = at
     if (set(packets) != delivered or set(finishes) != set(tasks) or any(sram.values())

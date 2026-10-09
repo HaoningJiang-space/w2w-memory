@@ -57,6 +57,7 @@ class SystemExecution:
         self.sram_peak = Counter()
         self.engine = {}
         self.busy_ps = Counter()
+        self.engine_context_ps=Counter()
         self.outstanding = Counter()
         self.outstanding_peak = Counter()
         self.mc_slots = Counter()
@@ -110,11 +111,19 @@ class SystemExecution:
             elif kind == 'response':
                 row['stage'] = 'delivered'
                 self.state[req.task]['read_bytes'] += req.size_bytes
+                stream=getattr(self.tasks[req.task],'stream',None)
+                if stream is not None:
+                    state=self.state[req.task]
+                    name='stream_scale_delivered' if req.object_offset>=stream.weight_data_bytes else 'stream_weight_delivered'
+                    state[name]=state.get(name,0)+req.size_bytes
                 self.outstanding[req.requester] -= 1
                 self.log('read_deliver', request=key, task=req.task, bytes=req.size_bytes,
                          memory=req.memory, bank=req.bank, word_address=req.word_address,
                          receive_service=(self.network.packet_metrics(packet.id)
                             if hasattr(self.network,'packet_metrics') else None))
+                if stream is not None:
+                    self.log('stream_operand_ready',task=req.task,request=key,object=req.object_id,
+                        object_offset=req.object_offset,bytes=req.size_bytes)
                 del self.requests[key]
             else:
                 raise RuntimeError('Unknown transaction packet')
@@ -124,13 +133,14 @@ class SystemExecution:
     def _compute_completions(self):
         for tile, key in list(self.engine.items()):
             state = self.state[key]
-            if state['finish_ps'] > self.now:
+            if state['finish_ps'] is None or state['finish_ps'] > self.now:
                 continue
             task = self.tasks[key]
             del self.engine[tile]
             output = sum(e.size_bytes for e in self.graph.data if e.producer == key)
             self._sram(tile, -(self.builder.footprint[key]-output), key)
             state['done'] = True
+            self.engine_context_ps[tile]+=self.now-state['start_ps']
             self.log('task_finish', task=key, tile=tile)
 
     def _allocate(self):
@@ -317,18 +327,44 @@ class SystemExecution:
             if (not state['allocated'] or state['start_ps'] is not None
                     or task.tile in self.engine or self.now % tile.compute_period_ps):
                 continue
-            if state['read_bytes'] != sum(r.size_bytes for r in task.reads):
+            stream=getattr(task,'stream',None)
+            if stream is None and state['read_bytes'] != sum(r.size_bytes for r in task.reads):
+                continue
+            if stream is not None and state.get('stream_scale_delivered',0)!=stream.scale_bytes:
                 continue
             if any(row['delivered'] != row['edge'].size_bytes for row in self.edges.values()
                    if row['edge'].consumer == key):
                 continue
             state['start_ps'] = self.now
             duration = task.compute_cycles*tile.compute_period_ps
-            state['finish_ps'] = self.now+duration
+            state['finish_ps'] = self.now+duration if stream is None else None
             self.engine[task.tile] = key
             self.ready_tasks.remove(key)
-            self.busy_ps[task.tile] += duration
+            if stream is None:self.busy_ps[task.tile] += duration
             self.log('task_start', task=key, tile=task.tile)
+
+    def _stream_compute_progress(self):
+        for tile,key in self.engine.items():
+            task=self.tasks[key];stream=getattr(task,'stream',None);state=self.state[key]
+            period=self.builder.tiles[tile].compute_period_ps
+            if stream is None or state['finish_ps'] is not None or self.now%period or state.get('stream_tick')==self.now:
+                continue
+            state['stream_tick']=self.now
+            if not state.get('stream_scale_consumed'):
+                state['stream_scale_consumed']=True
+                self.busy_ps[tile]+=period
+                self.log('stream_compute',task=key,tile=tile,weight_bytes=0,scale_bytes=stream.scale_bytes,macs=0)
+                continue
+            consumed=state.get('stream_consumed',0)
+            reuse=stream.macs//stream.weight_data_bytes
+            available=state.get('stream_weight_delivered',0)-consumed
+            size=min(available,stream.weight_read_bytes_per_cycle,stream.macs_per_cycle//reuse)
+            if size<=0:continue
+            state['stream_consumed']=consumed+size;self.busy_ps[tile]+=period
+            self.log('stream_compute',task=key,tile=tile,weight_bytes=size,scale_bytes=0,macs=size*reuse)
+            if state['stream_consumed']==stream.weight_data_bytes:
+                if state['read_bytes']!=sum(r.size_bytes for r in task.reads):raise RuntimeError('GEMM consumed unavailable weights')
+                state['finish_ps']=self.now+period
 
     def _times(self, periods, quantum, max_ps, mode):
         if mode == 'gcd':
@@ -347,7 +383,7 @@ class SystemExecution:
                 releases.pop(0)
             if releases: candidates.append(releases[0])
             candidates.extend(self.state[k]['finish_ps'] for k in self.engine.values()
-                              if self.state[k]['finish_ps'] > now)
+                              if self.state[k]['finish_ps'] is not None and self.state[k]['finish_ps'] > now)
             for component in (self.network,self.native):
                 future = getattr(component,'future',None)
                 if future and future[0][0] > now:
@@ -373,6 +409,7 @@ class SystemExecution:
                 self._compute_completions()
                 self._allocate()
                 self._start_compute()
+                self._stream_compute_progress()
                 after = sum(bool(s.get('done')) for s in self.state.values())
                 if before == after and not any(self.state[k]['finish_ps'] == self.now for k in self.engine.values()):
                     break
@@ -398,12 +435,14 @@ class SystemExecution:
         if hasattr(self.network, 'close'):
             self.network.close()
         self.events.sort(key=lambda event: event['time_ps'])
-        record = dict(schema='w2w.system-execution.v2', scope='system_execution_v2_prototype',
+        record = dict(schema='w2w.system-execution.v3' if self.builder.v3 else 'w2w.system-execution.v2',
+                      scope='architecture_v3_execution' if self.builder.v3 else 'system_execution_v2_prototype',
                       makespan_ps=makespan, drained_ps=self.now, quantum_ps=quantum,
                       time_advance=time_advance, kernel_iterations=iterations,
                       spec=asdict(self.spec), graph=asdict(self.graph),
                       tasks={k: {v: s[v] for v in ('start_ps', 'finish_ps', 'read_bytes')} for k, s in self.state.items()},
                       sram_peak_bytes=dict(self.sram_peak), compute_busy_ps=dict(self.busy_ps),
+                      engine_context_ps=dict(self.engine_context_ps),
                       activation_sram_read_bytes_per_cycle=self.activation_sram_read_bytes_per_cycle,
                       sram_read_bytes=dict(self.sram_read_bytes),sram_read_busy_cycles=dict(self.sram_read_cycles),
                       outstanding_peak=dict(self.outstanding_peak), mc_peak=dict(self.mc_peak),

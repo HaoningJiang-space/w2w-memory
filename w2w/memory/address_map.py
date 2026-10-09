@@ -13,5 +13,6 @@ def words_for_task(task, graph, builder):
         stop = start+access.size_bytes//32
         for word in range(start, stop, group):
             yield MemoryRequest(f'{task.id}/read{sequence}', task.id, task.tile,
-                                obj.memory, word % banks, word//banks, min(group, stop-word)*32)
+                                obj.memory, word % banks, word//banks, min(group, stop-word)*32,
+                                object_id=obj.id,object_offset=access.offset_bytes+(word-start)*32)
             sequence += 1

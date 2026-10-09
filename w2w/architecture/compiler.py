@@ -27,6 +27,21 @@ class MemoryInterface:
 
 
 @dataclass(frozen=True)
+class ExecutableChannel:
+    id: str
+    src: str
+    dst: str
+    kind: str
+    resource_id: str
+    width_bits: int
+    period_ps: int
+    pipeline_cycles: int
+    credit_cycles: int
+    length_um: int
+    segments: tuple
+
+
+@dataclass(frozen=True)
 class ExecutableMachine:
     stack: object
     tiles: tuple
@@ -69,7 +84,9 @@ def compile_machine(stack):
     memories=tuple(MemoryInterface(g.id,gateways[g.gateway_id].router_id,len(g.domain_ids),
         sum(domains[d].capacity_bytes for d in g.domain_ids),g.mc_slots,g.domain_ids,
         g.gateway_id,g.mc_pool_id) for g in stack.bank_groups)
-    machine=ExecutableMachine(stack,tiles,memories,stack.lateral_links,stack.routers)
+    links=tuple(ExecutableChannel(c.id,c.src,c.dst,'compute_fabric',c.id,c.data_bits,
+        c.period_ps,c.channel_cycles,c.channel_cycles,c.length_um,c.segments) for c in stack.lateral_links)
+    machine=ExecutableMachine(stack,tiles,memories,links,stack.routers)
     if len({c.profile.period_ps for c in stack.compute_clusters})!=1:
         raise ValueError('First aggregate backend requires one compute/fabric clock')
     if any(r.input_buffer_bytes != machine.input_buffer_flits*machine.flit_bytes or

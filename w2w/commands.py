@@ -1,5 +1,6 @@
 """Lazy command registry; importing the package never runs an experiment."""
 COMMANDS = {
+    'run_vertical_access':'w2w.experiments.run_vertical_access',
     'run_compute_placement': 'w2w.experiments.run_compute_placement',
     'analyze_compute_placement': 'w2w.analysis.compute_placement',
     'analyze_communication_budget': 'w2w.analysis.communication_budget',

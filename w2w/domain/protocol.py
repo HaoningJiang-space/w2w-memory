@@ -24,6 +24,8 @@ class MemoryRequest:
     word_address: int
     size_bytes: int = 32
     operation: str = 'READ'
+    object_id: str | None = None
+    object_offset: int = 0
 
     def __post_init__(self):
         if self.operation != 'READ' or self.size_bytes < 32 or self.size_bytes % 32:

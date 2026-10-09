@@ -1,11 +1,11 @@
 """Explicit physical copies and task lifecycle lower into the existing execution IR."""
 from dataclasses import asdict
 from math import ceil
-from w2w.domain.execution import ComputeTask,DataEdge,ControlEdge,ExecutionGraph,ReadAccess,ResidentObject
+from w2w.domain.execution import ComputeTask,DataEdge,ControlEdge,ExecutionGraph,ReadAccess,ResidentObject,StreamGemm
 from w2w.common.fingerprints import digest_read_v1
 
 
-def lower(logical, machine, weights, placement):
+def lower(logical, machine, weights, placement, *, streaming_compute=True):
     locations={w.tensor:w for w in weights}
     ops={p.operation:p.cluster for p in placement}
     profiles={c.id:c.profile for c in machine.stack.compute_clusters}
@@ -14,9 +14,16 @@ def lower(logical, machine, weights, placement):
     for op in logical.operations:
         cluster=ops[op.id]; profile=profiles[cluster]
         reads=tuple(ReadAccess(name,0,locations[name].size_bytes) for name in op.weight_tensors)
+        stream=None
+        if streaming_compute and op.kind=='gemm':
+            if len(op.weight_tensors)!=1:raise ValueError('One explicit GEMM matrix per streaming task')
+            name=op.weight_tensors[0];data_bytes=logical.shape[0]*logical.shape[2]
+            scales=locations[name].size_bytes-data_bytes
+            reads=(ReadAccess(name,data_bytes,scales),ReadAccess(name,0,data_bytes))
+            stream=StreamGemm(name,data_bytes,scales,op.macs,profile.macs_per_cycle,profile.weight_read_bytes_per_cycle)
         bytes_=sum(r.size_bytes for r in reads)
         cycles=profile.cycles(op.macs,op.vector_ops,bytes_)
-        tasks.append(ComputeTask(op.id,cluster,cycles,reads,scratch_bytes=op.scratch_bytes))
+        tasks.append(ComputeTask(op.id,cluster,cycles,reads,scratch_bytes=op.scratch_bytes,stream=stream))
         work[op.id]=dict(kind=op.kind,macs=op.macs,vector_ops=op.vector_ops,weight_bytes=bytes_,
             compute_profile=asdict(profile))
     edges=[]; copies=[]
@@ -49,4 +56,6 @@ def lower(logical, machine, weights, placement):
         macs=sum(o.macs for o in logical.operations),vector_ops=sum(o.vector_ops for o in logical.operations),
         weight_read_bytes=sum(r.size_bytes for t in graph.tasks for r in t.reads),
         copy_contract='Logical tensor identity is distinct from these deliberately materialized execution copies')
+    meta['compute_contract']=('scale first, then data-driven GEMM on committed descriptor payload; complete gate/up before SiLU; full matrix storage still reserved'
+        if streaming_compute else 'blocking GEMM reference')
     return graph,meta
