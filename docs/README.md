@@ -1,11 +1,12 @@
 # 文档索引
 
-2026-10-09 当前入口：[Home / Pair / 4-way 的完整层结果](reports/B1_RESIDENCY_STUDY_REPORT.md)、
-[机器物理定义与流式返回合同](methods/WAFER_MACHINE_CLOSURE.md)、[开发交接](HANDOFF.md)。
-前轮[三种网络条件结果](reports/MOE_LAYER_SYSTEM_REPORT.md)保持原始身份。
-以下历史文档中的“当前/下一步”按原实验版本理解。
+当前：[RWDL 与同资源计算放置结果](reports/RWDL_COMPUTE_PLACEMENT_REPORT.md)、
+[开发交接与唯一下一任务](HANDOFF.md)、[代码地图](CODE_STRUCTURE.md)、
+[结构整理一致性](reports/STRUCTURE_REFACTOR_REPORT.md)。
 
-- [当前研究主线、强基线结果与统一证据](RESEARCH_STATUS.md)
+以下为各阶段历史文档；正文的“当前/下一步”按冻结研究版本理解，不替代 HANDOFF。
+
+- [历史研究主线、强基线结果与统一证据](RESEARCH_STATUS.md)
 
 - [DRAM 命令后端闭环与8次完整对象回放](reports/DRAM_COMMAND_BRIDGE_REPORT.md) / [构建与模型边界](methods/DRAM_COMMAND_BRIDGE.md)
 
@@ -14,7 +15,7 @@
 研究问题固定为 wafer-scale memory service fabric。按所需层次阅读，不必按 Gate
 时间顺序把每个实验当作新的研究题目。
 
-## 当前实现与运行
+## 历史实现与运行
 
 - [下一版设计：beat/RX合同、cohort静态映射与满载守恒约束](reports/COHORT_SERVICE_DESIGN_REPORT.md)
 - [完整返回路径配置：166次回放、RX限制与独立请求结果](reports/RETURN_PATH_PROVISIONING_REPORT.md)

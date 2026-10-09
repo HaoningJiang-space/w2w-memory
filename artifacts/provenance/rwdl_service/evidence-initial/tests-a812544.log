@@ -1,0 +1,27 @@
+.F...E.......................................
+======================================================================
+ERROR: test_streaming_local_remote_and_sparse_clock_equivalence (tests.test_rwdl_service.RWDLTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Projects/haoning/w2w-full-system-rwdl-20261008/source/tests/test_rwdl_service.py", line 126, in test_streaming_local_remote_and_sparse_clock_equivalence
+    r=execute_system(backend.spec,graph,native=backend,time_advance=mode,
+  File "/Projects/haoning/w2w-full-system-rwdl-20261008/source/w2w/system/kernel.py", line 363, in execute_system
+    execution = SystemExecution(spec, graph, native, network_factory=network_factory)
+  File "/Projects/haoning/w2w-full-system-rwdl-20261008/source/w2w/system/kernel.py", line 23, in __init__
+    self.builder = SystemBuilder(spec).validate_graph(graph)
+  File "/Projects/haoning/w2w-full-system-rwdl-20261008/source/w2w/system/builder.py", line 112, in validate_graph
+    raise ValueError(f'Task {task.id} working set exceeds SRAM; provide an explicitly tiled graph')
+ValueError: Task b working set exceeds SRAM; provide an explicitly tiled graph
+
+======================================================================
+FAIL: test_aggregation_backpressure_holds_reserved_return_storage (tests.test_rwdl_service.RWDLTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Projects/haoning/w2w-full-system-rwdl-20261008/source/tests/test_rwdl_service.py", line 103, in test_aggregation_backpressure_holds_reserved_return_storage
+    self.assertGreater(b['reservation_stall_attempts'],0)
+AssertionError: 0 not greater than 0
+
+----------------------------------------------------------------------
+Ran 45 tests in 1.904s
+
+FAILED (failures=1, errors=1)

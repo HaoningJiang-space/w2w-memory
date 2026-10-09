@@ -1,0 +1,2 @@
+{"starting": "rwdl-home", "source_commit": "2e3087ae1b423f169ab595699007c9369a7a081c", "weight_bytes": 585248256}
+{"completed": "rwdl-home", "makespan_us": 519.403, "kernel_iterations": 652018, "wall_seconds": 622.2491200817749}

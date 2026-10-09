@@ -1,0 +1,40 @@
+{
+  "commands": [
+    {
+      "argv": [
+        "cmake",
+        "-S",
+        "/Projects/haoning/w2w-full-system-rwdl-20261008/source/w2w/service/dram",
+        "-B",
+        "/Projects/haoning/w2w-full-system-rwdl-20261008/native-f97996d/dram_bridge",
+        "-DRAMULATOR_SOURCE=/Projects/haoning/w2w-full-system-closure-20261009/dram-clean-a9066bc/ramulator2",
+        "-DPython_EXECUTABLE=/Projects/haoning/w2w/.venv/bin/python"
+      ],
+      "cwd": "/Projects/haoning/w2w-full-system-rwdl-20261008/source"
+    }
+  ],
+  "host": "ee4e072",
+  "outputs": {},
+  "python": "3.10.12 (main, Jul 29 2024, 16:56:48) [GCC 11.4.0]",
+  "ramulator": {
+    "commit": "72427a1bba3771564c4fb0e494ba02242fd1eaa7",
+    "library_sha256": "bdee8df7ac4486e77f4ce8689cdb9eed814ca222cbd1322b2bfaf342af203120",
+    "path": "/Projects/haoning/w2w-full-system-closure-20261009/dram-clean-a9066bc/ramulator2"
+  },
+  "schema": "w2w.native-build.v1",
+  "sources": {
+    "w2w/service/dram/CMakeLists.txt": "c3f0e7041b76bc87fcac9f76a88e6914807e7688d371cca4d6e72a9ffdb8e860",
+    "w2w/service/dram/__init__.py": "5e4dffeaf3fe22d4ae121425e1ab84959f96124cdee6729fd2eb521c82c87e9c",
+    "w2w/service/dram/bridge.cpp": "b99e3c3ef47cbfb1f008da3f182bedbeb41c7b7c3a9707e4627899d2dd2473c9",
+    "w2w/service/dram/ramulator.py": "ea1d0c67bb19255d16cc919391613cb101e5e373fcda4caa5a6f64e1be325daa",
+    "w2w/service/dram/rwdl.py": "378f6d133dae721a27a7c37823ab8d1dead9e157b48df5dd27a25c67d9aa4c13",
+    "w2w/service/dram/rwdl_refresh.cpp": "2719b855f1b76987c6ae64cfdd7095940ea2d86b5cf43dac92042226743ee953",
+    "w2w/service/dram/rwdl_spec.py": "d18dc53c02738e8d96376fa1055d20537175bb3d3d959677b71b5485f25166c5"
+  },
+  "tools": {
+    "cmake": "/usr/bin/cmake",
+    "g++": "/usr/bin/g++",
+    "git": "/usr/bin/git"
+  },
+  "w2w_commit": "f97996df1f1ef80845bbbe3a041b29df90aa893a"
+}

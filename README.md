@@ -7,6 +7,7 @@ Ramulator 的路由/credit、原生命令/刷新框架；这是时序模型，�
 [当前交接与下一任务](docs/HANDOFF.md) · [代码职责](docs/CODE_STRUCTURE.md) ·
 [全部阶段文档索引](docs/README.md)
 
+当前[完整层结果](docs/reports/RWDL_COMPUTE_PLACEMENT_REPORT.md)：统一合同下集中 streaming 472.386 μs，靠近分片计算 258.825 μs，时间减少 45.21%。
 当前研究入口为独立 RWDL 与“集中取权重 / 靠近分片计算”对照。
 [RWDL 合同](docs/methods/RWDL_NATIVE_SERVICE.md) 明确原子地址、3760 ps 时钟、
 有限队列、CDC 与共享汇聚。机器仍是未标定候选；资源代理不代表真实 PPA。
@@ -51,7 +52,7 @@ machine + workloads → experiments → system.kernel
 
 `w2w/machine/` 定义机器与坐标，`workloads/` 选择 routing 并编译任务；
 `system/` 维护统一时间和资源生命周期。native 源码/补丁布局和原始上游目录保留。
-本地 DMA 与写口目前仍在 BookSim 适配器；后续提取必须保持原语义，模型修正另行提交。
+本地 DMA 和共享接收写口已独立提取；结构整理保持原语义，模型修正另行提交。
 
 ## Upstream artifact
 

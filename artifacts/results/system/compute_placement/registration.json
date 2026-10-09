@@ -1,0 +1,42 @@
+{
+  "schema": "w2w.compute-placement-study.v1",
+  "cases": [
+    {
+      "name": "gather-stream",
+      "input_sha256": "7b8d43df17a9e21b3445e4e83a71111554fcb98c88546206ce9be2186ca3756b",
+      "semantic_work_sha256": "034d3137e74877ae3e68875615f714f008ee609b4365390e096d1d3654fbecb2",
+      "graph_sha256": "ee8931487eee0ae9b04207116a2cde18b7c3ae384c5a3071cf3ca0b25e4a11ed",
+      "architecture": "gather",
+      "streaming": true
+    },
+    {
+      "name": "gather-whole",
+      "input_sha256": "f782d2d1e84c1ea0fbb66f37f71053df620a893a73ac8d138ea67e256f63be46",
+      "semantic_work_sha256": "034d3137e74877ae3e68875615f714f008ee609b4365390e096d1d3654fbecb2",
+      "graph_sha256": "ee8931487eee0ae9b04207116a2cde18b7c3ae384c5a3071cf3ca0b25e4a11ed",
+      "architecture": "gather",
+      "streaming": false
+    },
+    {
+      "name": "near-shard-stream",
+      "input_sha256": "4a348942031e6360c3e3488ec828e6488ded17097ab50861a79fb0b23ef681e2",
+      "semantic_work_sha256": "034d3137e74877ae3e68875615f714f008ee609b4365390e096d1d3654fbecb2",
+      "graph_sha256": "082c8d0b7ffa5036d8dcc733c52cb75bd4a41309e77171d274dd37f22199bf1c",
+      "architecture": "near_shard",
+      "streaming": true
+    }
+  ],
+  "source_commit": "1b086e0affbf6a25aa765e09ee9a9fa8e1aa25d1",
+  "host": "ee4e072",
+  "max_ps": 20000000000,
+  "scope": "one_routed_ffn_layer_timing",
+  "local_dma": "payload_beats",
+  "cell_sideband_bits": 64,
+  "receive_reservation": "ideal global reference; protocol RTT not modeled",
+  "source_sram_read_bytes_per_cycle": 256,
+  "source_write_ports": "one independent read and one receive write per aggregate tile",
+  "time_advance": "boundaries",
+  "controls": "36 shared engines, 36x512MiB memory, 36x2MiB SRAM; same owner, tokens, RWDL, NoC/credit, MC32/requester32",
+  "comparisons": "gather readiness only; near-shard changes static intermediate weight/compute placement and bills FP32 reduction",
+  "excluded": "Direct HB, endpoint RTL, prefetch, dynamic migration, reticle area DSE"
+}

@@ -1,0 +1,64 @@
+{
+  "rwdl-four_way": {
+    "makespan_us": 472.146,
+    "native_bound_us": 207.96372000000002,
+    "busiest_links": [
+      {
+        "link": "c23>c17",
+        "flits": 127780,
+        "utilization": 0.2706366251117239
+      },
+      {
+        "link": "c35>c29",
+        "flits": 118740,
+        "utilization": 0.2514900052102528
+      },
+      {
+        "link": "c21>c15",
+        "flits": 107280,
+        "utilization": 0.2272178521050692
+      },
+      {
+        "link": "c20>c14",
+        "flits": 91254,
+        "utilization": 0.19327496155850096
+      },
+      {
+        "link": "c15>c14",
+        "flits": 88797,
+        "utilization": 0.18807106276448388
+      }
+    ]
+  },
+  "rwdl-home": {
+    "makespan_us": 519.403,
+    "native_bound_us": 415.92744000000005,
+    "busiest_links": [
+      {
+        "link": "c9>c3",
+        "flits": 291,
+        "utilization": 0.00056025860459027
+      },
+      {
+        "link": "c3>c9",
+        "flits": 289,
+        "utilization": 0.000556408029988275
+      },
+      {
+        "link": "c2>c8",
+        "flits": 286,
+        "utilization": 0.0005506321680852826
+      },
+      {
+        "link": "c8>c14",
+        "flits": 277,
+        "utilization": 0.0005333045823763051
+      },
+      {
+        "link": "c8>c2",
+        "flits": 264,
+        "utilization": 0.0005082758474633378
+      }
+    ]
+  }
+}

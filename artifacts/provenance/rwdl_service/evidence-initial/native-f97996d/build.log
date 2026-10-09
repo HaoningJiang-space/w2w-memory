@@ -1,0 +1,23 @@
+{"argv": ["cmake", "-S", "/Projects/haoning/w2w-full-system-rwdl-20261008/source/w2w/service/dram", "-B", "/Projects/haoning/w2w-full-system-rwdl-20261008/native-f97996d/dram_bridge", "-DRAMULATOR_SOURCE=/Projects/haoning/w2w-full-system-closure-20261009/dram-clean-a9066bc/ramulator2", "-DPython_EXECUTABLE=/Projects/haoning/w2w/.venv/bin/python"], "cwd": "/Projects/haoning/w2w-full-system-rwdl-20261008/source"}
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found Python: /Projects/haoning/w2w/.venv/bin/python (found suitable version "3.10.12", minimum required is "3.10") found components: Interpreter Development.Module 
+Traceback (most recent call last):
+  File "/Projects/haoning/w2w-full-system-rwdl-20261008/source/w2w/service/dram/rwdl_spec.py", line 6, in <module>
+    from ramulator.dram.spec import DRAMStandard, TimingConstraint as TC
+  File "/Projects/haoning/w2w-full-system-rwdl-20261008/source/w2w/service/dram/ramulator.py", line 14, in <module>
+    from w2w.workloads.read_trace import digest, integer
+ModuleNotFoundError: No module named 'w2w'
+CMake Error at CMakeLists.txt:17 (execute_process):
+  execute_process failed command indexes:
+
+    1: "Child return code: 1"
+
+
+
+-- Configuring incomplete, errors occurred!
+See also "/Projects/haoning/w2w-full-system-rwdl-20261008/native-f97996d/dram_bridge/CMakeFiles/CMakeOutput.log".

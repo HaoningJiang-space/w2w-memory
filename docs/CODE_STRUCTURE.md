@@ -15,10 +15,11 @@
 | `w2w/workloads/moe_task_graph.py` | `compile_routed_layer(routing, residency=...)`，纯任务图编译 |
 | `w2w/workloads/moe_partition.py` | 固定四节点组的 intermediate 分块、共享原有计算引擎与归约 |
 | `w2w/system/kernel.py` | 唯一时间协调者；依赖、事务、MC/outstanding/SRAM 生命周期 |
+| `w2w/system/local_dma.py` / `receive_write.py` | 本地序列服务 / 单一 SRAM 接收写口，保留原有合同 |
 | `w2w/system/builder.py` | 机器、地址布局与合法路径核验 |
 | `w2w/memory/` | 固定地址、原生服务及就绪事件；不决定专家位置 |
 | `w2w/service/dram/` | **当前执行组件**：Ramulator bridge、HBM2 与独立 RWDL 扩展 |
-| `w2w/network/booksim_backend.py` | BookSim 供数/注入/接收/commit；本地 DMA 和写口尚在适配器内 |
+| `w2w/network/booksim_backend.py` | BookSim 供数/注入/接收/commit；委托独立 DMA 和共享写口 |
 | `w2w/experiments/` | 选择配置、组装、冻结、执行与保存；不向其他 runner 借公共函数 |
 | `w2w/analysis/` | 已完成记录的统计；`system_summary.py` 是无执行副作用的公共摘要 |
 | `w2w/validation/` | 事件、字节、资源守恒与已有证据核验 |
@@ -37,8 +38,7 @@ workloads 消费 routing/owner/residency，不构建 native 组件；机器层�
 执行层不读某份历史实验来决定工作负载。native 适配不依赖 workload 的校验函数。
 摘要函数不导入 runner、不启动执行、不选择隐藏输入目录。
 
-统一 kernel 保留；每个资源只有一个状态所有者。后续可以按原语义提取
-LocalDma 与共享接收写口，不能同时修改 streaming、仲裁、时钟或服务模型。
+统一 kernel 保留；每个资源只有一个状态所有者。LocalDma 与共享接收写口已按原语义提取，结构提交不修改 streaming、仲裁、时钟或服务模型。
 MC、requester、NI、SRAM 写口是不同资源，不归并为万能 manager。
 
 ## 命令身份

@@ -1,0 +1,13 @@
+....F.............................................
+======================================================================
+FAIL: test_source_hol_counter_observes_ready_message_behind_unsupplied_head (tests.test_compute_placement.TransportTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Projects/haoning/w2w-full-system-rwdl-20261008/placement-source/tests/test_compute_placement.py", line 95, in test_source_hol_counter_observes_ready_message_behind_unsupplied_head
+    self.assertGreater(sum(p['ready_behind_unsupplied_cycles']),0)
+AssertionError: 0 not greater than 0
+
+----------------------------------------------------------------------
+Ran 50 tests in 2.211s
+
+FAILED (failures=1)

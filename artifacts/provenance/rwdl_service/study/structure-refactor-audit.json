@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "source_trees": [
+    {
+      "source": "/Projects/haoning/w2w-full-system-rwdl-20261008/placement-source",
+      "commit": "1b086e0affbf6a25aa765e09ee9a9fa8e1aa25d1",
+      "snapshot_sha256": "33d451c164663769e7f29bfd4ec609895f5196f9e55272e08e51a483c0d7e0cc"
+    },
+    {
+      "source": "/Projects/haoning/w2w-full-system-rwdl-20261008/refactor-source",
+      "commit": "17220ddee0bb7126713ffa79ec8926687e1967b4",
+      "snapshot_sha256": "33d451c164663769e7f29bfd4ec609895f5196f9e55272e08e51a483c0d7e0cc"
+    }
+  ],
+  "different_sections": [],
+  "sections": [
+    "c0_b1/four_way",
+    "c0_b1/home",
+    "c0_b1/pair",
+    "c1_b1/four_way",
+    "c1_b1/home",
+    "c1_b1/pair",
+    "c2_b4/four_way",
+    "c2_b4/home",
+    "c2_b4/pair",
+    "execution/False",
+    "execution/True",
+    "fingerprints",
+    "machine/False",
+    "machine/True",
+    "partition",
+    "read_fallback",
+    "strict_nan_rejected",
+    "summary/False",
+    "summary/True",
+    "write_bytes"
+  ],
+  "scope": "two historical encodings; nine compile-only graphs and metadata; two machines; partition; I/O; exact whole/stream small native ledgers and summaries"
+}

@@ -1,0 +1,370 @@
+{
+  "files": [
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/analysis-v4.json",
+      "archived_path": "artifacts/results/system/rwdl_service/analysis.json.gz",
+      "bytes": 17976995,
+      "sha256": "97249b64c5931ebfa08c010e82166130be3724ffaed7ba1fc1158b2f95304a4b",
+      "gzip_encoded": true
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/study-v4/registration.json",
+      "archived_path": "artifacts/results/system/rwdl_service/registration.json",
+      "bytes": 18376,
+      "sha256": "d06dba13153f5780bb56914f93cc0fa55ddc529cc2020ae7043d7d429455d5da",
+      "gzip_encoded": false
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/study-v4/inputs/rwdl-four_way.json",
+      "archived_path": "artifacts/results/system/rwdl_service/inputs/rwdl-four_way.json.gz",
+      "bytes": 1945803,
+      "sha256": "31841bec05a162307f8d4b8090ecf81fa9d6700f10363842a37664431fce78d8",
+      "gzip_encoded": true
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/study-v4/inputs/rwdl-home.json",
+      "archived_path": "artifacts/results/system/rwdl_service/inputs/rwdl-home.json.gz",
+      "bytes": 1730051,
+      "sha256": "a7c9a3b47a0cc6ffbdd1714e660a66ec3ab324c48a0203f82ffd6d98440f4fb6",
+      "gzip_encoded": true
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/study-v4/cases/rwdl-home/completion.json",
+      "archived_path": "artifacts/results/system/rwdl_service/cases/rwdl-home/completion.json",
+      "bytes": 422,
+      "sha256": "31ba47da8b237eaaf3639f743e77f246c218515e708b329da82715b0e4c1e293",
+      "gzip_encoded": false
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/study-v4/cases/rwdl-home/summary.json",
+      "archived_path": "artifacts/results/system/rwdl_service/cases/rwdl-home/summary.json.gz",
+      "bytes": 7583194,
+      "sha256": "8113614aaa03817ee924896b35b7e84baaf4404674c3f66cdc255796b4a4ac5e",
+      "gzip_encoded": true
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/rwdl-home.log",
+      "archived_path": "artifacts/results/system/rwdl_service/cases/rwdl-home/run.log",
+      "bytes": 229,
+      "sha256": "102a4303ff2b44ff21aae279744abc319dccce3c6e147ba3351f60ba1131e94a",
+      "gzip_encoded": false
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/study-v4/cases/rwdl-home/network/rapidchiplet/booksim2/src/rc_topologies/network.anynet",
+      "archived_path": "artifacts/results/system/rwdl_service/cases/rwdl-home/network/rapidchiplet/booksim2/src/rc_topologies/network.anynet",
+      "bytes": 2229,
+      "sha256": "551e82843d7c7a75c9105b9f8d2a310d933cda70aa49c6afac42ec254250d5d6",
+      "gzip_encoded": false
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/study-v4/cases/rwdl-home/network/rapidchiplet/booksim2/src/rc_configs/network.conf",
+      "archived_path": "artifacts/results/system/rwdl_service/cases/rwdl-home/network/rapidchiplet/booksim2/src/rc_configs/network.conf",
+      "bytes": 1113,
+      "sha256": "fad81de58cc1bcee6c972ed2700dc3aaf50396fc02e2eb4bb26b8fd966873201",
+      "gzip_encoded": false
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/study-v4/cases/rwdl-home/result.json.gz",
+      "archived_path": null,
+      "bytes": 16010338,
+      "sha256": "8d9251c77c340c36a21efa19b4d5d14773d6ac9cf50dfd8162ff905c54950783",
+      "policy": "raw execution retained on server"
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/study-v4/cases/rwdl-four_way/completion.json",
+      "archived_path": "artifacts/results/system/rwdl_service/cases/rwdl-four_way/completion.json",
+      "bytes": 428,
+      "sha256": "fe0a7d0c0770fb91ecec0e6d21fd4a606c33c7a3e30dc0d320f0c389a817e0d3",
+      "gzip_encoded": false
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/study-v4/cases/rwdl-four_way/summary.json",
+      "archived_path": "artifacts/results/system/rwdl_service/cases/rwdl-four_way/summary.json.gz",
+      "bytes": 7633418,
+      "sha256": "d1d4ec83755c245d02317d1cbd7a5e5c123ca9ce7de7fc4b68cb32e39c9e2061",
+      "gzip_encoded": true
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/rwdl-four_way.log",
+      "archived_path": "artifacts/results/system/rwdl_service/cases/rwdl-four_way/run.log",
+      "bytes": 237,
+      "sha256": "191ea654fcf0ce59a06661b21e1fc30f2716bb714ea4c5c99e0e1916b988b118",
+      "gzip_encoded": false
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/study-v4/cases/rwdl-four_way/network/rapidchiplet/booksim2/src/rc_topologies/network.anynet",
+      "archived_path": "artifacts/results/system/rwdl_service/cases/rwdl-four_way/network/rapidchiplet/booksim2/src/rc_topologies/network.anynet",
+      "bytes": 2229,
+      "sha256": "551e82843d7c7a75c9105b9f8d2a310d933cda70aa49c6afac42ec254250d5d6",
+      "gzip_encoded": false
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/study-v4/cases/rwdl-four_way/network/rapidchiplet/booksim2/src/rc_configs/network.conf",
+      "archived_path": "artifacts/results/system/rwdl_service/cases/rwdl-four_way/network/rapidchiplet/booksim2/src/rc_configs/network.conf",
+      "bytes": 1121,
+      "sha256": "2a63fb2dfce873da42573cd7452e169e9938592260e269de3bb3b3ed75603aa8",
+      "gzip_encoded": false
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/study-v4/cases/rwdl-four_way/result.json.gz",
+      "archived_path": null,
+      "bytes": 19560438,
+      "sha256": "2699dd6aaf2feac2e4266e654843c7866f9f169a36219c05bce1e0bd5065527f",
+      "policy": "raw execution retained on server"
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/compute-placement-analysis.json",
+      "archived_path": "artifacts/results/system/compute_placement/analysis.json.gz",
+      "bytes": 868746,
+      "sha256": "b83263b24b30e8af44c73aad4739f35990ba66f8d3180fa6d572c32742831bd9",
+      "gzip_encoded": true
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/placement-study-v2/registration.json",
+      "archived_path": "artifacts/results/system/compute_placement/registration.json",
+      "bytes": 2003,
+      "sha256": "68c4565503e282e1d2f7f865aed4c4af69ab2d86431a7978adfe20f7a2ff508e",
+      "gzip_encoded": false
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/placement-study-v2/inputs/gather-stream.json",
+      "archived_path": "artifacts/results/system/compute_placement/inputs/gather-stream.json.gz",
+      "bytes": 1946431,
+      "sha256": "1975acb6d83a6e794f3e977d4a5ce37b046e6558edbb7f61ab40bfccffa0d395",
+      "gzip_encoded": true
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/placement-study-v2/inputs/near-shard-stream.json",
+      "archived_path": "artifacts/results/system/compute_placement/inputs/near-shard-stream.json.gz",
+      "bytes": 1967585,
+      "sha256": "e1ec1fa1e59bacbc32b35d8623c496f1608ff1f2c0b69f2e64c76c3868c2127c",
+      "gzip_encoded": true
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/placement-study-v2/inputs/gather-whole.json",
+      "archived_path": "artifacts/results/system/compute_placement/inputs/gather-whole.json.gz",
+      "bytes": 1946432,
+      "sha256": "807645c98c5d5b33aa4285be5f676145eb03eaa422f7b58653b25c98f0242951",
+      "gzip_encoded": true
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/placement-study-v2/cases/gather-whole/completion.json",
+      "archived_path": "artifacts/results/system/compute_placement/cases/gather-whole/completion.json",
+      "bytes": 427,
+      "sha256": "04e9b3ab22696eb8373630eb11408c1a1ebd319eca08f96a7daceaa60ee5c5fc",
+      "gzip_encoded": false
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/placement-study-v2/cases/gather-whole/summary.json",
+      "archived_path": "artifacts/results/system/compute_placement/cases/gather-whole/summary.json.gz",
+      "bytes": 7647846,
+      "sha256": "f5ee365f3fb91ffae87c08112b8dd7d84c4ba02ae78d57e59e2795e0db103364",
+      "gzip_encoded": true
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/gather-whole.log",
+      "archived_path": "artifacts/results/system/compute_placement/cases/gather-whole/run.log",
+      "bytes": 206,
+      "sha256": "7360f326df3f36b4a3dab77c54e49383eba89fdb1a5eedc01ea73bf779b35400",
+      "gzip_encoded": false
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/placement-study-v2/cases/gather-whole/network/rapidchiplet/booksim2/src/rc_topologies/network.anynet",
+      "archived_path": "artifacts/results/system/compute_placement/cases/gather-whole/network/rapidchiplet/booksim2/src/rc_topologies/network.anynet",
+      "bytes": 2229,
+      "sha256": "551e82843d7c7a75c9105b9f8d2a310d933cda70aa49c6afac42ec254250d5d6",
+      "gzip_encoded": false
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/placement-study-v2/cases/gather-whole/network/rapidchiplet/booksim2/src/rc_configs/network.conf",
+      "archived_path": "artifacts/results/system/compute_placement/cases/gather-whole/network/rapidchiplet/booksim2/src/rc_configs/network.conf",
+      "bytes": 1139,
+      "sha256": "b587c6b82028931f7262286559369f1e4ade41001b497e739d4f386905c85b79",
+      "gzip_encoded": false
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/placement-study-v2/cases/gather-whole/result.json.gz",
+      "archived_path": null,
+      "bytes": 20386448,
+      "sha256": "c5e54be229ba563b6cc8df0b0827da422067f586823e0bca59ca2fece094ce01",
+      "policy": "raw execution retained on server"
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/placement-study-v2/cases/gather-stream/completion.json",
+      "archived_path": "artifacts/results/system/compute_placement/cases/gather-stream/completion.json",
+      "bytes": 428,
+      "sha256": "6b8eedfc4c4871624aa21ee0955167f96cb087d4d98cf5b84faca417216bb1c2",
+      "gzip_encoded": false
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/placement-study-v2/cases/gather-stream/summary.json",
+      "archived_path": "artifacts/results/system/compute_placement/cases/gather-stream/summary.json.gz",
+      "bytes": 10116954,
+      "sha256": "31d133ea1d235e4b0dc3fa6d98fc4cfc16815a41ed684854470142303ade20ab",
+      "gzip_encoded": true
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/gather-stream.log",
+      "archived_path": "artifacts/results/system/compute_placement/cases/gather-stream/run.log",
+      "bytes": 208,
+      "sha256": "29f3fc56bb016305d9d7f50090c22a9461ff72aca5240d7e9c410d72344c48df",
+      "gzip_encoded": false
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/placement-study-v2/cases/gather-stream/network/rapidchiplet/booksim2/src/rc_topologies/network.anynet",
+      "archived_path": "artifacts/results/system/compute_placement/cases/gather-stream/network/rapidchiplet/booksim2/src/rc_topologies/network.anynet",
+      "bytes": 2229,
+      "sha256": "551e82843d7c7a75c9105b9f8d2a310d933cda70aa49c6afac42ec254250d5d6",
+      "gzip_encoded": false
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/placement-study-v2/cases/gather-stream/network/rapidchiplet/booksim2/src/rc_configs/network.conf",
+      "archived_path": "artifacts/results/system/compute_placement/cases/gather-stream/network/rapidchiplet/booksim2/src/rc_configs/network.conf",
+      "bytes": 1141,
+      "sha256": "d7adf5658d65a3d5bbee7ae324230b21dfd7b8cdedcd976037af53f142886b07",
+      "gzip_encoded": false
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/placement-study-v2/cases/gather-stream/result.json.gz",
+      "archived_path": null,
+      "bytes": 24281592,
+      "sha256": "f2b8721035d850a6eaa0543af735cc50569cece5c5a8c9e55b0de62e0021083b",
+      "policy": "raw execution retained on server"
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/placement-study-v2/cases/near-shard-stream/completion.json",
+      "archived_path": "artifacts/results/system/compute_placement/cases/near-shard-stream/completion.json",
+      "bytes": 430,
+      "sha256": "7d6bb9df1e1626d524c0907ed457e430a36cd1f672c8ff76e826e0e76a204531",
+      "gzip_encoded": false
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/placement-study-v2/cases/near-shard-stream/summary.json",
+      "archived_path": "artifacts/results/system/compute_placement/cases/near-shard-stream/summary.json.gz",
+      "bytes": 7664030,
+      "sha256": "fb19f498e8446d653155b6b12e0c4da050a480fbc70b8b016945ffc668b04261",
+      "gzip_encoded": true
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/near-shard-stream.log",
+      "archived_path": "artifacts/results/system/compute_placement/cases/near-shard-stream/run.log",
+      "bytes": 216,
+      "sha256": "6344b7801e0250fee3b4532918e3948acae189d59f30958cbabb399164ad0d8f",
+      "gzip_encoded": false
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/placement-study-v2/cases/near-shard-stream/network/rapidchiplet/booksim2/src/rc_topologies/network.anynet",
+      "archived_path": "artifacts/results/system/compute_placement/cases/near-shard-stream/network/rapidchiplet/booksim2/src/rc_topologies/network.anynet",
+      "bytes": 2229,
+      "sha256": "551e82843d7c7a75c9105b9f8d2a310d933cda70aa49c6afac42ec254250d5d6",
+      "gzip_encoded": false
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/placement-study-v2/cases/near-shard-stream/network/rapidchiplet/booksim2/src/rc_configs/network.conf",
+      "archived_path": "artifacts/results/system/compute_placement/cases/near-shard-stream/network/rapidchiplet/booksim2/src/rc_configs/network.conf",
+      "bytes": 1149,
+      "sha256": "e26829b34f05a620365604a096c69ddad3f2c60a427e5e9b405bc54c4465b3e4",
+      "gzip_encoded": false
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/placement-study-v2/cases/near-shard-stream/result.json.gz",
+      "archived_path": null,
+      "bytes": 18488233,
+      "sha256": "5c1f41ed4d12c5cf2c9434007575a2190340c0b812470c9d3eb29c44a51063a4",
+      "policy": "raw execution retained on server"
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/tests-refactor-17220dd.log",
+      "archived_path": "artifacts/provenance/rwdl_service/study/tests-refactor-17220dd.log",
+      "bytes": 148,
+      "sha256": "fa6eae8c82123288f55c3406c8c67a74f18487f85a30635c6803f51c0950fa74",
+      "gzip_encoded": false
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/tests-refactor-c.log",
+      "archived_path": "artifacts/provenance/rwdl_service/study/tests-refactor-c.log",
+      "bytes": 1814,
+      "sha256": "f5540c0cc9d863d51c88bbe444d3a871c35e3fcf1603f8e39e0e84365472c449",
+      "gzip_encoded": false
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/tests-refactor-c-fixed.log",
+      "archived_path": "artifacts/provenance/rwdl_service/study/tests-refactor-c-fixed.log",
+      "bytes": 141,
+      "sha256": "7182a42061ffd85e129c6fab20e34340c0c528dc782a1bbe6a7267af9c5d907e",
+      "gzip_encoded": false
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/tests-placement-v1.log",
+      "archived_path": "artifacts/provenance/rwdl_service/study/tests-placement-v1.log",
+      "bytes": 759,
+      "sha256": "08588596aa35bddaaee83d18ff85bd9b92c19b1ffe768df5a25cd11f483db0f4",
+      "gzip_encoded": false
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/tests-placement-v2.log",
+      "archived_path": "artifacts/provenance/rwdl_service/study/tests-placement-v2.log",
+      "bytes": 149,
+      "sha256": "b33567a96b51e978da117841ebafdc2f81d791fe338866784e6068342291d91f",
+      "gzip_encoded": false
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/structure-refactor-audit.json",
+      "archived_path": "artifacts/provenance/rwdl_service/study/structure-refactor-audit.json",
+      "bytes": 1158,
+      "sha256": "accb53113bb664c7af4804f7052894652756f2e0f2363743a97d133a39d59428",
+      "gzip_encoded": false
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/structure-refactor-c-audit.json",
+      "archived_path": "artifacts/provenance/rwdl_service/study/structure-refactor-c-audit.json",
+      "bytes": 1158,
+      "sha256": "7f07a4a5d39fc9936ee01f98b6a6b2338dd96e4f7b050db57936a88f2b4a670f",
+      "gzip_encoded": false
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/periodic-checks.log",
+      "archived_path": "artifacts/provenance/rwdl_service/study/periodic-checks.log",
+      "bytes": 6806,
+      "sha256": "bc5d19148bee023d5e968624f50ecc5bc54da2da2e6d466e4362c9897d5482f7",
+      "gzip_encoded": false
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/analysis-placement.log",
+      "archived_path": "artifacts/provenance/rwdl_service/study/analysis-placement.log",
+      "bytes": 82,
+      "sha256": "143113ffedd04a643eff57d946f49cecc6c3329aa7606c529f3794a30cf49eaa",
+      "gzip_encoded": false
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/analysis-v4.log",
+      "archived_path": "artifacts/provenance/rwdl_service/study/analysis-v4.log",
+      "bytes": 1347,
+      "sha256": "735976adf9689a815b2c9965c67209af519381e529f3cf719785213e7b6b2d7f",
+      "gzip_encoded": false
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/native-placement-v1/build-manifest.json",
+      "archived_path": "artifacts/provenance/rwdl_service/study/native-placement-v1-manifest.json",
+      "bytes": 35027,
+      "sha256": "a2b6986aa197486fee5dd6d612a4c379f73d9f23cb51d23c36f49b6f5f1fa5a7",
+      "gzip_encoded": false
+    },
+    {
+      "raw_path": "/Projects/haoning/w2w-full-system-rwdl-20261008/native-placement-v2/build-manifest.json",
+      "archived_path": "artifacts/provenance/rwdl_service/study/native-placement-v2-manifest.json",
+      "bytes": 32988,
+      "sha256": "d5ea83f954247512f12407bde4c2922c642e9489d64e65d0739be6a203c7b963",
+      "gzip_encoded": false
+    }
+  ],
+  "execution_sources": {
+    "initial": "2e3087ae1b423f169ab595699007c9369a7a081c",
+    "placement": "1b086e0affbf6a25aa765e09ee9a9fa8e1aa25d1"
+  },
+  "analyses_passed": true,
+  "analysis_sources": {
+    "initial": "2e3087ae1b423f169ab595699007c9369a7a081c",
+    "placement": "b840b08"
+  }
+}

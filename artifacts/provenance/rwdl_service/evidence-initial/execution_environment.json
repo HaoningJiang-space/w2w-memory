@@ -1,0 +1,24 @@
+{
+  "host": "ee4e072",
+  "python": "3.10.12",
+  "source_commit": "2e3087ae1b423f169ab595699007c9369a7a081c",
+  "source_status": "",
+  "component_test_commit": "fc45d79",
+  "component_source_sha256": {
+    "w2w/service/dram/rwdl_refresh.cpp": "2719b855f1b76987c6ae64cfdd7095940ea2d86b5cf43dac92042226743ee953",
+    "w2w/service/dram/__init__.py": "5e4dffeaf3fe22d4ae121425e1ab84959f96124cdee6729fd2eb521c82c87e9c",
+    "w2w/service/dram/ramulator.py": "ea1d0c67bb19255d16cc919391613cb101e5e373fcda4caa5a6f64e1be325daa",
+    "w2w/service/dram/CMakeLists.txt": "44a9f6550f8eafb98c75f53c58d4f791d5a8767c6f82f5bf16ae7294199cd77b",
+    "w2w/service/dram/rwdl_spec.py": "d18dc53c02738e8d96376fa1055d20537175bb3d3d959677b71b5485f25166c5",
+    "w2w/service/dram/bridge.cpp": "b99e3c3ef47cbfb1f008da3f182bedbeb41c7b7c3a9707e4627899d2dd2473c9",
+    "w2w/service/dram/rwdl.py": "378f6d133dae721a27a7c37823ab8d1dead9e157b48df5dd27a25c67d9aa4c13",
+    "w2w/memory/rwdl_backend.py": "5f5c81b15d6e107010d45603fd957e18963ea98b8f52d76ec23dce143f65759b",
+    "w2w/system/kernel.py": "9c6264015573e13be858a1ad426ac30d49f89ff282be15f495c80186b116f2bd",
+    "tests/test_rwdl_service.py": "cadda567475f06f5bc45019d87e635e88eeca2ddd6a03af8930964ba967afceb"
+  },
+  "upstream_commit": "72427a1bba3771564c4fb0e494ba02242fd1eaa7",
+  "upstream_generated_status": " M src/ramulator/dram/impl/DDR3.cpp\n M src/ramulator/dram/impl/DDR4.cpp\n M src/ramulator/dram/impl/DDR4_VRR.cpp\n M src/ramulator/dram/impl/DDR5.cpp\n M src/ramulator/dram/impl/DDR5_VRR.cpp\n M src/ramulator/dram/impl/GDDR6.cpp\n M src/ramulator/dram/impl/GDDR7.cpp\n M src/ramulator/dram/impl/HBM1.cpp\n M src/ramulator/dram/impl/HBM2.cpp\n M src/ramulator/dram/impl/HBM3.cpp\n M src/ramulator/dram/impl/HBM4.cpp\n M src/ramulator/dram/impl/LPDDR5.cpp\n M src/ramulator/dram/impl/LPDDR6.cpp\n",
+  "generated_rwdl_sha256": "fa7b13ccd6a803a72b9d5b0ab4e641812544d7e7180f042b23926fc331eb32b1",
+  "network_binary_sha256": "fb9e274c2cdba05c6f0775ff93bf19970bec42a2b8ee3930fb69b6440dbcf61a",
+  "raw_root": "/Projects/haoning/w2w-full-system-rwdl-20261008/study-v4"
+}

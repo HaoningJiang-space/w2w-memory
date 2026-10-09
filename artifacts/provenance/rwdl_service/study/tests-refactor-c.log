@@ -1,0 +1,26 @@
+..............E/usr/lib/python3.10/unittest/case.py:613: ResourceWarning: unclosed file <_io.TextIOWrapper name='/dev/null' mode='w' encoding='UTF-8'>
+  outcome.errors.clear()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/usr/lib/python3.10/unittest/case.py:613: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmppy25r0mu/network/online_stderr.log' mode='w' encoding='UTF-8'>
+  outcome.errors.clear()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/usr/lib/python3.10/unittest/case.py:613: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmppy25r0mu/network/online_stdout.log' mode='w' encoding='UTF-8'>
+  outcome.errors.clear()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/usr/lib/python3.10/subprocess.py:1072: ResourceWarning: subprocess 4141429 is still running
+  _warn("subprocess %s is still running" % self.pid,
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+...........................
+======================================================================
+ERROR: test_same_local_write_work_for_whole_and_streaming (tests.test_compute_placement.TransportTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Projects/haoning/w2w-full-system-rwdl-20261008/refactor-source/tests/test_compute_placement.py", line 73, in test_same_local_write_work_for_whole_and_streaming
+    self.assertEqual(network.rx_write_bytes['c0'],4096)
+AttributeError: 'BookSimNetwork' object has no attribute 'rx_write_bytes'
+
+----------------------------------------------------------------------
+Ran 42 tests in 1.147s
+
+FAILED (errors=1)
+sys:1: ResourceWarning: unclosed file <_io.TextIOWrapper name=9 encoding='UTF-8'>

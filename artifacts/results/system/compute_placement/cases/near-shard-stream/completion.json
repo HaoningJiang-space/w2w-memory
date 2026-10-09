@@ -1,0 +1,16 @@
+{
+  "complete": true,
+  "case": "near-shard-stream",
+  "source_commit": "1b086e0affbf6a25aa765e09ee9a9fa8e1aa25d1",
+  "input_sha256": "4a348942031e6360c3e3488ec828e6488ded17097ab50861a79fb0b23ef681e2",
+  "makespan_ps": 258825000,
+  "audit": {
+    "passed": true,
+    "packets": 288808,
+    "read_descriptors": 143220,
+    "read_words": 18289008,
+    "data_bytes": 9699328,
+    "physical_link_flits": 34918,
+    "tasks": 411
+  }
+}

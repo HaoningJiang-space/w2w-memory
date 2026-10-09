@@ -1,0 +1,2 @@
+{"starting": "rwdl-four_way", "source_commit": "2e3087ae1b423f169ab595699007c9369a7a081c", "weight_bytes": 585248256}
+{"completed": "rwdl-four_way", "makespan_us": 472.146, "kernel_iterations": 592695, "wall_seconds": 993.1550040110014}

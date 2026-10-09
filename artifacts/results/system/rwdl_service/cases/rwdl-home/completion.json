@@ -1,0 +1,16 @@
+{
+  "complete": true,
+  "case": "rwdl-home",
+  "source_commit": "2e3087ae1b423f169ab595699007c9369a7a081c",
+  "input_sha256": "ec6de04b1ca0899e5f106cddf47c9883286d01f98c202b081e7c926fa5ec0351",
+  "makespan_ps": 519403000,
+  "audit": {
+    "passed": true,
+    "packets": 288680,
+    "read_descriptors": 143220,
+    "read_words": 18289008,
+    "data_bytes": 9175040,
+    "physical_link_flits": 10540,
+    "tasks": 380
+  }
+}

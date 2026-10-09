@@ -1,0 +1,2 @@
+{"starting": "gather-whole", "source_commit": "1b086e0affbf6a25aa765e09ee9a9fa8e1aa25d1", "weight_bytes": 585248256}
+{"completed": "gather-whole", "makespan_us": 475.192, "wall_seconds": 855.6387274651788}

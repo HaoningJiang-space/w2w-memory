@@ -1,0 +1,16 @@
+{
+  "complete": true,
+  "case": "rwdl-four_way",
+  "source_commit": "2e3087ae1b423f169ab595699007c9369a7a081c",
+  "input_sha256": "51ec8193c0908ab9cfa0a042f35d21553e06814c4250a06511a26b60e83f2f43",
+  "makespan_ps": 472146000,
+  "audit": {
+    "passed": true,
+    "packets": 290912,
+    "read_descriptors": 144336,
+    "read_words": 18289008,
+    "data_bytes": 9175040,
+    "physical_link_flits": 2584780,
+    "tasks": 380
+  }
+}
