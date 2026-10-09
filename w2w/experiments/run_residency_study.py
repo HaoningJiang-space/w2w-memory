@@ -25,13 +25,13 @@ def logical_work(graph):
                        for t in graph['tasks']], data=graph['data'], control=graph['control'])
 
 
-def prepare(output):
+def prepare(output, policies=('pair', 'four_way')):
     output.mkdir(parents=True, exist_ok=False)
     (output/'inputs').mkdir()
     cases, layouts = [], {}
     for cohort in LAYER_COHORTS:
         work_hash = None
-        for policy in ('pair', 'four_way'):
+        for policy in policies:
             graph, metadata = compile_layer(cohort=cohort, residency=policy)
             logical = digest(logical_work(graph))
             if work_hash is not None and logical != work_hash:
@@ -55,7 +55,7 @@ def prepare(output):
         spec=asdict(machine()), native='existing RamulatorAbsolute HBM2',
         network='existing native BookSim; real return only',
         primary='c0_b1', predeclared_validation=['c1_b1', 'c2_b4'],
-        policy='all 128 experts; aligned 2x2 group fixed from owner geometry; no trace fitting',
+        policy='all 128 experts; home / horizontal pair / aligned 2x2; fixed owner geometry, no trace fitting',
         max_ps=20_000_000_000))
     print(json.dumps(dict(prepared=str(output), cases=len(cases), layouts=layouts)), flush=True)
 
@@ -106,12 +106,14 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument('--prepare', action='store_true')
-    mode.add_argument('--case', choices=[c+'-'+p for c in LAYER_COHORTS for p in ('pair', 'four_way')])
+    mode.add_argument('--case', choices=[c+'-'+p for c in LAYER_COHORTS for p in ('home', 'pair', 'four_way')])
+    parser.add_argument('--policies', nargs='+', choices=('home', 'pair', 'four_way'),
+                        default=('pair', 'four_way'), help='Policies to register with --prepare')
     parser.add_argument('--booksim-source', type=Path)
     parser.add_argument('--booksim-binary', type=Path)
     args = parser.parse_args()
     if args.prepare:
-        prepare(args.output)
+        prepare(args.output, args.policies)
     else:
         if args.booksim_source is None or args.booksim_binary is None:
             parser.error('Running a case requires the existing BookSim source and binary')

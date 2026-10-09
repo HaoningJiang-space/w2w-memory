@@ -56,3 +56,13 @@ native-ready 等待、row conflicts、NoC flit-hop/wire bytes 与最忙链路。
 随后 `--case c0_b1-pair` / `--case c0_b1-four_way` 等使用同一 output，显式传入
 既有 `--booksim-source` 与 `--booksim-binary`。各 case 独立日志、结果和完成标志。
 运行源码必须与 registration 的 commit 一致；所有构建/测试/实验在 hn072。
+
+## 后续用户要求的 Home-only 对照
+
+在主请求与独立单请求的 Pair/4-way 完成、原四 token batch 仍运行时，用户要求
+加入 Home-only 强对照。它是同 owner 的隔离对照，不优化 owner；全部 128 个专家
+都驻留 home，仍保留完整 compute NoC 上的 dispatch/combine。
+
+此项独立登记到 `home-study`（`--prepare --policies home`），使用相同三个 cohort、
+同机器、相同逻辑任务与总字节。原六项注册、布局和源码保持冻结，不回写为九项
+预注册；Home-only 在新的源码工作树运行。最终并列三种布局，分别记录源码身份。

@@ -24,8 +24,10 @@ LAYER_COHORTS = {'c0_b1': (0, 1), 'c1_b1': (1, 1), 'c2_b4': (2, 4)}
 
 def residency_shards(owner, policy):
     """Geometry-only placement, independent of which experts a token selects."""
-    if not 0 <= owner < 36 or policy not in ('pair', 'four_way'):
-        raise ValueError('Expected a 6x6 owner and pair/four_way residency')
+    if not 0 <= owner < 36 or policy not in ('home', 'pair', 'four_way'):
+        raise ValueError('Expected a 6x6 owner and home/pair/four_way residency')
+    if policy == 'home':
+        return (('home', owner),)
     shards = (('home', owner), ('peer', owner ^ 1))
     if policy == 'four_way':
         vertical = owner + (6 if (owner//6) % 2 == 0 else -6)
@@ -123,7 +125,8 @@ def compile_layer(inputs=INPUTS, *, cohort='c0_b1', residency='pair'):
         model=previous['model'], model_source=previous['weight_source'], cohort=cohort,
         tokens=tokens, owner_policy='existing frozen training marginal LPT; no retuning',
         owners=owners, residency_policy=residency,
-        residency=('50% home + 50% owner XOR 1, fixed for every intermediate tile' if residency == 'pair'
+        residency=('100% home, fixed owner' if residency == 'home' else
+                   '50% home + 50% owner XOR 1, fixed for every intermediate tile' if residency == 'pair'
                    else '25% per memory in fixed aligned 2x2 group containing owner; home/peer/vertical/diagonal'),
         layout_sha256=sha256(json.dumps([asdict(o) for o in objects], sort_keys=True).encode()).hexdigest(),
         precision=dict(weights='FP8', scales='FP32 per 128x128 block', activation='BF16', accumulator='FP32'),
