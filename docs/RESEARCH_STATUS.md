@@ -6,10 +6,11 @@
 保留 NoC 额外流量、native 等待与所有边界。前轮六项返回/网络条件结果在
 [原报告](reports/MOE_LAYER_SYSTEM_REPORT.md)，原始身份不变。
 
-当前系统执行已存在，但物理平台仍是 HBM2 reference＋合成 stitched mesh，且采用
-整 descriptor 返回。下一步为[机器与服务边界闭合](methods/WAFER_MACHINE_CLOSURE.md)：
-坐标导出长度/时序/成本、有限流式供数、具备明确资源组织的原生 profile。
-这些新能力尚未实现，不将当前结果宣称为物理校准后的 WoW 最佳架构。
+后续[坐标几何与有限流式返回对照](reports/WAFER_MACHINE_CLOSURE_REPORT.md)已完成：
+同一四 token / 4-way 层，新几何整包 1,055.534 μs，流式 1,064.328 μs（慢 0.83%）。
+流水、credit 与成本已从同一坐标定义导出；流式保留原请求与缓冲预算。
+高并行 RWDL profile 尚未实现，工艺时序/物理面积也未标定。下一步只落实原生服务域。
+优化 BookSim、在线接口和 DRAM 适配的修改已统一进入本仓库，独立构建成功。
 
 以下为历史读子系统及局部硬件研究状态，其中“当前”“下一步”仅适用于原实验。
 新的 compute 网络采用显式 stitching，不沿用旧 H/plus 的纯直接读路径语义。

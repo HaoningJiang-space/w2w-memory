@@ -1,0 +1,40 @@
+{
+  "analysis_commit": "1773804",
+  "execution_commit": "a9066bced8b54a90c4f9cc1099fe7d209f5f15a6",
+  "files": {
+    "analysis.json": {
+      "bytes": 38827,
+      "sha256": "4187f803c5a26148335f2c034afd648756a4381c4a35eb65f353b15106ac695d"
+    },
+    "hbm2-stream/completion.json.gz": {
+      "bytes": 297,
+      "sha256": "9b009f8423a9dc6daf486cabd4840feaf36ec29486e0965ef59c1c6cc9e97cbf"
+    },
+    "hbm2-stream/summary.json.gz": {
+      "bytes": 26777,
+      "sha256": "ec888fb0fe85eed6682107d530078d51ab9b12f62013878d771a1e9f76d98430"
+    },
+    "hbm2-whole/completion.json.gz": {
+      "bytes": 300,
+      "sha256": "cac0126a8aac284ba80ce8e9fe846becd3193acd0a687b234fe567bafd6bedb2"
+    },
+    "hbm2-whole/summary.json.gz": {
+      "bytes": 26677,
+      "sha256": "6e1d9703ec21d681658140945a651e40bde8d2ccfaebd49de544b16ea08d6346"
+    },
+    "input.json.gz": {
+      "bytes": 67737,
+      "sha256": "aac04599cf1ffb8ae0728b50af2bb58b1d23dab061162b23cb055a0c527c9ec7"
+    },
+    "network_inputs_and_logs.tar.gz": {
+      "bytes": 2380,
+      "sha256": "c8a5b9602f65ff6dc1c937b96aa380e80146dd1ab43ee2353f82bdba54fd2db5"
+    },
+    "registration.json.gz": {
+      "bytes": 540,
+      "sha256": "1db31ff932983ca4cb745de09c1b31377ded41b7aa62c920f643568abb20190d"
+    }
+  },
+  "raw_events_retained_on_server": true,
+  "remote_root": "/Projects/haoning/w2w-full-system-closure-20261009"
+}

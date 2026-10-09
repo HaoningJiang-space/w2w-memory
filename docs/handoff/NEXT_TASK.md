@@ -1,32 +1,31 @@
-# 当前任务：闭合 wafer machine 与有限流式返回
+# 当前任务：独立 RWDL 原生服务域与瓶颈迁移
 
-Home / Pair / 4-way 的九项固定驻留执行已完成；[结果](../reports/B1_RESIDENCY_STUDY_REPORT.md)
-限定于当前合成 6×6 stitched
-mesh＋36-channel HBM2 reference。之后不扩大驻留 DSE，不先开发 Direct HB 或 RTL。
-[物理机器与服务边界设计](../methods/WAFER_MACHINE_CLOSURE.md)是唯一后续实施合同。
+坐标几何和有限流式返回已在固定 `c2_b4`、4-way 完整层执行：整包
+1,055.534 μs，流式 1,064.328 μs；流式本次慢 0.83%。
+[结果与执行边界](../reports/WAFER_MACHINE_CLOSURE_REPORT.md)。旧九项驻留结果保持冻结。
+不继续优化 endpoint，不扩大驻留 DSE，不先增加 Direct HB。
 
-**源码归属：所有改好的仿真工具统一维护在本仓库。** 优化 BookSim 的补丁、在线 C++
-接口和 Python runtime 已内置；`tools/build_native.py` 在隔离目录重建 BookSim / DRAM
-bridge，新运行不依赖另一位开发者的 `wafer_simulator` 工作区。
-参见[独立构建](../methods/NATIVE_TOOLCHAIN.md)。第三方原始 Ramulator 仍锁定上游版本；
-本项目的适配与任何后续扩展都进入本仓库，编译产物和原始数据留在 Git 外。
+下一项只落实[机器闭合合同](../methods/WAFER_MACHINE_CLOSURE.md)中的原生组织：
 
-按三个可归因的更新推进：
+1. 保留 Ramulator 的命令/刷新框架，以 32 个独立 128-Mbit、128-bit RWDL 域构造
+   每 M 512 MiB 的显式候选。区分公开容量/接口数据和自定阵列时序；不能把 HBM2
+   带宽直接乘倍数。扩展源码和 CMake/codegen 配置都进入 `w2w/service/dram`。
+2. 明确 16 B 原子传输、整数 3760 ps 时钟、CDC、命令队列、刷新与有限返回存储。
+   保持逻辑地址/32 B 字、4 KiB descriptor、MC32 和 requester32；按 offset 对应
+   两次原子传输。独立域的 command queue 不能因默认值被静默复制 32 倍。
+3. 明确 RWDL 与 HB 是否为同一组物理数据通道，记录每域/每 M 的 lane 和共享资源。
+   32×128-bit 独立通道不能仍沿用旧 Home HB 的 2048-bit 标牌而不解释汇聚。
+   Controller-ready 边界不得免费产生 pre-HB 的直接分叉。
+4. 同一个四 token/4-way 完整层，对照已完成的 HBM2＋新几何＋流式返回。
+   只观察原生并行度改变后是否出现 NoC/HB/窗口瓶颈，并分别列资源；不将不同
+   原生组织的时间比当作同硬件加速。不重写 kernel 或重启 BookSim 验收 campaign。
 
-1. **机器定义生成 SystemSpec**：reticle 与端口的物理坐标共同生成合法 C–C/HB 路径，
-   同一线段给出长度、流水、credit 和成本。参数注明来源/假设；新机器另给身份，
-   不把现有每边 10 mm、2-cycle 配置追认成真实 wafer。对齐矩形不默认具有邻居 HB。
-2. **细粒度就绪接入现有 BookSim**：保留 4 KiB descriptor、请求数量、MC/outstanding、
-   包格式与地址；native ticket 记录 offset，有限 bitmap 驱动连续可供 flit，
-   本地 DMA 同样流式。明确 payload 所有权和 slot 释放，不靠拆小请求增加并发。
-   与旧整 descriptor 返回同任务比较；不离线从旧时间中减一个常数。
-3. **原生 profile**：HBM2 保持 controller-ready 边界；新独立 RWDL 配置依据容量、
-   通道数、接口宽度与频率构造，并落实命令/刷新/返回资源。不能将 HBM2 的 bandwidth
-   直接乘倍数，或在回调后免费生成 pre-HB 分叉。缺失时序明确为假设。
+**所有仿真工具修改统一在本仓库维护。** 优化 BookSim 的补丁、在线 C++ 接口和
+Python runtime 已内置；`tools/build_native.py` 从本仓库在隔离目录重建网络/DRAM
+bridge。新运行不依赖另一位开发者的 `wafer_simulator` 工作区，参见
+[独立构建](../methods/NATIVE_TOOLCHAIN.md)。第三方原始 Ramulator 保持锁定；构建物、
+环境、原始 captures/events 留在 Git 外。
 
-复用统一 kernel、native BookSim、Ramulator 和已有 routing；不重新开发 simulator、
-不启动 BookSim 验收 campaign。日常回归照常，仅核验本次增加的因果与有限容量合同。
-单层结果不能写成完整 LLM、物理校准或制造可行性已证明。
-
-实验只在 hn072 的隔离 `/Projects/haoning/w2w-full-system-*` 目录，源码经 Git；
-不改另一位开发者的 RTL 和 wafer_simulator。旧任务见[历史索引](NEXT_TASK_HISTORY.md)。
+实验只在 hn072 的 `/Projects/haoning/w2w-full-system-*`，源码经 Git。旧工作树
+`w2w-full-system-closure-20261009/source` 固定为执行源 `a9066bc`，结果与配置不得覆盖。
+RTL 和其他开发者目录不动。旧任务见[历史索引](NEXT_TASK_HISTORY.md)。

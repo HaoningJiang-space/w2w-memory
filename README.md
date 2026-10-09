@@ -4,8 +4,10 @@
 两个单 token 与预定四 token batch 中，4-way 相对 Pair 的层时间分别缩短
 49.00%、23.07%、38.96%；两单 token 的 Pair 均比同 owner Home 慢约 3.11%。
 这些结果属于 36-channel HBM2 reference＋合成 stitched mesh、整 descriptor 返回。
+后续[坐标几何／流式返回对照](docs/reports/WAFER_MACHINE_CLOSURE_REPORT.md)已完成：
+固定四 token / 4-way，新几何整包 1,055.534 μs，流式 1,064.328 μs（本次慢 0.83%）。
 **物理 wafer 尚未校准**；下一步按[机器与返回边界合同](docs/methods/WAFER_MACHINE_CLOSURE.md)
-连接几何、原生服务、HB 与 NoC，不继续扩大驻留 DSE 或预设 Direct HB 必需。
+落实独立原生服务域，不继续扩大驻留 DSE 或预设 Direct HB 必需。
 
 **开发入口：[HANDOFF](docs/HANDOFF.md)** — 当前状态、复现、接口边界与唯一下一任务。
 [执行合同](docs/methods/MOE_LAYER_SYSTEM.md)明确机器、地址、缓冲和时钟；
