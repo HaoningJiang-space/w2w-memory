@@ -51,7 +51,7 @@ def summarize(result):
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--output', type=Path, required=True)
-    p.add_argument('--booksim-source', type=Path, required=True)
+    p.add_argument('--booksim-source', type=Path, help='Optional legacy wafer_simulator checkout; default is bundled')
     p.add_argument('--booksim-binary', type=Path, required=True)
     p.add_argument('--dram', choices=('ideal', 'ramulator'), default='ideal')
     args = p.parse_args()

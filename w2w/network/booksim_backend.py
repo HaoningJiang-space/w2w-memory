@@ -18,13 +18,13 @@ import sys
 PIN = '0c56c24b4bf602b8b2c036681f526971305dde99'
 
 
-def factory(*, source, binary, directory, ideal_return=False, debug_flits=False):
+def factory(*, binary, directory, source=None, ideal_return=False, debug_flits=False):
     return partial(BookSimNetwork, source=source, binary=binary, directory=directory,
                    ideal_return=ideal_return, debug_flits=debug_flits)
 
 
 def _config(builder, directory):
-    from wafer_sim.adapters.online_booksim import prepare_online_config
+    from .native_booksim.online_booksim import prepare_online_config
     root = directory / 'rapidchiplet/booksim2/src'
     for name in ('rc_configs', 'rc_topologies', 'rc_stats', 'rc_xy_info'):
         (root / name).mkdir(parents=True, exist_ok=True)
@@ -57,13 +57,24 @@ def _config(builder, directory):
 class BookSimNetwork:
     def __init__(self, builder, events, *, source, binary, directory,
                  ideal_return=False, debug_flits=False):
-        source, directory = Path(source).resolve(), Path(directory).resolve()
-        revision = subprocess.check_output(['git', '-C', str(source), 'rev-parse', 'HEAD'], text=True).strip()
-        if revision != PIN:
-            raise ValueError(f'Use the registered wafer_simulator revision {PIN}')
-        sys.path.insert(0, str(source/'src'))
-        sys.path.insert(0, str(source/'third_party/nw-design-for-wsi'))
-        from wafer_sim.adapters.boundary_booksim import BoundaryBookSim
+        from .native_booksim.support import digest
+        directory = Path(directory).resolve()
+        if source is None:
+            from .native_booksim.boundary_booksim import BoundaryBookSim
+            from .native_booksim import __file__ as package_file
+            self.runtime_source = dict(kind='bundled_w2w', files={
+                p.name: digest(p) for p in sorted(Path(package_file).parent.glob('*.py'))})
+        else:
+            # Explicit compatibility path for replaying archived runs. New runs
+            # use the bundled implementation, with no sibling checkout needed.
+            source = Path(source).resolve()
+            revision = subprocess.check_output(['git', '-C', str(source), 'rev-parse', 'HEAD'], text=True).strip()
+            if revision != PIN:
+                raise ValueError(f'Use the registered wafer_simulator revision {PIN}')
+            sys.path.insert(0, str(source/'src'))
+            sys.path.insert(0, str(source/'third_party/nw-design-for-wsi'))
+            from wafer_sim.adapters.boundary_booksim import BoundaryBookSim
+            self.runtime_source = dict(kind='legacy_external', commit=revision)
         directory.mkdir(parents=True, exist_ok=False)
         self.builder, self.spec, self.events = builder, builder.spec, events
         self.nodes, config = _config(builder, directory)
@@ -284,6 +295,7 @@ class BookSimNetwork:
 
     def record(self):
         return dict(kind='native_boundary_booksim', source_commit=PIN,
+                    runtime_source=self.runtime_source,
                     identity=self.client.identity, ideal_return=self.ideal_return,
                     packetization='header+payload; native single-flit packets',
                     routing='native simple_cycle_breaking_set/adaptive',

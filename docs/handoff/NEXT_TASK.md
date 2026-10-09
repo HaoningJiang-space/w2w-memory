@@ -5,6 +5,12 @@ Home / Pair / 4-way 的九项固定驻留执行已完成；[结果](../reports/B
 mesh＋36-channel HBM2 reference。之后不扩大驻留 DSE，不先开发 Direct HB 或 RTL。
 [物理机器与服务边界设计](../methods/WAFER_MACHINE_CLOSURE.md)是唯一后续实施合同。
 
+**源码归属：所有改好的仿真工具统一维护在本仓库。** 优化 BookSim 的补丁、在线 C++
+接口和 Python runtime 已内置；`tools/build_native.py` 在隔离目录重建 BookSim / DRAM
+bridge，新运行不依赖另一位开发者的 `wafer_simulator` 工作区。
+参见[独立构建](../methods/NATIVE_TOOLCHAIN.md)。第三方原始 Ramulator 仍锁定上游版本；
+本项目的适配与任何后续扩展都进入本仓库，编译产物和原始数据留在 Git 外。
+
 按三个可归因的更新推进：
 
 1. **机器定义生成 SystemSpec**：reticle 与端口的物理坐标共同生成合法 C–C/HB 路径，

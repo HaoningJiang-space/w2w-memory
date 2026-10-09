@@ -38,7 +38,7 @@ class GeometryTests(unittest.TestCase):
             from_coordinates(replace(spec,links=(replace(hb,dst='c1'),)))
 
 
-@unittest.skipUnless(os.environ.get('W2W_BOOKSIM_SOURCE') and os.environ.get('W2W_BOOKSIM_BINARY')
+@unittest.skipUnless(os.environ.get('W2W_BOOKSIM_BINARY')
                      and os.environ.get('W2W_RAMULATOR_BRIDGE'), 'Existing native components required')
 class StreamingTests(unittest.TestCase):
     def execute(self, local=False, streaming=True):
@@ -53,7 +53,7 @@ class StreamingTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             try:
                 result=execute_system(spec,graph,native=native,network_factory=factory(
-                    source=os.environ['W2W_BOOKSIM_SOURCE'],binary=os.environ['W2W_BOOKSIM_BINARY'],
+                    source=os.environ.get('W2W_BOOKSIM_SOURCE'),binary=os.environ['W2W_BOOKSIM_BINARY'],
                     directory=Path(directory)/'network'),max_ps=2_000_000)
             finally:
                 native.close()
@@ -73,7 +73,7 @@ class StreamingTests(unittest.TestCase):
     def test_old_whole_descriptor_mode_still_drains_same_bytes(self):
         a,b=self.execute(streaming=False),self.execute(streaming=True)
         self.assertEqual(a['graph'],b['graph'])
-        self.assertEqual(a['audit']['read_words'],b['audit']['read_words'])
+        self.assertEqual(audit_system_result(a)['read_words'],audit_system_result(b)['read_words'])
         self.assertEqual(a['network']['accepted_packets'],b['network']['accepted_packets'])
 
 

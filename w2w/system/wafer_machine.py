@@ -79,7 +79,7 @@ def from_coordinates(spec, recipe=WaferRecipe()):
             credit_window_flits=spec.input_buffer_flits,
             propagation_only_flits_per_cycle_upper=min(1,spec.input_buffer_flits/(2*cycles))))
     exported = replace(spec, links=tuple(links))
-    record = dict(schema='w2w.wafer-machine.v1', scope='coordinate_derived_un calibrated_candidate'.replace(' ',''),
+    record = dict(schema='w2w.wafer-machine.v1', scope='coordinate_derived_uncalibrated_candidate',
         recipe=asdict(recipe), compute_reticles=reticles,
         memory_placement='identical aligned rectangles; home overlap only', paths=paths,
         assumptions=dict(field='26x33 mm field scale, WoW paper; not a DRAM macro floorplan',
