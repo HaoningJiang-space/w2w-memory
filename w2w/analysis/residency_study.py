@@ -33,6 +33,26 @@ def mc_waits(result):
     return {m: {k: distribution(v) for k, v in row.items()} for m, row in grouped.items()}
 
 
+def network_parameters(directory, identity):
+    """Compare execution parameters; absolute input/output filenames vary by run."""
+    root = (directory/'network').resolve()
+    config = root/'rapidchiplet/booksim2/src/rc_configs/network.conf'
+    topology = root/'rapidchiplet/booksim2/src/rc_topologies/network.anynet'
+    if file_record(config)['sha256'] != identity['config_sha256']:
+        raise ValueError('Native configuration file differs from executed identity')
+    text = config.read_text()
+    for key, name in (('trace_file', 'empty_network_input.json'), ('trace_report', 'trace_report.json')):
+        original = f'{key} = {root/name};'
+        if text.count(original) != 1:
+            raise ValueError('Unexpected native input/output path')
+        text = text.replace(original, f'{key} = <run>/{name};')
+    if json.loads((root/'empty_network_input.json').read_text()) != []:
+        raise ValueError('Unexpected offline trace in live network')
+    parameters = {k: v for k, v in identity.items() if k != 'config_sha256'}
+    parameters.update(normalized_config_sha256=digest(text), topology_sha256=file_record(topology)['sha256'])
+    return parameters, (config, topology, root/'empty_network_input.json')
+
+
 def analyze(source, cohorts=None):
     registration = json.loads((source/'registration.json').read_text())
     if registration['schema'] != 'w2w.residency-study.v1':
@@ -63,7 +83,9 @@ def analyze(source, cohorts=None):
         row = inspect(result, summary)
         if row['native_kind'] != 'ramulator_hbm2_reference_v1' or result['network']['ideal_return']:
             raise ValueError('This study requires HBM2 and a real NoC return')
-        identities.add(digest([row['native_identity'], row['network_identity'], row['network_source_commit']]))
+        parameters, network_files = network_parameters(directory, row['network_identity'])
+        row['network_parameters'] = parameters
+        identities.add(digest([row['native_identity'], parameters, row['network_source_commit']]))
         links = {l['id']: l for l in result['spec']['links']}
         row.update(logical_work_sha256=case['logical_work_sha256'], layout_sha256=layout,
             tokens=case['tokens'], token_count=len(case['tokens']),
@@ -76,7 +98,7 @@ def analyze(source, cohorts=None):
             wall_seconds=summary['wall_seconds'])
         rows.setdefault(case['cohort'], {})[policy] = row
         for path in (source/'inputs'/(name+'.json'), directory/'result.json.gz',
-                     directory/'summary.json', directory/'completion.json'):
+                     directory/'summary.json', directory/'completion.json', *network_files):
             files[str(path)] = file_record(path)
     if len(identities) != 1 or set(rows) != set(cohorts):
         raise ValueError('Component identity or cohort coverage differs')
