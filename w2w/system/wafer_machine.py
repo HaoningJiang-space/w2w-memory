@@ -29,8 +29,12 @@ class WaferRecipe:
             raise ValueError('No usable wafer area')
 
 
-def from_coordinates(spec, recipe=WaferRecipe()):
+def from_coordinates(spec, recipe=WaferRecipe(), *, allow_fixed_resource_geometry_sensitivity=False):
     """Aligned rectangle layers, center routers/MCs and only home HB overlaps."""
+    resized=(recipe.field_width_um,recipe.field_height_um)!=(26000,33000)
+    if resized and not allow_fixed_resource_geometry_sensitivity:
+        raise ValueError('Changing field dimensions requires a resource-density budget; '
+                         'only explicit fixed-resource distance sensitivity is currently supported')
     xs, ys = [t.x for t in spec.tiles], [t.y for t in spec.tiles]
     columns, rows = max(xs)+1, max(ys)+1
     if min(xs) != 0 or min(ys) != 0 or len(spec.tiles) != columns*rows:
@@ -88,5 +92,13 @@ def from_coordinates(spec, recipe=WaferRecipe()):
             ports='one center router/MC per reticle; native array access is in DRAM backend',
             credit='one pulse per VC per cycle; clock/control/P/G cost not calibrated'),
         sources=['https://arxiv.org/html/2603.05266v1'], area_um2=None, energy_j=None)
+    record['resource_density']=dict(calibrated=False,area_dse_eligible=False,
+        fixed_resource_geometry_sensitivity=bool(resized),
+        logic_area_used_um2=None,dram_array_area_um2=None,
+        aggregate_tile='one shared modeled engine, SRAM and center router/MC; not one physical core',
+        macs_per_cycle=4096 if len(spec.tiles)==36 else None,
+        sram_capacity_bytes_per_tile=spec.tiles[0].sram_bytes,
+        sram_bank_count=None,rx_write_bytes_per_cycle=spec.rx_write_bytes_per_cycle,
+        internal_array_to_mc_and_sram_distances='unresolved; interface placement comparisons require new costs')
     record['machine_sha256'] = sha256(json.dumps([asdict(exported),record],sort_keys=True).encode()).hexdigest()
     return exported, record

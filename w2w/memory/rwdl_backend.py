@@ -11,12 +11,15 @@ import heapq
 class RWDLAbsolute:
     boundary = 'controller_payload_ready_after_native_bus'
     streaming = True
+    stream_origin = 'home_controller'
+    native_ready_location = 'array_digital_rw_dl'
     atomic_bytes = 16
     period_ps = 3760
     cdc_cycles = 2
     reservations_per_channel = 8
 
-    def __init__(self, spec, *, aggregation_bytes_per_cycle=256, refresh=True, command_trace=None):
+    def __init__(self, spec, *, aggregation_bytes_per_cycle=256, refresh=True, command_trace=None,
+                 streaming=True):
         from w2w.service.dram.rwdl import RamulatorRWDL
         if spec.dram_period_ps != self.period_ps or any(
                 m.banks != 32 or m.capacity_bytes != 512*1024**2 for m in spec.memories):
@@ -25,6 +28,7 @@ class RWDLAbsolute:
                 or aggregation_bytes_per_cycle % 16):
             raise ValueError('Aggregation port must contain whole 16 B beats')
         self.spec = spec
+        self.streaming=streaming
         self.backend = RamulatorRWDL(len(spec.memories), refresh=refresh, command_trace=command_trace)
         self.channels = {m.id: i for i,m in enumerate(spec.memories)}
         self.slots = {m.id: m.transaction_slots for m in spec.memories}
@@ -38,6 +42,7 @@ class RWDLAbsolute:
         self.future = []
         self.serial = 0
         self.ready = []
+        self.native_events=[]
         self.memory_groups = Counter()
         self.accepted = self.completed = 0
         self.aggregate_bytes = Counter()
@@ -65,7 +70,7 @@ class RWDLAbsolute:
                 or req.word_address*32+req.bank+req.size_bytes//32 > (1 << 19)*32):
             raise ValueError('RWDL descriptor exceeds physical array capacity')
         cursors = {c: ((c-req.bank)%32)*32 for c in range(32)}
-        self.groups[req.id] = dict(request=req, cursors=cursors, completed=0)
+        self.groups[req.id] = dict(request=req, cursors=cursors, completed=0,raw_completed=0)
         for c, offset in cursors.items():
             if offset < req.size_bytes:
                 self.queues[self.channels[req.memory]*32+c].append(req.id)
@@ -80,6 +85,16 @@ class RWDLAbsolute:
         for ticket, cycle in self.backend.advance(now):
             key, offset, channel = self.tickets.pop(ticket)
             at = cycle*self.period_ps
+            row=self.groups[key]
+            row['raw_completed']+=1
+            # The native callback is the end of one RWDL/HB beat. Preserve the
+            # actual array digital readiness and beat-tail clocks, even if polled later.
+            if row['raw_completed']==1:
+                self.native_events.append(dict(kind='array_first_ready',request=key,
+                    time_ps=at-self.period_ps,beat_tail_ps=at,location=self.native_ready_location))
+            if row['raw_completed']*16==row['request'].size_bytes:
+                self.native_events.append(dict(kind='array_last_ready',request=key,
+                    time_ps=at-self.period_ps,beat_tail_ps=at,location=self.native_ready_location))
             self.native_first_ps = at if self.native_first_ps is None else self.native_first_ps
             self.native_last_ps = at
             sample = ((at+self.spec.noc_period_ps-1)//self.spec.noc_period_ps
@@ -102,7 +117,7 @@ class RWDLAbsolute:
                     self.reserved[channel] -= 1
                     self.aggregate_bytes[memory] += 16
                     self.aggregation_wait_ps += now-sample
-                    self.ready.append((key,offset,16))
+                    if self.streaming:self.ready.append((key,offset,16))
                     row = self.groups[key]
                     row['completed'] += 1
                     if row['completed']*16 == row['request'].size_bytes:
@@ -144,6 +159,10 @@ class RWDLAbsolute:
         result, self.ready = self.ready, []
         return result
 
+    def take_native_events(self):
+        result,self.native_events=self.native_events,[]
+        return result
+
     def resources(self):
         return dict(arrays_per_memory=32, capacity_bytes_per_array=16*1024**2,
             rw_dl_and_hb_same_lanes=True, data_lanes_per_array=128, data_lanes_per_memory=4096,
@@ -156,6 +175,10 @@ class RWDLAbsolute:
             reserved_atoms_per_array=8, shared_return_reservation_bytes_per_memory=32*8*16,
             return_reservation_lifetime='before native read acceptance through CDC and aggregate drain',
             cdc_cycles=self.cdc_cycles, cdc_policy='ceil native tail to NoC edge, then two NoC cycles',
+            native_ready_location=self.native_ready_location,stream_origin=self.stream_origin,
+            transport_path=['array digital ready','one RWDL/HB beat','reserved CDC',
+                            'shared aggregation','MC staging','NoC/local DMA','SRAM write'],
+            array_to_center_wire_length_um=None,array_to_center_wire_cost_calibrated=False,
             aggregation_bits=self.aggregation_bytes_per_cycle*8,
             aggregation_period_ps=self.spec.noc_period_ps,
             descriptor_return_bytes_per_memory=max(self.slots.values())*self.spec.memory_request_bytes,
@@ -164,7 +187,7 @@ class RWDLAbsolute:
 
     def record(self):
         value = self.backend.record()
-        value.update(boundary=self.boundary,streaming=True,atomic_bytes=16,
+        value.update(boundary=self.boundary,streaming=self.streaming,atomic_bytes=16,
             accepted=self.backend.accepted,completed=self.backend.completed,
             grouped_descriptors_accepted=self.accepted,grouped_descriptors_completed=self.completed,
             pending=len(self.groups)+len(self.tickets)+len(self.future)+sum(map(len,self.aggregate.values())),

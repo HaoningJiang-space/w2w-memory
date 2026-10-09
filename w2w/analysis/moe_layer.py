@@ -79,8 +79,10 @@ def inspect(result, summary):
                 ('native_admission_to_ready', 'native_accept', 'native_ready'),
                 ('native_ready_to_delivery', 'native_ready', 'read_deliver'))},
         last_expert_task=dict(id=expert_tail, **tail,
-            allocation_to_last_native_ready_ps=tail['last_native_ready_ps']-tail['allocated_ps'],
-            last_read_after_last_native_ready_ps=tail['last_read_delivery_ps']-tail['last_native_ready_ps']),
+            allocation_to_last_native_ready_ps=(tail['last_native_ready_ps']-tail['allocated_ps']
+                if tail['last_native_ready_ps'] is not None else None),
+            last_read_after_last_native_ready_ps=(tail['last_read_delivery_ps']-tail['last_native_ready_ps']
+                if tail['last_native_ready_ps'] is not None else None)),
         channel_stats=channel_stats,
         row_totals={k: sum(c[k] for c in channel_stats.values())
                     for k in ('read_row_hits', 'read_row_misses', 'read_row_conflicts')},

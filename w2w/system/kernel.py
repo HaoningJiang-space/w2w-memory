@@ -18,7 +18,8 @@ from w2w.system.builder import SystemBuilder
 
 
 class SystemExecution:
-    def __init__(self, spec, graph, native=None, *, network_factory=None):
+    def __init__(self, spec, graph, native=None, *, network_factory=None,
+                 activation_sram_read_bytes_per_cycle=None):
         self.spec, self.graph = spec, graph
         self.builder = SystemBuilder(spec).validate_graph(graph)
         self.events = []
@@ -29,8 +30,16 @@ class SystemExecution:
             raise ValueError('Unknown DRAM callback boundary')
         self.native_at_controller = self.native.boundary.startswith('controller_')
         self.streaming = getattr(self.native, 'streaming', False)
-        if self.streaming and (not self.native_at_controller or not hasattr(self.network,'supply_prefix')):
-            raise ValueError('Streaming requires a controller-ready native backend and supply/commit network')
+        self.stream_origin=getattr(self.native,'stream_origin',
+                                   'home_controller' if self.native_at_controller else 'array')
+        if self.streaming and (self.stream_origin!='home_controller' or not hasattr(self.network,'supply_prefix')):
+            raise ValueError('Streaming return must declare its transport-complete home-controller origin')
+        if activation_sram_read_bytes_per_cycle is not None and (
+                type(activation_sram_read_bytes_per_cycle) is not int
+                or activation_sram_read_bytes_per_cycle<1 or not hasattr(self.network,'supply_prefix')):
+            raise ValueError('Explicit SRAM read port requires positive width and finite prefix network')
+        self.activation_sram_read_bytes_per_cycle=activation_sram_read_bytes_per_cycle
+        self.sram_read_bytes,self.sram_read_cycles=Counter(),Counter()
         self.tasks = {t.id: t for t in graph.tasks}
         self.predecessors = {t.id: {e.producer for e in (*graph.control, *graph.data) if e.consumer == t.id}
                              for t in graph.tasks}
@@ -64,9 +73,11 @@ class SystemExecution:
         self.sram_peak[tile] = max(self.sram_peak[tile], self.sram[tile])
         self.log('sram_change', tile=tile, task=task, bytes=amount)
 
-    def _send(self, key, src, dst, cls, size, kind, item):
+    def _send(self, key, src, dst, cls, size, kind, item, *, streaming=False):
         packet = Packet(key, src, dst, cls, size, self.builder.route(src, dst))
-        if not self.network.try_send(packet, self.now):
+        accepted=(self.network.try_send(packet,self.now,streaming=True) if streaming
+                  else self.network.try_send(packet,self.now))
+        if not accepted:
             return False
         self.packet_info[key] = kind, item, size
         return True
@@ -96,7 +107,9 @@ class SystemExecution:
                 self.state[req.task]['read_bytes'] += req.size_bytes
                 self.outstanding[req.requester] -= 1
                 self.log('read_deliver', request=key, task=req.task, bytes=req.size_bytes,
-                         memory=req.memory, bank=req.bank, word_address=req.word_address)
+                         memory=req.memory, bank=req.bank, word_address=req.word_address,
+                         receive_service=(self.network.packet_metrics(packet.id)
+                            if hasattr(self.network,'packet_metrics') else None))
                 del self.requests[key]
             else:
                 raise RuntimeError('Unknown transaction packet')
@@ -134,6 +147,8 @@ class SystemExecution:
             self.log('task_allocate', task=key, tile=task.tile)
 
     def _data_transfers(self):
+        if self.activation_sram_read_bytes_per_cycle is not None:
+            return self._ported_data_transfers()
         for key in sorted(self.edges):
             row = self.edges[key]
             edge = row['edge']
@@ -146,6 +161,33 @@ class SystemExecution:
                 row['sent'] += size
                 self._sram(src, -size, edge.producer)
                 self.log('data_issue', edge=key, bytes=size)
+
+    def _ported_data_transfers(self):
+        used=Counter()
+        for key in sorted(self.edges):
+            row=self.edges[key];edge=row['edge']
+            if (not self.state[edge.producer].get('done')
+                    or not self.state[edge.consumer]['allocated'] or row['sent']==edge.size_bytes):
+                continue
+            src,dst=self.tasks[edge.producer].tile,self.tasks[edge.consumer].tile
+            if 'copy' not in row:
+                size=min(self.spec.packet_payload_bytes,edge.size_bytes-row['sent'])
+                packet=f'data/{key}/{row["sent"]}'
+                if not self._send(packet,src,dst,'activation',size,'data',key,streaming=True):
+                    continue
+                row['copy']=dict(packet=packet,size=size,prefix=0)
+            copy=row['copy']
+            size=min(copy['size']-copy['prefix'],self.activation_sram_read_bytes_per_cycle-used[src])
+            if size<=0:continue
+            used[src]+=size;copy['prefix']+=size;row['sent']+=size
+            self.sram_read_bytes[src]+=size
+            self._sram(src,-size,edge.producer)
+            self.log('data_issue',edge=key,bytes=size)
+            complete=self.network.supply_prefix(copy['packet'],copy['prefix'],self.now)
+            if copy['prefix']==copy['size']:
+                if not complete:raise RuntimeError('Source SRAM read completed without full NI supply')
+                del row['copy']
+        for src in used:self.sram_read_cycles[src]+=1
 
     def _read_issue(self):
         # Explicit descriptor issue slots; all classes share the finite NI output.
@@ -228,6 +270,8 @@ class SystemExecution:
 
     def _native_progress(self):
         complete = self.native.advance(self.now)
+        if hasattr(self.native,'take_native_events'):
+            self.events.extend(self.native.take_native_events())
         if self.streaming:
             atom = self.native.atomic_bytes
             for key,offset,size in self.native.take_ready():
@@ -351,6 +395,8 @@ class SystemExecution:
                       spec=asdict(self.spec), graph=asdict(self.graph),
                       tasks={k: {v: s[v] for v in ('start_ps', 'finish_ps', 'read_bytes')} for k, s in self.state.items()},
                       sram_peak_bytes=dict(self.sram_peak), compute_busy_ps=dict(self.busy_ps),
+                      activation_sram_read_bytes_per_cycle=self.activation_sram_read_bytes_per_cycle,
+                      sram_read_bytes=dict(self.sram_read_bytes),sram_read_busy_cycles=dict(self.sram_read_cycles),
                       outstanding_peak=dict(self.outstanding_peak), mc_peak=dict(self.mc_peak),
                       network=self.network.record(), native=self.native.record(),
                       physical=self.builder.physical_record(), events=self.events)
@@ -359,8 +405,9 @@ class SystemExecution:
 
 
 def execute_system(spec, graph, *, native=None, network_factory=None, max_ps=10_000_000,
-                   time_advance='gcd'):
-    execution = SystemExecution(spec, graph, native, network_factory=network_factory)
+                   time_advance='gcd',activation_sram_read_bytes_per_cycle=None):
+    execution = SystemExecution(spec, graph, native, network_factory=network_factory,
+                                activation_sram_read_bytes_per_cycle=activation_sram_read_bytes_per_cycle)
     try:
         return execution.run(max_ps,time_advance=time_advance)
     except BaseException:

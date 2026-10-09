@@ -6,7 +6,7 @@ serial channels; a memory node is never a native router. Receive storage is
 reserved at admission per traffic class, preventing request/response protocol
 cycles with the native one-VC network. Classes share physical link bandwidth.
 """
-from collections import Counter
+from collections import Counter,deque
 from functools import partial
 import heapq
 from math import ceil
@@ -18,9 +18,11 @@ import sys
 PIN = '0c56c24b4bf602b8b2c036681f526971305dde99'
 
 
-def factory(*, binary, directory, source=None, ideal_return=False, debug_flits=False):
+def factory(*, binary, directory, source=None, ideal_return=False, debug_flits=False,
+            local_dma='legacy',cell_sideband_bits=0):
     return partial(BookSimNetwork, source=source, binary=binary, directory=directory,
-                   ideal_return=ideal_return, debug_flits=debug_flits)
+                   ideal_return=ideal_return, debug_flits=debug_flits,local_dma=local_dma,
+                   cell_sideband_bits=cell_sideband_bits)
 
 
 def _config(builder, directory):
@@ -56,7 +58,7 @@ def _config(builder, directory):
 
 class BookSimNetwork:
     def __init__(self, builder, events, *, source, binary, directory,
-                 ideal_return=False, debug_flits=False):
+                 ideal_return=False, debug_flits=False,local_dma='legacy',cell_sideband_bits=0):
         from .native_booksim.support import digest
         directory = Path(directory).resolve()
         if source is None:
@@ -77,6 +79,9 @@ class BookSimNetwork:
             self.runtime_source = dict(kind='legacy_external', commit=revision)
         directory.mkdir(parents=True, exist_ok=False)
         self.builder, self.spec, self.events = builder, builder.spec, events
+        if local_dma not in ('legacy','payload_beats'):
+            raise ValueError('Unknown local DMA contract')
+        self.local_dma=local_dma
         self.nodes, config = _config(builder, directory)
         self.node_names = {n: name for name, n in self.nodes.items()}
         self.client = BoundaryBookSim(binary, config, directory, flit_bytes=self.spec.flit_bytes)
@@ -97,6 +102,14 @@ class BookSimNetwork:
         self.rejections = self.accepted = self.delivered = 0
         self.native_idle = True
         self.final = None
+        self.rx_write_bytes,self.rx_write_cycles,self.rx_write_wait_ps=Counter(),Counter(),Counter()
+        self.rx_write_cycles_by_class=Counter()
+        self.injection_flits_by_source=Counter()
+        self.admission_rejections=Counter()
+        if cell_sideband_bits not in (0,64):raise ValueError('Supported cell sideband is legacy unspecified or 64 bits')
+        self.cell_sideband_bits=cell_sideband_bits
+        self.cell_tags=deque(range(1 << 16)) if self.cell_sideband_bits else None
+        self.cell_tag_peak=0
 
     def log(self, now, kind, **values):
         self.events.append(dict(time_ps=now, kind=kind, **values))
@@ -114,10 +127,19 @@ class BookSimNetwork:
             raise ValueError('Packet exceeds NI descriptor capacity')
         if packet.route != self.builder.route(packet.src, packet.dst):
             raise ValueError('Packet contains an illegal physical route')
-        count = ceil((packet.payload_bytes+self.spec.header_bytes)/self.spec.flit_bytes)
+        local_payload=self.local_dma=='payload_beats' and not packet.route
+        count = max(1,ceil((packet.payload_bytes+(0 if local_payload else self.spec.header_bytes))/self.spec.flit_bytes))
         rx = packet.dst, packet.traffic_class
+        if self.cell_tags is not None and not self.cell_tags:
+            self.admission_rejections['cell_tag_pool']+=1
+            self.rejections+=1
+            return False
         if (self.source_occupied[packet.src]+count > self.spec.injection_flits
                 or self.rx_reserved[rx] >= self.spec.ejection_packets):
+            if self.source_occupied[packet.src]+count > self.spec.injection_flits:
+                self.admission_rejections['source_ni/'+packet.src]+=1
+            if self.rx_reserved[rx] >= self.spec.ejection_packets:
+                self.admission_rejections['destination_slots/'+packet.dst]+=1
             self.rejections += 1
             return False
         self.source_occupied[packet.src] += count
@@ -125,7 +147,12 @@ class BookSimNetwork:
         self.rx_reserved[rx] += 1
         self.rx_peak[rx] = max(self.rx_peak[rx], self.rx_reserved[rx])
         self.pending[packet.id] = dict(packet=packet, count=count, committed=0, ready=False,
-                                      streaming=streaming, supplied=0, payload_prefix=0)
+                                      streaming=streaming, supplied=0, payload_prefix=0,
+                                      local_payload=local_payload,local_copied=0,local_released=0,
+                                      rx_cycles=0,rx_bytes=0,rx_wait_ps=0)
+        if self.cell_tags is not None:
+            self.pending[packet.id]['cell_tag']=self.cell_tags.popleft()
+            self.cell_tag_peak=max(self.cell_tag_peak,len(self.pending))
         self.accepted += 1
         self.accepted_bytes[packet.traffic_class] += packet.payload_bytes
         self.log(now, 'packet_accept', packet=packet.id, src=packet.src, dst=packet.dst,
@@ -147,6 +174,11 @@ class BookSimNetwork:
             hb = [self.builder.links[k] for k in packet.route if self.builder.links[k].kind == 'HB']
             if hb and (len(hb) != 1 or len(packet.route) != 1):
                 raise ValueError('Home HB must terminate at its owning controller')
+            if local_payload:
+                row=self.pending[packet.id]
+                row['local_beats']=max(1,ceil(packet.payload_bytes/self.spec.rx_write_bytes_per_cycle))
+                if not streaming:self._supply_local_payload(packet.id,packet.payload_bytes,now)
+                return True
             if streaming:
                 if hb:
                     raise ValueError('Streaming HB requires an explicit native-domain transport contract')
@@ -174,6 +206,8 @@ class BookSimNetwork:
                 or not row['payload_prefix'] <= prefix_bytes <= packet.payload_bytes):
             raise ValueError('Invalid streaming prefix or clock')
         row['payload_prefix'] = prefix_bytes
+        if row['local_payload']:
+            return self._supply_local_payload(key,prefix_bytes,now)
         eligible = ((prefix_bytes+self.spec.header_bytes)//self.spec.flit_bytes
                     if prefix_bytes < packet.payload_bytes else row['count'])
         count = eligible-row['supplied']
@@ -191,11 +225,34 @@ class BookSimNetwork:
                     self.local_free[packet.src] = at
                     self._future(at,'stream_local',key,size)
             if row['supplied'] == 0:
-                self.log(now,'response_first_supply',packet=key,payload_prefix_bytes=prefix_bytes)
+                self._supply_log(now,'first',packet,prefix_bytes)
             row['supplied'] = eligible
             if eligible == row['count']:
-                self.log(now,'response_last_supply',packet=key,payload_prefix_bytes=prefix_bytes)
+                self._supply_log(now,'last',packet,prefix_bytes)
         return row['supplied'] == row['count']
+
+    def _supply_log(self,now,which,packet,prefix):
+        name='response' if packet.traffic_class=='response' else 'payload'
+        self.log(now,name+'_'+which+'_supply',packet=packet.id,payload_prefix_bytes=prefix)
+
+    def _supply_local_payload(self,key,prefix,now):
+        row=self.pending[key];packet=row['packet']
+        width=self.spec.rx_write_bytes_per_cycle
+        eligible=prefix//width if prefix<packet.payload_bytes else row['local_beats']
+        for ordinal in range(row['supplied'],eligible):
+            size=min(width,max(0,packet.payload_bytes-ordinal*width))
+            at=max(now,self.local_free[packet.src])+self.spec.noc_period_ps
+            self.local_free[packet.src]=at
+            self._future(at,'local_payload',key,size)
+        if eligible>row['supplied']:
+            if row['streaming'] and row['supplied']==0:self._supply_log(now,'first',packet,prefix)
+            row['supplied']=eligible
+            if row['streaming'] and eligible==row['local_beats']:self._supply_log(now,'last',packet,prefix)
+        return row['supplied']==row['local_beats']
+
+    def packet_metrics(self,key):
+        row=self.pending[key]
+        return {k:row[k] for k in ('rx_cycles','rx_bytes','rx_wait_ps')}
 
     def _link_send(self, packet, link, ordinal, at):
         slot = link.resource_id, at
@@ -214,7 +271,14 @@ class BookSimNetwork:
         to_sram = packet.traffic_class == 'activation' or packet.id.endswith('/resp')
         if packet.dst in self.nodes and size and to_sram:
             start = max(at, self.write_free[packet.dst])
-            duration = ceil(size/self.spec.rx_write_bytes_per_cycle)*self.spec.noc_period_ps
+            cycles=ceil(size/self.spec.rx_write_bytes_per_cycle)
+            duration = cycles*self.spec.noc_period_ps
+            self.rx_write_bytes[packet.dst]+=size
+            self.rx_write_cycles[packet.dst]+=cycles
+            self.rx_write_cycles_by_class[packet.dst+'/'+packet.traffic_class]+=cycles
+            self.rx_write_wait_ps[packet.dst]+=start-at
+            row=self.pending[packet.id]
+            row['rx_cycles']+=cycles;row['rx_bytes']+=size;row['rx_wait_ps']+=start-at
             at = start+duration
             self.write_free[packet.dst] = at
         self._future(at, 'commit', packet.id, fid)
@@ -233,6 +297,7 @@ class BookSimNetwork:
                 packet = row['packet']
                 if event['event'] == 'inject':
                     self.source_occupied[packet.src] -= 1
+                    self.injection_flits_by_source[packet.src]+=1
                 elif event['event'] == 'receive':
                     record = event['record']
                     for hop in record['link_arrivals']:
@@ -265,8 +330,19 @@ class BookSimNetwork:
             elif kind == 'stream_local':
                 self.source_occupied[packet.src] -= 1
                 self._write(packet, fid, at, 'local-stream')
+            elif kind=='local_payload':
+                row['local_copied']+=fid
+                released=(row['count'] if row['local_copied']==packet.payload_bytes
+                          else row['local_copied']//self.spec.flit_bytes)
+                self.source_occupied[packet.src]-=released-row['local_released']
+                row['local_released']=released
+                self._write(packet,fid,at,'payload-beat')
             elif kind == 'commit':
-                if fid == 'local-stream':
+                if fid == 'payload-beat':
+                    row['committed']+=1
+                    row['ready']=row['committed']==row['local_beats']
+                    continue
+                elif fid == 'local-stream':
                     row['committed'] += 1
                 elif fid is not None:
                     self.client.commit(fid)
@@ -286,6 +362,7 @@ class BookSimNetwork:
                 self.log(now, 'packet_deliver', packet=key, src=packet.src, dst=packet.dst,
                          traffic_class=packet.traffic_class, payload_bytes=packet.payload_bytes)
                 del self.pending[key]
+                if self.cell_tags is not None:self.cell_tags.append(row['cell_tag'])
 
     def step(self, now):
         pass  # next kernel boundary advances the native component
@@ -298,12 +375,25 @@ class BookSimNetwork:
                     runtime_source=self.runtime_source,
                     identity=self.client.identity, ideal_return=self.ideal_return,
                     packetization='header+payload; native single-flit packets',
+                    local_dma_contract=self.local_dma,
+                    receive_reservation='ideal instantaneous global booking; control protocol not simulated',
+                    cell_format=dict(data_bits=self.spec.flit_bytes*8,sideband_bits=self.cell_sideband_bits,
+                        fields={'source':6,'destination':6,'traffic_class':2,'message_tag':16,
+                                'ordinal':8,'valid_payload_bytes':10,'first_last':2,'reserved':14},
+                        message_envelope_bytes=self.spec.header_bytes,tag_slots=1 << 16,
+                        live_tag_peak=self.cell_tag_peak,
+                        scope='declared sideband reference, simulation IDs/path histories are not wire fields'),
                     routing='native simple_cycle_breaking_set/adaptive',
                     event_level='flit' if self.debug_flits else 'transaction',
                     accepted_packets=self.accepted, delivered_packets=self.delivered,
                     accepted_bytes=dict(self.accepted_bytes), delivered_bytes=dict(self.delivered_bytes),
                     link_flits=dict(self.link_flits), wire_bytes_by_class=dict(self.wire_bytes),
                     source_peak_flits=dict(self.source_peak),
+                    source_injected_flits=dict(self.injection_flits_by_source),
+                    rx_write_bytes=dict(self.rx_write_bytes),rx_write_cycles=dict(self.rx_write_cycles),
+                    rx_write_cycles_by_class=dict(self.rx_write_cycles_by_class),
+                    rx_job_wait_sum_ps=dict(self.rx_write_wait_ps),
+                    admission_rejection_attempts=dict(self.admission_rejections),
                     rx_reserved_peak={str(k): v for k, v in self.rx_peak.items()},
                     ni_rx_capacity_bytes_per_node=3*self.spec.ejection_packets*(self.spec.packet_payload_bytes+self.spec.header_bytes),
                     ni_tx_capacity_bytes_per_node=self.spec.injection_flits*self.spec.flit_bytes,
@@ -313,6 +403,14 @@ class BookSimNetwork:
         if not self.drained():
             raise RuntimeError('Cannot close a live native network')
         self.final = self.client.close()['final']
+        pressure=self.final.get('source_pressure')
+        if pressure:
+            self.final['source_pressure_nodes']={k:{self.node_names[n]:value for n,value in enumerate(v) if value}
+                for k,v in pressure.items() if k.endswith('_cycles')}
+            raw=dict(pressure['unsupplied_by_message'])
+            behind=dict(pressure['ready_behind_by_message'])
+            self.final['source_head_wait_by_packet']={self.native_ids[int(k)]:dict(
+                unsupplied_cycles=v,ready_behind_cycles=behind.get(k,0)) for k,v in raw.items()}
 
     def abort(self):
         self.client.abort()

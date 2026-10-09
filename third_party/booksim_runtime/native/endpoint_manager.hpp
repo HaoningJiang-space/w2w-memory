@@ -12,9 +12,28 @@ class BoundaryTrafficManager : public OnlineTrafficManager {
     std::map<int,std::pair<int,int>> held; // flit -> destination, VC
     std::vector<std::deque<int>> returns;
     std::vector<json> progress;
+    std::vector<uint64_t> unsupplied_head, ready_behind, ready_behind_with_credit, ready_head_credit_wait;
+    std::map<int,uint64_t> unsupplied_by_message, ready_behind_by_message;
 
     bool _EndpointCanInject(Flit const *f) override {
-        return !streaming || sent.at(f->mid) < supplied.at(f->mid);
+        if (!streaming) return true;
+        bool ready=sent.at(f->mid)<supplied.at(f->mid);
+        auto *buffer=_buf_states[f->src][f->subnetwork];
+        bool credit=buffer->IsAvailableFor(0) && !buffer->IsFullFor(0);
+        if (ready) {
+            if (!credit) ++ready_head_credit_wait[f->src];
+            return true;
+        }
+        ++unsupplied_head[f->src];++unsupplied_by_message[f->mid];
+        const auto &queue=_partial_packets[f->src][f->cl];
+        for (const auto *other:queue) {
+            if (other->mid!=f->mid && sent.at(other->mid)<supplied.at(other->mid)) {
+                ++ready_behind[f->src];++ready_behind_by_message[f->mid];
+                if (credit) ++ready_behind_with_credit[f->src];
+                break;
+            }
+        }
+        return false;
     }
     void _EndpointInjected(Flit const *f) override {
         if (!streaming) return;
@@ -50,7 +69,9 @@ class BoundaryTrafficManager : public OnlineTrafficManager {
     void Step() override { ReturnCredits(); OnlineTrafficManager::Step(); }
 public:
     BoundaryTrafficManager(const BookSimConfig &config,const std::vector<Network*> &net)
-        : OnlineTrafficManager(config,net), original(config), returns(_nodes) {}
+        : OnlineTrafficManager(config,net), original(config), returns(_nodes),
+          unsupplied_head(_nodes),ready_behind(_nodes),ready_behind_with_credit(_nodes),
+          ready_head_credit_wait(_nodes) {}
     bool Idle() const override {
         if (!held.empty()) return false;
         for (const auto &q:returns) if (!q.empty()) return false;
@@ -102,5 +123,15 @@ public:
             if (!progress.empty() || !finished.empty()) break;
         }
         return {{"ok",true},{"cycle",_time},{"completed",finished},{"progress",progress},{"idle",Idle()}};
+    }
+    json Close() {
+        auto reply=OnlineTrafficManager::Close();
+        reply["source_pressure"]={{"arbitration","FIFO; no bypass of unsupplied head"},
+            {"unsupplied_head_cycles",unsupplied_head},{"ready_behind_unsupplied_cycles",ready_behind},
+            {"ready_behind_with_injection_credit_cycles",ready_behind_with_credit},
+            {"ready_head_credit_wait_cycles",ready_head_credit_wait},
+            {"unsupplied_by_message",unsupplied_by_message},
+            {"ready_behind_by_message",ready_behind_by_message}};
+        return reply;
     }
 };
