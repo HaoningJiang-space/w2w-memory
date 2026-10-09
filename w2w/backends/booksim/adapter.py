@@ -20,10 +20,10 @@ PIN = '0c56c24b4bf602b8b2c036681f526971305dde99'
 
 
 def factory(*, binary, directory, ideal_return=False, debug_flits=False,
-            local_dma='payload_beats',cell_sideband_bits=64):
+            local_dma='payload_beats',cell_sideband_bits=64,ready_router_ids=(),ready_slots=16):
     return partial(BookSimNetwork, binary=binary, directory=directory,
                    ideal_return=ideal_return, debug_flits=debug_flits,local_dma=local_dma,
-                   cell_sideband_bits=cell_sideband_bits)
+                   cell_sideband_bits=cell_sideband_bits,ready_router_ids=ready_router_ids,ready_slots=ready_slots)
 
 
 def _config(builder, directory):
@@ -33,7 +33,8 @@ def _config(builder, directory):
 
 class BookSimNetwork:
     def __init__(self, builder, events, *, binary, directory,
-                 ideal_return=False, debug_flits=False,local_dma='payload_beats',cell_sideband_bits=64):
+                 ideal_return=False, debug_flits=False,local_dma='payload_beats',cell_sideband_bits=64,
+                 ready_router_ids=(),ready_slots=16):
         from .runtime.support import digest
         directory = Path(directory).resolve()
         from .runtime.boundary_booksim import BoundaryBookSim
@@ -54,7 +55,13 @@ class BookSimNetwork:
         if not debug_flits:
             self.client.logs[2].close()
             self.client.logs[2] = open(os.devnull, 'w')
-        self.client.configure(rx_slots=self.spec.input_buffer_flits, bounded=True, streaming=True)
+        self.arbiter_sources=set(ready_router_ids)
+        if not self.arbiter_sources<=self.nodes.keys() or not 1<=ready_slots<=64:
+            raise ValueError('Explicit physical ready arbiter sources and finite slots required')
+        self.arbiter_slots=ready_slots;self.arbiter_live=Counter();self.arbiter_peak=Counter()
+        self.client.configure(rx_slots=self.spec.input_buffer_flits, bounded=True, streaming=True,
+            ready_nodes=[self.nodes[k] for k in sorted(self.arbiter_sources)],
+            ready_slots=ready_slots if self.arbiter_sources else 0)
         self.ideal_return, self.debug_flits = ideal_return, debug_flits
         self.pending, self.native_ids = {}, {}
         self.next_id = 0
@@ -111,6 +118,10 @@ class BookSimNetwork:
         count = max(1,ceil((packet.payload_bytes+(0 if local_payload else self.spec.header_bytes))/self.spec.flit_bytes))
         rx = self.source_key(packet.dst), packet.traffic_class
         source=self.source_key(packet.src)
+        native_send=self.endpoint_nodes[packet.src]!=self.endpoint_nodes[packet.dst]
+        if native_send and source in self.arbiter_sources and self.arbiter_live[source]>=self.arbiter_slots:
+            self.admission_rejections['source_arbiter/'+source]+=1;self.rejections+=1
+            return False
         if self.cell_tags is not None and not self.cell_tags:
             self.admission_rejections['cell_tag_pool']+=1
             self.rejections+=1
@@ -148,6 +159,9 @@ class BookSimNetwork:
             self.client._request(dict(command='submit', id=identity, cycle=self.client.now,
                 source=self.endpoint_nodes[packet.src], destination=self.endpoint_nodes[packet.dst], flits=count))
             self.pending[packet.id]['native_id'] = identity
+            if source in self.arbiter_sources:
+                self.arbiter_live[source]+=1
+                self.arbiter_peak[source]=max(self.arbiter_peak[source],self.arbiter_live[source])
             if not streaming:
                 self.client._request(dict(command='supply', id=identity, cycle=self.client.now, flits=count))
             self.native_idle = False
@@ -262,6 +276,8 @@ class BookSimNetwork:
                 if event['event'] == 'inject':
                     self.source_occupied[self.source_key(packet.src)] -= 1
                     self.injection_flits_by_source[self.source_key(packet.src)]+=1
+                    if event['ordinal']+1==row['count'] and self.source_key(packet.src) in self.arbiter_sources:
+                        self.arbiter_live[self.source_key(packet.src)]-=1
                 elif event['event'] == 'receive':
                     record = event['record']
                     for hop in record['link_arrivals']:
@@ -332,7 +348,7 @@ class BookSimNetwork:
         pass  # next kernel boundary advances the native component
 
     def drained(self):
-        return not self.pending and not self.future and self.native_idle
+        return not self.pending and not self.future and self.native_idle and not any(self.arbiter_live.values())
 
     def record(self):
         value=dict(kind='native_boundary_booksim', source_commit=PIN,
@@ -364,6 +380,12 @@ class BookSimNetwork:
                     rejections=self.rejections, drained=self.drained(), final=self.final)
         if self.cell_layout is not None:
             value['cell_format'].update(self.cell_layout,sideband_bits=self.cell_sideband_bits)
+        value['source_arbiter']=dict(policy='bounded oldest-ready' if self.arbiter_sources else 'FIFO',
+            routers=sorted(self.arbiter_sources),slots_per_router=self.arbiter_slots if self.arbiter_sources else 0,
+            peak_messages=dict(self.arbiter_peak),additional_metadata_bits=len(self.arbiter_sources)*self.arbiter_slots*64,
+            data_buffer_bytes_added=0,physical_ports_added=0,selection_cycles=1,
+            selection_logic_area_um2=None,
+            contract='64-bit control entry/message; select one cell/cycle from existing paid NI; router/VC/credits unchanged')
         return value
 
     def close(self):

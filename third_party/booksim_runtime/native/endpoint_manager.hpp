@@ -2,6 +2,8 @@
 // Router scheduling, internal buffers, routing, links and packet generation are reused.
 #include <deque>
 #include <set>
+#include <algorithm>
+#include <list>
 #include "iq_router.hpp"
 
 class BoundaryTrafficManager : public OnlineTrafficManager {
@@ -16,6 +18,50 @@ class BoundaryTrafficManager : public OnlineTrafficManager {
     std::vector<uint64_t> unsupplied_head, ready_behind, ready_behind_with_credit, ready_head_credit_wait;
     std::map<int,uint64_t> unsupplied_by_message, ready_behind_by_message;
     std::vector<std::set<int>> ready_sources;
+    std::set<int> ready_nodes;
+    int arbitration_slots=0;
+    std::vector<std::set<int>> arbitration_live;
+    std::vector<std::list<Flit*>> parked;
+    std::vector<uint64_t> ready_selections;
+
+    void _EndpointPrepareInject() override {
+        // One finite source selector, one existing physical injection port.
+        // All packets here are single-cell, so selecting another message does
+        // not abandon a wormhole packet or duplicate a VC/credit resource.
+        for(int node:ready_nodes) {
+            auto &queue=_partial_packets[node][0];
+            int candidate=-1;
+            for(int mid:arbitration_live[node]) {
+                if(sent[mid]<supplied[mid]) {candidate=mid;break;}
+            }
+            if(candidate<0 || (!queue.empty() && queue.front()->mid==candidate)) continue;
+            ++ready_selections[node];
+            auto it=std::find_if(queue.begin(),queue.end(),[candidate](Flit *f){return f->mid==candidate;});
+            if(it!=queue.end()) {queue.splice(queue.begin(),queue,it);continue;}
+            // Native trace generation normally waits for the old queue to
+            // empty. Park those already-paid NI cells, expose one selected
+            // admitted message, then use the unchanged native generator.
+            parked[node].splice(parked[node].end(),queue);
+            auto &pending=ready_messages[node];
+            std::pair<long,long> selected;
+            std::vector<std::pair<long,long>> remaining;
+            bool found=false;
+            while(!pending.empty()) {
+                auto item=pending.top();pending.pop();
+                if(item.second==candidate) {selected=item;found=true;}
+                else remaining.push_back(item);
+            }
+            if(!found) throw std::runtime_error("Ready message is absent from native source stages");
+            for(auto item:remaining) pending.push(item);
+            // This is only the generator priority, not the recorded original
+            // admission timestamp; selected traffic was supplied already.
+            pending.push({-1,selected.second});
+        }
+    }
+    void _EndpointRestoreInject() override {
+        for(int node:ready_nodes)
+            _partial_packets[node][0].splice(_partial_packets[node][0].end(),parked[node]);
+    }
 
     bool _EndpointCanInject(Flit const *f) override {
         if (!streaming) return true;
@@ -39,6 +85,7 @@ class BoundaryTrafficManager : public OnlineTrafficManager {
         if (!streaming) return;
         int ordinal=sent.at(f->mid)++;
         if (sent.at(f->mid)==supplied.at(f->mid)) ready_sources[f->src].erase(f->mid);
+        if(sent.at(f->mid)==msg_packets[f->mid]) arbitration_live[f->src].erase(f->mid);
         ordinals[f->id]=ordinal;
         progress.push_back({{"event","inject"},{"id",f->mid},{"flit",f->id},
             {"ordinal",ordinal},{"cycle",_time+1},{"source",f->src}});
@@ -72,15 +119,19 @@ public:
     BoundaryTrafficManager(const BookSimConfig &config,const std::vector<Network*> &net)
         : OnlineTrafficManager(config,net), original(config), returns(_nodes),
           unsupplied_head(_nodes),ready_behind(_nodes),ready_behind_with_credit(_nodes),
-          ready_head_credit_wait(_nodes),ready_sources(_nodes) {}
+          ready_head_credit_wait(_nodes),ready_sources(_nodes),arbitration_live(_nodes),parked(_nodes),ready_selections(_nodes) {}
     bool Idle() const override {
         if (!held.empty()) return false;
         for (const auto &q:returns) if (!q.empty()) return false;
         return OnlineTrafficManager::Idle();
     }
     json Submit(const json &r) override {
+        int source=r.at("source"),mid=r.at("id");
+        if(ready_nodes.count(source) && static_cast<int>(arbitration_live[source].size())>=arbitration_slots)
+            throw std::runtime_error("Finite source arbitration slots exceeded");
         auto reply=OnlineTrafficManager::Submit(r);
         supplied.push_back(streaming?0:r.at("flits").get<int>()); sent.push_back(0);
+        if(ready_nodes.count(source)) arbitration_live[source].insert(mid);
         return reply;
     }
     json BoundaryCommand(const json &r) {
@@ -92,6 +143,12 @@ public:
                 throw std::runtime_error("Boundary mode requires empty one-VC private-buffer trace");
             slots=r.at("rx_slots"); bounded=r.at("bounded");
             streaming=r.at("streaming");
+            arbitration_slots=r.value("ready_slots",0);
+            for(int node:r.value("ready_nodes",std::vector<int>{})) {
+                if(node<0 || node>=_nodes || arbitration_slots<1 || arbitration_slots>64 || !streaming)
+                    throw std::runtime_error("Invalid finite ready arbiter");
+                ready_nodes.insert(node);
+            }
             if (bounded && !streaming) throw std::runtime_error("Bounded endpoint needs progress callbacks");
             if (slots<=0) throw std::runtime_error("Invalid receive slots");
             BookSimConfig sink(original);sink.Assign("vc_buf_size",slots);sink.Assign("buf_size",-1);
@@ -128,7 +185,8 @@ public:
     }
     json Close() {
         auto reply=OnlineTrafficManager::Close();
-        reply["source_pressure"]={{"arbitration","FIFO; no bypass of unsupplied head"},
+        reply["source_pressure"]={{"arbitration",ready_nodes.empty()?"FIFO; no bypass of unsupplied head":"bounded oldest-ready per selected source; one physical injection"},
+            {"ready_slots",arbitration_slots},{"ready_selections",ready_selections},
             {"unsupplied_head_cycles",unsupplied_head},{"ready_behind_unsupplied_cycles",ready_behind},
             {"ready_behind_with_injection_credit_cycles",ready_behind_with_credit},
             {"ready_head_credit_wait_cycles",ready_head_credit_wait},

@@ -3,10 +3,12 @@ from .online_booksim import OnlineBookSim
 
 
 class BoundaryBookSim(OnlineBookSim):
-    def configure(self, *, rx_slots, bounded, streaming=True):
+    def configure(self, *, rx_slots, bounded, streaming=True,ready_nodes=(),ready_slots=0):
         self._request(dict(command='boundary',cycle=self.now,rx_slots=rx_slots,
-                           bounded=bounded,streaming=streaming))
+                           bounded=bounded,streaming=streaming,
+                           ready_nodes=list(ready_nodes),ready_slots=ready_slots))
         self.identity.update(rx_slots=rx_slots,bounded=bounded,streaming=streaming)
+        if ready_nodes:self.identity.update(ready_nodes=list(ready_nodes),ready_slots=ready_slots)
 
     def supply(self, identity):
         self._request(dict(command='supply',cycle=self.now,id=identity,flits=1))

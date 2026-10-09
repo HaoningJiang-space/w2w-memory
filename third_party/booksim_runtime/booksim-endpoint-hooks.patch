@@ -1,11 +1,13 @@
 --- a/third_party/booksim2/src/trafficmanager.hpp
 +++ b/third_party/booksim2/src/trafficmanager.hpp
-@@ -290,6 +290,10 @@
+@@ -290,6 +290,12 @@
  
    virtual void _RetireFlit( Flit *f, int dest );
  
 +  // Optional endpoint hooks. Defaults preserve the original network exactly.
 +  virtual bool _EndpointCanInject(Flit const *f) { return true; }
++  virtual void _EndpointPrepareInject() {}
++  virtual void _EndpointRestoreInject() {}
 +  virtual void _EndpointInjected(Flit const *f) {}
 +  virtual void _EndpointCredit(Flit const *f, int subnet, int node);
    void _Inject();
@@ -27,7 +29,16 @@
  int TrafficManager::_Step()
  {
      bool flits_in_flight = false;
-@@ -1311,6 +1318,8 @@
+@@ -1269,6 +1276,8 @@
+   
+     if ( !_empty_network ) {
++        _EndpointPrepareInject();
+         _Inject();
++        _EndpointRestoreInject();
+     }
+ 
+     for(int subnet = 0; subnet < _subnets; ++subnet) {
+@@ -1311,6 +1320,8 @@
                  assert(cf);
                  assert(cf->cl == c);
  	
