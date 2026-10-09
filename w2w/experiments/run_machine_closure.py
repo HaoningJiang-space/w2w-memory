@@ -14,15 +14,17 @@ from w2w.provenance import revision
 from w2w.memory.backend import RamulatorAbsolute
 from w2w.network.booksim_backend import factory
 from w2w.system.kernel import execute_system
-from w2w.system.wafer_machine import from_coordinates
+from w2w.machine.geometry import from_coordinates
 from w2w.validation.system_execution import audit_system_result
-from w2w.workloads.moe_task_graph import compile_layer, machine
+from w2w.machine.presets import machine
+from w2w.workloads.moe_task_graph import compile_routed_layer
+from w2w.workloads.routing_input import load_layer_routing
 
 CASES = ('hbm2-whole', 'hbm2-stream')
 
 
 def inputs():
-    graph, metadata = compile_layer(cohort='c2_b4',residency='four_way')
+    graph, metadata = compile_routed_layer(load_layer_routing(cohort='c2_b4'),residency='four_way')
     spec, physical = from_coordinates(machine())
     record = dict(graph=asdict(graph),metadata=metadata,spec=asdict(spec),physical=physical)
     return graph, spec, record

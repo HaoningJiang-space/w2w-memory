@@ -16,16 +16,18 @@ from w2w.workloads.semantics import logical_work
 from w2w.memory.rwdl_backend import RWDLAbsolute
 from w2w.network.booksim_backend import factory
 from w2w.system.kernel import execute_system
-from w2w.system.wafer_machine import from_coordinates
+from w2w.machine.geometry import from_coordinates
 from w2w.validation.system_execution import audit_system_result
-from w2w.workloads.moe_task_graph import compile_layer, machine
+from w2w.machine.presets import machine
+from w2w.workloads.moe_task_graph import compile_routed_layer
+from w2w.workloads.routing_input import load_layer_routing
 
 CASES = ('rwdl-four_way','rwdl-home')
 BASELINE = Path('artifacts/results/system/machine_closure')
 
 
 def inputs(policy):
-    graph,metadata=compile_layer(cohort='c2_b4',residency=policy)
+    graph,metadata=compile_routed_layer(load_layer_routing(cohort='c2_b4'),residency=policy)
     spec,physical=from_coordinates(replace(machine(),dram_period_ps=3760))
     return graph,spec,dict(graph=asdict(graph),metadata=metadata,spec=asdict(spec),physical=physical)
 

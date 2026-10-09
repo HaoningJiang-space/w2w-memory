@@ -12,7 +12,9 @@ import time
 from w2w.network.booksim_backend import factory
 from w2w.system.kernel import execute_system
 from w2w.validation.system_execution import audit_system_result
-from w2w.workloads.moe_task_graph import compile_layer, machine
+from w2w.machine.presets import machine
+from w2w.workloads.moe_task_graph import compile_routed_layer
+from w2w.workloads.routing_input import load_layer_routing
 from w2w.common.io import write_json as write
 from w2w.analysis.system_summary import summarize
 
@@ -25,7 +27,7 @@ def main():
     p.add_argument('--dram', choices=('ideal', 'ramulator'), default='ideal')
     args = p.parse_args()
     args.output.mkdir(parents=True, exist_ok=False)
-    graph, metadata = compile_layer()
+    graph, metadata = compile_routed_layer(load_layer_routing())
     graph_sha = sha256(json.dumps(asdict(graph), sort_keys=True).encode()).hexdigest()
     write(args.output/'input.json', dict(metadata=metadata, graph_sha256=graph_sha, graph=asdict(graph)))
     cases = [('B1-real', False, False), ('B1-return-ideal', False, True), ('B1-wide-NoC', True, False)]

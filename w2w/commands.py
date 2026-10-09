@@ -1,5 +1,9 @@
 """Lazy command registry; importing the package never runs an experiment."""
 COMMANDS = {
+    'run_compute_placement': 'w2w.experiments.run_compute_placement',
+    'analyze_compute_placement': 'w2w.analysis.compute_placement',
+    'run_rwdl_study': 'w2w.experiments.run_rwdl_study',
+    'analyze_rwdl_study': 'w2w.analysis.rwdl_study',
     'run_machine_closure': 'w2w.experiments.run_machine_closure',
     'analyze_machine_closure': 'w2w.analysis.machine_closure',
     'analyze_residency_study': 'w2w.analysis.residency_study',
@@ -86,15 +90,27 @@ COMMANDS = {
     'verify_role_interfaces': 'w2w.validation.verify_role_interfaces',
 }
 
-# Scope metadata is separate from lazy module dispatch. Existing names/results
-# retain their v1 meaning; a new system command cannot silently reinterpret them.
-COMMAND_SCOPES = {
-    name: ('one_routed_ffn_layer_timing' if name in ('run_moe_layer', 'analyze_moe_layer',
-           'run_residency_study', 'analyze_residency_study',
-           'run_machine_closure', 'analyze_machine_closure') else
-           'system_execution_v2_prototype' if name == 'run_system_microbench' else
-           'endpoint_microarchitecture' if any(token in name for token in
-               ('endpoint', 'egress', 'role_interface', 'beat_return', 'static_binding', 'shared_fifo'))
-           else 'read_subsystem_v1')
-    for name in COMMANDS
-}
+# Explicit research status is independent of dispatch and execution scope.
+CURRENT_COMMANDS = frozenset((
+    'run_compute_placement', 'analyze_compute_placement',
+    'run_rwdl_study', 'analyze_rwdl_study', 'run_system_microbench',
+))
+REFERENCE_COMMANDS = frozenset((
+    'run_moe_layer', 'analyze_moe_layer', 'run_residency_study',
+    'analyze_residency_study', 'run_machine_closure', 'analyze_machine_closure',
+))
+ENDPOINT_COMMANDS = frozenset((
+    'analyze_endpoint_bridge', 'audit_static_binding', 'endpoint_contract_probe',
+    'probe_beat_return', 'render_endpoint_bridge', 'render_endpoint_contract',
+    'run_endpoint_bridge', 'run_role_interfaces', 'run_shared_egress_rtl',
+    'run_static_shared_fifo', 'run_static_binding_baseline',
+    'verify_egress_reachability', 'verify_role_interfaces',
+))
+COMMAND_STATUS = {name: ('current' if name in CURRENT_COMMANDS else
+                        'reference' if name in REFERENCE_COMMANDS else 'legacy')
+                  for name in COMMANDS}
+COMMAND_SCOPES = {name: ('one_routed_ffn_layer_timing'
+                        if name in (CURRENT_COMMANDS | REFERENCE_COMMANDS) - {'run_system_microbench'} else
+                        'system_execution_v2_prototype' if name == 'run_system_microbench' else
+                        'endpoint_microarchitecture' if name in ENDPOINT_COMMANDS else 'read_subsystem_v1')
+                  for name in COMMANDS}

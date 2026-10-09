@@ -7,19 +7,14 @@ then passes the activation and FP32 running sum to the next tile. Expert tokens
 in the same cohort reuse each weight tile. There is no cross-cohort cache.
 """
 from collections import Counter, defaultdict
-from dataclasses import asdict, replace
+from dataclasses import asdict
 from hashlib import sha256
 import json
 from math import ceil
-from pathlib import Path
 
 from w2w.domain.execution import ComputeTask, DataEdge, ExecutionGraph, ReadAccess, ResidentObject
-from w2w.domain.system import mesh_system
-from w2w.workloads.cohort_replay import read_json
-
-INPUTS = Path('artifacts/results/workload/cohort_replay/inputs')
-# Declared before residency experiments; independent request groups and one batch.
-LAYER_COHORTS = {'c0_b1': (0, 1), 'c1_b1': (1, 1), 'c2_b4': (2, 4)}
+from w2w.machine.presets import machine  # historical import compatibility
+from w2w.workloads.routing_input import INPUTS, LAYER_COHORTS, load_layer_routing
 
 
 def residency_shards(owner, policy):
@@ -35,42 +30,19 @@ def residency_shards(owner, policy):
     return shards
 
 
-def machine(*, wide=False):
-    """Declared synthetic 36-reticle service machine; not a calibrated product."""
-    flit = 512 if wide else 256
-    spec = mesh_system(6, 6, flit_bytes=flit, router_cycles=3,
-        input_buffer_flits=4096//flit, injection_flits=65536//flit,
-        ejection_packets=16, packet_payload_bytes=4096, memory_request_bytes=4096,
-        read_requests_per_tile_cycle=4, outstanding_per_tile=32,
-        rx_write_bytes_per_cycle=256, ideal_dram_cycles=20)
-    return replace(spec,
-        tiles=tuple(replace(t, sram_bytes=2*1024**2) for t in spec.tiles),
-        memories=tuple(replace(m, transaction_slots=32) for m in spec.memories),
-        links=tuple(replace(l, width_bits=2048) if l.kind == 'HB' else l for l in spec.links))
-
-
 def compile_layer(inputs=INPUTS, *, cohort='c0_b1', residency='pair'):
-    inputs = Path(inputs)
-    if cohort not in LAYER_COHORTS:
-        raise ValueError('Only the predeclared layer cohorts are supported')
-    routes = {r['id']: r for r in read_json(inputs/'routes.json.gz')}
-    split = read_json(inputs/'summary.json')['split']
-    group, batch_size = LAYER_COHORTS[cohort]
-    selected = split['groups'][group][:batch_size]
-    if len(selected) != batch_size:
-        raise ValueError('Insufficient registered requests')
-    owners = read_json(inputs/'owners.json')['marginal']
-    previous = read_json(inputs/cohort/'marginal_spec.json')
-    if previous['layers'][0]['compute_by_expert'] != owners:
-        raise ValueError('Frozen marginal owner identity differs')
+    """Compatibility recipe; new callers select routing explicitly."""
+    return compile_routed_layer(load_layer_routing(inputs, cohort=cohort), residency=residency)
+
+
+def compile_routed_layer(routing, *, residency='pair'):
+    """Compile supplied routing, owners and residency; no file selection or I/O."""
+    cohort, owners, tokens = routing.cohort, routing.owners, routing.tokens
     h, intermediate, width, experts, topk = 4096, 1536, 128, 128, 8
     tile_weight = 3*h*width + 3*(h//128)*4
     weight_bytes = tile_weight*(intermediate//width)
-    if weight_bytes != previous['layers'][0]['weight_bytes'] or len(owners) != experts:
+    if weight_bytes != routing.weight_bytes or len(owners) != experts:
         raise ValueError('Registered Qwen3 expert-weight identity differs')
-    tokens = [dict(id=key, source=f'c{i%36}', decode_step=17, layer='0',
-                   experts=routes[key]['decode'][16][0], raw_source=routes[key]['source'])
-              for i, key in enumerate(selected)]
     by_expert = defaultdict(list)
     for n, token in enumerate(tokens):
         if len(token['experts']) != topk or len(set(token['experts'])) != topk:
@@ -122,7 +94,7 @@ def compile_layer(inputs=INPUTS, *, cohort='c0_b1', residency='pair'):
                                   f'token{token}/combine', h*2))
     graph = ExecutionGraph(tuple(tasks), tuple(objects), tuple(edges))
     metadata = dict(schema='w2w.moe-layer-input.v1', scope='one_routed_ffn_layer_timing',
-        model=previous['model'], model_source=previous['weight_source'], cohort=cohort,
+        model=routing.model, model_source=routing.model_source, cohort=cohort,
         tokens=tokens, owner_policy='existing frozen training marginal LPT; no retuning',
         owners=owners, residency_policy=residency,
         residency=('100% home, fixed owner' if residency == 'home' else
@@ -138,7 +110,5 @@ def compile_layer(inputs=INPUTS, *, cohort='c0_b1', residency='pair'):
         dispatch_bytes=len(tokens)*topk*h*2, combine_bytes=len(tokens)*topk*h*2,
         task_semantics=descriptions,
         omitted=['attention', 'routing projection (selections supplied)', 'KV', 'whole-model serving', 'numerical values'],
-        source_hashes={str(p.relative_to(inputs)): sha256(p.read_bytes()).hexdigest() for p in
-                      (inputs/'routes.json.gz', inputs/'owners.json', inputs/'summary.json',
-                       inputs/cohort/'marginal_spec.json')})
+        source_hashes=routing.source_hashes)
     return graph, metadata

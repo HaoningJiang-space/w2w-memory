@@ -14,9 +14,11 @@ from w2w.provenance import revision
 from w2w.memory.rwdl_backend import RWDLAbsolute
 from w2w.network.booksim_backend import factory
 from w2w.system.kernel import execute_system
-from w2w.system.wafer_machine import from_coordinates
+from w2w.machine.geometry import from_coordinates
 from w2w.validation.system_execution import audit_system_result
-from w2w.workloads.moe_task_graph import compile_layer,machine
+from w2w.machine.presets import machine
+from w2w.workloads.moe_task_graph import compile_routed_layer
+from w2w.workloads.routing_input import load_layer_routing
 from w2w.workloads.moe_partition import compile_partitioned_layer,semantic_work
 
 CASES={'gather-stream':('gather',True),'gather-whole':('gather',False),'near-shard-stream':('near_shard',True)}
@@ -24,8 +26,8 @@ CASES={'gather-stream':('gather',True),'gather-whole':('gather',False),'near-sha
 
 def inputs(name):
     architecture,streaming=CASES[name]
-    graph,metadata=(compile_layer(cohort='c2_b4',residency='four_way') if architecture=='gather'
-                    else compile_partitioned_layer(cohort='c2_b4'))
+    graph,metadata=(compile_routed_layer(load_layer_routing(cohort='c2_b4'),residency='four_way') if architecture=='gather'
+                    else compile_partitioned_layer(routing=load_layer_routing(cohort='c2_b4')))
     spec,physical=from_coordinates(replace(machine(),dram_period_ps=3760))
     return graph,spec,dict(graph=asdict(graph),metadata=metadata,spec=asdict(spec),physical=physical,
                           architecture=architecture,streaming=streaming)

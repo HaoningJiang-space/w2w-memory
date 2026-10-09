@@ -11,15 +11,17 @@ import json
 from math import ceil
 
 from w2w.domain.execution import ComputeTask,DataEdge,ExecutionGraph,ReadAccess
-from w2w.workloads.moe_task_graph import INPUTS,compile_layer,residency_shards
+from w2w.workloads.moe_task_graph import compile_routed_layer,residency_shards
+from w2w.workloads.routing_input import INPUTS,load_layer_routing
 
 
 def semantic_work(metadata):
     return {k:metadata[k] for k in ('model','shape','precision','tokens','owners','weight_read_bytes')}
 
 
-def compile_partitioned_layer(inputs=INPUTS,*,cohort='c2_b4'):
-    base,original=compile_layer(inputs,cohort=cohort,residency='four_way')
+def compile_partitioned_layer(inputs=INPUTS,*,cohort='c2_b4',routing=None):
+    if routing is None:routing=load_layer_routing(inputs,cohort=cohort)
+    base,original=compile_routed_layer(routing,residency='four_way')
     h=original['shape']['hidden'];width=original['shape']['intermediate_tile']
     tile_weight=3*h*width+3*(h//128)*4
     layout=[]

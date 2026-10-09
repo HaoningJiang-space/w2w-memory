@@ -17,7 +17,9 @@ from w2w.memory.backend import RamulatorAbsolute
 from w2w.network.booksim_backend import factory
 from w2w.system.kernel import execute_system
 from w2w.validation.system_execution import audit_system_result
-from w2w.workloads.moe_task_graph import LAYER_COHORTS, compile_layer, machine
+from w2w.machine.presets import machine
+from w2w.workloads.moe_task_graph import compile_routed_layer
+from w2w.workloads.routing_input import LAYER_COHORTS, load_layer_routing
 
 
 def prepare(output, policies=('pair', 'four_way')):
@@ -27,7 +29,7 @@ def prepare(output, policies=('pair', 'four_way')):
     for cohort in LAYER_COHORTS:
         work_hash = None
         for policy in policies:
-            graph, metadata = compile_layer(cohort=cohort, residency=policy)
+            graph, metadata = compile_routed_layer(load_layer_routing(cohort=cohort), residency=policy)
             logical = digest(logical_work(graph))
             if work_hash is not None and logical != work_hash:
                 raise ValueError('Residency changed logical task work')
@@ -60,7 +62,7 @@ def run_case(output, name, source, binary):
     if revision() != registration['source_commit']:
         raise ValueError('Run source differs from frozen registration')
     case = next(c for c in registration['cases'] if c['name'] == name)
-    graph, metadata = compile_layer(cohort=case['cohort'], residency=case['policy'])
+    graph, metadata = compile_routed_layer(load_layer_routing(cohort=case['cohort']), residency=case['policy'])
     record = json.loads((output/'inputs'/(name+'.json')).read_text())
     if (digest(record) != case['input_sha256']
             or digest(dict(graph=asdict(graph), metadata=metadata)) != case['input_sha256']
