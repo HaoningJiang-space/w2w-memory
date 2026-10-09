@@ -30,7 +30,8 @@ def vertical_memory(organization='distributed', *, rows=2, columns=2):
             # One declared edge I/O per physical region. Native service is an
             # off-wafer proxy; there is no HB and no uncharged local shortcut.
             edge=(regions[0].origin_um[0],region.origin_um[1]+region.size_um[1]//2)
-            e=ExternalPort(f'io{n}',edge,local[0].router_id,32,128*1024,32); external.append(e)
+            entry=min(routers,key=lambda r:(sum(abs(a-b) for a,b in zip(edge,r.position_um)),r.id))
+            e=ExternalPort(f'io{n}',edge,entry.id,32,128*1024,32); external.append(e)
         for k, subset in enumerate(quadrant):
             if organization=='distributed':
                 g=MemoryGateway(f'g{n}_{k}',region.id,local[k].position_um,local[k].router_id,
