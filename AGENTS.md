@@ -15,7 +15,9 @@ native BookSim patches/runtime and DRAM extensions. New runs use the bundled
 BookSim interface; use `tools/build_native.py` to build into an isolated external
 directory. Unmodified third-party dependencies may be fetched at recorded pins.
 
-The current task is in `docs/handoff/NEXT_TASK.md`: deliver complete routed MoE
-layer timing with existing native BookSim and DRAM components. Do not replace
-the kernel, expand component acceptance campaigns, or promote read-only
-subsystem results to full application timing.
+The current architecture and execution contracts are in `docs/ARCHITECTURE.md`
+and `docs/SIMULATOR.md`; `docs/HANDOFF.md` is the current task/status source.
+Architecture V3 uses an independent physical stack and explicit mapping with the
+existing unified kernel and native tools. Historical commands are recovered from
+frozen tags. Do not replace the kernel, expand component acceptance campaigns,
+or promote read-only subsystem results to full application timing.

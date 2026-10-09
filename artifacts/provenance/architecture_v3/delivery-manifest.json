@@ -1,0 +1,347 @@
+{
+  "migration": {
+    "old_graph_native_equal": true,
+    "v3_package_move_events_equal": true
+  },
+  "native_builds": {
+    "native-p2": {
+      "booksim": {
+        "path": "/Projects/haoning/w2w-full-system-v3-20261009/native-p2/booksim/endpoint_booksim",
+        "sha256": "8d89e7fd8d0b758a2fcd488b5cfd8f6cdf5ecdc7e62d6c40f97905842fc00325"
+      }
+    },
+    "native-p4": {
+      "dram_bridge": {
+        "path": "/Projects/haoning/w2w-full-system-v3-20261009/native-p4/dram_bridge/_w2w_ramulator.cpython-310-x86_64-linux-gnu.so",
+        "sha256": "37eb00768993fb5cfd903c690e72a21cdc69e10f4acbc421762f54dc5a33ba54"
+      }
+    },
+    "native-p6": {
+      "booksim": {
+        "path": "/Projects/haoning/w2w-full-system-v3-20261009/native-p6/booksim/endpoint_booksim",
+        "sha256": "79f393ed26af5997a6513a4ae9d77398adedcff2f3edd5d3d6e6b6c8ba5a7a34"
+      },
+      "dram_bridge": {
+        "path": "/Projects/haoning/w2w-full-system-v3-20261009/native-p6/dram_bridge/_w2w_ramulator.cpython-310-x86_64-linux-gnu.so",
+        "sha256": "37eb00768993fb5cfd903c690e72a21cdc69e10f4acbc421762f54dc5a33ba54"
+      }
+    }
+  },
+  "raw_capture_policy": "Large raw executions and builds remain on server; source recovered via annotated tags.",
+  "root": "/Projects/haoning/w2w-full-system-v3-20261009",
+  "runs": {
+    "central": {
+      "archive_directory": "/Projects/haoning/w2w-full-system-v3-20261009/study-v1",
+      "audit": {
+        "data_bytes": 4907008,
+        "gateway_bytes": 151031808,
+        "native_and_gateway_reservations_drained": true,
+        "native_bytes": 151031808,
+        "packets": 75760,
+        "passed": true,
+        "physical_collection_charged": true,
+        "physical_domains": 128,
+        "physical_link_flits": 1463556,
+        "read_descriptors": 37152,
+        "read_words": 4719744,
+        "tasks": 490
+      },
+      "booksim_identity": {
+        "binary_sha256": "8d89e7fd8d0b758a2fcd488b5cfd8f6cdf5ecdc7e62d6c40f97905842fc00325",
+        "bounded": true,
+        "clock": "submit before cycle t; receive at end boundary c+1",
+        "config_sha256": "1c93a4f620ba25910eca2fb9b41caa64421c35345a0cc16a2c5d2aa47da44873",
+        "flit_bytes": 128,
+        "rx_slots": 256,
+        "streaming": true
+      },
+      "input_sha256": "dda97e27546d46b4241ef2649fd3328cd448fc90beab52c866e8b0b6e9cbf147",
+      "makespan_ps": 843182000,
+      "raw_result": {
+        "bytes": 8847468,
+        "path": "/Projects/haoning/w2w-full-system-v3-20261009/study-v1/cases/central/result.json.gz",
+        "sha256": "e851a8a91417ad78e7722b6b9d77dfa433da2f0056c5770826b7ca380e990703"
+      },
+      "runtime_source": {
+        "files": {
+          "__init__.py": "22643d039f03a679df415f3375947b9c82e95679b8f8a7905619eb96ca5fc8a4",
+          "boundary_booksim.py": "9616bc26be80aaabd67e71c4f03c2a56d8c78d15552ea482119a24b3c0c1899c",
+          "configuration.py": "50bf41b25378cb25b66e0ee86538ecb494b68896100c8690a7c5797a6231b934",
+          "online_booksim.py": "b3190daf56d2e6677d3d183d423cf3d6ac8bdd74881dbc193c626bd7f2f2a6fe",
+          "support.py": "1cf16f44f204094d5ebb39a21e625699524dd9fe84b1c02a58c8e84bf2e70654"
+        },
+        "kind": "bundled_w2w"
+      },
+      "source_commit": "a2193002c73ad4885b2721ac0db556d7386d9295"
+    },
+    "distributed": {
+      "archive_directory": "/Projects/haoning/w2w-full-system-v3-20261009/study-v1",
+      "audit": {
+        "data_bytes": 4907008,
+        "gateway_bytes": 151031808,
+        "native_and_gateway_reservations_drained": true,
+        "native_bytes": 151031808,
+        "packets": 75760,
+        "passed": true,
+        "physical_collection_charged": true,
+        "physical_domains": 128,
+        "physical_link_flits": 52536,
+        "read_descriptors": 37152,
+        "read_words": 4719744,
+        "tasks": 490
+      },
+      "booksim_identity": {
+        "binary_sha256": "8d89e7fd8d0b758a2fcd488b5cfd8f6cdf5ecdc7e62d6c40f97905842fc00325",
+        "bounded": true,
+        "clock": "submit before cycle t; receive at end boundary c+1",
+        "config_sha256": "09197c0b72722aa81bd6e93db67792ddbe0ed1aff93225e289135ba2fc5306c0",
+        "flit_bytes": 128,
+        "rx_slots": 256,
+        "streaming": true
+      },
+      "input_sha256": "36ab9e5ee7a64866796fa5a22fc619f39f035a1cb0a2c83a312aad1254379071",
+      "makespan_ps": 581749000,
+      "raw_result": {
+        "bytes": 7785556,
+        "path": "/Projects/haoning/w2w-full-system-v3-20261009/study-v1/cases/distributed/result.json.gz",
+        "sha256": "64e94cea4930246ed1dcae4a20a56803b6e7884400847ff8a825843e16324a7e"
+      },
+      "runtime_source": {
+        "files": {
+          "__init__.py": "22643d039f03a679df415f3375947b9c82e95679b8f8a7905619eb96ca5fc8a4",
+          "boundary_booksim.py": "9616bc26be80aaabd67e71c4f03c2a56d8c78d15552ea482119a24b3c0c1899c",
+          "configuration.py": "50bf41b25378cb25b66e0ee86538ecb494b68896100c8690a7c5797a6231b934",
+          "online_booksim.py": "b3190daf56d2e6677d3d183d423cf3d6ac8bdd74881dbc193c626bd7f2f2a6fe",
+          "support.py": "1cf16f44f204094d5ebb39a21e625699524dd9fe84b1c02a58c8e84bf2e70654"
+        },
+        "kind": "bundled_w2w"
+      },
+      "source_commit": "a2193002c73ad4885b2721ac0db556d7386d9295"
+    },
+    "external": {
+      "archive_directory": "/Projects/haoning/w2w-full-system-v3-20261009/edge-study-v1",
+      "audit": {
+        "data_bytes": 4907008,
+        "gateway_bytes": 151031808,
+        "native_and_gateway_reservations_drained": true,
+        "native_bytes": 151031808,
+        "packets": 75760,
+        "passed": true,
+        "physical_collection_charged": false,
+        "physical_domains": 128,
+        "physical_link_flits": 2717796,
+        "read_descriptors": 37152,
+        "read_words": 4719744,
+        "tasks": 490
+      },
+      "booksim_identity": {
+        "binary_sha256": "8d89e7fd8d0b758a2fcd488b5cfd8f6cdf5ecdc7e62d6c40f97905842fc00325",
+        "bounded": true,
+        "clock": "submit before cycle t; receive at end boundary c+1",
+        "config_sha256": "8884443182166edf3bb6e14c8dad2a41cfec68d9ae08b24fb344a1cd2515adcc",
+        "flit_bytes": 128,
+        "rx_slots": 256,
+        "streaming": true
+      },
+      "input_sha256": "87b0ca2d3bc9aa741d4cf0ecfc02852acb90558a309d38361ec22d4e54f42479",
+      "makespan_ps": 1459319000,
+      "raw_result": {
+        "bytes": 9646873,
+        "path": "/Projects/haoning/w2w-full-system-v3-20261009/edge-study-v1/cases/external/result.json.gz",
+        "sha256": "2b72d5b264a7002b6f6747cdb54033a61187ab52cc49c044b91f1514573d794c"
+      },
+      "runtime_source": {
+        "files": {
+          "__init__.py": "22643d039f03a679df415f3375947b9c82e95679b8f8a7905619eb96ca5fc8a4",
+          "boundary_booksim.py": "9616bc26be80aaabd67e71c4f03c2a56d8c78d15552ea482119a24b3c0c1899c",
+          "configuration.py": "50bf41b25378cb25b66e0ee86538ecb494b68896100c8690a7c5797a6231b934",
+          "online_booksim.py": "b3190daf56d2e6677d3d183d423cf3d6ac8bdd74881dbc193c626bd7f2f2a6fe",
+          "support.py": "1cf16f44f204094d5ebb39a21e625699524dd9fe84b1c02a58c8e84bf2e70654"
+        },
+        "kind": "bundled_w2w"
+      },
+      "source_commit": "b28a4443c56204777765c8fcb8436889b7c93e65"
+    }
+  },
+  "schema": "w2w.v3-delivery-evidence.v1",
+  "selected_files": {
+    "compile-machine.log": {
+      "bytes": 94,
+      "sha256": "384efef9de152f132dfc4a3663adf7e0bbf88cf02e304c189270cc75327d2064"
+    },
+    "compiled-final-machine/machine.json": {
+      "bytes": 123437,
+      "sha256": "545680f27b71e33e87d51113fc7b87350f4c8c63c5fc7ae0761b989cd7766972"
+    },
+    "compiled-final-machine/network/empty_network_input.json": {
+      "bytes": 3,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    "compiled-final-machine/network/network.anynet": {
+      "bytes": 893,
+      "sha256": "bebdab64da6800ea7b324452ad0ca0f96d13351749e0cc56f9bf609ea1c4f497"
+    },
+    "compiled-final-machine/network/network.conf": {
+      "bytes": 1215,
+      "sha256": "f3817db80aa98683af78305016575135839412d83ce713f7fcbafd3fb124823d"
+    },
+    "compiled-final-machine/network/topology_identity.json": {
+      "bytes": 4877,
+      "sha256": "93f6c6b3c1f0caa44aca87c3106699cce68fc572cf2135413038e13555abe965"
+    },
+    "compiled-final-machine/resources.json": {
+      "bytes": 4559,
+      "sha256": "b4d8fd59e4fa46498e6623877feb4f8ba2c4db63dd36b713cad611c4f886edc0"
+    },
+    "delivery-script.py": {
+      "bytes": 3572,
+      "sha256": "40f33d571965e4e08e927b1827e44786103f92c1abdf5c9609417d10afd5d584"
+    },
+    "edge-study-v1/cases/external/completion.json": {
+      "bytes": 5548,
+      "sha256": "40ad59ac7e49c349dae0cb47e92542c44ba62622bb7d4621d054ed8cfd98a749"
+    },
+    "edge-study-v1/cases/external/summary.json": {
+      "bytes": 5528,
+      "sha256": "385090ab247a46fd271b069fdba549315eb30d7d00ba55b22a9b0387182ff2e8"
+    },
+    "edge-study-v1/inputs/external.json": {
+      "bytes": 2843881,
+      "sha256": "75038ac14d12e23466d5cf75d0775c4f22dc98705c148cd01e4129e1af405140"
+    },
+    "edge-study-v1/logs/external.log": {
+      "bytes": 412,
+      "sha256": "1fd283b5b6b75335dbdc24a9737474dc67c426619484b411c07cafd15d2935ff"
+    },
+    "edge-study-v1/registration.json": {
+      "bytes": 1027,
+      "sha256": "b27d3d9f66d07278588738446436fd11484938695fb6fe0fe455c4b6508e2341"
+    },
+    "equivalence-new.json": {
+      "bytes": 85415,
+      "sha256": "9155501a4a05ed337f839af8f63e974c3e299df15614dfd44789dd27aabcd4a5"
+    },
+    "equivalence-old.json": {
+      "bytes": 85415,
+      "sha256": "9155501a4a05ed337f839af8f63e974c3e299df15614dfd44789dd27aabcd4a5"
+    },
+    "final-analysis.json": {
+      "bytes": 35199,
+      "sha256": "d899536999eb0799ab8999976b86780e3312274dbb4d5bc7aaf4e6bec7de8ff9"
+    },
+    "final-analysis.log": {
+      "bytes": 757,
+      "sha256": "3276588291213d4ce24985de033112815744992eaaefafcb03c867604f1c478e"
+    },
+    "final-source-audit.json": {
+      "bytes": 7614,
+      "sha256": "472cae7e4e76e3cd1f1006290eb612c5fbc8f5d5273d5ca17d270c3ece1ca4cc"
+    },
+    "final-tests.log": {
+      "bytes": 1298,
+      "sha256": "8732a0f9ac34a983382802848ddfd872c8f8064b4e122c9afccbb54c85a12b63"
+    },
+    "invalidated-external-v1.json": {
+      "bytes": 269,
+      "sha256": "45c39e4b3418945f6cfa51c41db364807ed5e3d8c8a83f380a58b88703efebd0"
+    },
+    "migration-after.json": {
+      "bytes": 10515,
+      "sha256": "60a2106be7590c8feb24d09edc8d0565f433253cb3cf64bfb8a1ea305389a094"
+    },
+    "migration-before.json": {
+      "bytes": 10515,
+      "sha256": "60a2106be7590c8feb24d09edc8d0565f433253cb3cf64bfb8a1ea305389a094"
+    },
+    "migration-check.py": {
+      "bytes": 1841,
+      "sha256": "10fc050897ab16c6fc11698533e7f05e81d09b47b4f90c4e825eb2a390d6aca8"
+    },
+    "native-p2/build-manifest.json": {
+      "bytes": 31593,
+      "sha256": "893fed8ea1db7ae625e39e80ab80a8e5de498e6a8ee147a5e1d574fd8b0859ea"
+    },
+    "native-p4/build-manifest.json": {
+      "bytes": 2599,
+      "sha256": "68c69a844076279b3ba30b632ec5fb24f24a48919c748473e488b33edd7beeec"
+    },
+    "native-p6/build-manifest.json": {
+      "bytes": 33601,
+      "sha256": "165e15505fa866aea48decf738204c436bd28d74fc1b306c9c02a17fbfd4ce8e"
+    },
+    "p1-tests.log": {
+      "bytes": 533,
+      "sha256": "9d08bda0040f7946dd4cebe22191d5e9c76cb0df5bdd67bebfa14bc460a649a5"
+    },
+    "p2-build.log": {
+      "bytes": 200,
+      "sha256": "dd1f59f8b9537a02a3f45fa268d65aa251447ae45b160f0ba104a971ac91d7fa"
+    },
+    "p3-tests.log": {
+      "bytes": 251,
+      "sha256": "601cb35ff2453754650b7de48066197763defae0bcde937d607f14d1c3067e80"
+    },
+    "p4-build.log": {
+      "bytes": 238,
+      "sha256": "db6a7e609233a52489c47734597f86733e9251ffb1273ce9ea9ea26f9f5f5265"
+    },
+    "p5-micro-tests.log": {
+      "bytes": 270,
+      "sha256": "ae1e6e9d140bfce3d523a9fff58c29af2b5b316051d2343b044bca5329ba33bc"
+    },
+    "p6-build.log": {
+      "bytes": 435,
+      "sha256": "5513c6e7a49ca6411ca7124f5f54d45a8efdb93f7a5c2c7b0b336a603ec4b914"
+    },
+    "p6-tests.log": {
+      "bytes": 1224,
+      "sha256": "1cd4a3cd85f90d3d38c44e811c1694182dca746b74d6368ca01670c2e9991960"
+    },
+    "periodic-checks-edge-v1.log": {
+      "bytes": 4549,
+      "sha256": "a812fe5b2bfcd97acc401e528e45f8c33da5e8aa54b4ede814c92704f5d7b785"
+    },
+    "periodic-checks-v1.log": {
+      "bytes": 12162,
+      "sha256": "f50ba67eb49c1365ed10f9d95cf7bfcd038ae566d4c32a8bae102ffdc731e48d"
+    },
+    "study-v1/cases/central/completion.json": {
+      "bytes": 5542,
+      "sha256": "5d372331fa1ac6b3df0518b1b4ba3878ca501711e43e0776563fe92eeed8081d"
+    },
+    "study-v1/cases/central/summary.json": {
+      "bytes": 5522,
+      "sha256": "6c37c7a9953dbd39b9e08668cb8eb8a99807da1d2c77c28efec4d5f21d29cd41"
+    },
+    "study-v1/cases/distributed/completion.json": {
+      "bytes": 6053,
+      "sha256": "34d2ec5873e90b7b6a45ff4a1b07172b27aa5aace3d9f148168957a5721e3f60"
+    },
+    "study-v1/cases/distributed/summary.json": {
+      "bytes": 6033,
+      "sha256": "d37738d299e1b0232cece0045ec0e0054df17aaad0a9eb326d92a21285368cb1"
+    },
+    "study-v1/inputs/central.json": {
+      "bytes": 2878838,
+      "sha256": "53d1f4778d8543a2d37cc429f8e2ad29564c7fdf8b6cb78b81ad2fa1ee024602"
+    },
+    "study-v1/inputs/distributed.json": {
+      "bytes": 2887395,
+      "sha256": "9ebba18f99dc74b63e363c2b74a4ff48af95810053bce0a435f78eb737b77fa3"
+    },
+    "study-v1/logs/central.log": {
+      "bytes": 409,
+      "sha256": "227745e85fba323285c2e3e2c6415a59b837e93984b4d0bbd827b75b64e07d0b"
+    },
+    "study-v1/logs/distributed.log": {
+      "bytes": 411,
+      "sha256": "e023e0e769cc1b5cc0f5fcd0ef724f7d6a74f4050f6705718a252a81d37488bf"
+    },
+    "study-v1/registration.json": {
+      "bytes": 1441,
+      "sha256": "c724a2329cbdd0e0eb4e094ae9b8c516b7712d57afb9cbb15534e4d068f47587"
+    }
+  },
+  "server": "hn072@143.89.78.72",
+  "verification_source_commit": "f20f7d5"
+}
