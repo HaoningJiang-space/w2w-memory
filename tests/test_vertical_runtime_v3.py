@@ -9,7 +9,7 @@ from w2w.mapping.data_placement import place_weights
 from w2w.mapping.compute_placement import place_compute
 from w2w.mapping.lowering import lower
 from w2w.backends.ramulator import VerticalRWDL
-from w2w.network.booksim_backend import factory
+from w2w.backends.booksim.adapter import factory
 from w2w.system.kernel import execute_system
 from w2w.validation.vertical_access import audit_vertical_result
 from w2w.domain.protocol import MemoryRequest

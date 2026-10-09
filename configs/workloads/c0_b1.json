@@ -1,0 +1,34 @@
+{
+  "arithmetic_scope": "timing and data movement only; routing weights and numerical tensors are not simulated",
+  "name": "c0_b1",
+  "partitions": 4,
+  "request_ids": [
+    "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/98.json"
+  ],
+  "schema": "w2w.frozen-routing.v3",
+  "shape": {
+    "block_width": 128,
+    "experts": 128,
+    "hidden": 4096,
+    "intermediate": 1536,
+    "topk": 8
+  },
+  "source_hashes": {
+    "c0_b1/marginal_spec.json": "6f77623400a2223256b4a1fd712e7c102d304b47b74a07f24814175e3b31db1d",
+    "owners.json": "6b192b881afc0c8171d1bc07e91c089dca9a196753c6cdad1384139c4a2c88c5",
+    "routes.json.gz": "758fcb88aaafbbef12fe5d4e64e7680438f39c9c666cf9aae3b82c0ec3000ca1",
+    "summary.json": "d89858d7c3ed437916bb9f43c27aaf07242e67d87eacf185e19d85b1b3905374"
+  },
+  "token_experts": [
+    [
+      36,
+      10,
+      23,
+      108,
+      62,
+      67,
+      109,
+      50
+    ]
+  ]
+}

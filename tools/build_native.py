@@ -59,7 +59,7 @@ def main():
                         raise ValueError(f'Changed historical BookSim base: {name}')
                 required = [ROOT/name for name in inputs['base_sha256']]
                 required += [p for p in VENDOR.rglob('*') if p.is_file()]
-                required += list((ROOT/'w2w/network/native_booksim').glob('*.py'))
+                required += list((ROOT/'w2w/backends/booksim/runtime').glob('*.py'))
                 manifest['sources'].update({str(p.relative_to(ROOT)):digest(p) for p in required})
                 build = out/'booksim'
                 native = build/'third_party/booksim2/src'
@@ -89,9 +89,9 @@ def main():
                 if revision != RAMULATOR_PIN:
                     raise ValueError('Ramulator must use the registered upstream commit')
                 manifest['ramulator'] = dict(commit=revision,path=str(dram),library_sha256=digest(dram/'libramulator.so'))
-                for path in (ROOT/'w2w/service/dram').glob('*'):
+                for path in (ROOT/'w2w/backends/ramulator').glob('*'):
                     if path.is_file(): manifest['sources'][str(path.relative_to(ROOT))]=digest(path)
-                run(['cmake','-S',ROOT/'w2w/service/dram','-B',out/'dram_bridge',f'-DRAMULATOR_SOURCE={dram}',f'-DPython_EXECUTABLE={sys.executable}'])
+                run(['cmake','-S',ROOT/'w2w/backends/ramulator','-B',out/'dram_bridge',f'-DRAMULATOR_SOURCE={dram}',f'-DPython_EXECUTABLE={sys.executable}'])
                 run(['cmake','--build',out/'dram_bridge',f'-j{args.jobs}'])
                 bridge, = (out/'dram_bridge').glob('_w2w_ramulator*.so')
                 manifest['outputs']['dram_bridge'] = dict(path=str(bridge),sha256=digest(bridge))

@@ -17,7 +17,7 @@ def build_moe(token_experts, *, name='routed-ffn', hidden=4096, intermediate=153
     matrix_bytes=hidden*block_width+(hidden//128)*4
     weights=tuple((f'weight/e{e}/b{b}/{phase}',matrix_bytes)
         for e in range(experts) for b in range(blocks) for phase in ('gate','up','down'))
-    ops=[]; tensors=[]
+    ops=[]; tensors=[];input_consumers=defaultdict(list)
     def tensor(key,size,dtype,producer,consumers):
         tensors.append(Tensor(key,size,dtype,producer,tuple(consumers),key))
     for n in range(len(tokens)):
@@ -41,7 +41,7 @@ def build_moe(token_experts, *, name='routed-ffn', hidden=4096, intermediate=153
                     scratch_bytes=4*n*hidden))
                 # One logical X has two consumers. Copies are a mapping decision.
                 for t in ids:
-                    tensor(f'X/t{t}/e{e}/b{b}',hidden*2,'BF16',f't{t}/input',(gate,up))
+                    input_consumers[t].extend((gate,up))
                 tensor(prefix+'/G',4*n*block_width,'FP32',gate,(act,))
                 tensor(prefix+'/U',4*n*block_width,'FP32',up,(act,))
                 tensor(prefix+'/H',2*n*block_width,'BF16',act,(down,))
@@ -51,5 +51,7 @@ def build_moe(token_experts, *, name='routed-ffn', hidden=4096, intermediate=153
             tensor(f'e{e}/p{p}/sum',4*n*hidden,'FP32',f'e{e}/b{first+per_part-1}/accumulate',(reduce,))
         for t in ids:
             tensor(f'e{e}/t{t}/output',2*hidden,'BF16',reduce,(f't{t}/combine',))
+    for t,consumers in sorted(input_consumers.items()):
+        tensor(f'X/t{t}',hidden*2,'BF16',f't{t}/input',consumers)
     return LogicalWorkload(name,(hidden,intermediate,block_width,experts,topk),tokens,
         tuple(ops),tuple(tensors),weights,tuple(source_identity),partitions)

@@ -1,6 +1,6 @@
 """Task IR: control order is distinct from delivered data. No trace fitting or I/O."""
 from dataclasses import dataclass
-from w2w.domain.system import positive
+from w2w.common.validators import positive
 
 
 @dataclass(frozen=True)

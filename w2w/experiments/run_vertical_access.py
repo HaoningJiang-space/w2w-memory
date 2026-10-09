@@ -3,10 +3,11 @@ import argparse,gzip,json,os,time
 from pathlib import Path
 from dataclasses import asdict
 from w2w.architecture.presets import vertical_memory
+from w2w.architecture.presets.recipes import from_recipe
 from w2w.architecture.compiler import compile_machine
 from w2w.architecture.resources import inventory,matched_vertical_budget
 from w2w.workloads.moe import build_moe
-from w2w.workloads.routing_input import load_layer_routing,INPUTS
+from w2w.workloads.routing_input import load_workload
 from w2w.mapping.data_placement import place_weights
 from w2w.mapping.compute_placement import place_compute
 from w2w.mapping.lowering import lower
@@ -14,7 +15,7 @@ from w2w.common.fingerprints import digest_read_v1 as digest
 from w2w.common.io import write_json
 from w2w.provenance import revision
 from w2w.backends.ramulator import VerticalRWDL
-from w2w.network.booksim_backend import factory
+from w2w.backends.booksim.adapter import factory
 from w2w.system.kernel import execute_system
 from w2w.validation.vertical_access import audit_vertical_result
 
@@ -22,10 +23,8 @@ CASES=('central','distributed','external')
 
 
 def inputs(case,cohort='c0_b1'):
-    routing=load_layer_routing(INPUTS,cohort=cohort)
-    logical=build_moe([t['experts'] for t in routing.tokens],name=cohort,
-        source_identity=tuple(sorted(routing.source_hashes.items())))
-    stack=vertical_memory(case);machine=compile_machine(stack)
+    logical=load_workload(Path('configs/workloads')/(cohort+'.json'))
+    stack=from_recipe('configs/machine/v3-small.json',case);machine=compile_machine(stack)
     weights=place_weights(logical,stack);placement=place_compute(logical,stack,weights)
     graph,metadata=lower(logical,machine,weights,placement)
     return machine,graph,dict(schema='w2w.vertical-access-input.v3',machine=asdict(stack),

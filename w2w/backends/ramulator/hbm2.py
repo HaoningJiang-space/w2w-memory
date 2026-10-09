@@ -3,7 +3,6 @@
 One reference channel per memory: 2 pseudochannels, 32 banks, 32-byte bursts.
 No implicit burst splitting, address truncation, profile scaling or downloads.
 """
-from fractions import Fraction
 from functools import lru_cache
 from hashlib import sha256
 import importlib.util
@@ -66,18 +65,6 @@ class RamulatorHBM2:
         self.next_id = self.accepted = self.completed = self.rejected = 0
         self.pending = set()
         self.last_tick = 0
-
-    def validate(self, design, trace, config, residence):
-        period = Fraction(design.endpoint.word_bits * 1000, 8000) / Fraction(str(design.exposure.bank_bw))
-        if (len(design.exposure.mask) != 32 or trace.word_bytes != 32 or
-                len(design.geometry.memory_xy) != self.memories or period != self.slot_ps):
-            raise ValueError('HBM2 reference requires 32 banks/M, 32-byte words and matching clocks')
-        if design.endpoint.native.ready != (1,) or config.native_latency_slots != 0:
-            raise ValueError('Do not compose periodic/fixed native timing with DRAM commands')
-        if any(words > BANK_WORDS for words in residence.bank_words):
-            raise ValueError('Frozen data exceed 16 MiB per reference HBM2 bank')
-        if self.accepted or self.last_tick:
-            raise ValueError('Use a fresh backend per replay')
 
     def submit(self, request):
         bank, address = request['bank'], request['address']

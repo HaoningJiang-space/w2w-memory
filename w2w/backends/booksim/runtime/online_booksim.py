@@ -10,14 +10,6 @@ from .support import digest, write_json
 from .support import natural
 
 
-def prepare_online_config(inputs, directory, seed=1):
-    from .configuration import prepare_config
-    directory = Path(directory).resolve()
-    write_json(directory/"empty_network_input.json", [])
-    return prepare_config(inputs, directory, directory/"empty_network_input.json", seed,
-                          timeout=60, skip_idle=False)
-
-
 class OnlineBookSim:
     def __init__(self, binary, config, directory, *, flit_bytes, timeout=60):
         natural(flit_bytes, "flit bytes", positive=True)

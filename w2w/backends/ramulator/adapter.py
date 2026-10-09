@@ -15,7 +15,7 @@ class VerticalRWDL:
     atomic_bytes=16
 
     def __init__(self,spec,*,refresh=True,backend=None):
-        from w2w.service.dram.rwdl import RamulatorRWDL
+        from w2w.backends.ramulator.rwdl import RamulatorRWDL
         self.spec=spec;self.stack=spec.stack
         self.domains={d.id:d for d in self.stack.dram_domains}
         self.channels={key:i for i,key in enumerate(self.domains)}
@@ -23,6 +23,9 @@ class VerticalRWDL:
         self.interfaces={m.id:m for m in spec.memories}
         self.gateways={g.id:g for g in (*self.stack.gateways,*self.stack.external_ports)}
         self.paths={(p.domain_id,p.gateway_id):p for p in self.stack.collection_paths}
+        for port in self.stack.vertical_ports:
+            if port.data_bits!=sum(self.domains[d].data_bits for d in port.domain_ids) or port.period_ps!=3760:
+                raise ValueError('First vertical backend requires explicitly dedicated RWDL lanes; shared-port SerDes is not implicit')
         periods={d.period_ps for d in self.domains.values()};capacities={d.capacity_bytes for d in self.domains.values()}
         if len(periods)!=1 or len(capacities)!=1:raise ValueError('First native backend requires one array clock/capacity')
         self.period_ps=next(iter(periods));self.capacity=next(iter(capacities))

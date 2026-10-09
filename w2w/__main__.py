@@ -11,18 +11,18 @@ def main(argv=None):
         parser = argparse.ArgumentParser(prog='python -m w2w', add_help=False)
         parser.add_argument('-h', '--help', action='store_true')
         parser.add_argument('--list', action='store_true')
-        parser.add_argument('--scope', choices=('current', 'reference', 'legacy'))
+        parser.add_argument('--scope', choices=('current',))
         options = parser.parse_args(argv)
         groups = (options.scope,) if options.scope else (
-            ('current', 'reference', 'legacy') if options.list else ('current',))
+            ('current',))
         print('Usage: python -m w2w COMMAND [arguments]\n')
-        print('Commands (original names remain available):')
+        print('Architecture V3 commands:')
         for group in groups:
             print('\n  '+group.capitalize()+':')
             for name,module in COMMANDS.items():
                 if COMMAND_STATUS[name] == group:
                     print('    '+name+' ['+COMMAND_SCOPES[name]+']')
-        print('\nAll entries: --list; filter: --list --scope current|reference|legacy')
+        print('\nHistorical commands: git worktree at v2-frozen-37400e6; see docs/legacy/V2_FREEZE.md')
         print('Builds, tests and experiments: isolated hn072 workspace; see docs/HANDOFF.md')
         return
     command = argv.pop(0).removesuffix('.py')

@@ -10,4 +10,4 @@ def provenance():
     return dict(commit=revision(),
                 git_status=subprocess.check_output(['git','status','--porcelain'],text=True),
                 host=platform.node(), python=platform.python_version(),
-                packages={m:importlib.metadata.version(m) for m in ['numpy','scipy','shapely','pymetis','networkx','matplotlib']})
+                packages={})

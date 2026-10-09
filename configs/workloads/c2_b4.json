@@ -1,0 +1,67 @@
+{
+  "arithmetic_scope": "timing and data movement only; routing weights and numerical tensors are not simulated",
+  "name": "c2_b4",
+  "partitions": 4,
+  "request_ids": [
+    "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9913.json",
+    "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1533.json",
+    "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/64.json",
+    "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/472.json"
+  ],
+  "schema": "w2w.frozen-routing.v3",
+  "shape": {
+    "block_width": 128,
+    "experts": 128,
+    "hidden": 4096,
+    "intermediate": 1536,
+    "topk": 8
+  },
+  "source_hashes": {
+    "c2_b4/marginal_spec.json": "cd749faeb2cc9ff7a61f1a12aa55490d261d9d1b775f097ad93faad1348f7048",
+    "owners.json": "6b192b881afc0c8171d1bc07e91c089dca9a196753c6cdad1384139c4a2c88c5",
+    "routes.json.gz": "758fcb88aaafbbef12fe5d4e64e7680438f39c9c666cf9aae3b82c0ec3000ca1",
+    "summary.json": "d89858d7c3ed437916bb9f43c27aaf07242e67d87eacf185e19d85b1b3905374"
+  },
+  "token_experts": [
+    [
+      125,
+      52,
+      68,
+      111,
+      31,
+      84,
+      89,
+      44
+    ],
+    [
+      91,
+      109,
+      23,
+      67,
+      18,
+      127,
+      62,
+      114
+    ],
+    [
+      81,
+      38,
+      40,
+      82,
+      103,
+      31,
+      3,
+      50
+    ],
+    [
+      5,
+      28,
+      8,
+      83,
+      42,
+      25,
+      6,
+      16
+    ]
+  ]
+}

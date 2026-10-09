@@ -2,8 +2,8 @@
 from hashlib import sha256
 import math
 
-from w2w.service.dram.ramulator import UPSTREAM_COMMIT, load_bridge
-from w2w.service.dram.rwdl_spec import W2WRWDL
+from w2w.backends.ramulator.hbm2 import UPSTREAM_COMMIT, load_bridge
+from w2w.backends.ramulator.rwdl_spec import W2WRWDL
 from w2w.common.fingerprints import digest_read_v1 as digest
 from w2w.common.validators import integer
 

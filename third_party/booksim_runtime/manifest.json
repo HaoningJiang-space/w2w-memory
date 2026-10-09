@@ -144,16 +144,6 @@
     "third_party/booksim2/src/vc.cpp": "380ac49544ab2749ebf064a333e2d8f885641335b45128c1eb74bb9044962bc5",
     "third_party/booksim2/src/vc.hpp": "b4a909c2319298384ac54c22c10326919c63a6612ab502a5623d07ee64ebca55"
   },
-  "extractions": {
-    "w2w/network/native_booksim/configuration.py": [
-      "src/wafer_sim/adapters/booksim.py:prepare_config",
-      "third_party/nw-design-for-wsi/rapidchiplet/booksim_wrapper.py:export_booksim_config"
-    ],
-    "w2w/network/native_booksim/support.py": [
-      "src/wafer_sim/io.py",
-      "src/wafer_sim/workloads/spatial.py:natural"
-    ]
-  },
   "files": {
     "third_party/booksim_runtime/JSON-LICENSE.MIT": {
       "sha256": "86b998c792894ccb911a1cb7994f7a9652894e7a094c0b5e45be2f553f45cf14",
@@ -183,16 +173,28 @@
       "sha256": "552485a3882629462f35d6cd4592ccaacbade2c303cbaa895a5abbb36e30cde6",
       "source": "src/wafer_sim/adapters/native/online_booksim.cpp"
     },
-    "w2w/network/native_booksim/boundary_booksim.py": {
-      "changes": "Import paths only; execution and IPC unchanged",
+    "w2w/backends/booksim/runtime/boundary_booksim.py": {
+      "changes": "Runtime namespace migration; unused historical configuration facade removed; IPC methods retained",
       "original_sha256": "b3ff473dfad949b3ba1326e93fa882f93154976d6342db28525cdfa186ca857d",
+      "sha256": "9616bc26be80aaabd67e71c4f03c2a56d8c78d15552ea482119a24b3c0c1899c",
       "source": "src/wafer_sim/adapters/boundary_booksim.py"
     },
-    "w2w/network/native_booksim/online_booksim.py": {
-      "changes": "Import paths only; execution and IPC unchanged",
+    "w2w/backends/booksim/runtime/online_booksim.py": {
+      "changes": "Runtime namespace migration; unused historical configuration facade removed; IPC methods retained",
       "original_sha256": "842c2fd01ae9bc245a332a6c6ce656ddae87d377dc00a2da84d3ab717bc44869",
+      "sha256": "1ee779d0654b7bc15501af1f47456ddb86d1d6e069228169acd0fc79d85cf610",
       "source": "src/wafer_sim/adapters/online_booksim.py"
     }
+  },
+  "historical_extractions": {
+    "w2w/network/native_booksim/configuration.py": [
+      "src/wafer_sim/adapters/booksim.py:prepare_config",
+      "third_party/nw-design-for-wsi/rapidchiplet/booksim_wrapper.py:export_booksim_config"
+    ],
+    "w2w/network/native_booksim/support.py": [
+      "src/wafer_sim/io.py",
+      "src/wafer_sim/workloads/spatial.py:natural"
+    ]
   },
   "json_commit": "9cca280a4d0ccf0c08f47a99aa71d1b0e52f8d03",
   "layout_migration": {

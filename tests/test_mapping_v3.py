@@ -28,7 +28,8 @@ class MappingV3(unittest.TestCase):
     def test_tensor_identity_is_not_a_copy(self):
         logical=build_moe(((0,1,2,3,4,5,6,7),))
         x=next(t for t in logical.tensors if t.id.startswith('X/'))
-        self.assertEqual(len(x.consumers),2)
+        self.assertEqual(len(x.consumers),2*8*12)
+        self.assertEqual(sum(t.id.startswith('X/') for t in logical.tensors),1)
         self.assertEqual(x.storage_id,x.id)
         self.assertFalse(any(word in repr(asdict(logical)) for word in ('router_id','gateway_id','home_tile')))
 

@@ -3,6 +3,7 @@ __pycache__/
 build/
 /memory_results
 *.pyc
+*.egg-info/
 poweric.txt
 gurobi.lic
 .env

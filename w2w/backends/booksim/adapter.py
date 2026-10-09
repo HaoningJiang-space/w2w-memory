@@ -12,8 +12,6 @@ import heapq
 from math import ceil
 import os
 from pathlib import Path
-import subprocess
-import sys
 
 from w2w.system.local_dma import LocalDma
 from w2w.system.receive_write import ReceiveWritePort
@@ -21,47 +19,31 @@ from w2w.system.receive_write import ReceiveWritePort
 PIN = '0c56c24b4bf602b8b2c036681f526971305dde99'
 
 
-def factory(*, binary, directory, source=None, ideal_return=False, debug_flits=False,
-            local_dma='legacy',cell_sideband_bits=0):
-    return partial(BookSimNetwork, source=source, binary=binary, directory=directory,
+def factory(*, binary, directory, ideal_return=False, debug_flits=False,
+            local_dma='payload_beats',cell_sideband_bits=64):
+    return partial(BookSimNetwork, binary=binary, directory=directory,
                    ideal_return=ideal_return, debug_flits=debug_flits,local_dma=local_dma,
                    cell_sideband_bits=cell_sideband_bits)
 
 
 def _config(builder, directory):
-    from types import SimpleNamespace
     from w2w.backends.booksim.topology_export import compile_booksim
-    graph=(builder.physical_graph if builder.v3 else SimpleNamespace(
-        routers=tuple(builder.tiles.values()),
-        channels=tuple(l for l in builder.spec.links if l.src in builder.tiles and l.dst in builder.tiles)))
-    return compile_booksim(graph,builder.spec,directory)
+    return compile_booksim(builder.physical_graph,builder.spec,directory)
 
 
 class BookSimNetwork:
-    def __init__(self, builder, events, *, source, binary, directory,
-                 ideal_return=False, debug_flits=False,local_dma='legacy',cell_sideband_bits=0):
-        from .native_booksim.support import digest
+    def __init__(self, builder, events, *, binary, directory,
+                 ideal_return=False, debug_flits=False,local_dma='payload_beats',cell_sideband_bits=64):
+        from .runtime.support import digest
         directory = Path(directory).resolve()
-        if source is None:
-            from .native_booksim.boundary_booksim import BoundaryBookSim
-            from .native_booksim import __file__ as package_file
-            self.runtime_source = dict(kind='bundled_w2w', files={
-                p.name: digest(p) for p in sorted(Path(package_file).parent.glob('*.py'))})
-        else:
-            # Explicit compatibility path for replaying archived runs. New runs
-            # use the bundled implementation, with no sibling checkout needed.
-            source = Path(source).resolve()
-            revision = subprocess.check_output(['git', '-C', str(source), 'rev-parse', 'HEAD'], text=True).strip()
-            if revision != PIN:
-                raise ValueError(f'Use the registered wafer_simulator revision {PIN}')
-            sys.path.insert(0, str(source/'src'))
-            sys.path.insert(0, str(source/'third_party/nw-design-for-wsi'))
-            from wafer_sim.adapters.boundary_booksim import BoundaryBookSim
-            self.runtime_source = dict(kind='legacy_external', commit=revision)
+        from .runtime.boundary_booksim import BoundaryBookSim
+        from .runtime import __file__ as package_file
+        self.runtime_source = dict(kind='bundled_w2w', files={
+            p.name: digest(p) for p in sorted(Path(package_file).parent.glob('*.py'))})
         directory.mkdir(parents=True, exist_ok=False)
         self.builder, self.spec, self.events = builder, builder.spec, events
-        if local_dma not in ('legacy','payload_beats'):
-            raise ValueError('Unknown local DMA contract')
+        if local_dma!='payload_beats' or ideal_return or cell_sideband_bits!=64:
+            raise ValueError('V3 uses finite payload DMA, physical returns and 64-bit cell metadata; historical modes are frozen')
         self.local_dma=local_dma
         self.nodes, config = _config(builder, directory)
         self.endpoint_nodes={key:self.nodes[builder.spec.endpoint_router(key)] for key in

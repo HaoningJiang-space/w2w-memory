@@ -1,0 +1,12 @@
+[
+  {
+    "historical_path": "rapidchiplet/netrace/LICENSE",
+    "retained_path": "third_party/licenses/legacy/rapidchiplet__netrace__LICENSE",
+    "sha256": "aaad71ac9084684a66a3bd51cd8415a9ff5f851ac26b4b4703a2bb70ee4082a2"
+  },
+  {
+    "historical_path": "Orion3/rbf2/delve-1.1p3/delve-1.1p3/tests/license.terms",
+    "retained_path": "third_party/licenses/legacy/Orion3__rbf2__delve-1.1p3__delve-1.1p3__tests__license.terms",
+    "sha256": "6adf7ee8943fcc0075255045184635f3880c73f676245ee3069146b6270da10f"
+  }
+]

@@ -13,15 +13,18 @@ p.add_argument('--checks',type=int,default=240)
 args=p.parse_args()
 if args.interval<1 or args.checks<1:p.error('Positive interval/check count required')
 registration=json.loads((args.study/'registration.json').read_text())
-names=[c['name'] for c in registration['cases']]
-directories={c['name']:Path(c.get('reference_directory',args.study/'cases'/c['name']))
-             for c in registration['cases']}
+cases=registration['cases']
+if isinstance(cases,dict):cases=[dict(name=k,**v) for k,v in cases.items()]
+names=[c['name'] for c in cases]
+directories={c['name']:Path(c.get('reference_directory',args.study/'cases'/c['name'])) for c in cases}
 for _ in range(args.checks):
     status={}
     for name in names:
         done=directories[name]/'completion.json'
         log=args.logs/(name+'.log')
-        if done.exists():status[name]=json.loads(done.read_text())
+        if done.exists():
+            result=json.loads(done.read_text())
+            status[name]={k:result[k] for k in ('complete','source_commit','makespan_ps','audit') if k in result}
         elif log.exists() and 'Traceback (most recent call last)' in log.read_text():status[name]={'failed':True}
         else:status[name]={'running_or_pending':True}
     print(json.dumps(dict(time_utc=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),cases=status)),flush=True)

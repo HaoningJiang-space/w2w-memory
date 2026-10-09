@@ -11,9 +11,7 @@ from math import gcd
 import json
 
 from w2w.domain.protocol import Packet
-from w2w.memory.address_map import words_for_task
-from w2w.memory.backend import IdealBanks
-from w2w.network.router import CreditNetwork
+from w2w.mapping.address_map import words_for_task
 from w2w.system.builder import SystemBuilder
 
 
@@ -23,8 +21,10 @@ class SystemExecution:
         self.spec, self.graph = spec, graph
         self.builder = SystemBuilder(spec).validate_graph(graph)
         self.events = []
-        self.network = (network_factory or CreditNetwork)(self.builder, self.events)
-        self.native = native if native is not None else IdealBanks(spec)
+        if native is None or network_factory is None:
+            raise ValueError('Architecture V3 requires explicit native memory and fabric backends')
+        self.network = network_factory(self.builder, self.events)
+        self.native = native
         if self.native.boundary not in ('memory_word_ready_before_explicit_HB',
                                         'controller_payload_ready_after_native_bus'):
             raise ValueError('Unknown DRAM callback boundary')

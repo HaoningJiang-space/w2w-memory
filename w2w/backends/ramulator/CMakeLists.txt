@@ -15,7 +15,7 @@ endif()
 find_package(Python 3.10 REQUIRED COMPONENTS Interpreter Development.Module)
 add_subdirectory("${RAMULATOR_SOURCE}/ext/nanobind" nanobind EXCLUDE_FROM_ALL)
 execute_process(COMMAND "${CMAKE_COMMAND}" -E env "PYTHONPATH=${RAMULATOR_SOURCE}/python"
-                "${Python_EXECUTABLE}" -m w2w.service.dram.rwdl_spec
+                "${Python_EXECUTABLE}" -m w2w.backends.ramulator.rwdl_spec
                 "${CMAKE_CURRENT_BINARY_DIR}/W2WRWDL.cpp"
                 WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/../../.."
                 COMMAND_ERROR_IS_FATAL ANY)

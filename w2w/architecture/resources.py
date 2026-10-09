@@ -6,6 +6,9 @@ from math import ceil
 def inventory(stack):
     clusters, domains = stack.compute_clusters, stack.dram_domains
     channels = stack.lateral_links
+    routers={r.id:r for r in stack.routers}
+    access=[dict(gateway=g.id,length_um=sum(abs(a-b) for a,b in zip(g.position_um,routers[g.router_id].position_um)),
+        data_bits=g.data_bytes_per_cycle*8,pipeline_cycles=g.router_access_cycles) for g in stack.gateways]
     return dict(schema='w2w.physical-resources.v3',
         compute=dict(clusters=len(clusters), pes=sum(c.profile.pe_count for c in clusters),
             macs_per_cycle=sum(c.profile.macs_per_cycle for c in clusters),
@@ -25,10 +28,15 @@ def inventory(stack):
             output_bytes_per_cycle=sum(g.data_bytes_per_cycle for g in stack.gateways),
             staging_bytes=sum(g.staging_bytes for g in stack.gateways),
             descriptor_slots=sum(g.descriptor_slots for g in stack.gateways),
-            control_bits=sum(g.control_bits for g in stack.gateways)),
+            control_bits=sum(g.control_bits for g in stack.gateways),
+            router_access_wire_bit_um=sum(a['length_um']*a['data_bits'] for a in access),
+            router_access_pipeline_bits=sum(a['pipeline_cycles']*a['data_bits'] for a in access),
+            router_access_paths=access),
         external=dict(ports=len(stack.external_ports),
             bytes_per_cycle=sum(p.data_bytes_per_cycle for p in stack.external_ports),
             staging_bytes=sum(p.staging_bytes for p in stack.external_ports),
+            edge_access_wire_bit_um=sum(p.data_bytes_per_cycle*8*sum(abs(a-b) for a,b in zip(p.position_um,routers[p.router_id].position_um)) for p in stack.external_ports),
+            edge_access_pipeline_bits=sum(p.data_bytes_per_cycle*8*64 for p in stack.external_ports),
             scope='external DRAM, edge I/O and system cost are additional; not equal-cost vertical baseline'),
         collection=dict(paths=len(stack.collection_paths),
             wire_bit_um=sum(p.data_bits*p.length_um for p in stack.collection_paths),
@@ -38,8 +46,12 @@ def inventory(stack):
             data_wire_bit_um=sum(c.data_bits*c.length_um for c in channels),
             control_wire_bit_um=sum(c.control_bits*c.length_um for c in channels),
             data_pipeline_bits=sum(c.data_bits*sum(s.pipeline_cycles for s in c.segments) for c in channels),
+            control_pipeline_bits=sum(c.control_bits*sum(s.pipeline_cycles for s in c.segments) for c in channels),
             input_data_buffer_bytes=sum(r.input_buffer_bytes*r.port_budget for r in stack.routers),
             injection_buffer_bytes=sum(r.injection_buffer_bytes for r in stack.routers),
+            receive_staging_bytes=len(stack.routers)*3*16*(4096+16),
+            input_cell_metadata_bytes=sum((r.input_buffer_bytes//128)*r.port_budget*8 for r in stack.routers),
+            injection_cell_metadata_bytes=sum((r.injection_buffer_bytes//128)*8 for r in stack.routers),
             boundary_stitch_length_um=sum(s.length_um for c in channels for s in c.segments if s.kind=='boundary_stitch'),
             aggregated_fine_links_per_channel=64, fine_data_bits_per_link=16,
             fine_control_bits_per_link=16,
