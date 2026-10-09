@@ -146,7 +146,7 @@ class SystemExecution:
                 continue
             task = self.tasks[key]
             del self.engine[tile]
-            output = sum(e.size_bytes for e in self.graph.data if e.producer == key)
+            output = sum(self.edges[e]['edge'].size_bytes for e in self.outgoing[key])
             self._sram(tile, -(self.builder.footprint[key]-output), key)
             state['done'] = True
             self.done_count+=1;self.active_edges.update(self.outgoing[key])
