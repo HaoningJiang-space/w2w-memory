@@ -18,6 +18,7 @@ class IncrementalMemory {
   std::vector<std::pair<uint64_t, uint64_t>> completed;
   uint64_t cycle = 0;
   int channels = 0;
+  int transaction_bytes = 0;
   bool closed = false;
  public:
   explicit IncrementalMemory(nb::dict config) {
@@ -28,21 +29,31 @@ class IncrementalMemory {
     memory.reset(Factory::create_memory_system(cfg));
     frontend->connect_memory_system(memory.get());
     memory->connect_frontend(frontend.get());
-    if (memory->get_tx_bytes() != 32)
-      throw std::runtime_error("Bridge requires an exact 32-byte DRAM transaction");
+    transaction_bytes = memory->get_tx_bytes();
+    if (transaction_bytes != 32 && transaction_bytes != 16)
+      throw std::runtime_error("Bridge requires an exact 32- or 16-byte DRAM transaction");
   }
   bool send(uint64_t id, int bank, uint64_t word_address) {
     if (closed || pending.count(id)) throw std::runtime_error("Closed backend or duplicate ID");
-    // HBM2_2Gb: one 32-bank channel per memory reticle; 32 bursts/row.
-    if (bank < 0 || bank >= channels * 32 || word_address >= (1u << 19))
-      throw std::runtime_error("Address outside HBM2 reference bank");
-    const int local = bank % 32;
-    Request req(AddrVec_t{bank / 32, local / 16, 0, (local % 16) / 4,
-                         local % 4, int(word_address / 32), int((word_address % 32) * 4)},
-                Request::Type::Read);
-    req.addr = (uint64_t(bank) * (1u << 19) + word_address) * 32;
+    AddrVec_t address;
+    if (transaction_bytes == 32) {
+      // HBM2_2Gb: one 32-bank channel/M; 32 bursts/row.
+      if (bank < 0 || bank >= channels * 32 || word_address >= (1u << 19))
+        throw std::runtime_error("Address outside HBM2 reference bank");
+      const int local = bank % 32;
+      address = {bank / 32, local / 16, 0, (local % 16) / 4,
+                 local % 4, int(word_address / 32), int((word_address % 32) * 4)};
+    } else {
+      // RWDL: one 16 MiB array/controller, 64 sixteen-byte columns/row.
+      if (bank < 0 || bank >= channels || word_address >= (1u << 20))
+        throw std::runtime_error("Address outside RWDL candidate array");
+      address = {bank, 0, 0, int(word_address / 64), int(word_address % 64)};
+    }
+    Request req(address, Request::Type::Read);
+    req.addr = (uint64_t(bank) * (transaction_bytes == 32 ? (1u << 19) : (1u << 20))
+                + word_address) * transaction_bytes;
     req.source_id = 0;
-    req.size_bytes = 32;
+    req.size_bytes = transaction_bytes;
     req.callback = [this, id](Request&) {
       if (!pending.erase(id)) throw std::runtime_error("Unknown/duplicate completion");
       completed.emplace_back(id, cycle);

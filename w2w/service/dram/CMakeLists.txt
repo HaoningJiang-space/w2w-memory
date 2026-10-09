@@ -14,7 +14,12 @@ if(NOT actual_commit STREQUAL W2W_RAMULATOR_COMMIT)
 endif()
 find_package(Python 3.10 REQUIRED COMPONENTS Interpreter Development.Module)
 add_subdirectory("${RAMULATOR_SOURCE}/ext/nanobind" nanobind EXCLUDE_FROM_ALL)
-nanobind_add_module(_w2w_ramulator bridge.cpp)
+execute_process(COMMAND "${CMAKE_COMMAND}" -E env "PYTHONPATH=${RAMULATOR_SOURCE}/python"
+                "${Python_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/rwdl_spec.py"
+                "${CMAKE_CURRENT_BINARY_DIR}/W2WRWDL.cpp"
+                COMMAND_ERROR_IS_FATAL ANY)
+nanobind_add_module(_w2w_ramulator bridge.cpp rwdl_refresh.cpp
+                    "${CMAKE_CURRENT_BINARY_DIR}/W2WRWDL.cpp")
 target_include_directories(_w2w_ramulator PRIVATE
   "${RAMULATOR_SOURCE}/src" "${RAMULATOR_SOURCE}/ext/fmt/include")
 target_link_libraries(_w2w_ramulator PRIVATE "${RAMULATOR_SOURCE}/libramulator.so")

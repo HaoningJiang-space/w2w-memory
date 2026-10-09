@@ -47,6 +47,9 @@ def inspect(result, summary):
     if 'accepted_words' in native and (native['accepted_words'] != native['completed_words']
             or native['completed_words']*32 != sum(memory_bytes.values())):
         raise ValueError('Native and descriptor byte counts differ')
+    if 'accepted_atoms' in native and (native['accepted_atoms'] != native['completed_atoms']
+            or native['completed_atoms']*native['atomic_bytes'] != sum(memory_bytes.values())):
+        raise ValueError('Native atoms and descriptor byte counts differ')
     links = {l['id']: l for l in result['spec']['links']}
     busy = sorted((dict(link=key, flits=count, utilization=count*links[key]['period_ps']/result['makespan_ps'])
                    for key, count in result['network']['link_flits'].items()

@@ -277,12 +277,38 @@ class SystemExecution:
             self.busy_ps[task.tile] += duration
             self.log('task_start', task=key, tile=task.tile)
 
-    def run(self, max_ps=10_000_000):
+    def _times(self, periods, quantum, max_ps, mode):
+        if mode == 'gcd':
+            yield from range(0,max_ps+1,quantum)
+            return
+        if mode != 'boundaries':
+            raise ValueError('Unknown time advance mode')
+        # Keep the same phases and absolute-time clock semantics. Include local
+        # release/completion and scheduled arrivals, rounded to the old ps grid.
+        releases = sorted({((t.release_ps+quantum-1)//quantum)*quantum for t in self.graph.tasks})
+        now = 0
+        while now <= max_ps:
+            yield now
+            candidates = [(now//period+1)*period for period in set(periods)]
+            while releases and releases[0] <= now:
+                releases.pop(0)
+            if releases: candidates.append(releases[0])
+            candidates.extend(self.state[k]['finish_ps'] for k in self.engine.values()
+                              if self.state[k]['finish_ps'] > now)
+            for component in (self.network,self.native):
+                future = getattr(component,'future',None)
+                if future and future[0][0] > now:
+                    candidates.append(((future[0][0]+quantum-1)//quantum)*quantum)
+            now = min(candidates)
+
+    def run(self, max_ps=10_000_000, *, time_advance='gcd'):
         periods = [self.spec.noc_period_ps, self.spec.dram_period_ps,
                    *(t.compute_period_ps for t in self.spec.tiles)]
         quantum = gcd(*periods)
         makespan = None
-        for self.now in range(0, max_ps+1, quantum):
+        iterations = 0
+        for self.now in self._times(periods,quantum,max_ps,time_advance):
+            iterations += 1
             self.network.arrive(self.now)
             # Packet acceptance happens before new local arbitration, with finite endpoint storage.
             if self.now % self.spec.noc_period_ps == 0:
@@ -321,6 +347,7 @@ class SystemExecution:
         self.events.sort(key=lambda event: event['time_ps'])
         record = dict(schema='w2w.system-execution.v2', scope='system_execution_v2_prototype',
                       makespan_ps=makespan, drained_ps=self.now, quantum_ps=quantum,
+                      time_advance=time_advance, kernel_iterations=iterations,
                       spec=asdict(self.spec), graph=asdict(self.graph),
                       tasks={k: {v: s[v] for v in ('start_ps', 'finish_ps', 'read_bytes')} for k, s in self.state.items()},
                       sram_peak_bytes=dict(self.sram_peak), compute_busy_ps=dict(self.busy_ps),
@@ -331,10 +358,11 @@ class SystemExecution:
         return record
 
 
-def execute_system(spec, graph, *, native=None, network_factory=None, max_ps=10_000_000):
+def execute_system(spec, graph, *, native=None, network_factory=None, max_ps=10_000_000,
+                   time_advance='gcd'):
     execution = SystemExecution(spec, graph, native, network_factory=network_factory)
     try:
-        return execution.run(max_ps)
+        return execution.run(max_ps,time_advance=time_advance)
     except BaseException:
         if hasattr(execution.network, 'abort'):
             execution.network.abort()
