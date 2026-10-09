@@ -37,7 +37,7 @@ def services(name):
     raise ValueError('Unknown fixed service profile')
 
 
-def inputs(name,service_profile='legacy'):
+def inputs(name,service_profile='legacy',cc_flit_bytes=256):
     architecture,streaming=CASES[name]
     routing=load_layer_routing(cohort='c2_b4')
     memory,compute=services(service_profile)
@@ -45,19 +45,20 @@ def inputs(name,service_profile='legacy'):
     else:
         compiler=compile_rotated_partition_layer if architecture=='rotated_shard' else compile_partitioned_layer
         graph,metadata=compiler(routing=routing,compute_service=compute)
-    spec,physical=from_coordinates(replace(machine(),dram_period_ps=3760))
+    spec,physical=from_coordinates(replace(machine(cc_flit_bytes=cc_flit_bytes),dram_period_ps=3760))
     record=dict(graph=asdict(graph),metadata=metadata,spec=asdict(spec),physical=physical,
                 architecture=architecture,streaming=streaming)
     if memory is not None:record['services']=dict(memory=asdict(memory),compute=compute.record())
     return graph,spec,record
 
 
-def prepare(output,names=BASE_CASES,reference=None,service_profile='legacy'):
+def prepare(output,names=BASE_CASES,reference=None,service_profile='legacy',cc_flit_bytes=256,
+            communication_reference=None):
     output.mkdir(parents=True,exist_ok=False);(output/'inputs').mkdir()
     cases=[];signatures=set();machines=set()
     reference_reg=(json.loads((reference/'registration.json').read_text()) if reference is not None else None)
     for name in names:
-        _,_,record=inputs(name,service_profile)
+        _,_,record=inputs(name,service_profile,cc_flit_bytes)
         semantic=digest(semantic_work(record['metadata']))
         signatures.add(semantic);machines.add(digest(record['spec']))
         write(output/'inputs'/(name+'.json'),record)
@@ -84,10 +85,31 @@ def prepare(output,names=BASE_CASES,reference=None,service_profile='legacy'):
         comparisons='gather readiness only; near-shard changes static intermediate weight/compute placement and bills FP32 reduction',
         excluded='Direct HB, endpoint RTL, prefetch, dynamic migration, reticle area DSE')
     if 'rotated-shard-stream' in names:
-        near,spec,a=inputs('near-shard-stream',service_profile);rotated,_,b=inputs('rotated-shard-stream',service_profile)
+        near,spec,a=inputs('near-shard-stream',service_profile,cc_flit_bytes);rotated,_,b=inputs('rotated-shard-stream',service_profile,cc_flit_bytes)
         registration['matched_parallel_control']=matched_partition_contract(near,a['metadata'],rotated,b['metadata'],spec)
         registration['comparisons']+='; matched four-chain clockwise rotation changes only block compute locations'
     if service_profile!='legacy':registration['service_profile']=service_profile
+    if cc_flit_bytes!=256:registration['cc_flit_bytes']=cc_flit_bytes
+    if communication_reference is not None:
+        from w2w.validation.communication_budget import cc_width_contract
+        if (reference is not None or cc_flit_bytes!=128
+                or service_profile!='controller4-row-compute4096'
+                or set(names)!={'gather-stream','near-shard-stream'}):
+            raise ValueError('Communication control fixes row-batched services and the two streaming cases')
+        old_reg=json.loads((communication_reference/'registration.json').read_text())
+        controls={}
+        for name in names:
+            old=next(c for c in old_reg['cases'] if c['name']==name)
+            frozen=json.loads((communication_reference/'inputs'/(name+'.json')).read_text())
+            done=json.loads((communication_reference/'cases'/name/'completion.json').read_text())
+            if (not done['complete'] or done['source_commit']!=old_reg['source_commit']
+                    or digest(frozen)!=old['input_sha256'] or done['input_sha256']!=old['input_sha256']):
+                raise ValueError('Communication reference is not an immutable completed input')
+            new=json.loads((output/'inputs'/(name+'.json')).read_text())
+            controls[name]=cc_width_contract(frozen,new)
+        registration['communication_reference']=dict(directory=str(communication_reference.resolve()),
+            source_commit=old_reg['source_commit'],controls=controls)
+        registration['controls']+='; C-C 128 B with 4096 B/input (32 cells), NI 65536 B, local DMA/write 256 B/cycle unchanged'
     write(output/'registration.json',registration)
     print(json.dumps(dict(prepared=str(output),cases=list(names))),flush=True)
 
@@ -97,7 +119,7 @@ def run(output,name,binary):
     case=next(c for c in reg['cases'] if c['name']==name)
     if 'reference_directory' in case:raise ValueError('Archived reference is read-only; do not rerun it')
     profile_name=reg.get('service_profile','legacy')
-    graph,spec,record=inputs(name,profile_name)
+    graph,spec,record=inputs(name,profile_name,reg.get('cc_flit_bytes',256))
     memory,compute=services(profile_name)
     if revision()!=reg['source_commit'] or digest(record)!=case['input_sha256']:
         raise ValueError('Frozen source or input changed')
@@ -137,9 +159,12 @@ def main():
     p.add_argument('--cases',nargs='+',choices=CASES,default=BASE_CASES,help='Cases to register; original three by default')
     p.add_argument('--reference',type=Path,help='Reuse completed original cases from an immutable full study')
     p.add_argument('--service-profile',choices=('legacy','controller4-compute4096','controller4-row-compute4096'),default='legacy')
+    p.add_argument('--cc-flit-bytes',type=int,choices=(128,256),default=256)
+    p.add_argument('--communication-reference',type=Path,help='Frozen row-batched 256 B study for the 128 B cost/performance control')
     p.add_argument('--booksim-binary',type=Path)
     args=p.parse_args()
-    if args.prepare:prepare(args.output,args.cases,args.reference,args.service_profile)
+    if args.prepare:prepare(args.output,args.cases,args.reference,args.service_profile,
+                            args.cc_flit_bytes,args.communication_reference)
     else:
         if args.booksim_binary is None:p.error('--booksim-binary required')
         run(args.output,args.case,args.booksim_binary)

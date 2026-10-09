@@ -14,9 +14,22 @@ from w2w.workloads.moe_task_graph import compile_layer,machine
 from w2w.workloads.moe_partition import compile_partitioned_layer,compile_rotated_partition_layer,semantic_work,clockwise_compute
 from w2w.validation.compute_placement import matched_partition_contract
 from w2w.machine.service_profiles import ComputeService
+from w2w.experiments.run_compute_placement import inputs
+from w2w.validation.communication_budget import cc_width_contract
 
 
 class PartitionTests(unittest.TestCase):
+    def test_narrow_cc_changes_only_declared_width_and_cell_capacity(self):
+        for name in ('gather-stream','near-shard-stream'):
+            _,_,a=inputs(name,'controller4-row-compute4096')
+            _,_,b=inputs(name,'controller4-row-compute4096',128)
+            self.assertTrue(cc_width_contract(a,b)['passed'])
+            b['spec']['input_buffer_flits']=16
+            with self.assertRaises(ValueError):cc_width_contract(a,b)
+            b['spec']['input_buffer_flits']=32
+            b['spec']['rx_write_bytes_per_cycle']=128
+            with self.assertRaises(ValueError):cc_width_contract(a,b)
+
     def test_compute_weight_supply_limits_without_equating_it_to_external_port(self):
         fast=ComputeService();limited=replace(fast,weight_read_bytes_per_bank_cycle=8)
         for n,expected in ((1,422),(2,841),(4,1682)):
@@ -79,15 +92,15 @@ class PartitionTests(unittest.TestCase):
 
 @unittest.skipUnless(os.environ.get('W2W_BOOKSIM_BINARY'),'Instrumented native BookSim required')
 class TransportTests(unittest.TestCase):
-    def network(self,directory):
-        spec=machine()
+    def network(self,directory,flit_bytes=256):
+        spec=machine(cc_flit_bytes=flit_bytes)
         return BookSimNetwork(SystemBuilder(spec),[],source=None,binary=os.environ['W2W_BOOKSIM_BINARY'],
                               directory=Path(directory)/'network',local_dma='payload_beats',cell_sideband_bits=64)
 
     def test_same_local_write_work_for_whole_and_streaming(self):
-        for streaming in (False,True):
+        for streaming,flit_bytes in ((False,256),(True,256),(False,128),(True,128)):
             with tempfile.TemporaryDirectory() as d:
-                network=self.network(d)
+                network=self.network(d,flit_bytes)
                 packet=Packet('local/resp','c0','c0','response',4096,())
                 self.assertTrue(network.try_send(packet,0,streaming=streaming))
                 delivered=[]
@@ -99,9 +112,28 @@ class TransportTests(unittest.TestCase):
                 self.assertEqual(delivered,[packet.id])
                 self.assertEqual(network.rx_write_bytes['c0'],4096)
                 self.assertEqual(network.rx_write_cycles['c0'],16)
+                self.assertEqual(network.source_peak['c0'],4096//flit_bytes)
                 self.assertEqual(len(network.cell_tags),1 << 16)
                 self.assertFalse(any(network.source_occupied.values()))
                 network.close()
+
+    def test_narrow_remote_cells_keep_write_port_and_payload_conservation(self):
+        with tempfile.TemporaryDirectory() as d:
+            network=self.network(d,128)
+            packet=Packet('remote/resp','c0','c1','response',4096,network.builder.route('c0','c1'))
+            self.assertTrue(network.try_send(packet,0))
+            delivered=[]
+            for now in range(0,500_000,1000):
+                network.arrive(now)
+                network.deliver(now,lambda p:delivered.append(p.id) or True)
+                if network.drained():break
+            self.assertEqual(delivered,[packet.id])
+            self.assertEqual(network.link_flits['c0>c1'],33)
+            self.assertEqual(network.rx_write_bytes['c1'],4096)
+            self.assertEqual(network.rx_write_cycles['c1'],33)
+            self.assertEqual(network.write_port.bytes_per_cycle,256)
+            self.assertFalse(any(network.source_occupied.values()))
+            network.close()
 
     def test_source_hol_counter_observes_ready_message_behind_unsupplied_head(self):
         with tempfile.TemporaryDirectory() as d:

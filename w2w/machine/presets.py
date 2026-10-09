@@ -3,9 +3,12 @@ from dataclasses import replace
 from w2w.domain.system import mesh_system
 
 
-def machine(*, wide=False):
+def machine(*, wide=False, cc_flit_bytes=None):
     """Declared synthetic 36-reticle service machine; not a calibrated product."""
-    flit = 512 if wide else 256
+    if cc_flit_bytes is not None and (wide or type(cc_flit_bytes) is not int
+                                    or cc_flit_bytes not in (128,256,512)):
+        raise ValueError('Use one explicit supported C-C width or the historical wide preset')
+    flit = cc_flit_bytes if cc_flit_bytes is not None else (512 if wide else 256)
     spec = mesh_system(6, 6, flit_bytes=flit, router_cycles=3,
         input_buffer_flits=4096//flit, injection_flits=65536//flit,
         ejection_packets=16, packet_payload_bytes=4096, memory_request_bytes=4096,
