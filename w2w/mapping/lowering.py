@@ -1,0 +1,52 @@
+"""Explicit physical copies and task lifecycle lower into the existing execution IR."""
+from dataclasses import asdict
+from math import ceil
+from w2w.domain.execution import ComputeTask,DataEdge,ControlEdge,ExecutionGraph,ReadAccess,ResidentObject
+from w2w.common.fingerprints import digest_read_v1
+
+
+def lower(logical, machine, weights, placement):
+    locations={w.tensor:w for w in weights}
+    ops={p.operation:p.cluster for p in placement}
+    profiles={c.id:c.profile for c in machine.stack.compute_clusters}
+    tasks=[]; work={}
+    objects=tuple(ResidentObject(w.tensor,w.memory,w.offset_bytes,w.size_bytes) for w in weights)
+    for op in logical.operations:
+        cluster=ops[op.id]; profile=profiles[cluster]
+        reads=tuple(ReadAccess(name,0,locations[name].size_bytes) for name in op.weight_tensors)
+        bytes_=sum(r.size_bytes for r in reads)
+        cycles=profile.cycles(op.macs,op.vector_ops,bytes_)
+        tasks.append(ComputeTask(op.id,cluster,cycles,reads,scratch_bytes=op.scratch_bytes))
+        work[op.id]=dict(kind=op.kind,macs=op.macs,vector_ops=op.vector_ops,weight_bytes=bytes_,
+            compute_profile=asdict(profile))
+    edges=[]; copies=[]
+    for tensor in logical.tensors:
+        if tensor.producer is None: continue
+        for consumer in tensor.consumers:
+            key=tensor.id+'/to/'+consumer
+            edges.append(DataEdge(key,tensor.producer,consumer,tensor.bytes))
+            copies.append(dict(id=key,tensor=tensor.id,storage_id=tensor.storage_id,
+                source=ops[tensor.producer],destination=ops[consumer],bytes=tensor.bytes,
+                policy='explicit conservative copy, reserved until consumer executes; no implicit alias'))
+    # Gate and up share one engine allocation; phase ordering is explicit. Down
+    # depends on SiLU inputs, while each partition's running sum is ordered.
+    control=[]
+    for op in logical.operations:
+        if op.kind=='gemm' and op.id.endswith('/up'):
+            control.append(ControlEdge(op.id[:-2]+'gate',op.id))
+        if op.kind=='gemm' and op.block is not None:
+            previous=op.block-1
+            blocks=logical.shape[1]//logical.shape[2]
+            part_blocks=blocks//logical.partitions
+            if op.id.endswith('/gate') and op.block%part_blocks:
+                control.append(ControlEdge(f'e{op.expert}/b{previous}/accumulate',op.id))
+    graph=ExecutionGraph(tuple(tasks),objects,tuple(edges),tuple(control))
+    meta=dict(schema='w2w.execution-lowering.v3',logical_sha256=digest_read_v1(asdict(logical)),
+        weight_layout_sha256=digest_read_v1([asdict(w) for w in weights]),
+        compute_placement_sha256=digest_read_v1([asdict(p) for p in placement]),
+        task_work=work,physical_copies=copies,
+        arithmetic='gated FFN; SiLU only after complete gate/up GEMM; FP32 partial sums; timing, not numerical validation',
+        macs=sum(o.macs for o in logical.operations),vector_ops=sum(o.vector_ops for o in logical.operations),
+        weight_read_bytes=sum(r.size_bytes for t in graph.tasks for r in t.reads),
+        copy_contract='Logical tensor identity is distinct from these deliberately materialized execution copies')
+    return graph,meta
