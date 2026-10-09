@@ -37,7 +37,7 @@ def inputs(case,contexts=2):
 
 
 def prepare(output,contexts):
-    output.mkdir(parents=True,exist_ok=False);records={}
+    output.mkdir(parents=True,exist_ok=False);(output/'inputs').mkdir();records={}
     previous=None
     for case in CASES:
         _,_,record=inputs(case,contexts)
