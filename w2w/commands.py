@@ -2,6 +2,7 @@
 COMMANDS = {
     'run_compute_placement': 'w2w.experiments.run_compute_placement',
     'analyze_compute_placement': 'w2w.analysis.compute_placement',
+    'analyze_communication_budget': 'w2w.analysis.communication_budget',
     'run_rwdl_study': 'w2w.experiments.run_rwdl_study',
     'analyze_rwdl_study': 'w2w.analysis.rwdl_study',
     'run_machine_closure': 'w2w.experiments.run_machine_closure',
@@ -93,6 +94,7 @@ COMMANDS = {
 # Explicit research status is independent of dispatch and execution scope.
 CURRENT_COMMANDS = frozenset((
     'run_compute_placement', 'analyze_compute_placement',
+    'analyze_communication_budget',
     'run_rwdl_study', 'analyze_rwdl_study', 'run_system_microbench',
 ))
 REFERENCE_COMMANDS = frozenset((
