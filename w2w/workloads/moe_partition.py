@@ -51,7 +51,7 @@ def compile_partitioned_layer(inputs=INPUTS,*,cohort='c2_b4',routing=None,comput
         owner=f'c{original["owners"][expert]}'
         reduce=f'expert{expert}/reduce'
         ops=3*len(tokens)*h
-        tasks.append(ComputeTask(reduce,owner,ceil(ops/256),scratch_bytes=4*len(tokens)*h))
+        tasks.append(ComputeTask(reduce,owner,ceil(ops/(256 if compute_service is None else compute_service.vector_ops_per_cycle)),scratch_bytes=4*len(tokens)*h))
         descriptions[reduce]=dict(stage='four_partial_sum_reduce',expert=expert,tokens=tokens,vector_ops=ops)
         for part in range(4):
             for token in tokens:

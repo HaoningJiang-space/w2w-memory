@@ -62,7 +62,7 @@ def compile_routed_layer(routing, *, residency='pair', compute_service=None):
     descriptions = {}
     for n, token in enumerate(tokens):
         tasks.extend((ComputeTask(f'token{n}/input', token['source'], 0),
-                      ComputeTask(f'token{n}/combine', token['source'], ceil(2*topk*h/256))))
+                      ComputeTask(f'token{n}/combine', token['source'], ceil(2*topk*h/(256 if compute_service is None else compute_service.vector_ops_per_cycle)))))
         descriptions[f'token{n}/input'] = dict(stage='input_activation_already_resident', token=n)
         descriptions[f'token{n}/combine'] = dict(stage='weighted_combine', token=n, vector_ops=2*topk*h)
     for expert, members in sorted(by_expert.items()):

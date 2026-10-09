@@ -42,14 +42,11 @@ def native_gap(result,summary):
             **pieces,conditional_bound_ps=bound))
     rows.sort(key=lambda r:r['conditional_bound_ps'],reverse=True)
     timelines=summary['task_timelines'];final=max(timelines,key=lambda t:timelines[t]['finish_ps'])
-    edge_arrival={}
-    for e in result['events']:
-        if e['kind']=='data_deliver':edge_arrival[e['edge']]=e['time_ps']
     chain=[];current=final
     while True:
         row=timelines[current];incoming=[e for e in result['graph']['data'] if e['consumer']==current]
-        latest=max(incoming,key=lambda e:edge_arrival[e['id']]) if incoming else None
-        input_at=edge_arrival[latest['id']] if latest else 0
+        latest=max(incoming,key=lambda e:timelines[e['producer']]['finish_ps']) if incoming else None
+        input_at=row['last_input_delivery_ps'] or 0
         chain.append(dict(task=current,**row))
         if row['last_read_delivery_ps'] is not None and row['last_read_delivery_ps']>=input_at:break
         if latest is None:break
@@ -61,7 +58,7 @@ def native_gap(result,summary):
         residual_above_conditional_bound_ps=result['makespan_ps']-rows[0]['conditional_bound_ps'],
         final_rw_dl_hb_tail_ps=native['native_last_tail_ps'],
         native_tail_to_layer_finish_ps=result['makespan_ps']-native['native_last_tail_ps'],
-        latest_input_or_weight_barrier_chain=chain,
+        latest_finish_dependency_chain=chain,
         assumptions='Only current one-bank/read-only candidate3760ps timing; row/refresh counts are trace-conditioned, not exogenous performance attribution')
 
 
@@ -164,6 +161,13 @@ def analyze(source):
                 or network['local_dma_contract']!='payload_beats' or not network['final'].get('source_pressure')
                 or network['cell_format']['sideband_bits']!=64):
             raise ValueError('Wrong native/transport contract or undrained resource')
+        if 'services' in frozen:
+            from w2w.machine.service_profiles import effective_resources
+            if native['resources']['profile']!=frozen['services']['memory']:
+                raise ValueError('Native policy differs from registered independent service config')
+            _,typed_spec=frozen_types(frozen)
+            if result.get('effective_resources')!=effective_resources(typed_spec,native['resources'],frozen['services']['compute']):
+                raise ValueError('Effective service resource record differs from executed components')
         row=inspect(result,summary)
         semantic.add(digest(semantic_work(frozen['metadata'])))
         machines.add(digest(result['spec']));native_ids.add(digest(row['native_identity']))
@@ -181,6 +185,7 @@ def analyze(source):
             extra_reduce_vector_ops=frozen['metadata'].get('additional_reduction_vector_ops',0),
             native_gap=native_gap(result,summary))
         rows[name]=row
+        if 'effective_resources' in result:row['effective_resources']=result['effective_resources']
         frozen_records[name]=frozen
         proofs[name]={p:file_record(directory/p) for p in ('result.json.gz','summary.json','completion.json')}
         proofs[name].update({str(p.relative_to(directory)):file_record(p) for p in files})

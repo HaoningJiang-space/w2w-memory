@@ -88,8 +88,8 @@ class RWDLTests(unittest.TestCase):
             self.assertEqual(sum(c['num_maintenance_reqs_served'] for c in stats),64)
         finally:backend.close()
 
-    def drain(self, aggregation):
-        backend=self.backend(aggregation)
+    def drain(self, aggregation,profile=None):
+        backend=self.backend(aggregation,profile=profile)
         try:
             for n in range(4):
                 self.assertTrue(backend.submit(MemoryRequest(str(n),'t','c0','m0',0,4*n,4096),0))
@@ -112,6 +112,22 @@ class RWDLTests(unittest.TestCase):
             self.assertLessEqual(max(record['reservation_peak_atoms'].values()),8)
             return now,record
         finally:backend.close()
+
+    def test_four_entry_candidate_drains_with_same_reserved_data_budget(self):
+        _,r=self.drain(256,profile=RWDLProfile(controller=RWDLController(read_entries=4,descriptor_window=4)))
+        self.assertEqual(r['resources']['command_read_entries_per_memory'],128)
+        self.assertEqual(r['resources']['shared_return_reservation_bytes_per_memory'],4096)
+        self.assertEqual(r['resources']['dispatcher_round_robin_bits_per_memory'],64)
+
+    def test_refresh_phase_is_explicit_and_preserves_synchronous_default(self):
+        native=RamulatorRWDL(1,profile=RWDLProfile(controller=RWDLController(refresh_phase='staggered')))
+        try:
+            native.advance(200_000)
+            c=native.record()['stats']['controller']
+            self.assertEqual(c[0]['num_maintenance_reqs_served'],0)
+            self.assertEqual(c[1]['num_maintenance_reqs_served'],1)
+            self.assertEqual(sum(x['num_maintenance_reqs_served'] for x in c),1)
+        finally:native.close()
 
     def test_aggregation_backpressure_holds_reserved_return_storage(self):
         fast,a=self.drain(256)

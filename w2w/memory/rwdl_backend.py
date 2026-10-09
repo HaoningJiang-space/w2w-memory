@@ -157,7 +157,7 @@ class RWDLAbsolute:
                 self.reserved[channel] += 1
                 self.reservation_peak[channel] = max(self.reservation_peak[channel],self.reserved[channel])
                 self.channel_atoms[channel] += 1
-                self.round_robin[channel]+=1
+                self.round_robin[channel]=(index+1)%self.descriptor_window
                 offset += 16 if offset % 32 == 0 else 1008
                 row['cursors'][channel%32] = offset
                 if offset >= req.size_bytes:
@@ -203,6 +203,7 @@ class RWDLAbsolute:
                 command_entry_bare_min_bits=24,
                 command_queue_bare_min_bits_per_memory=32*c.read_entries*24,
                 command_queue_extra_entries_per_memory=32*(c.read_entries-1),
+                dispatcher_round_robin_bits_per_memory=32*(c.descriptor_window-1).bit_length(),
                 bare_min_bits_scope='20-bit array column address + 3-bit reserved return slot + valid; timestamp/control/comparator excluded',
                 controller_selection_area_um2=None,refresh_trigger_phase=c.refresh_phase)
         return value
