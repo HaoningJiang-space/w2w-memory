@@ -54,7 +54,7 @@ def prepare(output):
         scope='one_routed_ffn_layer_timing',
         controls='fixed owner/tokens/compute/NoC geometry/MC32/requester32/4KiB/streaming; 32 logical banks and 512MiB/M',
         memory_change='independent RWDL arrays, assumed timing, bounded shared aggregation; different hardware',
-        wide_noc_policy='Only register a costed wider comparison after evidence of network limitation')))
+        wide_noc_policy='Only register a costed wider comparison after evidence of network limitation'))
     print(json.dumps(dict(prepared=str(output),cases=list(CASES),logical_work_sha256=work)),flush=True)
 
 
