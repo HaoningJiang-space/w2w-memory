@@ -53,23 +53,33 @@ def network_parameters(directory, identity):
     return parameters, (config, topology, root/'empty_network_input.json')
 
 
-def analyze(source, cohorts=None):
+def analyze(source, cohorts=None, home_source=None):
     registration = json.loads((source/'registration.json').read_text())
     if registration['schema'] != 'w2w.residency-study.v1':
         raise ValueError('Wrong experiment registration')
     cohorts = cohorts or ['c0_b1', 'c1_b1', 'c2_b4']
     rows, files, identities, layouts = {}, {}, set(), {}
-    for case in registration['cases']:
+    targets = [(source, registration, c) for c in registration['cases']]
+    sources = {'pair/four_way': registration['source_commit']}
+    if home_source is not None:
+        home_registration = json.loads((home_source/'registration.json').read_text())
+        if (home_registration['spec'] != registration['spec']
+                or any(c['policy'] != 'home' for c in home_registration['cases'])):
+            raise ValueError('Home control must use the same machine and only home residency')
+        targets += [(home_source, home_registration, c) for c in home_registration['cases']]
+        sources['home'] = home_registration['source_commit']
+        files[str(home_source/'registration.json')] = file_record(home_source/'registration.json')
+    for root, run_registration, case in targets:
         if case['cohort'] not in cohorts:
             continue
         name = case['name']
-        directory = source/'cases'/name
+        directory = root/'cases'/name
         completion = json.loads((directory/'completion.json').read_text())
         summary = json.loads((directory/'summary.json').read_text())
-        record = json.loads((source/'inputs'/(name+'.json')).read_text())
+        record = json.loads((root/'inputs'/(name+'.json')).read_text())
         with gzip.open(directory/'result.json.gz', 'rt') as handle:
             result = json.load(handle)
-        if (not completion['complete'] or completion['source_commit'] != registration['source_commit']
+        if (not completion['complete'] or completion['source_commit'] != run_registration['source_commit']
                 or result['spec'] != registration['spec'] or result['graph'] != record['graph']
                 or digest(record) != case['input_sha256']
                 or digest(task_work(result['graph'])) != case['logical_work_sha256']
@@ -97,7 +107,7 @@ def analyze(source, cohorts=None):
             outstanding_peak=result['outstanding_peak'], sram_peak_bytes=result['sram_peak_bytes'],
             wall_seconds=summary['wall_seconds'])
         rows.setdefault(case['cohort'], {})[policy] = row
-        for path in (source/'inputs'/(name+'.json'), directory/'result.json.gz',
+        for path in (root/'inputs'/(name+'.json'), directory/'result.json.gz',
                      directory/'summary.json', directory/'completion.json', *network_files):
             files[str(path)] = file_record(path)
     if len(identities) != 1 or set(rows) != set(cohorts):
@@ -112,21 +122,30 @@ def analyze(source, cohorts=None):
             noc_wire_increase_percent=100*(b['noc_wire_bytes']/a['noc_wire_bytes']-1),
             pair_active_memories=a['active_memories'], four_way_active_memories=b['active_memories'],
             pair_peak_memory_bytes=a['peak_memory_bytes'], four_way_peak_memory_bytes=b['peak_memory_bytes'])
+        if home_source is not None:
+            h = policies['home']
+            if h['logical_work_sha256'] != a['logical_work_sha256'] or h['tokens'] != a['tokens']:
+                raise ValueError('Home control changed logical work or token ownership')
+            comparisons[cohort].update(home_us=h['makespan_us'],
+                pair_vs_home_time_change_percent=100*(a['makespan_us']/h['makespan_us']-1),
+                four_way_vs_home_reduction_percent=100*(1-b['makespan_us']/h['makespan_us']))
     files[str(source/'registration.json')] = file_record(source/'registration.json')
     return dict(schema='w2w.residency-analysis.v1', scope=registration['scope'],
         source_commit=registration['source_commit'],
+        execution_source_commits=sources,
         analysis_commit=subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),
         cohorts=rows, comparisons=comparisons, frozen_layouts=layouts,
-        all_registered_cases_complete=len(rows)==3, files=files)
+        all_registered_cases_complete=len(rows)==3, completed_cases=sum(len(v) for v in rows.values()), files=files)
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--home-source', type=Path)
     parser.add_argument('--cohort', choices=('c0_b1', 'c1_b1', 'c2_b4'), action='append')
     args = parser.parse_args()
-    result = analyze(args.source, args.cohort)
+    result = analyze(args.source, args.cohort, args.home_source)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, indent=2)+'\n')
     print(json.dumps(result['comparisons']))
