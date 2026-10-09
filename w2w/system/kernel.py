@@ -28,6 +28,9 @@ class SystemExecution:
                                         'controller_payload_ready_after_native_bus'):
             raise ValueError('Unknown DRAM callback boundary')
         self.native_at_controller = self.native.boundary.startswith('controller_')
+        self.streaming = getattr(self.native, 'streaming', False)
+        if self.streaming and (not self.native_at_controller or not hasattr(self.network,'supply_prefix')):
+            raise ValueError('Streaming requires a controller-ready native backend and supply/commit network')
         self.tasks = {t.id: t for t in graph.tasks}
         self.predecessors = {t.id: {e.producer for e in (*graph.control, *graph.data) if e.consumer == t.id}
                              for t in graph.tasks}
@@ -178,9 +181,16 @@ class SystemExecution:
             req = row['request']
             mc = self.builder.memories[req.memory].home_tile
             stage = row['stage']
+            if self.streaming and row.get('native_started'):
+                if network_boundary:
+                    self._stream_response(key, row, mc)
+                continue
             if stage == 'native_wait':
                 if self.native.submit(req, self.now):
                     row['stage'] = 'native_pending'
+                    if self.streaming:
+                        row.update(native_started=True,native_done=False,ready_mask=0,prefix=0,
+                                   response_admitted=False,mc_released=False)
                     self.log('native_accept', request=key)
             elif network_boundary and stage == 'command_send':
                 if self._send(key+'/cmd', mc, req.memory, 'request', 0, 'command', key):
@@ -194,6 +204,58 @@ class SystemExecution:
                     # Data copied into a finite NI. MC transaction/return slot is now reusable.
                     self.mc_slots[req.memory] -= 1
                     self.log('mc_release', request=key, memory=req.memory)
+
+    def _stream_response(self, key, row, mc):
+        req = row['request']
+        if not row['prefix'] or row['mc_released']:
+            return
+        packet_key = key+'/resp'
+        if not row['response_admitted']:
+            packet = Packet(packet_key,mc,req.requester,'response',req.size_bytes,
+                            self.builder.route(mc,req.requester))
+            if not self.network.try_send(packet,self.now,streaming=True):
+                return
+            row['response_admitted'] = True
+            row['stage'] = 'response_flight'
+            self.packet_info[packet_key] = 'response',key,req.size_bytes
+        if self.network.supply_prefix(packet_key,row['prefix'],self.now):
+            if not row['native_done']:
+                raise RuntimeError('Response supplied before all native words completed')
+            # Full NI reservation now owns all bytes; MC slot remains held until this point.
+            self.mc_slots[req.memory] -= 1
+            row['mc_released'] = True
+            self.log('mc_release',request=key,memory=req.memory)
+
+    def _native_progress(self):
+        complete = self.native.advance(self.now)
+        if self.streaming:
+            atom = self.native.atomic_bytes
+            for key,offset,size in self.native.take_ready():
+                row = self.requests[key]
+                req = row['request']
+                if not row.get('native_started') or size != atom or offset % atom or not 0 <= offset < req.size_bytes:
+                    raise RuntimeError('Invalid native byte readiness')
+                bit = 1 << (offset//atom)
+                if row['ready_mask'] & bit:
+                    raise RuntimeError('Repeated native byte readiness')
+                if not row['ready_mask']:
+                    self.log('native_first_ready',request=key)
+                row['ready_mask'] |= bit
+                while row['prefix'] < req.size_bytes and row['ready_mask'] & (1 << (row['prefix']//atom)):
+                    row['prefix'] += atom
+        for key in complete:
+            if key not in self.requests:
+                raise RuntimeError('Unknown native completion')
+            row = self.requests[key]
+            if self.streaming:
+                if row['native_done'] or row['prefix'] != row['request'].size_bytes:
+                    raise RuntimeError('Native descriptor completed without full byte coverage')
+                row['native_done'] = True
+            else:
+                if row['stage'] != 'native_pending':
+                    raise RuntimeError('Repeated or unknown native callback')
+                row['stage'] = 'response_send' if self.native_at_controller else 'hb_send'
+            self.log('native_ready',request=key)
 
     def _start_compute(self):
         for key in sorted(self.ready_tasks):
@@ -225,11 +287,7 @@ class SystemExecution:
             # Packet acceptance happens before new local arbitration, with finite endpoint storage.
             if self.now % self.spec.noc_period_ps == 0:
                 self.network.deliver(self.now, self._receive)
-            for key in self.native.advance(self.now):
-                if key not in self.requests or self.requests[key]['stage'] != 'native_pending':
-                    raise RuntimeError('Repeated or unknown native callback')
-                self.requests[key]['stage'] = 'response_send' if self.native_at_controller else 'hb_send'
-                self.log('native_ready', request=key)
+            self._native_progress()
             # Resolve local zero-duration control nodes, never bypass data delivery.
             for _ in range(len(self.tasks)+1):
                 before = sum(bool(s.get('done')) for s in self.state.values())

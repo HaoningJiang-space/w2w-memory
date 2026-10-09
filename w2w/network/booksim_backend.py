@@ -94,7 +94,7 @@ class BookSimNetwork:
         self.serial += 1
         heapq.heappush(self.future, (at, self.serial, kind, key, item))
 
-    def try_send(self, packet, now):
+    def try_send(self, packet, now, *, streaming=False):
         if now != self.client.now*self.spec.noc_period_ps:
             raise ValueError('Native and system clocks differ at submission')
         if packet.id in self.pending:
@@ -113,7 +113,8 @@ class BookSimNetwork:
         self.source_peak[packet.src] = max(self.source_peak[packet.src], self.source_occupied[packet.src])
         self.rx_reserved[rx] += 1
         self.rx_peak[rx] = max(self.rx_peak[rx], self.rx_reserved[rx])
-        self.pending[packet.id] = dict(packet=packet, count=count, committed=0, ready=False)
+        self.pending[packet.id] = dict(packet=packet, count=count, committed=0, ready=False,
+                                      streaming=streaming, supplied=0, payload_prefix=0)
         self.accepted += 1
         self.accepted_bytes[packet.traffic_class] += packet.payload_bytes
         self.log(now, 'packet_accept', packet=packet.id, src=packet.src, dst=packet.dst,
@@ -127,12 +128,19 @@ class BookSimNetwork:
             # Avoid retaining a second full flit archive in OnlineBookSim.messages.
             self.client._request(dict(command='submit', id=identity, cycle=self.client.now,
                 source=self.nodes[packet.src], destination=self.nodes[packet.dst], flits=count))
-            self.client._request(dict(command='supply', id=identity, cycle=self.client.now, flits=count))
+            self.pending[packet.id]['native_id'] = identity
+            if not streaming:
+                self.client._request(dict(command='supply', id=identity, cycle=self.client.now, flits=count))
             self.native_idle = False
         else:
             hb = [self.builder.links[k] for k in packet.route if self.builder.links[k].kind == 'HB']
             if hb and (len(hb) != 1 or len(packet.route) != 1):
                 raise ValueError('Home HB must terminate at its owning controller')
+            if streaming:
+                if hb:
+                    raise ValueError('Streaming HB requires an explicit native-domain transport contract')
+                # Same finite NI and write port as remote response; scheduled by supply_prefix.
+                return True
             if hb:
                 link = hb[0]
                 beats = ceil((packet.payload_bytes+self.spec.header_bytes)*8/link.width_bits)
@@ -146,6 +154,37 @@ class BookSimNetwork:
                 at = now+self.spec.noc_period_ps
             self._future(at, 'local', packet.id)
         return True
+
+    def supply_prefix(self, key, prefix_bytes, now):
+        """Incremental contiguous payload; flit/header packing stays unchanged."""
+        row = self.pending[key]
+        packet = row['packet']
+        if (not row['streaming'] or now != self.client.now*self.spec.noc_period_ps
+                or not row['payload_prefix'] <= prefix_bytes <= packet.payload_bytes):
+            raise ValueError('Invalid streaming prefix or clock')
+        row['payload_prefix'] = prefix_bytes
+        eligible = ((prefix_bytes+self.spec.header_bytes)//self.spec.flit_bytes
+                    if prefix_bytes < packet.payload_bytes else row['count'])
+        count = eligible-row['supplied']
+        if count:
+            if 'native_id' in row:
+                self.client._request(dict(command='supply',id=row['native_id'],
+                                          cycle=self.client.now,flits=count))
+                self.native_idle = False
+            else:
+                for ordinal in range(row['supplied'],eligible):
+                    first = ordinal*self.spec.flit_bytes
+                    size = max(0,min(first+self.spec.flit_bytes,packet.payload_bytes+self.spec.header_bytes)
+                               -max(first,self.spec.header_bytes))
+                    at = max(now,self.local_free[packet.src])+self.spec.noc_period_ps
+                    self.local_free[packet.src] = at
+                    self._future(at,'stream_local',key,size)
+            if row['supplied'] == 0:
+                self.log(now,'response_first_supply',packet=key,payload_prefix_bytes=prefix_bytes)
+            row['supplied'] = eligible
+            if eligible == row['count']:
+                self.log(now,'response_last_supply',packet=key,payload_prefix_bytes=prefix_bytes)
+        return row['supplied'] == row['count']
 
     def _link_send(self, packet, link, ordinal, at):
         slot = link.resource_id, at
@@ -212,8 +251,13 @@ class BookSimNetwork:
             if kind == 'local':
                 self.source_occupied[packet.src] -= row['count']
                 self._write(packet, packet.payload_bytes, at)
+            elif kind == 'stream_local':
+                self.source_occupied[packet.src] -= 1
+                self._write(packet, fid, at, 'local-stream')
             elif kind == 'commit':
-                if fid is not None:
+                if fid == 'local-stream':
+                    row['committed'] += 1
+                elif fid is not None:
                     self.client.commit(fid)
                     self.native_idle = False  # returned credits still require native drain
                     row['committed'] += 1

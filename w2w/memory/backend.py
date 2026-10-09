@@ -57,7 +57,7 @@ class RamulatorAbsolute:
     """
     boundary = 'controller_payload_ready_after_native_bus'
 
-    def __init__(self, spec):
+    def __init__(self, spec, *, streaming=False):
         from w2w.service.dram.ramulator import RamulatorHBM2
         if spec.dram_period_ps != 1000 or any(m.banks != 32 or m.capacity_bytes != 512*1024**2
                                              for m in spec.memories):
@@ -67,28 +67,49 @@ class RamulatorAbsolute:
         self.tickets = {}
         self.groups = {}
         self.group_accepted = self.group_completed = 0
+        self.streaming = streaming
+        self.ready = []
+        self.ticket_offsets = {}
+        self.atomic_bytes = 32
+        self.period_ps = 1000
+
+    def take_ready(self):
+        result, self.ready = self.ready, []
+        return result
+
+    def address(self, req, byte_offset):
+        word = req.word_address*32+req.bank+byte_offset//32
+        return dict(bank=self.channels[req.memory]*32+word%32, address=word//32)
+
+    def issue_domain(self, req, offset):
+        return req.memory
+
+    issue_limit = 32
 
     def submit(self, request, now):
-        if now % 1000:
+        if now % self.period_ps:
             return False
-        if request.size_bytes != 32:
+        if request.size_bytes != self.atomic_bytes:
             if request.id in self.groups:
                 raise RuntimeError('Repeated grouped native request')
             self.groups[request.id] = dict(request=request, issued=0, completed=0,
-                                           words=request.size_bytes//32)
+                                           words=request.size_bytes//self.atomic_bytes)
             self.group_accepted += 1
             return True
-        ticket = self.backend.submit(dict(bank=self.channels[request.memory]*32+request.bank,
-                                          address=request.word_address))
+        ticket = self.backend.submit(self.address(request, 0))
         if ticket is None:
             return False
         self.tickets[ticket] = request.id
+        self.ticket_offsets[ticket] = 0
         return True
 
     def advance(self, now):
         result = []
         for ticket in self.backend.advance(now):
             key = self.tickets.pop(ticket)
+            offset = self.ticket_offsets.pop(ticket)
+            if self.streaming:
+                self.ready.append((key, offset, self.atomic_bytes))
             if key not in self.groups:
                 result.append(key)
                 continue
@@ -101,21 +122,23 @@ class RamulatorAbsolute:
         # MC expands a descriptor to its exact contiguous, bank-interleaved
         # native addresses. Queue rejection retains the unissued word. Limit
         # expansion to 32 words/channel/tCK; DRAM commands still belong to Ramulator.
-        if now % 1000 == 0:
+        if now % self.period_ps == 0:
             issued, blocked = Counter(), set()
             for key, row in self.groups.items():
                 req = row['request']
-                start = req.word_address*32+req.bank
-                while row['issued'] < row['words'] and issued[req.memory] < 32 and req.memory not in blocked:
-                    word = start+row['issued']
-                    ticket = self.backend.submit(dict(bank=self.channels[req.memory]*32+word%32,
-                                                      address=word//32))
+                while row['issued'] < row['words']:
+                    offset = row['issued']*self.atomic_bytes
+                    domain = self.issue_domain(req, offset)
+                    if issued[domain] >= self.issue_limit or domain in blocked:
+                        break
+                    ticket = self.backend.submit(self.address(req, offset))
                     if ticket is None:
-                        blocked.add(req.memory)
+                        blocked.add(domain)
                         break
                     self.tickets[ticket] = key
+                    self.ticket_offsets[ticket] = offset
                     row['issued'] += 1
-                    issued[req.memory] += 1
+                    issued[domain] += 1
         return result
 
     def record(self):
@@ -124,7 +147,8 @@ class RamulatorAbsolute:
                       completed=self.backend.completed, pending=len(self.tickets)+len(self.groups),
                       grouped_descriptors_accepted=self.group_accepted,
                       grouped_descriptors_completed=self.group_completed,
-                      grouped_expansion_words_per_channel_cycle=32)
+                      grouped_expansion_words_per_channel_cycle=self.issue_limit,
+                      streaming=self.streaming, atomic_bytes=self.atomic_bytes)
         return result
 
     def close(self):
