@@ -8,16 +8,21 @@ class OperationLocation:
     cluster: str
 
 
-def place_compute(logical, stack, weights):
+def weight_compute_clusters(stack,weights):
     domains={d.id:d for d in stack.dram_domains}
     groups={g.id:g for g in stack.bank_groups}
-    locations={w.tensor:w for w in weights}
     clusters=sorted(stack.compute_clusters,key=lambda c:c.id)
     weight_clusters={}
     for w in weights:
         ds=[domains[d] for d in groups[w.memory].domain_ids]
         center=tuple(sum(d.position_um[k] for d in ds)//len(ds) for k in (0,1))
         weight_clusters[w.tensor]=min(clusters,key=lambda c:(sum(abs(a-b) for a,b in zip(c.position_um,center)),c.id)).id
+    return weight_clusters
+
+
+def place_compute(logical, stack, weights):
+    weight_clusters=weight_compute_clusters(stack,weights)
+    clusters=sorted(stack.compute_clusters,key=lambda c:c.id)
     result=[]
     for op in logical.operations:
         if op.expert is not None and op.block is not None:
