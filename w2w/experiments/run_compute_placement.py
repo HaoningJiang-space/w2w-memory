@@ -19,45 +19,68 @@ from w2w.validation.system_execution import audit_system_result
 from w2w.machine.presets import machine
 from w2w.workloads.moe_task_graph import compile_routed_layer
 from w2w.workloads.routing_input import load_layer_routing
-from w2w.workloads.moe_partition import compile_partitioned_layer,semantic_work
+from w2w.workloads.moe_partition import compile_partitioned_layer,compile_rotated_partition_layer,semantic_work
+from w2w.validation.compute_placement import matched_partition_contract
 
 CASES={'gather-stream':('gather',True),'gather-whole':('gather',False),'near-shard-stream':('near_shard',True)}
+BASE_CASES=tuple(CASES)
+CASES['rotated-shard-stream']=('rotated_shard',True)
 
 
 def inputs(name):
     architecture,streaming=CASES[name]
     graph,metadata=(compile_routed_layer(load_layer_routing(cohort='c2_b4'),residency='four_way') if architecture=='gather'
                     else compile_partitioned_layer(routing=load_layer_routing(cohort='c2_b4')))
+    if architecture=='rotated_shard':
+        graph,metadata=compile_rotated_partition_layer(routing=load_layer_routing(cohort='c2_b4'))
     spec,physical=from_coordinates(replace(machine(),dram_period_ps=3760))
     return graph,spec,dict(graph=asdict(graph),metadata=metadata,spec=asdict(spec),physical=physical,
                           architecture=architecture,streaming=streaming)
 
 
-def prepare(output):
+def prepare(output,names=BASE_CASES,reference=None):
     output.mkdir(parents=True,exist_ok=False);(output/'inputs').mkdir()
     cases=[];signatures=set();machines=set()
-    for name in CASES:
+    reference_reg=(json.loads((reference/'registration.json').read_text()) if reference is not None else None)
+    for name in names:
         _,_,record=inputs(name)
         semantic=digest(semantic_work(record['metadata']))
         signatures.add(semantic);machines.add(digest(record['spec']))
         write(output/'inputs'/(name+'.json'),record)
-        cases.append(dict(name=name,input_sha256=digest(record),semantic_work_sha256=semantic,
-            graph_sha256=digest(record['graph']),architecture=record['architecture'],streaming=record['streaming']))
+        case=dict(name=name,input_sha256=digest(record),semantic_work_sha256=semantic,
+            graph_sha256=digest(record['graph']),architecture=record['architecture'],streaming=record['streaming'])
+        if reference is not None and name in BASE_CASES:
+            old=next(c for c in reference_reg['cases'] if c['name']==name)
+            frozen=json.loads((reference/'inputs'/(name+'.json')).read_text())
+            done=json.loads((reference/'cases'/name/'completion.json').read_text())
+            if (digest(frozen)!=case['input_sha256'] or old['input_sha256']!=case['input_sha256']
+                    or not done['complete'] or done['source_commit']!=reference_reg['source_commit']):
+                raise ValueError('Archived matched reference differs or is incomplete')
+            case.update(reference_directory=str((reference/'cases'/name).resolve()),
+                        source_commit=reference_reg['source_commit'])
+        cases.append(case)
     if len(signatures)!=1 or len(machines)!=1:raise ValueError('Cases changed application or wafer resources')
-    write(output/'registration.json',dict(schema='w2w.compute-placement-study.v1',cases=cases,
+    registration=dict(schema='w2w.compute-placement-study.v1',cases=cases,
         source_commit=revision(),host=platform.node(),max_ps=20_000_000_000,
         scope='one_routed_ffn_layer_timing',local_dma='payload_beats',cell_sideband_bits=64,
         receive_reservation='ideal global reference; protocol RTT not modeled',
         source_sram_read_bytes_per_cycle=256,source_write_ports='one independent read and one receive write per aggregate tile',
         time_advance='boundaries',controls='36 shared engines, 36x512MiB memory, 36x2MiB SRAM; same owner, tokens, RWDL, NoC/credit, MC32/requester32',
         comparisons='gather readiness only; near-shard changes static intermediate weight/compute placement and bills FP32 reduction',
-        excluded='Direct HB, endpoint RTL, prefetch, dynamic migration, reticle area DSE'))
-    print(json.dumps(dict(prepared=str(output),cases=list(CASES))),flush=True)
+        excluded='Direct HB, endpoint RTL, prefetch, dynamic migration, reticle area DSE')
+    if 'rotated-shard-stream' in names:
+        near,spec,_=inputs('near-shard-stream');rotated,_,_=inputs('rotated-shard-stream')
+        near_meta=inputs('near-shard-stream')[2]['metadata'];rotated_meta=inputs('rotated-shard-stream')[2]['metadata']
+        registration['matched_parallel_control']=matched_partition_contract(near,near_meta,rotated,rotated_meta,spec)
+        registration['comparisons']+='; matched four-chain clockwise rotation changes only block compute locations'
+    write(output/'registration.json',registration)
+    print(json.dumps(dict(prepared=str(output),cases=list(names))),flush=True)
 
 
 def run(output,name,binary):
     reg=json.loads((output/'registration.json').read_text())
     case=next(c for c in reg['cases'] if c['name']==name)
+    if 'reference_directory' in case:raise ValueError('Archived reference is read-only; do not rerun it')
     graph,spec,record=inputs(name)
     if revision()!=reg['source_commit'] or digest(record)!=case['input_sha256']:
         raise ValueError('Frozen source or input changed')
@@ -92,9 +115,11 @@ def main():
     p.add_argument('--output',type=Path,required=True)
     mode=p.add_mutually_exclusive_group(required=True)
     mode.add_argument('--prepare',action='store_true');mode.add_argument('--case',choices=CASES)
+    p.add_argument('--cases',nargs='+',choices=CASES,default=BASE_CASES,help='Cases to register; original three by default')
+    p.add_argument('--reference',type=Path,help='Reuse completed original cases from an immutable full study')
     p.add_argument('--booksim-binary',type=Path)
     args=p.parse_args()
-    if args.prepare:prepare(args.output)
+    if args.prepare:prepare(args.output,args.cases,args.reference)
     else:
         if args.booksim_binary is None:p.error('--booksim-binary required')
         run(args.output,args.case,args.booksim_binary)

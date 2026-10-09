@@ -75,3 +75,30 @@ def compile_partitioned_layer(inputs=INPUTS,*,cohort='c2_b4',routing=None):
     metadata['compute_model']['policy']='blocking 128-wide tile; four parallel three-block chains; owner partial-sum reduce'
     if semantic_work(metadata)!=semantic_work(original):raise ValueError('Partition changed semantic application work')
     return graph,metadata
+
+
+def clockwise_compute(tile):
+    """Fixed one-hop clockwise permutation in each aligned 2x2 group."""
+    n=int(tile[1:]);x,y=n%6,n//6
+    if tile!=f'c{n}' or not 0<=n<36:raise ValueError('Expected a 6x6 compute tile')
+    target=n+1 if x%2==0 and y%2==0 else n+6 if y%2==0 else n-1 if x%2 else n-6
+    return f'c{target}'
+
+
+def compile_rotated_partition_layer(inputs=INPUTS,*,cohort='c2_b4',routing=None):
+    """Same content, addresses and four chains; move each chain one hop clockwise."""
+    base,original=compile_partitioned_layer(inputs,cohort=cohort,routing=routing)
+    graph=replace(base,tasks=tuple(replace(t,tile=clockwise_compute(t.tile)) if t.reads else t
+                                   for t in base.tasks))
+    metadata=deepcopy(original)
+    metadata['architecture']='compute_rotated_shard'
+    metadata['compute_placement']='clockwise one-hop derangement within each fixed aligned 2x2 group'
+    for task in graph.tasks:
+        if task.reads:metadata['task_semantics'][task.id]['compute']=task.tile
+    for row in metadata['all_expert_partition_layout']:row['compute']=clockwise_compute(row['compute'])
+    # The historical field hashes a joint content/compute record. Preserve that
+    # encoding; the matched-control proof separately hashes content and addresses.
+    metadata['logical_weight_content_layout_sha256']=sha256(json.dumps(
+        metadata['all_expert_partition_layout'],sort_keys=True).encode()).hexdigest()
+    metadata['remote_weight_bytes']=metadata['weight_read_bytes']
+    return graph,metadata

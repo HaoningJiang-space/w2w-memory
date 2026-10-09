@@ -11,10 +11,27 @@ from w2w.network.booksim_backend import BookSimNetwork
 from w2w.system.builder import SystemBuilder
 from w2w.system.wafer_machine import WaferRecipe,from_coordinates
 from w2w.workloads.moe_task_graph import compile_layer,machine
-from w2w.workloads.moe_partition import compile_partitioned_layer,semantic_work
+from w2w.workloads.moe_partition import compile_partitioned_layer,compile_rotated_partition_layer,semantic_work,clockwise_compute
+from w2w.validation.compute_placement import matched_partition_contract
 
 
 class PartitionTests(unittest.TestCase):
+    def test_rotated_control_preserves_parallelism_content_and_each_engine_work(self):
+        near,a=compile_partitioned_layer()
+        rotated,b=compile_rotated_partition_layer()
+        proof=matched_partition_contract(near,a,rotated,b,machine())
+        self.assertTrue(proof['passed'])
+        self.assertEqual(proof['rotated_remote_weight_bytes'],585248256)
+        self.assertEqual([clockwise_compute(c) for c in ('c0','c1','c7','c6')],['c1','c7','c6','c0'])
+        self.assertEqual(near.data,rotated.data)
+        self.assertEqual(near.objects,rotated.objects)
+        self.assertTrue(all(a.tile!=b.tile for a,b in zip(near.tasks,rotated.tasks) if a.reads))
+        # A misplaced reduction would pass a weight-byte check, but invalidates this control.
+        tasks=list(rotated.tasks)
+        i=next(i for i,t in enumerate(tasks) if t.id.endswith('/reduce'))
+        tasks[i]=replace(tasks[i],tile=clockwise_compute(tasks[i].tile))
+        with self.assertRaises(ValueError):matched_partition_contract(near,a,replace(rotated,tasks=tuple(tasks)),b,machine())
+
     def test_static_partition_covers_same_weights_and_macs_on_existing_engines(self):
         base,a=compile_layer(cohort='c2_b4',residency='four_way')
         graph,b=compile_partitioned_layer(cohort='c2_b4')
