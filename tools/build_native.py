@@ -62,8 +62,8 @@ def main():
                 required += list((ROOT/'w2w/network/native_booksim').glob('*.py'))
                 manifest['sources'].update({str(p.relative_to(ROOT)):digest(p) for p in required})
                 build = out/'booksim'
-                native = build/'rapidchiplet/booksim2/src'
-                shutil.copytree(ROOT/'rapidchiplet/booksim2',build/'rapidchiplet/booksim2')
+                native = build/'third_party/booksim2/src'
+                shutil.copytree(ROOT/'third_party/booksim2',build/'third_party/booksim2')
                 for patch in ('booksim-wafer.patch','booksim-endpoint-hooks.patch'):
                     run(['git','apply','--check',VENDOR/patch],build)
                     run(['git','apply',VENDOR/patch],build)

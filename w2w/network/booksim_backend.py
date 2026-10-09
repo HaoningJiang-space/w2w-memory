@@ -29,34 +29,12 @@ def factory(*, binary, directory, source=None, ideal_return=False, debug_flits=F
 
 
 def _config(builder, directory):
-    from .native_booksim.online_booksim import prepare_online_config
-    root = directory / 'rapidchiplet/booksim2/src'
-    for name in ('rc_configs', 'rc_topologies', 'rc_stats', 'rc_xy_info'):
-        (root / name).mkdir(parents=True, exist_ok=True)
-    nodes = {key: n for n, key in enumerate(builder.tiles)}
-    rows = []
-    for key, n in nodes.items():
-        row = f'router {n} node {n} 1'
-        for link in builder.spec.links:
-            if link.src == key and link.dst in nodes:
-                if link.credit_cycles != link.pipeline_cycles:
-                    raise ValueError('Native channel uses the same latency for flits and credits')
-                row += f' router {nodes[link.dst]} {link.pipeline_cycles}'
-        rows.append(row)
-    (root / 'rc_topologies/network.anynet').write_text('\n'.join(rows)+'\n')
-    spec = builder.spec
-    inputs = dict(chiplets={'tile': dict(router_latency=spec.router_cycles)},
-        placement={'chiplets': [{'name': 'tile'} for _ in nodes]},
-        routing_table={'type': 'default'},
-        booksim_config=dict(mode='trace', trace_file='none', ignore_cycles=0,
-            repetitions=1, sim_count=1, trace_time_out=120, time_limit=120,
-            precision=.001, saturation_factor=2, traffic='uniform', packet_size=1,
-            num_vcs=1, vc_buf_size=spec.input_buffer_flits,
-            modular_routing_function='simple_cycle_breaking_set',
-            modular_selection_function='adaptive', sample_period=100000,
-            warmup_periods=0, wait_for_tail_credit=0, injection_rate_uses_flits=1,
-            deadlock_warn_timeout=200000))
-    return nodes, prepare_online_config(inputs, directory)
+    from types import SimpleNamespace
+    from w2w.backends.booksim.topology_export import compile_booksim
+    graph=(builder.physical_graph if builder.v3 else SimpleNamespace(
+        routers=tuple(builder.tiles.values()),
+        channels=tuple(l for l in builder.spec.links if l.src in builder.tiles and l.dst in builder.tiles)))
+    return compile_booksim(graph,builder.spec,directory)
 
 
 class BookSimNetwork:
@@ -86,6 +64,9 @@ class BookSimNetwork:
             raise ValueError('Unknown local DMA contract')
         self.local_dma=local_dma
         self.nodes, config = _config(builder, directory)
+        self.endpoint_nodes={key:self.nodes[builder.spec.endpoint_router(key)] for key in
+            (*builder.tiles,*builder.memories,*self.nodes)} if builder.v3 else dict(self.nodes)
+        self.source_key=lambda key: builder.spec.endpoint_router(key) if builder.v3 else key
         self.node_names = {n: name for name, n in self.nodes.items()}
         self.client = BoundaryBookSim(binary, config, directory, flit_bytes=self.spec.flit_bytes)
         if not debug_flits:
@@ -112,6 +93,12 @@ class BookSimNetwork:
         self.cell_sideband_bits=cell_sideband_bits
         self.cell_tags=deque(range(1 << 16)) if self.cell_sideband_bits else None
         self.cell_tag_peak=0
+        self.cell_layout=None
+        if builder.v3:
+            from w2w.architecture.resources import cell_format
+            self.cell_layout=cell_format(len(self.nodes),self.spec.flit_bytes,endpoint_count=len(builder.tiles))
+            if self.cell_layout['required_bits']>cell_sideband_bits:
+                raise ValueError('Declared cell sideband cannot encode the physical endpoint space')
 
     def log(self, now, kind, **values):
         self.events.append(dict(time_ps=now, kind=kind, **values))
@@ -140,21 +127,22 @@ class BookSimNetwork:
             raise ValueError('Packet contains an illegal physical route')
         local_payload=self.local_dma=='payload_beats' and not packet.route
         count = max(1,ceil((packet.payload_bytes+(0 if local_payload else self.spec.header_bytes))/self.spec.flit_bytes))
-        rx = packet.dst, packet.traffic_class
+        rx = self.source_key(packet.dst), packet.traffic_class
+        source=self.source_key(packet.src)
         if self.cell_tags is not None and not self.cell_tags:
             self.admission_rejections['cell_tag_pool']+=1
             self.rejections+=1
             return False
-        if (self.source_occupied[packet.src]+count > self.spec.injection_flits
+        if (self.source_occupied[source]+count > self.spec.injection_flits
                 or self.rx_reserved[rx] >= self.spec.ejection_packets):
-            if self.source_occupied[packet.src]+count > self.spec.injection_flits:
+            if self.source_occupied[source]+count > self.spec.injection_flits:
                 self.admission_rejections['source_ni/'+packet.src]+=1
             if self.rx_reserved[rx] >= self.spec.ejection_packets:
                 self.admission_rejections['destination_slots/'+packet.dst]+=1
             self.rejections += 1
             return False
-        self.source_occupied[packet.src] += count
-        self.source_peak[packet.src] = max(self.source_peak[packet.src], self.source_occupied[packet.src])
+        self.source_occupied[source] += count
+        self.source_peak[source] = max(self.source_peak[source], self.source_occupied[source])
         self.rx_reserved[rx] += 1
         self.rx_peak[rx] = max(self.rx_peak[rx], self.rx_reserved[rx])
         self.pending[packet.id] = dict(packet=packet, count=count, committed=0, ready=False,
@@ -169,14 +157,14 @@ class BookSimNetwork:
         self.log(now, 'packet_accept', packet=packet.id, src=packet.src, dst=packet.dst,
                  traffic_class=packet.traffic_class, payload_bytes=packet.payload_bytes, flits=count)
         bypass = self.ideal_return and packet.id.endswith('/resp')
-        if packet.src in self.nodes and packet.dst in self.nodes and packet.src != packet.dst and not bypass:
+        if packet.src in self.endpoint_nodes and packet.dst in self.endpoint_nodes and self.endpoint_nodes[packet.src] != self.endpoint_nodes[packet.dst] and not bypass:
             identity = self.next_id
             self.next_id += 1
             self.native_ids[identity] = packet.id
             # Reuse persistent IPC and boundary commands, with adapter-owned IDs.
             # Avoid retaining a second full flit archive in OnlineBookSim.messages.
             self.client._request(dict(command='submit', id=identity, cycle=self.client.now,
-                source=self.nodes[packet.src], destination=self.nodes[packet.dst], flits=count))
+                source=self.endpoint_nodes[packet.src], destination=self.endpoint_nodes[packet.dst], flits=count))
             self.pending[packet.id]['native_id'] = identity
             if not streaming:
                 self.client._request(dict(command='supply', id=identity, cycle=self.client.now, flits=count))
@@ -271,7 +259,7 @@ class BookSimNetwork:
         # All activation and response writes contend for one declared tile port.
         # Header-only requests are copied into pre-reserved finite MC NI storage.
         to_sram = packet.traffic_class == 'activation' or packet.id.endswith('/resp')
-        if packet.dst in self.nodes and size and to_sram:
+        if packet.dst in self.builder.tiles and size and to_sram:
             at,cycles,wait_ps = self.write_port.reserve(packet.dst,packet.traffic_class,size,at)
             row=self.pending[packet.id]
             row['rx_cycles']+=cycles;row['rx_bytes']+=size;row['rx_wait_ps']+=wait_ps
@@ -290,8 +278,8 @@ class BookSimNetwork:
                 row = self.pending[key]
                 packet = row['packet']
                 if event['event'] == 'inject':
-                    self.source_occupied[packet.src] -= 1
-                    self.injection_flits_by_source[packet.src]+=1
+                    self.source_occupied[self.source_key(packet.src)] -= 1
+                    self.injection_flits_by_source[self.source_key(packet.src)]+=1
                 elif event['event'] == 'receive':
                     record = event['record']
                     for hop in record['link_arrivals']:
@@ -319,16 +307,16 @@ class BookSimNetwork:
             row = self.pending[key]
             packet = row['packet']
             if kind == 'local':
-                self.source_occupied[packet.src] -= row['count']
+                self.source_occupied[self.source_key(packet.src)] -= row['count']
                 self._write(packet, packet.payload_bytes, at)
             elif kind == 'stream_local':
-                self.source_occupied[packet.src] -= 1
+                self.source_occupied[self.source_key(packet.src)] -= 1
                 self._write(packet, fid, at, 'local-stream')
             elif kind=='local_payload':
                 row['local_copied']+=fid
                 released=(row['count'] if row['local_copied']==packet.payload_bytes
                           else row['local_copied']//self.spec.flit_bytes)
-                self.source_occupied[packet.src]-=released-row['local_released']
+                self.source_occupied[self.source_key(packet.src)]-=released-row['local_released']
                 row['local_released']=released
                 self._write(packet,fid,at,'payload-beat')
             elif kind == 'commit':
@@ -350,7 +338,7 @@ class BookSimNetwork:
         for key, row in list(self.pending.items()):
             packet = row['packet']
             if row['ready'] and accept(packet):
-                self.rx_reserved[packet.dst, packet.traffic_class] -= 1
+                self.rx_reserved[self.source_key(packet.dst), packet.traffic_class] -= 1
                 self.delivered_bytes[packet.traffic_class] += packet.payload_bytes
                 self.delivered += 1
                 self.log(now, 'packet_deliver', packet=key, src=packet.src, dst=packet.dst,
@@ -365,7 +353,7 @@ class BookSimNetwork:
         return not self.pending and not self.future and self.native_idle
 
     def record(self):
-        return dict(kind='native_boundary_booksim', source_commit=PIN,
+        value=dict(kind='native_boundary_booksim', source_commit=PIN,
                     runtime_source=self.runtime_source,
                     identity=self.client.identity, ideal_return=self.ideal_return,
                     packetization='header+payload; native single-flit packets',
@@ -392,6 +380,9 @@ class BookSimNetwork:
                     ni_rx_capacity_bytes_per_node=3*self.spec.ejection_packets*(self.spec.packet_payload_bytes+self.spec.header_bytes),
                     ni_tx_capacity_bytes_per_node=self.spec.injection_flits*self.spec.flit_bytes,
                     rejections=self.rejections, drained=self.drained(), final=self.final)
+        if self.cell_layout is not None:
+            value['cell_format'].update(self.cell_layout,sideband_bits=self.cell_sideband_bits)
+        return value
 
     def close(self):
         if not self.drained():

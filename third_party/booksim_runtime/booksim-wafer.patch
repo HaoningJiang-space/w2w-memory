@@ -1,7 +1,7 @@
-diff --git a/rapidchiplet/booksim2/src/allocators/allocator.cpp b/rapidchiplet/booksim2/src/allocators/allocator.cpp
+diff --git a/third_party/booksim2/src/allocators/allocator.cpp b/third_party/booksim2/src/allocators/allocator.cpp
 index 9a71f31..48d0c9e 100644
---- a/rapidchiplet/booksim2/src/allocators/allocator.cpp
-+++ b/rapidchiplet/booksim2/src/allocators/allocator.cpp
+--- a/third_party/booksim2/src/allocators/allocator.cpp
++++ b/third_party/booksim2/src/allocators/allocator.cpp
 @@ -30,6 +30,7 @@
  #include <sstream>
  #include <cassert>
@@ -91,10 +91,10 @@ index 9a71f31..48d0c9e 100644
    return a;
  }
 -
-diff --git a/rapidchiplet/booksim2/src/allocators/allocator.hpp b/rapidchiplet/booksim2/src/allocators/allocator.hpp
+diff --git a/third_party/booksim2/src/allocators/allocator.hpp b/third_party/booksim2/src/allocators/allocator.hpp
 index 8e6860b..6a14b5e 100644
---- a/rapidchiplet/booksim2/src/allocators/allocator.hpp
-+++ b/rapidchiplet/booksim2/src/allocators/allocator.hpp
+--- a/third_party/booksim2/src/allocators/allocator.hpp
++++ b/third_party/booksim2/src/allocators/allocator.hpp
 @@ -131,6 +131,8 @@ protected:
    
    vector<map<int, sRequest> > _in_req;
@@ -104,10 +104,10 @@ index 8e6860b..6a14b5e 100644
  
  public:
    SparseAllocator( Module *parent, const string& name,
-diff --git a/rapidchiplet/booksim2/src/booksim_config.cpp b/rapidchiplet/booksim2/src/booksim_config.cpp
+diff --git a/third_party/booksim2/src/booksim_config.cpp b/third_party/booksim2/src/booksim_config.cpp
 index 1581d7d..63d7eed 100644
---- a/rapidchiplet/booksim2/src/booksim_config.cpp
-+++ b/rapidchiplet/booksim2/src/booksim_config.cpp
+--- a/third_party/booksim2/src/booksim_config.cpp
++++ b/third_party/booksim2/src/booksim_config.cpp
 @@ -48,6 +48,10 @@ BookSimConfig::BookSimConfig( )
    AddStrField( "path_for_xy_info", "" );
    AddStrField( "mode", "" );
@@ -119,10 +119,10 @@ index 1581d7d..63d7eed 100644
    _int_map["ignore_cycles"] = 0;
    _int_map["trace_time_out"] = 43200; //12 hours
    // ----- End custom options ---------------------------------
-diff --git a/rapidchiplet/booksim2/src/credit.cpp b/rapidchiplet/booksim2/src/credit.cpp
+diff --git a/third_party/booksim2/src/credit.cpp b/third_party/booksim2/src/credit.cpp
 index 0370308..437d9eb 100644
---- a/rapidchiplet/booksim2/src/credit.cpp
-+++ b/rapidchiplet/booksim2/src/credit.cpp
+--- a/third_party/booksim2/src/credit.cpp
++++ b/third_party/booksim2/src/credit.cpp
 @@ -32,9 +32,11 @@
  
  #include "booksim.hpp"
@@ -162,10 +162,10 @@ index 0370308..437d9eb 100644
  }
  
  
-diff --git a/rapidchiplet/booksim2/src/credit.hpp b/rapidchiplet/booksim2/src/credit.hpp
+diff --git a/third_party/booksim2/src/credit.hpp b/third_party/booksim2/src/credit.hpp
 index 3f8b5be..1ef2807 100644
---- a/rapidchiplet/booksim2/src/credit.hpp
-+++ b/rapidchiplet/booksim2/src/credit.hpp
+--- a/third_party/booksim2/src/credit.hpp
++++ b/third_party/booksim2/src/credit.hpp
 @@ -30,6 +30,7 @@
  
  #include <set>
@@ -191,10 +191,10 @@ index 3f8b5be..1ef2807 100644
  
    Credit();
    ~Credit() {}
-diff --git a/rapidchiplet/booksim2/src/networks/anynet.cpp b/rapidchiplet/booksim2/src/networks/anynet.cpp
+diff --git a/third_party/booksim2/src/networks/anynet.cpp b/third_party/booksim2/src/networks/anynet.cpp
 index d0ca3c7..5cb841c 100644
---- a/rapidchiplet/booksim2/src/networks/anynet.cpp
-+++ b/rapidchiplet/booksim2/src/networks/anynet.cpp
+--- a/third_party/booksim2/src/networks/anynet.cpp
++++ b/third_party/booksim2/src/networks/anynet.cpp
 @@ -155,6 +155,13 @@ AnyNet::AnyNet( const Configuration &config, const string & name ) :    Network(
  	*/
  }
@@ -222,10 +222,10 @@ index d0ca3c7..5cb841c 100644
      } 
  }
 -
-diff --git a/rapidchiplet/booksim2/src/networks/anynet.hpp b/rapidchiplet/booksim2/src/networks/anynet.hpp
+diff --git a/third_party/booksim2/src/networks/anynet.hpp b/third_party/booksim2/src/networks/anynet.hpp
 index 5b11d99..43d4dbc 100644
---- a/rapidchiplet/booksim2/src/networks/anynet.hpp
-+++ b/rapidchiplet/booksim2/src/networks/anynet.hpp
+--- a/third_party/booksim2/src/networks/anynet.hpp
++++ b/third_party/booksim2/src/networks/anynet.hpp
 @@ -52,6 +52,8 @@ class AnyNet : public Network {
    //stores minimal routing information from every router to every node
    //[router][dest_node]=port
@@ -243,10 +243,10 @@ index 5b11d99..43d4dbc 100644
  
    int GetN( ) const{ return -1;}
    int GetK( ) const{ return -1;}
-diff --git a/rapidchiplet/booksim2/src/networks/routing_function.hpp b/rapidchiplet/booksim2/src/networks/routing_function.hpp
+diff --git a/third_party/booksim2/src/networks/routing_function.hpp b/third_party/booksim2/src/networks/routing_function.hpp
 index 2b8fd64..beef798 100644
---- a/rapidchiplet/booksim2/src/networks/routing_function.hpp
-+++ b/rapidchiplet/booksim2/src/networks/routing_function.hpp
+--- a/third_party/booksim2/src/networks/routing_function.hpp
++++ b/third_party/booksim2/src/networks/routing_function.hpp
 @@ -3,9 +3,22 @@
  #include <tuple>
  #include <map>
@@ -272,10 +272,10 @@ index 2b8fd64..beef798 100644
 +    virtual std::vector<std::tuple<int,int,int>> route(const RoutingTopology& router_list, int n_routers, int n_nodes, int n_vcs, int cur_rid, int dst_nid, int in_port, int flit_id) const = 0;
  };
 -
-diff --git a/rapidchiplet/booksim2/src/networks/shortest_path_lowest_id_first_routing.cpp b/rapidchiplet/booksim2/src/networks/shortest_path_lowest_id_first_routing.cpp
+diff --git a/third_party/booksim2/src/networks/shortest_path_lowest_id_first_routing.cpp b/third_party/booksim2/src/networks/shortest_path_lowest_id_first_routing.cpp
 index fd34ec0..ec786d0 100644
---- a/rapidchiplet/booksim2/src/networks/shortest_path_lowest_id_first_routing.cpp
-+++ b/rapidchiplet/booksim2/src/networks/shortest_path_lowest_id_first_routing.cpp
+--- a/third_party/booksim2/src/networks/shortest_path_lowest_id_first_routing.cpp
++++ b/third_party/booksim2/src/networks/shortest_path_lowest_id_first_routing.cpp
 @@ -10,7 +10,7 @@
  // Deterministic: YES (only one output port is returned)
  // Description: Shortest path routing with lowest ID first tie-breaking
@@ -324,10 +324,10 @@ index fd34ec0..ec786d0 100644
  				nid = it->first;		
  				routing_table[src_rid][nid] = port;
  			}
-diff --git a/rapidchiplet/booksim2/src/networks/shortest_path_lowest_id_first_routing.hpp b/rapidchiplet/booksim2/src/networks/shortest_path_lowest_id_first_routing.hpp
+diff --git a/third_party/booksim2/src/networks/shortest_path_lowest_id_first_routing.hpp b/third_party/booksim2/src/networks/shortest_path_lowest_id_first_routing.hpp
 index 90adff7..34b95c5 100644
---- a/rapidchiplet/booksim2/src/networks/shortest_path_lowest_id_first_routing.hpp
-+++ b/rapidchiplet/booksim2/src/networks/shortest_path_lowest_id_first_routing.hpp
+--- a/third_party/booksim2/src/networks/shortest_path_lowest_id_first_routing.hpp
++++ b/third_party/booksim2/src/networks/shortest_path_lowest_id_first_routing.hpp
 @@ -10,11 +10,11 @@ public:
  	// router_list[0][router_id][node_id] = (port, latency)
  	// router_list[1][router_id][other_router_id] = (port, latency)
@@ -342,10 +342,10 @@ index 90adff7..34b95c5 100644
 -    void route_from_source(std::vector<std::map<int,std::map<int,std::tuple<int,int,int>>>> router_list, int n_routers, int n_nodes, int src_rid) const;
 +    void route_from_source(const RoutingTopology& router_list, int n_routers, int n_nodes, int src_rid) const;
  };
-diff --git a/rapidchiplet/booksim2/src/networks/simple_cycle_breaking_set_routing.cpp b/rapidchiplet/booksim2/src/networks/simple_cycle_breaking_set_routing.cpp
+diff --git a/third_party/booksim2/src/networks/simple_cycle_breaking_set_routing.cpp b/third_party/booksim2/src/networks/simple_cycle_breaking_set_routing.cpp
 index ca0ffab..c0ee55d 100644
---- a/rapidchiplet/booksim2/src/networks/simple_cycle_breaking_set_routing.cpp
-+++ b/rapidchiplet/booksim2/src/networks/simple_cycle_breaking_set_routing.cpp
+--- a/third_party/booksim2/src/networks/simple_cycle_breaking_set_routing.cpp
++++ b/third_party/booksim2/src/networks/simple_cycle_breaking_set_routing.cpp
 @@ -14,14 +14,14 @@
  // Deterministic: NO (possibly multiple output ports can be returned)
  // Description: Shortest path routing that uses the simple cycle-breaking set strategy to achieve deadlock-freedom.
@@ -445,10 +445,10 @@ index ca0ffab..c0ee55d 100644
  			int dst_rid = it->first;
  			adj_list[src_rid].push_back(dst_rid);
  		}
-diff --git a/rapidchiplet/booksim2/src/networks/simple_cycle_breaking_set_routing.hpp b/rapidchiplet/booksim2/src/networks/simple_cycle_breaking_set_routing.hpp
+diff --git a/third_party/booksim2/src/networks/simple_cycle_breaking_set_routing.hpp b/third_party/booksim2/src/networks/simple_cycle_breaking_set_routing.hpp
 index 5c76bab..10d5762 100644
---- a/rapidchiplet/booksim2/src/networks/simple_cycle_breaking_set_routing.hpp
-+++ b/rapidchiplet/booksim2/src/networks/simple_cycle_breaking_set_routing.hpp
+--- a/third_party/booksim2/src/networks/simple_cycle_breaking_set_routing.hpp
++++ b/third_party/booksim2/src/networks/simple_cycle_breaking_set_routing.hpp
 @@ -10,7 +10,7 @@ public:
  	// router_list[0][router_id][node_id] = (port, latency)
  	// router_list[1][router_id][other_router_id] = (port, latency)
@@ -469,10 +469,10 @@ index 5c76bab..10d5762 100644
 +	void compute_prev_router_map(const RoutingTopology& router_list, int n_routers) const;
 +	void compute_permitted_turns(const RoutingTopology& router_list, int n_routers) const;
  };
-diff --git a/rapidchiplet/booksim2/src/networks/xy_routing.cpp b/rapidchiplet/booksim2/src/networks/xy_routing.cpp
+diff --git a/third_party/booksim2/src/networks/xy_routing.cpp b/third_party/booksim2/src/networks/xy_routing.cpp
 index b55f8c5..92b1d6a 100644
---- a/rapidchiplet/booksim2/src/networks/xy_routing.cpp
-+++ b/rapidchiplet/booksim2/src/networks/xy_routing.cpp
+--- a/third_party/booksim2/src/networks/xy_routing.cpp
++++ b/third_party/booksim2/src/networks/xy_routing.cpp
 @@ -16,7 +16,7 @@
  // Deterministic: YES (only one output port is returned)
  // Description: XY routing based on external info on N,E, S, W neighbors and router position 
@@ -500,10 +500,10 @@ index b55f8c5..92b1d6a 100644
  	}
  	// Return the output port; Allow the full range of possible VCs
  	return {std::make_tuple(out_port, 0, n_vsc-1)};
-diff --git a/rapidchiplet/booksim2/src/networks/xy_routing.hpp b/rapidchiplet/booksim2/src/networks/xy_routing.hpp
+diff --git a/third_party/booksim2/src/networks/xy_routing.hpp b/third_party/booksim2/src/networks/xy_routing.hpp
 index 13faa45..8a11467 100644
---- a/rapidchiplet/booksim2/src/networks/xy_routing.hpp
-+++ b/rapidchiplet/booksim2/src/networks/xy_routing.hpp
+--- a/third_party/booksim2/src/networks/xy_routing.hpp
++++ b/third_party/booksim2/src/networks/xy_routing.hpp
 @@ -14,7 +14,7 @@ public:
  	// router_list[0][router_id][node_id] = (port, latency)
  	// router_list[1][router_id][other_router_id] = (port, latency)
@@ -513,11 +513,11 @@ index 13faa45..8a11467 100644
  private:
  	const Configuration& config_;
  	std::map<int,int> node_list_;
-diff --git a/rapidchiplet/booksim2/src/node_reuse.hpp b/rapidchiplet/booksim2/src/node_reuse.hpp
+diff --git a/third_party/booksim2/src/node_reuse.hpp b/third_party/booksim2/src/node_reuse.hpp
 new file mode 100644
 index 0000000..d82af60
 --- /dev/null
-+++ b/rapidchiplet/booksim2/src/node_reuse.hpp
++++ b/third_party/booksim2/src/node_reuse.hpp
 @@ -0,0 +1,53 @@
 +#ifndef BOOKSIM_NODE_REUSE_HPP
 +#define BOOKSIM_NODE_REUSE_HPP
@@ -572,10 +572,10 @@ index 0000000..d82af60
 +}
 +
 +#endif
-diff --git a/rapidchiplet/booksim2/src/routers/chaos_router.cpp b/rapidchiplet/booksim2/src/routers/chaos_router.cpp
+diff --git a/third_party/booksim2/src/routers/chaos_router.cpp b/third_party/booksim2/src/routers/chaos_router.cpp
 index 018a068..c72e98c 100644
---- a/rapidchiplet/booksim2/src/routers/chaos_router.cpp
-+++ b/rapidchiplet/booksim2/src/routers/chaos_router.cpp
+--- a/third_party/booksim2/src/routers/chaos_router.cpp
++++ b/third_party/booksim2/src/routers/chaos_router.cpp
 @@ -581,7 +581,7 @@ void ChaosRouter::_OutputAdvance( )
  	}
  	
@@ -585,10 +585,10 @@ index 018a068..c72e98c 100644
  	_credit_queue[i].push( c );
        }
      }
-diff --git a/rapidchiplet/booksim2/src/routers/event_router.cpp b/rapidchiplet/booksim2/src/routers/event_router.cpp
+diff --git a/third_party/booksim2/src/routers/event_router.cpp b/third_party/booksim2/src/routers/event_router.cpp
 index b2ca461..93f3c95 100644
---- a/rapidchiplet/booksim2/src/routers/event_router.cpp
-+++ b/rapidchiplet/booksim2/src/routers/event_router.cpp
+--- a/third_party/booksim2/src/routers/event_router.cpp
++++ b/third_party/booksim2/src/routers/event_router.cpp
 @@ -671,7 +671,7 @@ void EventRouter::_TransportArb( int input )
      }
  
@@ -598,10 +598,10 @@ index b2ca461..93f3c95 100644
      c->head          = f->head;
      c->tail          = f->tail;
      c->id            = f->id;
-diff --git a/rapidchiplet/booksim2/src/routers/iq_router.cpp b/rapidchiplet/booksim2/src/routers/iq_router.cpp
+diff --git a/third_party/booksim2/src/routers/iq_router.cpp b/third_party/booksim2/src/routers/iq_router.cpp
 index b2de219..3f886c8 100644
---- a/rapidchiplet/booksim2/src/routers/iq_router.cpp
-+++ b/rapidchiplet/booksim2/src/routers/iq_router.cpp
+--- a/third_party/booksim2/src/routers/iq_router.cpp
++++ b/third_party/booksim2/src/routers/iq_router.cpp
 @@ -1126,7 +1126,7 @@ void IQRouter::_SWHoldUpdate( )
        if(_out_queue_credits.count(input) == 0) {
  	_out_queue_credits.insert(make_pair(input, Credit::New()));
@@ -620,11 +620,11 @@ index b2de219..3f886c8 100644
  
        if(cur_buf->Empty(vc)) {
  	if(f->tail) {
-diff --git a/rapidchiplet/booksim2/src/trace_dependency_graph.hpp b/rapidchiplet/booksim2/src/trace_dependency_graph.hpp
+diff --git a/third_party/booksim2/src/trace_dependency_graph.hpp b/third_party/booksim2/src/trace_dependency_graph.hpp
 new file mode 100644
 index 0000000..7d6cde6
 --- /dev/null
-+++ b/rapidchiplet/booksim2/src/trace_dependency_graph.hpp
++++ b/third_party/booksim2/src/trace_dependency_graph.hpp
 @@ -0,0 +1,31 @@
 +// Flat, immutable-after-loading workload topology. Mutable dependency counts,
 +// timestamps and resource state belong to the execution backend, not this graph.
@@ -657,11 +657,11 @@ index 0000000..7d6cde6
 +};
 +
 +#endif
-diff --git a/rapidchiplet/booksim2/src/trace_frontier_profile.hpp b/rapidchiplet/booksim2/src/trace_frontier_profile.hpp
+diff --git a/third_party/booksim2/src/trace_frontier_profile.hpp b/third_party/booksim2/src/trace_frontier_profile.hpp
 new file mode 100644
 index 0000000..02927ea
 --- /dev/null
-+++ b/rapidchiplet/booksim2/src/trace_frontier_profile.hpp
++++ b/third_party/booksim2/src/trace_frontier_profile.hpp
 @@ -0,0 +1,47 @@
 +// Optional aggregate instrumentation. This does not schedule execution.
 +#ifndef WAFER_TRACE_FRONTIER_PROFILE_HPP
@@ -710,10 +710,10 @@ index 0000000..02927ea
 +};
 +
 +#endif
-diff --git a/rapidchiplet/booksim2/src/trafficmanager.cpp b/rapidchiplet/booksim2/src/trafficmanager.cpp
+diff --git a/third_party/booksim2/src/trafficmanager.cpp b/third_party/booksim2/src/trafficmanager.cpp
 index 55c194e..8de8ce0 100644
---- a/rapidchiplet/booksim2/src/trafficmanager.cpp
-+++ b/rapidchiplet/booksim2/src/trafficmanager.cpp
+--- a/third_party/booksim2/src/trafficmanager.cpp
++++ b/third_party/booksim2/src/trafficmanager.cpp
 @@ -599,6 +599,13 @@ TrafficManager::TrafficManager( const Configuration &config, const vector<Networ
  	rc_trace_instructions_simulated = 0;										// Number of instructions simulated so far	
  	rc_trace_messages_simulated = 0;											// Number of messages simulated so far	
@@ -1226,10 +1226,10 @@ index 55c194e..8de8ce0 100644
  			cout << "Truly simulated cycles = " << _time << endl;
  			cout << "Total number of trace messages simulated = " << rc_trace_messages_simulated << endl;
  			cout << "Total number of trace instructions simulated = " << rc_trace_instructions_simulated << endl;
-diff --git a/rapidchiplet/booksim2/src/trafficmanager.hpp b/rapidchiplet/booksim2/src/trafficmanager.hpp
+diff --git a/third_party/booksim2/src/trafficmanager.hpp b/third_party/booksim2/src/trafficmanager.hpp
 index d373931..71a1dca 100644
---- a/rapidchiplet/booksim2/src/trafficmanager.hpp
-+++ b/rapidchiplet/booksim2/src/trafficmanager.hpp
+--- a/third_party/booksim2/src/trafficmanager.hpp
++++ b/third_party/booksim2/src/trafficmanager.hpp
 @@ -43,6 +43,8 @@
  #include "routefunc.hpp"
  #include "outputset.hpp"

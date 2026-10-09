@@ -1,5 +1,5 @@
---- a/rapidchiplet/booksim2/src/trafficmanager.hpp
-+++ b/rapidchiplet/booksim2/src/trafficmanager.hpp
+--- a/third_party/booksim2/src/trafficmanager.hpp
++++ b/third_party/booksim2/src/trafficmanager.hpp
 @@ -290,6 +290,10 @@
  
    virtual void _RetireFlit( Flit *f, int dest );
@@ -11,8 +11,8 @@
    void _Inject();
    int _Step();
  
---- a/rapidchiplet/booksim2/src/trafficmanager.cpp
-+++ b/rapidchiplet/booksim2/src/trafficmanager.cpp
+--- a/third_party/booksim2/src/trafficmanager.cpp
++++ b/third_party/booksim2/src/trafficmanager.cpp
 @@ -1187,6 +1187,13 @@
  
  // returns a pair of integers <return_code, 0>
@@ -55,8 +55,8 @@
  	
  #ifdef TRACK_FLOWS
                  ++_ejected_flits[f->cl][n];
---- a/rapidchiplet/booksim2/src/routers/iq_router.hpp
-+++ b/rapidchiplet/booksim2/src/routers/iq_router.hpp
+--- a/third_party/booksim2/src/routers/iq_router.hpp
++++ b/third_party/booksim2/src/routers/iq_router.hpp
 @@ -157,6 +157,7 @@
    virtual ~IQRouter( );
    
@@ -65,8 +65,8 @@
  
    virtual void ReadInputs( );
    virtual void WriteOutputs( );
---- a/rapidchiplet/booksim2/src/routers/iq_router.cpp
-+++ b/rapidchiplet/booksim2/src/routers/iq_router.cpp
+--- a/third_party/booksim2/src/routers/iq_router.cpp
++++ b/third_party/booksim2/src/routers/iq_router.cpp
 @@ -214,6 +214,16 @@
    int min_latency = 1 + _crossbar_delay + channel->GetLatency() + _routing_delay + alloc_delay + backchannel->GetLatency()  + _credit_delay;
    _next_buf[_output_channels.size()]->SetMinLatency(min_latency);
