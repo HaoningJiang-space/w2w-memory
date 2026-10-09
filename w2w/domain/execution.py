@@ -9,6 +9,7 @@ class ResidentObject:
     memory: str
     offset_bytes: int
     size_bytes: int
+    storage_id: str | None = None
 
     def __post_init__(self):
         positive(self.offset_bytes, 'object offset', 0)

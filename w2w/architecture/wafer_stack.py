@@ -21,6 +21,7 @@ class WaferStack:
     native_policy: NativePolicy = NativePolicy()
     wafer_diameter_um: int = 300000
     schema: str = 'w2w.wafer-stack.v3'
+    resource_budget: object = None
 
     def __post_init__(self):
         for name in ('compute_reticles', 'compute_clusters', 'routers', 'memory_regions',
@@ -96,6 +97,10 @@ class WaferStack:
         if {(p.domain_id,p.gateway_id) for p in self.collection_paths}!=expected:
             raise ValueError('Missing physical native-to-gateway collection path')
         PhysicalResourceGraph(self.routers, self.lateral_links)
+        from .resources import ResourceBudget
+        if self.resource_budget is None:
+            object.__setattr__(self,'resource_budget',ResourceBudget.from_stack(self))
+        self.resource_budget.validate(self)
 
     @property
     def physical_graph(self): return PhysicalResourceGraph(self.routers, self.lateral_links)

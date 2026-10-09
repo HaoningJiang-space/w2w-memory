@@ -4,6 +4,7 @@ from .memory_wafer import DRAMDomain,MemoryBankGroup,NativePolicy
 from .physical_graph import FabricChannel,WireSegment
 from .vertical_interface import VerticalPort,MemoryGateway,CollectionPath,ExternalPort
 from .wafer_stack import WaferStack
+from .resources import ResourceBudget
 
 
 def from_record(record):
@@ -28,4 +29,5 @@ def from_record(record):
         restore(DRAMDomain,record['dram_domains']),tuple(channels),
         restore(VerticalPort,record['vertical_ports']),restore(MemoryGateway,record['gateways']),
         restore(MemoryBankGroup,record['bank_groups']),restore(CollectionPath,record['collection_paths']),
-        restore(ExternalPort,record['external_ports']),NativePolicy(**record['native_policy']),record['wafer_diameter_um'])
+        restore(ExternalPort,record['external_ports']),NativePolicy(**record['native_policy']),record['wafer_diameter_um'],
+        resource_budget=ResourceBudget(**record['resource_budget']) if 'resource_budget' in record else None)

@@ -52,5 +52,10 @@ class ArchitectureV3(unittest.TestCase):
         self.assertEqual(cell_format(144,128)['fields']['source_router'],8)
         self.assertLessEqual(cell_format(144,128)['sideband_bits'],64)
 
+    def test_split_cannot_duplicate_compute_budget(self):
+        s=vertical_memory()
+        with self.assertRaisesRegex(ValueError,'immutable machine budget'):
+            replace(s,compute_clusters=(*s.compute_clusters,replace(s.compute_clusters[0],id='free_compute')))
+
 
 if __name__=='__main__':unittest.main()

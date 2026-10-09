@@ -10,7 +10,7 @@ def lower(logical, machine, weights, placement, *, streaming_compute=True):
     ops={p.operation:p.cluster for p in placement}
     profiles={c.id:c.profile for c in machine.stack.compute_clusters}
     tasks=[]; work={}
-    objects=tuple(ResidentObject(w.tensor,w.memory,w.offset_bytes,w.size_bytes) for w in weights)
+    objects=tuple(ResidentObject(w.tensor,w.memory,w.offset_bytes,w.size_bytes,storage_id=w.tensor) for w in weights)
     for op in logical.operations:
         cluster=ops[op.id]; profile=profiles[cluster]
         reads=tuple(ReadAccess(name,0,locations[name].size_bytes) for name in op.weight_tensors)

@@ -1,6 +1,39 @@
 """One physical resource ledger; no PPA values are inferred from these proxies."""
-from dataclasses import asdict
+from dataclasses import asdict,dataclass
 from math import ceil
+
+
+@dataclass(frozen=True)
+class ResourceBudget:
+    pes: int
+    macs_per_cycle: int
+    sram_bytes: int
+    native_domains: int
+    dram_capacity_bytes: int
+    hb_data_bits: int
+    gateway_output_bytes_per_cycle: int
+    gateway_staging_bytes: int
+    gateway_descriptor_slots: int
+    routers: int
+    router_input_bytes: int
+    router_injection_bytes: int
+    fabric_data_bits: int
+
+    @classmethod
+    def from_stack(cls,stack):
+        return cls(sum(c.profile.pe_count for c in stack.compute_clusters),
+            sum(c.profile.macs_per_cycle for c in stack.compute_clusters),
+            sum(c.profile.sram_bytes for c in stack.compute_clusters),len(stack.dram_domains),
+            sum(d.capacity_bytes for d in stack.dram_domains),sum(p.data_bits for p in stack.vertical_ports),
+            sum(g.data_bytes_per_cycle for g in stack.gateways),sum(g.staging_bytes for g in stack.gateways),
+            sum(g.descriptor_slots for g in stack.gateways),len(stack.routers),
+            sum(r.input_buffer_bytes*r.port_budget for r in stack.routers),
+            sum(r.injection_buffer_bytes for r in stack.routers),sum(c.data_bits for c in stack.lateral_links))
+
+    def validate(self,stack):
+        actual=ResourceBudget.from_stack(stack)
+        for key,value in asdict(actual).items():
+            if value>getattr(self,key):raise ValueError(f'Physical {key} exceeds immutable machine budget; declare and charge a new budget')
 
 
 def inventory(stack):
@@ -10,6 +43,7 @@ def inventory(stack):
     access=[dict(gateway=g.id,length_um=sum(abs(a-b) for a,b in zip(g.position_um,routers[g.router_id].position_um)),
         data_bits=g.data_bytes_per_cycle*8,pipeline_cycles=g.router_access_cycles) for g in stack.gateways]
     return dict(schema='w2w.physical-resources.v3',
+        resource_budget=asdict(stack.resource_budget),
         compute=dict(clusters=len(clusters), pes=sum(c.profile.pe_count for c in clusters),
             macs_per_cycle=sum(c.profile.macs_per_cycle for c in clusters),
             vector_ops_per_cycle=sum(c.profile.vector_ops_per_cycle for c in clusters),
