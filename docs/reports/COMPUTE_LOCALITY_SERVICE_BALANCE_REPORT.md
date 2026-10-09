@@ -220,6 +220,8 @@ BookSim二进制SHA256为`967ef5337da32d6d8be2eb16a20205afeccff212c817964b436256
 [旋转分析](../../artifacts/results/system/service_balance/rotation/analysis.json.gz) ·
 [RR负结果](../../artifacts/results/system/service_balance/controller_rr/analysis.json.gz) ·
 [row-batched分析](../../artifacts/results/system/service_balance/controller_row/analysis.json.gz)。
+[归档完成核验](../../artifacts/provenance/service_balance/closure-verification.json)另检查54个归档
+与原始文件SHA、旧四项输入指纹、新策略实际native config/二进制/图一致性及编译供数。
 压缩文件是原输入/摘要/分析的精确gzip，SHA256可核对；原始完整事件、二进制与
 环境留服务器。旧报告与旧输入保持原身份。
 
