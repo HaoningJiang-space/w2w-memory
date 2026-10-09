@@ -217,7 +217,7 @@ class SystemExecution:
             if copy['prefix']==copy['size']:
                 if not complete:raise RuntimeError('Source SRAM read completed without full NI supply')
                 del row['copy']
-                self.active_edges.remove(key)
+                if row['sent']==edge.size_bytes:self.active_edges.remove(key)
         for src in used:self.sram_read_cycles[src]+=1
 
     def _read_issue(self):

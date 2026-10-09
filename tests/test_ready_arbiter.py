@@ -15,6 +15,7 @@ class ReadyArbiter(unittest.TestCase):
             stack=vertical_memory('central');spec=compile_machine(stack)
             with tempfile.TemporaryDirectory() as d:
                 nodes,path=compile_booksim(stack.physical_graph,spec,Path(d)/'config')
+                (Path(d)/'runtime').mkdir()
                 client=BoundaryBookSim(Path(os.environ['W2W_BOOKSIM_BINARY']),path,Path(d)/'runtime',flit_bytes=128)
                 try:
                     client.configure(rx_slots=256,bounded=True,streaming=True,ready_nodes=(0,) if ready else (),ready_slots=2 if ready else 0)
