@@ -71,8 +71,9 @@ def run_case(output, name, source, binary):
     case = next(c for c in registration['cases'] if c['name'] == name)
     graph, metadata = compile_layer(cohort=case['cohort'], residency=case['policy'])
     record = json.loads((output/'inputs'/(name+'.json')).read_text())
-    if (digest(record) != case['input_sha256'] or record != dict(graph=asdict(graph), metadata=metadata)
-            or asdict(machine()) != registration['spec']):
+    if (digest(record) != case['input_sha256']
+            or digest(dict(graph=asdict(graph), metadata=metadata)) != case['input_sha256']
+            or digest(asdict(machine())) != digest(registration['spec'])):
         raise ValueError('Registered input/machine changed')
     directory = output/'cases'/name
     directory.mkdir(parents=True, exist_ok=False)

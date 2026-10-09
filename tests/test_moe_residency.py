@@ -18,8 +18,8 @@ class MoEResidencyTest(unittest.TestCase):
         with gzip.open(root/'registration.json.gz', 'rt') as handle:
             registration = json.load(handle)
         graph, _ = compile_layer()
-        self.assertEqual(asdict(graph), previous['graph'])
-        self.assertEqual(asdict(machine()), registration['cases'][0]['spec'])
+        self.assertEqual(json.loads(json.dumps(asdict(graph))), previous['graph'])
+        self.assertEqual(json.loads(json.dumps(asdict(machine()))), registration['cases'][0]['spec'])
 
     def test_frozen_all_expert_layout_and_equal_work(self):
         layouts = {}
