@@ -65,6 +65,7 @@ class SystemExecution:
                                 iterator=iter(words_for_task(t, graph, self.builder))) for t in graph.tasks}
         self.edges = {e.id: dict(edge=e, sent=0, delivered=0) for e in graph.data}
         self.requests = {}
+        self.memory_candidates=set()
         self.packet_info = {}
         self.sram = Counter()
         self.sram_peak = Counter()
@@ -134,11 +135,14 @@ class SystemExecution:
                 self.mc_pool_peak[pool]=max(self.mc_pool_peak[pool],self.mc_pool_slots[pool])
                 self.mc_peak[req.memory] = max(self.mc_peak[req.memory], self.mc_slots[req.memory])
                 row['stage'] = 'native_wait' if self.native_at_controller else 'command_send'
+                self.memory_candidates.add(key)
                 self.log('mc_accept', request=key, memory=req.memory)
             elif kind == 'command':
                 row['stage'] = 'native_wait'
+                self.memory_candidates.add(key)
             elif kind == 'hb_return':
                 row['stage'] = 'response_send'
+                self.memory_candidates.add(key)
             elif kind == 'response':
                 row['stage'] = 'delivered'
                 self.state[req.task]['read_bytes'] += req.size_bytes
@@ -324,7 +328,11 @@ class SystemExecution:
                     bytes=total,weight_bytes=stream.weight_data_bytes,scale_bytes=stream.scale_bytes)
 
     def _memory_progress(self, network_boundary):
-        for key in sorted(self.requests):
+        # Only admission retries and newly changed return prefixes can act.
+        # Preserve the original lexicographic ordering of that active subset.
+        native_boundary=self.now%self.spec.dram_period_ps==0
+        for key in sorted(k for k in self.memory_candidates
+                          if self.requests[k]['stage']!='native_wait' or native_boundary):
             row = self.requests[key]
             req = row['request']
             mc = self.builder.memories[req.memory].home_tile
@@ -336,6 +344,7 @@ class SystemExecution:
             if stage == 'native_wait':
                 if self.native.submit(req, self.now):
                     row['stage'] = 'native_pending'
+                    self.memory_candidates.remove(key)
                     if self.streaming:
                         row.update(native_started=True,native_done=False,ready_mask=0,prefix=0,
                                    response_admitted=False,mc_released=False)
@@ -343,12 +352,15 @@ class SystemExecution:
             elif network_boundary and stage == 'command_send':
                 if self._send(key+'/cmd', mc, req.memory, 'request', 0, 'command', key):
                     row['stage'] = 'command_flight'
+                    self.memory_candidates.remove(key)
             elif network_boundary and stage == 'hb_send':
                 if self._send(key+'/hb', req.memory, mc, 'response', req.size_bytes, 'hb_return', key):
                     row['stage'] = 'hb_flight'
+                    self.memory_candidates.remove(key)
             elif network_boundary and stage == 'response_send':
                 if self._send(key+'/resp', mc, req.requester, 'response', req.size_bytes, 'response', key):
                     row['stage'] = 'response_flight'
+                    self.memory_candidates.remove(key)
                     # Data copied into a finite NI. MC transaction/return slot is now reusable.
                     self._release_mc(req)
                     self.log('mc_release', request=key, memory=req.memory)
@@ -372,6 +384,7 @@ class SystemExecution:
             self.packet_info[packet_key] = 'response',key,req.size_bytes
         supplied=self.network.supply_prefix(packet_key,row['prefix'],self.now)
         row['response_prefix']=row['prefix']
+        self.memory_candidates.discard(key)
         if supplied:
             if not row['native_done']:
                 raise RuntimeError('Response supplied before all native words completed')
@@ -403,8 +416,10 @@ class SystemExecution:
                 if not row['ready_mask']:
                     self.log('native_first_ready',request=key)
                 row['ready_mask'] |= bit
+                prefix=row['prefix']
                 while row['prefix'] < req.size_bytes and row['ready_mask'] & (1 << (row['prefix']//atom)):
                     row['prefix'] += atom
+                if row['prefix']!=prefix:self.memory_candidates.add(key)
         for key in complete:
             if key not in self.requests:
                 raise RuntimeError('Unknown native completion')
@@ -417,6 +432,7 @@ class SystemExecution:
                 if row['stage'] != 'native_pending':
                     raise RuntimeError('Repeated or unknown native callback')
                 row['stage'] = 'response_send' if self.native_at_controller else 'hb_send'
+                self.memory_candidates.add(key)
             self.log('native_ready',request=key)
 
     def _start_compute(self):

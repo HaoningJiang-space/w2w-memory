@@ -7,6 +7,7 @@ from w2w.system.builder import SystemBuilder
 def screen(machine,graph,metadata):
     builder=SystemBuilder(machine).validate_graph(graph)
     objects={o.id:o for o in graph.objects};groups={g.id:g for g in machine.stack.bank_groups}
+    tasks={t.id:t for t in graph.tasks}
     domain_bytes=Counter();gateway_bytes=Counter();rx=Counter();inject=Counter();cuts=Counter()
     routers={r.id:r for r in machine.routers};byte_hops=0;remote_weights=0
     def transfer(src,dst,payload):
@@ -32,8 +33,7 @@ def screen(machine,graph,metadata):
                 transfer(task.tile,memory.home_tile,0);transfer(memory.home_tile,task.tile,size)
             if machine.endpoint_router(task.tile)!=machine.endpoint_router(memory.home_tile):remote_weights+=access.size_bytes
     for edge in graph.data:
-        src=builder.tasks[edge.producer].tile if hasattr(builder,'tasks') else next(t.tile for t in graph.tasks if t.id==edge.producer)
-        dst=next(t.tile for t in graph.tasks if t.id==edge.consumer)
+        src=tasks[edge.producer].tile;dst=tasks[edge.consumer].tile
         rx[dst]+=edge.size_bytes
         for offset in range(0,edge.size_bytes,machine.packet_payload_bytes):transfer(src,dst,min(machine.packet_payload_bytes,edge.size_bytes-offset))
     domains={d.id:d for d in machine.stack.dram_domains};gateways={g.id:g for g in machine.stack.gateways}
