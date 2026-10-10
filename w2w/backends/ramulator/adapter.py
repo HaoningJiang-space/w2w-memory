@@ -232,6 +232,7 @@ class VerticalRWDL:
 
     def record(self):
         record=self.backend.record()
+        record['native_service_scope']=record.get('scope')
         record.update(kind='ramulator_vertical_domains_v3',boundary=self.boundary,streaming=True,
             physical_domain_count=len(self.domains),physical_capacity_bytes=sum(d.capacity_bytes for d in self.domains.values()),
             grouped_descriptors_accepted=self.accepted,grouped_descriptors_completed=self.completed,
@@ -243,7 +244,7 @@ class VerticalRWDL:
             reservation_stall_attempts=self.reservation_stalls,queue_stall_attempts=self.queue_stalls,
             collection_atom_ps=self.collection_atom_ps,cdc_atom_ps=self.cdc_atom_ps,
             gateway_total_atom_ps=self.gateway_atom_ps,pool_peak=dict(self.pool_peak),
-            scope='physical native domains counted once; finite reservations through physical transport; assumed array timing')
+            scope=f'{len(self.domains)} physical {self.capacity*8//1024**2}-Mbit native domains counted once; finite reservations through physical transport; assumed array timing')
         record['request_control']=dict(enabled=self.request_control,command_bytes_per_domain_descriptor=16,
             ack_bytes_per_domain_descriptor=8,tx_limits=dict(self.tx_limits),domain_descriptor_entries=32,
             queue_peak=dict(self.command_peak),domain_queue_peak=dict(self.domain_descriptor_peak),ack_queue_peak=dict(self.ack_peak),
