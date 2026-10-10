@@ -7,7 +7,7 @@ from w2w.architecture.compiler import compile_machine
 from w2w.architecture.resources import inventory
 from w2w.workloads.routing_input import load_workload
 from w2w.workloads.moe import build_moe
-from w2w.mapping.static_weights import static_weights,POLICIES
+from w2w.mapping.static_weights import static_weights,POLICIES,ABLATIONS
 from w2w.mapping.compute_placement import place_compute
 from w2w.mapping.lowering import lower
 from w2w.mapping.sequence import lower_sequence
@@ -51,7 +51,11 @@ def inputs(policy,mode):
     return machine,graph,cache,record
 
 
-def prepare(output,mode,policies):
+def prepare(output,mode,policies,reference_case='reference'):
+    if reference_case not in policies:raise ValueError('Comparison reference must be registered')
+    if any(p in ABLATIONS for p in policies):
+        if mode!='cold' or set(policies)!=set(('hybrid',*ABLATIONS)) or reference_case!='hybrid':
+            raise ValueError('Controlled gate/up intervention requires a cold Hybrid pair')
     output.mkdir(parents=True,exist_ok=False);(output/'inputs').mkdir()
     rows={};first=None;signatures={};aliases={}
     for policy in policies:
@@ -66,7 +70,13 @@ def prepare(output,mode,policies):
         with gzip.open(output/'inputs'/f'{policy}.json.gz','wt') as f:json.dump(data,f)
         rows[policy]=dict(input_sha256=digest(data),weight_layout_sha256=signature,
             screen=data.get('screen'),alias_of=aliases.get(policy))
+    if any(p in ABLATIONS for p in policies):
+        baseline=json.load(gzip.open(output/'inputs/hybrid.json.gz','rt'))
+        changed=json.load(gzip.open(output/'inputs/hybrid-gate-up-striped.json.gz','rt'))
+        down=lambda data:[w for w in data['weights'] if w['tensor'].endswith('/down')]
+        if down(baseline)!=down(changed):raise ValueError('Ablation changed frozen down layout')
     write_json(output/'registration.json',dict(schema='w2w.static-placement-study.v1',source_commit=revision(),mode=mode,
+        reference_case=reference_case,
         cases=rows,fixed_invariants_sha256=digest(first),max_ps=60000000000 if mode=='multilayer' else 6000000000,
         selection_contract='cold screening after catalog-only placement is frozen; full executions decide performance; no candidate selected using the multilayer trace',
         scope='fixed distributed vertical architecture, memory-only weight layout; FFN timing proxy, not a numerical or complete Transformer evaluation'))
@@ -105,10 +115,11 @@ def run(output,case,binary):
 
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',type=Path,required=True)
-    action=p.add_mutually_exclusive_group(required=True);action.add_argument('--prepare',action='store_true');action.add_argument('--case',choices=POLICIES)
-    p.add_argument('--mode',choices=('cold','multilayer'),default='cold');p.add_argument('--policies',nargs='+',choices=POLICIES,default=list(POLICIES))
+    action=p.add_mutually_exclusive_group(required=True);action.add_argument('--prepare',action='store_true');action.add_argument('--case',choices=POLICIES+ABLATIONS)
+    p.add_argument('--mode',choices=('cold','multilayer'),default='cold');p.add_argument('--policies',nargs='+',choices=POLICIES+ABLATIONS,default=list(POLICIES))
+    p.add_argument('--reference-case',choices=POLICIES,default='reference')
     p.add_argument('--booksim-binary',type=Path,default=os.getenv('W2W_BOOKSIM_BINARY'));args=p.parse_args()
-    if args.prepare:prepare(args.output,args.mode,args.policies)
+    if args.prepare:prepare(args.output,args.mode,args.policies,args.reference_case)
     elif args.booksim_binary:run(args.output,args.case,args.booksim_binary)
     else:p.error('Native BookSim binary required')
 

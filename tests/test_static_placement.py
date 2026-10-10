@@ -28,5 +28,18 @@ class StaticPlacement(unittest.TestCase):
                              [(o.id,o.size_bytes,o.storage_id) for o in graphs[0].objects])
         self.assertNotEqual(graphs[2].objects,graphs[0].objects)
 
+    def test_gate_up_intervention_preserves_down_addresses_and_locked_objects(self):
+        stack=vertical_memory();logical=build_moe(((0,),),experts=4,topk=1,intermediate=512)
+        hybrid=static_weights(logical,stack,'hybrid')
+        changed=static_weights(logical,stack,'hybrid-gate-up-striped')
+        self.assertEqual([w for w in hybrid if w.tensor.endswith('/down')],
+                         [w for w in changed if w.tensor.endswith('/down')])
+        self.assertTrue(any(a.memory!=b.memory for a,b in zip(hybrid,changed)))
+        for a,b in zip(hybrid,changed):
+            if a.memory==b.memory:self.assertEqual(a,b)
+        for memory in {w.memory for w in changed}:
+            intervals=sorted((w.offset_bytes,w.offset_bytes+w.size_bytes) for w in changed if w.memory==memory)
+            self.assertTrue(all(a[1]<=b[0] for a,b in zip(intervals,intervals[1:])))
+
 
 if __name__=='__main__':unittest.main()

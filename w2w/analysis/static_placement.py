@@ -72,11 +72,17 @@ def analyze(source):
             files[str(path.relative_to(source))]=dict(bytes=path.stat().st_size,sha256=h.hexdigest())
     if len({(r['booksim_sha256'],r['bridge_sha256']) for r in rows.values()})!=1:raise ValueError('Placement cases used different native tools')
     if reg['mode']=='cold' and len({r['audit']['native_bytes'] for r in rows.values()})!=1:raise ValueError('Cold placement changed read work')
-    reference=rows['reference']['makespan_ps']
+    reference_case=reg.get('reference_case','reference')
+    if reference_case not in rows:raise ValueError('Registered comparison reference is not executed')
+    if 'hybrid-gate-up-striped' in rows:
+        down=lambda case:[w for w in inputs[case]['weights'] if w['tensor'].endswith('/down')]
+        if reference_case!='hybrid' or down('hybrid')!=down('hybrid-gate-up-striped'):
+            raise ValueError('Controlled comparison changed Hybrid down physical addresses')
+    reference=rows[reference_case]['makespan_ps']
     for case,row in rows.items():row['completion_reduction_vs_reference_percent']=100*(1-row['makespan_ps']/reference)
-    selected=min((k for k in rows if k!='reference'),key=lambda k:(rows[k]['makespan_ps'],k)) if len(rows)>1 else 'reference'
+    selected=min((k for k in rows if k!=reference_case),key=lambda k:(rows[k]['makespan_ps'],k)) if len(rows)>1 else reference_case
     return dict(schema='w2w.static-placement-analysis.v1',passed=True,execution_source_commit=reg['source_commit'],analysis_source_commit=revision(),
-        mode=reg['mode'],cases=rows,files=files,selected_nonreference=selected,best_overall=min(rows,key=lambda k:rows[k]['makespan_ps']),
+        mode=reg['mode'],reference_case=reference_case,cases=rows,files=files,selected_nonreference=selected,best_overall=min(rows,key=lambda k:rows[k]['makespan_ps']),
         aliases={k:v['alias_of'] for k,v in reg['cases'].items() if v['alias_of']},
         limits=['catalog-only static policies; no dynamic mapping or optimality claim','same compute and initial cache does not guarantee same later misses: report observed traffic',
             'FFN-only timing proxy and declared physical resource budgets; not calibrated PPA','service/pressure counters overlap and are not an additive stall decomposition'])
