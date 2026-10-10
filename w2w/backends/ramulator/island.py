@@ -16,6 +16,8 @@ class NativeMemoryIsland(VerticalRWDL):
                 or spec.stack.external_ports or spec.noc_period_ps!=1000
                 or spec.dram_period_ps!=3760 or spec.flit_bytes!=128 or spec.header_bytes!=16):
             raise ValueError('Memory island requires the registered one-domain/one-Gateway machine')
+        if backend.domain_count!=1 or backend.native_cycle or backend.pending:
+            raise ValueError('Island requires a fresh one-domain native backend')
         super().__init__(spec,backend=backend,request_control=True)
         bridge,_=load_bridge();constructor=getattr(bridge,'MemoryServiceIsland',None)
         if constructor is None:raise ValueError('Build the reviewed memory-island bridge')
@@ -27,6 +29,7 @@ class NativeMemoryIsland(VerticalRWDL):
             policy=spec.stack.native_policy.descriptor_policy,gateway_atoms=gateway.data_bytes_per_cycle//16,
             flit_bytes=128,header_bytes=16))
         self.identities={};self.names={};self.history={};self.host_advances=0
+        self.next_internal_ps=0;self.native_advances=0
 
     def submit(self,req,now):
         if now%self.period_ps:return False
@@ -38,10 +41,19 @@ class NativeMemoryIsland(VerticalRWDL):
         identity=len(self.identities)
         if not self.impl.submit(identity,req.size_bytes,address,now):return False
         self.identities[req.id]=identity;self.names[identity]=req.id;self.history[req.id]=req
+        # A submitted command may add an earlier frontend boundary. Taking one
+        # conservative native call next time refreshes that certificate.
+        self.next_internal_ps=now
         return True
 
     def _advance(self,now,until):
-        row=self.impl.advance(now,until);self.last_ps=row['stop_ps'];self.host_advances+=1
+        if now<self.last_ps:raise ValueError('Nonmonotonic island time')
+        self.host_advances+=1
+        if not until and self.last_ps<=now<self.next_internal_ps:
+            self.last_ps=now;self.ready_times=[]
+            return now,[]
+        row=self.impl.advance(now,until);self.last_ps=row['stop_ps'];self.native_advances+=1
+        self.next_internal_ps=row['next_internal_ps']
         self.ready.extend((self.names[key],offset,16) for key,offset,at in row['ready'])
         self.ready_times=[(self.names[key],offset,at) for key,offset,at in row['ready']]
         self.native_events.extend(self._event(event) for event in row['events'])
@@ -92,5 +104,5 @@ class NativeMemoryIsland(VerticalRWDL):
     def coordination_record(self):
         r=self.impl.ledger()
         return dict(schema=1,kind='one_domain_native_memory_service',
-            host_advances=self.host_advances,internal_frontend_steps=r['steps'],dram_ticks=r['dram_ticks'],
+            host_advances=self.host_advances,native_advances=self.native_advances,internal_frontend_steps=r['steps'],dram_ticks=r['dram_ticks'],
             contract='original internal clock union; callbacks, finite reservations, control and Gateway native; all NoC and external descriptor boundaries retained')

@@ -29,6 +29,13 @@ are delegated to the island. It does not claim demand-aware BookSim advancement
 or a scheduler that wakes exclusively on flit supply. Native internal ticks and
 frontend steps are reported separately from system iterations.
 
+The first port-only attempt still called Native on every host wake and produced
+no wall-time benefit despite fewer system iterations. Its gate is preserved.
+The bounded revision uses a state-derived next internal boundary (array tick,
+pending frontend event, or nonempty Gateway service) to avoid empty calls and
+empty logic phases. An external submission invalidates that certificate. No
+future callback time is assumed, and no DRAM/refresh tick is removed.
+
 Component accuracy compares timestamped ready atoms, complete control evidence,
 finite resource records and all Ramulator commands/stats to ordinary
 `VerticalRWDL`. System accuracy also requires physical events/results, endpoint

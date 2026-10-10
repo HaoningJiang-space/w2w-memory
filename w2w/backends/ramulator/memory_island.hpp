@@ -152,14 +152,19 @@ class MemoryServiceIsland {
     ++host_calls;observable=false;
     if(!begun) {begun=true;phase(0);}
     while(now<target) {
-      U next=std::min((now/dram+1)*dram,(now/logic+1)*logic);
+      U next=(now/dram+1)*dram;
+      if(!aggregate.empty())next=std::min(next,(now/logic+1)*logic);
       if(!future.empty())next=std::min(next,future.top()[0]);
       next=std::min(next,target);phase(next);
       if(until_observable && observable)break;
     }
     nb::dict out;out["stop_ps"]=now;
     out["ready"]=nb::cast(std::exchange(ready,{}));out["complete"]=nb::cast(std::exchange(done,{}));
-    out["events"]=nb::cast(std::exchange(logs,{}));out["observable"]=observable;return out;
+    out["events"]=nb::cast(std::exchange(logs,{}));out["observable"]=observable;
+    U due=(now/dram+1)*dram; // never predict or omit an array/refresh tick
+    if(!aggregate.empty())due=std::min(due,(now/logic+1)*logic);
+    if(!future.empty())due=std::min(due,future.top()[0]);
+    out["next_internal_ps"]=due;return out;
   }
   nb::dict ledger() const {
     nb::dict r;

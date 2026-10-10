@@ -81,5 +81,5 @@ class MemoryIslandTests(unittest.TestCase):
                 with self.assertRaises(ValueError):island.submit(req,3760)
                 island.advance(3760);self.assertTrue(island.submit(req,3760))
                 with self.assertRaises(ValueError):island.submit(req,3760)
-                with self.assertRaises(RuntimeError):island.advance(3000)
+                with self.assertRaises(ValueError):island.advance(3000)
             finally:b.close()
