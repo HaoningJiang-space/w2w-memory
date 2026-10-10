@@ -48,3 +48,9 @@ execution wall, process CPU (including synchronous native DRAM), BookSim child
 CPU, RSS, host wakes and frontend steps. Counts are not converted to a promised
 speedup. If event equality or performance fails, preserve and report the failure;
 do not broaden to FFN or a second island.
+
+The bounded revision adds one length control: the continuous input's weight
+stream increases from 8 KiB to 64 KiB on the same machine/path. Three repeats of
+ordinary/port-only/coordinated Full give 36 workers in the final gate. This is a
+service-length check, not a new placement policy. Readback must also reject
+seven saved-record corruptions after the positive native pairs pass.

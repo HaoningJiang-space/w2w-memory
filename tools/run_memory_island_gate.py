@@ -26,7 +26,7 @@ def worker(out,case,mode,binary):
     from w2w.backends.booksim.adapter import factory
     from w2w.backends.booksim.runtime.online_booksim import OnlineBookSim
     from w2w.system.kernel import execute_system
-    spec,graph=inputs(case);out.mkdir(exist_ok=False)
+    spec,graph=inputs('continuous',65536) if case=='continuous-long' else inputs(case);out.mkdir(exist_ok=False)
     write(out/'input.json',dict(spec=asdict(spec),graph=asdict(graph),max_ps=100000000,
         operand_readiness='contiguous_prefix',compute_contexts=1))
     hashes=hashlib.sha256();counts=dict(mutations=0,progress=0,completed=0)
@@ -104,7 +104,7 @@ def analyze(root):
             raise ValueError('Worker summary differs from raw result')
         actual_input=read(path/'input.json')
         from tools.memory_island_inputs import inputs
-        spec,graph=inputs(row['case'])
+        spec,graph=inputs('continuous',65536) if row['case']=='continuous-long' else inputs(row['case'])
         if (actual_input['spec']!=json.loads(json.dumps(asdict(spec)))
                 or actual_input['graph']!=json.loads(json.dumps(asdict(graph)))):
             raise ValueError('Worker changes physical inputs')
@@ -115,13 +115,19 @@ def analyze(root):
         row['wakes']=wakes
         groups.setdefault(row['case'],[]).append((semantic,row))
         rows.append(dict(row,worker_wall_seconds=process['wall_seconds']))
-    expected={(case,rep,mode) for case in ('continuous','pressure','inserted')
+    expected={(case,rep,mode) for case in ('continuous','pressure','inserted','continuous-long')
         for rep in range(3) for mode in ('off','native','coordinated')}
     identities={(read(p/'worker.json')['case'],read(p/'process.json')['repetition'],read(p/'worker.json')['mode']) for p in root.glob('run-*')}
     if identities!=expected or len(rows)!=len(expected):raise ValueError('Missing or repeated worker identity')
     checks=[]
     for case,items in groups.items():
         baseline=next((value,row) for value,row in items if row['mode']=='off')
+        from w2w.validation.memory_island import audit_memory_island_pair
+        # Reload the original saved pair, including the producer's update totals.
+        reference=json.load(gzip.open(root/f'run-{case}-0-off/result.json.gz','rt'))
+        for path in root.glob(f'run-{case}-*'):
+            candidate=json.load(gzip.open(path/'result.json.gz','rt'))
+            audit_memory_island_pair(candidate,reference,read(path/'wakeups.json'),baseline[1]['wakes'])
         r=baseline[0];periods={r['spec']['noc_period_ps'],r['spec']['dram_period_ps'],*(t['compute_period_ps'] for t in r['spec']['tiles'])}
         clocks=sorted({at for p in periods for at in range(0,r['drained_ps']+1,p)})
         if baseline[1]['wakes']!=clocks:raise ValueError('Ordinary clock union differs')
@@ -146,7 +152,7 @@ def analyze(root):
         stored_events=next(row['stored_events'] for row in rows if row['case']=='continuous' and row['mode']==mode)) for mode in ('off','native','coordinated')}
     case_costs={case:{mode:{field:statistics.median(row[field] for row in rows if row['case']==case and row['mode']==mode)
         for field in ('worker_wall_seconds','execution_wall_seconds','python_cpu_seconds','booksim_child_cpu_seconds','peak_rss_kib')}
-        for mode in ('off','native','coordinated')} for case in ('continuous','pressure','inserted')}
+        for mode in ('off','native','coordinated')} for case in ('continuous','pressure','inserted','continuous-long')}
     verified=dict(passed=True,cases=checks,costs=costs,case_costs=case_costs,workers=len(rows),scope='fixed small native system cases; no FFN/placement speedup claim')
     if (root/'VERIFIED.json').exists():
         if read(root/'VERIFIED.json')!=verified:raise ValueError('Saved verification differs from independent readback')
@@ -163,7 +169,7 @@ def analyze(root):
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('output',type=Path)
     parser.add_argument('--binary',type=Path);parser.add_argument('--worker',choices=('off','native','coordinated'))
-    parser.add_argument('--case',choices=('continuous','pressure','inserted'));parser.add_argument('--readback',action='store_true')
+    parser.add_argument('--case',choices=('continuous','pressure','inserted','continuous-long'));parser.add_argument('--readback',action='store_true')
     args=parser.parse_args();out=args.output.resolve()
     if platform.node()!='ee4e072' or not out.is_relative_to('/Projects/haoning'):
         raise ValueError('Run on the registered hn072 experiment server')
@@ -177,7 +183,7 @@ def main():
         bridge=os.environ['W2W_RAMULATOR_BRIDGE'],bridge_sha256=digest(os.environ['W2W_RAMULATOR_BRIDGE'])))
     # Source is supplied independently; readback never imports a frozen legacy kernel.
     (out/'source').symlink_to(REPO,target_is_directory=True)
-    cells=[(case,rep,mode) for case in ('continuous','pressure','inserted')
+    cells=[(case,rep,mode) for case in ('continuous','pressure','inserted','continuous-long')
         for rep in range(3) for mode in ('off','native','coordinated')]
     random.Random(20261010).shuffle(cells)
     for case,rep,mode in cells:
