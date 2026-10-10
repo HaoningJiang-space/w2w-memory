@@ -143,6 +143,37 @@ is treated as a local route. Analysis/test-only worktree `analysis-concurrent-fi
 at `807c62a` passed stage regressions and retained all gateway time series without
 new simulation. All study/monitor logs and raw hash-bound files remain archived.
 
+## Matrix service continuation
+
+The [matrix-service protocol](reports/MATRIX_SERVICE_PROTOCOL.md) registers the
+S1 Reference/Phase-Split 24-token two-layer pair at `9160207`. Both native workers
+run under `/Projects/haoning/w2w-full-system-matrix-service-20261010` in
+`concurrent-hierarchy-r1`; `hierarchy-monitor-r1.log` checks each minute and runs
+independent audit/stage analysis after both completions, without automatic
+retries. No S1 cached result is complete yet. Fixed Reference compute placement,
+initial L0 cache contents/order and physical resources are retained. Optional
+compute-epoch and interactive acceleration are disabled in these executions.
+Eleven relevant remote tests pass, including native S1 hits/evictions/reloads
+and fetch/cache drain; the default S0 sequence input fingerprint is unchanged.
+
+The fixed-slot probe at `9fbb4db` is complete: twelve native cells cross D0/D1
+release, ordered/round-robin issue and Reference/Hybrid/Phase-Split. All have two
+funded fetch slots, two shared-service contexts and identical 9,439,488 native
+bytes/124 tasks/128 physical domains. D0 is not old unbounded-fetch S0. Hybrid's
+dependency effect changes from −1.502 µs under ordered issue to +1.094 µs under
+round-robin; Phase-Split improves under both. Independent readbacks preserve
+all prior metrics and add exact finite-slot ownership at `d2b4893`. The two
+experts are a post-hoc contention fixture, not independent routing validation.
+Registrations, raw hashes and saved-result audits are in
+`artifacts/provenance/matrix_service`.
+
+Next: finish the registered cached pair, report late-window and actual traffic
+even if counts differ, then use bounded ownership evidence to design any Down
+prefetch/fragment mechanism. Two whole-matrix fetch slots cannot simultaneously
+hold Gate, Up and Down. A 32/16 intermediate fragment must retain the original
+128×128 scales, paired Down storage layout and numerical accumulation contract;
+do not merely change `block_width` or create free lanes/contexts.
+
 ## Interactive compute finding
 
 The small [interactive-prefix gate](reports/INTERACTIVE_COMPUTE_REPORT.md) at

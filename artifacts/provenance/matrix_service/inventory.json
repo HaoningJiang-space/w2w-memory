@@ -1,0 +1,123 @@
+{
+  "schema": "w2w.matrix-service-inventory.v1",
+  "archive_host": "hn072",
+  "archive_root": "/Projects/haoning/w2w-full-system-matrix-service-20261010",
+  "finite_cache_pair": {
+    "state_at_publication": "running; no completed performance result",
+    "execution_source_commit": "91602079022e7cd34289eff214a1ac533af42354",
+    "study": "/Projects/haoning/w2w-full-system-matrix-service-20261010/concurrent-hierarchy-r1",
+    "worker_logs": [
+      "logs/hierarchy-reference-r1.log",
+      "logs/hierarchy-phase-split-r1.log"
+    ],
+    "monitor_log": "logs/hierarchy-monitor-r1.log",
+    "expected_analysis": "hierarchy-analysis-r1/placement-analysis.json",
+    "automatic_retries": 0,
+    "execution_contract": "S1; prefix operands; two funded fetch slots; two shared compute contexts; same finite cache preload and physical resources; compute-epoch and interactive acceleration off"
+  },
+  "factor_probe": {
+    "state": "complete; twelve native cases independently audited",
+    "execution_source_commit": "9fbb4dbbf69bc0dc8b09860b9f5035821435e1d9",
+    "analysis_source_commit": "d2b48932894593bb185119025fbd1fa54fdc90f3",
+    "native_tools": [
+      "9d18611aa0cc74b6d8a475e302134c7888b1417648607abce3a6f8d04311e308",
+      "37eb00768993fb5cfd903c690e72a21cdc69e10f4acbc421762f54dc5a33ba54"
+    ],
+    "raw": {
+      "d0-ordered-reference": {
+        "path": "/Projects/haoning/w2w-full-system-matrix-service-20261010/fetch-factor-r1/cases/d0-ordered-reference/result.json.gz",
+        "sha256": "48c940d9e2f3b4ebf4cc16759229ab30c28c04b8da1df60246813bde96767424"
+      },
+      "d0-round_robin-reference": {
+        "path": "/Projects/haoning/w2w-full-system-matrix-service-20261010/fetch-factor-r1/cases/d0-round_robin-reference/result.json.gz",
+        "sha256": "d757bacaa0ff25da018e216197d94098c15739235aa4188ed0138ff4ca5b442e"
+      },
+      "d1-ordered-reference": {
+        "path": "/Projects/haoning/w2w-full-system-matrix-service-20261010/fetch-factor-r1/cases/d1-ordered-reference/result.json.gz",
+        "sha256": "d36110368eaaaf8e5cd3536652870ad2704fe708c95ba453fe96b1b9862ca7de"
+      },
+      "d1-round_robin-reference": {
+        "path": "/Projects/haoning/w2w-full-system-matrix-service-20261010/fetch-factor-r1/cases/d1-round_robin-reference/result.json.gz",
+        "sha256": "c5ec7a8bda14d00470d638ece11dbdb431e1dfad1f3d76502b2b9af81ec0bda3"
+      },
+      "d0-ordered-hybrid": {
+        "path": "/Projects/haoning/w2w-full-system-matrix-service-20261010/fetch-factor-r1/cases/d0-ordered-hybrid/result.json.gz",
+        "sha256": "0bc6a169277a90d02e52b2913f193636ef7d6118e1324780900cabef261c8bd2"
+      },
+      "d0-round_robin-hybrid": {
+        "path": "/Projects/haoning/w2w-full-system-matrix-service-20261010/fetch-factor-r1/cases/d0-round_robin-hybrid/result.json.gz",
+        "sha256": "67053127885b888682ed886ef9419ae145bfec442300779d1837a8cf50f93c4c"
+      },
+      "d1-ordered-hybrid": {
+        "path": "/Projects/haoning/w2w-full-system-matrix-service-20261010/fetch-factor-r1/cases/d1-ordered-hybrid/result.json.gz",
+        "sha256": "3c90b42629304c1deca9c2349d351b9a7cdf3d34ef3f302933c128a0f8e01d65"
+      },
+      "d1-round_robin-hybrid": {
+        "path": "/Projects/haoning/w2w-full-system-matrix-service-20261010/fetch-factor-r1/cases/d1-round_robin-hybrid/result.json.gz",
+        "sha256": "944719457536098408d82aab674222995fba2506294ac8eb3e2eda48518aae8e"
+      },
+      "d0-ordered-phase-split": {
+        "path": "/Projects/haoning/w2w-full-system-matrix-service-20261010/fetch-factor-r1/cases/d0-ordered-phase-split/result.json.gz",
+        "sha256": "b414f7d197325e7a0f43bfee6dee59d1632d9103badcb973a29085853ec9f01d"
+      },
+      "d0-round_robin-phase-split": {
+        "path": "/Projects/haoning/w2w-full-system-matrix-service-20261010/fetch-factor-r1/cases/d0-round_robin-phase-split/result.json.gz",
+        "sha256": "1ac0a6d03e71a03a45abe0bb8effcb01acb8df5cd982268dbbe8f9eb7815013f"
+      },
+      "d1-ordered-phase-split": {
+        "path": "/Projects/haoning/w2w-full-system-matrix-service-20261010/fetch-factor-r1/cases/d1-ordered-phase-split/result.json.gz",
+        "sha256": "6ea1a986492f06d42b577d404fa7809d3ab3d141d89925abd3a03ed01acac9b2"
+      },
+      "d1-round_robin-phase-split": {
+        "path": "/Projects/haoning/w2w-full-system-matrix-service-20261010/fetch-factor-r1/cases/d1-round_robin-phase-split/result.json.gz",
+        "sha256": "d521d069a26bd15800bcc839c14c683863a34491dd0aedf5191a389d1297c415"
+      }
+    },
+    "contract": "Fixed two funded fetch slots in every cell; post-hoc contention fixture, not independent routing evidence; full catalog placement frozen before execution"
+  },
+  "tests": {
+    "execution_source_commit": "91602079022e7cd34289eff214a1ac533af42354",
+    "passed": 11,
+    "modules": [
+      "tests.test_concurrent_service",
+      "tests.test_static_placement",
+      "tests.test_sequence_mapping",
+      "tests.test_weight_cache"
+    ],
+    "remote_log": "logs/hierarchy-regressions-r2.log"
+  },
+  "files": {
+    "hierarchy-registration.json": {
+      "sha256": "cb9055d3ad2c285872f9bd3781ede20a9c886ef98d9f3805630bb81507ae3282",
+      "bytes": 1166
+    },
+    "hierarchy-launch.json": {
+      "sha256": "b4c3e0802723a2ca11a01af920340ccbfb8f97fde0de7df86f8271bde4da3679",
+      "bytes": 608
+    },
+    "fetch-factor-registration.json": {
+      "sha256": "1f2baa8e3fafda5d26504def35349fe0d02b4b51ddcc953446794256e0686130",
+      "bytes": 5921
+    },
+    "fetch-factor-launch.json": {
+      "sha256": "ebc2e7510e3604dcb50d24f461d0ae0a1bbe06a674006fcc6541b40f34386c57",
+      "bytes": 175
+    },
+    "fetch-factor-readback.json": {
+      "sha256": "c6e9f28036b1fb0974e44598850a0208ccf55ba2abfe91878b10b8833c2352a3",
+      "bytes": 628371
+    },
+    "s0-sequence-migration.json": {
+      "sha256": "ac5728e1ff7fae5cd0df959fac50da8c47ef9d666352ea5d069e9f91f9502444",
+      "bytes": 140
+    },
+    "remote-tests.log": {
+      "sha256": "930011a7b1eee3030032a11891d6138e88ad35fb525cdc361ff8dde4fd20e414",
+      "bytes": 202
+    },
+    "fetch-ownership-readback.log": {
+      "sha256": "fde11042d682507f67e3ac42961589cf8ce833aa98c830344f81587ad0148870",
+      "bytes": 84
+    }
+  }
+}

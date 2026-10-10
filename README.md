@@ -53,6 +53,14 @@ Hybrid becomes slower under S1. Matrix placement and finite request scheduling
 interact, rather than overlap or uniform load automatically improving performance.
 This S1 result is cold-only; P4 confirms the separate S0 Hybrid policy.
 
+The [matrix-service continuation](docs/reports/MATRIX_SERVICE_PROTOCOL.md) now
+extends bounded S1 to the registered 24-token finite-cache Reference/Phase-Split
+pair, running in the background without changing hardware budgets. A completed
+12-case native probe fixes two fetch slots and independently crosses release
+dependencies with descriptor issue order. Hybrid improves with independent
+release under ordered issue but regresses under round-robin; Phase-Split improves
+under both. No completed S1 multi-layer speedup is claimed yet.
+
 Builds, tests and execution run in isolated directories on `hn072`; edit source
 locally and synchronize committed revisions through Git. No sibling simulator
 checkout is needed. From the repository root on the execution host:

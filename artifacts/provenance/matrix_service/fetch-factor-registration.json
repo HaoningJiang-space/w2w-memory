@@ -1,0 +1,139 @@
+{
+  "schema": "w2w.fetch-factor-probe.v1",
+  "source_commit": "9fbb4dbbf69bc0dc8b09860b9f5035821435e1d9",
+  "cases": {
+    "d0-ordered-reference": {
+      "input_sha256": "535a6a5c78630baa022e0b7bde7bb7dc3b80796438ae8279decae0c8978c0d4d",
+      "graph_sha256": "47053fa68d920d6e753f84e998483b672715612bc6fe9e24e08f1176ede0ac54",
+      "weight_sha256": "bd39639a9b9c3c127447e653fc3404796156dbfa24984dd0b7fa86728d695650",
+      "settings": {
+        "dependency": "d0",
+        "issue": "ordered",
+        "placement": "reference"
+      }
+    },
+    "d0-round_robin-reference": {
+      "input_sha256": "df87d812b90eab36814e1edf7f127e395867dd65a9afce3070fd0a7d64d5ac2b",
+      "graph_sha256": "47053fa68d920d6e753f84e998483b672715612bc6fe9e24e08f1176ede0ac54",
+      "weight_sha256": "bd39639a9b9c3c127447e653fc3404796156dbfa24984dd0b7fa86728d695650",
+      "settings": {
+        "dependency": "d0",
+        "issue": "round_robin",
+        "placement": "reference"
+      }
+    },
+    "d1-ordered-reference": {
+      "input_sha256": "67cc46dfdf7b91d2f799d4de86d5708b5e1e344193227b6c37339900afce42fb",
+      "graph_sha256": "427ba6493ecffb2ffd24e40c66c77ef1b3d82b2ec865c471a5a93987bb7831c3",
+      "weight_sha256": "bd39639a9b9c3c127447e653fc3404796156dbfa24984dd0b7fa86728d695650",
+      "settings": {
+        "dependency": "d1",
+        "issue": "ordered",
+        "placement": "reference"
+      }
+    },
+    "d1-round_robin-reference": {
+      "input_sha256": "593a05d6c74c5b9fedb7af5b7f74397322fa5fb473a29a21876d0ae913ceab30",
+      "graph_sha256": "427ba6493ecffb2ffd24e40c66c77ef1b3d82b2ec865c471a5a93987bb7831c3",
+      "weight_sha256": "bd39639a9b9c3c127447e653fc3404796156dbfa24984dd0b7fa86728d695650",
+      "settings": {
+        "dependency": "d1",
+        "issue": "round_robin",
+        "placement": "reference"
+      }
+    },
+    "d0-ordered-hybrid": {
+      "input_sha256": "f056760f17c92c1f8f4ccbdbc81a23d4c804c13e18ef380b6c89caf71d69b2e7",
+      "graph_sha256": "f85630caee46e50ece8afa68ce58e306442183052bad7c8be3aa11a02e7ba35d",
+      "weight_sha256": "ab2cd34e8adc9f774d0a515b2b72d9c2425cb2d7102ed980ecb9171a206a9aa4",
+      "settings": {
+        "dependency": "d0",
+        "issue": "ordered",
+        "placement": "hybrid"
+      }
+    },
+    "d0-round_robin-hybrid": {
+      "input_sha256": "19ded1925781926cab03120d432f84685de42723b19f4575bba3357b1636c850",
+      "graph_sha256": "f85630caee46e50ece8afa68ce58e306442183052bad7c8be3aa11a02e7ba35d",
+      "weight_sha256": "ab2cd34e8adc9f774d0a515b2b72d9c2425cb2d7102ed980ecb9171a206a9aa4",
+      "settings": {
+        "dependency": "d0",
+        "issue": "round_robin",
+        "placement": "hybrid"
+      }
+    },
+    "d1-ordered-hybrid": {
+      "input_sha256": "f0dec0931cd63476bf512a9de23e8858fd1af837db8fb4684d8f3114aa0f8757",
+      "graph_sha256": "70d2481bd22c77b70f3dbe10a0c92a712ef8d8ed664e92f01a1703e8b4cd556b",
+      "weight_sha256": "ab2cd34e8adc9f774d0a515b2b72d9c2425cb2d7102ed980ecb9171a206a9aa4",
+      "settings": {
+        "dependency": "d1",
+        "issue": "ordered",
+        "placement": "hybrid"
+      }
+    },
+    "d1-round_robin-hybrid": {
+      "input_sha256": "fa23a2e02758651e3c4475e30bb7cb555a63ed0daa1508d5fd8f49a0722b4a17",
+      "graph_sha256": "70d2481bd22c77b70f3dbe10a0c92a712ef8d8ed664e92f01a1703e8b4cd556b",
+      "weight_sha256": "ab2cd34e8adc9f774d0a515b2b72d9c2425cb2d7102ed980ecb9171a206a9aa4",
+      "settings": {
+        "dependency": "d1",
+        "issue": "round_robin",
+        "placement": "hybrid"
+      }
+    },
+    "d0-ordered-phase-split": {
+      "input_sha256": "e9df20ffd0991a03333c5a0f11ccff362525e73f4354de23824acb7118c89b0b",
+      "graph_sha256": "d705701f070b6445658087de8692e3229afa46f11a8a42b592a4ccf0b24c0588",
+      "weight_sha256": "be09eb19bd88f7714e7ef631f04e825760b8b0aa03e7bda095a197ae19493d8b",
+      "settings": {
+        "dependency": "d0",
+        "issue": "ordered",
+        "placement": "phase-split"
+      }
+    },
+    "d0-round_robin-phase-split": {
+      "input_sha256": "1e7de7d9ed8167c800a3a6b7c66f0dbf3ff45f6d85fc41fe2ff1a512ea1a8a14",
+      "graph_sha256": "d705701f070b6445658087de8692e3229afa46f11a8a42b592a4ccf0b24c0588",
+      "weight_sha256": "be09eb19bd88f7714e7ef631f04e825760b8b0aa03e7bda095a197ae19493d8b",
+      "settings": {
+        "dependency": "d0",
+        "issue": "round_robin",
+        "placement": "phase-split"
+      }
+    },
+    "d1-ordered-phase-split": {
+      "input_sha256": "0360fb8367a4286be0df0a90c0679553658c20f31107decd238bf3aa6df3aacf",
+      "graph_sha256": "55628ef6ea1fac4a9090a6703eb4423785eb6405621a384405ad5bf68ff359f0",
+      "weight_sha256": "be09eb19bd88f7714e7ef631f04e825760b8b0aa03e7bda095a197ae19493d8b",
+      "settings": {
+        "dependency": "d1",
+        "issue": "ordered",
+        "placement": "phase-split"
+      }
+    },
+    "d1-round_robin-phase-split": {
+      "input_sha256": "187a010396035cb17c015366beac7bb509bc4c8f1a7f3c08693baf4f508c3d21",
+      "graph_sha256": "55628ef6ea1fac4a9090a6703eb4423785eb6405621a384405ad5bf68ff359f0",
+      "weight_sha256": "be09eb19bd88f7714e7ef631f04e825760b8b0aa03e7bda095a197ae19493d8b",
+      "settings": {
+        "dependency": "d1",
+        "issue": "round_robin",
+        "placement": "phase-split"
+      }
+    }
+  },
+  "fixed_sha256": "d0e959ac1c4263245b743a37dd797e4edfa6bcc311f295b6c12b408e4d7b4119",
+  "shape": {
+    "hidden": 1024,
+    "intermediate": 1536,
+    "block_width": 128,
+    "experts": 128,
+    "topk": 2
+  },
+  "active_experts": [
+    62,
+    108
+  ],
+  "contract": "All four release/issue combinations use two paid fetch slots and the same data/MAC/issue/outstanding budgets. D0 is serial lowering with bounded fetch, not the old unbounded-fetch S0. Experts 62/108 are a post-hoc contention pair from the archived cold input, sharing compute service groups; this is a mechanism probe, not independent workload generalization or a new optimized placement."
+}
