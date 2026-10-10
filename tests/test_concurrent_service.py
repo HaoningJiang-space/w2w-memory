@@ -58,6 +58,9 @@ class ConcurrentRuntime(unittest.TestCase):
                 self.assertLessEqual(max(result['outstanding_peak'].values()),32)
                 self.assertLessEqual(max(result['fetch_execution']['peak_contexts'].values()),2)
                 self.assertEqual(sum(e.get('macs',0) for e in result['events'] if e['kind']=='stream_compute'),meta['macs'])
+                bins=result['native']['gateway_service_bins']['gateways']
+                both={row['start_ps'] for row in bins['g0_0']}&{row['start_ps'] for row in bins['g0_1']}
+                self.assertTrue(both,'Independent local and peer gateways never served in the same observed bin')
         finally:native.close()
 
 

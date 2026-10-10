@@ -13,6 +13,7 @@ def stages(result):
     rows={key:dict(task=key,tile=t['tile'],phase=key.rsplit('/',1)[-1],milestones={},
         busy_cycles=0,operand_wait_cycles=0,ready_service_wait_cycles=0) for key,t in tasks.items()}
     states={key:dict(active=False,last=None,granted=False,scale=False,prefix=0,consumed=0,pending={}) for key in tasks}
+    final_operand={}
     requests={e['request']:e['task'] for e in result['events'] if e['kind']=='read_issue'}
     edges={e['id']:e for e in result['graph']['data']};delivered=Counter()
     def milestone(key,name,at):
@@ -64,6 +65,7 @@ def stages(result):
                     if offset<s['prefix'] or offset in s['pending']:raise ValueError('Duplicate stage operand')
                     s['pending'][offset]=size
                     while s['prefix'] in s['pending']:s['prefix']+=s['pending'].pop(s['prefix'])
+                    if s['prefix']==stream['weight_data_bytes']:final_operand[key]=e['request']
                     m=rows[key]['milestones'];m.setdefault('weight_ready_first',at);m['weight_ready_last']=at
             else:
                 s['granted']=True;rows[key]['busy_cycles']+=1
@@ -102,11 +104,39 @@ def stages(result):
         chain.append(rows[key])
         if not predecessors[key]:break
         key=max(predecessors[key],key=lambda k:(result['tasks'][k]['finish_ps'],k))
+    pairs={}
+    for key,row in rows.items():
+        if not key.endswith('/gate'):continue
+        up=key[:-4]+'up'
+        if up not in rows:continue
+        a,b=row['milestones'],rows[up]['milestones']
+        def overlap(first,last):
+            if any(first not in m or last not in m for m in (a,b)):return 0
+            return max(0,min(a[last],b[last])-max(a[first],b[first]))
+        pairs[key[:-5]]=dict(gate=key,up=up,fetch_window_overlap_ps=overlap('read_issue_first','weight_ready_last'),
+            array_service_window_overlap_ps=overlap('array_first_event_first','array_last_event_last'),
+            context_overlap_ps=overlap('start','finish'),both_projection_finish_ps=max(a['finish'],b['finish']))
+    selected={final_operand[row['task']] for row in chain if row['task'] in final_operand}
+    paths={req:dict(task=requests[req],events=[],links={}) for req in selected}
+    for e in result['events']:
+        req=e.get('request')
+        if req in paths:
+            if e['kind'] not in ('sram_change','stream_compute'):paths[req]['events'].append(e)
+            continue
+        packet=e.get('packet','');req=packet.rsplit('/',1)[0]
+        if req not in paths:continue
+        if e['kind']=='link_send':
+            link=paths[req]['links'].setdefault((packet,e['link']),dict(packet=packet,link=e['link'],first_ps=e['time_ps'],last_ps=e['time_ps'],flits=0))
+            link['last_ps']=e['time_ps'];link['flits']+=1
+        elif e['kind'] in ('packet_accept','packet_deliver'):paths[req]['events'].append(e)
+    for value in paths.values():value['links']=list(value['links'].values())
     return dict(phases=aggregate,invocations=dict(by_invocation),tasks=rows,
         latest_finishing_predecessor_chain=list(reversed(chain)),
+        projection_pairs=pairs,tail_operand_paths=paths,
         contract='Reconstructs exact task milestones and shared-context clock opportunities. Operand wait means no consumable contiguous weight after scale service; '
             'ready-service wait means operands are ready but another grant/clock is awaited. Sums across tasks/contexts overlap; neither sums nor the latest-finishing '
-            'dependency chain prove an exclusive system critical path through all implicit resource competition. Native array event timestamps retain their original convention.')
+            'dependency chain prove an exclusive system critical path through all implicit resource competition. Pair overlap measures interval overlap, not continuous busy time. '
+            'Tail paths follow the descriptor that completes the consumed prefix along the observed finishing chain. Native array event timestamps retain their original convention.')
 
 
 def analyze(source,audited):
