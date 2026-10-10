@@ -16,6 +16,10 @@ def digest(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 def write(path,value):path.write_text(json.dumps(value,indent=2,sort_keys=True)+'\n')
 def read(path):return json.loads(path.read_text())
 
+def case_paths(root,case):
+    # Case names can contain hyphens; a filename prefix is not an identity.
+    return [path for path in sorted(root.glob('run-*')) if read(path/'worker.json')['case']==case]
+
 
 def worker(out,case,mode,binary):
     from types import SimpleNamespace
@@ -85,6 +89,8 @@ def analyze(root):
     rows=[];groups={}
     for path in sorted(root.glob('run-*')):
         row=read(path/'worker.json');process=read(path/'process.json')
+        if path.name!=f"run-{row['case']}-{process['repetition']}-{row['mode']}":
+            raise ValueError('Directory differs from saved worker identity')
         if (not row['complete'] or process['exit_status'] or row['input_sha256']!=digest(path/'input.json')
                 or row['result_sha256']!=digest(path/'result.json.gz')
                 or row['binary_sha256']!=start['binary_sha256'] or row['bridge_sha256']!=start['bridge_sha256']):
@@ -125,7 +131,7 @@ def analyze(root):
         from w2w.validation.memory_island import audit_memory_island_pair
         # Reload the original saved pair, including the producer's update totals.
         reference=json.load(gzip.open(root/f'run-{case}-0-off/result.json.gz','rt'))
-        for path in root.glob(f'run-{case}-*'):
+        for path in case_paths(root,case):
             candidate=json.load(gzip.open(path/'result.json.gz','rt'))
             audit_memory_island_pair(candidate,reference,read(path/'wakeups.json'),baseline[1]['wakes'])
         r=baseline[0];periods={r['spec']['noc_period_ps'],r['spec']['dram_period_ps'],*(t['compute_period_ps'] for t in r['spec']['tiles'])}
