@@ -36,6 +36,14 @@ not application acceleration. Original [V3](docs/reports/ARCHITECTURE_V3_REPORT.
 and [context](docs/reports/GATEWAY_CONTEXT_REPORT.md) results retain their frozen
 source/native identities; no historical result is overwritten.
 
+The [simulator performance and static-placement study](docs/reports/SIMULATOR_PERFORMANCE_PLACEMENT_REPORT.md)
+achieves **2.161× / 2.077× total wall-clock speedup** on matched full cold
+Central+/Distributed gates, with identical physical events and integer-ps
+results. With compute placement frozen, Hybrid memory placement improves cold
+Distributed completion from **581.384 to 562.863 µs (3.19%)**; more uniform
+Balanced placement takes 582.050 µs. The registered 24-token two-layer
+Reference/Hybrid confirmation is running; it has no completed result yet.
+
 Builds, tests and execution run in isolated directories on `hn072`; edit source
 locally and synchronize committed revisions through Git. No sibling simulator
 checkout is needed. From the repository root on the execution host:
@@ -50,6 +58,12 @@ python -m w2w run_operand_access --prepare --output /absolute/new/study
 python -m w2w run_operand_access --case central-plus --output /absolute/new/study
 python -m w2w run_operand_access --case distributed --output /absolute/new/study
 python -m w2w analyze_operand_access --source /absolute/new/study --output /absolute/new/analysis.json
+# Separate full-catalog memory-placement study; compute placement stays fixed.
+python -m w2w run_static_placement --prepare --mode cold --output /absolute/new/placement
+python -m w2w run_static_placement --case reference --output /absolute/new/placement
+python -m w2w run_static_placement --case balanced --output /absolute/new/placement
+python -m w2w run_static_placement --case hybrid --output /absolute/new/placement
+python -m w2w analyze_static_placement --source /absolute/new/placement --output /absolute/new/placement-analysis.json
 ```
 
 Native builds require CMake, C++, make, flex, bison, Python development headers

@@ -62,14 +62,40 @@ fields at `5e7bd31` pass unchanged: C 54.489 µs, D 54.143 µs, corrected Extern
 match the later cold execution. R3 remains the cached execution's original
 binary. Review evidence is in `artifacts/provenance/review_acceptance`.
 
-## Next question and limits
+## Current performance and placement stage
 
-Investigate static placement versus locality under the current fixed domain,
-gateway and fabric budgets. The cold Distributed gateway bound (442.476 µs)
-exceeds its hottest-domain interface bound (415.931200 µs), while some gateways
-are lightly used. Do not assume more ports or a better controller will win.
-Any placement must freeze the full catalog, preserve compute work/resources and
-pay remote traffic; do not remap only the evaluated active experts for free.
+P0–P3 are complete; P4 is running. The
+[performance/placement report](reports/SIMULATOR_PERFORMANCE_PLACEMENT_REPORT.md)
+and `artifacts/provenance/{simulator_performance,static_placement}` retain the
+profiling breakdown, exact full-size equivalence proof, cold audits and frozen
+multi-layer registrations. Total trace-gate wall time including audit/save falls
+1,052.950 → 487.330 s for Central+ and 611.048 → 294.213 s for Distributed
+(2.161× / 2.077×). Every physical record, native command/address/timestamp and
+endpoint/flit trace matches; makespans remain 782.060 / 581.384 µs.
+
+Memory-only policies cover all 128 experts and keep Reference compute placement
+and initial cache residency fixed. Cold Reference / Balanced / Hybrid are
+581.384 / 582.050 / 562.863 µs. Hybrid improves by 3.186%; the most uniform
+Balanced policy is slightly slower. Locality is an exact Reference alias.
+No gateway, domain, HB, SRAM or compute resource was added.
+
+P4 Reference/Hybrid runs use frozen source `47e68e5` and contiguous-prefix
+operands. The new archive is
+`/Projects/haoning/w2w-full-system-performance-placement-20261010` on hn072:
+`placement-multilayer-r1`, `execution-fast-r3`, `analysis-r1` and `monitor-r1`.
+The controller checks once per minute and audits after both finishes; log:
+`logs/placement-controller-r1.log`. It does not automatically retry failures.
+Do not reset these worktrees or report multi-layer improvement before audit.
+The complete historical registrations above remain finished; this is a new one.
+
+Continue mechanism analysis using completed cold records while P4 runs. Compare
+actual native/gateway service, row behavior, source opportunities and executed
+region-local traffic; do not add overlapping waiting counters as total stall.
+After P4 completes, independently audit fixed compute/preload/storage/resource
+identities, invocation misses/reloads and drain, then update this report. A valid
+negative placement or zero-reload result must be retained.
+
+## Limits
 
 No search/DSE, new fanout/endpoint RTL, partitioning rewrite, thermal/yield
 project or additional hardware is required by the completed comparison.

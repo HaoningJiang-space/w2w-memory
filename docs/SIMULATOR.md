@@ -65,3 +65,17 @@ Misses use the existing DRAM/receive write path; hits share compute SRAM and MAC
 service. Initial residency is explicit and its preload bytes are reported outside
 the warm interval. Whole-layer warm behavior and capacity reloads require separate
 workload identities. No streaming-buffer-only weight storage is claimed.
+
+Simulator performance optimizations preserve these execution contracts.
+Submit/supply/commit mutations may be batched in their original order before a
+native advance barrier. Deferred clock synchronization is allowed only while
+BookSim reports idle; the next mutation synchronizes the clock first. Native
+advance still returns at its first observable progress, and no active router,
+credit, native DRAM or compute interval is skipped speculatively.
+Immutable physical endpoint/routes and native atom addresses are cached.
+Only changed return prefixes/admission retries are scheduled; a receive blocked
+on MC capacity is retried when that shared pool releases a slot, in the original
+order and at the same acceptance boundary. This changes host bookkeeping, not
+hardware admission or physical bandwidth. Full command, endpoint and physical
+result equivalence is required by the
+[performance gate](reports/SIMULATOR_PERFORMANCE_PLACEMENT_REPORT.md).

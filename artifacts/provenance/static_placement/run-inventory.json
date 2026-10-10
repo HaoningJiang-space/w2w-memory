@@ -1,0 +1,41 @@
+{
+  "analysis_source_commit": "9d0ec5d90fd1e864093a08128fad997f6ee88fdb",
+  "archive_root": "/Projects/haoning/w2w-full-system-performance-placement-20261010",
+  "cold": {
+    "directory": "placement-cold-r3",
+    "status": "complete-and-independently-audited"
+  },
+  "execution_source_commit": "47e68e5b5d26d499f3dc9dac06cbe2c29de805d2",
+  "host": "ee4e072",
+  "limits": [
+    "Raw results, command traces, builds and logs are outside Git.",
+    "Multilayer execution has no completed result in this inventory."
+  ],
+  "monitor_source_commit": "dd69634",
+  "multilayer": {
+    "directory": "placement-multilayer-r1",
+    "launch": {
+      "cold_analysis_sha256": "82acc33ba569f0d0acf62af5fed5addc5c249a2c05e306de0109376db225d800",
+      "interval_seconds": 60,
+      "pids": {
+        "hybrid": 346134,
+        "reference": 346133
+      },
+      "source": "/Projects/haoning/w2w-full-system-performance-placement-20261010/execution-fast-r3",
+      "time_utc": "2026-10-10T06:49:15.267671+00:00"
+    },
+    "status": "running-not-a-result"
+  },
+  "native_build": {
+    "complete": true,
+    "outputs": {
+      "booksim": {
+        "path": "/Projects/haoning/w2w-full-system-performance-placement-20261010/native-fast-r1/booksim/endpoint_booksim",
+        "sha256": "9d18611aa0cc74b6d8a475e302134c7888b1417648607abce3a6f8d04311e308"
+      }
+    },
+    "schema": "w2w.native-build.v1",
+    "w2w_commit": "b80ea8fa2e9426a1466a6c02d49d08777dce724a"
+  },
+  "schema": "w2w.static-placement-run-inventory.v1"
+}
