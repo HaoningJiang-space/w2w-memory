@@ -1,0 +1,6 @@
+test_same_filename_prefix_does_not_merge_workloads (test_memory_island_analysis.IslandReadbackIdentity) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK

@@ -1,0 +1,60 @@
+{
+  "commands": [
+    {
+      "argv": [
+        "cmake",
+        "-S",
+        "/Projects/haoning/w2w-full-system-memory-island-20261010/source-r3/w2w/backends/ramulator",
+        "-B",
+        "/Projects/haoning/w2w-full-system-memory-island-20261010/native-dram-r2/dram_bridge",
+        "-DRAMULATOR_SOURCE=/Projects/haoning/w2w-full-system-closure-20261009/dram-clean-a9066bc/ramulator2",
+        "-DPython_EXECUTABLE=/usr/bin/python3"
+      ],
+      "cwd": "/Projects/haoning/w2w-full-system-memory-island-20261010/source-r3"
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "/Projects/haoning/w2w-full-system-memory-island-20261010/native-dram-r2/dram_bridge",
+        "-j4"
+      ],
+      "cwd": "/Projects/haoning/w2w-full-system-memory-island-20261010/source-r3"
+    }
+  ],
+  "compiler": "g++ (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0\nCopyright (C) 2021 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+  "complete": true,
+  "gprof": false,
+  "host": "ee4e072",
+  "outputs": {
+    "dram_bridge": {
+      "path": "/Projects/haoning/w2w-full-system-memory-island-20261010/native-dram-r2/dram_bridge/_w2w_ramulator.cpython-310-x86_64-linux-gnu.so",
+      "sha256": "78a0a94cebea61d3e639f41d95505d90fe2346d5dd6368ced87f231281ac387d"
+    }
+  },
+  "python": "3.10.12 (main, Jul 29 2024, 16:56:48) [GCC 11.4.0]",
+  "ramulator": {
+    "commit": "72427a1bba3771564c4fb0e494ba02242fd1eaa7",
+    "library_sha256": "bdee8df7ac4486e77f4ce8689cdb9eed814ca222cbd1322b2bfaf342af203120",
+    "path": "/Projects/haoning/w2w-full-system-closure-20261009/dram-clean-a9066bc/ramulator2"
+  },
+  "schema": "w2w.native-build.v1",
+  "sources": {
+    "w2w/backends/ramulator/CMakeLists.txt": "c974b3c4436a4df51933d2ef147c3d2d0be3278201ee54f2d92a2863a7994574",
+    "w2w/backends/ramulator/__init__.py": "01bec9c58c2dcb63751edc7979900681e6a1b84ce99898525c4ff8a1cc6e313e",
+    "w2w/backends/ramulator/adapter.py": "2485ec8bcda5ceb905169d7dfef98c3e4462f99d751be0d828cd68eb313c77cb",
+    "w2w/backends/ramulator/bridge.cpp": "69fd1ee7357d7ba065fd14eac50daf771e7b9491d97e97363b9c297bbec8e473",
+    "w2w/backends/ramulator/hbm2.py": "6eb28da75fb26cc69c6d8a7d9f5249f8af65ca3518c4b4234d08daa99cf90b81",
+    "w2w/backends/ramulator/island.py": "4dbe8e516248ec23cbe2908cc993a261bfb2e3ac229dcb9f2bcdb36cc0a17b59",
+    "w2w/backends/ramulator/memory_island.hpp": "72f9717682d0752bbd8d7ede7d1375c210b571e6e5d404125bff93a94958aea5",
+    "w2w/backends/ramulator/rwdl.py": "eea134502967a7574b0554808c3e5278a9e47647921a875b6f78534b26fec601",
+    "w2w/backends/ramulator/rwdl_refresh.cpp": "854ce5c8238012ccf8adcc702a3e6c0dd58996f268abe318fdd551d8d927e316",
+    "w2w/backends/ramulator/rwdl_spec.py": "af9c77d374ea912652c1508c8d23b99cfb7f7aaa9492bdbe79ccb9cf4981e8eb"
+  },
+  "tools": {
+    "cmake": "/usr/bin/cmake",
+    "g++": "/usr/bin/g++",
+    "git": "/usr/bin/git"
+  },
+  "w2w_commit": "b8ee94043d6319657bd1f57b861e4d9f3fd2429d"
+}

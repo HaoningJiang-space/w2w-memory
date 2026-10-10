@@ -1,0 +1,74 @@
+{
+  "analysis_commit": "6caeddd05e34d9d5cc014aa7120fb63b28996b20",
+  "analysis_test": {
+    "bytes": 208,
+    "path": "/Projects/haoning/w2w-full-system-memory-island-20261010/analysis-tests.log",
+    "sha256": "90ca1c01f987d7a5664e76951193a10712968c43db37c5782fb859a1d966d1f1"
+  },
+  "binary": {
+    "bytes": 25805616,
+    "path": "/Projects/haoning/w2w-full-system-performance-placement-20261010/native-fast-r1/booksim/endpoint_booksim",
+    "sha256": "9d18611aa0cc74b6d8a475e302134c7888b1417648607abce3a6f8d04311e308"
+  },
+  "booksim_build": {
+    "bytes": 33924,
+    "path": "/Projects/haoning/w2w-full-system-performance-placement-20261010/native-fast-r1/build-manifest.json",
+    "sha256": "6b7fcabc0f30a54222783710167e3604800765d3430da64684880c22d3717cdc"
+  },
+  "booksim_inputs_matched": 155,
+  "bridge": {
+    "bytes": 1841760,
+    "path": "/Projects/haoning/w2w-full-system-memory-island-20261010/native-dram-r2/dram_bridge/_w2w_ramulator.cpython-310-x86_64-linux-gnu.so",
+    "sha256": "78a0a94cebea61d3e639f41d95505d90fe2346d5dd6368ced87f231281ac387d"
+  },
+  "controls": {
+    "affinity": [
+      18,
+      19
+    ],
+    "evidence": "Full",
+    "profiled": false,
+    "repetitions_per_mode_case": 3
+  },
+  "cpu_scope": "Host process CPU includes synchronous native DRAM; BookSim child CPU is separate; no isolated Python-only/DRAM CPU timing",
+  "dram_inputs_matched": 10,
+  "execution_commit": "3e2b12b53b492a80f97fb1c5af07e918155d679d",
+  "full_tests": {
+    "commit": "3e2b12b53b492a80f97fb1c5af07e918155d679d",
+    "log": {
+      "bytes": 6766,
+      "path": "/Projects/haoning/w2w-full-system-memory-island-20261010/tests-003.log",
+      "sha256": "18813740070322ca835c769304ac280d7862ddbfd240cb2855cafd5e32496d18"
+    },
+    "passed": 66
+  },
+  "host": "ee4e072",
+  "native_build": {
+    "bytes": 3061,
+    "path": "/Projects/haoning/w2w-full-system-memory-island-20261010/native-dram-r2/build-manifest.json",
+    "sha256": "fcbc20a72519909e5c0d62dad5c1961a653c60fc361392d91b7116a49028dd46"
+  },
+  "negative": {
+    "bytes": 443,
+    "path": "/Projects/haoning/w2w-full-system-memory-island-20261010/NEGATIVE.json",
+    "sha256": "4d3c60f0041e8efc0b38c95c8eacd6bd950c21e31024b4e755ea0f745c787423"
+  },
+  "platform": "Linux-6.8.0-40-generic-x86_64-with-glibc2.35",
+  "published_run": {
+    "bytes": 11486,
+    "path": "/Projects/haoning/w2w-full-system-memory-island-20261010/gate-003/STARTED.json",
+    "sha256": "1c7b744e0e3ec24ce982888e1b4f9202fc9c930d0f3835fbd6a703b59eb53d4e"
+  },
+  "python": {
+    "bytes": 5904936,
+    "path": "/usr/bin/python3",
+    "sha256": "6ce8f488520d0f0cb8ccc405ba844279492c3926e18b73f0539e5fecd8033467"
+  },
+  "python_version": "3.10.12 (main, Jul 29 2024, 16:56:48) [GCC 11.4.0]",
+  "ramulator": {
+    "commit": "72427a1bba3771564c4fb0e494ba02242fd1eaa7",
+    "library_sha256": "bdee8df7ac4486e77f4ce8689cdb9eed814ca222cbd1322b2bfaf342af203120",
+    "path": "/Projects/haoning/w2w-full-system-closure-20261009/dram-clean-a9066bc/ramulator2"
+  },
+  "schema": "w2w.memory-island.environment.v1"
+}

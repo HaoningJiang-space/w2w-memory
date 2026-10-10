@@ -1,0 +1,73 @@
+{
+  "analysis_commit": "6caeddd05e34d9d5cc014aa7120fb63b28996b20",
+  "conclusion": "Exact restricted joint service; ~20% fewer host wakes; only small wall gains; no growth of gain in 64 KiB control; no FFN claim",
+  "coverage": [
+    {
+      "case": "continuous",
+      "counters": {
+        "contract": "original internal clock union; callbacks, finite reservations, control and Gateway native; all NoC and external descriptor boundaries retained",
+        "dram_ticks": 701,
+        "host_advances": 2639,
+        "internal_frontend_steps": 2284,
+        "kind": "one_domain_native_memory_service",
+        "native_advances": 1613,
+        "schema": 1
+      },
+      "limit": "Intervals between real first/last array returns and first supply/delivery; not a count of flit arbitration on every omitted cycle",
+      "omitted_dram_only_wakes": 671,
+      "omitted_with_array_return_interval_and_outstanding_supplied_response": 542
+    },
+    {
+      "case": "continuous-long",
+      "counters": {
+        "contract": "original internal clock union; callbacks, finite reservations, control and Gateway native; all NoC and external descriptor boundaries retained",
+        "dram_ticks": 5694,
+        "host_advances": 21425,
+        "internal_frontend_steps": 18376,
+        "kind": "one_domain_native_memory_service",
+        "native_advances": 12923,
+        "schema": 1
+      },
+      "limit": "Intervals between real first/last array returns and first supply/delivery; not a count of flit arbitration on every omitted cycle",
+      "omitted_dram_only_wakes": 5453,
+      "omitted_with_array_return_interval_and_outstanding_supplied_response": 5192
+    },
+    {
+      "case": "pressure",
+      "counters": {
+        "contract": "original internal clock union; callbacks, finite reservations, control and Gateway native; all NoC and external descriptor boundaries retained",
+        "dram_ticks": 9628,
+        "host_advances": 36205,
+        "internal_frontend_steps": 19761,
+        "kind": "one_domain_native_memory_service",
+        "native_advances": 10520,
+        "schema": 1
+      },
+      "limit": "Intervals between real first/last array returns and first supply/delivery; not a count of flit arbitration on every omitted cycle",
+      "omitted_dram_only_wakes": 9241,
+      "omitted_with_array_return_interval_and_outstanding_supplied_response": 8845
+    },
+    {
+      "case": "inserted",
+      "counters": {
+        "contract": "original internal clock union; callbacks, finite reservations, control and Gateway native; all NoC and external descriptor boundaries retained",
+        "dram_ticks": 1443,
+        "host_advances": 5431,
+        "internal_frontend_steps": 4644,
+        "kind": "one_domain_native_memory_service",
+        "native_advances": 3262,
+        "schema": 1
+      },
+      "limit": "Intervals between real first/last array returns and first supply/delivery; not a count of flit arbitration on every omitted cycle",
+      "omitted_dram_only_wakes": 1382,
+      "omitted_with_array_return_interval_and_outstanding_supplied_response": 1231
+    }
+  ],
+  "evidence_verified": true,
+  "execution_commit": "3e2b12b53b492a80f97fb1c5af07e918155d679d",
+  "native_build_commit": "b8ee94043d6319657bd1f57b861e4d9f3fd2429d",
+  "negative_sha256": "4d3c60f0041e8efc0b38c95c8eacd6bd950c21e31024b4e755ea0f745c787423",
+  "nonzero_active_coordination": true,
+  "significant_system_acceleration_demonstrated": false,
+  "verified_sha256": "0c86d43c6bfecc708cb3ebfedc17ed26db2c34f5a9556b60e4a1811e403352c6"
+}

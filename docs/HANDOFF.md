@@ -209,6 +209,25 @@ diagnostics and all failed attempts remain in
 eligibility or joint frontend/Gateway boundary before extending this route;
 no P2, application matrix, or new speedup claim is authorized by this receipt.
 
+## Native memory-service finding
+
+The restricted [Domain Frontend/Gateway island](reports/MEMORY_SERVICE_ISLAND_REPORT.md)
+at `3e2b12b`, read back by `6caeddd`, preserves the one-domain fixture's physical
+records, finite reservations, commands, endpoint timing and drain across 36
+native workers. Sixty-six execution-source regressions, one reader identity
+regression and seven saved-evidence negatives pass. Array/refresh service is
+unchanged. Host wakes drop about 20%, including active return/response overlap;
+all NoC clocks and pending external descriptor-admission boundaries remain.
+Worker benefit is near 1.00× in continuous/inserted cases and about 1.05× in the
+finite-return-pressure fixture; increasing continuous data to 64 KiB does not
+increase relative benefit. This is exact restricted joint service and modest
+coordination reduction, not a large system acceleration. Keep it opt-in; no full
+FFN, general multi-domain replacement or second island was run. Next work needs
+an active NoC/system input contract to go beyond the retained 1 ns driver, with
+measured cost evidence before expansion. Compact receipts are in
+`artifacts/provenance/memory_service_island`, raw attempts/builds in
+`/Projects/haoning/w2w-full-system-memory-island-20261010`.
+
 ## Limits
 
 No search/DSE, new fanout/endpoint RTL, partitioning rewrite, thermal/yield

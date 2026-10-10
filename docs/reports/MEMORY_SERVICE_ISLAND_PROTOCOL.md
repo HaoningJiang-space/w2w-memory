@@ -1,5 +1,10 @@
 # Native memory-service island: fixed small gate
 
+Completed at execution `3e2b12b`, independent reader `6caeddd`:
+[report](MEMORY_SERVICE_ISLAND_REPORT.md). Exact service and about 20% fewer
+host wakes are demonstrated. Worker gain is small (about 1.05× only in the
+return-pressure fixture); substantial system acceleration is not established.
+
 Execution source will be committed before the first run. New builds, tests and
 captures run only in a fresh hn072 `w2w-full-system-memory-island-*` directory.
 P0/P1 evidence and accepted native binaries remain immutable.

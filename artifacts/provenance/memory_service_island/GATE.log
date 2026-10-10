@@ -1,0 +1,46 @@
+continuous 2 native 0.3652
+continuous-long 0 off 1.6535
+continuous-long 0 native 1.6842
+pressure 1 native 2.1904
+inserted 0 native 0.5422
+continuous 2 off 0.3331
+continuous-long 2 off 1.6358
+inserted 2 coordinated 0.5184
+continuous-long 1 native 1.682
+pressure 2 coordinated 2.1151
+continuous 0 native 0.332
+inserted 1 coordinated 0.5176
+continuous 1 native 0.3349
+pressure 2 off 2.2012
+continuous 1 off 0.3267
+inserted 2 off 0.5233
+continuous-long 2 coordinated 1.6188
+continuous-long 0 coordinated 1.6237
+pressure 0 off 2.1965
+continuous-long 1 coordinated 1.6142
+inserted 0 off 0.5256
+continuous 0 off 0.3305
+continuous-long 2 native 1.6841
+continuous-long 1 off 1.6361
+inserted 2 native 0.5296
+continuous 1 coordinated 0.3316
+inserted 0 coordinated 0.5299
+continuous 2 coordinated 0.3337
+pressure 0 coordinated 2.1019
+pressure 0 native 2.1987
+pressure 1 off 2.2183
+inserted 1 off 0.526
+pressure 2 native 2.1838
+continuous 0 coordinated 0.3257
+pressure 1 coordinated 2.086
+inserted 1 native 0.5325
+Traceback (most recent call last):
+  File "/Projects/haoning/w2w-full-system-memory-island-20261010/source-r4/tools/run_memory_island_gate.py", line 204, in <module>
+    if __name__=='__main__':main()
+  File "/Projects/haoning/w2w-full-system-memory-island-20261010/source-r4/tools/run_memory_island_gate.py", line 201, in main
+    analyze(out)
+  File "/Projects/haoning/w2w-full-system-memory-island-20261010/source-r4/tools/run_memory_island_gate.py", line 130, in analyze
+    audit_memory_island_pair(candidate,reference,read(path/'wakeups.json'),baseline[1]['wakes'])
+  File "/Projects/haoning/w2w-full-system-memory-island-20261010/source-r4/w2w/validation/memory_island.py", line 19, in audit_memory_island_pair
+    if _physical(raw)!=_physical(reference):raise ValueError('Island physical interface or service record differs')
+ValueError: Island physical interface or service record differs

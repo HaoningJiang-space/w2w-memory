@@ -1,0 +1,72 @@
+{
+  "ACCEPTED_ENVIRONMENT.json": {
+    "bytes": 3045,
+    "remote_path": "/Projects/haoning/w2w-full-system-memory-island-20261010/ACCEPTED_ENVIRONMENT.json",
+    "sha256": "95e3fe95afba3ceabe3bce1df3579b648c27fb9a8e7bed14d960346be4ef88be"
+  },
+  "ANALYSIS_TESTS.log": {
+    "bytes": 208,
+    "remote_path": "/Projects/haoning/w2w-full-system-memory-island-20261010/analysis-tests.log",
+    "sha256": "90ca1c01f987d7a5664e76951193a10712968c43db37c5782fb859a1d966d1f1"
+  },
+  "BOUNDED_ATTEMPT.json": {
+    "bytes": 4618,
+    "remote_path": "/Projects/haoning/w2w-full-system-memory-island-20261010/gate-002/VERIFIED.json",
+    "sha256": "75597c3c2abe9158607746e101c9daa4a38535d935687edde6dd51effd8f7fb7"
+  },
+  "BUILD_MANIFEST.json": {
+    "bytes": 3061,
+    "remote_path": "/Projects/haoning/w2w-full-system-memory-island-20261010/native-dram-r2/build-manifest.json",
+    "sha256": "fcbc20a72519909e5c0d62dad5c1961a653c60fc361392d91b7116a49028dd46"
+  },
+  "COMPLETE.json": {
+    "bytes": 28543,
+    "remote_path": "/Projects/haoning/w2w-full-system-memory-island-20261010/gate-003/COMPLETE.json",
+    "sha256": "cd15b5e29b30454606671185247efb5df9bbf28cba4014a3054f2dcab5c522b5"
+  },
+  "GATE.log": {
+    "bytes": 1899,
+    "remote_path": "/Projects/haoning/w2w-full-system-memory-island-20261010/gate-003.log",
+    "sha256": "78ccf85a6565d37c94ef69065c8cfafad443cedd087221e1e9d04dbea70ffb88"
+  },
+  "NEGATIVE.json": {
+    "bytes": 443,
+    "remote_path": "/Projects/haoning/w2w-full-system-memory-island-20261010/NEGATIVE.json",
+    "sha256": "4d3c60f0041e8efc0b38c95c8eacd6bd950c21e31024b4e755ea0f745c787423"
+  },
+  "NEGATIVE.log": {
+    "bytes": 385,
+    "remote_path": "/Projects/haoning/w2w-full-system-memory-island-20261010/negative-003.log",
+    "sha256": "fb73c56614781f358c4f1760d1bbe8c8454a0a080949244f7ded2df0aef239cd"
+  },
+  "PORT_ONLY_ATTEMPT.json": {
+    "bytes": 4549,
+    "remote_path": "/Projects/haoning/w2w-full-system-memory-island-20261010/gate-001/VERIFIED.json",
+    "sha256": "9d1a3dd17fcd8e86cb08d8946774b542be39eeb3009553bec4c96ef58ce43fa4"
+  },
+  "READBACK.log": {
+    "bytes": 49,
+    "remote_path": "/Projects/haoning/w2w-full-system-memory-island-20261010/readback-004.log",
+    "sha256": "5f6fa9e137484991efa4cc17698660717b350ec161000b2b7d72db4b6b324a95"
+  },
+  "STARTED.json": {
+    "bytes": 11486,
+    "remote_path": "/Projects/haoning/w2w-full-system-memory-island-20261010/gate-003/STARTED.json",
+    "sha256": "1c7b744e0e3ec24ce982888e1b4f9202fc9c930d0f3835fbd6a703b59eb53d4e"
+  },
+  "TESTS.log": {
+    "bytes": 6766,
+    "remote_path": "/Projects/haoning/w2w-full-system-memory-island-20261010/tests-003.log",
+    "sha256": "18813740070322ca835c769304ac280d7862ddbfd240cb2855cafd5e32496d18"
+  },
+  "VERDICT.json": {
+    "bytes": 3521,
+    "remote_path": "/Projects/haoning/w2w-full-system-memory-island-20261010/VERDICT.json",
+    "sha256": "cc77dce6d204141e2356f456e3aedaf0dcb53f72a878f872cf81823161dbce6b"
+  },
+  "VERIFIED.json": {
+    "bytes": 5767,
+    "remote_path": "/Projects/haoning/w2w-full-system-memory-island-20261010/gate-003/VERIFIED.json",
+    "sha256": "0c86d43c6bfecc708cb3ebfedc17ed26db2c34f5a9556b60e4a1811e403352c6"
+  }
+}

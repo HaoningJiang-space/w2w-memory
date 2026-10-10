@@ -1,0 +1,146 @@
+{
+  "case_costs": {
+    "continuous": {
+      "coordinated": {
+        "booksim_child_cpu_seconds": 0.030761999999999998,
+        "execution_wall_seconds": 0.198922423645854,
+        "peak_rss_kib": 43192,
+        "python_cpu_seconds": 0.180467801,
+        "worker_wall_seconds": 0.32452217815443873
+      },
+      "native": {
+        "booksim_child_cpu_seconds": 0.031231000000000002,
+        "execution_wall_seconds": 0.2061678129248321,
+        "peak_rss_kib": 43192,
+        "python_cpu_seconds": 0.18735361899999997,
+        "worker_wall_seconds": 0.33123247185721993
+      },
+      "off": {
+        "booksim_child_cpu_seconds": 0.030796999999999998,
+        "execution_wall_seconds": 0.20053027709946036,
+        "peak_rss_kib": 43192,
+        "python_cpu_seconds": 0.18140554499999997,
+        "worker_wall_seconds": 0.32715925201773643
+      }
+    },
+    "inserted": {
+      "coordinated": {
+        "booksim_child_cpu_seconds": 0.059813,
+        "execution_wall_seconds": 0.38733580289408565,
+        "peak_rss_kib": 43192,
+        "python_cpu_seconds": 0.352340129,
+        "worker_wall_seconds": 0.5169396311976016
+      },
+      "native": {
+        "booksim_child_cpu_seconds": 0.060170999999999995,
+        "execution_wall_seconds": 0.4021987905725837,
+        "peak_rss_kib": 43192,
+        "python_cpu_seconds": 0.365461837,
+        "worker_wall_seconds": 0.5314720389433205
+      },
+      "off": {
+        "booksim_child_cpu_seconds": 0.059482,
+        "execution_wall_seconds": 0.39030954195186496,
+        "peak_rss_kib": 43192,
+        "python_cpu_seconds": 0.35378374500000004,
+        "worker_wall_seconds": 0.5208749640733004
+      }
+    },
+    "pressure": {
+      "coordinated": {
+        "booksim_child_cpu_seconds": 0.345779,
+        "execution_wall_seconds": 1.9385411590337753,
+        "peak_rss_kib": 43192,
+        "python_cpu_seconds": 1.739400696,
+        "worker_wall_seconds": 2.075730813201517
+      },
+      "native": {
+        "booksim_child_cpu_seconds": 0.343793,
+        "execution_wall_seconds": 2.0205698390491307,
+        "peak_rss_kib": 43192,
+        "python_cpu_seconds": 1.822542329,
+        "worker_wall_seconds": 2.1585381040349603
+      },
+      "off": {
+        "booksim_child_cpu_seconds": 0.34431,
+        "execution_wall_seconds": 2.0312237828038633,
+        "peak_rss_kib": 43192,
+        "python_cpu_seconds": 1.8300415859999999,
+        "worker_wall_seconds": 2.1691381759010255
+      }
+    }
+  },
+  "cases": [
+    {
+      "case": "continuous",
+      "drained_ps": 2636000,
+      "endpoint_trace_equal": true,
+      "host_reduction": 0.2027190332326284,
+      "iterations": {
+        "coordinated": 2639,
+        "native": 3310,
+        "off": 3310
+      },
+      "makespan_ps": 2636000,
+      "native_commands_equal": true,
+      "physical_record_equal": true
+    },
+    {
+      "case": "inserted",
+      "drained_ps": 5426000,
+      "endpoint_trace_equal": true,
+      "host_reduction": 0.2028474974313812,
+      "iterations": {
+        "coordinated": 5431,
+        "native": 6813,
+        "off": 6813
+      },
+      "makespan_ps": 5426000,
+      "native_commands_equal": true,
+      "physical_record_equal": true
+    },
+    {
+      "case": "pressure",
+      "drained_ps": 36202000,
+      "endpoint_trace_equal": true,
+      "host_reduction": 0.203340227962857,
+      "iterations": {
+        "coordinated": 36205,
+        "native": 45446,
+        "off": 45446
+      },
+      "makespan_ps": 36202000,
+      "native_commands_equal": true,
+      "physical_record_equal": true
+    }
+  ],
+  "costs": {
+    "coordinated": {
+      "booksim_child_cpu_seconds_median": 0.030761999999999998,
+      "execution_seconds_median": 0.198922423645854,
+      "peak_rss_kib_median": 43192,
+      "python_cpu_seconds_median": 0.180467801,
+      "stored_events": 203,
+      "worker_wall_seconds_median": 0.32452217815443873
+    },
+    "native": {
+      "booksim_child_cpu_seconds_median": 0.031231000000000002,
+      "execution_seconds_median": 0.2061678129248321,
+      "peak_rss_kib_median": 43192,
+      "python_cpu_seconds_median": 0.18735361899999997,
+      "stored_events": 203,
+      "worker_wall_seconds_median": 0.33123247185721993
+    },
+    "off": {
+      "booksim_child_cpu_seconds_median": 0.030796999999999998,
+      "execution_seconds_median": 0.20053027709946036,
+      "peak_rss_kib_median": 43192,
+      "python_cpu_seconds_median": 0.18140554499999997,
+      "stored_events": 203,
+      "worker_wall_seconds_median": 0.32715925201773643
+    }
+  },
+  "passed": true,
+  "scope": "fixed small native system cases; no FFN/placement speedup claim",
+  "workers": 27
+}
