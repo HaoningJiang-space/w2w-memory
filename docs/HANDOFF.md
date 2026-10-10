@@ -19,7 +19,7 @@ External layout changed intentionally; its old full result remains historical.
 
 Finite pinned matrix caching and serialized request/ACK control are implemented
 and pass native/model checks. The three hierarchy cases are registered at 3fb523e
-and running in an immutable worktree on hn072:
+with both two-layer cases running in an immutable worktree on hn072:
 /Projects/haoning/w2w-full-system-gateway-cache-20261009/execution-hierarchy-r1
 Results/logs: sibling hierarchy-study-r1. Monitor: periodic-hierarchy-r1.log.
 The monitor checks every 60 seconds and runs independent analysis and SHA-256
@@ -31,6 +31,11 @@ and 24 sequential archived tokens, 184 MiB finite cache within 192 MiB SRAM per
 cluster. Actual accessed weights exceed physical SRAM. Routing at layer 1 is a
 proxy reused from the archived layer; this is FFN-only, not a full LLM trace.
 Startup preload bytes/cost are separate from the warm measured interval.
+
+The single-layer warm case is complete and independently audited: 24 tokens,
+658.065 µs, zero native weight bytes, 6,912 cache hits. Initial residency was
+2,416,508,928 B loaded before the measured interval; it is not free startup.
+[WARM_LAYER_REFERENCE](reports/WARM_LAYER_REFERENCE.md) records scope and hashes.
 
 Next: inspect completion/failures, re-audit the raw hierarchy results, archive
 selected analysis/identities, explain any differing misses, and publish findings.

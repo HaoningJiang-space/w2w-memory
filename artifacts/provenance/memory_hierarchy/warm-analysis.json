@@ -1,0 +1,159 @@
+{
+  "passed": true,
+  "source_commit": "3fb523ecf878e715044a35324d44b8ab0f20e1e3",
+  "input_sha256": "676a7ece36d0a63506e210ae323a634866459203867b8017d83f51eb520b037a",
+  "makespan_ps": 658065000,
+  "audit": {
+    "passed": true,
+    "packets": 34944,
+    "read_descriptors": 0,
+    "read_words": 0,
+    "data_bytes": 117768192,
+    "physical_link_flits": 1050852,
+    "tasks": 11760,
+    "physical_domains": 128,
+    "native_bytes": 0,
+    "gateway_bytes": 0,
+    "physical_collection_charged": true,
+    "native_and_gateway_reservations_drained": true
+  },
+  "control_audit": {
+    "enabled": true,
+    "passed": true,
+    "ranges": 0,
+    "command_bytes": 0,
+    "ack_bytes": 0
+  },
+  "weight_cache": {
+    "data_bytes_per_cluster": 192937984,
+    "metadata_bytes_per_cluster": 8592,
+    "entries_per_cluster": 512,
+    "policy": "matrix LRU; filling and in-use objects pinned",
+    "lookup_slots_per_cluster": 32,
+    "lookup_cycles": 1,
+    "stats": {
+      "hits": 6912,
+      "hit_bytes": 3624763392
+    },
+    "per_cluster": {
+      "c0": {
+        "hit_bytes": 240706944,
+        "miss_bytes": 0
+      },
+      "c1": {
+        "hit_bytes": 226547712,
+        "miss_bytes": 0
+      },
+      "c4": {
+        "hit_bytes": 151031808,
+        "miss_bytes": 0
+      },
+      "c5": {
+        "hit_bytes": 287904384,
+        "miss_bytes": 0
+      },
+      "c2": {
+        "hit_bytes": 240706944,
+        "miss_bytes": 0
+      },
+      "c3": {
+        "hit_bytes": 226547712,
+        "miss_bytes": 0
+      },
+      "c6": {
+        "hit_bytes": 151031808,
+        "miss_bytes": 0
+      },
+      "c7": {
+        "hit_bytes": 287904384,
+        "miss_bytes": 0
+      },
+      "c8": {
+        "hit_bytes": 240706944,
+        "miss_bytes": 0
+      },
+      "c9": {
+        "hit_bytes": 226547712,
+        "miss_bytes": 0
+      },
+      "c12": {
+        "hit_bytes": 151031808,
+        "miss_bytes": 0
+      },
+      "c13": {
+        "hit_bytes": 287904384,
+        "miss_bytes": 0
+      },
+      "c10": {
+        "hit_bytes": 240706944,
+        "miss_bytes": 0
+      },
+      "c11": {
+        "hit_bytes": 226547712,
+        "miss_bytes": 0
+      },
+      "c14": {
+        "hit_bytes": 151031808,
+        "miss_bytes": 0
+      },
+      "c15": {
+        "hit_bytes": 287904384,
+        "miss_bytes": 0
+      }
+    },
+    "peak_data_bytes": {
+      "c0": 151031808,
+      "c2": 151031808,
+      "c8": 151031808,
+      "c10": 151031808,
+      "c1": 151031808,
+      "c3": 151031808,
+      "c9": 151031808,
+      "c11": 151031808,
+      "c4": 151031808,
+      "c6": 151031808,
+      "c12": 151031808,
+      "c14": 151031808,
+      "c5": 151031808,
+      "c7": 151031808,
+      "c13": 151031808,
+      "c15": 151031808
+    },
+    "resident_bytes": {
+      "c0": 151031808,
+      "c2": 151031808,
+      "c8": 151031808,
+      "c10": 151031808,
+      "c1": 151031808,
+      "c3": 151031808,
+      "c9": 151031808,
+      "c11": 151031808,
+      "c4": 151031808,
+      "c6": 151031808,
+      "c12": 151031808,
+      "c14": 151031808,
+      "c5": 151031808,
+      "c7": 151031808,
+      "c13": 151031808,
+      "c15": 151031808
+    },
+    "initial_resident_bytes": 2416508928,
+    "initialization": "warm-start bytes were loaded before measured interval; initialization is not free and is reported separately",
+    "fill_contract": "miss writes directly into reserved cache SRAM via shared receive write port; hit reads share compute SRAM/MAC budgets"
+  },
+  "files": {
+    "inputs/single-layer-warm.json.gz": {
+      "sha256": "3ff6986e4d0de25bf215f3d888a1a6c023c14fb0914a5e0f0f2802eb136f2fa4",
+      "bytes": 388900
+    },
+    "cases/single-layer-warm/result.json.gz": {
+      "sha256": "baa095073f76ab7ec9ed221008a956558b3d79d50d3202bfdbdd1bd1d2203cfe",
+      "bytes": 14988662
+    },
+    "cases/single-layer-warm/completion.json": {
+      "sha256": "5631a69187e1baa98daa632319bcac55be9e6161dd2a96bfd8273638cb9d80cf",
+      "bytes": 12970
+    }
+  },
+  "scope": "FFN-only sequential token proxy; independent layer weight addresses; same archived routing reused at each layer; no attention/norm/residual or numerical inference"
+}

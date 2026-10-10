@@ -1,0 +1,523 @@
+{
+  "complete": true,
+  "case": "single-layer-warm",
+  "source_commit": "3fb523ecf878e715044a35324d44b8ab0f20e1e3",
+  "input_sha256": "676a7ece36d0a63506e210ae323a634866459203867b8017d83f51eb520b037a",
+  "makespan_ps": 658065000,
+  "makespan_us": 658.065,
+  "drained_ps": 658108000,
+  "wall_seconds": 480.75478054815903,
+  "audit": {
+    "passed": true,
+    "packets": 34944,
+    "read_descriptors": 0,
+    "read_words": 0,
+    "data_bytes": 117768192,
+    "physical_link_flits": 1050852,
+    "tasks": 11760,
+    "physical_domains": 128,
+    "native_bytes": 0,
+    "gateway_bytes": 0,
+    "physical_collection_charged": true,
+    "native_and_gateway_reservations_drained": true
+  },
+  "control_audit": {
+    "enabled": true,
+    "passed": true,
+    "ranges": 0,
+    "command_bytes": 0,
+    "ack_bytes": 0
+  },
+  "weight_cache": {
+    "data_bytes_per_cluster": 192937984,
+    "metadata_bytes_per_cluster": 8592,
+    "entries_per_cluster": 512,
+    "policy": "matrix LRU; filling and in-use objects pinned",
+    "lookup_slots_per_cluster": 32,
+    "lookup_cycles": 1,
+    "stats": {
+      "hits": 6912,
+      "hit_bytes": 3624763392
+    },
+    "per_cluster": {
+      "c0": {
+        "hit_bytes": 240706944,
+        "miss_bytes": 0
+      },
+      "c1": {
+        "hit_bytes": 226547712,
+        "miss_bytes": 0
+      },
+      "c4": {
+        "hit_bytes": 151031808,
+        "miss_bytes": 0
+      },
+      "c5": {
+        "hit_bytes": 287904384,
+        "miss_bytes": 0
+      },
+      "c2": {
+        "hit_bytes": 240706944,
+        "miss_bytes": 0
+      },
+      "c3": {
+        "hit_bytes": 226547712,
+        "miss_bytes": 0
+      },
+      "c6": {
+        "hit_bytes": 151031808,
+        "miss_bytes": 0
+      },
+      "c7": {
+        "hit_bytes": 287904384,
+        "miss_bytes": 0
+      },
+      "c8": {
+        "hit_bytes": 240706944,
+        "miss_bytes": 0
+      },
+      "c9": {
+        "hit_bytes": 226547712,
+        "miss_bytes": 0
+      },
+      "c12": {
+        "hit_bytes": 151031808,
+        "miss_bytes": 0
+      },
+      "c13": {
+        "hit_bytes": 287904384,
+        "miss_bytes": 0
+      },
+      "c10": {
+        "hit_bytes": 240706944,
+        "miss_bytes": 0
+      },
+      "c11": {
+        "hit_bytes": 226547712,
+        "miss_bytes": 0
+      },
+      "c14": {
+        "hit_bytes": 151031808,
+        "miss_bytes": 0
+      },
+      "c15": {
+        "hit_bytes": 287904384,
+        "miss_bytes": 0
+      }
+    },
+    "peak_data_bytes": {
+      "c0": 151031808,
+      "c2": 151031808,
+      "c8": 151031808,
+      "c10": 151031808,
+      "c1": 151031808,
+      "c3": 151031808,
+      "c9": 151031808,
+      "c11": 151031808,
+      "c4": 151031808,
+      "c6": 151031808,
+      "c12": 151031808,
+      "c14": 151031808,
+      "c5": 151031808,
+      "c7": 151031808,
+      "c13": 151031808,
+      "c15": 151031808
+    },
+    "resident_bytes": {
+      "c0": 151031808,
+      "c2": 151031808,
+      "c8": 151031808,
+      "c10": 151031808,
+      "c1": 151031808,
+      "c3": 151031808,
+      "c9": 151031808,
+      "c11": 151031808,
+      "c4": 151031808,
+      "c6": 151031808,
+      "c12": 151031808,
+      "c14": 151031808,
+      "c5": 151031808,
+      "c7": 151031808,
+      "c13": 151031808,
+      "c15": 151031808
+    },
+    "initial_resident_bytes": 2416508928,
+    "initialization": "warm-start bytes were loaded before measured interval; initialization is not free and is reported separately",
+    "fill_contract": "miss writes directly into reserved cache SRAM via shared receive write port; hit reads share compute SRAM/MAC budgets"
+  },
+  "request_control": {
+    "enabled": true,
+    "command_bytes_per_domain_descriptor": 16,
+    "ack_bytes_per_domain_descriptor": 8,
+    "tx_limits": {
+      "g0_0": 64,
+      "g0_1": 64,
+      "g0_2": 64,
+      "g0_3": 64,
+      "g1_0": 64,
+      "g1_1": 64,
+      "g1_2": 64,
+      "g1_3": 64,
+      "g2_0": 64,
+      "g2_1": 64,
+      "g2_2": 64,
+      "g2_3": 64,
+      "g3_0": 64,
+      "g3_1": 64,
+      "g3_2": 64,
+      "g3_3": 64
+    },
+    "domain_descriptor_entries": 32,
+    "queue_peak": {},
+    "domain_queue_peak": {},
+    "ack_queue_peak": {},
+    "tx_live": 0,
+    "domain_ranges_live": 0,
+    "ack_live": 0,
+    "bytes_by_gateway": {},
+    "ack_bytes_by_gateway": {},
+    "admission_stalls": 0,
+    "additional_tx_storage_bytes": 16384,
+    "additional_ack_storage_bytes": 16384,
+    "additional_domain_descriptor_bytes": 65536,
+    "control_wire_bit_um": 60416000,
+    "control_pipeline_bits": 61440,
+    "gateway_access_control_wire_bit_um": 0,
+    "gateway_access_control_pipeline_bits": 0,
+    "contract": "16 B range/domain; shared 32-bit forward and reverse HB control at logic clock; explicit router-to-gateway access, physical domain propagation and CDC; range expanded locally; credits retained through 8 B serialized ACK; bounded queues, native ACT/PRE/RD unchanged"
+  },
+  "logical_weight_read_bytes": 3624763392,
+  "active_unique_weight_bytes": 1623591936,
+  "physical_sram_bytes": 3221225472,
+  "invocations": [
+    {
+      "token": 0,
+      "layer": 0,
+      "input_task": "I0000/t0/input",
+      "finish_task": "I0000/t0/combine",
+      "source": "c0",
+      "prefix": "I0000/",
+      "start_ps": 0,
+      "finish_ps": 27033000,
+      "duration_ps": 27033000
+    },
+    {
+      "token": 1,
+      "layer": 0,
+      "input_task": "I0001/t0/input",
+      "finish_task": "I0001/t0/combine",
+      "source": "c1",
+      "prefix": "I0001/",
+      "start_ps": 27033000,
+      "finish_ps": 53126000,
+      "duration_ps": 26093000
+    },
+    {
+      "token": 2,
+      "layer": 0,
+      "input_task": "I0002/t0/input",
+      "finish_task": "I0002/t0/combine",
+      "source": "c4",
+      "prefix": "I0002/",
+      "start_ps": 53126000,
+      "finish_ps": 80915000,
+      "duration_ps": 27789000
+    },
+    {
+      "token": 3,
+      "layer": 0,
+      "input_task": "I0003/t0/input",
+      "finish_task": "I0003/t0/combine",
+      "source": "c5",
+      "prefix": "I0003/",
+      "start_ps": 80915000,
+      "finish_ps": 107072000,
+      "duration_ps": 26157000
+    },
+    {
+      "token": 4,
+      "layer": 0,
+      "input_task": "I0004/t0/input",
+      "finish_task": "I0004/t0/combine",
+      "source": "c2",
+      "prefix": "I0004/",
+      "start_ps": 107072000,
+      "finish_ps": 135709000,
+      "duration_ps": 28637000
+    },
+    {
+      "token": 5,
+      "layer": 0,
+      "input_task": "I0005/t0/input",
+      "finish_task": "I0005/t0/combine",
+      "source": "c3",
+      "prefix": "I0005/",
+      "start_ps": 135709000,
+      "finish_ps": 163579000,
+      "duration_ps": 27870000
+    },
+    {
+      "token": 6,
+      "layer": 0,
+      "input_task": "I0006/t0/input",
+      "finish_task": "I0006/t0/combine",
+      "source": "c6",
+      "prefix": "I0006/",
+      "start_ps": 163579000,
+      "finish_ps": 190970000,
+      "duration_ps": 27391000
+    },
+    {
+      "token": 7,
+      "layer": 0,
+      "input_task": "I0007/t0/input",
+      "finish_task": "I0007/t0/combine",
+      "source": "c7",
+      "prefix": "I0007/",
+      "start_ps": 190970000,
+      "finish_ps": 216956000,
+      "duration_ps": 25986000
+    },
+    {
+      "token": 8,
+      "layer": 0,
+      "input_task": "I0008/t0/input",
+      "finish_task": "I0008/t0/combine",
+      "source": "c8",
+      "prefix": "I0008/",
+      "start_ps": 216956000,
+      "finish_ps": 243810000,
+      "duration_ps": 26854000
+    },
+    {
+      "token": 9,
+      "layer": 0,
+      "input_task": "I0009/t0/input",
+      "finish_task": "I0009/t0/combine",
+      "source": "c9",
+      "prefix": "I0009/",
+      "start_ps": 243810000,
+      "finish_ps": 271924000,
+      "duration_ps": 28114000
+    },
+    {
+      "token": 10,
+      "layer": 0,
+      "input_task": "I0010/t0/input",
+      "finish_task": "I0010/t0/combine",
+      "source": "c12",
+      "prefix": "I0010/",
+      "start_ps": 271924000,
+      "finish_ps": 297797000,
+      "duration_ps": 25873000
+    },
+    {
+      "token": 11,
+      "layer": 0,
+      "input_task": "I0011/t0/input",
+      "finish_task": "I0011/t0/combine",
+      "source": "c13",
+      "prefix": "I0011/",
+      "start_ps": 297797000,
+      "finish_ps": 324498000,
+      "duration_ps": 26701000
+    },
+    {
+      "token": 12,
+      "layer": 0,
+      "input_task": "I0012/t0/input",
+      "finish_task": "I0012/t0/combine",
+      "source": "c10",
+      "prefix": "I0012/",
+      "start_ps": 324498000,
+      "finish_ps": 352521000,
+      "duration_ps": 28023000
+    },
+    {
+      "token": 13,
+      "layer": 0,
+      "input_task": "I0013/t0/input",
+      "finish_task": "I0013/t0/combine",
+      "source": "c11",
+      "prefix": "I0013/",
+      "start_ps": 352521000,
+      "finish_ps": 380706000,
+      "duration_ps": 28185000
+    },
+    {
+      "token": 14,
+      "layer": 0,
+      "input_task": "I0014/t0/input",
+      "finish_task": "I0014/t0/combine",
+      "source": "c14",
+      "prefix": "I0014/",
+      "start_ps": 380706000,
+      "finish_ps": 408279000,
+      "duration_ps": 27573000
+    },
+    {
+      "token": 15,
+      "layer": 0,
+      "input_task": "I0015/t0/input",
+      "finish_task": "I0015/t0/combine",
+      "source": "c15",
+      "prefix": "I0015/",
+      "start_ps": 408279000,
+      "finish_ps": 436735000,
+      "duration_ps": 28456000
+    },
+    {
+      "token": 16,
+      "layer": 0,
+      "input_task": "I0016/t0/input",
+      "finish_task": "I0016/t0/combine",
+      "source": "c0",
+      "prefix": "I0016/",
+      "start_ps": 436735000,
+      "finish_ps": 463631000,
+      "duration_ps": 26896000
+    },
+    {
+      "token": 17,
+      "layer": 0,
+      "input_task": "I0017/t0/input",
+      "finish_task": "I0017/t0/combine",
+      "source": "c1",
+      "prefix": "I0017/",
+      "start_ps": 463631000,
+      "finish_ps": 491885000,
+      "duration_ps": 28254000
+    },
+    {
+      "token": 18,
+      "layer": 0,
+      "input_task": "I0018/t0/input",
+      "finish_task": "I0018/t0/combine",
+      "source": "c4",
+      "prefix": "I0018/",
+      "start_ps": 491885000,
+      "finish_ps": 519777000,
+      "duration_ps": 27892000
+    },
+    {
+      "token": 19,
+      "layer": 0,
+      "input_task": "I0019/t0/input",
+      "finish_task": "I0019/t0/combine",
+      "source": "c5",
+      "prefix": "I0019/",
+      "start_ps": 519777000,
+      "finish_ps": 546274000,
+      "duration_ps": 26497000
+    },
+    {
+      "token": 20,
+      "layer": 0,
+      "input_task": "I0020/t0/input",
+      "finish_task": "I0020/t0/combine",
+      "source": "c2",
+      "prefix": "I0020/",
+      "start_ps": 546274000,
+      "finish_ps": 573698000,
+      "duration_ps": 27424000
+    },
+    {
+      "token": 21,
+      "layer": 0,
+      "input_task": "I0021/t0/input",
+      "finish_task": "I0021/t0/combine",
+      "source": "c3",
+      "prefix": "I0021/",
+      "start_ps": 573698000,
+      "finish_ps": 601186000,
+      "duration_ps": 27488000
+    },
+    {
+      "token": 22,
+      "layer": 0,
+      "input_task": "I0022/t0/input",
+      "finish_task": "I0022/t0/combine",
+      "source": "c6",
+      "prefix": "I0022/",
+      "start_ps": 601186000,
+      "finish_ps": 628391000,
+      "duration_ps": 27205000
+    },
+    {
+      "token": 23,
+      "layer": 0,
+      "input_task": "I0023/t0/input",
+      "finish_task": "I0023/t0/combine",
+      "source": "c7",
+      "prefix": "I0023/",
+      "start_ps": 628391000,
+      "finish_ps": 658065000,
+      "duration_ps": 29674000
+    }
+  ],
+  "hop_flits": 1050852,
+  "native_last_tail_ps": null,
+  "binary": "1ed98923175373524b293487d20aa4918596edfc92d28c6c87756e4996530e88",
+  "compute_execution": {
+    "contexts_per_cluster": 2,
+    "context_peak": {
+      "c0": 2,
+      "c2": 2,
+      "c8": 2,
+      "c10": 2,
+      "c5": 2,
+      "c7": 2,
+      "c13": 2,
+      "c15": 2,
+      "c6": 2,
+      "c9": 2,
+      "c1": 2,
+      "c11": 2,
+      "c3": 2,
+      "c14": 1,
+      "c4": 2,
+      "c12": 2
+    },
+    "additional_context_state_bytes_per_cluster": 64,
+    "policy": "round-robin among ready contexts, one shared arithmetic/read grant per cluster cycle; full working sets paid"
+  },
+  "compute_busy_ps": {
+    "c0": 15512000,
+    "c2": 15509000,
+    "c8": 15517000,
+    "c10": 15520000,
+    "c5": 18557000,
+    "c7": 18560000,
+    "c13": 18526000,
+    "c15": 18553000,
+    "c6": 9779000,
+    "c9": 14599000,
+    "c1": 14618000,
+    "c11": 14593000,
+    "c3": 14588000,
+    "c14": 9754000,
+    "c4": 9746000,
+    "c12": 9733000
+  },
+  "sram_peak_bytes": {
+    "c0": 194545616,
+    "c1": 194554320,
+    "c4": 194528208,
+    "c5": 194554320,
+    "c2": 194528208,
+    "c3": 194528208,
+    "c6": 194536912,
+    "c7": 194554320,
+    "c8": 194545616,
+    "c9": 194528208,
+    "c12": 194554320,
+    "c13": 194545616,
+    "c10": 194528208,
+    "c11": 194545616,
+    "c14": 194528208,
+    "c15": 194528208
+  },
+  "preload_bytes": 2416508928,
+  "preload_gateway_peak_lower_bound_ps": 4719744000.0,
+  "preload_scope": "lower bound only, array/commands/transport reduce sustained service; initialization is excluded from warm interval"
+}

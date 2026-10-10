@@ -1,7 +1,8 @@
 # Finite-SRAM multi-layer comparison: registered protocol
 
-Status: registered and running; this file makes no new multi-layer performance
-claim. A completion is valid only after native/cache/control audits and the
+Status: the [single-layer warm reference](WARM_LAYER_REFERENCE.md) is complete
+(658.065 µs for 24 tokens, zero DRAM weight bytes); both two-layer cases are
+still running. This file makes no new multi-layer performance claim. A completion is valid only after native/cache/control audits and the
 independent analyzer pass. The completed context/selector intervention is in
 [GATEWAY_CONTEXT_REPORT.md](GATEWAY_CONTEXT_REPORT.md).
 

@@ -24,7 +24,9 @@ A stronger finite-context comparison completes in **778.161 / 780.721 /
 The selector removes observed source HOL opportunities but does not improve
 application time. See [the context report](docs/reports/GATEWAY_CONTEXT_REPORT.md).
 The [registered finite-SRAM two-layer study](docs/reports/MEMORY_HIERARCHY_PROTOCOL.md)
-is running separately; no multi-layer performance claim is made yet.
+is running separately. Its [whole-layer warm reference](docs/reports/WARM_LAYER_REFERENCE.md)
+completes 24 tokens in 658.065 µs with zero DRAM weight reads; preload is excluded
+and accounted separately. No multi-layer performance claim is made yet.
 
 Builds, tests and execution run in isolated directories on `hn072`; edit source
 locally and synchronize committed revisions through Git. No sibling simulator
