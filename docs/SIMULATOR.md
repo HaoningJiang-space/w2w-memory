@@ -18,7 +18,19 @@ from real router/endpoint ID spaces, including more than 64 endpoints.
 Local payload DMA has no NoC envelope and shares destination write service.
 
 GEMMs receive scales first, then consume committed descriptors as data arrives,
-bounded by arithmetic and compute-SRAM read budgets. Engine contexts remain held
+bounded by arithmetic and compute-SRAM read budgets. The default `byte_count`
+policy counts all committed data bytes and assumes aggregate out-of-order weight
+consumption; it does not implement address-indexed activation/partial-sum hardware.
+The optional `contiguous_prefix` policy consumes only the committed matrix prefix
+in increasing byte-offset order. Its canonical fragment is one memory descriptor,
+not one native atom or NoC cell. A validity bitmap and 64-bit frontier/association
+are reserved within task SRAM and released at task completion; cache hits become
+fully ready after the normal finite lookup. Independent audits reconstruct
+physical descriptor offsets, reject overlapping deliveries, and enforce the
+selected readiness contract. Prefix-hole observations count task/clock
+opportunities and are not additive critical-path stall time.
+
+Engine contexts remain held
 while awaiting operands; arithmetic busy time and context occupancy are separate.
 The default is one context per aggregate cluster. A declared finite 1–8 context
 policy can overlap waiting contexts, with one shared arithmetic/read grant per

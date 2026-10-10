@@ -38,6 +38,12 @@ distance from the domain's coarse grid position to the HB landing, one registere
 stage per millimeter at the native clock, one HB beat, two logic CDC cycles and
 the declared gateway-to-router access. This is a spatial sensitivity model, not
 wire timing signoff. Finite atom reservations cover the entire transport.
+The named `rwdl-collection-1mm-stage-v1` profile requires at least
+`max(1, ceil(length_um / 1000))` collection cycles. Extra paid stages are allowed;
+a faster process needs a separately supported timing profile and machine
+identity. Each domain/gateway pair has exactly one collection path, so runtime
+selection and the physical inventory cannot silently disagree through duplicate
+dictionary keys.
 
 There are 64 reserved 16 B atoms per physical domain, counted once across access
 views, giving 32 KiB/region of native return capacity. Gateway return storage is

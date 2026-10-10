@@ -37,9 +37,20 @@ The single-layer warm case is complete and independently audited: 24 tokens,
 2,416,508,928 B loaded before the measured interval; it is not free startup.
 [WARM_LAYER_REFERENCE](reports/WARM_LAYER_REFERENCE.md) records scope and hashes.
 
+The latest review's collection timing/profile and pair-uniqueness guards are
+implemented. Committed operand offsets are audited independently, and an optional
+paid contiguous-prefix compute policy is available. The small native four-case
+probe at `f999bd2` gives Central 108.102 µs and Distributed 107.576 µs under both
+readiness policies. [OPERAND_READINESS_REPORT](reports/OPERAND_READINESS_REPORT.md)
+defines its scope; it does not prove full-size or two-layer insensitivity. Default
+small FFN times retain the existing migration reference. The 24-check remote
+suite and five final targeted checks pass. Selected raw identities/offline
+analysis are being archived; raw captures stay on the server.
+
 Next: inspect completion/failures, re-audit the raw hierarchy results, archive
 selected analysis/identities, explain any differing misses, and publish findings.
 Do not mark the multi-layer study complete before those outputs exist. No new
 fanout/DSE, endpoint RTL, partitioning rewrite or sibling simulator change is
-needed for this registered comparison. A paid central fanout remains a future
+needed for this registered comparison. Keep the running two-layer worktree and
+its byte-count contract frozen. A paid central fanout remains a future
 strong baseline if the spatial claim is expanded.
