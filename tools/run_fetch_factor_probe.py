@@ -101,6 +101,44 @@ def run_case(root, case, binary):
     print(json.dumps(dict(case=case, makespan_ps=result['makespan_ps'], passed=True)), flush=True)
 
 
+def fetch_admission(result, stage):
+    """Replay finite slot ownership; overlap is evidence, not an additive stall."""
+    live = {}; changed = {}; full = []; ownership = []
+    for event in result['events']:
+        if event['kind'] not in ('fetch_context_acquire', 'fetch_context_release'): continue
+        tile, task, now = event['tile'], event['task'], event['time_ps']
+        owners = live.setdefault(tile, {})
+        if len(owners) == 2 and changed[tile] < now:
+            full.append(dict(tile=tile, start_ps=changed[tile], end_ps=now,
+                             owners=sorted(owners)))
+        if event['kind'] == 'fetch_context_acquire':
+            if task in owners or len(owners) >= 2: raise ValueError('Invalid saved fetch acquisition')
+            owners[task] = now
+        else:
+            if task not in owners: raise ValueError('Unmatched saved fetch release')
+            ownership.append(dict(tile=tile, task=task, acquire_ps=owners.pop(task), release_ps=now))
+        changed[tile] = now
+    if any(live.values()): raise ValueError('Saved fetch ownership did not drain')
+    delays = {}
+    for task in result['graph']['tasks']:
+        if not task['reads']: continue
+        row = stage['tasks'][task['id']]; milestones = row['milestones']
+        ready, allocated = milestones['dependency_ready'], milestones['allocate']
+        if allocated <= ready: continue
+        overlap = []
+        for window in full:
+            start, end = max(ready, window['start_ps']), min(allocated, window['end_ps'])
+            if window['tile'] == task['tile'] and end > start:
+                overlap.append(dict(start_ps=start, end_ps=end, owners=window['owners']))
+        delays[task['id']] = dict(tile=task['tile'], dependency_ready_ps=ready,
+            allocate_ps=allocated, elapsed_ps=allocated-ready,
+            full_fetch_overlap_ps=sum(w['end_ps']-w['start_ps'] for w in overlap), windows=overlap)
+    return dict(ownership_intervals=ownership, admission_delays=delays,
+        contract='Exact saved acquire/release ownership and predecessor-ready to allocation intervals. '
+                 'Overlap with two occupied fetch slots demonstrates unavailable admission capacity; '
+                 'it is not an exclusive system stall or a proof that SRAM/other admission constraints were absent.')
+
+
 def analyze(root):
     reg = json.loads((root / 'registration.json').read_text()); cases = {}; tools = set(); work = set()
     for case in reg['cases']:
@@ -127,6 +165,7 @@ def analyze(root):
         cases[case] = dict(makespan_ps=r['makespan_ps'], independent_passed=True,
             raw_sha256=hashlib.sha256(path.read_bytes()).hexdigest(), audit=a, control_audit=b,
             phases=stage['phases'], projection_pairs=stage['projection_pairs'],
+            fetch_admission=fetch_admission(r, stage),
             latest_finishing_predecessor_chain=stage['latest_finishing_predecessor_chain'],
             gateway_bytes=r['native']['gateway_bytes'], gateway_busy_cycles=r['native']['gateway_busy_cycles'],
             native_last_tail_ps=r['native']['native_last_tail_ps'], native_totals=pressure['native_totals'],
