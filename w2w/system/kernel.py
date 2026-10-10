@@ -17,7 +17,7 @@ from w2w.system.builder import SystemBuilder
 
 class SystemExecution:
     def __init__(self, spec, graph, native=None, *, network_factory=None,
-                 activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count'):
+                 activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count',fetch_contexts=0,read_issue_policy='ordered'):
         self.spec, self.graph = spec, graph
         self.builder = SystemBuilder(spec).validate_graph(graph)
         self.events = [];self.event_observer=event_observer
@@ -83,6 +83,14 @@ class SystemExecution:
         self.mc_pool_slots=Counter()
         self.mc_pool_peak=Counter()
         self.now = 0
+        if type(fetch_contexts) is not int or not 0<=fetch_contexts<=8:raise ValueError('Declare 0..8 finite fetch contexts')
+        if read_issue_policy not in ('ordered','round_robin') or (read_issue_policy=='round_robin' and not fetch_contexts):
+            raise ValueError('Round-robin issue requires finite fetch contexts')
+        self.fetch_contexts=fetch_contexts;self.read_issue_policy=read_issue_policy
+        self.fetch_live={tile:set() for tile in self.builder.tiles};self.fetch_peak=Counter();self.issue_cursor={}
+        self.fetch_metadata_bytes=64*fetch_contexts+8 if fetch_contexts else 0
+        for tile in self.builder.tiles:
+            if self.fetch_metadata_bytes:self._sram(tile,self.fetch_metadata_bytes,'fetch-context-state')
         self.context_metadata_bytes=(compute_contexts-1)*64
         for tile in self.builder.tiles:
             if self.context_metadata_bytes:self._sram(tile,self.context_metadata_bytes,'compute-context-state')
@@ -163,6 +171,7 @@ class SystemExecution:
                         object_offset=req.object_offset,bytes=req.size_bytes)
                     if self.weight_cache and state['read_bytes']==sum(r.size_bytes for r in self.tasks[req.task].reads):
                         self.weight_cache.filled(req.requester,stream.weight_object,req.task)
+                if self.fetch_contexts and self.state[req.task]['read_bytes']==sum(r.size_bytes for r in self.tasks[req.task].reads):self._fetch_release(req.task)
                 del self.requests[key]
             else:
                 raise RuntimeError('Unknown transaction packet')
@@ -212,6 +221,7 @@ class SystemExecution:
             predecessors = self.predecessors[key]
             if any(not self.state[p].get('done') for p in predecessors):
                 continue
+            if self.fetch_contexts and task.reads and len(self.fetch_live[task.tile])>=self.fetch_contexts:continue
             size = self.builder.footprint[key]+self._operand_state_bytes(task)
             cache=self.weight_cache if task.stream is not None else None
             if self.weight_cache and task.reads and cache is None:raise ValueError('Cache primitive requires explicit whole-matrix streaming GEMM')
@@ -240,6 +250,16 @@ class SystemExecution:
                 state['issued_all']=True
             else:self.reading.add(key)
             self.log('task_allocate', task=key, tile=task.tile)
+            if self.fetch_contexts and task.reads:
+                self.fetch_live[task.tile].add(key);self.fetch_peak[task.tile]=max(self.fetch_peak[task.tile],len(self.fetch_live[task.tile]))
+                self.log('fetch_context_acquire',task=key,tile=task.tile)
+
+    def _fetch_release(self,key):
+        if not self.fetch_contexts:return
+        tile=self.tasks[key].tile
+        if key in self.fetch_live[tile]:
+            self.fetch_live[tile].remove(key);self.reading.discard(key);self.state[key]['issued_all']=True
+            self.log('fetch_context_release',task=key,tile=tile)
 
     def _data_transfers(self):
         if self.activation_sram_read_bytes_per_cycle is not None:
@@ -287,6 +307,7 @@ class SystemExecution:
         for src in used:self.sram_read_cycles[src]+=1
 
     def _read_issue(self):
+        if self.read_issue_policy=='round_robin':return self._round_robin_read_issue()
         # Explicit descriptor issue slots; all classes share the finite NI output.
         used = Counter()
         for key in sorted(self.reading):
@@ -314,6 +335,29 @@ class SystemExecution:
                 self.log('read_issue', request=req.id, task=key, memory=req.memory,
                          bank=req.bank, word_address=req.word_address, bytes=req.size_bytes)
 
+    def _round_robin_read_issue(self):
+        # Two funded matrix fetch slots, shared issue width and outstanding limit.
+        for tile in sorted(self.fetch_live):
+            used=0
+            while used<self.spec.read_requests_per_tile_cycle and self.outstanding[tile]<self.spec.outstanding_per_tile:
+                candidates=sorted(k for k in self.fetch_live[tile] if k in self.reading and k not in self.cache_waiting)
+                cursor=self.issue_cursor.get(tile,'');candidates=[k for k in candidates if k>cursor]+[k for k in candidates if k<=cursor]
+                progressed=False
+                for key in candidates:
+                    state=self.state[key]
+                    if state['next_read'] is None:state['next_read']=next(state['iterator'],None)
+                    req=state['next_read']
+                    if req is None:
+                        state['issued_all']=True;self.reading.discard(key);progressed=True;continue
+                    mc=self.builder.memories[req.memory].home_tile
+                    if not self._send(req.id+'/req',tile,mc,'request',0,'request',req.id):continue
+                    self.requests[req.id]=dict(request=req,stage='request_flight');state['next_read']=None
+                    self.outstanding[tile]+=1;self.outstanding_peak[tile]=max(self.outstanding_peak[tile],self.outstanding[tile])
+                    self.issue_cursor[tile]=key;used+=1;progressed=True
+                    self.log('read_issue',request=req.id,task=key,memory=req.memory,bank=req.bank,word_address=req.word_address,bytes=req.size_bytes)
+                    break
+                if not progressed:break
+
     def _cache_lookup_progress(self):
         for key,at in list(self.cache_waiting.items()):
             if at>self.now:continue
@@ -326,6 +370,7 @@ class SystemExecution:
                 if self.operand_readiness=='contiguous_prefix':self.operand_frontiers[key].cached()
                 self.log('cache_operands_ready',task=key,tile=task.tile,object=stream.weight_object,
                     bytes=total,weight_bytes=stream.weight_data_bytes,scale_bytes=stream.scale_bytes)
+                self._fetch_release(key)
 
     def _memory_progress(self, network_boundary):
         # Only admission retries and newly changed return prefixes can act.
@@ -558,6 +603,9 @@ class SystemExecution:
             if makespan is not None and self.network.drained() and not self.native.record()['pending']:
                 if self.context_metadata_bytes:
                     for tile in self.builder.tiles:self._sram(tile,-self.context_metadata_bytes,'compute-context-state')
+                if self.fetch_metadata_bytes:
+                    if any(self.fetch_live.values()):raise RuntimeError('Completed with live fetch contexts')
+                    for tile in self.builder.tiles:self._sram(tile,-self.fetch_metadata_bytes,'fetch-context-state')
                 if self.weight_cache:
                     for tile in self.builder.tiles:self._sram(tile,-self.cache_reserved_bytes,'weight-cache-partition')
                 if (any(self.outstanding.values()) or any(self.sram.values()) or any(self.mc_slots.values())
@@ -594,14 +642,17 @@ class SystemExecution:
                       network=self.network.record(), native=self.native.record(),
                       physical=self.builder.physical_record(), events=self.events)
         if self.weight_cache:record['weight_cache']=self.weight_cache.record()
+        if self.fetch_contexts:record['fetch_execution']=dict(contexts_per_cluster=self.fetch_contexts,peak_contexts=dict(self.fetch_peak),
+            live_contexts=sum(map(len,self.fetch_live.values())),metadata_bytes_per_cluster=self.fetch_metadata_bytes,read_issue_policy=self.read_issue_policy,
+            contract='64 B/matrix fetch slot plus 8 B shared selector, inside original SRAM; round-robin descriptors share original issue and outstanding limits; full matrix storage still reserved')
         record['input_sha256'] = sha256(json.dumps([record['spec'], record['graph']], sort_keys=True).encode()).hexdigest()
         return record
 
 
 def execute_system(spec, graph, *, native=None, network_factory=None, max_ps=10_000_000,
-                   time_advance='gcd',activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count'):
+                   time_advance='gcd',activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count',fetch_contexts=0,read_issue_policy='ordered'):
     execution = SystemExecution(spec, graph, native, network_factory=network_factory,
-                                activation_sram_read_bytes_per_cycle=activation_sram_read_bytes_per_cycle,compute_contexts=compute_contexts,weight_cache=weight_cache,event_observer=event_observer,operand_readiness=operand_readiness)
+                                activation_sram_read_bytes_per_cycle=activation_sram_read_bytes_per_cycle,compute_contexts=compute_contexts,weight_cache=weight_cache,event_observer=event_observer,operand_readiness=operand_readiness,fetch_contexts=fetch_contexts,read_issue_policy=read_issue_policy)
     try:
         return execution.run(max_ps,time_advance=time_advance)
     except BaseException:

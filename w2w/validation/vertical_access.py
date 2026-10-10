@@ -1,10 +1,13 @@
 """Independent conservation across the native, vertical and execution ledgers."""
 from collections import Counter
 from .system_execution import audit_system_result
+from .fetch_execution import audit_fetch_execution,audit_gateway_bins
 
 
 def audit_vertical_result(result):
     audit=audit_system_result(result)
+    fetch=audit_fetch_execution(result);audit_gateway_bins(result)
+    if fetch is not None:audit['finite_fetch']=fetch
     stack=result['spec']['stack'];native=result['native']
     domains={d['id']:d for d in stack['dram_domains']}
     expected=sum(r['size_bytes'] for t in result['graph']['tasks'] for r in t['reads'])

@@ -11,10 +11,12 @@ from .compute_placement import weight_compute_clusters
 
 POLICIES=('reference','locality','balanced','hybrid')
 ABLATIONS=('hybrid-gate-up-striped',)
+CANDIDATES=('phase-split',)
 
 
 def static_weights(logical,stack,policy):
     if policy in ABLATIONS:return gate_up_ablation(logical,stack)
+    if policy in CANDIDATES:return phase_split(logical,stack)
     if policy not in POLICIES:raise ValueError('Unknown static memory policy')
     reference=place_weights(logical,stack)
     if policy=='reference':return reference
@@ -40,6 +42,34 @@ def static_weights(logical,stack,policy):
     if [(w.tensor,w.size_bytes) for w in result]!=list(logical.weight_sizes):raise ValueError('Placement changed the full weight catalog')
     for key,stop in offsets.items():
         if stop>sum(domains[d].capacity_bytes for d in groups[key].domain_ids):raise ValueError('Static placement exceeds physical DRAM')
+    return tuple(result)
+
+
+def phase_split(logical,stack):
+    """Pair same-row adjacent gateways: move Up, lock Reference Gate and Down."""
+    from dataclasses import replace
+    reference=static_weights(logical,stack,'reference');domains={d.id:d for d in stack.dram_domains}
+    gateways={g.id:g for g in stack.gateways};routers={r.id:r for r in stack.routers}
+    peers={}
+    for group in stack.bank_groups:
+        gateway=gateways[group.gateway_id];position=routers[gateway.router_id].position_um
+        candidates=[other for other in stack.bank_groups if other.id!=group.id
+            and domains[other.domain_ids[0]].region_id==domains[group.domain_ids[0]].region_id
+            and routers[gateways[other.gateway_id].router_id].position_um[1]==position[1]]
+        if len(candidates)!=1:raise ValueError('Phase-Split candidate requires one adjacent same-row peer per gateway')
+        peers[group.id]=candidates[0].id
+    occupied={g.id:[] for g in stack.bank_groups};result=[]
+    for w in reference:
+        if not w.tensor.endswith('/up'):occupied[w.memory].append((w.offset_bytes,w.offset_bytes+w.size_bytes))
+    for w in reference:
+        if not w.tensor.endswith('/up'):result.append(w);continue
+        memory=peers[w.memory];offset=0
+        for begin,end in sorted(occupied[memory]):
+            if offset+w.size_bytes<=begin:break
+            offset=max(offset,end)
+        group=next(g for g in stack.bank_groups if g.id==memory)
+        if offset+w.size_bytes>sum(domains[d].capacity_bytes for d in group.domain_ids):raise ValueError('Phase-Split exceeds physical capacity')
+        occupied[memory].append((offset,offset+w.size_bytes));result.append(replace(w,memory=memory,offset_bytes=offset))
     return tuple(result)
 
 

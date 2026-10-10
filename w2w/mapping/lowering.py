@@ -5,7 +5,8 @@ from w2w.domain.execution import ComputeTask,DataEdge,ControlEdge,ExecutionGraph
 from w2w.common.fingerprints import digest_read_v1
 
 
-def lower(logical, machine, weights, placement, *, streaming_compute=True):
+def lower(logical, machine, weights, placement, *, streaming_compute=True,execution_policy='s0'):
+    if execution_policy not in ('s0','s1'):raise ValueError('Unknown FFN dependency policy')
     locations={w.tensor:w for w in weights}
     ops={p.operation:p.cluster for p in placement}
     profiles={c.id:c.profile for c in machine.stack.compute_clusters}
@@ -35,17 +36,17 @@ def lower(logical, machine, weights, placement, *, streaming_compute=True):
             copies.append(dict(id=key,tensor=tensor.id,storage_id=tensor.storage_id,
                 source=ops[tensor.producer],destination=ops[consumer],bytes=tensor.bytes,
                 policy='explicit conservative copy, reserved until consumer executes; no implicit alias'))
-    # Gate and up share one engine allocation; phase ordering is explicit. Down
-    # depends on SiLU inputs, while each partition's running sum is ordered.
+    # S0 retains historical resource-order barriers. S1 removes gate->up, but
+    # keeps the previous-block barrier for BOTH projections; S2 is not implied.
     control=[]
     for op in logical.operations:
-        if op.kind=='gemm' and op.id.endswith('/up'):
+        if execution_policy=='s0' and op.kind=='gemm' and op.id.endswith('/up'):
             control.append(ControlEdge(op.id[:-2]+'gate',op.id))
         if op.kind=='gemm' and op.block is not None:
             previous=op.block-1
             blocks=logical.shape[1]//logical.shape[2]
             part_blocks=blocks//logical.partitions
-            if op.id.endswith('/gate') and op.block%part_blocks:
+            if (op.id.endswith('/gate') or (execution_policy=='s1' and op.id.endswith('/up'))) and op.block%part_blocks:
                 control.append(ControlEdge(f'e{op.expert}/b{previous}/accumulate',op.id))
     graph=ExecutionGraph(tuple(tasks),objects,tuple(edges),tuple(control))
     meta=dict(schema='w2w.execution-lowering.v3',logical_sha256=digest_read_v1(asdict(logical)),
@@ -58,4 +59,5 @@ def lower(logical, machine, weights, placement, *, streaming_compute=True):
         copy_contract='Logical tensor identity is distinct from these deliberately materialized execution copies')
     meta['compute_contract']=('scale first, then data-driven GEMM on committed descriptor payload; complete gate/up before SiLU; full matrix storage still reserved'
         if streaming_compute else 'blocking GEMM reference')
+    if execution_policy=='s1':meta['dependency_policy']='independent gate/up; both wait for previous block accumulate; activation/down and ordered accumulate data edges unchanged'
     return graph,meta

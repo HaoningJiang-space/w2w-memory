@@ -14,7 +14,7 @@ class VerticalRWDL:
     stream_origin='home_controller'
     atomic_bytes=16
 
-    def __init__(self,spec,*,refresh=True,backend=None,request_control=False):
+    def __init__(self,spec,*,refresh=True,backend=None,request_control=False,gateway_trace_bin_ps=0):
         from w2w.backends.ramulator.rwdl import RamulatorRWDL
         self.spec=spec;self.stack=spec.stack
         self.domains={d.id:d for d in self.stack.dram_domains}
@@ -41,6 +41,9 @@ class VerticalRWDL:
         self.selected_row={};self.round_robin=Counter();self.last_ps=-1
         self.accepted=self.completed=self.reservation_stalls=self.queue_stalls=0
         self.aggregate_bytes=Counter();self.aggregate_busy_cycles=Counter();self.aggregate_peak=Counter()
+        if type(gateway_trace_bin_ps) is not int or gateway_trace_bin_ps<0 or gateway_trace_bin_ps%spec.noc_period_ps:
+            raise ValueError('Gateway evidence bins must be nonnegative integral logic cycles')
+        self.gateway_trace_bin_ps=gateway_trace_bin_ps;self.gateway_trace=defaultdict(lambda:defaultdict(Counter))
         self.channel_atoms=Counter();self.native_first_ps=self.native_last_ps=None
         self.collection_atom_ps=self.cdc_atom_ps=self.gateway_atom_ps=0
         self.request_control=request_control
@@ -191,6 +194,9 @@ class VerticalRWDL:
             for key,queue in self.aggregate.items():
                 gateway=self.gateways[key];count=min(len(queue),gateway.data_bytes_per_cycle//16)
                 if count:self.aggregate_busy_cycles[key]+=1
+                if count and self.gateway_trace_bin_ps:
+                    trace=self.gateway_trace[key][now//self.gateway_trace_bin_ps]
+                    trace['bytes']+=count*16;trace['busy_cycles']+=1
                 for _ in range(count):
                     req,offset,channel,at,origin=queue.popleft();self.aggregate_bytes[key]+=16
                     delay=(1+getattr(gateway,'router_access_cycles',64))*self.spec.noc_period_ps
@@ -262,6 +268,11 @@ class VerticalRWDL:
             gateway_access_control_wire_bit_um=sum(g.control_bits*sum(abs(a-b) for a,b in zip(g.position_um,next(r for r in self.stack.routers if r.id==g.router_id).position_um)) for g in self.stack.gateways) if self.request_control else 0,
             gateway_access_control_pipeline_bits=sum(g.control_bits*g.router_access_cycles for g in self.stack.gateways) if self.request_control else 0,
             contract='16 B range/domain; shared 32-bit forward and reverse HB control at logic clock; explicit router-to-gateway access, physical domain propagation and CDC; range expanded locally; credits retained through 8 B serialized ACK; bounded queues, native ACT/PRE/RD unchanged')
+        if self.gateway_trace_bin_ps:
+            record['gateway_service_bins']=dict(interval_ps=self.gateway_trace_bin_ps,
+                gateways={key:[dict(start_ps=index*self.gateway_trace_bin_ps,end_ps=(index+1)*self.gateway_trace_bin_ps,**counts)
+                    for index,counts in sorted(bins.items())] for key,bins in self.gateway_trace.items()},
+                contract='Actual aggregate-output payload/busy cycles in fixed bins; observation only, no service skipped or averaged in execution; empty bins imply zero; last bin can extend beyond drain')
         return record
 
     def close(self):self.backend.close()

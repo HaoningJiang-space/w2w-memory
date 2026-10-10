@@ -19,6 +19,7 @@ def analyze(source):
         if digest(data)!=registered['input_sha256']:raise ValueError('Input identity changed')
         graph=data['graph'];invariant=dict(tasks=graph['tasks'],data=graph['data'],control=graph['control'],
             cache=data['cache'],compute_reference=data['compute_reference_weights'],resources=data['resources'],network=data['network_policy'])
+        if 'fetch_policy' in data:invariant['fetch_policy']=data['fetch_policy']
         if digest(invariant)!=reg['fixed_invariants_sha256'] or (first is not None and first!=invariant):raise ValueError('Memory-only invariant changed')
         first=invariant;inputs[case]=data
         identity=[(o['id'],o['size_bytes'],o['storage_id']) for o in graph['objects']]
@@ -35,6 +36,9 @@ def analyze(source):
                 r['makespan_ps']!=completion['makespan_ps'] or completion['input_sha256']!=registered['input_sha256']):
             raise ValueError('Source, work or completion identity changed')
         a=audit_vertical_result(r);b=audit_request_control(r)
+        if 'fetch_policy' in data:
+            for field in ('contexts_per_cluster','read_issue_policy','metadata_bytes_per_cluster'):
+                if data['fetch_policy'][field]!=r['fetch_execution'][field]:raise ValueError('Finite fetch policy changed')
         if a!=completion['audit'] or b!=completion['control_audit']:raise ValueError('Independent physical conservation failed')
         if (r['operand_readiness']['policy']!='contiguous_prefix' or r['compute_execution']['contexts_per_cluster']!=2 or
                 r['network']['source_arbiter']['routers']!=data['network_policy']['ready_router_ids'] or
