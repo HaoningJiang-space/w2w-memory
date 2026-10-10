@@ -95,6 +95,22 @@ After P4 completes, independently audit fixed compute/preload/storage/resource
 identities, invocation misses/reloads and drain, then update this report. A valid
 negative placement or zero-reload result must be retained.
 
+The [stage mechanism report](reports/PLACEMENT_STAGE_MECHANISM_REPORT.md) now
+reconstructs exact context clocks and milestones from all three audited cold
+records. Reference/Hybrid finish through expert 62; the final block inherits an
+18.831 µs earlier dependency release, surviving as 18.521 µs earlier layer finish.
+Its individual gate/up/down context durations are slightly longer, not shorter.
+Do not claim Balanced isolates gate/up locality: its down mapping differs.
+
+One controlled cold pair is registered at `7a694db` in `gate-up-ablation-r1`.
+`hybrid-gate-up-striped` changes only gate/up physical placement, preserving
+all Hybrid down memory/offset/size identities and every unmoved object. It is
+an intervention, not an additional optimized policy. `stage-monitor-r1` at
+`d35d2ad` checks the pair once/minute, audits/stage-analyzes it and verifies the
+Hybrid rerun against the old full physical record. Its second monitor waits for
+P4's original audit and then derives actual pressure and stage observations.
+Logs: `logs/stage-monitor-{gate-up,p4}-r1.log`; no automatic retries.
+
 ## Limits
 
 No search/DSE, new fanout/endpoint RTL, partitioning rewrite, thermal/yield
