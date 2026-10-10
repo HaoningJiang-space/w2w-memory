@@ -12,10 +12,11 @@ class StageEvents(unittest.TestCase):
 
     def test_prefix_hole_and_ungranted_ready_clock(self):
         events=[dict(kind='task_allocate',time_ps=0),
-            dict(kind='stream_operand_ready',time_ps=0,object_offset=128,bytes=32),
+            dict(kind='read_issue',time_ps=0,request='r128'),dict(kind='read_issue',time_ps=0,request='r64'),dict(kind='read_issue',time_ps=0,request='r0'),
+            dict(kind='stream_operand_ready',time_ps=0,object_offset=128,bytes=32,request='r128'),
             dict(kind='task_start',time_ps=0),dict(kind='stream_compute',time_ps=0,weight_bytes=0),
-            dict(kind='stream_operand_ready',time_ps=1500,object_offset=64,bytes=64),
-            dict(kind='stream_operand_ready',time_ps=2500,object_offset=0,bytes=64),
+            dict(kind='stream_operand_ready',time_ps=1500,object_offset=64,bytes=64,request='r64'),
+            dict(kind='stream_operand_ready',time_ps=2500,object_offset=0,bytes=64,request='r0'),
             dict(kind='stream_compute',time_ps=3000,weight_bytes=64),
             dict(kind='stream_compute',time_ps=5000,weight_bytes=64),dict(kind='task_finish',time_ps=6000)]
         row=stages(self.record(events,6000,3000))['tasks']['e0/b0/gate']
