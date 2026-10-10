@@ -8,13 +8,19 @@ from .compute_placement import place_compute,weight_compute_clusters
 from .lowering import lower
 
 
-def lower_sequence(tokens,machine,*,layers=2,shape=None):
+def lower_sequence(tokens,machine,*,layers=2,shape=None,weight_layout=None,compute_reference=None):
     shape=shape or {}
     catalog=build_moe((tokens[0],),**shape)
-    weights=place_weights(catalog,machine.stack)
+    weights=place_weights(catalog,machine.stack) if weight_layout is None else tuple(weight_layout)
+    reference=weights if compute_reference is None else tuple(compute_reference)
+    if ([(w.tensor,w.size_bytes) for w in weights]!=list(catalog.weight_sizes) or
+            [(w.tensor,w.size_bytes) for w in reference]!=list(catalog.weight_sizes)):
+        raise ValueError('Sequence requires the complete frozen layer weight catalog')
     offsets=Counter()
     for w in weights:offsets[w.memory]=max(offsets[w.memory],w.offset_bytes+w.size_bytes)
-    clusters=weight_compute_clusters(machine.stack,weights)
+    # Explicit reference fixes both compute and initial cache residency when
+    # memory layout is varied. Neither follows the candidate's DRAM position.
+    clusters=weight_compute_clusters(machine.stack,reference)
     tasks=[];data=[];control=[];objects=[];invocations=[];work={}
     # Catalog placement is frozen for ALL experts, including inactive experts.
     for layer in range(layers):
@@ -26,7 +32,7 @@ def lower_sequence(tokens,machine,*,layers=2,shape=None):
     for token,experts in enumerate(tokens):
         for layer in range(layers):
             logical=build_moe((experts,),**shape)
-            placement=place_compute(logical,machine.stack,weights)
+            placement=place_compute(logical,machine.stack,reference)
             # Sequential single-token requests originate at distributed clusters.
             source=machine.stack.compute_clusters[token%len(machine.stack.compute_clusters)].id
             placement=tuple(replace(p,cluster=source) if p.operation.startswith('t0/') else p for p in placement)
