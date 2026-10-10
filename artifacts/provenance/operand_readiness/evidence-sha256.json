@@ -1,0 +1,212 @@
+{
+  "default_equivalence": {
+    "fields": [
+      "makespan/drain",
+      "tasks",
+      "SRAM peak",
+      "arithmetic/context service",
+      "MC pools",
+      "network counts",
+      "native counts/timing"
+    ],
+    "makespan_ps": {
+      "central": 54489000,
+      "distributed": 54143000,
+      "external": 54748000
+    },
+    "passed": true,
+    "reference_source": "3fb523ecf878e715044a35324d44b8ab0f20e1e3"
+  },
+  "files": [
+    {
+      "bytes": 244828,
+      "path": "/Projects/haoning/w2w-full-system-gateway-cache-20261009/operand-readiness-r1/central-contiguous_prefix/input.json",
+      "sha256": "e31c9cda09cbc12a47c5b5ae269fd030b20aa7d20736b558178f79febc6f9858"
+    },
+    {
+      "bytes": 244821,
+      "path": "/Projects/haoning/w2w-full-system-gateway-cache-20261009/operand-readiness-r1/central-byte_count/input.json",
+      "sha256": "29ae3df8d81916a1c200271486a652393cf27c3051b7818e4bc3c4d2f9bab059"
+    },
+    {
+      "bytes": 254173,
+      "path": "/Projects/haoning/w2w-full-system-gateway-cache-20261009/operand-readiness-r1/distributed-contiguous_prefix/input.json",
+      "sha256": "47fe6a02ba10e9a3debf4362d4527085745b6e121cad4eca391f133069e8c953"
+    },
+    {
+      "bytes": 254166,
+      "path": "/Projects/haoning/w2w-full-system-gateway-cache-20261009/operand-readiness-r1/distributed-byte_count/input.json",
+      "sha256": "4d2dfda8f4776339dd00c748b42cf15d7e5c465ebe21bb65d18f22744adfb6d6"
+    },
+    {
+      "bytes": 2133,
+      "path": "/Projects/haoning/w2w-full-system-gateway-cache-20261009/operand-readiness-r1/central-contiguous_prefix/completion.json",
+      "sha256": "837d6b051958b159a79c85e7f25b4fc30767eafa11d15a35e9bf678d9f6fb52c"
+    },
+    {
+      "bytes": 1972,
+      "path": "/Projects/haoning/w2w-full-system-gateway-cache-20261009/operand-readiness-r1/central-byte_count/completion.json",
+      "sha256": "8c916ab463d9e6bba6ba5a8dc50a47edfe286ff22da12603d71a91b1cfb0f3b9"
+    },
+    {
+      "bytes": 2056,
+      "path": "/Projects/haoning/w2w-full-system-gateway-cache-20261009/operand-readiness-r1/distributed-contiguous_prefix/completion.json",
+      "sha256": "7252010a80a7925ae763e62f87a04a218c70b1908863c46197e07faed8d90c3c"
+    },
+    {
+      "bytes": 1973,
+      "path": "/Projects/haoning/w2w-full-system-gateway-cache-20261009/operand-readiness-r1/distributed-byte_count/completion.json",
+      "sha256": "8bf23e4f30e2fab599f6853485e0d59964e9a6fd48c42018adf8fe6daef09223"
+    },
+    {
+      "bytes": 2300703,
+      "path": "/Projects/haoning/w2w-full-system-gateway-cache-20261009/operand-readiness-r1/central-contiguous_prefix/result.json.gz",
+      "sha256": "80d7fd4c6a77206ce64ee8ceaff17e1e78c055637553901717114ab5a26cb81d"
+    },
+    {
+      "bytes": 2300724,
+      "path": "/Projects/haoning/w2w-full-system-gateway-cache-20261009/operand-readiness-r1/central-byte_count/result.json.gz",
+      "sha256": "1af0715fd3051af261bb5bd94c1949978b6ae93c7fb4eca6a17f16802b7816e5"
+    },
+    {
+      "bytes": 2417217,
+      "path": "/Projects/haoning/w2w-full-system-gateway-cache-20261009/operand-readiness-r1/distributed-contiguous_prefix/result.json.gz",
+      "sha256": "c1734219a136c4e2a42b01e67776dc507b534fe34f56f2a398615b3f2931fd7a"
+    },
+    {
+      "bytes": 2417196,
+      "path": "/Projects/haoning/w2w-full-system-gateway-cache-20261009/operand-readiness-r1/distributed-byte_count/result.json.gz",
+      "sha256": "c529e96798a62e46d439fa035c98be9f601a00667f586cee1c2aa3ef1484435e"
+    },
+    {
+      "bytes": 10044,
+      "path": "/Projects/haoning/w2w-full-system-gateway-cache-20261009/operand-readiness-r1/analysis.json",
+      "sha256": "b80a1bb62e948f46bc176e8630b0540324a6c621c53b5a307f2bcadf319f850a"
+    },
+    {
+      "bytes": 124,
+      "path": "/Projects/haoning/w2w-full-system-gateway-cache-20261009/prefix-checks.log",
+      "sha256": "e69da4a29cf5efc4549564470a46f69467363a2f5bbb6c0b67aee7f4295a3e40"
+    },
+    {
+      "bytes": 200,
+      "path": "/Projects/haoning/w2w-full-system-gateway-cache-20261009/prefix-final-checks.log",
+      "sha256": "bda52add84e42f419debfe4d6b38df10394a3e8bb9212b56fca7ee8ee76b8bf7"
+    },
+    {
+      "bytes": 69,
+      "path": "/Projects/haoning/w2w-full-system-gateway-cache-20261009/prefix-migration.log",
+      "sha256": "0781513135ff1564db9cb1ab1a24c7150dc32fe9e816faf2d6f0415523a5e2c0"
+    },
+    {
+      "bytes": 10480,
+      "path": "/Projects/haoning/w2w-full-system-gateway-cache-20261009/prefix-migration.json",
+      "sha256": "449c7056e55e8b18b89e27e7f7efed18f51e6a335d29b32c956056bfbac3cda3"
+    },
+    {
+      "bytes": 10480,
+      "path": "/Projects/haoning/w2w-full-system-gateway-cache-20261009/migration-r3.json",
+      "sha256": "449c7056e55e8b18b89e27e7f7efed18f51e6a335d29b32c956056bfbac3cda3"
+    }
+  ],
+  "offline_audits": {
+    "central-byte_count": {
+      "audit": {
+        "data_bytes": 419840,
+        "gateway_bytes": 12585984,
+        "native_and_gateway_reservations_drained": true,
+        "native_bytes": 12585984,
+        "packets": 6316,
+        "passed": true,
+        "physical_collection_charged": true,
+        "physical_domains": 128,
+        "physical_link_flits": 4290,
+        "read_descriptors": 3096,
+        "read_words": 393312,
+        "tasks": 44
+      },
+      "control_audit": {
+        "ack_bytes": 197376,
+        "command_bytes": 394752,
+        "enabled": true,
+        "passed": true,
+        "ranges": 24672
+      },
+      "passed": true
+    },
+    "central-contiguous_prefix": {
+      "audit": {
+        "data_bytes": 419840,
+        "gateway_bytes": 12585984,
+        "native_and_gateway_reservations_drained": true,
+        "native_bytes": 12585984,
+        "packets": 6316,
+        "passed": true,
+        "physical_collection_charged": true,
+        "physical_domains": 128,
+        "physical_link_flits": 4290,
+        "read_descriptors": 3096,
+        "read_words": 393312,
+        "tasks": 44
+      },
+      "control_audit": {
+        "ack_bytes": 197376,
+        "command_bytes": 394752,
+        "enabled": true,
+        "passed": true,
+        "ranges": 24672
+      },
+      "passed": true
+    },
+    "distributed-byte_count": {
+      "audit": {
+        "data_bytes": 419840,
+        "gateway_bytes": 12585984,
+        "native_and_gateway_reservations_drained": true,
+        "native_bytes": 12585984,
+        "packets": 6316,
+        "passed": true,
+        "physical_collection_charged": true,
+        "physical_domains": 128,
+        "physical_link_flits": 4290,
+        "read_descriptors": 3096,
+        "read_words": 393312,
+        "tasks": 44
+      },
+      "control_audit": {
+        "ack_bytes": 197376,
+        "command_bytes": 394752,
+        "enabled": true,
+        "passed": true,
+        "ranges": 24672
+      },
+      "passed": true
+    },
+    "distributed-contiguous_prefix": {
+      "audit": {
+        "data_bytes": 419840,
+        "gateway_bytes": 12585984,
+        "native_and_gateway_reservations_drained": true,
+        "native_bytes": 12585984,
+        "packets": 6316,
+        "passed": true,
+        "physical_collection_charged": true,
+        "physical_domains": 128,
+        "physical_link_flits": 4290,
+        "read_descriptors": 3096,
+        "read_words": 393312,
+        "tasks": 44
+      },
+      "control_audit": {
+        "ack_bytes": 197376,
+        "command_bytes": 394752,
+        "enabled": true,
+        "passed": true,
+        "ranges": 24672
+      },
+      "passed": true
+    }
+  },
+  "schema": "w2w.operand-readiness-evidence.v1",
+  "source_commit": "f999bd2855d2673fb6ccaaaf81b9a03cd2b946ca"
+}

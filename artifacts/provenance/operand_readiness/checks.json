@@ -1,0 +1,10 @@
+{
+  "final_source_commit": "f999bd2855d2673fb6ccaaaf81b9a03cd2b946ca",
+  "logs": {
+    "prefix-checks.log": "........................\n----------------------------------------------------------------------\nRan 24 tests in 91.695s\n\nOK\n",
+    "prefix-final-checks.log": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.021s\n\nOK\n.\n----------------------------------------------------------------------\nRan 1 test in 0.117s\n\nOK\n",
+    "prefix-migration.log": "{'central': 54489000, 'distributed': 54143000, 'external': 54748000}\n"
+  },
+  "schema": "w2w.operand-readiness-checks.v1",
+  "suite_source_commit": "24b52c63a01974071d5caa77dca84abc086176c7"
+}

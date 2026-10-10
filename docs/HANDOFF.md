@@ -44,8 +44,9 @@ probe at `f999bd2` gives Central 108.102 µs and Distributed 107.576 µs under b
 readiness policies. [OPERAND_READINESS_REPORT](reports/OPERAND_READINESS_REPORT.md)
 defines its scope; it does not prove full-size or two-layer insensitivity. Default
 small FFN times retain the existing migration reference. The 24-check remote
-suite and five final targeted checks pass. Selected raw identities/offline
-analysis are being archived; raw captures stay on the server.
+suite and five final targeted checks pass. Selected raw identities and independent
+offline audits are in `artifacts/provenance/operand_readiness`; raw captures stay
+on the server. All recorded default migration fields match exactly.
 
 Next: inspect completion/failures, re-audit the raw hierarchy results, archive
 selected analysis/identities, explain any differing misses, and publish findings.

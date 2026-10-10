@@ -1,0 +1,301 @@
+{
+  "cases": {
+    "central-byte_count": {
+      "arithmetic_busy_ps": 3119000,
+      "audit": {
+        "data_bytes": 419840,
+        "gateway_bytes": 12585984,
+        "native_and_gateway_reservations_drained": true,
+        "native_bytes": 12585984,
+        "packets": 6316,
+        "passed": true,
+        "physical_collection_charged": true,
+        "physical_domains": 128,
+        "physical_link_flits": 4290,
+        "read_descriptors": 3096,
+        "read_words": 393312,
+        "tasks": 44
+      },
+      "binary_sha256": "1ed98923175373524b293487d20aa4918596edfc92d28c6c87756e4996530e88",
+      "case": "central-byte_count",
+      "committed_holes": {
+        "deliveries_with_a_prefix_hole": 9,
+        "max_nonprefix_committed_bytes": 8192,
+        "scope": "arrival opportunities, not additive critical-path stalls",
+        "tasks_with_a_hole": 3
+      },
+      "control_audit": {
+        "ack_bytes": 197376,
+        "command_bytes": 394752,
+        "enabled": true,
+        "passed": true,
+        "ranges": 24672
+      },
+      "hop_flits": 4290,
+      "input_sha256": "615e247f50fdc127d658d16500a9a9bf4c7fc511f9c2365a422cae0de19ff1a0",
+      "macs": 12582912,
+      "makespan_ps": 108102000,
+      "makespan_us": 108.102,
+      "native_config_sha256": "ca9ad5c6bb4bc2673341ef27635f04c5702ef5f21f45ffd3c75e415d4643323d",
+      "operand_readiness": {
+        "commit_fragment_bytes": 4096,
+        "contract": "prefix validity bitmap plus 64-bit frontier/association paid in task SRAM; committed descriptors, not individual native words; byte-count policy retains an aggregate out-of-order consumption assumption",
+        "metadata_live_bytes": 0,
+        "peak_metadata_bytes": {},
+        "policy": "byte_count",
+        "prefix_blocked_task_cycles": {}
+      },
+      "source_commit": "f999bd2855d2673fb6ccaaaf81b9a03cd2b946ca",
+      "sram_peak_bytes": {
+        "c0": 1197376,
+        "c1": 90176,
+        "c10": 1074496,
+        "c11": 64,
+        "c12": 64,
+        "c13": 64,
+        "c14": 64,
+        "c15": 64,
+        "c2": 1074496,
+        "c3": 64,
+        "c4": 64,
+        "c5": 64,
+        "c6": 64,
+        "c7": 64,
+        "c8": 1074496,
+        "c9": 64
+      },
+      "vector_ops": 82944,
+      "wall_seconds": 33.527378343977034
+    },
+    "central-contiguous_prefix": {
+      "arithmetic_busy_ps": 3113000,
+      "audit": {
+        "data_bytes": 419840,
+        "gateway_bytes": 12585984,
+        "native_and_gateway_reservations_drained": true,
+        "native_bytes": 12585984,
+        "packets": 6316,
+        "passed": true,
+        "physical_collection_charged": true,
+        "physical_domains": 128,
+        "physical_link_flits": 4290,
+        "read_descriptors": 3096,
+        "read_words": 393312,
+        "tasks": 44
+      },
+      "binary_sha256": "1ed98923175373524b293487d20aa4918596edfc92d28c6c87756e4996530e88",
+      "case": "central-contiguous_prefix",
+      "committed_holes": {
+        "deliveries_with_a_prefix_hole": 9,
+        "max_nonprefix_committed_bytes": 8192,
+        "scope": "arrival opportunities, not additive critical-path stalls",
+        "tasks_with_a_hole": 3
+      },
+      "control_audit": {
+        "ack_bytes": 197376,
+        "command_bytes": 394752,
+        "enabled": true,
+        "passed": true,
+        "ranges": 24672
+      },
+      "hop_flits": 4290,
+      "input_sha256": "f68b12ee5dc68813b91a5acebeaa015c1d8fd3b2038fc28499684637e3e8624a",
+      "macs": 12582912,
+      "makespan_ps": 108102000,
+      "makespan_us": 108.102,
+      "native_config_sha256": "ca9ad5c6bb4bc2673341ef27635f04c5702ef5f21f45ffd3c75e415d4643323d",
+      "operand_readiness": {
+        "commit_fragment_bytes": 4096,
+        "contract": "prefix validity bitmap plus 64-bit frontier/association paid in task SRAM; committed descriptors, not individual native words; byte-count policy retains an aggregate out-of-order consumption assumption",
+        "metadata_live_bytes": 0,
+        "peak_metadata_bytes": {
+          "c0": 48,
+          "c10": 48,
+          "c2": 48,
+          "c8": 48
+        },
+        "policy": "contiguous_prefix",
+        "prefix_blocked_task_cycles": {
+          "e0/b1/gate": 394,
+          "e0/b2/gate": 394,
+          "e0/b3/gate": 394
+        }
+      },
+      "source_commit": "f999bd2855d2673fb6ccaaaf81b9a03cd2b946ca",
+      "sram_peak_bytes": {
+        "c0": 1197424,
+        "c1": 90176,
+        "c10": 1074544,
+        "c11": 64,
+        "c12": 64,
+        "c13": 64,
+        "c14": 64,
+        "c15": 64,
+        "c2": 1074544,
+        "c3": 64,
+        "c4": 64,
+        "c5": 64,
+        "c6": 64,
+        "c7": 64,
+        "c8": 1074544,
+        "c9": 64
+      },
+      "vector_ops": 82944,
+      "wall_seconds": 37.52594247087836
+    },
+    "distributed-byte_count": {
+      "arithmetic_busy_ps": 3115000,
+      "audit": {
+        "data_bytes": 419840,
+        "gateway_bytes": 12585984,
+        "native_and_gateway_reservations_drained": true,
+        "native_bytes": 12585984,
+        "packets": 6316,
+        "passed": true,
+        "physical_collection_charged": true,
+        "physical_domains": 128,
+        "physical_link_flits": 4290,
+        "read_descriptors": 3096,
+        "read_words": 393312,
+        "tasks": 44
+      },
+      "binary_sha256": "1ed98923175373524b293487d20aa4918596edfc92d28c6c87756e4996530e88",
+      "case": "distributed-byte_count",
+      "committed_holes": {
+        "deliveries_with_a_prefix_hole": 0,
+        "max_nonprefix_committed_bytes": 0,
+        "scope": "arrival opportunities, not additive critical-path stalls",
+        "tasks_with_a_hole": 0
+      },
+      "control_audit": {
+        "ack_bytes": 197376,
+        "command_bytes": 394752,
+        "enabled": true,
+        "passed": true,
+        "ranges": 24672
+      },
+      "hop_flits": 4290,
+      "input_sha256": "f170dbfa6c4efc78616b0b34ddb2ab2369454af4c3ce1a3c53c070b8196019a5",
+      "macs": 12582912,
+      "makespan_ps": 107576000,
+      "makespan_us": 107.576,
+      "native_config_sha256": "ca9ad5c6bb4bc2673341ef27635f04c5702ef5f21f45ffd3c75e415d4643323d",
+      "operand_readiness": {
+        "commit_fragment_bytes": 4096,
+        "contract": "prefix validity bitmap plus 64-bit frontier/association paid in task SRAM; committed descriptors, not individual native words; byte-count policy retains an aggregate out-of-order consumption assumption",
+        "metadata_live_bytes": 0,
+        "peak_metadata_bytes": {},
+        "policy": "byte_count",
+        "prefix_blocked_task_cycles": {}
+      },
+      "source_commit": "f999bd2855d2673fb6ccaaaf81b9a03cd2b946ca",
+      "sram_peak_bytes": {
+        "c0": 1197376,
+        "c1": 90176,
+        "c10": 1074496,
+        "c11": 64,
+        "c12": 64,
+        "c13": 64,
+        "c14": 64,
+        "c15": 64,
+        "c2": 1074496,
+        "c3": 64,
+        "c4": 64,
+        "c5": 64,
+        "c6": 64,
+        "c7": 64,
+        "c8": 1074496,
+        "c9": 64
+      },
+      "vector_ops": 82944,
+      "wall_seconds": 44.505417365115136
+    },
+    "distributed-contiguous_prefix": {
+      "arithmetic_busy_ps": 3115000,
+      "audit": {
+        "data_bytes": 419840,
+        "gateway_bytes": 12585984,
+        "native_and_gateway_reservations_drained": true,
+        "native_bytes": 12585984,
+        "packets": 6316,
+        "passed": true,
+        "physical_collection_charged": true,
+        "physical_domains": 128,
+        "physical_link_flits": 4290,
+        "read_descriptors": 3096,
+        "read_words": 393312,
+        "tasks": 44
+      },
+      "binary_sha256": "1ed98923175373524b293487d20aa4918596edfc92d28c6c87756e4996530e88",
+      "case": "distributed-contiguous_prefix",
+      "committed_holes": {
+        "deliveries_with_a_prefix_hole": 0,
+        "max_nonprefix_committed_bytes": 0,
+        "scope": "arrival opportunities, not additive critical-path stalls",
+        "tasks_with_a_hole": 0
+      },
+      "control_audit": {
+        "ack_bytes": 197376,
+        "command_bytes": 394752,
+        "enabled": true,
+        "passed": true,
+        "ranges": 24672
+      },
+      "hop_flits": 4290,
+      "input_sha256": "483be31b2919e5e5ded73afd55b4e9a1c7c386ee03b7f816e3c7e0de901c27c2",
+      "macs": 12582912,
+      "makespan_ps": 107576000,
+      "makespan_us": 107.576,
+      "native_config_sha256": "ca9ad5c6bb4bc2673341ef27635f04c5702ef5f21f45ffd3c75e415d4643323d",
+      "operand_readiness": {
+        "commit_fragment_bytes": 4096,
+        "contract": "prefix validity bitmap plus 64-bit frontier/association paid in task SRAM; committed descriptors, not individual native words; byte-count policy retains an aggregate out-of-order consumption assumption",
+        "metadata_live_bytes": 0,
+        "peak_metadata_bytes": {
+          "c0": 48,
+          "c10": 48,
+          "c2": 48,
+          "c8": 48
+        },
+        "policy": "contiguous_prefix",
+        "prefix_blocked_task_cycles": {}
+      },
+      "source_commit": "f999bd2855d2673fb6ccaaaf81b9a03cd2b946ca",
+      "sram_peak_bytes": {
+        "c0": 1197424,
+        "c1": 90176,
+        "c10": 1074544,
+        "c11": 64,
+        "c12": 64,
+        "c13": 64,
+        "c14": 64,
+        "c15": 64,
+        "c2": 1074544,
+        "c3": 64,
+        "c4": 64,
+        "c5": 64,
+        "c6": 64,
+        "c7": 64,
+        "c8": 1074544,
+        "c9": 64
+      },
+      "vector_ops": 82944,
+      "wall_seconds": 52.058308699168265
+    }
+  },
+  "changes": {
+    "central": {
+      "completion_change_percent": 0.0,
+      "delta_ps": 0
+    },
+    "distributed": {
+      "completion_change_percent": 0.0,
+      "delta_ps": 0
+    }
+  },
+  "limits": "small timing-policy probe, not multi-layer or full-size sensitivity proof; byte count assumes aggregate out-of-order consumption, prefix bitmap state charged",
+  "passed": true,
+  "schema": "w2w.operand-readiness-probe.v1",
+  "scope": "one small complete FFN, 2 experts, 512 intermediate, 2 contexts; native arrays, physical command/ACK, real BookSim; refresh disabled; no cache",
+  "source_commit": "f999bd2855d2673fb6ccaaaf81b9a03cd2b946ca"
+}

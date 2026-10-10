@@ -20,6 +20,12 @@ def analyze(source):
                 or digest(data)!=summary['input_sha256'] or result['graph']!=data['graph']
                 or result['spec']['stack']!=data['machine'] or result['makespan_ps']!=summary['makespan_ps']
                 or result['operand_readiness']!=summary['operand_readiness']
+                or result['native']['config_sha256']!=summary['native_config_sha256']
+                or result['network']['identity']['binary_sha256']!=summary['binary_sha256']
+                or sum(result['compute_busy_ps'].values())!=summary['arithmetic_busy_ps']
+                or result['sram_peak_bytes']!=summary['sram_peak_bytes']
+                or sum(result['network']['link_flits'].values())!=summary['hop_flits']
+                or result['native']['request_control']['enabled']!=data['request_control']
                 or result['operand_readiness']['policy']!=data['operand_readiness']
                 or result['compute_execution']['contexts_per_cluster']!=data['compute_contexts']):
             raise ValueError('Readiness execution/completion identity changed')

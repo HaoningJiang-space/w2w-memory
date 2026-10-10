@@ -63,6 +63,9 @@ derivation passed four physical-contract checks and the causal readiness check
 at `f999bd2`. The default small FFN completes in 54.489 / 54.143 / 54.748 µs
 for Central / Distributed / the corrected perimeter External reference.
 Historical full-size results are retained under their original identities.
+The migration also matches the recorded task times, SRAM peaks, arithmetic and
+context service, MC pool peaks, native counters/timing and network counters
+exactly. A separate offline pass re-audits all four raw probe results.
 
 Execution source: `f999bd2855d2673fb6ccaaaf81b9a03cd2b946ca`.
 BookSim SHA-256:
@@ -71,10 +74,14 @@ Ramulator bridge SHA-256:
 `37eb00768993fb5cfd903c690e72a21cdc69e10f4acbc421762f54dc5a33ba54`.
 Large inputs and raw results are retained at
 `hn072:/Projects/haoning/w2w-full-system-gateway-cache-20261009/operand-readiness-r1`.
+Selected analysis, remote check logs and raw SHA-256 inventory are in
+[`artifacts/provenance/operand_readiness`](../../artifacts/provenance/operand_readiness/).
 
 ```sh
 python -m w2w.experiments.probe_operand_readiness \
   --output NEW_DIRECTORY --booksim-binary BINARY
+python -m w2w.analysis.operand_readiness \
+  --source COMPLETED_DIRECTORY --output AUDIT_JSON
 ```
 
 The registered two-layer experiments keep source `3fb523e` and byte-count
