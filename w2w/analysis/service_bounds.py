@@ -26,6 +26,21 @@ def matrix_pipeline(*, matrix_bytes=524416, gateway_bytes_per_ns=32,
                  'A dedicated-service schedule is not a whole-wafer bandwidth allocation or a universal latency bound.')
 
 
+def fetch_state_minimum_holds(*, operand_service_ps, descriptors, issue_per_cycle,
+                              period_ps, split=False):
+    """Necessary ownership work for the two distinct finite-state lifetimes.
+
+    Admission and the first issue can share a clock. Issue retirement need not
+    wait for the last reply; the return association still must wait for it.
+    """
+    if (type(operand_service_ps) is not int or operand_service_ps<0 or
+            type(descriptors) is not int or descriptors<0 or
+            any(type(v) is not int or v<1 for v in (issue_per_cycle,period_ps))):
+        raise ValueError('Invalid finite fetch service budgets')
+    issue= max(0,ceil(Fraction(descriptors,issue_per_cycle))-1)*period_ps
+    return (issue,operand_service_ps) if split else (operand_service_ps,0)
+
+
 def service_bounds(result):
     spec = result['spec']; stack = from_record(spec['stack'])
     gateways = {g.id:g for g in (*stack.gateways, *stack.external_ports)}
@@ -71,6 +86,9 @@ def service_bounds(result):
         parents[edge['consumer']].add(edge['producer']); following[edge['producer']].add(edge['consumer'])
     remaining = {k:len(v) for k,v in parents.items()}; ready = [k for k,n in remaining.items() if not n]
     compute_work = Counter(); finish = {}; fetch_hold = Counter(); fetch_task = {}
+    return_hold = Counter(); return_task = {}
+    fetch_policy=result.get('fetch_execution',{})
+    split=fetch_policy.get('lifetime_policy')=='issue_only'
     tile_period = {t['id']:t['compute_period_ps'] for t in spec['tiles']}
     while ready:
         key = ready.pop(); task = tasks[key]; stream = task['stream']; clock = tile_period[task['tile']]
@@ -81,13 +99,20 @@ def service_bounds(result):
         hold = max([ceil(Fraction(n)/rates[g]) for g,n in task_gateway[key].items()] +
                    [n*domains[d].period_ps for d,n in task_domain[key].items()] +
                    [ceil(Fraction(sum(task_gateway[key].values())*period,spec['rx_write_bytes_per_cycle']))])
-        fetch_task[key] = hold; fetch_hold[task['tile']] += hold
+        descriptors=sum(ceil(Fraction(r['size_bytes'],spec['memory_request_bytes'])) for r in task['reads']) if task_gateway[key] else 0
+        issue,returns=fetch_state_minimum_holds(operand_service_ps=hold,descriptors=descriptors,
+            issue_per_cycle=spec['read_requests_per_tile_cycle'],period_ps=clock,split=split)
+        fetch_task[key] = issue; fetch_hold[task['tile']] += issue
+        return_task[key] = returns; return_hold[task['tile']] += returns
         for child in following[key]:
             remaining[child] -= 1
             if not remaining[child]: ready.append(child)
     if len(finish) != len(tasks): raise ValueError('Cyclic dependency record')
     slots = result.get('fetch_execution',{}).get('contexts_per_cluster',0)
     slot_bounds = {tile:ceil(Fraction(work,slots)) for tile,work in fetch_hold.items()} if slots else {}
+    return_slots=fetch_policy.get('return_tracking',{}).get('contexts_per_cluster',0)
+    if split and not return_slots:raise ValueError('Split issue lifetime lacks bounded return associations')
+    return_bounds={tile:ceil(Fraction(work,return_slots)) for tile,work in return_hold.items()} if return_slots else {}
     terms = dict(global_gateway_payload_ps=global_gateway,
         fixed_gateway_assignment_ps=max(gateway_bounds.values(),default=0),
         native_data_bus_ps=max(domain_bounds.values(),default=0),
@@ -96,7 +121,8 @@ def service_bounds(result):
         receiver_write_ps=max(rx_bounds.values(),default=0),
         shared_compute_ps=max(compute_work.values(),default=0),
         arithmetic_dependency_ps=max(finish.values(),default=0),
-        finite_fetch_ownership_ps=max(slot_bounds.values(),default=0))
+        finite_fetch_ownership_ps=max(slot_bounds.values(),default=0),
+        finite_return_ownership_ps=max(return_bounds.values(),default=0))
     necessary = max(terms.values())
     if necessary > duration: raise ValueError('Necessary service exceeds observed makespan')
     return dict(schema='w2w.service-bounds.v1', native_bytes=total, makespan_ps=duration,
@@ -105,8 +131,11 @@ def service_bounds(result):
         channel_data_lane_bounds_ps=channel_bounds, receiver_write_bounds_ps=rx_bounds,
         arithmetic_earliest_finish_ps=finish, shared_compute_bounds_ps=dict(compute_work),
         minimum_fetch_hold_ps=fetch_task, finite_slot_work_bounds_ps=slot_bounds,
+        minimum_return_hold_ps=return_task, finite_return_work_bounds_ps=return_bounds,
         executed_data_lane_byte_um=byte_um,
         contract='Max of necessary work bounds, never their sum. Uses actual cold/miss descriptors and executed traffic; '
                  'cached matrices contribute no native byte work. Domain buses omit ACT/PRE/REF inefficiency; '
-                 'arithmetic-only DAG omits data service and implicit contention; finite slots bound total minimum hold work, '
+                 'arithmetic-only DAG omits data service and implicit contention; coupled slots retain operand service work; '
+                 'split issue slots retain descriptor issue work and separately bounded return associations retain operand service work. '
+                 'Finite state terms bound total minimum hold work, '
                  'not the actual arbitration schedule. Data-lane distance is an activity proxy, not measured energy/PPA.')
