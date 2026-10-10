@@ -17,7 +17,7 @@ from w2w.system.builder import SystemBuilder
 
 class SystemExecution:
     def __init__(self, spec, graph, native=None, *, network_factory=None,
-                 activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count',fetch_contexts=0,read_issue_policy='ordered',compute_epoch=False,compute_epoch_evidence='full',interactive_compute=False,interactive_compute_evidence='full'):
+                 activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count',fetch_contexts=0,read_issue_policy='ordered',compute_epoch=False,compute_epoch_evidence='full',interactive_compute=False,interactive_compute_evidence='full',causal_boundary=False):
         self.spec, self.graph = spec, graph
         self.builder = SystemBuilder(spec).validate_graph(graph)
         self.events = [];self.event_observer=event_observer
@@ -33,6 +33,12 @@ class SystemExecution:
             from w2w.system.interactive_compute import InteractiveCompute, OrderedEvidence
             self.interactive_compute=InteractiveCompute(interactive_compute_evidence)
             if interactive_compute_evidence=='compact':self.events=OrderedEvidence()
+        if type(causal_boundary) is not bool or causal_boundary and not interactive_compute:
+            raise ValueError('Causal boundaries require explicit interactive compute')
+        self.coordinator=None;self.boundary_resume=None
+        if causal_boundary:
+            from w2w.system.causal_boundary import CausalBoundary
+            self.coordinator=CausalBoundary()
         if operand_readiness not in ('byte_count','contiguous_prefix'):raise ValueError('Unknown operand readiness policy')
         self.operand_readiness=operand_readiness;self.operand_frontiers={}
         self.operand_metadata_live=Counter();self.operand_metadata_peak=Counter();self.prefix_blocked=Counter()
@@ -570,6 +576,9 @@ class SystemExecution:
         now = 0
         while now <= max_ps:
             yield now
+            if self.boundary_resume is not None:
+                now,self.boundary_resume=self.boundary_resume,None
+                continue
             if self.compute_epoch_resume is not None:
                 now,self.compute_epoch_resume=self.compute_epoch_resume,None
                 continue
@@ -586,7 +595,7 @@ class SystemExecution:
             now = min(candidates)
 
     def run(self, max_ps=10_000_000, *, time_advance='gcd'):
-        if self.compute_epoch and time_advance!='boundaries':
+        if (self.compute_epoch or self.coordinator) and time_advance!='boundaries':
             raise ValueError('Compute epochs require the existing boundary time driver')
         periods = [self.spec.noc_period_ps, self.spec.dram_period_ps,
                    *(t.compute_period_ps for t in self.spec.tiles)]
@@ -636,6 +645,7 @@ class SystemExecution:
             if self.compute_epoch:
                 from w2w.system.compute_epoch import advance_compute_epoch
                 self.compute_epoch_resume=advance_compute_epoch(self,max_ps)
+            if self.coordinator:self.boundary_resume=self.coordinator.plan(self,max_ps)
         else:
             pending = {k: dict(allocated=s['allocated'], started=s['start_ps'], read_bytes=s['read_bytes'])
                        for k, s in self.state.items() if not s.get('done')}
@@ -671,6 +681,7 @@ class SystemExecution:
                 intervals=self.compute_epochs,batched_compute_cycles=sum(r['cycles'] for r in self.compute_epochs),
                 contract='one streaming context, all operands committed, quiescent native transport; release/deadline/tail barriers; native DRAM cycles including refresh still executed')
         if self.interactive_compute:record['interactive_compute']=self.interactive_compute.record()
+        if self.coordinator:record['causal_boundary']=self.coordinator.record()
         if self.fetch_contexts:record['fetch_execution']=dict(contexts_per_cluster=self.fetch_contexts,peak_contexts=dict(self.fetch_peak),
             live_contexts=sum(map(len,self.fetch_live.values())),metadata_bytes_per_cluster=self.fetch_metadata_bytes,read_issue_policy=self.read_issue_policy,
             contract='64 B/matrix fetch slot plus 8 B shared selector, inside original SRAM; round-robin descriptors share original issue and outstanding limits; full matrix storage still reserved')
@@ -679,9 +690,9 @@ class SystemExecution:
 
 
 def execute_system(spec, graph, *, native=None, network_factory=None, max_ps=10_000_000,
-                   time_advance='gcd',activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count',fetch_contexts=0,read_issue_policy='ordered',compute_epoch=False,compute_epoch_evidence='full',interactive_compute=False,interactive_compute_evidence='full'):
+                   time_advance='gcd',activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count',fetch_contexts=0,read_issue_policy='ordered',compute_epoch=False,compute_epoch_evidence='full',interactive_compute=False,interactive_compute_evidence='full',causal_boundary=False):
     execution = SystemExecution(spec, graph, native, network_factory=network_factory,
-                                activation_sram_read_bytes_per_cycle=activation_sram_read_bytes_per_cycle,compute_contexts=compute_contexts,weight_cache=weight_cache,event_observer=event_observer,operand_readiness=operand_readiness,fetch_contexts=fetch_contexts,read_issue_policy=read_issue_policy,compute_epoch=compute_epoch,compute_epoch_evidence=compute_epoch_evidence,interactive_compute=interactive_compute,interactive_compute_evidence=interactive_compute_evidence)
+                                activation_sram_read_bytes_per_cycle=activation_sram_read_bytes_per_cycle,compute_contexts=compute_contexts,weight_cache=weight_cache,event_observer=event_observer,operand_readiness=operand_readiness,fetch_contexts=fetch_contexts,read_issue_policy=read_issue_policy,compute_epoch=compute_epoch,compute_epoch_evidence=compute_epoch_evidence,interactive_compute=interactive_compute,interactive_compute_evidence=interactive_compute_evidence,causal_boundary=causal_boundary)
     try:
         return execution.run(max_ps,time_advance=time_advance)
     except BaseException:

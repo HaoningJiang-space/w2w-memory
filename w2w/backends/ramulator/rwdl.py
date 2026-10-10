@@ -57,8 +57,12 @@ class RamulatorRWDL:
         self.memories = memories
         self.last_ps = 0
         self.native_cycle = 0
+        self.prefetched = []
+        self.reserved_until = None
 
     def submit(self, channel, atom_address):
+        if self.reserved_until is not None:
+            raise ValueError('Consume the first-callback boundary before new DRAM input')
         if not 0 <= channel < self.domain_count or not 0 <= atom_address < self.atom_limit:
             raise ValueError('Out-of-range RWDL array address')
         ticket = self.accepted
@@ -70,12 +74,16 @@ class RamulatorRWDL:
         return ticket
 
     def advance(self, now):
+        if self.reserved_until is not None and now!=self.reserved_until:
+            raise ValueError('Resume exactly at the reserved first-callback boundary')
         if now < self.last_ps:
             raise ValueError('Nonmonotonic RWDL time')
         self.last_ps = now
+        self.reserved_until=None
         target=now//self.tck_ps
-        if target==self.native_cycle:return []
-        result = self.impl.advance(target)
+        if target<self.native_cycle:raise ValueError('System time precedes reserved native boundary')
+        result,self.prefetched=self.prefetched,[]
+        if target>self.native_cycle:result+=self.impl.advance(target)
         self.native_cycle=target
         for ticket, cycle in result:
             if ticket not in self.pending or cycle*self.tck_ps > now:
@@ -83,6 +91,24 @@ class RamulatorRWDL:
             self.pending.remove(ticket)
             self.completed += 1
         return result
+
+    def advance_until_event(self, limit_ps):
+        """Reserve a certified input-free interval, stopping at first callback.
+
+        The caller must resume at the returned ps boundary. Completed atoms are
+        delivered by ordinary advance there, not at the earlier caller time.
+        """
+        if limit_ps<=self.last_ps or self.reserved_until is not None:
+            raise ValueError('Invalid first-callback reservation')
+        method=getattr(self.impl,'advance_until_event',None)
+        if method is None:return None
+        target=limit_ps//self.tck_ps
+        cycle,rows=method(target)
+        if not self.native_cycle<=cycle<=target or any(at!=cycle for _,at in rows):
+            raise RuntimeError('Native first-callback boundary violated')
+        self.native_cycle=cycle;self.prefetched=list(rows)
+        self.reserved_until=cycle*self.tck_ps if rows else limit_ps
+        return self.reserved_until
 
     def record(self):
         def finite(value):

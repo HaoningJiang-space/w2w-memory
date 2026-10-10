@@ -78,7 +78,7 @@ def worker(out,case,binary):
         function=getattr(cls,name)
         def call(self,*args,**kwargs):
             count(prefix+'_attempt');result=function(self,*args,**kwargs)
-            if result:count(prefix+'_accepted')
+            if (result is not None if prefix=='atom_admission' else result):count(prefix+'_accepted')
             return result
         setattr(cls,name,call)
     counted(BookSimNetwork,'try_send','ni_admission')

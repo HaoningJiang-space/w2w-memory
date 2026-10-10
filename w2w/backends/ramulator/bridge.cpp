@@ -70,6 +70,15 @@ class IncrementalMemory {
     while (cycle < target) { ++cycle; memory->tick(); }
     return std::exchange(completed, {});
   }
+  std::pair<uint64_t,std::vector<std::pair<uint64_t,uint64_t>>> advance_until_event(uint64_t target) {
+    if (closed || target < cycle || !completed.empty())
+      throw std::runtime_error("Invalid first-callback DRAM advance");
+    while (cycle < target) {
+      ++cycle; memory->tick();
+      if (!completed.empty()) break;
+    }
+    return {cycle,std::exchange(completed,{})};
+  }
   nb::dict stats() {
     memory->update_stats_recursive();
     return nb::cast<nb::dict>(confignode_to_py(memory->collect_stats()));
@@ -88,6 +97,7 @@ NB_MODULE(_w2w_ramulator, m) {
     .def(nb::init<nb::dict,uint64_t>(), nb::arg("config"), nb::arg("array_atoms") = (1u << 20))
     .def("send", &IncrementalMemory::send)
     .def("advance", &IncrementalMemory::advance)
+    .def("advance_until_event", &IncrementalMemory::advance_until_event)
     .def("stats", &IncrementalMemory::stats)
     .def("outstanding", &IncrementalMemory::outstanding)
     .def("close", &IncrementalMemory::close);

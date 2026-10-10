@@ -55,6 +55,7 @@ class InteractiveCompute:
         self.ordinary_updates = 0
         self.batch_updates = 0
         self.service_visits = 0
+        self.bulk_services = 0
 
     def deferred_bytes(self, key):
         run = self.live
@@ -145,10 +146,14 @@ class InteractiveCompute:
         return True
 
     def record(self):
-        return dict(schema=1, evidence=self.evidence, intervals=self.intervals,
+        record=dict(schema=2 if self.bulk_services else 1, evidence=self.evidence, intervals=self.intervals,
             ordinary_weight_updates=self.ordinary_updates, batch_updates=self.batch_updates,
             batched_compute_cycles=sum(r['cycles'] for r in self.intervals),
             compute_service_visits=self.service_visits,
             contract='one streaming context; committed contiguous prefix funds service; '
                 'deferred progress materialized before fallback; host/native time does not jump; '
                 'task tail ordinary; all native feedback remains active')
+        if self.bulk_services:
+            record['bulk_services']=self.bulk_services
+            record['contract']='committed-prefix one-context service; certified native callback horizons; ordinary native clocks and feedback; task tail exact'
+        return record

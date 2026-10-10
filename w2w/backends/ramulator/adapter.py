@@ -237,6 +237,17 @@ class VerticalRWDL:
     def take_ready(self):
         ready,self.ready=self.ready,[];return ready
 
+    def first_callback_boundary(self,now,limit):
+        """Only the array runs ahead; all frontend input/service is bounded."""
+        if (now!=self.last_ps or limit<=now or self.ready or self.native_events
+                or any(self.queues.values()) or any(self.aggregate.values())
+                or not getattr(self.backend,'pending',None)):
+            return None
+        if self.future:limit=min(limit,self.future[0][0])
+        if limit<=now:return None
+        advance=getattr(self.backend,'advance_until_event',None)
+        return None if advance is None else advance(limit)
+
     def take_native_events(self):
         events,self.native_events=self.native_events,[];return events
 

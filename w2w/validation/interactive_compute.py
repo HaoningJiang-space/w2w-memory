@@ -70,9 +70,10 @@ def audit_interactive_compute(raw):
         return dict(intervals=0, batched_compute_cycles=0, weight_services=sum(
             e['kind']=='stream_compute' and e['weight_bytes']>0 for e in result['events']),
             arithmetic_updates=None, overlapping_intervals=0, partial_prefix_intervals=0)
-    if (set(meta) != {'schema','evidence','intervals','ordinary_weight_updates','batch_updates',
-                     'batched_compute_cycles','compute_service_visits','contract'}
-            or meta['schema'] != 1 or meta['evidence'] not in ('full','compact')
+    fields={'schema','evidence','intervals','ordinary_weight_updates','batch_updates',
+            'batched_compute_cycles','compute_service_visits','contract'}
+    if meta.get('schema')==2:fields.add('bulk_services')
+    if (set(meta)!=fields or meta['schema'] not in (1,2) or meta['evidence'] not in ('full','compact')
             or meta['intervals'] and (result['compute_execution']['contexts_per_cluster'] != 1
                 or result['operand_readiness']['policy'] != 'contiguous_prefix')):
         raise ValueError('Unsupported interactive compute contract')
@@ -127,7 +128,9 @@ def audit_interactive_compute(raw):
                        and start < e['time_ps'] <= end for e in result['events'])
         partial += interval['committed_prefix_bytes'] < rule['weight_data_bytes']
         total += n
-    if (total != meta['batched_compute_cycles'] or total != meta['compute_service_visits']
+    bulk=meta.get('bulk_services',0)
+    if (type(bulk) is not int or bulk<0 or total != meta['batched_compute_cycles']
+            or total != meta['compute_service_visits']+bulk
             or len(intervals) != meta['batch_updates']
             or len(services)-total != meta['ordinary_weight_updates']):
         raise ValueError('Interactive update count differs from actual services')
