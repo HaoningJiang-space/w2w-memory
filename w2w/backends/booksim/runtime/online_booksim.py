@@ -15,6 +15,10 @@ class OnlineBookSim:
         natural(flit_bytes, "flit bytes", positive=True)
         self.flit_bytes, self.timeout = flit_bytes, timeout
         self.now = 0
+        self.native_now = 0
+        self.protocol_logging = True
+        self.coalesce_mutations = False
+        self.mutations = []
         self.pending, self.messages = {}, []
         self.buffer = b""
         self.directory = Path(directory)
@@ -50,15 +54,38 @@ class OnlineBookSim:
             self.buffer += chunk
         line, self.buffer = self.buffer.split(b"\n", 1)
         reply = json.loads(line)
-        self.logs[2].write(json.dumps(dict(reply=reply))+"\n"); self.logs[2].flush()
+        if self.protocol_logging:
+            self.logs[2].write(json.dumps(dict(reply=reply))+"\n"); self.logs[2].flush()
+        if 'cycle' in reply:self.native_now=reply['cycle']
         if not reply.get("ok"):
             raise RuntimeError(reply.get("error", "Online BookSim failure"))
         return reply
 
     def _request(self, request):
-        self.logs[2].write(json.dumps(dict(request=request))+"\n"); self.logs[2].flush()
-        self.process.stdin.write(json.dumps(request)+"\n"); self.process.stdin.flush()
+        if self.protocol_logging:
+            self.logs[2].write(json.dumps(dict(request=request))+"\n"); self.logs[2].flush()
+        if self.coalesce_mutations and request['command'] in ('submit','supply','commit'):
+            self.mutations.append(request)
+            return dict(ok=True,cycle=request['cycle'],**({'id':request['id']} if request['command']=='submit' else {}))
+        wire=request
+        if self.mutations:
+            if request['command']!='advance':raise RuntimeError('Source mutations need the next conservative advance barrier')
+            wire=dict(command='batch',mutations=self.mutations,until=request['until'])
+            self.mutations=[]
+        self.process.stdin.write(json.dumps(wire)+"\n"); self.process.stdin.flush()
         return self._receive()
+
+    def synchronize_idle(self):
+        """Caller has proved native Idle(): no flits, credits or ready messages.
+
+        Catch up before any source mutation or close. This does not skip active
+        cycles or delay receive/commit; it only batches already empty intervals.
+        """
+        if self.native_now==self.now:return
+        if self.mutations:raise RuntimeError('Cannot defer an interval containing source mutations')
+        reply=self._request(dict(command='advance',until=self.now))
+        if reply['cycle']!=self.now or reply['completed'] or reply.get('progress') or not reply['idle']:
+            raise RuntimeError('Deferred empty interval produced a network event')
 
     def submit(self, token, transfer, cycle):
         if cycle != self.now or token in self.pending or any(m["token"] == token for m in self.messages):
@@ -101,6 +128,7 @@ class OnlineBookSim:
     def close(self):
         if self.pending:
             raise ValueError("Cannot close an incomplete network")
+        self.synchronize_idle()
         final = self._request(dict(command="close"))
         self.process.stdin.close()
         if self.process.wait(timeout=self.timeout) != 0 or not final["drained"]:

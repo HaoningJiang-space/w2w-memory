@@ -20,6 +20,7 @@ class VerticalRWDL:
         self.domains={d.id:d for d in self.stack.dram_domains}
         self.channels={key:i for i,key in enumerate(self.domains)}
         self.domain_names=tuple(self.domains)
+        self.domain_list=tuple(self.domains.values())
         self.interfaces={m.id:m for m in spec.memories}
         self.gateways={g.id:g for g in (*self.stack.gateways,*self.stack.external_ports)}
         self.paths={(p.domain_id,p.gateway_id):p for p in self.stack.collection_paths}
@@ -103,7 +104,10 @@ class VerticalRWDL:
         active=[channel for channel,offset in cursors.items() if offset<req.size_bytes]
         if self.request_control and (self.command_live[memory.gateway_id]+len(active)>self.tx_limits[memory.gateway_id] or any(self.domain_descriptors[c]>=32 for c in active)):
             self.command_stalls+=1;return False
-        row=dict(request=req,cursors=cursors,completed=0,raw_completed=0)
+        # Cache the physical atom at each cursor. Success advances it by one;
+        # failed native acceptance leaves both cursor and atom untouched.
+        addresses={channel:self.address(req,offset)[1] for channel,offset in cursors.items() if offset<req.size_bytes}
+        row=dict(request=req,cursors=cursors,addresses=addresses,completed=0,raw_completed=0)
         self.groups[req.id]=row
         access_end=now
         if self.request_control:
@@ -192,7 +196,7 @@ class VerticalRWDL:
                     delay=(1+getattr(gateway,'router_access_cycles',64))*self.spec.noc_period_ps
                     self._schedule(now+delay,'payload',req,offset,channel,origin)
         if now%self.period_ps==0:
-            domain_list=list(self.domains.values());p=self.stack.native_policy
+            domain_list=self.domain_list;p=self.stack.native_policy
             for channel,queue in self.queues.items():
                 if not queue:continue
                 if self.reserved[channel]>=domain_list[channel].return_atoms:
@@ -202,11 +206,10 @@ class VerticalRWDL:
                 elif p.descriptor_policy=='row_batched' and channel in self.selected_row:
                     for i in range(window):
                         row=self.groups[queue[i]]
-                        _,a=self.address(row['request'],row['cursors'][channel])
+                        a=row['addresses'][channel]
                         if a//64==self.selected_row[channel]:index=i;break
                 key=queue[index];row=self.groups[key];req=row['request'];offset=row['cursors'][channel]
-                mapped,address=self.address(req,offset)
-                if mapped!=channel:raise RuntimeError('Physical domain mapping changed')
+                address=row['addresses'][channel]
                 ticket=self.backend.submit(channel,address)
                 if ticket is None:self.queue_stalls+=1;continue
                 if self.request_control and (key,channel) not in self.command_started:
@@ -218,6 +221,7 @@ class VerticalRWDL:
                 self.round_robin[channel]=(index+1)%p.descriptor_window
                 offset+=16 if offset%32==0 else self.interfaces[req.memory].banks*32-16
                 row['cursors'][channel]=offset
+                row['addresses'][channel]+=1
                 if offset>=req.size_bytes:
                     queue.remove(key)
                     if self.request_control:

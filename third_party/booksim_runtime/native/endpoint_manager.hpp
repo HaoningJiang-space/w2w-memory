@@ -13,6 +13,7 @@ class BoundaryTrafficManager : public OnlineTrafficManager {
     std::vector<int> supplied, sent;
     std::map<int,int> ordinals;
     std::map<int,std::pair<int,int>> held; // flit -> destination, VC
+    std::vector<int> occupied;
     std::vector<std::deque<int>> returns;
     std::vector<json> progress;
     std::vector<uint64_t> unsupplied_head, ready_behind, ready_behind_with_credit, ready_head_credit_wait;
@@ -97,9 +98,7 @@ class BoundaryTrafficManager : public OnlineTrafficManager {
         if (!enabled || !bounded) { TrafficManager::_EndpointCredit(f,subnet,node); return; }
         if (held.count(f->id)) throw std::runtime_error("Repeated held endpoint credit");
         held[f->id]={node,f->vc};
-        int occupied=0;
-        for (const auto &item:held) if (item.second.first==node) ++occupied;
-        if (occupied>slots) throw std::runtime_error("Endpoint receive slots exceeded");
+        if (++occupied[node]>slots) throw std::runtime_error("Endpoint receive slots exceeded");
     }
     void _RetireFlit(Flit *f,int node) override {
         int mid=f->mid, fid=f->id;
@@ -123,7 +122,7 @@ class BoundaryTrafficManager : public OnlineTrafficManager {
     void Step() override { ReturnCredits(); OnlineTrafficManager::Step(); }
 public:
     BoundaryTrafficManager(const BookSimConfig &config,const std::vector<Network*> &net)
-        : OnlineTrafficManager(config,net), original(config), returns(_nodes),
+        : OnlineTrafficManager(config,net), original(config), occupied(_nodes), returns(_nodes),
           unsupplied_head(_nodes),ready_behind(_nodes),ready_behind_with_credit(_nodes),
           ready_head_credit_wait(_nodes),ready_sources(_nodes),arbitration_live(_nodes),parked(_nodes),ready_selections(_nodes) {}
     bool Idle() const override {
@@ -174,7 +173,9 @@ public:
         } else if (command=="commit") {
             int fid=r.at("flit");
             if (!enabled || !bounded || !held.count(fid)) throw std::runtime_error("Unknown committed flit");
-            auto item=held.at(fid);held.erase(fid); returns[item.first].push_back(item.second);
+            auto item=held.at(fid);held.erase(fid);
+            if (--occupied[item.first]<0) throw std::runtime_error("Negative endpoint occupancy");
+            returns[item.first].push_back(item.second);
         } else throw std::runtime_error("Unknown boundary command");
         return {{"ok",true},{"cycle",_time}};
     }

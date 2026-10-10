@@ -55,6 +55,7 @@ class BookSimNetwork:
         if not debug_flits:
             self.client.logs[2].close()
             self.client.logs[2] = open(os.devnull, 'w')
+            self.client.protocol_logging = False
         self.arbiter_sources=set(ready_router_ids)
         if not self.arbiter_sources<=self.nodes.keys() or not 1<=ready_slots<=64:
             raise ValueError('Explicit physical ready arbiter sources and finite slots required')
@@ -62,6 +63,9 @@ class BookSimNetwork:
         self.client.configure(rx_slots=self.spec.input_buffer_flits, bounded=True, streaming=True,
             ready_nodes=[self.nodes[k] for k in sorted(self.arbiter_sources)],
             ready_slots=ready_slots if self.arbiter_sources else 0)
+        # Mutations at one boundary are applied in their original order before
+        # the next native Step. No network tick, reply event or credit is skipped.
+        self.client.coalesce_mutations = True
         self.ideal_return, self.debug_flits = ideal_return, debug_flits
         self.pending, self.native_ids = {}, {}
         self.next_id = 0
@@ -156,6 +160,7 @@ class BookSimNetwork:
             self.native_ids[identity] = packet.id
             # Reuse persistent IPC and boundary commands, with adapter-owned IDs.
             # Avoid retaining a second full flit archive in OnlineBookSim.messages.
+            self.client.synchronize_idle()
             self.client._request(dict(command='submit', id=identity, cycle=self.client.now,
                 source=self.endpoint_nodes[packet.src], destination=self.endpoint_nodes[packet.dst], flits=count))
             self.pending[packet.id]['native_id'] = identity
@@ -263,6 +268,9 @@ class BookSimNetwork:
 
     def _advance(self, now):
         target = now//self.spec.noc_period_ps
+        if self.native_idle:
+            self.client.now=target
+            return
         while self.client.now < target:
             reply = self.client._request(dict(command='advance', until=target))
             if not self.client.now < reply['cycle'] <= target:

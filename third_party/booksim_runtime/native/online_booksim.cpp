@@ -176,7 +176,20 @@ int main(int argc, char **argv) {
             const auto request=json::parse(line);
             const std::string command=request.at("command");
             json reply;
-            if (command == "submit") reply=manager->Submit(request);
+            if (command == "batch") {
+                // Ordered, zero-time endpoint operations at the current
+                // boundary. The next Advance still stops at first progress.
+                for (const auto &item:request.at("mutations")) {
+                    const std::string op=item.at("command");
+                    if(op=="submit") manager->Submit(item);
+#ifdef WAFER_ENDPOINT_BOUNDARY
+                    else if(op=="supply" || op=="commit") manager->BoundaryCommand(item);
+#endif
+                    else throw std::runtime_error("Invalid batched endpoint mutation");
+                }
+                reply=manager->Advance(request.at("until"));
+            }
+            else if (command == "submit") reply=manager->Submit(request);
             else if (command == "advance") reply=manager->Advance(request.at("until"));
             else if (command == "close") { reply=manager->Close(); closed=true; }
 #ifdef WAFER_ENDPOINT_BOUNDARY

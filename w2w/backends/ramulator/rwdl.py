@@ -56,6 +56,7 @@ class RamulatorRWDL:
         self.pending = set()
         self.memories = memories
         self.last_ps = 0
+        self.native_cycle = 0
 
     def submit(self, channel, atom_address):
         if not 0 <= channel < self.domain_count or not 0 <= atom_address < self.atom_limit:
@@ -72,7 +73,10 @@ class RamulatorRWDL:
         if now < self.last_ps:
             raise ValueError('Nonmonotonic RWDL time')
         self.last_ps = now
-        result = self.impl.advance(now//self.tck_ps)
+        target=now//self.tck_ps
+        if target==self.native_cycle:return []
+        result = self.impl.advance(target)
+        self.native_cycle=target
         for ticket, cycle in result:
             if ticket not in self.pending or cycle*self.tck_ps > now:
                 raise RuntimeError('Invalid RWDL completion')

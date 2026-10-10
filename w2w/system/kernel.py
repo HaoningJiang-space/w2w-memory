@@ -356,6 +356,10 @@ class SystemExecution:
         req = row['request']
         if not row['prefix'] or row['mc_released']:
             return
+        # A prefix already copied to the NI cannot change until another native
+        # atom arrives. Failed admission is still retried at every old boundary.
+        if row['response_admitted'] and row.get('response_prefix')==row['prefix']:
+            return
         packet_key = key+'/resp'
         if not row['response_admitted']:
             packet = Packet(packet_key,mc,req.requester,'response',req.size_bytes,
@@ -365,7 +369,9 @@ class SystemExecution:
             row['response_admitted'] = True
             row['stage'] = 'response_flight'
             self.packet_info[packet_key] = 'response',key,req.size_bytes
-        if self.network.supply_prefix(packet_key,row['prefix'],self.now):
+        supplied=self.network.supply_prefix(packet_key,row['prefix'],self.now)
+        row['response_prefix']=row['prefix']
+        if supplied:
             if not row['native_done']:
                 raise RuntimeError('Response supplied before all native words completed')
             # Full NI reservation now owns all bytes; MC slot remains held until this point.
