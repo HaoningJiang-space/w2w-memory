@@ -1,0 +1,85 @@
+{
+  "schema": "w2w.fetch-state-evidence-index.v1",
+  "archive_root": "/Projects/haoning/w2w-full-system-matrix-service-20261010",
+  "analysis_source_commit": "7177e2e087d10628b04c72306d56e64db9ec32e3",
+  "files": {
+    "lifetimes.json": {
+      "archive": "/Projects/haoning/w2w-full-system-matrix-service-20261010/fetch-factor-r1/lifetimes-readback-7177e2e.json",
+      "sha256": "764c04d5593d973a90fbf7d469de740914a38055fb97284a547416443a48db5e",
+      "bytes": 1261885
+    },
+    "split_fetch.json": {
+      "archive": "/Projects/haoning/w2w-full-system-matrix-service-20261010/split-fetch-r1/independent-readback-7177e2e.json",
+      "sha256": "2e4c928b392de2d603458739e780a1dc195e8253f94f2b3291b59336b070a5fc",
+      "bytes": 891138
+    },
+    "split_registration.json": {
+      "archive": "/Projects/haoning/w2w-full-system-matrix-service-20261010/split-fetch-r1/registration.json",
+      "sha256": "a783de63d9ac27d85422422dab9a82f81bc24e16e1f1462c793ad70384e889c3",
+      "bytes": 3679
+    },
+    "trace_migration.json": {
+      "archive": "/Projects/haoning/w2w-full-system-matrix-service-20261010/fetch-controller-tracegate-r1/analysis.json",
+      "sha256": "0ac3471ea56d3b46264b52caace7f8dc6fa182e82317da091591cf6f22153177",
+      "bytes": 84173
+    },
+    "s1_hierarchy.json": {
+      "archive": "/Projects/haoning/w2w-full-system-matrix-service-20261010/hierarchy-analysis-r1/placement-analysis.json",
+      "sha256": "60c8a42d4ea4c5355fdbfe1ce0259c331d7c88283a89e9796c2509eb926c1b02",
+      "bytes": 202001
+    },
+    "s1_hierarchy_registration.json": {
+      "archive": "/Projects/haoning/w2w-full-system-matrix-service-20261010/concurrent-hierarchy-r1/registration.json",
+      "sha256": "cb9055d3ad2c285872f9bd3781ede20a9c886ef98d9f3805630bb81507ae3282",
+      "bytes": 1166
+    },
+    "refactor_hybrid_equivalence.json": {
+      "archive": "/Projects/haoning/w2w-full-system-matrix-service-20261010/fetch-refactor-gate-r1/d1-round_robin-hybrid-equivalence.json",
+      "sha256": "db06c84c00d50b4d6147bb246ccc89383e4c35f91fecfb4847abf16a40cae580",
+      "bytes": 261
+    },
+    "refactor_phase_split_equivalence.json": {
+      "archive": "/Projects/haoning/w2w-full-system-matrix-service-20261010/fetch-refactor-gate-r1/d1-round_robin-phase-split-equivalence.json",
+      "sha256": "ccc193a850cfa5550dcdc88cca4344a4a56d385fdba8d18aa0f76fadd30750f0",
+      "bytes": 261
+    },
+    "lifetime_tests.log": {
+      "archive": "/Projects/haoning/w2w-full-system-matrix-service-20261010/logs/fetch-lifetime-tests-r1.log",
+      "sha256": "a6707d4eff38012da33ddc34bc6dc076a3b17151cfc9aef223c8790cbe64c3da",
+      "bytes": 100
+    },
+    "refactor_tests.log": {
+      "archive": "/Projects/haoning/w2w-full-system-matrix-service-20261010/logs/fetch-refactor-tests-r1.log",
+      "sha256": "23fec9a335b236c2ce8d42963fcde3247fce2acbcc300fcc9bfb2d0a9d802dfb",
+      "bytes": 204
+    },
+    "split_tests.log": {
+      "archive": "/Projects/haoning/w2w-full-system-matrix-service-20261010/logs/split-fetch-tests-r1.log",
+      "sha256": "788a9d70639434805fb7076172c89cc19dd2c6af31955cc0f7ae8ec12da09902",
+      "bytes": 206
+    },
+    "bounds_tests.log": {
+      "archive": "/Projects/haoning/w2w-full-system-matrix-service-20261010/logs/fetch-lifetime-bounds-tests-r1.log",
+      "sha256": "82aecc2614d3b2c1db26097c3ea6d9b7c5fb8a233c1adabdd2d8d8f88ceda07c",
+      "bytes": 458
+    },
+    "final_readback.log": {
+      "archive": "/Projects/haoning/w2w-full-system-matrix-service-20261010/logs/fetch-final-readback-r1.log",
+      "sha256": "e85c674b9e07db52af51cc16dfcd15fcad74e392e53cde49d99a92486dd1f17c",
+      "bytes": 114
+    },
+    "retained_trace_analyzer_failure.log": {
+      "archive": "/Projects/haoning/w2w-full-system-matrix-service-20261010/logs/fetch-controller-tracegate-r1.log",
+      "sha256": "a932fa264b65b1907834d1b74d115e082fb12440b8b793fa6649e682236ec9f5",
+      "bytes": 2034
+    },
+    "s1_stages_summary.json": {
+      "archive": "/Projects/haoning/w2w-full-system-matrix-service-20261010/hierarchy-analysis-r1/stages.json",
+      "full_archive_sha256": "6f3b14aaad8210e122d679db0597b07c1b27971bbde7dec9ad47ac603b968aae",
+      "sha256": "7f1b905963357d19f6e4e8be0504c1b7c3d5406d70b02e5b68c3a6d9a9e0262e",
+      "bytes": 347987,
+      "contract": "Selected summary of the accepted complete 57 MB stage readback; full stages and tail paths remain on the execution host."
+    }
+  },
+  "contract": "Derived receipts only; raw native captures and build environments remain on hn072. Exact SHA/source/input identities are retained."
+}

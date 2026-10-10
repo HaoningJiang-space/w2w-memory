@@ -1,0 +1,25 @@
+{
+  "schema": "w2w.static-placement-study.v1",
+  "source_commit": "91602079022e7cd34289eff214a1ac533af42354",
+  "mode": "multilayer",
+  "reference_case": "reference",
+  "execution": "s1",
+  "cases": {
+    "reference": {
+      "input_sha256": "6c6378a4dabb5ddee26e31d10eb2c542e66d4f9931113e8dd3e45b7b1605c5a8",
+      "weight_layout_sha256": "3f6d9cbb49a43ad0aa10f68a267e992423e11fa35f7ff051b05ad32323f92d26",
+      "screen": null,
+      "alias_of": null
+    },
+    "phase-split": {
+      "input_sha256": "0616404c2b8a822ec7199c658103a22bd061fefe8bc7fb4cca631228d3767eb6",
+      "weight_layout_sha256": "1115f898b52b2698139629153df03b38635b6a180512c1355f904f77b6ef93ae",
+      "screen": null,
+      "alias_of": null
+    }
+  },
+  "fixed_invariants_sha256": "4793a587bab3f290333198e8b3eef9c6a9c8ffe1b9047fd630d82ac881995972",
+  "max_ps": 60000000000,
+  "selection_contract": "cold screening after catalog-only placement is frozen; full executions decide performance; no candidate selected using the multilayer trace",
+  "scope": "fixed distributed vertical architecture, memory-only weight layout; FFN timing proxy, not a numerical or complete Transformer evaluation"
+}

@@ -1,0 +1,8 @@
+test_return_latency_does_not_become_issue_only_slot_work (tests.test_fetch_state_lifetime.FetchLifetime) ... ok
+test_wait_interval_distinguishes_issue_from_return_only_ownership (tests.test_fetch_state_lifetime.FetchLifetime) ... ok
+test_whole_matrix_prefetch_is_a_required_strong_three_service_reference (tests.test_fetch_state_lifetime.FetchLifetime) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.000s
+
+OK

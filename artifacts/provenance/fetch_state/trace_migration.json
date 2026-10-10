@@ -1,0 +1,3025 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "case": "d1-round_robin-hybrid",
+      "passed": true,
+      "baseline_source": "9fbb4dbbf69bc0dc8b09860b9f5035821435e1d9",
+      "candidate_source": "188fbdc75a84c6c5392b2717da90f7537bb8f5a2",
+      "makespan_ps": 84300000,
+      "commands_sha256": "180fa9d7d3278af48a7251c94f195187f62dba46682a4584156070825277fff7",
+      "endpoint_trace_sha256": "e1033997577eda74d43e5299c0567ed8a5a645256747960b15efa8cce38c3e11",
+      "endpoint_trace_counts": {
+        "mutations": 31313,
+        "progress": 37108,
+        "completed": 1114
+      },
+      "command_audit": {
+        "passed": true,
+        "read_atoms": 589968,
+        "active_read_domains": 96,
+        "channels": {
+          "d0_0": {
+            "commands": {
+              "REFab": 21,
+              "ACT": 38,
+              "RD": 2050,
+              "PREpb": 34,
+              "PREab": 4
+            },
+            "first_rd_cycle": 13210,
+            "last_rd_cycle": 16112,
+            "read_bus_cycles": 2050,
+            "refresh_busy_cycles": 3612
+          },
+          "d0_1": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 36,
+              "RD": 2048,
+              "PREpb": 32,
+              "PREab": 4
+            },
+            "first_rd_cycle": 13211,
+            "last_rd_cycle": 16094,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d0_2": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 4
+            },
+            "first_rd_cycle": 13212,
+            "last_rd_cycle": 16101,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d0_3": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 4
+            },
+            "first_rd_cycle": 13214,
+            "last_rd_cycle": 16103,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d0_4": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 38,
+              "RD": 2050,
+              "PREpb": 34,
+              "PREab": 3
+            },
+            "first_rd_cycle": 19151,
+            "last_rd_cycle": 22201,
+            "read_bus_cycles": 2050,
+            "refresh_busy_cycles": 3784
+          },
+          "d0_5": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 3
+            },
+            "first_rd_cycle": 19152,
+            "last_rd_cycle": 22198,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d0_6": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 3
+            },
+            "first_rd_cycle": 19153,
+            "last_rd_cycle": 22200,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d0_7": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 3
+            },
+            "first_rd_cycle": 19155,
+            "last_rd_cycle": 22201,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d0_8": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 36,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 3
+            },
+            "first_rd_cycle": 13215,
+            "last_rd_cycle": 16098,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d0_9": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 4
+            },
+            "first_rd_cycle": 13215,
+            "last_rd_cycle": 16104,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d0_10": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2050,
+              "PREpb": 33,
+              "PREab": 4
+            },
+            "first_rd_cycle": 13217,
+            "last_rd_cycle": 16111,
+            "read_bus_cycles": 2050,
+            "refresh_busy_cycles": 3784
+          },
+          "d0_11": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 4
+            },
+            "first_rd_cycle": 13218,
+            "last_rd_cycle": 16107,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d0_12": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 36,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 3
+            },
+            "first_rd_cycle": 19230,
+            "last_rd_cycle": 22021,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d0_13": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 36,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 3
+            },
+            "first_rd_cycle": 19263,
+            "last_rd_cycle": 22021,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d0_14": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2050,
+              "PREpb": 34,
+              "PREab": 3
+            },
+            "first_rd_cycle": 19295,
+            "last_rd_cycle": 22028,
+            "read_bus_cycles": 2050,
+            "refresh_busy_cycles": 3784
+          },
+          "d0_15": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 36,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 3
+            },
+            "first_rd_cycle": 19328,
+            "last_rd_cycle": 22037,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d0_16": {
+            "commands": {
+              "REFab": 22
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3784
+          },
+          "d0_17": {
+            "commands": {
+              "REFab": 22
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3784
+          },
+          "d0_18": {
+            "commands": {
+              "REFab": 22
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3784
+          },
+          "d0_19": {
+            "commands": {
+              "REFab": 22
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3784
+          },
+          "d0_20": {
+            "commands": {
+              "ACT": 258,
+              "RD": 14340,
+              "PREpb": 238,
+              "PREab": 20,
+              "REFab": 22
+            },
+            "first_rd_cycle": 13,
+            "last_rd_cycle": 20615,
+            "read_bus_cycles": 14340,
+            "refresh_busy_cycles": 3784
+          },
+          "d0_21": {
+            "commands": {
+              "ACT": 255,
+              "RD": 14338,
+              "PREpb": 236,
+              "PREab": 19,
+              "REFab": 21
+            },
+            "first_rd_cycle": 14,
+            "last_rd_cycle": 20595,
+            "read_bus_cycles": 14338,
+            "refresh_busy_cycles": 3612
+          },
+          "d0_22": {
+            "commands": {
+              "ACT": 256,
+              "RD": 14340,
+              "PREpb": 236,
+              "PREab": 20,
+              "REFab": 21
+            },
+            "first_rd_cycle": 15,
+            "last_rd_cycle": 20599,
+            "read_bus_cycles": 14340,
+            "refresh_busy_cycles": 3612
+          },
+          "d0_23": {
+            "commands": {
+              "ACT": 256,
+              "RD": 14340,
+              "PREpb": 236,
+              "PREab": 20,
+              "REFab": 21
+            },
+            "first_rd_cycle": 17,
+            "last_rd_cycle": 20428,
+            "read_bus_cycles": 14340,
+            "refresh_busy_cycles": 3612
+          },
+          "d0_24": {
+            "commands": {
+              "REFab": 21
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3612
+          },
+          "d0_25": {
+            "commands": {
+              "REFab": 21
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3612
+          },
+          "d0_26": {
+            "commands": {
+              "REFab": 21
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3612
+          },
+          "d0_27": {
+            "commands": {
+              "REFab": 21
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3612
+          },
+          "d0_28": {
+            "commands": {
+              "ACT": 259,
+              "RD": 14340,
+              "PREpb": 239,
+              "PREab": 20,
+              "REFab": 21
+            },
+            "first_rd_cycle": 18,
+            "last_rd_cycle": 20436,
+            "read_bus_cycles": 14340,
+            "refresh_busy_cycles": 3612
+          },
+          "d0_29": {
+            "commands": {
+              "ACT": 260,
+              "RD": 14340,
+              "PREpb": 240,
+              "PREab": 20,
+              "REFab": 21
+            },
+            "first_rd_cycle": 18,
+            "last_rd_cycle": 20445,
+            "read_bus_cycles": 14340,
+            "refresh_busy_cycles": 3612
+          },
+          "d0_30": {
+            "commands": {
+              "ACT": 261,
+              "RD": 14340,
+              "PREpb": 242,
+              "PREab": 19,
+              "REFab": 21
+            },
+            "first_rd_cycle": 19,
+            "last_rd_cycle": 20450,
+            "read_bus_cycles": 14340,
+            "refresh_busy_cycles": 3612
+          },
+          "d0_31": {
+            "commands": {
+              "ACT": 262,
+              "RD": 14338,
+              "PREpb": 242,
+              "PREab": 20,
+              "REFab": 21
+            },
+            "first_rd_cycle": 21,
+            "last_rd_cycle": 20455,
+            "read_bus_cycles": 14338,
+            "refresh_busy_cycles": 3612
+          },
+          "d1_0": {
+            "commands": {
+              "REFab": 21,
+              "ACT": 38,
+              "RD": 2050,
+              "PREpb": 34,
+              "PREab": 4
+            },
+            "first_rd_cycle": 13210,
+            "last_rd_cycle": 16112,
+            "read_bus_cycles": 2050,
+            "refresh_busy_cycles": 3612
+          },
+          "d1_1": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 36,
+              "RD": 2048,
+              "PREpb": 32,
+              "PREab": 4
+            },
+            "first_rd_cycle": 13211,
+            "last_rd_cycle": 16094,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d1_2": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 4
+            },
+            "first_rd_cycle": 13212,
+            "last_rd_cycle": 16101,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d1_3": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 4
+            },
+            "first_rd_cycle": 13214,
+            "last_rd_cycle": 16103,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d1_4": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 38,
+              "RD": 2050,
+              "PREpb": 34,
+              "PREab": 3
+            },
+            "first_rd_cycle": 19151,
+            "last_rd_cycle": 22201,
+            "read_bus_cycles": 2050,
+            "refresh_busy_cycles": 3784
+          },
+          "d1_5": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 3
+            },
+            "first_rd_cycle": 19152,
+            "last_rd_cycle": 22198,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d1_6": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 3
+            },
+            "first_rd_cycle": 19153,
+            "last_rd_cycle": 22200,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d1_7": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 3
+            },
+            "first_rd_cycle": 19155,
+            "last_rd_cycle": 22201,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d1_8": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 36,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 3
+            },
+            "first_rd_cycle": 13215,
+            "last_rd_cycle": 16098,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d1_9": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 4
+            },
+            "first_rd_cycle": 13215,
+            "last_rd_cycle": 16104,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d1_10": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2050,
+              "PREpb": 33,
+              "PREab": 4
+            },
+            "first_rd_cycle": 13217,
+            "last_rd_cycle": 16111,
+            "read_bus_cycles": 2050,
+            "refresh_busy_cycles": 3784
+          },
+          "d1_11": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 4
+            },
+            "first_rd_cycle": 13218,
+            "last_rd_cycle": 16107,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d1_12": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 36,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 3
+            },
+            "first_rd_cycle": 19230,
+            "last_rd_cycle": 22021,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d1_13": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 36,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 3
+            },
+            "first_rd_cycle": 19263,
+            "last_rd_cycle": 22021,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d1_14": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2050,
+              "PREpb": 34,
+              "PREab": 3
+            },
+            "first_rd_cycle": 19295,
+            "last_rd_cycle": 22028,
+            "read_bus_cycles": 2050,
+            "refresh_busy_cycles": 3784
+          },
+          "d1_15": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 36,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 3
+            },
+            "first_rd_cycle": 19328,
+            "last_rd_cycle": 22037,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d1_16": {
+            "commands": {
+              "REFab": 22
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3784
+          },
+          "d1_17": {
+            "commands": {
+              "REFab": 22
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3784
+          },
+          "d1_18": {
+            "commands": {
+              "REFab": 22
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3784
+          },
+          "d1_19": {
+            "commands": {
+              "REFab": 22
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3784
+          },
+          "d1_20": {
+            "commands": {
+              "ACT": 258,
+              "RD": 14340,
+              "PREpb": 238,
+              "PREab": 20,
+              "REFab": 22
+            },
+            "first_rd_cycle": 13,
+            "last_rd_cycle": 20615,
+            "read_bus_cycles": 14340,
+            "refresh_busy_cycles": 3784
+          },
+          "d1_21": {
+            "commands": {
+              "ACT": 255,
+              "RD": 14338,
+              "PREpb": 236,
+              "PREab": 19,
+              "REFab": 21
+            },
+            "first_rd_cycle": 14,
+            "last_rd_cycle": 20595,
+            "read_bus_cycles": 14338,
+            "refresh_busy_cycles": 3612
+          },
+          "d1_22": {
+            "commands": {
+              "ACT": 256,
+              "RD": 14340,
+              "PREpb": 236,
+              "PREab": 20,
+              "REFab": 21
+            },
+            "first_rd_cycle": 15,
+            "last_rd_cycle": 20599,
+            "read_bus_cycles": 14340,
+            "refresh_busy_cycles": 3612
+          },
+          "d1_23": {
+            "commands": {
+              "ACT": 256,
+              "RD": 14340,
+              "PREpb": 236,
+              "PREab": 20,
+              "REFab": 21
+            },
+            "first_rd_cycle": 17,
+            "last_rd_cycle": 20428,
+            "read_bus_cycles": 14340,
+            "refresh_busy_cycles": 3612
+          },
+          "d1_24": {
+            "commands": {
+              "REFab": 21
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3612
+          },
+          "d1_25": {
+            "commands": {
+              "REFab": 21
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3612
+          },
+          "d1_26": {
+            "commands": {
+              "REFab": 21
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3612
+          },
+          "d1_27": {
+            "commands": {
+              "REFab": 21
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3612
+          },
+          "d1_28": {
+            "commands": {
+              "ACT": 259,
+              "RD": 14340,
+              "PREpb": 239,
+              "PREab": 20,
+              "REFab": 21
+            },
+            "first_rd_cycle": 18,
+            "last_rd_cycle": 20436,
+            "read_bus_cycles": 14340,
+            "refresh_busy_cycles": 3612
+          },
+          "d1_29": {
+            "commands": {
+              "ACT": 260,
+              "RD": 14340,
+              "PREpb": 240,
+              "PREab": 20,
+              "REFab": 21
+            },
+            "first_rd_cycle": 18,
+            "last_rd_cycle": 20445,
+            "read_bus_cycles": 14340,
+            "refresh_busy_cycles": 3612
+          },
+          "d1_30": {
+            "commands": {
+              "ACT": 261,
+              "RD": 14340,
+              "PREpb": 242,
+              "PREab": 19,
+              "REFab": 21
+            },
+            "first_rd_cycle": 19,
+            "last_rd_cycle": 20450,
+            "read_bus_cycles": 14340,
+            "refresh_busy_cycles": 3612
+          },
+          "d1_31": {
+            "commands": {
+              "ACT": 262,
+              "RD": 14338,
+              "PREpb": 242,
+              "PREab": 20,
+              "REFab": 21
+            },
+            "first_rd_cycle": 21,
+            "last_rd_cycle": 20455,
+            "read_bus_cycles": 14338,
+            "refresh_busy_cycles": 3612
+          },
+          "d2_0": {
+            "commands": {
+              "REFab": 21,
+              "ACT": 38,
+              "RD": 2050,
+              "PREpb": 34,
+              "PREab": 4
+            },
+            "first_rd_cycle": 13210,
+            "last_rd_cycle": 16112,
+            "read_bus_cycles": 2050,
+            "refresh_busy_cycles": 3612
+          },
+          "d2_1": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 36,
+              "RD": 2048,
+              "PREpb": 32,
+              "PREab": 4
+            },
+            "first_rd_cycle": 13211,
+            "last_rd_cycle": 16094,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d2_2": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 4
+            },
+            "first_rd_cycle": 13212,
+            "last_rd_cycle": 16101,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d2_3": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 4
+            },
+            "first_rd_cycle": 13214,
+            "last_rd_cycle": 16103,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d2_4": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 38,
+              "RD": 2050,
+              "PREpb": 34,
+              "PREab": 3
+            },
+            "first_rd_cycle": 19151,
+            "last_rd_cycle": 22201,
+            "read_bus_cycles": 2050,
+            "refresh_busy_cycles": 3784
+          },
+          "d2_5": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 3
+            },
+            "first_rd_cycle": 19152,
+            "last_rd_cycle": 22198,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d2_6": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 3
+            },
+            "first_rd_cycle": 19153,
+            "last_rd_cycle": 22200,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d2_7": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 3
+            },
+            "first_rd_cycle": 19155,
+            "last_rd_cycle": 22201,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d2_8": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 36,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 3
+            },
+            "first_rd_cycle": 13215,
+            "last_rd_cycle": 16098,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d2_9": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 4
+            },
+            "first_rd_cycle": 13215,
+            "last_rd_cycle": 16104,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d2_10": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2050,
+              "PREpb": 33,
+              "PREab": 4
+            },
+            "first_rd_cycle": 13217,
+            "last_rd_cycle": 16111,
+            "read_bus_cycles": 2050,
+            "refresh_busy_cycles": 3784
+          },
+          "d2_11": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 4
+            },
+            "first_rd_cycle": 13218,
+            "last_rd_cycle": 16107,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d2_12": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 36,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 3
+            },
+            "first_rd_cycle": 19230,
+            "last_rd_cycle": 22021,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d2_13": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 36,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 3
+            },
+            "first_rd_cycle": 19263,
+            "last_rd_cycle": 22021,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d2_14": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2050,
+              "PREpb": 34,
+              "PREab": 3
+            },
+            "first_rd_cycle": 19295,
+            "last_rd_cycle": 22028,
+            "read_bus_cycles": 2050,
+            "refresh_busy_cycles": 3784
+          },
+          "d2_15": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 36,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 3
+            },
+            "first_rd_cycle": 19328,
+            "last_rd_cycle": 22037,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d2_16": {
+            "commands": {
+              "REFab": 22
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3784
+          },
+          "d2_17": {
+            "commands": {
+              "REFab": 22
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3784
+          },
+          "d2_18": {
+            "commands": {
+              "REFab": 22
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3784
+          },
+          "d2_19": {
+            "commands": {
+              "REFab": 22
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3784
+          },
+          "d2_20": {
+            "commands": {
+              "ACT": 258,
+              "RD": 14340,
+              "PREpb": 238,
+              "PREab": 20,
+              "REFab": 22
+            },
+            "first_rd_cycle": 13,
+            "last_rd_cycle": 20615,
+            "read_bus_cycles": 14340,
+            "refresh_busy_cycles": 3784
+          },
+          "d2_21": {
+            "commands": {
+              "ACT": 255,
+              "RD": 14338,
+              "PREpb": 236,
+              "PREab": 19,
+              "REFab": 21
+            },
+            "first_rd_cycle": 14,
+            "last_rd_cycle": 20595,
+            "read_bus_cycles": 14338,
+            "refresh_busy_cycles": 3612
+          },
+          "d2_22": {
+            "commands": {
+              "ACT": 256,
+              "RD": 14340,
+              "PREpb": 236,
+              "PREab": 20,
+              "REFab": 21
+            },
+            "first_rd_cycle": 15,
+            "last_rd_cycle": 20599,
+            "read_bus_cycles": 14340,
+            "refresh_busy_cycles": 3612
+          },
+          "d2_23": {
+            "commands": {
+              "ACT": 256,
+              "RD": 14340,
+              "PREpb": 236,
+              "PREab": 20,
+              "REFab": 21
+            },
+            "first_rd_cycle": 17,
+            "last_rd_cycle": 20428,
+            "read_bus_cycles": 14340,
+            "refresh_busy_cycles": 3612
+          },
+          "d2_24": {
+            "commands": {
+              "REFab": 21
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3612
+          },
+          "d2_25": {
+            "commands": {
+              "REFab": 21
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3612
+          },
+          "d2_26": {
+            "commands": {
+              "REFab": 21
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3612
+          },
+          "d2_27": {
+            "commands": {
+              "REFab": 21
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3612
+          },
+          "d2_28": {
+            "commands": {
+              "ACT": 259,
+              "RD": 14340,
+              "PREpb": 239,
+              "PREab": 20,
+              "REFab": 21
+            },
+            "first_rd_cycle": 18,
+            "last_rd_cycle": 20436,
+            "read_bus_cycles": 14340,
+            "refresh_busy_cycles": 3612
+          },
+          "d2_29": {
+            "commands": {
+              "ACT": 260,
+              "RD": 14340,
+              "PREpb": 240,
+              "PREab": 20,
+              "REFab": 21
+            },
+            "first_rd_cycle": 18,
+            "last_rd_cycle": 20445,
+            "read_bus_cycles": 14340,
+            "refresh_busy_cycles": 3612
+          },
+          "d2_30": {
+            "commands": {
+              "ACT": 261,
+              "RD": 14340,
+              "PREpb": 242,
+              "PREab": 19,
+              "REFab": 21
+            },
+            "first_rd_cycle": 19,
+            "last_rd_cycle": 20450,
+            "read_bus_cycles": 14340,
+            "refresh_busy_cycles": 3612
+          },
+          "d2_31": {
+            "commands": {
+              "ACT": 262,
+              "RD": 14338,
+              "PREpb": 242,
+              "PREab": 20,
+              "REFab": 21
+            },
+            "first_rd_cycle": 21,
+            "last_rd_cycle": 20455,
+            "read_bus_cycles": 14338,
+            "refresh_busy_cycles": 3612
+          },
+          "d3_0": {
+            "commands": {
+              "REFab": 21,
+              "ACT": 38,
+              "RD": 2050,
+              "PREpb": 34,
+              "PREab": 4
+            },
+            "first_rd_cycle": 13210,
+            "last_rd_cycle": 16112,
+            "read_bus_cycles": 2050,
+            "refresh_busy_cycles": 3612
+          },
+          "d3_1": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 36,
+              "RD": 2048,
+              "PREpb": 32,
+              "PREab": 4
+            },
+            "first_rd_cycle": 13211,
+            "last_rd_cycle": 16094,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d3_2": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 4
+            },
+            "first_rd_cycle": 13212,
+            "last_rd_cycle": 16101,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d3_3": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 4
+            },
+            "first_rd_cycle": 13214,
+            "last_rd_cycle": 16103,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d3_4": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 38,
+              "RD": 2050,
+              "PREpb": 34,
+              "PREab": 3
+            },
+            "first_rd_cycle": 19151,
+            "last_rd_cycle": 22201,
+            "read_bus_cycles": 2050,
+            "refresh_busy_cycles": 3784
+          },
+          "d3_5": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 3
+            },
+            "first_rd_cycle": 19152,
+            "last_rd_cycle": 22198,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d3_6": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 3
+            },
+            "first_rd_cycle": 19153,
+            "last_rd_cycle": 22200,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d3_7": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 3
+            },
+            "first_rd_cycle": 19155,
+            "last_rd_cycle": 22201,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d3_8": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 36,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 3
+            },
+            "first_rd_cycle": 13215,
+            "last_rd_cycle": 16098,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d3_9": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 4
+            },
+            "first_rd_cycle": 13215,
+            "last_rd_cycle": 16104,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d3_10": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2050,
+              "PREpb": 33,
+              "PREab": 4
+            },
+            "first_rd_cycle": 13217,
+            "last_rd_cycle": 16111,
+            "read_bus_cycles": 2050,
+            "refresh_busy_cycles": 3784
+          },
+          "d3_11": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 4
+            },
+            "first_rd_cycle": 13218,
+            "last_rd_cycle": 16107,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d3_12": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 36,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 3
+            },
+            "first_rd_cycle": 19230,
+            "last_rd_cycle": 22021,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d3_13": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 36,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 3
+            },
+            "first_rd_cycle": 19263,
+            "last_rd_cycle": 22021,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d3_14": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 37,
+              "RD": 2050,
+              "PREpb": 34,
+              "PREab": 3
+            },
+            "first_rd_cycle": 19295,
+            "last_rd_cycle": 22028,
+            "read_bus_cycles": 2050,
+            "refresh_busy_cycles": 3784
+          },
+          "d3_15": {
+            "commands": {
+              "REFab": 22,
+              "ACT": 36,
+              "RD": 2048,
+              "PREpb": 33,
+              "PREab": 3
+            },
+            "first_rd_cycle": 19328,
+            "last_rd_cycle": 22037,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 3784
+          },
+          "d3_16": {
+            "commands": {
+              "REFab": 22
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3784
+          },
+          "d3_17": {
+            "commands": {
+              "REFab": 22
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3784
+          },
+          "d3_18": {
+            "commands": {
+              "REFab": 22
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3784
+          },
+          "d3_19": {
+            "commands": {
+              "REFab": 22
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3784
+          },
+          "d3_20": {
+            "commands": {
+              "ACT": 258,
+              "RD": 14340,
+              "PREpb": 238,
+              "PREab": 20,
+              "REFab": 22
+            },
+            "first_rd_cycle": 13,
+            "last_rd_cycle": 20615,
+            "read_bus_cycles": 14340,
+            "refresh_busy_cycles": 3784
+          },
+          "d3_21": {
+            "commands": {
+              "ACT": 255,
+              "RD": 14338,
+              "PREpb": 236,
+              "PREab": 19,
+              "REFab": 21
+            },
+            "first_rd_cycle": 14,
+            "last_rd_cycle": 20595,
+            "read_bus_cycles": 14338,
+            "refresh_busy_cycles": 3612
+          },
+          "d3_22": {
+            "commands": {
+              "ACT": 256,
+              "RD": 14340,
+              "PREpb": 236,
+              "PREab": 20,
+              "REFab": 21
+            },
+            "first_rd_cycle": 15,
+            "last_rd_cycle": 20599,
+            "read_bus_cycles": 14340,
+            "refresh_busy_cycles": 3612
+          },
+          "d3_23": {
+            "commands": {
+              "ACT": 256,
+              "RD": 14340,
+              "PREpb": 236,
+              "PREab": 20,
+              "REFab": 21
+            },
+            "first_rd_cycle": 17,
+            "last_rd_cycle": 20428,
+            "read_bus_cycles": 14340,
+            "refresh_busy_cycles": 3612
+          },
+          "d3_24": {
+            "commands": {
+              "REFab": 21
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3612
+          },
+          "d3_25": {
+            "commands": {
+              "REFab": 21
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3612
+          },
+          "d3_26": {
+            "commands": {
+              "REFab": 21
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3612
+          },
+          "d3_27": {
+            "commands": {
+              "REFab": 21
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3612
+          },
+          "d3_28": {
+            "commands": {
+              "ACT": 259,
+              "RD": 14340,
+              "PREpb": 239,
+              "PREab": 20,
+              "REFab": 21
+            },
+            "first_rd_cycle": 18,
+            "last_rd_cycle": 20436,
+            "read_bus_cycles": 14340,
+            "refresh_busy_cycles": 3612
+          },
+          "d3_29": {
+            "commands": {
+              "ACT": 260,
+              "RD": 14340,
+              "PREpb": 240,
+              "PREab": 20,
+              "REFab": 21
+            },
+            "first_rd_cycle": 18,
+            "last_rd_cycle": 20445,
+            "read_bus_cycles": 14340,
+            "refresh_busy_cycles": 3612
+          },
+          "d3_30": {
+            "commands": {
+              "ACT": 261,
+              "RD": 14340,
+              "PREpb": 242,
+              "PREab": 19,
+              "REFab": 21
+            },
+            "first_rd_cycle": 19,
+            "last_rd_cycle": 20450,
+            "read_bus_cycles": 14340,
+            "refresh_busy_cycles": 3612
+          },
+          "d3_31": {
+            "commands": {
+              "ACT": 262,
+              "RD": 14338,
+              "PREpb": 242,
+              "PREab": 20,
+              "REFab": 21
+            },
+            "first_rd_cycle": 21,
+            "last_rd_cycle": 20455,
+            "read_bus_cycles": 14338,
+            "refresh_busy_cycles": 3612
+          }
+        },
+        "contract": "one command/domain/cycle; open-row legality, declared ACT/PRE/RD/REF gaps and exact physical RD address multiset",
+        "limits": "read-only candidate command audit; no WR path, silicon calibration, power or temperature validation"
+      },
+      "capture_identities": [
+        {
+          "raw_sha256": "8070733a7e4e66c46b76ced7e137e8d2802d0088c5dec87f5e992a27c9ea4a49",
+          "graph_sha256": "70d2481bd22c77b70f3dbe10a0c92a712ef8d8ed664e92f01a1703e8b4cd556b",
+          "stack_sha256": "6a38f0cca24903e8a0c3d1e93eb05e2011e099437e44f9625d765df2cfce023c"
+        },
+        {
+          "raw_sha256": "2a84f572ed15130d20d887b126228de49add8f9b0fb901dafa64eca5fc1c75d7",
+          "graph_sha256": "70d2481bd22c77b70f3dbe10a0c92a712ef8d8ed664e92f01a1703e8b4cd556b",
+          "stack_sha256": "6a38f0cca24903e8a0c3d1e93eb05e2011e099437e44f9625d765df2cfce023c"
+        }
+      ]
+    },
+    {
+      "case": "d1-round_robin-phase-split",
+      "passed": true,
+      "baseline_source": "9fbb4dbbf69bc0dc8b09860b9f5035821435e1d9",
+      "candidate_source": "188fbdc75a84c6c5392b2717da90f7537bb8f5a2",
+      "makespan_ps": 66894000,
+      "commands_sha256": "2cb64a7cd251c308393816e49ee5b642b9508ff30a39db067b258fa46b7388e8",
+      "endpoint_trace_sha256": "05f547b346dd73d0909b7aa1e968bfe10441aad1d925a177c3b64ac6fb24ef8d",
+      "endpoint_trace_counts": {
+        "mutations": 43784,
+        "progress": 54548,
+        "completed": 1642
+      },
+      "command_audit": {
+        "passed": true,
+        "read_atoms": 589968,
+        "active_read_domains": 64,
+        "channels": {
+          "d0_0": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d0_1": {
+            "commands": {
+              "REFab": 18
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3096
+          },
+          "d0_2": {
+            "commands": {
+              "REFab": 18
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3096
+          },
+          "d0_3": {
+            "commands": {
+              "REFab": 18
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3096
+          },
+          "d0_4": {
+            "commands": {
+              "REFab": 18
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3096
+          },
+          "d0_5": {
+            "commands": {
+              "REFab": 18
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3096
+          },
+          "d0_6": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d0_7": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d0_8": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d0_9": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d0_10": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d0_11": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d0_12": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d0_13": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d0_14": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d0_15": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d0_16": {
+            "commands": {
+              "ACT": 111,
+              "RD": 6144,
+              "PREpb": 99,
+              "PREab": 12,
+              "REFab": 17
+            },
+            "first_rd_cycle": 32,
+            "last_rd_cycle": 14821,
+            "read_bus_cycles": 6144,
+            "refresh_busy_cycles": 2924
+          },
+          "d0_17": {
+            "commands": {
+              "ACT": 111,
+              "RD": 6146,
+              "PREpb": 100,
+              "PREab": 11,
+              "REFab": 17
+            },
+            "first_rd_cycle": 30,
+            "last_rd_cycle": 14821,
+            "read_bus_cycles": 6146,
+            "refresh_busy_cycles": 2924
+          },
+          "d0_18": {
+            "commands": {
+              "ACT": 112,
+              "RD": 6146,
+              "PREpb": 100,
+              "PREab": 12,
+              "REFab": 17
+            },
+            "first_rd_cycle": 33,
+            "last_rd_cycle": 14822,
+            "read_bus_cycles": 6146,
+            "refresh_busy_cycles": 2924
+          },
+          "d0_19": {
+            "commands": {
+              "ACT": 110,
+              "RD": 6144,
+              "PREpb": 99,
+              "PREab": 11,
+              "REFab": 17
+            },
+            "first_rd_cycle": 35,
+            "last_rd_cycle": 14827,
+            "read_bus_cycles": 6144,
+            "refresh_busy_cycles": 2924
+          },
+          "d0_20": {
+            "commands": {
+              "ACT": 222,
+              "RD": 12294,
+              "PREpb": 204,
+              "PREab": 17,
+              "REFab": 17
+            },
+            "first_rd_cycle": 13,
+            "last_rd_cycle": 17591,
+            "read_bus_cycles": 12294,
+            "refresh_busy_cycles": 2924
+          },
+          "d0_21": {
+            "commands": {
+              "ACT": 223,
+              "RD": 12290,
+              "PREpb": 205,
+              "PREab": 17,
+              "REFab": 17
+            },
+            "first_rd_cycle": 14,
+            "last_rd_cycle": 17582,
+            "read_bus_cycles": 12290,
+            "refresh_busy_cycles": 2924
+          },
+          "d0_22": {
+            "commands": {
+              "ACT": 221,
+              "RD": 12290,
+              "PREpb": 203,
+              "PREab": 17,
+              "REFab": 17
+            },
+            "first_rd_cycle": 15,
+            "last_rd_cycle": 17580,
+            "read_bus_cycles": 12290,
+            "refresh_busy_cycles": 2924
+          },
+          "d0_23": {
+            "commands": {
+              "ACT": 222,
+              "RD": 12292,
+              "PREpb": 204,
+              "PREab": 17,
+              "REFab": 17
+            },
+            "first_rd_cycle": 17,
+            "last_rd_cycle": 17584,
+            "read_bus_cycles": 12292,
+            "refresh_busy_cycles": 2924
+          },
+          "d0_24": {
+            "commands": {
+              "ACT": 110,
+              "RD": 6146,
+              "PREpb": 99,
+              "PREab": 11,
+              "REFab": 17
+            },
+            "first_rd_cycle": 36,
+            "last_rd_cycle": 14825,
+            "read_bus_cycles": 6146,
+            "refresh_busy_cycles": 2924
+          },
+          "d0_25": {
+            "commands": {
+              "ACT": 110,
+              "RD": 6146,
+              "PREpb": 99,
+              "PREab": 11,
+              "REFab": 17
+            },
+            "first_rd_cycle": 36,
+            "last_rd_cycle": 14828,
+            "read_bus_cycles": 6146,
+            "refresh_busy_cycles": 2924
+          },
+          "d0_26": {
+            "commands": {
+              "ACT": 108,
+              "RD": 6144,
+              "PREpb": 97,
+              "PREab": 11,
+              "REFab": 17
+            },
+            "first_rd_cycle": 38,
+            "last_rd_cycle": 14823,
+            "read_bus_cycles": 6144,
+            "refresh_busy_cycles": 2924
+          },
+          "d0_27": {
+            "commands": {
+              "ACT": 111,
+              "RD": 6148,
+              "PREpb": 100,
+              "PREab": 11,
+              "REFab": 17
+            },
+            "first_rd_cycle": 39,
+            "last_rd_cycle": 14846,
+            "read_bus_cycles": 6148,
+            "refresh_busy_cycles": 2924
+          },
+          "d0_28": {
+            "commands": {
+              "ACT": 218,
+              "RD": 12290,
+              "PREpb": 202,
+              "REFab": 17,
+              "PREab": 16
+            },
+            "first_rd_cycle": 18,
+            "last_rd_cycle": 17402,
+            "read_bus_cycles": 12290,
+            "refresh_busy_cycles": 2924
+          },
+          "d0_29": {
+            "commands": {
+              "ACT": 220,
+              "RD": 12290,
+              "PREpb": 203,
+              "PREab": 17,
+              "REFab": 17
+            },
+            "first_rd_cycle": 18,
+            "last_rd_cycle": 17402,
+            "read_bus_cycles": 12290,
+            "refresh_busy_cycles": 2924
+          },
+          "d0_30": {
+            "commands": {
+              "ACT": 223,
+              "RD": 12294,
+              "PREpb": 206,
+              "PREab": 17,
+              "REFab": 17
+            },
+            "first_rd_cycle": 19,
+            "last_rd_cycle": 17416,
+            "read_bus_cycles": 12294,
+            "refresh_busy_cycles": 2924
+          },
+          "d0_31": {
+            "commands": {
+              "ACT": 219,
+              "RD": 12288,
+              "PREpb": 202,
+              "PREab": 17,
+              "REFab": 17
+            },
+            "first_rd_cycle": 21,
+            "last_rd_cycle": 17401,
+            "read_bus_cycles": 12288,
+            "refresh_busy_cycles": 2924
+          },
+          "d1_0": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d1_1": {
+            "commands": {
+              "REFab": 18
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3096
+          },
+          "d1_2": {
+            "commands": {
+              "REFab": 18
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3096
+          },
+          "d1_3": {
+            "commands": {
+              "REFab": 18
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3096
+          },
+          "d1_4": {
+            "commands": {
+              "REFab": 18
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3096
+          },
+          "d1_5": {
+            "commands": {
+              "REFab": 18
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3096
+          },
+          "d1_6": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d1_7": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d1_8": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d1_9": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d1_10": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d1_11": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d1_12": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d1_13": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d1_14": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d1_15": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d1_16": {
+            "commands": {
+              "ACT": 110,
+              "RD": 6144,
+              "PREpb": 99,
+              "PREab": 11,
+              "REFab": 17
+            },
+            "first_rd_cycle": 32,
+            "last_rd_cycle": 14821,
+            "read_bus_cycles": 6144,
+            "refresh_busy_cycles": 2924
+          },
+          "d1_17": {
+            "commands": {
+              "ACT": 111,
+              "RD": 6146,
+              "PREpb": 100,
+              "PREab": 11,
+              "REFab": 17
+            },
+            "first_rd_cycle": 30,
+            "last_rd_cycle": 14821,
+            "read_bus_cycles": 6146,
+            "refresh_busy_cycles": 2924
+          },
+          "d1_18": {
+            "commands": {
+              "ACT": 112,
+              "RD": 6146,
+              "PREpb": 100,
+              "PREab": 12,
+              "REFab": 17
+            },
+            "first_rd_cycle": 33,
+            "last_rd_cycle": 14822,
+            "read_bus_cycles": 6146,
+            "refresh_busy_cycles": 2924
+          },
+          "d1_19": {
+            "commands": {
+              "ACT": 110,
+              "RD": 6144,
+              "PREpb": 99,
+              "PREab": 11,
+              "REFab": 17
+            },
+            "first_rd_cycle": 35,
+            "last_rd_cycle": 14827,
+            "read_bus_cycles": 6144,
+            "refresh_busy_cycles": 2924
+          },
+          "d1_20": {
+            "commands": {
+              "ACT": 222,
+              "RD": 12294,
+              "PREpb": 204,
+              "PREab": 17,
+              "REFab": 17
+            },
+            "first_rd_cycle": 13,
+            "last_rd_cycle": 17591,
+            "read_bus_cycles": 12294,
+            "refresh_busy_cycles": 2924
+          },
+          "d1_21": {
+            "commands": {
+              "ACT": 223,
+              "RD": 12290,
+              "PREpb": 205,
+              "PREab": 17,
+              "REFab": 17
+            },
+            "first_rd_cycle": 14,
+            "last_rd_cycle": 17582,
+            "read_bus_cycles": 12290,
+            "refresh_busy_cycles": 2924
+          },
+          "d1_22": {
+            "commands": {
+              "ACT": 221,
+              "RD": 12290,
+              "PREpb": 203,
+              "PREab": 17,
+              "REFab": 17
+            },
+            "first_rd_cycle": 15,
+            "last_rd_cycle": 17580,
+            "read_bus_cycles": 12290,
+            "refresh_busy_cycles": 2924
+          },
+          "d1_23": {
+            "commands": {
+              "ACT": 222,
+              "RD": 12292,
+              "PREpb": 204,
+              "PREab": 17,
+              "REFab": 17
+            },
+            "first_rd_cycle": 17,
+            "last_rd_cycle": 17584,
+            "read_bus_cycles": 12292,
+            "refresh_busy_cycles": 2924
+          },
+          "d1_24": {
+            "commands": {
+              "ACT": 110,
+              "RD": 6146,
+              "PREpb": 99,
+              "PREab": 11,
+              "REFab": 17
+            },
+            "first_rd_cycle": 36,
+            "last_rd_cycle": 14825,
+            "read_bus_cycles": 6146,
+            "refresh_busy_cycles": 2924
+          },
+          "d1_25": {
+            "commands": {
+              "ACT": 110,
+              "RD": 6146,
+              "PREpb": 99,
+              "PREab": 11,
+              "REFab": 17
+            },
+            "first_rd_cycle": 36,
+            "last_rd_cycle": 14828,
+            "read_bus_cycles": 6146,
+            "refresh_busy_cycles": 2924
+          },
+          "d1_26": {
+            "commands": {
+              "ACT": 108,
+              "RD": 6144,
+              "PREpb": 97,
+              "PREab": 11,
+              "REFab": 17
+            },
+            "first_rd_cycle": 38,
+            "last_rd_cycle": 14823,
+            "read_bus_cycles": 6144,
+            "refresh_busy_cycles": 2924
+          },
+          "d1_27": {
+            "commands": {
+              "ACT": 111,
+              "RD": 6148,
+              "PREpb": 100,
+              "PREab": 11,
+              "REFab": 17
+            },
+            "first_rd_cycle": 39,
+            "last_rd_cycle": 14846,
+            "read_bus_cycles": 6148,
+            "refresh_busy_cycles": 2924
+          },
+          "d1_28": {
+            "commands": {
+              "ACT": 218,
+              "RD": 12290,
+              "PREpb": 202,
+              "REFab": 17,
+              "PREab": 16
+            },
+            "first_rd_cycle": 18,
+            "last_rd_cycle": 17402,
+            "read_bus_cycles": 12290,
+            "refresh_busy_cycles": 2924
+          },
+          "d1_29": {
+            "commands": {
+              "ACT": 220,
+              "RD": 12290,
+              "PREpb": 203,
+              "PREab": 17,
+              "REFab": 17
+            },
+            "first_rd_cycle": 18,
+            "last_rd_cycle": 17402,
+            "read_bus_cycles": 12290,
+            "refresh_busy_cycles": 2924
+          },
+          "d1_30": {
+            "commands": {
+              "ACT": 223,
+              "RD": 12294,
+              "PREpb": 206,
+              "PREab": 17,
+              "REFab": 17
+            },
+            "first_rd_cycle": 19,
+            "last_rd_cycle": 17416,
+            "read_bus_cycles": 12294,
+            "refresh_busy_cycles": 2924
+          },
+          "d1_31": {
+            "commands": {
+              "ACT": 219,
+              "RD": 12288,
+              "PREpb": 202,
+              "PREab": 17,
+              "REFab": 17
+            },
+            "first_rd_cycle": 21,
+            "last_rd_cycle": 17401,
+            "read_bus_cycles": 12288,
+            "refresh_busy_cycles": 2924
+          },
+          "d2_0": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d2_1": {
+            "commands": {
+              "REFab": 18
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3096
+          },
+          "d2_2": {
+            "commands": {
+              "REFab": 18
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3096
+          },
+          "d2_3": {
+            "commands": {
+              "REFab": 18
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3096
+          },
+          "d2_4": {
+            "commands": {
+              "REFab": 18
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3096
+          },
+          "d2_5": {
+            "commands": {
+              "REFab": 18
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3096
+          },
+          "d2_6": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d2_7": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d2_8": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d2_9": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d2_10": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d2_11": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d2_12": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d2_13": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d2_14": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d2_15": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d2_16": {
+            "commands": {
+              "ACT": 110,
+              "RD": 6144,
+              "PREpb": 99,
+              "PREab": 11,
+              "REFab": 17
+            },
+            "first_rd_cycle": 32,
+            "last_rd_cycle": 14821,
+            "read_bus_cycles": 6144,
+            "refresh_busy_cycles": 2924
+          },
+          "d2_17": {
+            "commands": {
+              "ACT": 111,
+              "RD": 6146,
+              "PREpb": 100,
+              "PREab": 11,
+              "REFab": 17
+            },
+            "first_rd_cycle": 30,
+            "last_rd_cycle": 14821,
+            "read_bus_cycles": 6146,
+            "refresh_busy_cycles": 2924
+          },
+          "d2_18": {
+            "commands": {
+              "ACT": 112,
+              "RD": 6146,
+              "PREpb": 100,
+              "PREab": 12,
+              "REFab": 17
+            },
+            "first_rd_cycle": 33,
+            "last_rd_cycle": 14822,
+            "read_bus_cycles": 6146,
+            "refresh_busy_cycles": 2924
+          },
+          "d2_19": {
+            "commands": {
+              "ACT": 110,
+              "RD": 6144,
+              "PREpb": 99,
+              "PREab": 11,
+              "REFab": 17
+            },
+            "first_rd_cycle": 35,
+            "last_rd_cycle": 14827,
+            "read_bus_cycles": 6144,
+            "refresh_busy_cycles": 2924
+          },
+          "d2_20": {
+            "commands": {
+              "ACT": 222,
+              "RD": 12294,
+              "PREpb": 204,
+              "PREab": 17,
+              "REFab": 17
+            },
+            "first_rd_cycle": 13,
+            "last_rd_cycle": 17591,
+            "read_bus_cycles": 12294,
+            "refresh_busy_cycles": 2924
+          },
+          "d2_21": {
+            "commands": {
+              "ACT": 223,
+              "RD": 12290,
+              "PREpb": 205,
+              "PREab": 17,
+              "REFab": 17
+            },
+            "first_rd_cycle": 14,
+            "last_rd_cycle": 17582,
+            "read_bus_cycles": 12290,
+            "refresh_busy_cycles": 2924
+          },
+          "d2_22": {
+            "commands": {
+              "ACT": 221,
+              "RD": 12290,
+              "PREpb": 203,
+              "PREab": 17,
+              "REFab": 17
+            },
+            "first_rd_cycle": 15,
+            "last_rd_cycle": 17580,
+            "read_bus_cycles": 12290,
+            "refresh_busy_cycles": 2924
+          },
+          "d2_23": {
+            "commands": {
+              "ACT": 222,
+              "RD": 12292,
+              "PREpb": 204,
+              "PREab": 17,
+              "REFab": 17
+            },
+            "first_rd_cycle": 17,
+            "last_rd_cycle": 17584,
+            "read_bus_cycles": 12292,
+            "refresh_busy_cycles": 2924
+          },
+          "d2_24": {
+            "commands": {
+              "ACT": 110,
+              "RD": 6146,
+              "PREpb": 99,
+              "PREab": 11,
+              "REFab": 17
+            },
+            "first_rd_cycle": 36,
+            "last_rd_cycle": 14825,
+            "read_bus_cycles": 6146,
+            "refresh_busy_cycles": 2924
+          },
+          "d2_25": {
+            "commands": {
+              "ACT": 110,
+              "RD": 6146,
+              "PREpb": 99,
+              "PREab": 11,
+              "REFab": 17
+            },
+            "first_rd_cycle": 36,
+            "last_rd_cycle": 14828,
+            "read_bus_cycles": 6146,
+            "refresh_busy_cycles": 2924
+          },
+          "d2_26": {
+            "commands": {
+              "ACT": 108,
+              "RD": 6144,
+              "PREpb": 97,
+              "PREab": 11,
+              "REFab": 17
+            },
+            "first_rd_cycle": 38,
+            "last_rd_cycle": 14823,
+            "read_bus_cycles": 6144,
+            "refresh_busy_cycles": 2924
+          },
+          "d2_27": {
+            "commands": {
+              "ACT": 111,
+              "RD": 6148,
+              "PREpb": 100,
+              "PREab": 11,
+              "REFab": 17
+            },
+            "first_rd_cycle": 39,
+            "last_rd_cycle": 14846,
+            "read_bus_cycles": 6148,
+            "refresh_busy_cycles": 2924
+          },
+          "d2_28": {
+            "commands": {
+              "ACT": 218,
+              "RD": 12290,
+              "PREpb": 202,
+              "REFab": 17,
+              "PREab": 16
+            },
+            "first_rd_cycle": 18,
+            "last_rd_cycle": 17402,
+            "read_bus_cycles": 12290,
+            "refresh_busy_cycles": 2924
+          },
+          "d2_29": {
+            "commands": {
+              "ACT": 220,
+              "RD": 12290,
+              "PREpb": 203,
+              "PREab": 17,
+              "REFab": 17
+            },
+            "first_rd_cycle": 18,
+            "last_rd_cycle": 17402,
+            "read_bus_cycles": 12290,
+            "refresh_busy_cycles": 2924
+          },
+          "d2_30": {
+            "commands": {
+              "ACT": 223,
+              "RD": 12294,
+              "PREpb": 206,
+              "PREab": 17,
+              "REFab": 17
+            },
+            "first_rd_cycle": 19,
+            "last_rd_cycle": 17416,
+            "read_bus_cycles": 12294,
+            "refresh_busy_cycles": 2924
+          },
+          "d2_31": {
+            "commands": {
+              "ACT": 219,
+              "RD": 12288,
+              "PREpb": 202,
+              "PREab": 17,
+              "REFab": 17
+            },
+            "first_rd_cycle": 21,
+            "last_rd_cycle": 17401,
+            "read_bus_cycles": 12288,
+            "refresh_busy_cycles": 2924
+          },
+          "d3_0": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d3_1": {
+            "commands": {
+              "REFab": 18
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3096
+          },
+          "d3_2": {
+            "commands": {
+              "REFab": 18
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3096
+          },
+          "d3_3": {
+            "commands": {
+              "REFab": 18
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3096
+          },
+          "d3_4": {
+            "commands": {
+              "REFab": 18
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3096
+          },
+          "d3_5": {
+            "commands": {
+              "REFab": 18
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 3096
+          },
+          "d3_6": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d3_7": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d3_8": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d3_9": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d3_10": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d3_11": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d3_12": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d3_13": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d3_14": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d3_15": {
+            "commands": {
+              "REFab": 17
+            },
+            "first_rd_cycle": null,
+            "last_rd_cycle": null,
+            "read_bus_cycles": 0,
+            "refresh_busy_cycles": 2924
+          },
+          "d3_16": {
+            "commands": {
+              "ACT": 110,
+              "RD": 6144,
+              "PREpb": 99,
+              "PREab": 11,
+              "REFab": 17
+            },
+            "first_rd_cycle": 32,
+            "last_rd_cycle": 14821,
+            "read_bus_cycles": 6144,
+            "refresh_busy_cycles": 2924
+          },
+          "d3_17": {
+            "commands": {
+              "ACT": 111,
+              "RD": 6146,
+              "PREpb": 100,
+              "PREab": 11,
+              "REFab": 17
+            },
+            "first_rd_cycle": 30,
+            "last_rd_cycle": 14821,
+            "read_bus_cycles": 6146,
+            "refresh_busy_cycles": 2924
+          },
+          "d3_18": {
+            "commands": {
+              "ACT": 112,
+              "RD": 6146,
+              "PREpb": 100,
+              "PREab": 12,
+              "REFab": 17
+            },
+            "first_rd_cycle": 33,
+            "last_rd_cycle": 14822,
+            "read_bus_cycles": 6146,
+            "refresh_busy_cycles": 2924
+          },
+          "d3_19": {
+            "commands": {
+              "ACT": 110,
+              "RD": 6144,
+              "PREpb": 99,
+              "PREab": 11,
+              "REFab": 17
+            },
+            "first_rd_cycle": 35,
+            "last_rd_cycle": 14827,
+            "read_bus_cycles": 6144,
+            "refresh_busy_cycles": 2924
+          },
+          "d3_20": {
+            "commands": {
+              "ACT": 222,
+              "RD": 12294,
+              "PREpb": 204,
+              "PREab": 17,
+              "REFab": 17
+            },
+            "first_rd_cycle": 13,
+            "last_rd_cycle": 17591,
+            "read_bus_cycles": 12294,
+            "refresh_busy_cycles": 2924
+          },
+          "d3_21": {
+            "commands": {
+              "ACT": 223,
+              "RD": 12290,
+              "PREpb": 205,
+              "PREab": 17,
+              "REFab": 17
+            },
+            "first_rd_cycle": 14,
+            "last_rd_cycle": 17582,
+            "read_bus_cycles": 12290,
+            "refresh_busy_cycles": 2924
+          },
+          "d3_22": {
+            "commands": {
+              "ACT": 221,
+              "RD": 12290,
+              "PREpb": 203,
+              "PREab": 17,
+              "REFab": 17
+            },
+            "first_rd_cycle": 15,
+            "last_rd_cycle": 17580,
+            "read_bus_cycles": 12290,
+            "refresh_busy_cycles": 2924
+          },
+          "d3_23": {
+            "commands": {
+              "ACT": 222,
+              "RD": 12292,
+              "PREpb": 204,
+              "PREab": 17,
+              "REFab": 17
+            },
+            "first_rd_cycle": 17,
+            "last_rd_cycle": 17584,
+            "read_bus_cycles": 12292,
+            "refresh_busy_cycles": 2924
+          },
+          "d3_24": {
+            "commands": {
+              "ACT": 110,
+              "RD": 6146,
+              "PREpb": 99,
+              "PREab": 11,
+              "REFab": 17
+            },
+            "first_rd_cycle": 36,
+            "last_rd_cycle": 14825,
+            "read_bus_cycles": 6146,
+            "refresh_busy_cycles": 2924
+          },
+          "d3_25": {
+            "commands": {
+              "ACT": 110,
+              "RD": 6146,
+              "PREpb": 99,
+              "PREab": 11,
+              "REFab": 17
+            },
+            "first_rd_cycle": 36,
+            "last_rd_cycle": 14828,
+            "read_bus_cycles": 6146,
+            "refresh_busy_cycles": 2924
+          },
+          "d3_26": {
+            "commands": {
+              "ACT": 108,
+              "RD": 6144,
+              "PREpb": 97,
+              "PREab": 11,
+              "REFab": 17
+            },
+            "first_rd_cycle": 38,
+            "last_rd_cycle": 14823,
+            "read_bus_cycles": 6144,
+            "refresh_busy_cycles": 2924
+          },
+          "d3_27": {
+            "commands": {
+              "ACT": 111,
+              "RD": 6148,
+              "PREpb": 100,
+              "PREab": 11,
+              "REFab": 17
+            },
+            "first_rd_cycle": 39,
+            "last_rd_cycle": 14846,
+            "read_bus_cycles": 6148,
+            "refresh_busy_cycles": 2924
+          },
+          "d3_28": {
+            "commands": {
+              "ACT": 218,
+              "RD": 12290,
+              "PREpb": 202,
+              "REFab": 17,
+              "PREab": 16
+            },
+            "first_rd_cycle": 18,
+            "last_rd_cycle": 17402,
+            "read_bus_cycles": 12290,
+            "refresh_busy_cycles": 2924
+          },
+          "d3_29": {
+            "commands": {
+              "ACT": 220,
+              "RD": 12290,
+              "PREpb": 203,
+              "PREab": 17,
+              "REFab": 17
+            },
+            "first_rd_cycle": 18,
+            "last_rd_cycle": 17402,
+            "read_bus_cycles": 12290,
+            "refresh_busy_cycles": 2924
+          },
+          "d3_30": {
+            "commands": {
+              "ACT": 223,
+              "RD": 12294,
+              "PREpb": 206,
+              "PREab": 17,
+              "REFab": 17
+            },
+            "first_rd_cycle": 19,
+            "last_rd_cycle": 17416,
+            "read_bus_cycles": 12294,
+            "refresh_busy_cycles": 2924
+          },
+          "d3_31": {
+            "commands": {
+              "ACT": 219,
+              "RD": 12288,
+              "PREpb": 202,
+              "PREab": 17,
+              "REFab": 17
+            },
+            "first_rd_cycle": 21,
+            "last_rd_cycle": 17401,
+            "read_bus_cycles": 12288,
+            "refresh_busy_cycles": 2924
+          }
+        },
+        "contract": "one command/domain/cycle; open-row legality, declared ACT/PRE/RD/REF gaps and exact physical RD address multiset",
+        "limits": "read-only candidate command audit; no WR path, silicon calibration, power or temperature validation"
+      },
+      "capture_identities": [
+        {
+          "raw_sha256": "03dd55ccbe1948428f8e4add024d96c3887385188289aca9c4f7096a392bd945",
+          "graph_sha256": "55628ef6ea1fac4a9090a6703eb4423785eb6405621a384405ad5bf68ff359f0",
+          "stack_sha256": "6a38f0cca24903e8a0c3d1e93eb05e2011e099437e44f9625d765df2cfce023c"
+        },
+        {
+          "raw_sha256": "441263c7e04e295149b935a34cfca773582485587840191b11b276f0eb304de2",
+          "graph_sha256": "55628ef6ea1fac4a9090a6703eb4423785eb6405621a384405ad5bf68ff359f0",
+          "stack_sha256": "6a38f0cca24903e8a0c3d1e93eb05e2011e099437e44f9625d765df2cfce023c"
+        }
+      ]
+    }
+  ],
+  "native_tools": [
+    "9d18611aa0cc74b6d8a475e302134c7888b1417648607abce3a6f8d04311e308",
+    "37eb00768993fb5cfd903c690e72a21cdc69e10f4acbc421762f54dc5a33ba54"
+  ],
+  "analysis_source_commit": "6be612f903540ef770dfa584174c623a58bf23df",
+  "contract": "Same frozen native tools and inputs; full physical record, integer ps, ACT/PRE/RD/REF time/address logs and native submit/supply/commit/progress/completion trace fingerprints match. No architecture speedup claimed."
+}

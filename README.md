@@ -51,15 +51,25 @@ audited full cold comparison takes **580.576 µs for S1 Reference and 456.627 µ
 for S1 Phase-Split (21.35% reduction)**. Phase-Split also improves under S0;
 Hybrid becomes slower under S1. Matrix placement and finite request scheduling
 interact, rather than overlap or uniform load automatically improving performance.
-This S1 result is cold-only; P4 confirms the separate S0 Hybrid policy.
+That cold result and the separate S0 Hybrid P4 policy remain frozen references.
 
 The [matrix-service continuation](docs/reports/MATRIX_SERVICE_PROTOCOL.md) now
-extends bounded S1 to the registered 24-token finite-cache Reference/Phase-Split
-pair, running in the background without changing hardware budgets. A completed
+extends bounded S1 to a completed 24-token finite-cache Reference/Phase-Split
+pair: **13.300139 / 10.979869 ms (17.45% reduction)**, with equal observed
+miss/reload bytes and a **24.26% late-window reduction**. A completed
 12-case native probe fixes two fetch slots and independently crosses release
 dependencies with descriptor issue order. Hybrid improves with independent
 release under ordered issue but regresses under round-robin; Phase-Split improves
-under both. No completed S1 multi-layer speedup is claimed yet.
+under both. These are FFN proxies, with higher lateral traffic for Phase-Split.
+
+The [fetch-state lifetime gate](docs/reports/FETCH_STATE_LIFETIME_REPORT.md)
+reconstructs issue versus return-only ownership from those twelve captures and
+extracts the controller with exact native command/endpoint equivalence. Nine
+finite-state interventions retain the same hardware data resources. On the
+small Phase-Split fixture, split issue/return state improves 66.894 → 64.935 µs;
+three coupled slots reach 65.800 µs with 200 B rather than the split candidate's
+440 B declared control state. This does not establish a low-cost dominant
+bottleneck; fragment execution remains deferred.
 
 Builds, tests and execution run in isolated directories on `hn072`; edit source
 locally and synchronize committed revisions through Git. No sibling simulator

@@ -134,8 +134,9 @@ records final expert-62 block-8 projection joins: Reference 42.982 µs versus
 Phase-Split 21.927 µs. An earlier block release also contributes; Balanced has
 a roughly 22-µs final pair but arrives at it much later. Gate/Down temporal
 reuse within one block does not imply no conflict between different experts.
-No S2 or new hardware was introduced. S1/Phase-Split is still cold-only; P4
+No S2 or new hardware was introduced. That cold S1 result stays frozen; P4
 confirms the separately frozen S0 Hybrid under observed finite-cache traffic.
+The later registered S1 finite-cache pair is now complete, as recorded below.
 
 Transaction-level captures retain packet windows and aggregate executed hops,
 not per-flit hop timestamps. The read-only analyzer marks this; no absent trace
@@ -146,11 +147,15 @@ new simulation. All study/monitor logs and raw hash-bound files remain archived.
 ## Matrix service continuation
 
 The [matrix-service protocol](reports/MATRIX_SERVICE_PROTOCOL.md) registers the
-S1 Reference/Phase-Split 24-token two-layer pair at `9160207`. Both native workers
-run under `/Projects/haoning/w2w-full-system-matrix-service-20261010` in
-`concurrent-hierarchy-r1`; `hierarchy-monitor-r1.log` checks each minute and runs
-independent audit/stage analysis after both completions, without automatic
-retries. No S1 cached result is complete yet. Fixed Reference compute placement,
+S1 Reference/Phase-Split 24-token two-layer pair at `9160207`. Both workers and
+independent placement/stage readbacks complete under
+`/Projects/haoning/w2w-full-system-matrix-service-20261010` in
+`concurrent-hierarchy-r1` / `hierarchy-analysis-r1`, without automatic retries.
+Times are **13.300139 / 10.979869 ms (17.45% reduction)**; token-12–23 elapsed
+times are **6.419167 / 4.862114 ms (24.26% reduction)**. Both have 9,492 hits,
+4,332 misses, 2,271,770,112 native bytes and 648,178,176 reload bytes. Lateral
+data-lane activity grows about 3.63×; no measured PPA/EDP claim follows.
+Fixed Reference compute placement,
 initial L0 cache contents/order and physical resources are retained. Optional
 compute-epoch and interactive acceleration are disabled in these executions.
 Eleven relevant remote tests pass, including native S1 hits/evictions/reloads
@@ -167,12 +172,31 @@ experts are a post-hoc contention fixture, not independent routing validation.
 Registrations, raw hashes and saved-result audits are in
 `artifacts/provenance/matrix_service`.
 
-Next: finish the registered cached pair, report late-window and actual traffic
-even if counts differ, then use bounded ownership evidence to design any Down
-prefetch/fragment mechanism. Two whole-matrix fetch slots cannot simultaneously
-hold Gate, Up and Down. A 32/16 intermediate fragment must retain the original
-128×128 scales, paired Down storage layout and numerical accumulation contract;
-do not merely change `block_width` or create free lanes/contexts.
+The [state-lifetime gate](reports/FETCH_STATE_LIFETIME_REPORT.md) now completes
+G1/G2. G1 reuses all twelve captures; 4.078 µs of Hybrid's motivating 7.130-µs
+admission interval has at least one return-only owner. The controller is
+extracted at `f735946`, with full record equivalence and a separate detailed
+ACT/PRE/RD/REF and endpoint fingerprint gate against `9fbb4db`.
+
+Nine G2 cases at `188fbdc` compare coupled-2, coupled-3 and split-2/R3 with
+identical data hardware/shared issue/outstanding/MAC resources. Final readback
+at `7177e2e` passes all cases. Phase-Split takes **66.894 / 65.800 / 64.935 µs**;
+declared control state is **136 / 200 / 440 B/cluster**. Hybrid's admission wait
+vanishes under split, but final makespan improves only 0.062 µs. Thirteen
+extraction tests and fifteen overlapping split tests pass remotely; three final
+bound/lifetime tests pass. Return associations/tags are paid, independently
+audited and drained. Coupled-2 defaults retain exact old records. The split
+candidate is opt-in, cold-only, and has no demonstrated control-cost advantage.
+Archive receipts are in `artifacts/provenance/fetch_state`; source/native/raw
+SHA identities and retained analyzer failures are included.
+
+G3 fragment execution remains deferred: current state separation provides too
+little benefit to justify that expansion. The unexecuted fragment prototype is
+retained in a named local stash, not mixed into current source or evidence.
+Further work needs a strong whole-matrix Down-prefetch reference and a physical
+cost argument before introducing fragments/topology. Any eventual 32-element
+intermediate slice must retain original 128×128 scales, actual Down storage and
+FP32 accumulation resources; no free gather or numerical-equivalence claim.
 
 ## Interactive compute finding
 

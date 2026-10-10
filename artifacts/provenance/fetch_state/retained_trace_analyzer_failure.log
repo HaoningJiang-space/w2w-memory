@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/Projects/haoning/w2w-full-system-matrix-service-20261010/execution-split-fetch-r1/tools/check_simulator_equivalence.py", line 86, in <module>
+    if __name__=='__main__':main()
+  File "/Projects/haoning/w2w-full-system-matrix-service-20261010/execution-split-fetch-r1/tools/check_simulator_equivalence.py", line 70, in main
+    proof['speedup']=completions[0]['execution_wall_seconds']/completions[1]['execution_wall_seconds']
+KeyError: 'execution_wall_seconds'
+Traceback (most recent call last):
+  File "/Projects/haoning/w2w-full-system-matrix-service-20261010/analysis-fetch-tracegate-r1/tools/check_fetch_controller_migration.py", line 81, in <module>
+    if __name__=='__main__':main()
+  File "/Projects/haoning/w2w-full-system-matrix-service-20261010/analysis-fetch-tracegate-r1/tools/check_fetch_controller_migration.py", line 78, in main
+    else:check(a.output,a.baseline_source,a.candidate_source,a.booksim_binary)
+  File "/Projects/haoning/w2w-full-system-matrix-service-20261010/analysis-fetch-tracegate-r1/tools/check_fetch_controller_migration.py", line 59, in check
+    subprocess.run([sys.executable,str(candidate/'tools/check_simulator_equivalence.py'),'--baseline',str(a),'--candidate',str(b),
+  File "/usr/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/Projects/haoning/w2w/.venv/bin/python', '/Projects/haoning/w2w-full-system-matrix-service-20261010/execution-split-fetch-r1/tools/check_simulator_equivalence.py', '--baseline', '/Projects/haoning/w2w-full-system-matrix-service-20261010/fetch-controller-tracegate-r1/d1-round_robin-hybrid-baseline', '--candidate', '/Projects/haoning/w2w-full-system-matrix-service-20261010/fetch-controller-tracegate-r1/d1-round_robin-hybrid-candidate', '--output', '/Projects/haoning/w2w-full-system-matrix-service-20261010/fetch-controller-tracegate-r1/d1-round_robin-hybrid-physical-equivalence.json']' returned non-zero exit status 1.

@@ -1,0 +1,12 @@
+{
+  "allowed_differences": [
+    "source commit",
+    "native binary/config file identity",
+    "Python runtime file fingerprints"
+  ],
+  "drained_ps": 66951000,
+  "events": 160666,
+  "makespan_ps": 66894000,
+  "passed": true,
+  "physical_record_equal": true
+}

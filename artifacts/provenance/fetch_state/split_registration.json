@@ -1,0 +1,88 @@
+{
+  "schema": "w2w.split-fetch-study.v1",
+  "source_commit": "188fbdc75a84c6c5392b2717da90f7537bb8f5a2",
+  "cases": {
+    "reference-coupled2": {
+      "input_sha256": "593a05d6c74c5b9fedb7af5b7f74397322fa5fb473a29a21876d0ae913ceab30",
+      "graph_sha256": "427ba6493ecffb2ffd24e40c66c77ef1b3d82b2ec865c471a5a93987bb7831c3",
+      "settings": {
+        "issue": 2,
+        "returns": 0,
+        "control_bytes": 136
+      }
+    },
+    "reference-coupled3": {
+      "input_sha256": "f35f9aa1688f04038e958114b02a004c150af3cfa0955c5122189527bdaf50ae",
+      "graph_sha256": "427ba6493ecffb2ffd24e40c66c77ef1b3d82b2ec865c471a5a93987bb7831c3",
+      "settings": {
+        "issue": 3,
+        "returns": 0,
+        "control_bytes": 200
+      }
+    },
+    "reference-split2r3": {
+      "input_sha256": "5eb74bbb37fd7cbb33214b31898807edae8af28b2365ab3eab57cd9ed287af69",
+      "graph_sha256": "427ba6493ecffb2ffd24e40c66c77ef1b3d82b2ec865c471a5a93987bb7831c3",
+      "settings": {
+        "issue": 2,
+        "returns": 3,
+        "control_bytes": 440
+      }
+    },
+    "hybrid-coupled2": {
+      "input_sha256": "fa23a2e02758651e3c4475e30bb7cb555a63ed0daa1508d5fd8f49a0722b4a17",
+      "graph_sha256": "70d2481bd22c77b70f3dbe10a0c92a712ef8d8ed664e92f01a1703e8b4cd556b",
+      "settings": {
+        "issue": 2,
+        "returns": 0,
+        "control_bytes": 136
+      }
+    },
+    "hybrid-coupled3": {
+      "input_sha256": "377884606e628047b310c7f86a3603cdd91aba94b7f6aae4de71ceec0f1d63e8",
+      "graph_sha256": "70d2481bd22c77b70f3dbe10a0c92a712ef8d8ed664e92f01a1703e8b4cd556b",
+      "settings": {
+        "issue": 3,
+        "returns": 0,
+        "control_bytes": 200
+      }
+    },
+    "hybrid-split2r3": {
+      "input_sha256": "5f215a7f042f69591f154ab0e25573bd82492953225a112c9997b22d3c679567",
+      "graph_sha256": "70d2481bd22c77b70f3dbe10a0c92a712ef8d8ed664e92f01a1703e8b4cd556b",
+      "settings": {
+        "issue": 2,
+        "returns": 3,
+        "control_bytes": 440
+      }
+    },
+    "phase-split-coupled2": {
+      "input_sha256": "187a010396035cb17c015366beac7bb509bc4c8f1a7f3c08693baf4f508c3d21",
+      "graph_sha256": "55628ef6ea1fac4a9090a6703eb4423785eb6405621a384405ad5bf68ff359f0",
+      "settings": {
+        "issue": 2,
+        "returns": 0,
+        "control_bytes": 136
+      }
+    },
+    "phase-split-coupled3": {
+      "input_sha256": "f080a61a3e9812f07df50c973103ca73293544c18d89541ac6f74ecb5422636e",
+      "graph_sha256": "55628ef6ea1fac4a9090a6703eb4423785eb6405621a384405ad5bf68ff359f0",
+      "settings": {
+        "issue": 3,
+        "returns": 0,
+        "control_bytes": 200
+      }
+    },
+    "phase-split-split2r3": {
+      "input_sha256": "bb17c7762151be8398e2c73374578d29c5f9fc0a17db134795c4948b8e512fbe",
+      "graph_sha256": "55628ef6ea1fac4a9090a6703eb4423785eb6405621a384405ad5bf68ff359f0",
+      "settings": {
+        "issue": 2,
+        "returns": 3,
+        "control_bytes": 440
+      }
+    }
+  },
+  "contract": "The same fixed two-expert, hidden1024/intermediate1536, D1+round-robin fixture and full catalog as the 12-case probe. Same math/placement for each controller intervention, same domains, HB, gateways, two compute contexts, issue width2/outstanding32 and prefix operands. Split has two 64 B issue contexts, three 16 B associations and an additional 32x8 B descriptor-binding table: 440 B/cluster; coupled2/3 selector state is 136/200 B. Prefix bitmaps and full matrix SRAM are separately funded and remain live. These are conservative declared control-state bytes, not transistor area; common NI/request metadata is not calibrated. No cache, fragment, Down prefetch, new physical topology or performance-driven retry."
+}

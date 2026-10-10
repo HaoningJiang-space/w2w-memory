@@ -6,7 +6,7 @@ checks persistent finite-cache behavior and separates projection release from
 request issue order. It does not add gateways, native domains, HB lanes, MACs,
 Down prefetch or a new matrix-fragment execution model.
 
-## S1 finite-cache pair: registered, running
+## S1 finite-cache pair: completed and independently audited
 
 Execution source is `9160207`. Reference and Phase-Split run the same archived
 24-token, two-layer FFN proxy with independent layer weight identities. Both
@@ -46,7 +46,19 @@ hits, misses, compulsory/reload/native bytes; actual gateway/domain work;
 fabric hop/data-lane-distance activity; operand/compute readiness and drain.
 Equal initial cache does not require equal later traffic. Negative performance,
 changed miss counts and zero reload are valid observations, not reasons to
-discard or rerun a case. No S1 multi-layer benefit is claimed at registration.
+discard or rerun a case. No S1 multi-layer benefit was claimed at registration.
+
+Both registered workers now complete. Independent saved-result and stage
+readbacks at `9160207` report Reference **13.300139 ms** and Phase-Split
+**10.979869 ms**, a **17.45%** reduction. Token-12–23 elapsed time is
+**6.419167 / 4.862114 ms**, a **24.26%** reduction. Both have 9,492 hits,
+4,332 misses, 2,271,770,112 native bytes and 648,178,176 reload bytes; the late
+interval has 591,541,248 reload bytes in either case. Counts are observed and
+independently checked, not an acceptance requirement. Lateral data-lane
+activity increases about 3.63×; no energy/PPA benefit is established.
+Full raw/stage readbacks remain in the declared archive; receipts are in
+`artifacts/provenance/fetch_state`. This is the original two-coupled-slot S1
+pair, independent of the later split-controller intervention.
 
 ## Fixed-slot factor probe: completed and independently audited
 
@@ -126,6 +138,23 @@ can enter. This is direct evidence of cross-expert admission competition, not a
 long gateway data queue or a mathematical Gate→Up requirement. The matched
 timeline already differs before this block; the ownership interval is not
 identified as an exclusive 7.130-µs contribution to the 1.094-µs final slowdown.
+
+## State-lifetime follow-up: G1/G2 completed, fragments deferred
+
+The [fetch-state report](FETCH_STATE_LIFETIME_REPORT.md) partitions all twelve
+saved ownership timelines into issuing and return-only intervals. In Hybrid's
+7.130-µs admission wait, at least one owner is return-only for 4.078 µs.
+This identifies an opportunity rather than a makespan saving.
+
+The extracted controller matches full physical records, native command logs
+and endpoint traces before intervention. Nine frozen native cases compare two
+coupled slots, three coupled slots and two issue contexts with three bounded
+return associations. Phase-Split takes **66.894 / 65.800 / 64.935 µs**;
+declared control state is **136 / 200 / 440 B/cluster**. Hybrid's motivating
+admission wait disappears with split state, but its case improves by only
+0.062 µs. Return tags, operands and matrix SRAM stay funded until commit.
+The candidate does not demonstrate a low-cost dominant bottleneck, so G3
+fragment execution remains deferred. Default behavior stays coupled.
 
 ## Down prefetch: interval bound and finite-slot constraint
 
