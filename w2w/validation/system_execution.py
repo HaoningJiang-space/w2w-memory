@@ -18,6 +18,11 @@ def audit_system_result(result):
     stream_ready,stream_scale,stream_consumed,stream_macs,stream_ticks=Counter(),Counter(),Counter(),Counter(),set()
     last_compute={}
     scale_consumed=Counter()
+    readiness=result.get('operand_readiness',{}).get('policy','byte_count')
+    if readiness not in ('byte_count','contiguous_prefix'):raise ValueError('Unknown operand availability contract')
+    operand_meta_live=Counter();operand_meta_peak=Counter()
+    fragment_bytes=result['spec']['memory_request_bytes'];ready_chunks={};prefix_bytes=Counter();operand_ranges={}
+    resident={o['id']:o for o in graph['objects']}
     service_cycles=Counter();contexts=result.get('compute_execution',{}).get('contexts_per_cluster',1)
     incoming={k:[] for k in tasks};control={k:[] for k in tasks}
     for edge in graph['data']:incoming[edge['consumer']].append(edge)
@@ -120,11 +125,29 @@ def audit_system_result(result):
             if key not in cache_lookup_done or identity not in cache_valid or event['object']!=rule['weight_object'] or not cache_pins[identity]:
                 raise ValueError('Cache operand availability is unowned')
             read[key]+=event['bytes'];stream_ready[key]+=event['weight_bytes'];stream_scale[key]+=event['scale_bytes']
+            prefix_bytes[key]=rule['weight_data_bytes']
         elif kind == 'stream_operand_ready':
             task=tasks[event['task']];rule=task['stream']
             if event['object']!=rule['weight_object']:raise ValueError('Wrong streamed weight object')
-            if event['object_offset']>=rule['weight_data_bytes']:stream_scale[event['task']]+=event['bytes']
-            else:stream_ready[event['task']]+=event['bytes']
+            key=event['task'];obj=resident[rule['weight_object']];req=requests[event['request']]
+            memory=next(m for m in spec['memories'] if m['id']==req['memory'])
+            start=(req['word_address']*memory['banks']+req['bank'])*32-obj['offset_bytes'];end=start+event['bytes']
+            if req['task']!=key or req['memory']!=obj['memory'] or event['object_offset']!=start or req['bytes']!=event['bytes'] or not 0<=start<end<=obj['size_bytes']:
+                raise ValueError('Stream operand address differs from committed physical descriptor')
+            ranges=operand_ranges.setdefault(key,[])
+            if any(start<b and a<end for a,b in ranges):raise ValueError('Duplicate/overlapping committed weight range')
+            ranges.append((start,end))
+            if start>=rule['weight_data_bytes']:stream_scale[key]+=event['bytes']
+            else:
+                if end>rule['weight_data_bytes']:raise ValueError('Operand descriptor crosses scale boundary')
+                stream_ready[key]+=event['bytes']
+                if readiness=='contiguous_prefix':
+                    if start%fragment_bytes or event['bytes']!=min(fragment_bytes,rule['weight_data_bytes']-start):
+                        raise ValueError('Noncanonical prefix descriptor')
+                    chunks=ready_chunks.setdefault(key,set());chunks.add(start)
+                    while prefix_bytes[key] in chunks:
+                        prefix_bytes[key]=min(rule['weight_data_bytes'],prefix_bytes[key]+fragment_bytes)
+                        if prefix_bytes[key]==rule['weight_data_bytes']:break
         elif kind=='compute_service':
             key=event['task'];tick=(event['tile'],at)
             if key not in starts or key in finishes or tick in stream_ticks or event['cycles']!=1:
@@ -140,10 +163,16 @@ def audit_system_result(result):
                     or event['macs']*rule['weight_data_bytes']!=event['weight_bytes']*rule['macs']):
                 raise ValueError('Streamed compute exceeds arithmetic/SRAM service')
             stream_consumed[key]+=event['weight_bytes'];stream_macs[key]+=event['macs']
+            if readiness=='contiguous_prefix' and stream_consumed[key]>prefix_bytes[key]:
+                raise ValueError('GEMM consumed beyond the contiguous committed matrix prefix')
             if (stream_consumed[key]>stream_ready[key] or stream_scale[key]!=rule['scale_bytes']
                     or scale_consumed[key]>rule['scale_bytes'] or
                     event['scale_bytes']+event['weight_bytes']>rule['weight_read_bytes_per_cycle']):
                 raise ValueError('Streamed arithmetic consumed unavailable operands')
+        elif kind=='task_allocate' and readiness=='contiguous_prefix' and tasks[event['task']].get('stream'):
+            size=tasks[event['task']]['stream']['weight_data_bytes'];n=(size+fragment_bytes-1)//fragment_bytes
+            tile=event['tile'];operand_meta_live[tile]+=(n+7)//8+8
+            operand_meta_peak[tile]=max(operand_meta_peak[tile],operand_meta_live[tile])
         elif kind == 'task_start':
             key = event['task']
             if key in starts: raise ValueError('Task started twice')
@@ -177,10 +206,16 @@ def audit_system_result(result):
                 raise ValueError('Invalid compute duration')
             finishes[key] = at
             engine_slots[event['tile']]-=1
+            if readiness=='contiguous_prefix' and rule:
+                n=(rule['weight_data_bytes']+fragment_bytes-1)//fragment_bytes
+                operand_meta_live[event['tile']]-=(n+7)//8+8
             if key in cache_lookups:cache_pins[cache_lookups[key]]-=1
     if (set(packets) != delivered or set(finishes) != set(tasks) or any(sram.values())
             or any(set(requests) != ids for ids in stages.values()) or dict(data) != edge_bytes):
         raise ValueError('Final byte/transaction/storage ledger did not drain')
+    if readiness=='contiguous_prefix':
+        if any(operand_meta_live.values()) or dict(operand_meta_peak)!=result['operand_readiness']['peak_metadata_bytes'] or result['operand_readiness']['metadata_live_bytes']:
+            raise ValueError('Prefix metadata lifetime disagrees with allocation/completion ledger')
     network = result['network']
     if 'compute_execution' in result and dict(context_peak)!=result['compute_execution']['context_peak']:
         raise ValueError('Reported context occupancy differs from event ledger')

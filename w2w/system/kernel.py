@@ -17,10 +17,13 @@ from w2w.system.builder import SystemBuilder
 
 class SystemExecution:
     def __init__(self, spec, graph, native=None, *, network_factory=None,
-                 activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None):
+                 activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count'):
         self.spec, self.graph = spec, graph
         self.builder = SystemBuilder(spec).validate_graph(graph)
         self.events = [];self.event_observer=event_observer
+        if operand_readiness not in ('byte_count','contiguous_prefix'):raise ValueError('Unknown operand readiness policy')
+        self.operand_readiness=operand_readiness;self.operand_frontiers={}
+        self.operand_metadata_live=Counter();self.operand_metadata_peak=Counter();self.prefix_blocked=Counter()
         if native is None or network_factory is None:
             raise ValueError('Architecture V3 requires explicit native memory and fabric backends')
         self.network = network_factory(self.builder, self.events)
@@ -143,6 +146,8 @@ class SystemExecution:
                     state=self.state[req.task]
                     name='stream_scale_delivered' if req.object_offset>=stream.weight_data_bytes else 'stream_weight_delivered'
                     state[name]=state.get(name,0)+req.size_bytes
+                    if self.operand_readiness=='contiguous_prefix' and name=='stream_weight_delivered':
+                        self.operand_frontiers[req.task].receive(req.object_offset,req.size_bytes)
                 self.outstanding[req.requester] -= 1
                 self.log('read_deliver', request=key, task=req.task, bytes=req.size_bytes,
                          memory=req.memory, bank=req.bank, word_address=req.word_address,
@@ -159,6 +164,17 @@ class SystemExecution:
         del self.packet_info[packet.id]
         return True
 
+    def _operand_state_bytes(self,task):
+        if task.stream is None or self.operand_readiness=='byte_count':return 0
+        from w2w.system.operand_readiness import CommittedWeightPrefix
+        return CommittedWeightPrefix(task.stream.weight_data_bytes,self.spec.memory_request_bytes).metadata_bytes
+
+    def _available_weights(self,key):
+        state=self.state[key]
+        ready=(self.operand_frontiers[key].ready_bytes if self.operand_readiness=='contiguous_prefix'
+               else state.get('stream_weight_delivered',0))
+        return ready-state.get('stream_consumed',0)
+
     def _compute_completions(self):
         for tile,key in [(tile,key) for tile,keys in self.engine.items() for key in keys]:
             state = self.state[key]
@@ -168,11 +184,13 @@ class SystemExecution:
             self.engine[tile].remove(key)
             if not self.engine[tile]:del self.engine[tile]
             output = sum(self.edges[e]['edge'].size_bytes for e in self.outgoing[key])
-            size=self.builder.footprint[key]
+            size=self.builder.footprint[key]+self._operand_state_bytes(task)
             if self.weight_cache and task.stream:
                 size-=sum(r.size_bytes for r in task.reads)
                 self.weight_cache.release(tile,task.stream.weight_object)
             self._sram(tile, -(size-output), key)
+            if key in self.operand_frontiers:
+                self.operand_metadata_live[tile]-=self.operand_frontiers.pop(key).metadata_bytes
             state['done'] = True
             self.done_count+=1;self.active_edges.update(self.outgoing[key])
             for consumer in self.followers[key]:
@@ -189,7 +207,7 @@ class SystemExecution:
             predecessors = self.predecessors[key]
             if any(not self.state[p].get('done') for p in predecessors):
                 continue
-            size = self.builder.footprint[key]
+            size = self.builder.footprint[key]+self._operand_state_bytes(task)
             cache=self.weight_cache if task.stream is not None else None
             if self.weight_cache and task.reads and cache is None:raise ValueError('Cache primitive requires explicit whole-matrix streaming GEMM')
             if cache:size-=sum(r.size_bytes for r in task.reads)
@@ -203,6 +221,11 @@ class SystemExecution:
                 if hit is None:continue
                 state['cache_hit']=hit
                 self.cache_waiting[key]=cache.lookup_times[key]
+            if self._operand_state_bytes(task):
+                from w2w.system.operand_readiness import CommittedWeightPrefix
+                frontier=CommittedWeightPrefix(task.stream.weight_data_bytes,self.spec.memory_request_bytes)
+                self.operand_frontiers[key]=frontier;self.operand_metadata_live[task.tile]+=frontier.metadata_bytes
+                self.operand_metadata_peak[task.tile]=max(self.operand_metadata_peak[task.tile],self.operand_metadata_live[task.tile])
             self._sram(task.tile, size, key)
             state['allocated'] = True
             self.unallocated.remove(key)
@@ -295,6 +318,7 @@ class SystemExecution:
             if state['cache_hit']:
                 total=sum(r.size_bytes for r in task.reads)
                 state.update(read_bytes=total,stream_scale_delivered=stream.scale_bytes,stream_weight_delivered=stream.weight_data_bytes)
+                if self.operand_readiness=='contiguous_prefix':self.operand_frontiers[key].cached()
                 self.log('cache_operands_ready',task=key,tile=task.tile,object=stream.weight_object,
                     bytes=total,weight_bytes=stream.weight_data_bytes,scale_bytes=stream.scale_bytes)
 
@@ -418,7 +442,11 @@ class SystemExecution:
                 index=(self.context_cursor[tile]+i)%len(keys);candidate=keys[index]
                 state=self.state[candidate];stream=self.tasks[candidate].stream
                 if state['finish_ps'] is not None:continue
-                if stream is None or not state.get('stream_scale_consumed') or state.get('stream_weight_delivered',0)>state.get('stream_consumed',0):
+                if (stream is not None and self.operand_readiness=='contiguous_prefix' and state.get('stream_scale_consumed')
+                        and self._available_weights(candidate)==0 and state.get('stream_weight_delivered',0)>state.get('stream_consumed',0)
+                        and state.get('prefix_observed_tick')!=self.now):
+                    state['prefix_observed_tick']=self.now;self.prefix_blocked[candidate]+=1
+                if stream is None or not state.get('stream_scale_consumed') or self._available_weights(candidate)>0:
                     key=candidate;self.context_cursor[tile]=(index+1)%len(keys);break
             if key is None:continue
             self.compute_service_tick[tile]=self.now
@@ -436,7 +464,7 @@ class SystemExecution:
                 continue
             consumed=state.get('stream_consumed',0)
             reuse=stream.macs//stream.weight_data_bytes
-            available=state.get('stream_weight_delivered',0)-consumed
+            available=self._available_weights(key)
             size=min(available,stream.weight_read_bytes_per_cycle,stream.macs_per_cycle//reuse)
             if size<=0:continue
             state['stream_consumed']=consumed+size;self.busy_ps[tile]+=period
@@ -527,6 +555,10 @@ class SystemExecution:
                       tasks={k: {v: s[v] for v in ('start_ps', 'finish_ps', 'read_bytes')} for k, s in self.state.items()},
                       sram_peak_bytes=dict(self.sram_peak), compute_busy_ps=dict(self.busy_ps),
                       engine_context_ps=dict(self.engine_context_ps),
+                      operand_readiness=dict(policy=self.operand_readiness,commit_fragment_bytes=self.spec.memory_request_bytes,
+                          peak_metadata_bytes=dict(self.operand_metadata_peak),metadata_live_bytes=sum(self.operand_metadata_live.values()),
+                          prefix_blocked_task_cycles=dict(self.prefix_blocked),
+                          contract='prefix validity bitmap plus 64-bit frontier/association paid in task SRAM; committed descriptors, not individual native words; byte-count policy retains an aggregate out-of-order consumption assumption'),
                       compute_execution=dict(contexts_per_cluster=self.compute_contexts,context_peak=dict(self.context_peak),
                           additional_context_state_bytes_per_cluster=self.context_metadata_bytes,
                           policy='round-robin among ready contexts, one shared arithmetic/read grant per cluster cycle; full working sets paid'),
@@ -542,9 +574,9 @@ class SystemExecution:
 
 
 def execute_system(spec, graph, *, native=None, network_factory=None, max_ps=10_000_000,
-                   time_advance='gcd',activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None):
+                   time_advance='gcd',activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count'):
     execution = SystemExecution(spec, graph, native, network_factory=network_factory,
-                                activation_sram_read_bytes_per_cycle=activation_sram_read_bytes_per_cycle,compute_contexts=compute_contexts,weight_cache=weight_cache,event_observer=event_observer)
+                                activation_sram_read_bytes_per_cycle=activation_sram_read_bytes_per_cycle,compute_contexts=compute_contexts,weight_cache=weight_cache,event_observer=event_observer,operand_readiness=operand_readiness)
     try:
         return execution.run(max_ps,time_advance=time_advance)
     except BaseException:
