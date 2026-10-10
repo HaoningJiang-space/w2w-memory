@@ -7,6 +7,8 @@ COMMANDS = {
     'run_memory_hierarchy': 'w2w.experiments.run_memory_hierarchy',
     'run_operand_access': 'w2w.experiments.run_operand_access',
     'analyze_operand_access': 'w2w.analysis.operand_access',
+    'run_static_placement': 'w2w.experiments.run_static_placement',
+    'analyze_static_placement': 'w2w.analysis.static_placement',
 }
 COMMAND_STATUS = {name:'current' for name in COMMANDS}
 COMMAND_SCOPES = {
@@ -17,4 +19,6 @@ COMMAND_SCOPES = {
     'run_memory_hierarchy':'finite_distributed_sram_two_layer_proxy',
     'run_operand_access':'cold_ffn_with_contiguous_operands_and_control',
     'analyze_operand_access':'audited_contiguous_operand_access_pair',
+    'run_static_placement':'fixed_compute_and_cache_memory_only_placement',
+    'analyze_static_placement':'audited_memory_only_placement_and_cache_traffic',
 }
