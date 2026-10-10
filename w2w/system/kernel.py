@@ -17,10 +17,10 @@ from w2w.system.builder import SystemBuilder
 
 class SystemExecution:
     def __init__(self, spec, graph, native=None, *, network_factory=None,
-                 activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None):
+                 activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None):
         self.spec, self.graph = spec, graph
         self.builder = SystemBuilder(spec).validate_graph(graph)
-        self.events = []
+        self.events = [];self.event_observer=event_observer
         if native is None or network_factory is None:
             raise ValueError('Architecture V3 requires explicit native memory and fabric backends')
         self.network = network_factory(self.builder, self.events)
@@ -92,7 +92,9 @@ class SystemExecution:
             for tile,key in weight_cache.initial_resident:self.weight_cache.preload(tile,key,objects[key].size_bytes)
 
     def log(self, kind, **data):
-        self.events.append(dict(time_ps=self.now, kind=kind, **data))
+        event=dict(time_ps=self.now,kind=kind,**data)
+        self.events.append(event)
+        if self.event_observer is not None:self.event_observer(event)
 
     def _sram(self, tile, amount, task):
         self.sram[tile] += amount
@@ -540,9 +542,9 @@ class SystemExecution:
 
 
 def execute_system(spec, graph, *, native=None, network_factory=None, max_ps=10_000_000,
-                   time_advance='gcd',activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None):
+                   time_advance='gcd',activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None):
     execution = SystemExecution(spec, graph, native, network_factory=network_factory,
-                                activation_sram_read_bytes_per_cycle=activation_sram_read_bytes_per_cycle,compute_contexts=compute_contexts,weight_cache=weight_cache)
+                                activation_sram_read_bytes_per_cycle=activation_sram_read_bytes_per_cycle,compute_contexts=compute_contexts,weight_cache=weight_cache,event_observer=event_observer)
     try:
         return execution.run(max_ps,time_advance=time_advance)
     except BaseException:

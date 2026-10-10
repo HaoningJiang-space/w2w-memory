@@ -102,8 +102,15 @@ class ExecutionGraph:
             if edge.producer not in remaining or edge.consumer not in remaining:
                 raise ValueError('Unknown task in dependency')
             remaining[edge.consumer].add(edge.producer)
-        while remaining:
-            ready = {key for key, deps in remaining.items() if not deps}
-            if not ready:
-                raise ValueError('Execution graph contains a cycle; no edges were removed')
-            remaining = {key: deps-ready for key, deps in remaining.items() if key not in ready}
+        from collections import deque
+        followers={key:set() for key in remaining}
+        for key,deps in remaining.items():
+            for producer in deps:followers[producer].add(key)
+        counts={key:len(deps) for key,deps in remaining.items()}
+        ready=deque(key for key,count in counts.items() if not count);seen=0
+        while ready:
+            key=ready.popleft();seen+=1
+            for consumer in followers[key]:
+                counts[consumer]-=1
+                if not counts[consumer]:ready.append(consumer)
+        if seen!=len(remaining):raise ValueError('Execution graph contains a cycle; no edges were removed')
