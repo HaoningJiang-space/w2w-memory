@@ -16,9 +16,12 @@ class SystemBuilder:
         if len(self.tiles)!=len(spec.tiles) or len(self.memories)!=len(spec.memories):
             raise ValueError('Duplicate execution endpoint')
         self.physical_graph = spec.stack.physical_graph
+        self.routes={}
 
     def route(self,src,dst):
-        return self.physical_graph.route(self.spec.endpoint_router(src),self.spec.endpoint_router(dst))
+        pair=self.spec.endpoint_router(src),self.spec.endpoint_router(dst)
+        if pair not in self.routes:self.routes[pair]=self.physical_graph.route(*pair)
+        return self.routes[pair]
 
     def validate_graph(self, graph):
         tasks = {t.id: t for t in graph.tasks}

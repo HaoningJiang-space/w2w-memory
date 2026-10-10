@@ -1,5 +1,7 @@
 """Architecture lowering targets the existing unified kernel, not a second executor."""
 from dataclasses import dataclass,asdict
+from functools import cached_property
+from types import MappingProxyType
 from .resources import inventory,cell_format
 
 
@@ -64,13 +66,14 @@ class ExecutableMachine:
     read_requests_per_tile_cycle: int = 2
     memory_request_bytes: int = 4096
 
+    @cached_property
+    def endpoint_routers(self):
+        return MappingProxyType({**{r.id:r.id for r in self.routers},
+            **{c.id:c.router_id for c in self.tiles},**{m.id:m.home_tile for m in self.memories}})
+
     def endpoint_router(self, key):
-        for c in self.tiles:
-            if c.id==key: return c.router_id
-        for m in self.memories:
-            if m.id==key: return m.home_tile
-        if key in {r.id for r in self.routers}: return key
-        raise ValueError('Unknown physical endpoint')
+        try:return self.endpoint_routers[key]
+        except KeyError:raise ValueError('Unknown physical endpoint') from None
 
 
 def compile_machine(stack):

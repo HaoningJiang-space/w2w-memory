@@ -6,7 +6,7 @@ serial channels; a memory node is never a native router. Receive storage is
 reserved at admission per traffic class, preventing request/response protocol
 cycles with the native one-VC network. Classes share physical link bandwidth.
 """
-from collections import Counter,deque
+from collections import Counter,deque,defaultdict
 from functools import partial
 import heapq
 from math import ceil
@@ -68,6 +68,7 @@ class BookSimNetwork:
         self.client.coalesce_mutations = True
         self.ideal_return, self.debug_flits = ideal_return, debug_flits
         self.pending, self.native_ids = {}, {}
+        self.ready_packets=set();self.receiver_waiters=defaultdict(set)
         self.next_id = 0
         self.source_occupied, self.rx_reserved = Counter(), Counter()
         self.rx_peak, self.source_peak = Counter(), Counter()
@@ -145,7 +146,7 @@ class BookSimNetwork:
         self.pending[packet.id] = dict(packet=packet, count=count, committed=0, ready=False,
                                       streaming=streaming, supplied=0, payload_prefix=0,
                                       local_payload=local_payload,local_copied=0,local_released=0,
-                                      rx_cycles=0,rx_bytes=0,rx_wait_ps=0)
+                                      rx_cycles=0,rx_bytes=0,rx_wait_ps=0,admission_order=self.accepted)
         if self.cell_tags is not None:
             self.pending[packet.id]['cell_tag']=self.cell_tags.popleft()
             self.cell_tag_peak=max(self.cell_tag_peak,len(self.pending))
@@ -329,6 +330,7 @@ class BookSimNetwork:
                 if fid == 'payload-beat':
                     row['committed']+=1
                     row['ready']=row['committed']==row['local_beats']
+                    if row['ready']:self.ready_packets.add(key)
                     continue
                 elif fid == 'local-stream':
                     row['committed'] += 1
@@ -339,9 +341,20 @@ class BookSimNetwork:
                 else:
                     row['committed'] = row['count']
                 row['ready'] = row['committed'] == row['count']
+                if row['ready']:self.ready_packets.add(key)
+
+    def receiver_blocked(self,key,resource):
+        """The kernel proved this MC pool full; retry after its next release."""
+        self.receiver_waiters[resource].add(key);self.ready_packets.discard(key)
+
+    def receiver_changed(self,resource):
+        self.ready_packets.update(self.receiver_waiters.pop(resource,()))
 
     def deliver(self, now, accept):
-        for key, row in list(self.pending.items()):
+        # Preserve pending-dictionary admission order even when packets become
+        # ready out of order. Completed/blocked/in-flight packets are absent.
+        for key in sorted(self.ready_packets,key=lambda k:self.pending[k]['admission_order']):
+            row=self.pending[key]
             packet = row['packet']
             if row['ready'] and accept(packet):
                 self.rx_reserved[self.source_key(packet.dst), packet.traffic_class] -= 1
@@ -350,6 +363,7 @@ class BookSimNetwork:
                 self.log(now, 'packet_deliver', packet=key, src=packet.src, dst=packet.dst,
                          traffic_class=packet.traffic_class, payload_bytes=packet.payload_bytes)
                 del self.pending[key]
+                self.ready_packets.remove(key)
                 if self.cell_tags is not None:self.cell_tags.append(row['cell_tag'])
 
     def step(self, now):

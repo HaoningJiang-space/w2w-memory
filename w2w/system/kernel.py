@@ -127,6 +127,7 @@ class SystemExecution:
                 memory = self.builder.memories[req.memory]
                 pool=getattr(memory,'mc_pool_id',req.memory)
                 if self.mc_pool_slots[pool] >= memory.transaction_slots:
+                    self.network.receiver_blocked(packet.id,pool)
                     return False
                 self.mc_slots[req.memory] += 1
                 self.mc_pool_slots[pool]+=1
@@ -381,7 +382,9 @@ class SystemExecution:
 
     def _release_mc(self,req):
         self.mc_slots[req.memory]-=1
-        self.mc_pool_slots[getattr(self.builder.memories[req.memory],'mc_pool_id',req.memory)]-=1
+        pool=getattr(self.builder.memories[req.memory],'mc_pool_id',req.memory)
+        self.mc_pool_slots[pool]-=1
+        self.network.receiver_changed(pool)
 
     def _native_progress(self):
         complete = self.native.advance(self.now)
