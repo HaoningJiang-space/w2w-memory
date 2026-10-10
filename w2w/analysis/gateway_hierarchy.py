@@ -61,6 +61,10 @@ def analyze(source):
             max_rx_service_ps=max(result['network']['rx_write_cycles'].values(),default=0)*result['spec']['noc_period_ps'],
             max_arithmetic_busy_ps=max(result['compute_busy_ps'].values(),default=0),
             compute_execution=result['compute_execution'],source_arbiter=arbiter,
+            native_organization=dict(physical_domains=len(result['spec']['stack']['dram_domains']),
+                per_domain_capacity_bytes=sorted({d['capacity_bytes'] for d in result['spec']['stack']['dram_domains']}),
+                source='frozen physical stack; legacy free-text native scope is not the capacity authority'),
+            operand_readiness=result.get('operand_readiness',dict(policy='byte_count')),
             ready_behind_credit_source_cycles=sum(pressure['ready_behind_with_injection_credit_cycles']),
             binary_sha256=result['network']['identity']['binary_sha256'])
         if 'weight_cache' in result:
@@ -88,7 +92,9 @@ def analyze(source):
         if any(inputs[a][k]!=inputs[b][k] for k in ('cache','routing','request_control','network_policy')):raise ValueError('Hierarchy policies changed')
     return dict(schema='w2w.gateway-hierarchy-analysis.v1',passed=True,source_commit=registration['source_commit'],cases=rows,comparison=comparison,
         limits=['finite aggregate contexts, not a product-cycle model','ideal global receive booking','candidate array timing and SRAM banking',
-            'two-layer routing reuse is a proxy when used; initialization outside warm interval','resource proxies, no calibrated PPA','no numerical inference'])
+            'two-layer routing reuse is a proxy when used; initialization outside warm interval',
+            'byte-count streaming assumes aggregate out-of-order consumption; a small prefix probe is not full-size evidence',
+            'resource proxies, no calibrated PPA','no numerical inference'])
 
 
 def main():

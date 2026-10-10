@@ -1,5 +1,5 @@
 """Native causal cache lifetime: a warm hit, eviction and a paid reload."""
-import os,tempfile,unittest
+import gzip,json,os,tempfile,unittest
 from dataclasses import asdict
 from pathlib import Path
 from w2w.architecture.presets import vertical_memory
@@ -12,6 +12,8 @@ from w2w.system.weight_cache import WeightCacheConfig
 from w2w.validation.vertical_access import audit_vertical_result
 from w2w.validation.request_control import audit_request_control
 from w2w.analysis.gateway_hierarchy import completion_record
+from w2w.experiments.run_memory_hierarchy import finalize_zero_reload
+from w2w.common.fingerprints import digest_read_v1 as digest
 
 
 @unittest.skipUnless(os.getenv('W2W_BOOKSIM_BINARY') and os.getenv('W2W_RAMULATOR_BRIDGE'),'Native tools required')
@@ -42,10 +44,25 @@ class CacheLifetime(unittest.TestCase):
                 self.assertIn('512-Mbit',result['native']['scope'])
                 inputs=dict(graph=asdict(graph),metadata=dict(invocations=[dict(input_task='a',finish_task='c')],
                     logical_weight_read_bytes=3*size,active_unique_weight_bytes=3*size),
+                    machine=asdict(stack),
                     resources=dict(compute=dict(sram_bytes=sum(c.profile.sram_bytes for c in stack.compute_clusters))))
                 summary=completion_record(result,inputs,'causal-no-revisit-fixture',None)
                 self.assertTrue(summary['complete']);self.assertTrue(summary['capacity_eviction_observed'])
                 self.assertFalse(summary['capacity_reload_observed'])
+                study=Path(directory)/'saved';case='causal-no-revisit-fixture'
+                for folder in ('inputs','logs','cases/'+case):(study/folder).mkdir(parents=True)
+                (study/'inputs'/f'{case}.json').write_text(json.dumps(inputs))
+                (study/'registration.json').write_text(json.dumps(dict(source_commit=result['source_commit'],
+                    cases={case:dict(input_sha256=digest(inputs))})))
+                with gzip.open(study/'cases'/case/'result.json.gz','wt') as f:json.dump(result,f)
+                failure=study/'logs'/f'{case}.log';failure.write_text('ValueError: another failure\n')
+                with self.assertRaisesRegex(ValueError,'Only the frozen'):finalize_zero_reload(study,case)
+                failure.write_text('Traceback (most recent call last):\nValueError: Capacity reload was not observed\n')
+                finalize_zero_reload(study,case)
+                saved=json.loads((study/'cases'/case/'completion.json').read_text())
+                self.assertEqual(saved['source_commit'],result['source_commit']);self.assertIsNone(saved['wall_seconds'])
+                self.assertFalse(saved['capacity_reload_observed']);self.assertIn('finalization',saved)
+                with self.assertRaisesRegex(ValueError,'overwrite'):finalize_zero_reload(study,case)
         finally:native.close()
 
     def test_warm_hit_then_eviction_and_reload(self):

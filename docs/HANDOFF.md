@@ -55,3 +55,12 @@ fanout/DSE, endpoint RTL, partitioning rewrite or sibling simulator change is
 needed for this registered comparison. Keep the running two-layer worktree and
 its byte-count contract frozen. A paid central fanout remains a future
 strong baseline if the spatial claim is expanded.
+
+Zero reload is a valid cache observation; accessed-set capacity pressure alone
+does not prove a revisit. Current completion records report eviction/reload
+observations separately from completion. `--finalize-zero-reload` only accepts
+the retired runner's exact post-run rejection, re-audits the frozen raw input/
+source and records analysis identity separately. It does not rerun or overwrite
+completed cases. The versioned monitor in `tools/monitor_memory_hierarchy.py`
+supports this case and stops on other failures. Native metadata now describes
+the actual array capacity; selector naming is oldest-admitted among ready.
