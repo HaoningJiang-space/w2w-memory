@@ -2,7 +2,7 @@
 from collections import Counter
 from fractions import Fraction
 from math import ceil
-from w2w.architecture.wafer_stack import from_record
+from w2w.architecture.serialization import from_record
 
 
 def summarize_pressure(result):
