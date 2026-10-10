@@ -1,5 +1,6 @@
 """Matched central/distributed vertical injection; external organization is separate."""
 from math import ceil
+from dataclasses import replace
 from ..compute_fabric import ReticleRegion
 from ..memory_wafer import DRAMDomain, MemoryBankGroup
 from ..vertical_interface import VerticalPort, MemoryGateway, CollectionPath, ExternalPort
@@ -52,8 +53,8 @@ def vertical_memory(organization='distributed', *, rows=2, columns=2):
                     g.id,len(subset)*128,hb_sites=len(subset)*128+64); ports.append(p)
                 for d in subset:
                     length=sum(abs(a-b) for a,b in zip(d.position_um,p.position_um))
-                    collection.append(CollectionPath(f'{d.id}>{p.id}',d.id,p.id,g.id,length,
-                        pipeline_cycles=max(1,ceil(length/1000))))
+                    path=CollectionPath(f'{d.id}>{p.id}',d.id,p.id,g.id,length)
+                    collection.append(replace(path,pipeline_cycles=path.minimum_pipeline_cycles))
     return WaferStack(f'v3-{organization}{"-perimeter" if organization=="external" else ""}-{rows}x{columns}',regions,clusters,routers,
         tuple(memories),tuple(domains),lateral,tuple(ports),tuple(gateways),tuple(groups),
         tuple(collection),tuple(external))
