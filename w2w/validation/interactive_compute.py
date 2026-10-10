@@ -73,8 +73,8 @@ def audit_interactive_compute(raw):
     if (set(meta) != {'schema','evidence','intervals','ordinary_weight_updates','batch_updates',
                      'batched_compute_cycles','compute_service_visits','contract'}
             or meta['schema'] != 1 or meta['evidence'] not in ('full','compact')
-            or result['compute_execution']['contexts_per_cluster'] != 1
-            or result['operand_readiness']['policy'] != 'contiguous_prefix'):
+            or meta['intervals'] and (result['compute_execution']['contexts_per_cluster'] != 1
+                or result['operand_readiness']['policy'] != 'contiguous_prefix')):
         raise ValueError('Unsupported interactive compute contract')
     tasks = {r['id']: r for r in result['graph']['tasks']}
     tiles = {r['id']: r for r in result['spec']['tiles']}

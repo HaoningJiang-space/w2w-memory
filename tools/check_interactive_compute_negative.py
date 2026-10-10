@@ -33,6 +33,10 @@ def main():
     audit_interactive_compute(raw);audit_vertical_result(expand_interactive_compute(raw))
     def first_marker(r):return next(e for e in r['events'] if e['kind']=='interactive_compute_epoch')
     def delay_first_ready(r):
+        # Avoid rejection merely because moving a same-time event invalidates
+        # compact insertion anchors: challenge the causal frontier itself.
+        expanded=expand_interactive_compute(r);r.clear();r.update(expanded)
+        r['interactive_compute']['evidence']='full'
         event=next(e for e in r['events'] if e['kind']=='stream_operand_ready' and e['object_offset']==0)
         event['time_ps']=r['drained_ps']-1;r['events'].sort(key=lambda e:e['time_ps'])
     mutations={

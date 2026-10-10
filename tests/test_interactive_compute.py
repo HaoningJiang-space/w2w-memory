@@ -132,3 +132,17 @@ class InteractiveComputeTests(unittest.TestCase):
             bad=deepcopy(raw);mutate(bad)
             with self.assertRaises(ValueError):audit_interactive_compute(bad)
 
+    def test_zero_coverage_fallback_receipt_is_valid_for_unsupported_policy(self):
+        for contexts in (1,2):
+            e=ready();e.operand_readiness='byte_count';e.compute_contexts=contexts
+            e.log('stream_operand_ready',task='gemm',object_offset=0,bytes=4096)
+            e.events.append(dict(kind='stream_compute',time_ps=1000,task='gemm',tile='c0',
+                weight_bytes=64,scale_bytes=0,macs=64))
+            e.interactive_compute.ordinary_updates=1
+            e.now=2000;e._stream_compute_progress()
+            raw=dict(spec=asdict(e.spec),graph=asdict(e.graph),events=e.events,drained_ps=9000,
+                compute_execution=dict(contexts_per_cluster=contexts),operand_readiness=dict(policy='byte_count'),
+                interactive_compute=e.interactive_compute.record())
+            self.assertEqual(audit_interactive_compute(raw)['arithmetic_updates'],2)
+            self.assertEqual(audit_interactive_compute(raw)['intervals'],0)
+
