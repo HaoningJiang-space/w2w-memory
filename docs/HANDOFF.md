@@ -64,7 +64,7 @@ binary. Review evidence is in `artifacts/provenance/review_acceptance`.
 
 ## Current performance and placement stage
 
-P0–P3 are complete; P4 is running. The
+P0–P4 are complete and independently audited. The
 [performance/placement report](reports/SIMULATOR_PERFORMANCE_PLACEMENT_REPORT.md)
 and `artifacts/provenance/{simulator_performance,static_placement}` retain the
 profiling breakdown, exact full-size equivalence proof, cold audits and frozen
@@ -79,21 +79,23 @@ and initial cache residency fixed. Cold Reference / Balanced / Hybrid are
 Balanced policy is slightly slower. Locality is an exact Reference alias.
 No gateway, domain, HB, SRAM or compute resource was added.
 
-P4 Reference/Hybrid runs use frozen source `47e68e5` and contiguous-prefix
+P4 Reference/Hybrid runs used frozen source `47e68e5` and contiguous-prefix
 operands. The new archive is
 `/Projects/haoning/w2w-full-system-performance-placement-20261010` on hn072:
 `placement-multilayer-r1`, `execution-fast-r3`, `analysis-r1` and `monitor-r1`.
-The controller checks once per minute and audits after both finishes; log:
-`logs/placement-controller-r1.log`. It does not automatically retry failures.
-Do not reset these worktrees or report multi-layer improvement before audit.
-The complete historical registrations above remain finished; this is a new one.
+Both complete and pass independent analysis at `9d0ec5d`: 13.281470 /
+12.496369 ms (5.911% reduction), late token-12–23 6.373886 / 6.069437 ms (4.777%).
+Every invocation has equal observed miss/reload traffic; total native bytes are
+2,265,477,120 and reload bytes 641,885,184. Controller log:
+`logs/placement-controller-r1.log`; no automatic retries. Do not reset these
+worktrees. This prefix registration is separate from historical byte-count runs.
 
-Continue mechanism analysis using completed cold records while P4 runs. Compare
+Continue mechanism analysis using completed cold and P4 records. Compare
 actual native/gateway service, row behavior, source opportunities and executed
 region-local traffic; do not add overlapping waiting counters as total stall.
-After P4 completes, independently audit fixed compute/preload/storage/resource
-identities, invocation misses/reloads and drain, then update this report. A valid
-negative placement or zero-reload result must be retained.
+The P4 audit checks fixed compute/preload/storage/resource identities, invocation
+misses/reloads and drain. A valid negative placement or zero-reload result remains
+acceptable; equality of observed traffic was not an acceptance requirement.
 
 The [stage mechanism report](reports/PLACEMENT_STAGE_MECHANISM_REPORT.md) now
 reconstructs exact context clocks and milestones from all three audited cold

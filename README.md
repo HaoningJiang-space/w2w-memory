@@ -41,13 +41,14 @@ achieves **2.161× / 2.077× total wall-clock speedup** on matched full cold
 Central+/Distributed gates, with identical physical events and integer-ps
 results. With compute placement frozen, Hybrid memory placement improves cold
 Distributed completion from **581.384 to 562.863 µs (3.19%)**; more uniform
-Balanced placement takes 582.050 µs. The registered 24-token two-layer
-Reference/Hybrid confirmation is running; it has no completed result yet.
+Balanced placement takes 582.050 µs. The independently audited 24-token two-layer
+Reference/Hybrid confirmation takes **13.281470 / 12.496369 ms (5.91% reduction)**,
+with equal observed misses/reloads and a 4.78% late-window reduction.
 
 The [dependency-policy study](docs/reports/CONCURRENT_VERTICAL_SERVICE_REPORT.md)
 retains S0 and tests bounded independent Gate/Up fetch in S1. A small native
 Phase-Split probe improves only with S1 (17.794 → 11.556 µs); this is mechanism
-evidence. Full cold placement comparisons and P4 audits remain in progress.
+evidence. Full cold schedule comparisons remain in progress; P4 is complete.
 
 Builds, tests and execution run in isolated directories on `hn072`; edit source
 locally and synchronize committed revisions through Git. No sibling simulator

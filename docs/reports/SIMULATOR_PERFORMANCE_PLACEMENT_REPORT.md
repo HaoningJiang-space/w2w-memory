@@ -1,7 +1,7 @@
 # Simulator performance and memory-only static placement
 
-P0–P3 are complete. P4 is running on hn072 and has no completed result in this
-revision. Architecture V3 is unchanged; this stage optimizes simulator execution
+P0–P4 are complete and independently audited. Architecture V3 is unchanged;
+this stage optimizes simulator execution
 and compares static memory layouts within the existing Distributed machine.
 
 ## P0: measured simulator costs
@@ -154,26 +154,47 @@ consistent with a locality/feedback tradeoff; the current three executions do
 not isolate each phase's causal contribution. The modest cold gain warrants the
 registered multi-layer check rather than a claim of universally optimal balance.
 
-## P4: registered multi-layer confirmation, running
+## P4: completed multi-layer confirmation
 
 Hybrid was selected using only the completed cold results. Reference and Hybrid
-are now executing the same 24-token, two-layer FFN-only sequence with a finite
+executed the same 24-token, two-layer FFN-only sequence with a finite
 184 MiB weight-cache partition inside each 192 MiB cluster SRAM. Both use two
 shared-service contexts, contiguous-prefix operands, physical request/ACK,
 refresh and the same initial layer-0 preload. Preload is outside measurement.
 The two complete expert catalogs occupy 4.501 GiB, exceeding 3 GiB physical SRAM.
 
-The execution source remains `47e68e5`. The minute monitor uses `dd69634` and
-will run independent analysis after both completions; it does not automatically
-retry failures. Registration is evidence of a frozen experiment, not a result.
-No multi-layer improvement, equal miss count or reload amount is claimed here.
-Zero reload is accepted as a valid observation. This new prefix study is separate
-from the historical byte-count two-layer result.
+| Observed quantity | Reference | Hybrid |
+|---|---:|---:|
+| Complete 24-token sequence | 13.281470 ms | 12.496369 ms |
+| Token 12–23 elapsed window | 6.373886 ms | 6.069437 ms |
+| Native weight bytes | 2,265,477,120 B | 2,265,477,120 B |
+| Reload bytes | 641,885,184 B | 641,885,184 B |
+| Cache hits / misses | 9,504 / 4,320 | 9,504 / 4,320 |
+| Actual fabric hop-flits | 2,101,704 | 7,554,164 |
+| Hottest-gateway payload work bound | 6.194664 ms | 5.670248 ms |
+
+Hybrid reduces complete time by **5.911%**, and the token-12–23 elapsed window
+by **4.777%**. Each of the 48 layer invocations has the same observed traffic
+counts in both layouts, including the same cache misses and reloads. The late
+window still reads 1,019,464,704 B and reloads 585,248,256 B. These equalities are
+observations from the audited events, not enforced outcomes of fixed preload.
+Reduced maximum gateway/native work competes with increased region-local
+transport; these bounds do not decompose the 785.101 µs completion reduction.
+
+The execution source remains `47e68e5`. Independent analysis at `9d0ec5d`
+checks graph, fixed compute/preload, native and gateway bytes, command/ACK,
+operands, cache lifecycle and complete drain; all 23,520 tasks finish. The minute
+monitor uses `dd69634`, with no result-dependent retries. Zero reload would also
+have been a valid observation. This prefix study is separate from the historical
+byte-count two-layer result, and from the new S1 cold study.
 
 Archive root: `/Projects/haoning/w2w-full-system-performance-placement-20261010`.
 Raw native commands, results, builds and logs remain outside Git. See
 [multi-layer registration](../../artifacts/provenance/static_placement/multilayer-registration.json)
 and [run inventory](../../artifacts/provenance/static_placement/run-inventory.json).
+[Completed independent analysis](../../artifacts/provenance/static_placement/multilayer-analysis.json)
+retains raw hashes and per-invocation traffic. Both layers reuse the same archived
+routing; token 12–23 is a finite late window, not a stationary trace.
 
 Ideal global RX reservation, aggregate SRAM banking and assumed native array
 timing remain model conditions. These measurements do not establish silicon

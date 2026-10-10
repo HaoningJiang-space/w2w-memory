@@ -60,7 +60,7 @@ hn072 archive. Gateway bins are 0.1 µs in the probe and 1 µs in the full study
 they record bytes/busy cycles without averaging execution or resolving every
 within-bin burst.
 
-## Full cold study and P4: pending
+## Full cold study: pending; P4 complete
 
 `concurrent-service-r1` on hn072 runs the registered six cold cases with a
 60-second controller. Completed executions are independently audited, then
@@ -70,8 +70,11 @@ compute. Opposing component waits are not added into total stall time.
 
 The earlier 24-token P4 remains at frozen `47e68e5`, with its same initial cache
 and serial policy. It is not used to select this candidate or changed by S1.
-Its final complete and late-window times, misses/reloads and stage observations
-must be reported before drawing conclusions about multi-layer behavior.
+Its independent audit is complete: Reference 13.281470 ms, Hybrid 12.496369 ms,
+with 5.911% complete and 4.777% token-12–23 elapsed reduction. Observed misses,
+reloads and native bytes are equal for every invocation. This supports the
+earlier Hybrid layout under S0 and finite cache; it does not validate Phase-Split
+or S1 in multi-layer execution. See the [P4 report](SIMULATOR_PERFORMANCE_PLACEMENT_REPORT.md#p4-completed-multi-layer-confirmation).
 
 S2 bounded next-block prefetch is deferred. Array timing, aggregate SRAM banking,
 ideal global receive booking and macro-network timing remain model conditions;

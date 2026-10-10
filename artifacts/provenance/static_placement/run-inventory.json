@@ -9,10 +9,11 @@
   "host": "ee4e072",
   "limits": [
     "Raw results, command traces, builds and logs are outside Git.",
-    "Multilayer execution has no completed result in this inventory."
+    "P4 is a finite two-layer FFN proxy with archived routing reused across layers; not stationary or full-Transformer execution."
   ],
   "monitor_source_commit": "dd69634",
   "multilayer": {
+    "analysis": "placement-multilayer-analysis.json",
     "directory": "placement-multilayer-r1",
     "launch": {
       "cold_analysis_sha256": "82acc33ba569f0d0acf62af5fed5addc5c249a2c05e306de0109376db225d800",
@@ -24,7 +25,11 @@
       "source": "/Projects/haoning/w2w-full-system-performance-placement-20261010/execution-fast-r3",
       "time_utc": "2026-10-10T06:49:15.267671+00:00"
     },
-    "status": "running-not-a-result"
+    "makespan_ps": {
+      "hybrid": 12496369000,
+      "reference": 13281470000
+    },
+    "status": "complete-and-independently-audited"
   },
   "native_build": {
     "complete": true,

@@ -1,7 +1,7 @@
 # FFN stage timing and controlled gate/up intervention
 
 The P0–P3 performance/placement stage and controlled gate/up intervention are
-complete. The 24-token P4 confirmation is still running. Stage evidence does not
+complete. The 24-token P4 confirmation is also independently complete. Stage evidence does not
 establish a universal placement principle; S1 now tests the stronger question
 of independent projection fetch under finite resources.
 
@@ -123,13 +123,16 @@ Full per-task records remain in the remote archive. Execution is `47e68e5`;
 stage analysis is `7a694db`. No native simulator or hardware model was changed
 to obtain this analysis.
 
-## Pending experiments and acceptance
+## Completed P4 and remaining comparisons
 
-P4 Reference/Hybrid remains frozen at `47e68e5`; it is not restarted or modified.
-Acceptance checks complete and token-12–23 elapsed time, actual misses/reloads,
-native/domain/gateway work, stage readiness and resource drain. Subsequent cache
-traffic is observed, not forced equal. Both layers still reuse the same archived
-routing and remain an FFN-only timing proxy.
+P4 Reference/Hybrid remains frozen at `47e68e5`; it was not restarted or modified.
+Independent acceptance passes: complete time 13.281470 / 12.496369 ms, token-12–23
+elapsed time 6.373886 / 6.069437 ms. All 48 layer invocations have equal observed
+traffic counts; total native bytes are 2,265,477,120 and reload bytes 641,885,184
+on both sides. Subsequent cache traffic was observed, not forced equal. Both
+layers still reuse the same archived routing and remain an FFN-only timing proxy.
+See the [completed P4 report](SIMULATOR_PERFORMANCE_PLACEMENT_REPORT.md#p4-completed-multi-layer-confirmation).
+Additional pressure/stage reconstruction runs on these completed raw records.
 
 The completed controlled cold pair uses `gate-up-ablation-r1` in the same
 isolated remote archive. Once/minute monitors audit each completed study and
