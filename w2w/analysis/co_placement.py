@@ -98,6 +98,16 @@ def analyze(source,baseline=None):
     if len(tools)!=1:raise ValueError('Native tools differ')
     if reg['mode']=='cold' and len({r['audit']['native_bytes'] for r in rows.values()})!=1:raise ValueError('Cold read work differs')
     ref=rows['reference_compute']
+    if reg['mode']=='cold':
+        for row in rows.values():
+            for resource,field in (('gateways','payload_bytes'),('domains','atoms')):
+                if ({k:v[field] for k,v in row['pressure'][resource].items()}!=
+                        {k:v[field] for k,v in ref['pressure'][resource].items()}):
+                    raise ValueError('Fixed cold weights changed per-Gateway/domain service work')
+    if 'up_matched_nonlocal' in rows:
+        for field in ('actual_macs_by_cluster','actual_stream_weight_read_bytes_by_cluster'):
+            if rows['up_matched_nonlocal']['traffic'][field]!=rows['up_local_compute']['traffic'][field]:
+                raise ValueError('Executed nonlocal control did not match per-cluster arithmetic/read work')
     for case,row in rows.items():
         row['completion_reduction_percent']=100*(1-row['makespan_ps']/ref['makespan_ps'])
         row['data_lane_activity_reduction_percent']=100*(1-row['pressure']['actual_data_lane_byte_um']/ref['pressure']['actual_data_lane_byte_um'])

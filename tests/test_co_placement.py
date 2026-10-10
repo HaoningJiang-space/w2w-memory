@@ -17,6 +17,7 @@ class ProjectionMapping(unittest.TestCase):
         from w2w.experiments.run_co_placement import inputs
         cases={p:inputs(p,'cold')[3] for p in PROJECTION_POLICIES}
         self.assertTrue(audit_co_placement_inputs(cases)['passed'])
+        with self.assertRaises(ValueError):audit_co_placement_inputs(dict(cases,unsupported_control=cases['up_local_compute']))
         tasks={p:{t['id']:t for t in d['graph']['tasks']} for p,d in cases.items()}
         up='e62/b8/up';old=tasks['reference_compute'][up]['tile']
         self.assertNotEqual(tasks['up_local_compute'][up]['tile'],old)

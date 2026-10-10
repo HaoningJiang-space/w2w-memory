@@ -75,7 +75,7 @@ def place_projection_compute(logical,stack,reference_weights,candidate_weights,p
     if policy=='reference_compute':return base
     clusters={c.id:c for c in stack.compute_clusters};anchors={p.operation:p.cluster for p in base}
     local=gateway_compute_clusters(stack,candidate_weights);weights={w.tensor:w for w in candidate_weights}
-    operations={op.id:op for op in logical.operations};chosen={}
+    chosen={}
     ups=[op for op in logical.operations if op.kind=='gemm' and op.id.endswith('/up')]
     for op in ups:
         if len(op.weight_tensors)!=1:raise ValueError('One explicit Up weight required')

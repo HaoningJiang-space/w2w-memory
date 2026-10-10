@@ -14,6 +14,8 @@ def up_work_by_cluster(data):
 
 
 def audit_co_placement_inputs(inputs):
+    if set(inputs)-{'reference_compute','up_local_compute','up_matched_nonlocal'}:
+        raise ValueError('Unknown co-placement intervention')
     base=inputs['reference_compute'];graph=base['graph'];tasks={t['id']:t for t in graph['tasks']}
     stack=base['machine'];clusters={c['id']:c for c in stack['compute_clusters']}
     groups={g['id']:g for g in stack['bank_groups']};gateways={g['id']:g for g in stack['gateways']}
@@ -63,6 +65,7 @@ def audit_co_placement_inputs(inputs):
                     any(n>cache['entries_per_cluster'] for n in entries.values())):
                 raise ValueError('Mapped full catalog exceeds finite per-cluster cache')
     if 'up_matched_nonlocal' in inputs:
+        if 'up_local_compute' not in inputs:raise ValueError('Nonlocal diagnostic requires its matched Up-local cell')
         if up_work_by_cluster(inputs['up_matched_nonlocal'])!=up_work_by_cluster(inputs['up_local_compute']):
             raise ValueError('Nonlocal diagnostic changed the matched per-cluster Up work')
     return dict(passed=True,cases=list(inputs),tasks=len(tasks),catalog_matrices=len(objects),
