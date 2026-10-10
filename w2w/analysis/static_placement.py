@@ -10,15 +10,19 @@ from w2w.provenance import revision
 
 
 def analyze(source):
-    reg=json.loads((source/'registration.json').read_text());rows={};inputs={};files={};first=None
+    reg=json.loads((source/'registration.json').read_text());rows={};inputs={};files={};first=None;catalog=None
     if reg['schema']!='w2w.static-placement-study.v1':raise ValueError('Unknown placement registration')
-    for case,registered in reg['cases'].items():
+    # JSON writers sort keys; an alias may precede its target in the file.
+    for case,registered in sorted(reg['cases'].items(),key=lambda item:bool(item[1]['alias_of'])):
         data=json.load(gzip.open(source/'inputs'/f'{case}.json.gz','rt'))
         if digest(data)!=registered['input_sha256']:raise ValueError('Input identity changed')
         graph=data['graph'];invariant=dict(tasks=graph['tasks'],data=graph['data'],control=graph['control'],
             cache=data['cache'],compute_reference=data['compute_reference_weights'],resources=data['resources'],network=data['network_policy'])
         if digest(invariant)!=reg['fixed_invariants_sha256'] or (first is not None and first!=invariant):raise ValueError('Memory-only invariant changed')
         first=invariant;inputs[case]=data
+        identity=[(o['id'],o['size_bytes'],o['storage_id']) for o in graph['objects']]
+        if catalog is not None and catalog!=identity:raise ValueError('Placement changed catalog content or storage identity')
+        catalog=identity
         if registered['alias_of']:
             if data['weights']!=inputs[registered['alias_of']]['weights']:raise ValueError('False duplicate-placement alias')
             continue
