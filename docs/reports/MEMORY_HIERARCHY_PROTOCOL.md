@@ -33,6 +33,10 @@ weight set is **3.02418 GiB**, above the entire **3 GiB physical SRAM**, and the
 busiest cluster needs **216.053 MiB**, above its **192 MiB** physical capacity.
 This establishes actual accessed-set pressure, not just oversized inactive
 catalogs or a deliberately tiny cache.
+Accessed-set pressure does not prove a later revisit to an evicted object.
+Zero reload is a valid outcome: completion depends on byte/resource/control
+conservation, not on demonstrating the expected cache mechanism. Reload counters
+include misses for initially preloaded objects as well as previously filled ones.
 
 For the strong single-layer reference, ALL 128 layer-0 experts are initially
 resident: **2,416,508,928 B**, **144.035 MiB per cluster**. This fits the declared
@@ -108,6 +112,11 @@ Large inputs/captures are at
 A 60-second monitor records invocation progress, stops on failures, and runs the
 independent analyzer plus SHA-256 inventory after all three cases complete.
 It does not silently retry or change frozen inputs.
+If the frozen runner rejects only zero reload after saving a fully conserved raw
+result, the current `--finalize-zero-reload CASE` mode can record a completion
+without rerunning. It checks the registered input, execution source, exact retired
+failure and independent audits, keeps the original execution identity, and records
+the newer finalization source separately. Missing wall time is left unknown.
 
 Required outputs: warm native bytes, hit/miss and compulsory/reload bytes,
 evictions and pinned lifetimes, per-cluster residency/peak, native and gateway

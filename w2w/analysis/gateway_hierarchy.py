@@ -9,6 +9,31 @@ from w2w.validation.vertical_access import audit_vertical_result
 from w2w.validation.request_control import audit_request_control
 
 
+def completion_record(result,data,case,wall_seconds):
+    """Zero reload is an observation, not a conservation/completion failure."""
+    inv=[]
+    for item in data['metadata']['invocations']:
+        a=result['tasks'][item['input_task']]['start_ps'];b=result['tasks'][item['finish_task']]['finish_ps']
+        inv.append(dict(**item,start_ps=a,finish_ps=b,duration_ps=b-a))
+    stats=result['weight_cache']['stats']
+    summary=dict(complete=True,case=case,source_commit=result['source_commit'],input_sha256=digest(data),
+        makespan_ps=result['makespan_ps'],makespan_us=result['makespan_ps']/1e6,drained_ps=result['drained_ps'],
+        wall_seconds=wall_seconds,audit=result['audit'],control_audit=result['control_audit'],
+        weight_cache=result['weight_cache'],request_control=result['native']['request_control'],
+        logical_weight_read_bytes=data['metadata']['logical_weight_read_bytes'],
+        active_unique_weight_bytes=data['metadata']['active_unique_weight_bytes'],physical_sram_bytes=data['resources']['compute']['sram_bytes'],
+        invocations=inv,hop_flits=sum(result['network']['link_flits'].values()),
+        native_last_tail_ps=result['native']['native_last_tail_ps'],binary=result['network']['identity']['binary_sha256'],
+        compute_execution=result['compute_execution'],compute_busy_ps=result['compute_busy_ps'],sram_peak_bytes=result['sram_peak_bytes'],
+        preload_bytes=result['weight_cache']['initial_resident_bytes'],
+        preload_gateway_peak_lower_bound_ps=result['weight_cache']['initial_resident_bytes']/(512/1000),
+        preload_scope='lower bound only, array/commands/transport reduce sustained service; initialization is excluded from warm interval',
+        capacity_eviction_observed=bool(stats.get('evictions',0)),capacity_reload_observed=bool(stats.get('reload_bytes',0)),
+        reload_contract='Reload means a miss for previously resident weights, including initial preload; zero is a valid result even with accessed-set capacity pressure.')
+    if case=='single-layer-warm' and summary['audit']['native_bytes']:raise ValueError('Whole layer was warm but reread weights')
+    return summary
+
+
 def analyze(source):
     registration=json.loads((source/'registration.json').read_text());rows={};inputs={};native_config=set()
     for case,identity in registration['cases'].items():
@@ -45,6 +70,8 @@ def analyze(source):
             row['active_unique_weight_bytes']=data['metadata']['active_unique_weight_bytes']
             row['logical_weight_read_bytes']=data['metadata']['logical_weight_read_bytes']
             row['invocations']=completion['invocations']
+            row['capacity_eviction_observed']=bool(cache['stats'].get('evictions',0))
+            row['capacity_reload_observed']=bool(cache['stats'].get('reload_bytes',0))
         rows[case]=row;inputs[case]=data
         del result
     if len(native_config)!=1:raise ValueError('Native array/controller policy differs')

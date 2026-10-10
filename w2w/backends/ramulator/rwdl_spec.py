@@ -1,7 +1,9 @@
 """SeDRAM-inspired interface, with explicitly assumed array/refresh timings.
 
 This is a new Ramulator standard, not an HBM2 preset with scaled bandwidth.
-One channel contains one 128-Mbit array and an independent 128-bit RWDL.
+One channel contains one declared-capacity array and an independent 128-bit
+RWDL. The 128-Mbit interface reference and 512-Mbit V3 capacity candidate are
+separate organization presets, with explicit study timing overrides.
 """
 from ramulator.dram.spec import DRAMStandard, TimingConstraint as TC
 

@@ -47,7 +47,8 @@ class RamulatorRWDL:
         self.config = candidate_config(memories, **kwargs)
         bridge, path = load_bridge()
         self.domain_count=memories*32 if kwargs.get('domain_count') is None else kwargs['domain_count']
-        self.atom_limit=kwargs.get('array_bytes',16*1024**2)//16
+        self.array_bytes=kwargs.get('array_bytes',16*1024**2)
+        self.atom_limit=self.array_bytes//16
         self.impl = (bridge.IncrementalMemory(self.config) if self.atom_limit==1 << 20
                      else bridge.IncrementalMemory(self.config,self.atom_limit))
         self.bridge_sha256 = sha256(path.read_bytes()).hexdigest()
@@ -88,9 +89,11 @@ class RamulatorRWDL:
         return dict(kind='ramulator_rwdl_candidate_v1', upstream_commit=UPSTREAM_COMMIT,
             bridge_sha256=self.bridge_sha256, config=self.config, config_sha256=digest(self.config),
             tck_ps=self.tck_ps, accepted_atoms=self.accepted, completed_atoms=self.completed,
+            domain_count=self.domain_count,array_capacity_bytes=self.array_bytes,
+            total_array_capacity_bytes=self.domain_count*self.array_bytes,
             rejected_attempts=self.rejected, pending_atoms=len(self.pending),
             upstream_pending=self.impl.outstanding(), stats=finite(self.impl.stats()),
-            scope='32 independent 128-Mbit arrays/M, published interface anchors, assumed array/refresh timing; uncalibrated')
+            scope=f'{self.domain_count} independent {self.array_bytes*8//1024**2}-Mbit arrays; published interface anchors, declared capacity and assumed array/refresh timing; uncalibrated')
 
     def close(self):
         self.impl.close()

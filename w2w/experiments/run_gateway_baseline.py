@@ -50,7 +50,7 @@ def prepare(output,contexts):
     proof=matched_vertical_budget(from_recipe('configs/machine/v3-small.json','central'),from_recipe('configs/machine/v3-small.json','distributed'))
     write_json(output/'registration.json',dict(schema='w2w.gateway-baseline.v1',source_commit=revision(),
         cases=records,max_ps=3000000000,compute_contexts=contexts,budget_match=proof,
-        contract='one physical injection/source; same native, HB, buffers, output, graph; finite oldest-ready selection only',
+        contract='one physical injection/source; same native, HB, buffers, output, graph; finite oldest-admitted-among-ready selection only',
         retained_distributed_reference='v3-first-vertical-20261009; 581.749 us; new machine/graph must be matched before comparison'))
 
 

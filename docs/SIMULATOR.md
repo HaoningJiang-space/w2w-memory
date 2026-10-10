@@ -44,9 +44,10 @@ operands, per-cycle arithmetic/read service, engine occupancy, physical capacity
 finite reservations, gateway/MC pools and drain. Link-slot conservation is checked
 online using actual native hops; offline analysis checks traffic capacity totals.
 
-Receive booking is an ideal instantaneous reference. Native injection defaults to FIFO and one VC. Optional bounded oldest-ready
+Receive booking is an ideal instantaneous reference. Native injection defaults to FIFO and one VC. Optional bounded oldest-admitted-among-ready
 selection pays 96 bits/message and retains one physical cell/source/cycle; no
-router or credit service is duplicated. Opportunity counts are not additive stall.
+router or credit service is duplicated. Monotonic admission IDs set the priority,
+not the time that data became ready. Opportunity counts are not additive stall.
 
 Optional request control sends a 16 B range command per participating physical
 domain, over shared 32-bit forward/32-bit reverse HB control at the logic clock.

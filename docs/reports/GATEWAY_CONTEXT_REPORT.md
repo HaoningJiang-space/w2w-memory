@@ -24,12 +24,15 @@ This is a finite aggregate execution policy, not a calibrated model of a
 commercial processor's contexts/register files. `engine_context_ps` now sums
 slot occupancy and can exceed elapsed time; it is not arithmetic utilization.
 
-Central+ adds 16 oldest-ready entries to each of four central injection sources,
+Central+ adds 16 oldest-admitted-among-ready entries to each of four central injection sources,
 96 bits/entry: **6,144 bits (768 B)** of selector state. It adds no data buffer,
 physical injection port, MAC service, SRAM read bandwidth or HB data lanes.
 One selected cell can inject per source clock; BookSim's router, VC, arbitration
 and credit machinery remain unchanged. Selector logic area and timing closure
 are not calibrated.
+The frozen metadata called this "oldest-ready". Its actual priority is the
+smallest monotonically assigned admission ID among supplied messages, not the
+earliest data-ready timestamp. This naming correction changes no scheduling.
 
 The source intervention removes the observed ready-behind condition but slows
 completion by **0.329%**. Native readiness also moves later. This is a closed-loop
@@ -37,6 +40,8 @@ application result: injection order changes outstanding release and subsequent
 DRAM requests. A HOL opportunity counter is not an independently additive stall
 or a prediction of application benefit. Neither context overlap nor this finite
 selector explains away the distributed advantage on this input.
+This result does not establish that other ready-aware priority policies have
+no benefit.
 
 The comparison still changes physical collection, injection location, local
 queues/pools and horizontal return paths together. It does not isolate HB

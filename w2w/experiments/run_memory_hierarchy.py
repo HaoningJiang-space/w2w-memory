@@ -15,6 +15,7 @@ from w2w.system.kernel import execute_system
 from w2w.system.weight_cache import WeightCacheConfig
 from w2w.validation.vertical_access import audit_vertical_result
 from w2w.validation.request_control import audit_request_control
+from w2w.analysis.gateway_hierarchy import completion_record
 
 CASES=('single-layer-warm','central-plus-two-layer','distributed-two-layer')
 
@@ -71,32 +72,39 @@ def run(output,case,binary):
     result['audit']=audit_vertical_result(result);result['control_audit']=audit_request_control(result)
     result['source_commit']=revision()
     with gzip.open(directory/'result.json.gz','wt',compresslevel=3) as f:json.dump(result,f)
-    inv=[]
-    for item in data['metadata']['invocations']:
-        a=result['tasks'][item['input_task']]['start_ps'];b=result['tasks'][item['finish_task']]['finish_ps']
-        inv.append(dict(**item,start_ps=a,finish_ps=b,duration_ps=b-a))
-    summary=dict(complete=True,case=case,source_commit=revision(),input_sha256=digest(data),
-        makespan_ps=result['makespan_ps'],makespan_us=result['makespan_ps']/1e6,drained_ps=result['drained_ps'],
-        wall_seconds=time.monotonic()-start,audit=result['audit'],control_audit=result['control_audit'],
-        weight_cache=result['weight_cache'],request_control=result['native']['request_control'],
-        logical_weight_read_bytes=data['metadata']['logical_weight_read_bytes'],
-        active_unique_weight_bytes=data['metadata']['active_unique_weight_bytes'],physical_sram_bytes=data['resources']['compute']['sram_bytes'],
-        invocations=inv,hop_flits=sum(result['network']['link_flits'].values()),
-        native_last_tail_ps=result['native']['native_last_tail_ps'],binary=result['network']['identity']['binary_sha256'],
-        compute_execution=result['compute_execution'],compute_busy_ps=result['compute_busy_ps'],sram_peak_bytes=result['sram_peak_bytes'],
-        preload_bytes=result['weight_cache']['initial_resident_bytes'],
-        preload_gateway_peak_lower_bound_ps=result['weight_cache']['initial_resident_bytes']/(512/1000),
-        preload_scope='lower bound only, array/commands/transport reduce sustained service; initialization is excluded from warm interval')
-    if case=='single-layer-warm' and summary['audit']['native_bytes']:raise ValueError('Whole layer was warm but reread weights')
-    if case!='single-layer-warm' and not summary['weight_cache']['stats'].get('reload_bytes'):raise ValueError('Capacity reload was not observed')
+    summary=completion_record(result,data,case,time.monotonic()-start)
     write_json(directory/'completion.json',summary);print(json.dumps(summary),flush=True)
+
+
+def finalize_zero_reload(output,case):
+    """Recover only the retired post-run zero-reload rejection, without rerunning."""
+    reg=json.loads((output/'registration.json').read_text());directory=output/'cases'/case
+    if (directory/'completion.json').exists():raise ValueError('Refuse to overwrite a completion')
+    log=(output/'logs'/f'{case}.log').read_text()
+    if not log.rstrip().endswith('ValueError: Capacity reload was not observed'):
+        raise ValueError('Only the frozen zero-reload rejection can be finalized')
+    path=output/'inputs'/f'{case}.json'
+    data=json.loads(path.read_text()) if path.exists() else json.load(gzip.open(path.with_suffix('.json.gz'),'rt'))
+    result=json.load(gzip.open(directory/'result.json.gz','rt'))
+    if (digest(data)!=reg['cases'][case]['input_sha256'] or result['source_commit']!=reg['source_commit']
+            or result['graph']!=data['graph'] or result['spec']['stack']!=data['machine']
+            or result['weight_cache']['stats'].get('reload_bytes',0)):
+        raise ValueError('Frozen zero-reload identity/observation differs')
+    if audit_vertical_result(result)!=result['audit'] or audit_request_control(result)!=result['control_audit']:
+        raise ValueError('Frozen raw completion failed independent conservation')
+    summary=completion_record(result,data,case,None)
+    summary['finalization']=dict(method='independent completion from conserved frozen raw result',analysis_source_commit=revision(),
+        reason='retired runner rejected zero reload after complete execution',wall_seconds_scope='unavailable; not reconstructed')
+    write_json(directory/'completion.json',summary);print(json.dumps(dict(complete=True,case=case,capacity_reload_observed=False)),flush=True)
 
 
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',type=Path,required=True)
     mode=p.add_mutually_exclusive_group(required=True);mode.add_argument('--prepare',action='store_true');mode.add_argument('--case',choices=CASES)
+    mode.add_argument('--finalize-zero-reload',choices=CASES[1:])
     p.add_argument('--booksim-binary',type=Path,default=os.getenv('W2W_BOOKSIM_BINARY'));args=p.parse_args()
     if args.prepare:prepare(args.output)
+    elif args.finalize_zero_reload:finalize_zero_reload(args.output,args.finalize_zero_reload)
     else:
         if args.booksim_binary is None:p.error('Native binary required')
         run(args.output,args.case,args.booksim_binary)

@@ -31,6 +31,9 @@ class BoundaryTrafficManager : public OnlineTrafficManager {
         for(int node:ready_nodes) {
             auto &queue=_partial_packets[node][0];
             int candidate=-1;
+            // Submit assigns monotonically increasing IDs. This chooses the
+            // oldest ADMITTED message among supplied candidates, not the one
+            // that has waited longest since its payload became ready.
             for(int mid:arbitration_live[node]) {
                 if(sent[mid]<supplied[mid]) {candidate=mid;break;}
             }
@@ -188,7 +191,7 @@ public:
     }
     json Close() {
         auto reply=OnlineTrafficManager::Close();
-        reply["source_pressure"]={{"arbitration",ready_nodes.empty()?"FIFO; no bypass of unsupplied head":"bounded oldest-ready per selected source; one physical injection"},
+        reply["source_pressure"]={{"arbitration",ready_nodes.empty()?"FIFO; no bypass of unsupplied head":"bounded oldest-admitted among ready per selected source; one physical injection"},
             {"ready_slots",arbitration_slots},{"ready_selections",ready_selections},
             {"unsupplied_head_cycles",unsupplied_head},{"ready_behind_unsupplied_cycles",ready_behind},
             {"ready_behind_with_injection_credit_cycles",ready_behind_with_credit},
