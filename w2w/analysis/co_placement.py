@@ -64,10 +64,12 @@ def analyze(source,baseline=None):
         if sum(traffic['actual_macs_by_cluster'].values())!=data['metadata']['macs']:raise ValueError('Arithmetic work changed')
         tools.add((r['network']['identity']['binary_sha256'],r['native']['bridge_sha256']))
         stage=stages(r);tail=stage['latest_finishing_predecessor_chain'][-20:]
+        blocks={t['task'].rsplit('/',1)[0] for t in tail if t['task'].endswith(('/gate','/up','/down','/activation','/accumulate'))}
         row=dict(completion,independent_passed=True,traffic=traffic,pressure=summarize_pressure(r),
             planned_up_work=[dict(cluster=c,kind=k,value=v) for (c,k),v in sorted(up_work_by_cluster(data).items())],
             sram_peak_bytes=r['sram_peak_bytes'],compute_busy_ps=r['compute_busy_ps'],context_occupancy_ps=r['engine_context_ps'],
             phases=stage['phases'],tail_dependency_tasks=tail,
+            tail_block_milestones={k:v['milestones'] for k,v in stage['tasks'].items() if k.rsplit('/',1)[0] in blocks},
             tail_projection_pairs={k:v for k,v in stage['projection_pairs'].items() if k in {t['task'].rsplit('/',1)[0] for t in tail}},
             native_last_tail_ps=r['native']['native_last_tail_ps'])
         if data['cache']:
