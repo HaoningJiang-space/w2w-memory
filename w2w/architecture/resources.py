@@ -75,6 +75,7 @@ def inventory(stack):
             edge_access_pipeline_bits=sum(p.data_bytes_per_cycle*8*64 for p in stack.external_ports),
             scope='external DRAM, edge I/O and system cost are additional; not equal-cost vertical baseline'),
         collection=dict(paths=len(stack.collection_paths),
+            timing_profiles=sorted({p.timing_profile for p in stack.collection_paths}),
             wire_bit_um=sum(p.data_bits*p.length_um for p in stack.collection_paths),
             pipeline_bits=sum(p.data_bits*p.pipeline_cycles for p in stack.collection_paths),
             delay_in_execution=True, shared_native_service=True),

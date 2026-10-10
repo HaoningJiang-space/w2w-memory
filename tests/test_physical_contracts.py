@@ -36,3 +36,13 @@ class PhysicalContracts(unittest.TestCase):
         ports=vertical_memory('external').external_ports
         self.assertEqual(len({p.position_um for p in ports}),4)
         self.assertEqual(len({p.router_id for p in ports}),4)
+
+    def test_collection_timing_and_pair_identity(self):
+        s=vertical_memory('central');path=s.collection_paths[0]
+        self.assertGreater(path.minimum_pipeline_cycles,1)
+        with self.assertRaisesRegex(ValueError,'Collection timing'):
+            replace(s,collection_paths=(replace(path,pipeline_cycles=1),*s.collection_paths[1:]))
+        with self.assertRaisesRegex(ValueError,'timing profile'):
+            replace(s,collection_paths=(replace(path,timing_profile='free-faster-wire'),*s.collection_paths[1:]))
+        with self.assertRaisesRegex(ValueError,'Duplicate collection domain/gateway'):
+            replace(s,collection_paths=(*s.collection_paths,replace(path,id=path.id+'-duplicate')))

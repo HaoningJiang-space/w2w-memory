@@ -92,14 +92,17 @@ class WaferStack:
                 raise ValueError('Unknown gateway router or unsupported beat width')
             if g.staging_bytes < g.descriptor_slots*4096 or g.descriptor_slots < 1:
                 raise ValueError('Gateway must reserve finite descriptor return storage')
+        pairs=[(p.domain_id,p.gateway_id) for p in self.collection_paths]
+        if len(pairs)!=len(set(pairs)):
+            raise ValueError('Duplicate collection domain/gateway pair; parallel paths require explicit arbitration resources')
         for p in self.collection_paths:
             if p.domain_id not in domains or p.port_id not in ports or p.gateway_id != ports[p.port_id].gateway_id:
                 raise ValueError('Invalid native collection path')
             if p.domain_id not in ports[p.port_id].domain_ids or p.period_ps!=domains[p.domain_id].period_ps:
                 raise ValueError('Collection path is not attached to the declared native port')
             expected = sum(abs(a-b) for a, b in zip(domains[p.domain_id].position_um, ports[p.port_id].position_um))
-            if p.length_um != expected or p.pipeline_cycles < 1:
-                raise ValueError('Collection transport must use physical coordinates and pay delay')
+            if p.length_um != expected or type(p.pipeline_cycles) is not int or p.pipeline_cycles<p.minimum_pipeline_cycles:
+                raise ValueError('Collection timing must pay coordinate-derived stages from its declared profile')
         pools={}
         for group in self.bank_groups:
             prior=pools.setdefault(group.mc_pool_id,(group.gateway_id,group.mc_slots))

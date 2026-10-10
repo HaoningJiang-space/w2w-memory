@@ -63,6 +63,17 @@ class CollectionPath:
     data_bits: int = 128
     pipeline_cycles: int = 1
     period_ps: int = 3760
+    timing_profile: str = 'rwdl-collection-1mm-stage-v1'
+
+    @property
+    def minimum_pipeline_cycles(self):
+        # This profile is an explicit candidate, not a fitted process delay.
+        # Faster wires need a new supported profile and machine identity.
+        if self.timing_profile!='rwdl-collection-1mm-stage-v1':
+            raise ValueError('Unsupported collection timing profile')
+        if type(self.length_um) is not int or self.length_um<0:
+            raise ValueError('Collection length must be nonnegative integer um')
+        return max(1,(self.length_um+999)//1000)
 
     @property
     def delay_ps(self): return self.pipeline_cycles*self.period_ps
