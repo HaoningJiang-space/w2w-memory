@@ -1,0 +1,35 @@
+{
+  "schema": "w2w.gateway-baseline.v1",
+  "source_commit": "13719f058b37795a66a217a9e3d4df3cc51a4b8c",
+  "cases": {
+    "central-fifo": {
+      "input_sha256": "bc0901f345f670d169642a2febb477203bde390eda3c59e0c513170eb5ff93f3"
+    },
+    "distributed-fifo": {
+      "input_sha256": "671ec409f1ed7dfd358f71b2b5c61040f5b26ae654283f35b671a1149cc4a7a1"
+    },
+    "central-plus": {
+      "input_sha256": "f0904cf3d1b46844a50fac673b734c6f2c349d81b53b8d88e24c125116459206"
+    }
+  },
+  "max_ps": 3000000000,
+  "compute_contexts": 2,
+  "budget_match": {
+    "passed": true,
+    "conserved": [
+      "compute",
+      "SRAM",
+      "native capacity and service",
+      "fabric",
+      "HB data lanes",
+      "gateway output",
+      "gateway staging",
+      "descriptor slots"
+    ],
+    "additional_control_bits": 1536,
+    "collection_wire_bit_um_change": -120832000,
+    "metadata": "ports/control and raw collection wire/pipeline costs are reported, not assumed equal"
+  },
+  "contract": "one physical injection/source; same native, HB, buffers, output, graph; finite oldest-ready selection only",
+  "retained_distributed_reference": "v3-first-vertical-20261009; 581.749 us; new machine/graph must be matched before comparison"
+}

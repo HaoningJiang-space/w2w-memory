@@ -1,0 +1,54 @@
+{
+  "server": "hn072@143.89.78.72",
+  "root": "/Projects/haoning/w2w-full-system-gateway-cache-20261009",
+  "files": {
+    "context-study-r2/registration.json": {
+      "bytes": 1225,
+      "sha256": "0460c5af7da0a9bcd494d0ebc844164426df0f5642cf43f3c4aa432f0252039a"
+    },
+    "context-study-r2/inputs/distributed-fifo.json": {
+      "bytes": 1859443,
+      "sha256": "2ec4b061b8b94b646bdbdb08124aa8954b1a8872c561f3064f72cef936174e7c"
+    },
+    "context-study-r2/inputs/central-plus.json": {
+      "bytes": 1848978,
+      "sha256": "48db50a23be6eba1aa9fa53c17ef180eac0c21a6a859977d11884f1281572ac7"
+    },
+    "context-study-r2/inputs/central-fifo.json": {
+      "bytes": 1848922,
+      "sha256": "64080ca3596f351bd46526787beececcf5879cd90ca86086d4fa5f7c75f4668d"
+    },
+    "context-study-r2/cases/central-fifo/completion.json": {
+      "bytes": 3624,
+      "sha256": "8b5fa2db5c82d8cc2526d9bace8117525774a83b1bdf8d9ce90d1c67fe2649a8"
+    },
+    "context-study-r2/cases/central-plus/completion.json": {
+      "bytes": 3768,
+      "sha256": "74770ef184cd54364609502063f957accfeabbcf36fbe50a3a62d700f411da5a"
+    },
+    "context-study-r2/cases/distributed-fifo/completion.json": {
+      "bytes": 3564,
+      "sha256": "cfaa120a6dbb7dfa3ae258224215a5ef9b89fafa0a0f618bb456f8aa79257f78"
+    },
+    "context-study-r2/cases/central-fifo/result.json.gz": {
+      "bytes": 8602028,
+      "sha256": "44f155353776cbd8162d4dfad9f9c0dd1f880041e1e1fae2d7cdfb730a33951e"
+    },
+    "context-study-r2/cases/central-plus/result.json.gz": {
+      "bytes": 8673249,
+      "sha256": "3ee73b4cb934f3eb6099087b07440b8fce65b824813e0cc6f7dc5ea0d23fcf51"
+    },
+    "context-study-r2/cases/distributed-fifo/result.json.gz": {
+      "bytes": 7644572,
+      "sha256": "9d83e2b6ca1717d4911d7b72029b09ed5c3f4a7c2d8abf1f1d463c98c0984193"
+    },
+    "native-ready-r2/build-manifest.json": {
+      "bytes": 33076,
+      "sha256": "d896cfb630f081dc630163edde44f1e964306bab323157387da29ccf966dd451"
+    },
+    "context-analysis.json": {
+      "bytes": 7796,
+      "sha256": "70917af8d880c0919320fc26a456bf74839eeb9798960dd3bd175c36ff92dbb2"
+    }
+  }
+}

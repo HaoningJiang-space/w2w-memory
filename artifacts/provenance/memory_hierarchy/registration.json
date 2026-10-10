@@ -1,0 +1,33 @@
+{
+  "schema": "w2w.memory-hierarchy-study.v1",
+  "source_commit": "3fb523ecf878e715044a35324d44b8ab0f20e1e3",
+  "cases": {
+    "single-layer-warm": {
+      "input_sha256": "676a7ece36d0a63506e210ae323a634866459203867b8017d83f51eb520b037a"
+    },
+    "central-plus-two-layer": {
+      "input_sha256": "d2b0d23a109df78e290a7e13f023555cc1d9d9114c572511ed9eb0e74937f1ba"
+    },
+    "distributed-two-layer": {
+      "input_sha256": "da8dc1a0df4d605c550ab1bc98fea5b84d5d4e6af46fc29422aa557366aba2c1"
+    }
+  },
+  "max_ps": 60000000000,
+  "budget_match": {
+    "passed": true,
+    "conserved": [
+      "compute",
+      "SRAM",
+      "native capacity and service",
+      "fabric",
+      "HB data lanes",
+      "gateway output",
+      "gateway staging",
+      "descriptor slots"
+    ],
+    "additional_control_bits": 1536,
+    "collection_wire_bit_um_change": -120832000,
+    "metadata": "ports/control and raw collection wire/pipeline costs are reported, not assumed equal"
+  },
+  "scope": "two-layer FFN timing proxy, 24 sequential decode tokens; finite pinned cache, warm layer 0, cold layer 1"
+}

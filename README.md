@@ -19,6 +19,13 @@ domains, compute placement and arithmetic plan. The raw collection wire proxy
 falls by 50%; extra gateway/control resources are recorded. These are candidate
 machine results and resource proxies. See [the report](docs/reports/ARCHITECTURE_V3_REPORT.md).
 
+A stronger finite-context comparison completes in **778.161 / 780.721 /
+580.456 µs** for Central FIFO / Central+ ready-aware / Distributed FIFO.
+The selector removes observed source HOL opportunities but does not improve
+application time. See [the context report](docs/reports/GATEWAY_CONTEXT_REPORT.md).
+The [registered finite-SRAM two-layer study](docs/reports/MEMORY_HIERARCHY_PROTOCOL.md)
+is running separately; no multi-layer performance claim is made yet.
+
 Builds, tests and execution run in isolated directories on `hn072`; edit source
 locally and synchronize committed revisions through Git. No sibling simulator
 checkout is needed. From the repository root on the execution host:
@@ -43,7 +50,7 @@ result directories remain outside the source checkout.
 [Architecture](docs/ARCHITECTURE.md), [physical assumptions](docs/PHYSICAL_ASSUMPTIONS.md),
 [simulator contracts](docs/SIMULATOR.md), [baselines](docs/BASELINES.md),
 [source map](docs/CODE_STRUCTURE.md) and [handoff](docs/HANDOFF.md) describe the
-current platform. `python -m w2w --help` lists the three current entrypoints.
+current platform. `python -m w2w --help` lists the current entrypoints.
 
 Historical V2 commands/results are available at `v2-frozen-37400e6` and the
 separate cost-study tags. [The freeze inventory](docs/legacy/V2_FREEZE.md) records

@@ -1,0 +1,238 @@
+{
+  "schema": "w2w.gateway-hierarchy-analysis.v1",
+  "passed": true,
+  "source_commit": "13719f058b37795a66a217a9e3d4df3cc51a4b8c",
+  "cases": {
+    "central-fifo": {
+      "source_commit": "13719f058b37795a66a217a9e3d4df3cc51a4b8c",
+      "input_sha256": "bc0901f345f670d169642a2febb477203bde390eda3c59e0c513170eb5ff93f3",
+      "makespan_ps": 778161000,
+      "makespan_us": 778.161,
+      "audit": {
+        "passed": true,
+        "packets": 75760,
+        "read_descriptors": 37152,
+        "read_words": 4719744,
+        "data_bytes": 4907008,
+        "physical_link_flits": 1463556,
+        "tasks": 490,
+        "physical_domains": 128,
+        "native_bytes": 151031808,
+        "gateway_bytes": 151031808,
+        "physical_collection_charged": true,
+        "native_and_gateway_reservations_drained": true
+      },
+      "control_audit": {
+        "enabled": false
+      },
+      "hop_flits": 1463556,
+      "last_native_tail_ps": 775537600,
+      "max_rx_service_ps": 117828000,
+      "max_arithmetic_busy_ps": 3501000,
+      "compute_execution": {
+        "contexts_per_cluster": 2,
+        "context_peak": {
+          "c0": 2,
+          "c12": 1,
+          "c4": 1,
+          "c5": 2,
+          "c14": 1,
+          "c6": 1,
+          "c7": 2,
+          "c13": 2,
+          "c15": 2,
+          "c1": 2,
+          "c3": 2,
+          "c11": 2,
+          "c9": 2,
+          "c8": 2,
+          "c10": 2,
+          "c2": 2
+        },
+        "additional_context_state_bytes_per_cluster": 64,
+        "policy": "round-robin among ready contexts, one shared arithmetic/read grant per cluster cycle; full working sets paid"
+      },
+      "source_arbiter": {
+        "policy": "FIFO",
+        "routers": [],
+        "slots_per_router": 0,
+        "peak_messages": {},
+        "additional_metadata_bits": 0,
+        "data_buffer_bytes_added": 0,
+        "physical_ports_added": 0,
+        "selection_cycles": 1,
+        "selection_logic_area_um2": null,
+        "contract": "96-bit control entry/message including tag, head pointer, prefix/ordinal, destination and age; one selected cell/cycle from existing NI; router/VC/credits unchanged"
+      },
+      "ready_behind_credit_source_cycles": 1272013,
+      "binary_sha256": "0d38604f6904305da3975b0b817ad3a1e469189150fb987ac6d84734ba70238b"
+    },
+    "distributed-fifo": {
+      "source_commit": "13719f058b37795a66a217a9e3d4df3cc51a4b8c",
+      "input_sha256": "671ec409f1ed7dfd358f71b2b5c61040f5b26ae654283f35b671a1149cc4a7a1",
+      "makespan_ps": 580456000,
+      "makespan_us": 580.456,
+      "audit": {
+        "passed": true,
+        "packets": 75760,
+        "read_descriptors": 37152,
+        "read_words": 4719744,
+        "data_bytes": 4907008,
+        "physical_link_flits": 52536,
+        "tasks": 490,
+        "physical_domains": 128,
+        "native_bytes": 151031808,
+        "gateway_bytes": 151031808,
+        "physical_collection_charged": true,
+        "native_and_gateway_reservations_drained": true
+      },
+      "control_audit": {
+        "enabled": false
+      },
+      "hop_flits": 52536,
+      "last_native_tail_ps": 577833040,
+      "max_rx_service_ps": 114345000,
+      "max_arithmetic_busy_ps": 3395000,
+      "compute_execution": {
+        "contexts_per_cluster": 2,
+        "context_peak": {
+          "c0": 2,
+          "c12": 1,
+          "c4": 1,
+          "c14": 1,
+          "c6": 1,
+          "c5": 2,
+          "c7": 2,
+          "c13": 2,
+          "c15": 2,
+          "c1": 2,
+          "c11": 2,
+          "c3": 2,
+          "c9": 2,
+          "c8": 2,
+          "c10": 2,
+          "c2": 2
+        },
+        "additional_context_state_bytes_per_cluster": 64,
+        "policy": "round-robin among ready contexts, one shared arithmetic/read grant per cluster cycle; full working sets paid"
+      },
+      "source_arbiter": {
+        "policy": "FIFO",
+        "routers": [],
+        "slots_per_router": 0,
+        "peak_messages": {},
+        "additional_metadata_bits": 0,
+        "data_buffer_bytes_added": 0,
+        "physical_ports_added": 0,
+        "selection_cycles": 1,
+        "selection_logic_area_um2": null,
+        "contract": "96-bit control entry/message including tag, head pointer, prefix/ordinal, destination and age; one selected cell/cycle from existing NI; router/VC/credits unchanged"
+      },
+      "ready_behind_credit_source_cycles": 4174,
+      "binary_sha256": "0d38604f6904305da3975b0b817ad3a1e469189150fb987ac6d84734ba70238b"
+    },
+    "central-plus": {
+      "source_commit": "13719f058b37795a66a217a9e3d4df3cc51a4b8c",
+      "input_sha256": "f0904cf3d1b46844a50fac673b734c6f2c349d81b53b8d88e24c125116459206",
+      "makespan_ps": 780721000,
+      "makespan_us": 780.721,
+      "audit": {
+        "passed": true,
+        "packets": 75760,
+        "read_descriptors": 37152,
+        "read_words": 4719744,
+        "data_bytes": 4907008,
+        "physical_link_flits": 1463556,
+        "tasks": 490,
+        "physical_domains": 128,
+        "native_bytes": 151031808,
+        "gateway_bytes": 151031808,
+        "physical_collection_charged": true,
+        "native_and_gateway_reservations_drained": true
+      },
+      "control_audit": {
+        "enabled": false
+      },
+      "hop_flits": 1463556,
+      "last_native_tail_ps": 778060560,
+      "max_rx_service_ps": 117828000,
+      "max_arithmetic_busy_ps": 3502000,
+      "compute_execution": {
+        "contexts_per_cluster": 2,
+        "context_peak": {
+          "c0": 2,
+          "c12": 1,
+          "c4": 1,
+          "c14": 1,
+          "c5": 2,
+          "c6": 1,
+          "c7": 2,
+          "c13": 2,
+          "c15": 2,
+          "c1": 2,
+          "c11": 2,
+          "c3": 2,
+          "c9": 2,
+          "c8": 2,
+          "c10": 2,
+          "c2": 2
+        },
+        "additional_context_state_bytes_per_cluster": 64,
+        "policy": "round-robin among ready contexts, one shared arithmetic/read grant per cluster cycle; full working sets paid"
+      },
+      "source_arbiter": {
+        "policy": "bounded oldest-ready",
+        "routers": [
+          "r0",
+          "r10",
+          "r2",
+          "r8"
+        ],
+        "slots_per_router": 16,
+        "peak_messages": {
+          "r0": 16,
+          "r10": 14,
+          "r2": 14,
+          "r8": 14
+        },
+        "additional_metadata_bits": 6144,
+        "data_buffer_bytes_added": 0,
+        "physical_ports_added": 0,
+        "selection_cycles": 1,
+        "selection_logic_area_um2": null,
+        "contract": "96-bit control entry/message including tag, head pointer, prefix/ordinal, destination and age; one selected cell/cycle from existing NI; router/VC/credits unchanged"
+      },
+      "ready_behind_credit_source_cycles": 0,
+      "binary_sha256": "0d38604f6904305da3975b0b817ad3a1e469189150fb987ac6d84734ba70238b"
+    }
+  },
+  "comparison": {
+    "budget": {
+      "passed": true,
+      "conserved": [
+        "compute",
+        "SRAM",
+        "native capacity and service",
+        "fabric",
+        "HB data lanes",
+        "gateway output",
+        "gateway staging",
+        "descriptor slots"
+      ],
+      "additional_control_bits": 1536,
+      "collection_wire_bit_um_change": -120832000,
+      "metadata": "ports/control and raw collection wire/pipeline costs are reported, not assumed equal"
+    },
+    "completion_reduction_percent": 25.40669604362079,
+    "central_plus_reduction_percent": -0.3289807636208897,
+    "distributed_vs_central_plus_reduction_percent": 25.65128900080823
+  },
+  "limits": [
+    "finite aggregate contexts, not a product-cycle model",
+    "ideal global receive booking",
+    "candidate array timing and SRAM banking",
+    "two-layer routing reuse is a proxy when used; initialization outside warm interval",
+    "resource proxies, no calibrated PPA",
+    "no numerical inference"
+  ]
+}

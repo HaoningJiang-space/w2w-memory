@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "r2_r3_all_cases_equal": true,
+  "old_default_central_distributed_equal": true,
+  "makespan_ps": {
+    "central": 54489000,
+    "distributed": 54143000,
+    "external": 54748000
+  },
+  "external_note": "new four distinct edge locations intentionally differ from archived two-location layout"
+}
