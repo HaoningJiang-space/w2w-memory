@@ -17,6 +17,13 @@ def canonical(record):
     for name in ('source_commit','audit','control_audit'):r.pop(name,None)
     r['network'].pop('runtime_source',None)
     for name in ('binary_sha256','config_sha256'):r['network']['identity'].pop(name,None)
+    def trace_paths(value):
+        if isinstance(value,dict):
+            return {k:('commands' if k=='path' and str(v).endswith('/commands') else trace_paths(v)) for k,v in value.items()}
+        if isinstance(value,list):return [trace_paths(v) for v in value]
+        return value
+    r['native']['config']=trace_paths(r['native']['config'])
+    r['native'].pop('config_sha256',None)
     return r
 
 
@@ -51,6 +58,16 @@ def main():
     proof=dict(passed=True,makespan_ps=records[0]['makespan_ps'],drained_ps=records[0]['drained_ps'],
         events=len(records[0]['events']),physical_record_equal=True,
         allowed_differences=['source commit','native binary/config file identity','Python runtime file fingerprints'])
+    completions=[]
+    for d in (a.baseline,a.candidate):
+        path=d/'completion.json'
+        if path.exists():completions.append(json.loads(path.read_text()))
+    if len(completions)==2 and 'endpoint_trace_sha256' in completions[0]:
+        for key in ('endpoint_trace_sha256','endpoint_trace_counts','commands_sha256','command_audit'):
+            if completions[0][key]!=completions[1][key]:raise ValueError('Detailed trace differs: '+key)
+        proof['endpoint_trace_sha256']=completions[0]['endpoint_trace_sha256']
+        proof['commands_sha256']=completions[0]['commands_sha256']
+        proof['speedup']=completions[0]['execution_wall_seconds']/completions[1]['execution_wall_seconds']
     if a.detailed:
         traces=[protocol_digest(d/'network/online_protocol.jsonl') for d in (a.baseline,a.candidate)]
         if traces[0]!=traces[1]:raise ValueError('Flit/VC/endpoint supply/commit events differ')
