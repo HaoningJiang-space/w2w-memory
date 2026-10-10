@@ -98,7 +98,7 @@ def analyze(root):
         if interval_audit['batched_compute_cycles']!=row['batched_compute_cycles']:
             raise ValueError('Worker batch count differs from actual compute service')
         row=dict(row,interval_audit=interval_audit)
-        expected_command=['taskset','-c','18,19',start['executable'],str(source/'tools/run_compute_epoch_gate.py'),
+        expected_command=['taskset','-c','18,19',start['executable'],str(source.resolve()/'tools/run_compute_epoch_gate.py'),
             str(path),'--binary',start['binary'],'--worker',row['mode'],'--case',row['case']]
         if process['command']!=expected_command or process['wall_seconds']<=0:
             raise ValueError('Worker process identity differs')
