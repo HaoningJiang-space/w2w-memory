@@ -17,10 +17,14 @@ from w2w.system.builder import SystemBuilder
 
 class SystemExecution:
     def __init__(self, spec, graph, native=None, *, network_factory=None,
-                 activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count',fetch_contexts=0,read_issue_policy='ordered'):
+                 activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count',fetch_contexts=0,read_issue_policy='ordered',compute_epoch=False,compute_epoch_evidence='full'):
         self.spec, self.graph = spec, graph
         self.builder = SystemBuilder(spec).validate_graph(graph)
         self.events = [];self.event_observer=event_observer
+        if type(compute_epoch) is not bool or compute_epoch_evidence not in ('full','compact'):
+            raise ValueError('Declare compute epoch switch and full/compact evidence')
+        self.compute_epoch=compute_epoch;self.compute_epoch_evidence=compute_epoch_evidence
+        self.compute_epochs=[];self.compute_epoch_resume=None
         if operand_readiness not in ('byte_count','contiguous_prefix'):raise ValueError('Unknown operand readiness policy')
         self.operand_readiness=operand_readiness;self.operand_frontiers={}
         self.operand_metadata_live=Counter();self.operand_metadata_peak=Counter();self.prefix_blocked=Counter()
@@ -555,6 +559,9 @@ class SystemExecution:
         now = 0
         while now <= max_ps:
             yield now
+            if self.compute_epoch_resume is not None:
+                now,self.compute_epoch_resume=self.compute_epoch_resume,None
+                continue
             candidates = [(now//period+1)*period for period in set(periods)]
             while releases and releases[0] <= now:
                 releases.pop(0)
@@ -568,6 +575,8 @@ class SystemExecution:
             now = min(candidates)
 
     def run(self, max_ps=10_000_000, *, time_advance='gcd'):
+        if self.compute_epoch and time_advance!='boundaries':
+            raise ValueError('Compute epochs require the existing boundary time driver')
         periods = [self.spec.noc_period_ps, self.spec.dram_period_ps,
                    *(t.compute_period_ps for t in self.spec.tiles)]
         quantum = gcd(*periods)
@@ -613,6 +622,9 @@ class SystemExecution:
                         or self.native.record()['pending']):
                     raise RuntimeError('System completed with live resources')
                 break
+            if self.compute_epoch:
+                from w2w.system.compute_epoch import advance_compute_epoch
+                self.compute_epoch_resume=advance_compute_epoch(self,max_ps)
         else:
             pending = {k: dict(allocated=s['allocated'], started=s['start_ps'], read_bytes=s['read_bytes'])
                        for k, s in self.state.items() if not s.get('done')}
@@ -642,6 +654,10 @@ class SystemExecution:
                       network=self.network.record(), native=self.native.record(),
                       physical=self.builder.physical_record(), events=self.events)
         if self.weight_cache:record['weight_cache']=self.weight_cache.record()
+        if self.compute_epoch:
+            record['compute_epoch']=dict(schema=1,evidence=self.compute_epoch_evidence,
+                intervals=self.compute_epochs,batched_compute_cycles=sum(r['cycles'] for r in self.compute_epochs),
+                contract='one streaming context, all operands committed, quiescent native transport; release/deadline/tail barriers; native DRAM cycles including refresh still executed')
         if self.fetch_contexts:record['fetch_execution']=dict(contexts_per_cluster=self.fetch_contexts,peak_contexts=dict(self.fetch_peak),
             live_contexts=sum(map(len,self.fetch_live.values())),metadata_bytes_per_cluster=self.fetch_metadata_bytes,read_issue_policy=self.read_issue_policy,
             contract='64 B/matrix fetch slot plus 8 B shared selector, inside original SRAM; round-robin descriptors share original issue and outstanding limits; full matrix storage still reserved')
@@ -650,9 +666,9 @@ class SystemExecution:
 
 
 def execute_system(spec, graph, *, native=None, network_factory=None, max_ps=10_000_000,
-                   time_advance='gcd',activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count',fetch_contexts=0,read_issue_policy='ordered'):
+                   time_advance='gcd',activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count',fetch_contexts=0,read_issue_policy='ordered',compute_epoch=False,compute_epoch_evidence='full'):
     execution = SystemExecution(spec, graph, native, network_factory=network_factory,
-                                activation_sram_read_bytes_per_cycle=activation_sram_read_bytes_per_cycle,compute_contexts=compute_contexts,weight_cache=weight_cache,event_observer=event_observer,operand_readiness=operand_readiness,fetch_contexts=fetch_contexts,read_issue_policy=read_issue_policy)
+                                activation_sram_read_bytes_per_cycle=activation_sram_read_bytes_per_cycle,compute_contexts=compute_contexts,weight_cache=weight_cache,event_observer=event_observer,operand_readiness=operand_readiness,fetch_contexts=fetch_contexts,read_issue_policy=read_issue_policy,compute_epoch=compute_epoch,compute_epoch_evidence=compute_epoch_evidence)
     try:
         return execution.run(max_ps,time_advance=time_advance)
     except BaseException:

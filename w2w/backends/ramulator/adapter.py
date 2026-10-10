@@ -240,6 +240,20 @@ class VerticalRWDL:
     def take_native_events(self):
         events,self.native_events=self.native_events,[];return events
 
+    def compute_epoch_quiescent(self):
+        """No frontend callback/admission can change before the next mutation.
+
+        This permits fewer host calls, not skipping Ramulator's internal clocks
+        or refresh. Unknown backends do not acquire this capability implicitly.
+        """
+        return (not self.groups and not self.tickets and not self.future
+            and not any(self.queues.values()) and not any(self.aggregate.values())
+            and not self.ready and not self.native_events and not self.control_requests
+            and not self.command_started and not any(self.reserved.values())
+            and not any(self.pool_live.values()) and not any(self.command_live.values())
+            and not any(self.domain_descriptors.values()) and not any(self.ack_pending.values())
+            and hasattr(self.backend,'pending') and not self.backend.pending)
+
     def record(self):
         record=self.backend.record()
         record['native_service_scope']=record.get('scope')
