@@ -7,7 +7,7 @@ import unittest
 from test_compute_epoch import initialized, semantic_tasks
 from w2w.system.interactive_compute import InteractiveCompute, OrderedEvidence
 from w2w.system.operand_readiness import CommittedWeightPrefix
-from w2w.validation.interactive_compute import expand_interactive_compute
+from w2w.validation.interactive_compute import expand_interactive_compute, audit_interactive_compute
 
 
 def ready(evidence='full', prefix=4096):
@@ -111,4 +111,22 @@ class InteractiveComputeTests(unittest.TestCase):
         self.assertEqual(e.interactive_compute.service_visits,1)
         e.now=3760;e._stream_compute_progress()
         self.assertEqual(e.interactive_compute.service_visits,1)
+
+    def test_wrong_interval_progress_prefix_count_and_duplicate_marker_rejected(self):
+        e=ready('compact')
+        e.log('stream_operand_ready',task='gemm',object_offset=0,bytes=4096)
+        e.events.append(dict(kind='stream_compute',time_ps=1000,task='gemm',tile='c0',
+            weight_bytes=64,scale_bytes=0,macs=64))
+        e.interactive_compute.ordinary_updates=1
+        for at in range(2000,8000,1000):e.now=at;e._stream_compute_progress()
+        e.interactive_compute.materialize(e);e.events.sort(key=lambda r:r['time_ps'])
+        raw=dict(spec=asdict(e.spec),graph=asdict(e.graph),events=e.events,drained_ps=9000,
+            compute_execution=dict(contexts_per_cluster=1),interactive_compute=e.interactive_compute.record())
+        self.assertEqual(audit_interactive_compute(raw)['arithmetic_updates'],2)
+        for mutate in (lambda r:r['interactive_compute'].update(batch_updates=2),
+                       lambda r:r['interactive_compute']['intervals'][0].update(consumed_before=0),
+                       lambda r:r['interactive_compute']['intervals'][0].update(committed_prefix_bytes=8192),
+                       lambda r:r['events'].append(deepcopy(next(x for x in r['events'] if x['kind']=='interactive_compute_epoch')))):
+            bad=deepcopy(raw);mutate(bad)
+            with self.assertRaises(ValueError):audit_interactive_compute(bad)
 

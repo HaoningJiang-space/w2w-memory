@@ -29,13 +29,13 @@ Fixed cases: 64 KiB remote GEMM with reuse 4,096 MAC/weight-byte; non-divisible
 8,224-byte tail with reuse 5,461; the 64 KiB case with an ordinary other-cluster
 task released at 5,000,501 ps; and an 8 KiB transport-dominated case with reuse
 one. Machine MAC/read budgets, DRAM addresses, graph and mapping are identical
-across off/Full/Compact. Stable has three shuffled repetitions; the others one:
-18 workers. These synthetic inputs are not FFN or physical calibration.
+across off/quiescent/interactive Full/interactive Compact. Stable has three shuffled repetitions; the others one:
+24 workers. These synthetic inputs are not FFN or physical calibration.
 
 Accuracy compares every physical result/event field, native command/time/address
 fingerprints, endpoint mutation/progress/completion fingerprints, task clocks,
-prefix consumption, resource peaks and final drain. Kernel iterations must also
-be identical. Independently reconstruct each interval's original committed
+prefix consumption, resource peaks and final drain. Interactive kernel iterations must also
+be identical; quiescent omitted boundaries are independently reconstructed. Independently reconstruct each interval's original committed
 prefix, services and consumed-before/after; require partial-input coverage and a
 later descriptor commit **during** an interval. Same-count prefix-hole histories
 and the same future commit must remain distinguishable in a separate negative

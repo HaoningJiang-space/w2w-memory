@@ -60,7 +60,7 @@ def worker(out,case,mode,binary):
     start=time.perf_counter();cpu=time.process_time()
     try:
         result=execute_system(spec,graph,native=native,time_advance='boundaries',operand_readiness='contiguous_prefix',
-            interactive_compute=mode!='off',interactive_compute_evidence='compact' if mode=='compact' else 'full',max_ps=100000000,
+            compute_epoch=mode=='quiescent',interactive_compute=mode in ('full','compact'),interactive_compute_evidence='compact' if mode=='compact' else 'full',max_ps=100000000,
             network_factory=factory(binary=binary,directory=out/'network'))
     finally:native.close()
     wall=time.perf_counter()-start;cpu=time.process_time()-cpu
@@ -70,7 +70,7 @@ def worker(out,case,mode,binary):
     write(out/'worker.json',dict(complete=True,case=case,mode=mode,
         execution_wall_seconds=wall,python_cpu_seconds=cpu,peak_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
         kernel_iterations=result['kernel_iterations'],makespan_ps=result['makespan_ps'],drained_ps=result['drained_ps'],
-        batched_compute_cycles=result.get('interactive_compute',{}).get('batched_compute_cycles',0),
+        batched_compute_cycles=result.get('interactive_compute',result.get('compute_epoch',{})).get('batched_compute_cycles',0),
         endpoint_trace_sha256=hashes.hexdigest(),endpoint_trace_counts=counts,commands_sha256=commands.hexdigest(),
         input_sha256=digest(out/'input.json'),result_sha256=digest(out/'result.json.gz'),
         binary_sha256=digest(binary),bridge_sha256=digest(os.environ['W2W_RAMULATOR_BRIDGE']),
@@ -79,6 +79,7 @@ def worker(out,case,mode,binary):
 
 def analyze(root):
     from w2w.validation.interactive_compute import expand_interactive_compute,audit_interactive_compute
+    from w2w.validation.compute_epoch import expand_compute_epochs,audit_compute_epoch_intervals
     from w2w.validation.vertical_access import audit_vertical_result
     from w2w.validation.request_control import audit_request_control
     from w2w.validation.rwdl_commands import audit_rwdl_commands
@@ -94,7 +95,7 @@ def analyze(root):
                 or row['binary_sha256']!=start['binary_sha256'] or row['bridge_sha256']!=start['bridge_sha256']):
             raise ValueError('Incomplete or changed worker')
         with gzip.open(path/'result.json.gz','rt') as stream:raw=json.load(stream)
-        interval_audit=audit_interactive_compute(raw)
+        interval_audit=(audit_compute_epoch_intervals(raw) if row['mode']=='quiescent' else audit_interactive_compute(raw))
         if interval_audit['batched_compute_cycles']!=row['batched_compute_cycles']:
             raise ValueError('Worker batch count differs from actual compute service')
         row=dict(row,interval_audit=interval_audit)
@@ -102,7 +103,7 @@ def analyze(root):
             str(path),'--binary',start['binary'],'--worker',row['mode'],'--case',row['case']]
         if process['command']!=expected_command or process['wall_seconds']<=0:
             raise ValueError('Worker process identity differs')
-        result=expand_interactive_compute(raw)
+        result=(expand_compute_epochs(raw) if row['mode']=='quiescent' else expand_interactive_compute(raw))
         audit_vertical_result(result);audit_request_control(result);audit_rwdl_commands(result,path/'commands')
         if result['makespan_ps']!=row['makespan_ps'] or result['kernel_iterations']!=row['kernel_iterations']:
             raise ValueError('Worker summary differs from raw result')
@@ -114,11 +115,11 @@ def analyze(root):
         commands=hashlib.sha256()
         for file in sorted(path.glob('commands.ch*')):commands.update(file.name.encode());commands.update(file.read_bytes())
         if commands.hexdigest()!=row['commands_sha256']:raise ValueError('Changed native command evidence')
-        semantic=canonical(result);semantic.pop('kernel_iterations');semantic.pop('interactive_compute',None)
+        semantic=canonical(result);semantic.pop('kernel_iterations');semantic.pop('interactive_compute',None);semantic.pop('compute_epoch',None)
         groups.setdefault(row['case'],[]).append((semantic,row))
         rows.append(dict(row,worker_wall_seconds=process['wall_seconds']))
     expected={(case,rep,mode) for case in ('stable','tail','release','transport')
-        for rep in (range(3) if case=='stable' else range(1)) for mode in ('off','full','compact')}
+        for rep in (range(3) if case=='stable' else range(1)) for mode in ('off','quiescent','full','compact')}
     identities={(read(p/'worker.json')['case'],read(p/'process.json')['repetition'],read(p/'worker.json')['mode']) for p in root.glob('run-*')}
     if identities!=expected or len(rows)!=len(expected):raise ValueError('Missing or repeated worker identity')
     checks=[]
@@ -126,20 +127,20 @@ def analyze(root):
         baseline=next((value,row) for value,row in items if row['mode']=='off')
         for value,row in items:
             if value!=baseline[0]:raise ValueError('Physical record differs: '+case+' '+row['mode'])
-            if row['kernel_iterations']!=baseline[1]['kernel_iterations']:
+            if row['kernel_iterations']+row['interval_audit'].get('omitted_boundaries',0)!=baseline[1]['kernel_iterations']:
                 raise ValueError('Interactive execution skipped a system boundary')
             for key in ('endpoint_trace_sha256','endpoint_trace_counts','commands_sha256','input_sha256'):
                 if row[key]!=baseline[1][key]:raise ValueError('Native/input trace differs: '+key)
         checks.append(dict(case=case,physical_record_equal=True,native_commands_equal=True,endpoint_trace_equal=True,
             makespan_ps=baseline[1]['makespan_ps'],drained_ps=baseline[1]['drained_ps'],
-            iterations={mode:next(row['kernel_iterations'] for _,row in items if row['mode']==mode) for mode in ('off','full','compact')},
+            iterations={mode:next(row['kernel_iterations'] for _,row in items if row['mode']==mode) for mode in ('off','quiescent','full','compact')},
             batched_compute_cycles=next(row['batched_compute_cycles'] for _,row in items if row['mode']=='compact'),
-            interval_audits={mode:next(row['interval_audit'] for _,row in items if row['mode']==mode) for mode in ('off','full','compact')}))
+            interval_audits={mode:next(row['interval_audit'] for _,row in items if row['mode']==mode) for mode in ('off','quiescent','full','compact')}))
     costs={mode:dict(worker_wall_seconds_median=statistics.median(row['worker_wall_seconds'] for row in rows if row['case']=='stable' and row['mode']==mode),
         execution_seconds_median=statistics.median(row['execution_wall_seconds'] for row in rows if row['case']=='stable' and row['mode']==mode),
         python_cpu_seconds_median=statistics.median(row['python_cpu_seconds'] for row in rows if row['case']=='stable' and row['mode']==mode),
         peak_rss_kib_median=statistics.median(row['peak_rss_kib'] for row in rows if row['case']=='stable' and row['mode']==mode),
-        stored_events=next(row['stored_events'] for row in rows if row['case']=='stable' and row['mode']==mode)) for mode in ('off','full','compact')}
+        stored_events=next(row['stored_events'] for row in rows if row['case']=='stable' and row['mode']==mode)) for mode in ('off','quiescent','full','compact')}
     stable=next(row for row in checks if row['case']=='stable')['interval_audits']['compact']
     if not stable['partial_prefix_intervals'] or not stable['overlapping_intervals']:
         raise ValueError('No independently witnessed interactive partial-input interval')
@@ -158,7 +159,7 @@ def analyze(root):
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('output',type=Path)
-    parser.add_argument('--binary',type=Path);parser.add_argument('--worker',choices=('off','full','compact'))
+    parser.add_argument('--binary',type=Path);parser.add_argument('--worker',choices=('off','quiescent','full','compact'))
     parser.add_argument('--case',choices=('stable','tail','release','transport'));parser.add_argument('--readback',action='store_true')
     args=parser.parse_args();out=args.output.resolve()
     if platform.node()!='ee4e072' or not out.is_relative_to('/Projects/haoning'):
@@ -174,7 +175,7 @@ def main():
     # Source is supplied independently; readback never imports a frozen legacy kernel.
     (out/'source').symlink_to(REPO,target_is_directory=True)
     cells=[(case,rep,mode) for case in ('stable','tail','release','transport')
-        for rep in (range(3) if case=='stable' else range(1)) for mode in ('off','full','compact')]
+        for rep in (range(3) if case=='stable' else range(1)) for mode in ('off','quiescent','full','compact')]
     random.Random(20261010).shuffle(cells)
     for case,rep,mode in cells:
         directory=out/f'run-{case}-{rep}-{mode}'
