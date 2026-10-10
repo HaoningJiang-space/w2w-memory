@@ -6,7 +6,7 @@ or change the sibling simulator/RTL workspaces. Computation is on the logic
 wafer, not PIM. Current machines use independent physical/native resource
 identities and explicit mapping with the existing BookSim/Ramulator executor.
 
-## Completed research gates
+## Completed checks and comparisons
 
 The read-only equal-byte RWDL probe at `f308299` is independently audited:
 256 KiB takes **11.087 µs across eight existing domains**, versus **84.779 µs on
