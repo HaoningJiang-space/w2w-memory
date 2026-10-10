@@ -6,6 +6,7 @@ from w2w.common.fingerprints import digest_read_v1 as digest
 from w2w.validation.vertical_access import audit_vertical_result
 from w2w.validation.request_control import audit_request_control
 from w2w.analysis.cache_traffic import invocation_traffic
+from w2w.analysis.placement_pressure import summarize_pressure
 from w2w.provenance import revision
 
 
@@ -47,6 +48,7 @@ def analyze(source):
             busiest_channel=max(r['network']['link_flits'].values(),default=0)*r['spec']['noc_period_ps'],
             compute_arithmetic=max(r['compute_busy_ps'].values(),default=0))
         row['source_pressure']=r['network']['final']['source_pressure_nodes']
+        row['executed_pressure']=summarize_pressure(r)
         if data['cache'] is not None:
             initial=[(e['tile'],e['object']) for e in r['events'] if e['kind']=='cache_initial_resident']
             if initial!=[tuple(v) for v in data['cache']['initial_resident']]:raise ValueError('Initial cache residency changed')
