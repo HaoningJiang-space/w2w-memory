@@ -109,3 +109,13 @@ Payload counts are distinct from actual flit distance. Context/wait/stage sums
 overlap and are not additive critical-path delay. Traffic reduction is not a
 calibrated energy or PPA result. No Up-local performance conclusion is claimed
 at registration.
+
+## Status after the cold gate
+
+All three cold cells complete and pass independent saved-result audit. The
+original-Up reference exactly reproduces the old complete Phase-Split physical
+record. Up-local takes **451.676 µs versus 456.627 µs**, while NoC data-lane
+activity decreases **87.78%**; matched nonlocal takes 517.708 µs. The fixed warm
+pair starts after correctness acceptance and remains running. See the
+[result report](COMPUTE_MEMORY_CO_PLACEMENT_REPORT.md) for the matched tail
+timeline, transport/cost interpretation and explicit pending multi-layer state.

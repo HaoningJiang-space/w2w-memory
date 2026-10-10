@@ -1,0 +1,29 @@
+{
+  "schema": "w2w.co-placement-study.v1",
+  "source_commit": "02dab2a60ef69bfca24d5bf72b1a16a31157838a",
+  "mode": "multilayer",
+  "cases": {
+    "reference_compute": {
+      "input_sha256": "168171401b963e6ab99a11cbc761dc01a98a0e69230705b0342e95939fdec8ac",
+      "graph_sha256": "7577bc130d34889741f6ec674c972752bbe5efd86d4e072914f6a0c5a90ddb77",
+      "screen": null
+    },
+    "up_local_compute": {
+      "input_sha256": "3f6cedf49cc3e8ff6813f06baf698f54d14845f1e69f90c6a1766ef16c7157ad",
+      "graph_sha256": "0ccfda8470863b2cb177db048cc7b318f311550da6d0948ccda260ac82b92fd9",
+      "screen": null
+    }
+  },
+  "input_audit": {
+    "passed": true,
+    "cases": [
+      "reference_compute",
+      "up_local_compute"
+    ],
+    "tasks": 23520,
+    "catalog_matrices": 9216,
+    "contract": "Same physical machine, weight addresses, work and mathematical data/control edges; only Up task tiles change. Cold nonlocal matches per-cluster Up work but does not freeze dynamic arbitration or input path length. Warm preload moves actual Up storage to its consumer, retains the full L0 catalog/order and pays finite per-cluster capacity; subsequent traffic may differ."
+  },
+  "max_ps": 60000000000,
+  "contract": "No kernel/native/topology changes; whole matrices, real X/U DataEdges. Fixed Phase-Split weights with reference, Up-local and cold per-cluster-work-matched nonlocal compute. Full-catalog warm Up preload follows its real consumer; initialization excluded and reported. No performance-dependent retry, activation broadcast/alias optimization, fragment or additional service resources."
+}

@@ -71,6 +71,16 @@ three coupled slots reach 65.800 µs with 200 B rather than the split candidate'
 440 B declared control state. This does not establish a low-cost dominant
 bottleneck; fragment execution remains deferred.
 
+The next [compute/memory co-placement gate](docs/reports/COMPUTE_MEMORY_CO_PLACEMENT_REPORT.md)
+keeps Phase-Split weights and all hardware fixed, moving only Up arithmetic to
+its existing Gateway-local cluster. The cold result is **451.676 µs versus
+456.627 µs (1.08% reduction)**, with **87.78% lower NoC data-lane activity**.
+A matched per-cluster-work nonlocal control takes 517.708 µs. Real X/U copies,
+Native reads and shared resources are audited; no new hardware is claimed.
+The separately registered 24-token finite-cache pair runs in the background
+with actual Up cache objects preloaded at their new consumers. Its performance
+is pending independent completion/readback.
+
 Builds, tests and execution run in isolated directories on `hn072`; edit source
 locally and synchronize committed revisions through Git. No sibling simulator
 checkout is needed. From the repository root on the execution host:

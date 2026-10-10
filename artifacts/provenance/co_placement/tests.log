@@ -1,0 +1,21 @@
+test_input_and_up_results_use_real_dataedges_with_shared_services (tests.test_co_placement.LocalProjectionNative) ... ok
+test_only_up_moves_and_nonlocal_work_is_matched (tests.test_co_placement.ProjectionMapping) ... ok
+test_single_expert_cannot_claim_matched_nonlocal_control (tests.test_co_placement.ProjectionMapping) ... ok
+test_warm_catalog_is_moved_to_actual_consumer_and_not_duplicated (tests.test_co_placement.ProjectionMapping) ... ok
+test_catalog_is_independent_of_eval_routing (tests.test_static_placement.StaticPlacement) ... ok
+test_compute_and_preload_are_frozen_across_memory_layouts (tests.test_static_placement.StaticPlacement) ... ok
+test_gate_up_intervention_preserves_down_addresses_and_locked_objects (tests.test_static_placement.StaticPlacement) ... ok
+test_sequence_hits_and_reloads_release_bounded_fetch_state (tests.test_concurrent_service.ConcurrentRuntime) ... ok
+test_small_phase_split_has_overlapping_fetch_and_shared_ports (tests.test_concurrent_service.ConcurrentRuntime) ... ok
+test_independent_projections_keep_block_and_mathematical_dependencies (tests.test_concurrent_service.DependencyPolicy) ... ok
+test_phase_split_moves_only_up_to_same_row_peer (tests.test_concurrent_service.DependencyPolicy) ... ok
+test_sequence_keeps_layer_storage_preload_and_sequence_barriers (tests.test_concurrent_service.DependencyPolicy) ... ok
+test_two_layer_addresses_are_distinct_and_mapping_is_matched (tests.test_sequence_mapping.SequenceMapping) ... ok
+test_same_workload_different_fabric_and_gateway (tests.test_mapping_v3.MappingV3) ... ok
+test_scale_storage_tracks_matrix_shape (tests.test_mapping_v3.MappingV3) ... ok
+test_tensor_identity_is_not_a_copy (tests.test_mapping_v3.MappingV3) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 50.863s
+
+OK

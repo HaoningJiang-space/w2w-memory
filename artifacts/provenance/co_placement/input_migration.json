@@ -1,0 +1,12 @@
+{
+  "cold": {
+    "legacy_input_sha256": "8534b2496b7abfaca4033083ffd6dfc4dcbd845ff7a7a1ee30d6a2274fb23c0f",
+    "default_identity_unchanged": true,
+    "baseline": "/Projects/haoning/w2w-full-system-performance-placement-20261010/concurrent-service-r1/s1/cases/phase-split"
+  },
+  "multilayer": {
+    "legacy_input_sha256": "0616404c2b8a822ec7199c658103a22bd061fefe8bc7fb4cca631228d3767eb6",
+    "default_identity_unchanged": true,
+    "baseline": "/Projects/haoning/w2w-full-system-matrix-service-20261010/concurrent-hierarchy-r1/cases/phase-split"
+  }
+}

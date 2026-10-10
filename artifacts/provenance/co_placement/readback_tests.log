@@ -1,0 +1,8 @@
+test_only_up_moves_and_nonlocal_work_is_matched (tests.test_co_placement.ProjectionMapping) ... ok
+test_single_expert_cannot_claim_matched_nonlocal_control (tests.test_co_placement.ProjectionMapping) ... ok
+test_warm_catalog_is_moved_to_actual_consumer_and_not_duplicated (tests.test_co_placement.ProjectionMapping) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 19.982s
+
+OK

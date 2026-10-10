@@ -1,0 +1,35 @@
+{
+  "source_commit": "02dab2a60ef69bfca24d5bf72b1a16a31157838a",
+  "started_utc": "2026-10-10T17:07:28.317017+00:00",
+  "workers": {
+    "reference_compute": {
+      "pid": 589801,
+      "command": [
+        "/Projects/haoning/w2w/.venv/bin/python",
+        "-m",
+        "w2w.experiments.run_co_placement",
+        "--output",
+        "/Projects/haoning/w2w-full-system-co-placement-20261010/multilayer",
+        "--case",
+        "reference_compute",
+        "--booksim-binary",
+        "/Projects/haoning/w2w-full-system-performance-placement-20261010/native-fast-r1/booksim/endpoint_booksim"
+      ]
+    },
+    "up_local_compute": {
+      "pid": 589802,
+      "command": [
+        "/Projects/haoning/w2w/.venv/bin/python",
+        "-m",
+        "w2w.experiments.run_co_placement",
+        "--output",
+        "/Projects/haoning/w2w-full-system-co-placement-20261010/multilayer",
+        "--case",
+        "up_local_compute",
+        "--booksim-binary",
+        "/Projects/haoning/w2w-full-system-performance-placement-20261010/native-fast-r1/booksim/endpoint_booksim"
+      ]
+    }
+  },
+  "contract": "Fixed registered cases, no automatic retry; next workload starts after complete independent cold audit, not performance selection."
+}

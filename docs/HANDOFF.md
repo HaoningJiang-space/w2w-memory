@@ -198,6 +198,48 @@ cost argument before introducing fragments/topology. Any eventual 32-element
 intermediate slice must retain original 128×128 scales, actual Down storage and
 FP32 accumulation resources; no free gather or numerical-equivalence claim.
 
+## Current architecture task: Up compute/memory co-placement
+
+The Fetch Controller optimization branch is closed and Fragmentation remains
+deferred. The [co-placement report](reports/COMPUTE_MEMORY_CO_PLACEMENT_REPORT.md)
+and [frozen protocol](reports/COMPUTE_MEMORY_CO_PLACEMENT_PROTOCOL.md) now test
+moving only Up arithmetic, keeping Phase-Split addresses, Gate/Activation/Down,
+all mathematical edges and physical resources fixed. Mapping is introduced at
+`d31f03c`; execution/source-input freeze is `02dab2a`; final cold readback is
+`3b7851a`. No kernel/native/topology or hardware resource is changed.
+
+Three full cold cases complete with independent audits. Original Up compute,
+Up-local and per-cluster-work-matched nonlocal take **456.627 / 451.676 /
+517.708 µs**. Up-local improves latency only 1.08%, but data-lane byte·µm falls
+**794,654,284,800 → 97,132,108,800 (87.78%)**, and all 50,343,936 B remote Up
+weight payload becomes local. Real U→Activation traffic is 49,152 B; X is still
+transferred and charged. Native bytes, per-Gateway bytes and per-domain work
+remain equal. Actual per-cluster MAC/read work matches the nonlocal control.
+The original-Up record matches the complete old `869f0ac` Phase-Split record.
+Earlier release of the final block is largely offset by slower Gate progress;
+activity reduction does not identify equivalent latency savings. Sixteen remote
+tests and three overlapping readback/mapping tests pass.
+
+The registered 24-token two-layer pair runs at the same `02dab2a` source under
+`/Projects/haoning/w2w-full-system-co-placement-20261010` on hn072. Worker PIDs
+589801 / 589802; controller 589606. Both preload the full same L0 catalog/global
+order and 2,416,508,928 B outside measurement. Up-local relocates 1,536 actual
+Up cache objects to their real consumers, without free remote hits or simulated
+migration. Each cluster initially has 151,031,808 B / 288 entries, within the
+same 184 MiB / 512-entry cache. Later miss/reload counts may differ; do not force
+traffic equality or reject negative results.
+
+The separate analysis-only finisher (PID 591118, `04f2e70`) watches completion
+and independently reconstructs warm traffic/readiness/resource evidence against
+the old `9160207` Phase-Split reference. It writes `multilayer/independent-readback.json`,
+`completed-summary.json` and `COMPLETED_RESULTS.md` in the archive; no native
+retry or performance selection. No Up-local multi-layer conclusion is complete
+yet. Next: inspect those files and both worker/controller logs, preserve failures,
+publish final cache/late-window and byte-distance evidence. Do not start new
+controllers, fragments, topology DSE or claim calibrated energy from this gate.
+Current registrations, source/native/raw hashes, preload and test receipts are
+in `artifacts/provenance/co_placement`; running worktrees remain immutable.
+
 ## Interactive compute finding
 
 The small [interactive-prefix gate](reports/INTERACTIVE_COMPUTE_REPORT.md) at

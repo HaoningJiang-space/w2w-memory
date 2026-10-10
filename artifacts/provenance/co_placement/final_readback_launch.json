@@ -1,0 +1,12 @@
+{
+  "pid": 591118,
+  "analysis_source_commit": "04f2e70d0be6eb6c62225eab04dda8e47db06a94",
+  "command": [
+    "/Projects/haoning/w2w/.venv/bin/python",
+    "/Projects/haoning/w2w-full-system-co-placement-20261010/analysis-final-r1/tools/finish_co_placement_readback.py",
+    "--root",
+    "/Projects/haoning/w2w-full-system-co-placement-20261010",
+    "--baseline",
+    "/Projects/haoning/w2w-full-system-matrix-service-20261010/concurrent-hierarchy-r1/cases/phase-split"
+  ]
+}

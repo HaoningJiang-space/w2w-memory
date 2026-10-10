@@ -1,0 +1,10 @@
+{
+  "booksim": {
+    "path": "/Projects/haoning/w2w-full-system-performance-placement-20261010/native-fast-r1/booksim/endpoint_booksim",
+    "sha256": "9d18611aa0cc74b6d8a475e302134c7888b1417648607abce3a6f8d04311e308"
+  },
+  "bridge": {
+    "path": "/Projects/haoning/w2w-full-system-v3-20261009/native-p6/dram_bridge/_w2w_ramulator.cpython-310-x86_64-linux-gnu.so",
+    "sha256": "37eb00768993fb5cfd903c690e72a21cdc69e10f4acbc421762f54dc5a33ba54"
+  }
+}

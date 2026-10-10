@@ -1,0 +1,74 @@
+{
+  "schema": "w2w.co-placement-evidence-index.v1",
+  "archive_root": "/Projects/haoning/w2w-full-system-co-placement-20261010",
+  "files": {
+    "cold_analysis.json": {
+      "archive": "/Projects/haoning/w2w-full-system-co-placement-20261010/cold/independent-readback.json",
+      "sha256": "6f9e37e563b1ccef9da23bfe299ec50e477ba1f925ce77d553ab826996d164bd",
+      "bytes": 332571
+    },
+    "cold_registration.json": {
+      "archive": "/Projects/haoning/w2w-full-system-co-placement-20261010/cold/registration.json",
+      "sha256": "96cadd1b6c4fd831c8dc598be8c93bed72add5aca854059f08ddf204102bf1a6",
+      "bytes": 18370
+    },
+    "multilayer_registration.json": {
+      "archive": "/Projects/haoning/w2w-full-system-co-placement-20261010/multilayer/registration.json",
+      "sha256": "ac736172486ef2a4d1365306eeeb73daaca0856b9a75f4cb9d721cfc7f78df5f",
+      "bytes": 1599
+    },
+    "cold_launch.json": {
+      "archive": "/Projects/haoning/w2w-full-system-co-placement-20261010/cold-launch.json",
+      "sha256": "7c39dba885ed7a2d09dc6ba9144ecc11a49d84f48847d5c3d9fd0322e428d70e",
+      "bytes": 1704
+    },
+    "multilayer_launch.json": {
+      "archive": "/Projects/haoning/w2w-full-system-co-placement-20261010/multilayer-launch.json",
+      "sha256": "26aa503dd300b6822be608ec41fd0426038299904282aaf88b28acf06b24aed0",
+      "bytes": 1240
+    },
+    "controller_launch.json": {
+      "archive": "/Projects/haoning/w2w-full-system-co-placement-20261010/controller-launch.json",
+      "sha256": "7728e71238d836e276f6245234a5dca3374ec36fdd187da235ccf8e35190d550",
+      "bytes": 735
+    },
+    "final_readback_launch.json": {
+      "archive": "/Projects/haoning/w2w-full-system-co-placement-20261010/final-readback-launch.json",
+      "sha256": "16072e1b8b56ebac7b84c7f7904aed8326271535a8024fdf8cdc9aa3840e7460",
+      "bytes": 478
+    },
+    "input_migration.json": {
+      "archive": "/Projects/haoning/w2w-full-system-co-placement-20261010/input-migration.json",
+      "sha256": "a956470ba1f5e4e358440bbe1b6f8f8dad85bbd460e4ff9d13a226933099596f",
+      "bytes": 557
+    },
+    "native_tools.json": {
+      "archive": "/Projects/haoning/w2w-full-system-co-placement-20261010/native-tools.json",
+      "sha256": "1bd4313ba3b09175a015561c965f9e0d0e57c7b01c2fec8ff4d9c73b5e18200a",
+      "bytes": 454
+    },
+    "preload_budget.json": {
+      "archive": "/Projects/haoning/w2w-full-system-co-placement-20261010/preload-budget.json",
+      "sha256": "5fdf52377438010b7367ca4358c542fe6f356d0c6b0087ff1b65d929d67cbea2",
+      "bytes": 1973
+    },
+    "tests.log": {
+      "archive": "/Projects/haoning/w2w-full-system-co-placement-20261010/logs/tests-r1.log",
+      "sha256": "2269e4503dc291fd62dbe759a61440146e4d82266a14dea9c90a6226549c875f",
+      "bytes": 1819
+    },
+    "readback_tests.log": {
+      "archive": "/Projects/haoning/w2w-full-system-co-placement-20261010/logs/readback-tests-r1.log",
+      "sha256": "4bf7600301cae2ccdb9bb16dedec882588d72ef6476425ea77ee06fbad35fb9b",
+      "bytes": 422
+    },
+    "cold_readback.log": {
+      "archive": "/Projects/haoning/w2w-full-system-co-placement-20261010/logs/cold-final-readback.log",
+      "sha256": "6dc4e9c0619ba65666dc427b422d694119983c15d825f9f6ae226c0cd392b427",
+      "bytes": 147
+    }
+  },
+  "cold_status": "complete and independently audited",
+  "multilayer_status": "registered and running; no completed performance conclusion",
+  "contract": "Raw captures/native builds stay outside Git; future independent-readback.json, completed-summary.json and COMPLETED_RESULTS.md are produced on the execution host."
+}

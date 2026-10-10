@@ -1,0 +1,16 @@
+{
+  "pid": 589606,
+  "source_commit": "02dab2a60ef69bfca24d5bf72b1a16a31157838a",
+  "command": [
+    "/Projects/haoning/w2w/.venv/bin/python",
+    "/Projects/haoning/w2w-full-system-co-placement-20261010/execution-r2/tools/monitor_co_placement.py",
+    "--root",
+    "/Projects/haoning/w2w-full-system-co-placement-20261010",
+    "--booksim-binary",
+    "/Projects/haoning/w2w-full-system-performance-placement-20261010/native-fast-r1/booksim/endpoint_booksim",
+    "--cold-baseline",
+    "/Projects/haoning/w2w-full-system-performance-placement-20261010/concurrent-service-r1/s1/cases/phase-split",
+    "--warm-baseline",
+    "/Projects/haoning/w2w-full-system-matrix-service-20261010/concurrent-hierarchy-r1/cases/phase-split"
+  ]
+}
