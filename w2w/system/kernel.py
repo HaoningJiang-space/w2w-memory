@@ -105,8 +105,10 @@ class SystemExecution:
         if read_issue_policy not in ('ordered','round_robin') or (read_issue_policy=='round_robin' and not fetch_contexts):
             raise ValueError('Round-robin issue requires finite fetch contexts')
         self.fetch_contexts=fetch_contexts;self.read_issue_policy=read_issue_policy
-        self.fetch_live={tile:set() for tile in self.builder.tiles};self.fetch_peak=Counter();self.issue_cursor={}
-        self.fetch_metadata_bytes=64*fetch_contexts+8 if fetch_contexts else 0
+        from w2w.system.fetch_scheduler import FetchScheduler
+        self.fetch_scheduler=FetchScheduler(self,fetch_contexts,read_issue_policy)
+        self.fetch_live=self.fetch_scheduler.live;self.fetch_peak=self.fetch_scheduler.peak;self.issue_cursor=self.fetch_scheduler.cursor
+        self.fetch_metadata_bytes=self.fetch_scheduler.metadata_bytes
         for tile in self.builder.tiles:
             if self.fetch_metadata_bytes:self._sram(tile,self.fetch_metadata_bytes,'fetch-context-state')
         self.context_metadata_bytes=(compute_contexts-1)*64
@@ -240,7 +242,7 @@ class SystemExecution:
             predecessors = self.predecessors[key]
             if any(not self.state[p].get('done') for p in predecessors):
                 continue
-            if self.fetch_contexts and task.reads and len(self.fetch_live[task.tile])>=self.fetch_contexts:continue
+            if task.reads and not self.fetch_scheduler.can_allocate(task.tile):continue
             size = self.builder.footprint[key]+self._operand_state_bytes(task)
             cache=self.weight_cache if task.stream is not None else None
             if self.weight_cache and task.reads and cache is None:raise ValueError('Cache primitive requires explicit whole-matrix streaming GEMM')
@@ -269,16 +271,10 @@ class SystemExecution:
                 state['issued_all']=True
             else:self.reading.add(key)
             self.log('task_allocate', task=key, tile=task.tile)
-            if self.fetch_contexts and task.reads:
-                self.fetch_live[task.tile].add(key);self.fetch_peak[task.tile]=max(self.fetch_peak[task.tile],len(self.fetch_live[task.tile]))
-                self.log('fetch_context_acquire',task=key,tile=task.tile)
+            if task.reads:self.fetch_scheduler.acquire(key)
 
     def _fetch_release(self,key):
-        if not self.fetch_contexts:return
-        tile=self.tasks[key].tile
-        if key in self.fetch_live[tile]:
-            self.fetch_live[tile].remove(key);self.reading.discard(key);self.state[key]['issued_all']=True
-            self.log('fetch_context_release',task=key,tile=tile)
+        self.fetch_scheduler.complete(key)
 
     def _data_transfers(self):
         if self.activation_sram_read_bytes_per_cycle is not None:
@@ -326,56 +322,10 @@ class SystemExecution:
         for src in used:self.sram_read_cycles[src]+=1
 
     def _read_issue(self):
-        if self.read_issue_policy=='round_robin':return self._round_robin_read_issue()
-        # Explicit descriptor issue slots; all classes share the finite NI output.
-        used = Counter()
-        for key in sorted(self.reading):
-            task, state = self.tasks[key], self.state[key]
-            if (not state['allocated'] or key in self.cache_waiting or state['issued_all'] or used[task.tile] >= self.spec.read_requests_per_tile_cycle
-                    or self.outstanding[task.tile] >= self.spec.outstanding_per_tile):
-                continue
-            while (used[task.tile] < self.spec.read_requests_per_tile_cycle
-                   and self.outstanding[task.tile] < self.spec.outstanding_per_tile):
-                if state['next_read'] is None:
-                    state['next_read'] = next(state['iterator'], None)
-                req = state['next_read']
-                if req is None:
-                    state['issued_all'] = True
-                    self.reading.remove(key)
-                    break
-                mc = self.builder.memories[req.memory].home_tile
-                if not self._send(req.id+'/req', task.tile, mc, 'request', 0, 'request', req.id):
-                    break
-                self.requests[req.id] = dict(request=req, stage='request_flight')
-                state['next_read'] = None
-                self.outstanding[task.tile] += 1
-                self.outstanding_peak[task.tile] = max(self.outstanding_peak[task.tile], self.outstanding[task.tile])
-                used[task.tile] += 1
-                self.log('read_issue', request=req.id, task=key, memory=req.memory,
-                         bank=req.bank, word_address=req.word_address, bytes=req.size_bytes)
+        self.fetch_scheduler.issue()
 
     def _round_robin_read_issue(self):
-        # Two funded matrix fetch slots, shared issue width and outstanding limit.
-        for tile in sorted(self.fetch_live):
-            used=0
-            while used<self.spec.read_requests_per_tile_cycle and self.outstanding[tile]<self.spec.outstanding_per_tile:
-                candidates=sorted(k for k in self.fetch_live[tile] if k in self.reading and k not in self.cache_waiting)
-                cursor=self.issue_cursor.get(tile,'');candidates=[k for k in candidates if k>cursor]+[k for k in candidates if k<=cursor]
-                progressed=False
-                for key in candidates:
-                    state=self.state[key]
-                    if state['next_read'] is None:state['next_read']=next(state['iterator'],None)
-                    req=state['next_read']
-                    if req is None:
-                        state['issued_all']=True;self.reading.discard(key);progressed=True;continue
-                    mc=self.builder.memories[req.memory].home_tile
-                    if not self._send(req.id+'/req',tile,mc,'request',0,'request',req.id):continue
-                    self.requests[req.id]=dict(request=req,stage='request_flight');state['next_read']=None
-                    self.outstanding[tile]+=1;self.outstanding_peak[tile]=max(self.outstanding_peak[tile],self.outstanding[tile])
-                    self.issue_cursor[tile]=key;used+=1;progressed=True
-                    self.log('read_issue',request=req.id,task=key,memory=req.memory,bank=req.bank,word_address=req.word_address,bytes=req.size_bytes)
-                    break
-                if not progressed:break
+        self.fetch_scheduler.round_robin()
 
     def _cache_lookup_progress(self):
         for key,at in list(self.cache_waiting.items()):
