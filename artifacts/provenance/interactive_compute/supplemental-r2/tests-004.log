@@ -1,0 +1,14 @@
+test_active_transport_partial_prefix_equals_exact_state_at_each_boundary (test_interactive_compute.InteractiveComputeTests) ... ok
+test_byte_count_contexts_cache_observer_and_short_frontier_fall_back (test_interactive_compute.InteractiveComputeTests) ... ok
+test_compact_expansion_preserves_equal_time_insertion (test_interactive_compute.InteractiveComputeTests) ... ok
+test_competitor_flushes_only_already_executed_service (test_interactive_compute.InteractiveComputeTests) ... ok
+test_frontier_holes_are_distinguishable_after_same_future_commit (test_interactive_compute.InteractiveComputeTests) ... ok
+test_new_prefix_extends_next_interval_without_rewriting_existing_one (test_interactive_compute.InteractiveComputeTests) ... ok
+test_noncompute_clock_and_duplicate_call_do_not_create_service (test_interactive_compute.InteractiveComputeTests) ... ok
+test_wrong_interval_progress_prefix_count_and_duplicate_marker_rejected (test_interactive_compute.InteractiveComputeTests) ... ok
+test_zero_coverage_fallback_receipt_is_valid_for_unsupported_policy (test_interactive_compute.InteractiveComputeTests) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.127s
+
+OK

@@ -1,0 +1,65 @@
+{
+  "checks": [
+    {
+      "name": "wrong_original_frontier",
+      "reason": "Interactive interval differs from causal service ledger",
+      "rejected": true
+    },
+    {
+      "name": "wrong_consumed_before",
+      "reason": "Interactive interval crosses committed frontier or task tail",
+      "rejected": true
+    },
+    {
+      "name": "wrong_batch_total",
+      "reason": "Interactive update count differs from actual services",
+      "rejected": true
+    },
+    {
+      "name": "duplicate_marker",
+      "reason": "Overlapping or undrained interactive service",
+      "rejected": true
+    },
+    {
+      "name": "unknown_marker_field",
+      "reason": "Invalid interactive epoch marker",
+      "rejected": true
+    },
+    {
+      "name": "unknown_contract_field",
+      "reason": "Unsupported interactive compute contract",
+      "rejected": true
+    },
+    {
+      "name": "missing_marker",
+      "reason": "Missing/overlapping interval service",
+      "rejected": true
+    },
+    {
+      "name": "wrong_equal_time_position",
+      "reason": "Interactive service refers to missing same-time events",
+      "rejected": true
+    },
+    {
+      "name": "malformed_equal_time_position",
+      "reason": "Invalid equal-time service insertion order",
+      "rejected": true
+    },
+    {
+      "name": "frontier_commit_after_service",
+      "reason": "Interactive service refers to missing same-time events",
+      "rejected": true
+    },
+    {
+      "name": "aggregate_policy_relabel",
+      "reason": "Unsupported interactive compute contract",
+      "rejected": true
+    }
+  ],
+  "execution_commit": "3c641f091217c661c5da5c672a17ccf1abe85438",
+  "frozen_checkout_clean": true,
+  "gate_manifest_sha256": "c70ce10441f79de1d7e19a72ee9cf63e7d5790a725b7353f188bdb27c0c623ce",
+  "input_result_sha256": "4681a4c44da2cb6e84d23514871b8b96efd4438119d995822d3094df629eaa26",
+  "passed": true,
+  "source_commit": "c4b3e0e46188f83ace0edfbb301fc213af0a3a95"
+}

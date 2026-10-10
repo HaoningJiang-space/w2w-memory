@@ -1,0 +1,17 @@
+{
+  "NEGATIVE.json": {
+    "bytes": 1953,
+    "remote_path": "/Projects/haoning/w2w-full-system-interactive-epoch-20261010/NEGATIVE_R2.json",
+    "sha256": "a17f95f7a0e39acb69b99e223d4dc7386de6b61973ceb73075942e78e9987814"
+  },
+  "negative-002.log": {
+    "bytes": 93,
+    "remote_path": "/Projects/haoning/w2w-full-system-interactive-epoch-20261010/negative-002.log",
+    "sha256": "b748c610e9a339ff03687d8bfb5f342744bcfa1384d2958d1069e174eee80d95"
+  },
+  "tests-004.log": {
+    "bytes": 1207,
+    "remote_path": "/Projects/haoning/w2w-full-system-interactive-epoch-20261010/tests-004.log",
+    "sha256": "f02d7caad1ad309e381f3d3a7524888dcd4701554b336f813c49b47358818b41"
+  }
+}

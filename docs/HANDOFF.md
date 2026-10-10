@@ -143,6 +143,23 @@ is treated as a local route. Analysis/test-only worktree `analysis-concurrent-fi
 at `807c62a` passed stage regressions and retained all gateway time series without
 new simulation. All study/monitor logs and raw hash-bound files remain archived.
 
+## Interactive compute finding
+
+The small [interactive-prefix gate](reports/INTERACTIVE_COMPUTE_REPORT.md) at
+`3c641f0` passes 24 same-policy native workers; readbacks at `c4b3e0e`/`44f95e1`
+preserve all physical events, commands, endpoint fingerprints and drain. Two
+stable-case service intervals consume a committed partial prefix while remaining
+data still returns. Weight arithmetic updates fall 16,384 → 4, but host
+iterations stay 22,215 and native advancement is unchanged. Full worker is
+slightly slower; Compact is about 1.11× faster through reduced output, with no
+execution speedup. The matched quiescent Full remains about 1.36× faster.
+Keep the candidate default off; do not present this as full-system acceleration
+or FFN/placement evidence. Fifty execution-source tests and overlapping targeted
+rechecks, plus 11 saved-evidence negatives, pass. Raw frozen source, tests and
+captures stay in `/Projects/haoning/w2w-full-system-interactive-epoch-20261010`.
+The next material performance opportunity needs certified component event
+boundaries/interruptible service, not further tuning of this local rule.
+
 ## Limits
 
 No search/DSE, new fanout/endpoint RTL, partitioning rewrite, thermal/yield

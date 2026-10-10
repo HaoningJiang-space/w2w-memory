@@ -1,0 +1,39 @@
+{
+  "analysis_source": "c4b3e0e46188f83ace0edfbb301fc213af0a3a95",
+  "binary": "/Projects/haoning/w2w-full-system-performance-placement-20261010/native-fast-r1/booksim/endpoint_booksim",
+  "binary_sha256": "9d18611aa0cc74b6d8a475e302134c7888b1417648607abce3a6f8d04311e308",
+  "bridge": "/Projects/haoning/w2w-full-system-compute-epoch-20261010/native-dram/dram_bridge/_w2w_ramulator.cpython-310-x86_64-linux-gnu.so",
+  "bridge_sha256": "37eb00768993fb5cfd903c690e72a21cdc69e10f4acbc421762f54dc5a33ba54",
+  "complete": true,
+  "cpu_affinity": [
+    18,
+    19
+  ],
+  "executable": "/usr/bin/python3",
+  "executable_sha256": "6ce8f488520d0f0cb8ccc405ba844279492c3926e18b73f0539e5fecd8033467",
+  "execution_source": "3c641f091217c661c5da5c672a17ccf1abe85438",
+  "host": "ee4e072",
+  "native_reuse_sha256": "3c4b014c5ee7d1f2f067314a295ba2c9ac934f6efc19e7cd2e356648054847ef",
+  "python": "3.10.12 (main, Jul 29 2024, 16:56:48) [GCC 11.4.0]",
+  "python_module_path": "/Projects/haoning/w2w-full-system-closure-20261009/dram-clean-a9066bc/ramulator2/python",
+  "registrations": {
+    "full_tests": {
+      "path": "/Projects/haoning/w2w-full-system-interactive-epoch-20261010/tests-002.log",
+      "sha256": "83c12d40ab46a3c091cf24c6d376f7feb2d0c4371ecc5f2374bc1f367b20166e",
+      "tests": 50
+    },
+    "gate": "/Projects/haoning/w2w-full-system-interactive-epoch-20261010/gate-001",
+    "negatives": {
+      "checks": 11,
+      "path": "/Projects/haoning/w2w-full-system-interactive-epoch-20261010/NEGATIVE.json",
+      "sha256": "7cdffa1cba81ea1f521affbc770dbbe90f62c259fcb05443960df22bf942a7f0"
+    },
+    "supplemental_tests": {
+      "overlap": true,
+      "path": "/Projects/haoning/w2w-full-system-interactive-epoch-20261010/tests-003.log",
+      "sha256": "056b8dec4e17252006f1d2f72243e5605fc6d27786a2f670259a41872fcc3fbb",
+      "tests": 8
+    }
+  },
+  "scope": "same-policy small native system comparison; exact accuracy passed; no interactive execution speedup established"
+}

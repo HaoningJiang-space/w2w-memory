@@ -1,0 +1,57 @@
+{
+  "ACCEPTED_ENVIRONMENT.json": {
+    "bytes": 1982,
+    "remote_path": "/Projects/haoning/w2w-full-system-interactive-epoch-20261010/ACCEPTED_ENVIRONMENT.json",
+    "sha256": "84942d8000916667eb4c8a2814c6da24fc4d387ddef1f4f90dca3cee64fa0e0f"
+  },
+  "COMPLETE.json": {
+    "bytes": 348630,
+    "remote_path": "/Projects/haoning/w2w-full-system-interactive-epoch-20261010/gate-001/COMPLETE.json",
+    "sha256": "c70ce10441f79de1d7e19a72ee9cf63e7d5790a725b7353f188bdb27c0c623ce"
+  },
+  "NATIVE_REUSE.json": {
+    "bytes": 1354,
+    "remote_path": "/Projects/haoning/w2w-full-system-interactive-epoch-20261010/NATIVE_REUSE.json",
+    "sha256": "3c4b014c5ee7d1f2f067314a295ba2c9ac934f6efc19e7cd2e356648054847ef"
+  },
+  "NEGATIVE.json": {
+    "bytes": 1952,
+    "remote_path": "/Projects/haoning/w2w-full-system-interactive-epoch-20261010/NEGATIVE.json",
+    "sha256": "7cdffa1cba81ea1f521affbc770dbbe90f62c259fcb05443960df22bf942a7f0"
+  },
+  "STARTED.json": {
+    "bytes": 10524,
+    "remote_path": "/Projects/haoning/w2w-full-system-interactive-epoch-20261010/gate-001/STARTED.json",
+    "sha256": "c5c8998217844716acb45ac6870764c06f3703d810fcc5f3d77d6ec0f407b33c"
+  },
+  "VERIFIED.json": {
+    "bytes": 6271,
+    "remote_path": "/Projects/haoning/w2w-full-system-interactive-epoch-20261010/gate-001/VERIFIED.json",
+    "sha256": "fca9defd05989f3afd15d54187f4dd538508dee1ed9928ec2e7180c047e4b039"
+  },
+  "gate-001.log": {
+    "bytes": 546,
+    "remote_path": "/Projects/haoning/w2w-full-system-interactive-epoch-20261010/gate-001.log",
+    "sha256": "0c9b46708270ac011ab8a9252c24470f0aed2aed1f9fc135c24462b2c80dfd0f"
+  },
+  "negative-001.log": {
+    "bytes": 93,
+    "remote_path": "/Projects/haoning/w2w-full-system-interactive-epoch-20261010/negative-001.log",
+    "sha256": "b748c610e9a339ff03687d8bfb5f342744bcfa1384d2958d1069e174eee80d95"
+  },
+  "readback-001.log": {
+    "bytes": 47,
+    "remote_path": "/Projects/haoning/w2w-full-system-interactive-epoch-20261010/readback-001.log",
+    "sha256": "bb0e49c34fbd8eb7bfa7d6f7e2425de721c665eebb447d6ba0bfb7e059e24e42"
+  },
+  "tests-002.log": {
+    "bytes": 5072,
+    "remote_path": "/Projects/haoning/w2w-full-system-interactive-epoch-20261010/tests-002.log",
+    "sha256": "83c12d40ab46a3c091cf24c6d376f7feb2d0c4371ecc5f2374bc1f367b20166e"
+  },
+  "tests-003.log": {
+    "bytes": 1081,
+    "remote_path": "/Projects/haoning/w2w-full-system-interactive-epoch-20261010/tests-003.log",
+    "sha256": "056b8dec4e17252006f1d2f72243e5605fc6d27786a2f670259a41872fcc3fbb"
+  }
+}

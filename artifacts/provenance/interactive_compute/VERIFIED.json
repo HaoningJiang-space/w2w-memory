@@ -1,0 +1,221 @@
+{
+  "cases": [
+    {
+      "batched_compute_cycles": 16382,
+      "case": "release",
+      "drained_ps": 17696000,
+      "endpoint_trace_equal": true,
+      "interval_audits": {
+        "compact": {
+          "arithmetic_updates": 5,
+          "batched_compute_cycles": 16382,
+          "intervals": 3,
+          "overlapping_intervals": 2,
+          "partial_prefix_intervals": 2,
+          "weight_services": 16384
+        },
+        "full": {
+          "arithmetic_updates": 5,
+          "batched_compute_cycles": 16382,
+          "intervals": 3,
+          "overlapping_intervals": 2,
+          "partial_prefix_intervals": 2,
+          "weight_services": 16384
+        },
+        "off": {
+          "arithmetic_updates": null,
+          "batched_compute_cycles": 0,
+          "intervals": 0,
+          "overlapping_intervals": 0,
+          "partial_prefix_intervals": 0,
+          "weight_services": 16384
+        },
+        "quiescent": {
+          "batched_compute_cycles": 14256,
+          "intervals": 2,
+          "omitted_boundaries": 17896
+        }
+      },
+      "iterations": {
+        "compact": 22216,
+        "full": 22216,
+        "off": 22216,
+        "quiescent": 4320
+      },
+      "makespan_ps": 17696000,
+      "native_commands_equal": true,
+      "physical_record_equal": true
+    },
+    {
+      "batched_compute_cycles": 16383,
+      "case": "stable",
+      "drained_ps": 17696000,
+      "endpoint_trace_equal": true,
+      "interval_audits": {
+        "compact": {
+          "arithmetic_updates": 4,
+          "batched_compute_cycles": 16383,
+          "intervals": 3,
+          "overlapping_intervals": 2,
+          "partial_prefix_intervals": 2,
+          "weight_services": 16384
+        },
+        "full": {
+          "arithmetic_updates": 4,
+          "batched_compute_cycles": 16383,
+          "intervals": 3,
+          "overlapping_intervals": 2,
+          "partial_prefix_intervals": 2,
+          "weight_services": 16384
+        },
+        "off": {
+          "arithmetic_updates": null,
+          "batched_compute_cycles": 0,
+          "intervals": 0,
+          "overlapping_intervals": 0,
+          "partial_prefix_intervals": 0,
+          "weight_services": 16384
+        },
+        "quiescent": {
+          "batched_compute_cycles": 14258,
+          "intervals": 1,
+          "omitted_boundaries": 17899
+        }
+      },
+      "iterations": {
+        "compact": 22215,
+        "full": 22215,
+        "off": 22215,
+        "quiescent": 4316
+      },
+      "makespan_ps": 17696000,
+      "native_commands_equal": true,
+      "physical_record_equal": true
+    },
+    {
+      "batched_compute_cycles": 2741,
+      "case": "tail",
+      "drained_ps": 4179000,
+      "endpoint_trace_equal": true,
+      "interval_audits": {
+        "compact": {
+          "arithmetic_updates": 2,
+          "batched_compute_cycles": 2741,
+          "intervals": 1,
+          "overlapping_intervals": 0,
+          "partial_prefix_intervals": 0,
+          "weight_services": 2742
+        },
+        "full": {
+          "arithmetic_updates": 2,
+          "batched_compute_cycles": 2741,
+          "intervals": 1,
+          "overlapping_intervals": 0,
+          "partial_prefix_intervals": 0,
+          "weight_services": 2742
+        },
+        "off": {
+          "arithmetic_updates": null,
+          "batched_compute_cycles": 0,
+          "intervals": 0,
+          "overlapping_intervals": 0,
+          "partial_prefix_intervals": 0,
+          "weight_services": 2742
+        },
+        "quiescent": {
+          "batched_compute_cycles": 2683,
+          "intervals": 1,
+          "omitted_boundaries": 3368
+        }
+      },
+      "iterations": {
+        "compact": 5247,
+        "full": 5247,
+        "off": 5247,
+        "quiescent": 1879
+      },
+      "makespan_ps": 4179000,
+      "native_commands_equal": true,
+      "physical_record_equal": true
+    },
+    {
+      "batched_compute_cycles": 0,
+      "case": "transport",
+      "drained_ps": 1490000,
+      "endpoint_trace_equal": true,
+      "interval_audits": {
+        "compact": {
+          "arithmetic_updates": 2,
+          "batched_compute_cycles": 0,
+          "intervals": 0,
+          "overlapping_intervals": 0,
+          "partial_prefix_intervals": 0,
+          "weight_services": 2
+        },
+        "full": {
+          "arithmetic_updates": 2,
+          "batched_compute_cycles": 0,
+          "intervals": 0,
+          "overlapping_intervals": 0,
+          "partial_prefix_intervals": 0,
+          "weight_services": 2
+        },
+        "off": {
+          "arithmetic_updates": null,
+          "batched_compute_cycles": 0,
+          "intervals": 0,
+          "overlapping_intervals": 0,
+          "partial_prefix_intervals": 0,
+          "weight_services": 2
+        },
+        "quiescent": {
+          "batched_compute_cycles": 0,
+          "intervals": 0,
+          "omitted_boundaries": 0
+        }
+      },
+      "iterations": {
+        "compact": 1872,
+        "full": 1872,
+        "off": 1872,
+        "quiescent": 1872
+      },
+      "makespan_ps": 1433000,
+      "native_commands_equal": true,
+      "physical_record_equal": true
+    }
+  ],
+  "costs": {
+    "compact": {
+      "execution_seconds_median": 0.917186981998384,
+      "peak_rss_kib_median": 44824,
+      "python_cpu_seconds_median": 0.8506932509999999,
+      "stored_events": 1073,
+      "worker_wall_seconds_median": 1.1847438258118927
+    },
+    "full": {
+      "execution_seconds_median": 0.9260477991774678,
+      "peak_rss_kib_median": 51544,
+      "python_cpu_seconds_median": 0.8612967880000001,
+      "stored_events": 17453,
+      "worker_wall_seconds_median": 1.3256639172323048
+    },
+    "off": {
+      "execution_seconds_median": 0.9091150877065957,
+      "peak_rss_kib_median": 51384,
+      "python_cpu_seconds_median": 0.8405467529999999,
+      "stored_events": 17453,
+      "worker_wall_seconds_median": 1.3119809967465699
+    },
+    "quiescent": {
+      "execution_seconds_median": 0.565726988017559,
+      "peak_rss_kib_median": 51388,
+      "python_cpu_seconds_median": 0.500682588,
+      "stored_events": 17453,
+      "worker_wall_seconds_median": 0.9667665469460189
+    }
+  },
+  "passed": true,
+  "scope": "fixed small native system cases; no FFN/placement speedup claim",
+  "workers": 24
+}

@@ -1,6 +1,8 @@
 # Interactive committed-prefix compute gate
 
-This registers a candidate, not an accuracy or speedup receipt. Keep the accepted
+The [checked result](INTERACTIVE_COMPUTE_REPORT.md) closes this registration:
+exact active-prefix behavior passed; interactive execution speedup did not.
+The controls below were registered before the run. Keep the accepted
 quiescent compute epoch, G1/R3 and native application records unchanged. New
 tests and fixed small runs use an isolated hn072 directory. No new backend,
 multicast, task readiness or hardware policy is introduced.

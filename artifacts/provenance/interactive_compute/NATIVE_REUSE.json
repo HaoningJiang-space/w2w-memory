@@ -1,0 +1,30 @@
+{
+  "booksim": {
+    "manifest_path": "/Projects/haoning/w2w-full-system-performance-placement-20261010/native-fast-r1/build-manifest.json",
+    "manifest_sha256": "6b7fcabc0f30a54222783710167e3604800765d3430da64684880c22d3717cdc",
+    "outputs": {
+      "booksim": {
+        "path": "/Projects/haoning/w2w-full-system-performance-placement-20261010/native-fast-r1/booksim/endpoint_booksim",
+        "sha256": "9d18611aa0cc74b6d8a475e302134c7888b1417648607abce3a6f8d04311e308"
+      }
+    },
+    "sources_checked": 155,
+    "upstream": null
+  },
+  "dram": {
+    "manifest_path": "/Projects/haoning/w2w-full-system-compute-epoch-20261010/native-dram/build-manifest.json",
+    "manifest_sha256": "eb89277483835e7054748a4c4736cc9101220c9098e9922633614712a7e94ef1",
+    "outputs": {
+      "dram_bridge": {
+        "path": "/Projects/haoning/w2w-full-system-compute-epoch-20261010/native-dram/dram_bridge/_w2w_ramulator.cpython-310-x86_64-linux-gnu.so",
+        "sha256": "37eb00768993fb5cfd903c690e72a21cdc69e10f4acbc421762f54dc5a33ba54"
+      }
+    },
+    "sources_checked": 8,
+    "upstream": {
+      "commit": "72427a1bba3771564c4fb0e494ba02242fd1eaa7",
+      "library_sha256": "bdee8df7ac4486e77f4ce8689cdb9eed814ca222cbd1322b2bfaf342af203120",
+      "path": "/Projects/haoning/w2w-full-system-closure-20261009/dram-clean-a9066bc/ramulator2"
+    }
+  }
+}
