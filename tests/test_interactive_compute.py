@@ -44,20 +44,21 @@ class InteractiveComputeTests(unittest.TestCase):
             self.assertEqual(bulk.events,exact.events)
 
     def test_new_prefix_extends_next_interval_without_rewriting_existing_one(self):
-        bulk, exact = ready(), ready()
-        exact.interactive_compute = None
-        for at in range(2000,128000,1000):
-            bulk.now=exact.now=at
-            if at == 10000:
-                for e in (bulk,exact):
-                    e.operand_frontiers['gemm'].receive(4096,4096)
-                    e.state['gemm'].update(stream_weight_delivered=8192,read_bytes=8224)
-            bulk._stream_compute_progress();exact._stream_compute_progress()
-        bulk.interactive_compute.materialize(bulk)
-        self.assertEqual(semantic_tasks(bulk),semantic_tasks(exact))
-        self.assertEqual(bulk.events,exact.events)
-        self.assertEqual(bulk.interactive_compute.intervals[0]['committed_prefix_bytes'],4096)
-        self.assertEqual(bulk.interactive_compute.intervals[1]['committed_prefix_bytes'],8192)
+        for arrival in (10000,90000):  # Includes depletion, wait, then recovery.
+            bulk, exact = ready(), ready()
+            exact.interactive_compute = None
+            for at in range(2000,154000,1000):
+                bulk.now=exact.now=at
+                if at == arrival:
+                    for e in (bulk,exact):
+                        e.operand_frontiers['gemm'].receive(4096,4096)
+                        e.state['gemm'].update(stream_weight_delivered=8192,read_bytes=8224)
+                bulk._stream_compute_progress();exact._stream_compute_progress()
+            bulk.interactive_compute.materialize(bulk)
+            self.assertEqual(semantic_tasks(bulk),semantic_tasks(exact))
+            self.assertEqual(bulk.events,exact.events)
+            self.assertEqual(bulk.interactive_compute.intervals[0]['committed_prefix_bytes'],4096)
+            self.assertEqual(bulk.interactive_compute.intervals[1]['committed_prefix_bytes'],8192)
 
     def test_compact_expansion_preserves_equal_time_insertion(self):
         full, compact = ready(), ready('compact')
@@ -121,7 +122,8 @@ class InteractiveComputeTests(unittest.TestCase):
         for at in range(2000,8000,1000):e.now=at;e._stream_compute_progress()
         e.interactive_compute.materialize(e);e.events.sort(key=lambda r:r['time_ps'])
         raw=dict(spec=asdict(e.spec),graph=asdict(e.graph),events=e.events,drained_ps=9000,
-            compute_execution=dict(contexts_per_cluster=1),interactive_compute=e.interactive_compute.record())
+            compute_execution=dict(contexts_per_cluster=1),operand_readiness=dict(policy='contiguous_prefix'),
+            interactive_compute=e.interactive_compute.record())
         self.assertEqual(audit_interactive_compute(raw)['arithmetic_updates'],2)
         for mutate in (lambda r:r['interactive_compute'].update(batch_updates=2),
                        lambda r:r['interactive_compute']['intervals'][0].update(consumed_before=0),

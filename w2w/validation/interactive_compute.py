@@ -33,8 +33,9 @@ def expand_interactive_compute(record):
                 or row['weight_bytes'] != rate or row['macs'] != rate*reuse):
             raise ValueError('Interactive epoch changes compute service')
         ties = row['tie_runs']
-        if (not ties or ties[0][0] != 0 or any(not isinstance(t, list) or len(t) != 2
+        if (not isinstance(ties,list) or not ties or any(not isinstance(t, list) or len(t) != 2
                 or any(type(v) is not int or v < 0 for v in t) for t in ties)
+                or ties[0][0] != 0
                 or any(a[0] >= b[0] for a, b in zip(ties, ties[1:]))
                 or ties[-1][0] >= row['cycles']):
             raise ValueError('Invalid equal-time service insertion order')
@@ -69,8 +70,11 @@ def audit_interactive_compute(raw):
         return dict(intervals=0, batched_compute_cycles=0, weight_services=sum(
             e['kind']=='stream_compute' and e['weight_bytes']>0 for e in result['events']),
             arithmetic_updates=None, overlapping_intervals=0, partial_prefix_intervals=0)
-    if (meta['schema'] != 1 or meta['evidence'] not in ('full','compact')
-            or result['compute_execution']['contexts_per_cluster'] != 1):
+    if (set(meta) != {'schema','evidence','intervals','ordinary_weight_updates','batch_updates',
+                     'batched_compute_cycles','compute_service_visits','contract'}
+            or meta['schema'] != 1 or meta['evidence'] not in ('full','compact')
+            or result['compute_execution']['contexts_per_cluster'] != 1
+            or result['operand_readiness']['policy'] != 'contiguous_prefix'):
         raise ValueError('Unsupported interactive compute contract')
     tasks = {r['id']: r for r in result['graph']['tasks']}
     tiles = {r['id']: r for r in result['spec']['tiles']}

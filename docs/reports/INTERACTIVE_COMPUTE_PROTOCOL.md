@@ -54,6 +54,7 @@ path in the isolated workspace):
 python3 -m unittest discover -s tests -v
 python3 tools/run_interactive_compute_gate.py OUT --binary BOOKSIM
 python3 tools/run_interactive_compute_gate.py OUT --readback
+python3 tools/check_interactive_compute_negative.py OUT NEGATIVE_RECEIPT.json
 ```
 
 Predictive sufficiency is scoped to declared interfaces and admissible future
