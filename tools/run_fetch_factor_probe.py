@@ -119,6 +119,16 @@ def fetch_admission(result, stage):
             ownership.append(dict(tile=tile, task=task, acquire_ps=owners.pop(task), release_ps=now))
         changed[tile] = now
     if any(live.values()): raise ValueError('Saved fetch ownership did not drain')
+    lifetime={}
+    for window in ownership:
+        row=stage['tasks'][window['task']]['milestones']
+        last_issue=row.get('read_issue_last',window['acquire_ps'])
+        if not window['acquire_ps']<=last_issue<=window['release_ps']:
+            raise ValueError('Issue/return lifetime reordered')
+        window.update(eligible_ps=row['dependency_ready'],last_descriptor_issue_ps=last_issue,
+            issuing_ps=last_issue-window['acquire_ps'],return_only_ps=window['release_ps']-last_issue,
+            occupied_ps=window['release_ps']-window['acquire_ps'])
+        lifetime[window['task']]=window
     delays = {}
     for task in result['graph']['tasks']:
         if not task['reads']: continue
@@ -130,13 +140,34 @@ def fetch_admission(result, stage):
             start, end = max(ready, window['start_ps']), min(allocated, window['end_ps'])
             if window['tile'] == task['tile'] and end > start:
                 overlap.append(dict(start_ps=start, end_ps=end, owners=window['owners']))
+        return_slot_ps=0;any_return_ps=0;all_return_ps=0;return_windows=[]
+        for window in overlap:
+            cuts=sorted({window['start_ps'],window['end_ps']}|{
+                lifetime[k]['last_descriptor_issue_ps'] for k in window['owners']
+                if window['start_ps']<lifetime[k]['last_descriptor_issue_ps']<window['end_ps']})
+            for start,end in zip(cuts,cuts[1:]):
+                only=[k for k in window['owners'] if lifetime[k]['last_descriptor_issue_ps']<=start]
+                return_slot_ps+=(end-start)*len(only)
+                any_return_ps+=(end-start)*bool(only)
+                all_return_ps+=(end-start)*(len(only)==len(window['owners']))
+                return_windows.append(dict(start_ps=start,end_ps=end,owners=window['owners'],return_only_owners=only))
         delays[task['id']] = dict(tile=task['tile'], dependency_ready_ps=ready,
             allocate_ps=allocated, elapsed_ps=allocated-ready,
-            full_fetch_overlap_ps=sum(w['end_ps']-w['start_ps'] for w in overlap), windows=overlap)
+            full_fetch_overlap_ps=sum(w['end_ps']-w['start_ps'] for w in overlap), windows=overlap,
+            return_only_slot_overlap_ps=return_slot_ps,any_return_only_full_ps=any_return_ps,
+            all_return_only_full_ps=all_return_ps,issue_return_windows=return_windows)
+    occupied=sum(w['occupied_ps'] for w in ownership);issuing=sum(w['issuing_ps'] for w in ownership)
     return dict(ownership_intervals=ownership, admission_delays=delays,
+        lifetime_summary=dict(matrices=len(ownership),occupied_ps=occupied,issuing_ps=issuing,
+            return_only_ps=occupied-issuing,average_occupied_ps=occupied/len(ownership),
+            average_return_only_ps=(occupied-issuing)/len(ownership),return_only_fraction=(occupied-issuing)/occupied,
+            delayed_tasks=len(delays),admission_wait_sum_ps=sum(d['elapsed_ps'] for d in delays.values()),
+            maximum_admission_wait_ps=max((d['elapsed_ps'] for d in delays.values()),default=0)),
         contract='Exact saved acquire/release ownership and predecessor-ready to allocation intervals. '
                  'Overlap with two occupied fetch slots demonstrates unavailable admission capacity; '
-                 'it is not an exclusive system stall or a proof that SRAM/other admission constraints were absent.')
+                 'Last descriptor enqueue marks the ideal issue/return boundary; iterator exhaustion may be observed later by the current controller. '
+                 'Return-only overlap identifies a state-reuse opportunity, not an execution-time saving: tags, SRAM, outstanding, native service '
+                 'and a finite return table remain live. Across-task sums overlap and are not additive system stalls.')
 
 
 def analyze(root):
