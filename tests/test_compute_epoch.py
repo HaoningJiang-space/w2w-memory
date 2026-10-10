@@ -7,7 +7,7 @@ from w2w.architecture.compiler import compile_machine
 from w2w.domain.execution import ResidentObject, ReadAccess, StreamGemm, ComputeTask, ExecutionGraph
 from w2w.system.kernel import SystemExecution
 from w2w.system.compute_epoch import advance_compute_epoch
-from w2w.validation.compute_epoch import expand_compute_epochs
+from w2w.validation.compute_epoch import expand_compute_epochs,audit_compute_epoch_intervals
 
 
 def initialized(release=None):
@@ -80,3 +80,19 @@ class ComputeEpochTests(unittest.TestCase):
         e=initialized()
         self.assertEqual(advance_compute_epoch(e,5511),5480)
         self.assertEqual(e.compute_epochs[0]['last_service_ps'],5000)
+
+    def test_batch_total_cannot_be_forged_with_otherwise_correct_events(self):
+        from dataclasses import asdict
+        e=initialized();e.compute_epoch_evidence='compact'
+        advance_compute_epoch(e,1000000)
+        initial=dict(kind='stream_compute',time_ps=1000,task='gemm',tile='c0',weight_bytes=64,scale_bytes=0,macs=64)
+        record=dict(graph=asdict(e.graph),spec=asdict(e.spec),events=[initial,*e.events],drained_ps=129000,quantum_ps=40,
+            compute_epoch=dict(schema=1,evidence='compact',intervals=e.compute_epochs,batched_compute_cycles=126))
+        proof=audit_compute_epoch_intervals(record)
+        self.assertEqual(proof['batched_compute_cycles'],126)
+        self.assertEqual(proof['omitted_boundaries'],159)
+        for mutate in (lambda r:r['compute_epoch'].update(batched_compute_cycles=127),
+                       lambda r:r['compute_epoch']['intervals'][0].update(consumed_before=0),
+                       lambda r:r['compute_epoch']['intervals'][0].update(last_service_ps=126000)):
+            bad=deepcopy(record);mutate(bad)
+            with self.assertRaises(ValueError):audit_compute_epoch_intervals(bad)

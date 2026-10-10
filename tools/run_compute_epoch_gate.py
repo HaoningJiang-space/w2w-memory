@@ -78,7 +78,7 @@ def worker(out,case,mode,binary):
 
 
 def analyze(root):
-    from w2w.validation.compute_epoch import expand_compute_epochs
+    from w2w.validation.compute_epoch import expand_compute_epochs,audit_compute_epoch_intervals
     from w2w.validation.vertical_access import audit_vertical_result
     from w2w.validation.request_control import audit_request_control
     from w2w.validation.rwdl_commands import audit_rwdl_commands
@@ -94,6 +94,14 @@ def analyze(root):
                 or row['binary_sha256']!=start['binary_sha256'] or row['bridge_sha256']!=start['bridge_sha256']):
             raise ValueError('Incomplete or changed worker')
         with gzip.open(path/'result.json.gz','rt') as stream:raw=json.load(stream)
+        interval_audit=audit_compute_epoch_intervals(raw)
+        if interval_audit['batched_compute_cycles']!=row['batched_compute_cycles']:
+            raise ValueError('Worker batch count differs from actual compute service')
+        row=dict(row,interval_audit=interval_audit)
+        expected_command=['taskset','-c','18,19',start['executable'],str(source/'tools/run_compute_epoch_gate.py'),
+            str(path),'--binary',start['binary'],'--worker',row['mode'],'--case',row['case']]
+        if process['command']!=expected_command or process['wall_seconds']<=0:
+            raise ValueError('Worker process identity differs')
         result=expand_compute_epochs(raw)
         audit_vertical_result(result);audit_request_control(result);audit_rwdl_commands(result,path/'commands')
         if result['makespan_ps']!=row['makespan_ps'] or result['kernel_iterations']!=row['kernel_iterations']:
@@ -118,6 +126,8 @@ def analyze(root):
         baseline=next((value,row) for value,row in items if row['mode']=='off')
         for value,row in items:
             if value!=baseline[0]:raise ValueError('Physical record differs: '+case+' '+row['mode'])
+            if row['kernel_iterations']+row['interval_audit']['omitted_boundaries']!=baseline[1]['kernel_iterations']:
+                raise ValueError('Kernel iteration reduction differs from certified clock boundaries')
             for key in ('endpoint_trace_sha256','endpoint_trace_counts','commands_sha256','input_sha256'):
                 if row[key]!=baseline[1][key]:raise ValueError('Native/input trace differs: '+key)
         checks.append(dict(case=case,physical_record_equal=True,native_commands_equal=True,endpoint_trace_equal=True,
