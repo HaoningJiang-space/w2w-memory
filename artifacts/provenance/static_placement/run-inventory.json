@@ -5,6 +5,26 @@
     "directory": "placement-cold-r3",
     "status": "complete-and-independently-audited"
   },
+  "concurrent_service": {
+    "directory": "concurrent-service-r1",
+    "execution_source_commit": "869f0acf50f7e26089a8c06e7d4a7df75b57c67a",
+    "identity_checker_source_commit": "e3316ee8ab9076eba75a977f2604ac18275ce0fd",
+    "makespan_ps": {
+      "s0": {
+        "phase-split": 502973000,
+        "reference": 581384000
+      },
+      "s1": {
+        "balanced": 569089000,
+        "hybrid": 604804000,
+        "phase-split": 456627000,
+        "reference": 580576000
+      }
+    },
+    "s0_reference_complete_record_equal": true,
+    "scope": "cold FFN only; paired projection schedule and full-catalog physical placement",
+    "status": "complete-and-independently-audited"
+  },
   "execution_source_commit": "47e68e5b5d26d499f3dc9dac06cbe2c29de805d2",
   "host": "ee4e072",
   "limits": [
@@ -29,6 +49,8 @@
       "hybrid": 12496369000,
       "reference": 13281470000
     },
+    "pressure_and_stage_status": "complete-and-independently-audited",
+    "pressure_stage_analysis_source_commit": "d35d2ad1db777a97a0890fdc4154c9777a627544",
     "status": "complete-and-independently-audited"
   },
   "native_build": {

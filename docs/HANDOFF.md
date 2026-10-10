@@ -111,9 +111,8 @@ all Hybrid down memory/offset/size identities and every unmoved object. It is
 an intervention, not an additional optimized policy. This does not support the
 earlier hypothesis that preserving local gate/up is Hybrid's principal benefit.
 Hybrid rerun matches every old physical result/event. `stage-monitor-r1` at
-`d35d2ad` checks the pair once/minute, audits/stage-analyzes it and verifies the
-Hybrid rerun against the old full physical record. Its second monitor waits for
-P4's original audit and then derives actual pressure and stage observations.
+`d35d2ad` completed both the pair audit/stage/migration gate and the P4
+pressure/stage reconstruction after the original P4 audit.
 Logs: `logs/stage-monitor-{gate-up,p4}-r1.log`; no automatic retries.
 
 New steering prioritizes dependency-aware memory concurrency. Source `869f0ac`
@@ -121,12 +120,28 @@ has tested S1: independent Gate/Up, previous-block barriers retained for both,
 two paid fetch slots, round-robin descriptors, unchanged shared issue/outstanding,
 MAC/read and two compute contexts. Phase-Split moves only Up to its adjacent
 same-row gateway, freezing Gate/Down addresses across the full catalog.
-`concurrent-service-r1` now runs six registered cold cases, max two at a time,
-with minute controller checks in `logs/concurrent-service-controller-r1.log`.
-Execution worktree: `execution-concurrent-service-r3`. After completion, audit
-the S0/S1 matrix, actual projection overlap, gateway service bins and final
-operand paths. Do not add S2, fragments or a larger matrix before this result.
-P4 remains untouched at `47e68e5`; subsequent cache traffic must be observed.
+`concurrent-service-r1` completed all six registered cold cases and independent
+stage audits; execution worktree is `execution-concurrent-service-r3`. S0
+Reference/Phase-Split are 581.384 / 502.973 µs; S1 Reference/Hybrid/Balanced/
+Phase-Split are 580.576 / 604.804 / 569.089 / 456.627 µs. Phase-Split improves
+over matched S1 Reference by 21.349%; enabling S1 improves its own S0 time by
+9.214%. The slower S1 Hybrid is retained. Identity proof at `e3316ee` checks
+mathematical work, frozen paired layouts, physical budgets, and exact allowed
+control changes. S0 Reference matches the complete old physical record.
+
+The [matrix mechanism report](reports/CONCURRENT_VERTICAL_SERVICE_REPORT.md)
+records final expert-62 block-8 projection joins: Reference 42.982 µs versus
+Phase-Split 21.927 µs. An earlier block release also contributes; Balanced has
+a roughly 22-µs final pair but arrives at it much later. Gate/Down temporal
+reuse within one block does not imply no conflict between different experts.
+No S2 or new hardware was introduced. S1/Phase-Split is still cold-only; P4
+confirms the separately frozen S0 Hybrid under observed finite-cache traffic.
+
+Transaction-level captures retain packet windows and aggregate executed hops,
+not per-flit hop timestamps. The read-only analyzer marks this; no absent trace
+is treated as a local route. Analysis/test-only worktree `analysis-concurrent-final-r1`
+at `807c62a` passed stage regressions and retained all gateway time series without
+new simulation. All study/monitor logs and raw hash-bound files remain archived.
 
 ## Limits
 

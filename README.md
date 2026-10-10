@@ -46,9 +46,12 @@ Reference/Hybrid confirmation takes **13.281470 / 12.496369 ms (5.91% reduction)
 with equal observed misses/reloads and a 4.78% late-window reduction.
 
 The [dependency-policy study](docs/reports/CONCURRENT_VERTICAL_SERVICE_REPORT.md)
-retains S0 and tests bounded independent Gate/Up fetch in S1. A small native
-Phase-Split probe improves only with S1 (17.794 → 11.556 µs); this is mechanism
-evidence. Full cold schedule comparisons remain in progress; P4 is complete.
+retains S0 and tests bounded independent Gate/Up fetch in S1. The independently
+audited full cold comparison takes **580.576 µs for S1 Reference and 456.627 µs
+for S1 Phase-Split (21.35% reduction)**. Phase-Split also improves under S0;
+Hybrid becomes slower under S1. Matrix placement and finite request scheduling
+interact, rather than overlap or uniform load automatically improving performance.
+This S1 result is cold-only; P4 confirms the separate S0 Hybrid policy.
 
 Builds, tests and execution run in isolated directories on `hn072`; edit source
 locally and synchronize committed revisions through Git. No sibling simulator

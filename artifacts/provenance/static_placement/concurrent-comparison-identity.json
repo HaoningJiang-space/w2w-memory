@@ -1,0 +1,31 @@
+{
+  "added_previous_block_up_barriers": 64,
+  "catalog_matrices": 4608,
+  "checker_source_commit": "e3316ee8ab9076eba75a977f2604ac18275ce0fd",
+  "contract": "Only projection dependency and paid bounded fetch/round-robin policy differ across S0/S1; identical mathematical work, compute placement, paired physical addresses and data resources. This is not an isolated graph-edge-only intervention or a silicon/PPA validation.",
+  "execution_source_commit": "869f0acf50f7e26089a8c06e7d4a7df75b57c67a",
+  "native_bytes": 151031808,
+  "paired_layouts": [
+    "phase-split",
+    "reference"
+  ],
+  "passed": true,
+  "physical_budget_sha256": "90ed39b5555c78ecb5c83d9f8be5a8963b5d4e65daf7fa2e9c4c9e8ea9e7ec62",
+  "physical_domains": 128,
+  "removed_gate_up_barriers": 96,
+  "s0_physical_record_migration": {
+    "allowed_differences": [
+      "source commit",
+      "native binary/config file identity",
+      "Python runtime file fingerprints"
+    ],
+    "drained_ps": 581426000,
+    "events": 2531259,
+    "makespan_ps": 581384000,
+    "passed": true,
+    "physical_record_equal": true
+  },
+  "schema": "w2w.concurrent-study-identity.v1",
+  "tasks": 490,
+  "work_sha256": "89b8345b26cb034df178bd42b096a49a20dd97c47550f7a98131a4710c9ba2bc"
+}

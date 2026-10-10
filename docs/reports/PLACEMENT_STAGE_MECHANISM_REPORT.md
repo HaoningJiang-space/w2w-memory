@@ -132,7 +132,10 @@ traffic counts; total native bytes are 2,265,477,120 and reload bytes 641,885,18
 on both sides. Subsequent cache traffic was observed, not forced equal. Both
 layers still reuse the same archived routing and remain an FFN-only timing proxy.
 See the [completed P4 report](SIMULATOR_PERFORMANCE_PLACEMENT_REPORT.md#p4-completed-multi-layer-confirmation).
-Additional pressure/stage reconstruction runs on these completed raw records.
+Additional pressure/stage reconstruction also passes on these completed raw
+records. [Pressure](../../artifacts/provenance/static_placement/multilayer-pressure-analysis.json)
+and [stage evidence](../../artifacts/provenance/static_placement/multilayer-stages.json)
+retain executed counters and exact task/context checks; phase sums overlap.
 
 The completed controlled cold pair uses `gate-up-ablation-r1` in the same
 isolated remote archive. Once/minute monitors audit each completed study and
@@ -140,7 +143,7 @@ reconstruct stages. Failed runs stop for inspection and are not automatically
 retried. Independent routing and physical-parameter sensitivity remain
 subsequent work; no large DSE is required by these registrations.
 
-## S1 and Phase-Split: frozen, running
+## S1 and Phase-Split: complete
 
 S0 retains historical Gate→Up and previous-block-accumulate→Gate control edges.
 S1 removes Gate→Up and keeps the previous-block barrier for **both** Gate and Up.
@@ -171,14 +174,18 @@ command/ACK, native bytes and complete drain. Dependency and existing native
 regressions pass. Gateway payload/busy time series use 1 µs fixed bins in the
 full study (0.1 µs in the probe); this records service without changing it and
 does not resolve every within-bin burst. Tail analysis follows the actual final
-prefix descriptor through request, native/gateway observations, recorded NoC
-links, SRAM delivery and compute.
+prefix descriptor through request, native/gateway observations, packet windows,
+SRAM delivery and compute. These transaction captures retain aggregate actual
+hops but no individual flit-hop timestamps; missing link lists are not local paths.
 
 Execution source is `869f0ac`. `concurrent-service-r1` registers S0 Reference /
 Phase-Split and S1 Reference / Hybrid / Balanced / Phase-Split. Six full cold
-executions run at most two at a time, with minute monitoring, independent audits
-and an S0 Reference migration gate. Old S0 Hybrid/Balanced evidence remains frozen.
-No final S1 ranking is claimed before completions. See
+executions completed, with minute monitoring, independent audits and an S0
+Reference migration gate. Old S0 Hybrid/Balanced evidence remains frozen.
+S1 Reference / Hybrid / Balanced / Phase-Split finish at 580.576 / 604.804 /
+569.089 / 456.627 µs. The [matrix mechanism report](CONCURRENT_VERTICAL_SERVICE_REPORT.md)
+explains the matched projection join, earlier block release and actual gateway
+service, while retaining the slower S1 Hybrid result. See
 [S0 registration](../../artifacts/provenance/static_placement/concurrent-s0-registration.json),
 [S1 registration](../../artifacts/provenance/static_placement/concurrent-s1-registration.json)
 and [launch](../../artifacts/provenance/static_placement/concurrent-launch.json).
