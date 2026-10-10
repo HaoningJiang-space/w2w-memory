@@ -69,11 +69,15 @@ def worker(out,case,binary):
         if active[0]:current[name]+=value
     request=OnlineBookSim._request
     def rpc(self,row):
-        count('network_rpc_'+row['command']);reply=request(self,row)
+        count('network_api_'+row['command']);reply=request(self,row)
         for item in reply.get('progress',()):count('network_'+item['event'])
         count('network_completed',len(reply.get('completed',())))
         return reply
     OnlineBookSim._request=rpc
+    receive=OnlineBookSim._receive
+    def wire(self):
+        count('network_wire_reply');return receive(self)
+    OnlineBookSim._receive=wire
     def counted(cls,name,prefix):
         function=getattr(cls,name)
         def call(self,*args,**kwargs):
@@ -134,6 +138,11 @@ def worker(out,case,binary):
         classification['quiet_with_compute_service']+=quiet and bool(compute)
         classification['quiet_without_compute_service']+=quiet and not compute
         classification['potential_active_array_gap']+=not row['gap_blockers']
+        classification['with_array_callback']+=bool(calls.get('array_callbacks'))
+        classification['with_gateway_ready']+=bool(calls.get('gateway_ready_atoms'))
+        classification['with_network_progress']+=bool(calls.get('network_inject') or calls.get('network_receive') or calls.get('network_completed'))
+        classification['empty_advance_reply']+=bool(calls.get('network_api_advance') and not (
+            calls.get('network_inject') or calls.get('network_receive') or calls.get('network_completed')))
         blockers.update(row['gap_blockers'])
     with gzip.open(out/'wakeups.json.gz','wt') as stream:json.dump(rows,stream)
     write(out/'CENSUS.json',dict(complete=True,case=case,source_commit=subprocess.check_output(

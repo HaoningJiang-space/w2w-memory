@@ -48,7 +48,8 @@ class CausalBoundary:
             run.last_seen=last
             e.interactive_compute.bulk_services+=n
         self.intervals.append(dict(start_ps=e.now,resume_ps=stop,limit_ps=limit,task=run.task,
-            first_service_ps=first,bulk_services=n,active_array=True))
+            first_service_ps=first,bulk_services=n,active_array=True,
+            native_cycle=native.backend.native_cycle,native_callbacks=len(native.backend.prefetched)))
         return stop
 
     def record(self):

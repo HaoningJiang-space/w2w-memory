@@ -13,16 +13,22 @@ def audit_causal_boundary(raw):
     services={(e['task'],e['time_ps']) for e in result['events'] if e['kind']=='stream_compute' and e['weight_bytes']}
     total=0;omitted=set();previous=-1
     for row in meta['intervals']:
-        if set(row)!={'start_ps','resume_ps','limit_ps','task','first_service_ps','bulk_services','active_array'}:
+        if set(row)!={'start_ps','resume_ps','limit_ps','task','first_service_ps','bulk_services','active_array',
+                     'native_cycle','native_callbacks'}:
             raise ValueError('Invalid coordination interval')
         start,stop=row['start_ps'],row['resume_ps']
         if row['task'] not in tasks:raise ValueError('Unknown coordinated task')
         period=tiles[tasks[row['task']]['tile']]['compute_period_ps']
         n=len(range(start+period,stop,period))
+        dram=result['spec']['dram_period_ps'];callbacks=row['native_callbacks'];cycle=row['native_cycle']
         if (not previous<=start<stop<=row['limit_ps']<=result['drained_ps']
                 or start%period or stop%result['quantum_ps'] or row['first_service_ps']!=start+period
                 or row['bulk_services']!=n or row['active_array'] is not True):
             raise ValueError('Coordination crosses time/service bounds')
+        if (type(callbacks) is not int or callbacks<0 or type(cycle) is not int or cycle<0
+                or callbacks and stop!=cycle*dram
+                or not callbacks and (stop!=row['limit_ps'] or cycle!=stop//dram)):
+            raise ValueError('Resume differs from first callback or certified cap')
         for at in range(start+period,stop,period):
             if (row['task'],at) not in services:raise ValueError('Missing bulk compute service')
         quantum=result['quantum_ps']
