@@ -25,7 +25,7 @@ def inputs(case):
     count,reuse={'stable':(65536,4096),'tail':(8224,5461),'release':(65536,4096),'transport':(8192,1)}[case]
     profile=spec.stack.compute_clusters[0].profile
     obj=ResidentObject('W','m0_0',0,count+32)
-    task=ComputeTask('gemm','c0',0,(ReadAccess('W',count,32),ReadAccess('W',0,count)),
+    task=ComputeTask('gemm','c3',0,(ReadAccess('W',count,32),ReadAccess('W',0,count)),
         stream=StreamGemm('W',count,32,count*reuse,profile.macs_per_cycle,profile.weight_read_bytes_per_cycle))
     tasks=(task,ComputeTask('release','c1',1,release_ps=5_000_501)) if case=='release' else (task,)
     return spec,ExecutionGraph(tasks,(obj,))
