@@ -1,0 +1,57 @@
+{
+  "ACCEPTED_ENVIRONMENT.json": {
+    "bytes": 941,
+    "remote_path": "/Projects/haoning/w2w-full-system-compute-epoch-20261010/ACCEPTED_ENVIRONMENT.json",
+    "sha256": "b7180a39636effbe1f5a1b6a823199a9c329e3f4a6b38ee55d789cfd82c6ca11"
+  },
+  "COMPLETE.json": {
+    "bytes": 258928,
+    "remote_path": "/Projects/haoning/w2w-full-system-compute-epoch-20261010/gate-002/COMPLETE.json",
+    "sha256": "306ec1b2a55b3dd0e771479254e0812fd8f2dc30a07ff625e298920a021e737b"
+  },
+  "ENVIRONMENT.json": {
+    "bytes": 254,
+    "remote_path": "/Projects/haoning/w2w-full-system-compute-epoch-20261010/ENVIRONMENT.json",
+    "sha256": "77f3b9f3d175cfd1aacdf5180285f23f2def5a0ca24353057d024453d937baaf"
+  },
+  "FABRIC_FANOUT.json": {
+    "bytes": 429263,
+    "remote_path": "/Projects/haoning/w2w-full-system-compute-epoch-20261010/FABRIC_FANOUT.json",
+    "sha256": "7c165241581c47d051a6e66b3ee968bb376c6f7cd0be070cf3419005a6e3b181"
+  },
+  "NATIVE_BUILD.json": {
+    "bytes": 2819,
+    "remote_path": "/Projects/haoning/w2w-full-system-compute-epoch-20261010/native-dram/build-manifest.json",
+    "sha256": "eb89277483835e7054748a4c4736cc9101220c9098e9922633614712a7e94ef1"
+  },
+  "STARTED.json": {
+    "bytes": 10187,
+    "remote_path": "/Projects/haoning/w2w-full-system-compute-epoch-20261010/gate-002/STARTED.json",
+    "sha256": "b5a68b426f787b178046802b392ed14bbfef045dc02043cf2058956c211d2c63"
+  },
+  "SUPPLEMENTAL.json": {
+    "bytes": 1131,
+    "remote_path": "/Projects/haoning/w2w-full-system-compute-epoch-20261010/SUPPLEMENTAL.json",
+    "sha256": "17419b993ab4c2c0c7ad4f4a5cb0272153e61f03c3c4b6e34137d9a05d918968"
+  },
+  "VERIFIED.json": {
+    "bytes": 1912,
+    "remote_path": "/Projects/haoning/w2w-full-system-compute-epoch-20261010/gate-002/VERIFIED.json",
+    "sha256": "06916a287234bdd0d9e8921fb7065371d41e635aa73aaefbc2ad21ebbfa4b271"
+  },
+  "readback.log": {
+    "bytes": 47,
+    "remote_path": "/Projects/haoning/w2w-full-system-compute-epoch-20261010/supplemental-readback-002.log",
+    "sha256": "bb0e49c34fbd8eb7bfa7d6f7e2425de721c665eebb447d6ba0bfb7e059e24e42"
+  },
+  "tests-full.log": {
+    "bytes": 3979,
+    "remote_path": "/Projects/haoning/w2w-full-system-compute-epoch-20261010/tests-002.log",
+    "sha256": "7c98777c9a5efdff998b62630d826dbc1819d073fb72d815dab8ee159b3d9fc2"
+  },
+  "tests-targeted.log": {
+    "bytes": 814,
+    "remote_path": "/Projects/haoning/w2w-full-system-compute-epoch-20261010/tests-004.log",
+    "sha256": "ce1d73b4f22efe37896589e00ea4901a09887f062de319d0e9d6a0b6efacc9bd"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "host": "ee4e072",
+  "platform": "Linux-6.8.0-40-generic-x86_64-with-glibc2.35",
+  "libc": [
+    "glibc",
+    "2.35"
+  ],
+  "booksim_reuse": {
+    "manifest": "/Projects/haoning/w2w-full-system-performance-placement-20261010/native-fast-r1/build-manifest.json",
+    "manifest_sha256": "6b7fcabc0f30a54222783710167e3604800765d3430da64684880c22d3717cdc",
+    "outputs": {
+      "booksim": {
+        "path": "/Projects/haoning/w2w-full-system-performance-placement-20261010/native-fast-r1/booksim/endpoint_booksim",
+        "sha256": "9d18611aa0cc74b6d8a475e302134c7888b1417648607abce3a6f8d04311e308"
+      }
+    },
+    "checked_source_files": 155,
+    "all_registered_inputs_matched": true
+  },
+  "dram_build_manifest_sha256": "eb89277483835e7054748a4c4736cc9101220c9098e9922633614712a7e94ef1",
+  "refresh_enabled": true,
+  "affinity": [
+    18,
+    19
+  ],
+  "scope": "accepted small native gate; old incompatible DRAM bridge excluded"
+}

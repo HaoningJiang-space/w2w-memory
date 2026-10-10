@@ -1,0 +1,77 @@
+{
+  "cases": [
+    {
+      "batched_compute_cycles": 14256,
+      "case": "release",
+      "drained_ps": 17696000,
+      "endpoint_trace_equal": true,
+      "iterations": {
+        "compact": 4320,
+        "full": 4320,
+        "off": 22216
+      },
+      "makespan_ps": 17696000,
+      "native_commands_equal": true,
+      "physical_record_equal": true
+    },
+    {
+      "batched_compute_cycles": 14258,
+      "case": "stable",
+      "drained_ps": 17696000,
+      "endpoint_trace_equal": true,
+      "iterations": {
+        "compact": 4316,
+        "full": 4316,
+        "off": 22215
+      },
+      "makespan_ps": 17696000,
+      "native_commands_equal": true,
+      "physical_record_equal": true
+    },
+    {
+      "batched_compute_cycles": 2683,
+      "case": "tail",
+      "drained_ps": 4179000,
+      "endpoint_trace_equal": true,
+      "iterations": {
+        "compact": 1879,
+        "full": 1879,
+        "off": 5247
+      },
+      "makespan_ps": 4179000,
+      "native_commands_equal": true,
+      "physical_record_equal": true
+    },
+    {
+      "batched_compute_cycles": 0,
+      "case": "transport",
+      "drained_ps": 1490000,
+      "endpoint_trace_equal": true,
+      "iterations": {
+        "compact": 1872,
+        "full": 1872,
+        "off": 1872
+      },
+      "makespan_ps": 1433000,
+      "native_commands_equal": true,
+      "physical_record_equal": true
+    }
+  ],
+  "costs": {
+    "compact": {
+      "execution_seconds_median": 0.6562952622771263,
+      "worker_wall_seconds_median": 1.0018001850694418
+    },
+    "full": {
+      "execution_seconds_median": 0.6356143113225698,
+      "worker_wall_seconds_median": 1.0923187686130404
+    },
+    "off": {
+      "execution_seconds_median": 1.0706431749276817,
+      "worker_wall_seconds_median": 1.552748295944184
+    }
+  },
+  "passed": true,
+  "scope": "fixed small native system cases; no FFN/placement speedup claim",
+  "workers": 18
+}

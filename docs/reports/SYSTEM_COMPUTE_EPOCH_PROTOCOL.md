@@ -5,6 +5,11 @@ kernel, full-activation start rule, per-consumer unicast, physical machine,
 BookSim and Ramulator. The switch defaults off. No G2.2/G2.3 or multicast backend
 is introduced by this experiment.
 
+The first restricted gate is now accepted in
+[SYSTEM_COMPUTE_EPOCH_REPORT](SYSTEM_COMPUTE_EPOCH_REPORT.md); its native results
+and supplemental readback have separate pinned sources. This protocol remains
+the scope for subsequent changes, not a full FFN accuracy/performance claim.
+
 This first transition requires one running streaming context, all weight and
 scale bytes committed, no live task read/transport/control/MC reservations, and
 an explicit quiescent-memory capability. It stops before releases, the explicit
