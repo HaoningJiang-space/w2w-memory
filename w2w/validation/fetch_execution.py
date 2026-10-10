@@ -6,7 +6,9 @@ def audit_fetch_execution(result):
     policy=result.get('fetch_execution')
     if policy is None:return None
     if policy['metadata_bytes_per_cluster']!=policy['contexts_per_cluster']*64+8:raise ValueError('Unpaid fetch selector state')
-    tasks={t['id']:t for t in result['graph']['tasks']};live=defaultdict(set);peak=Counter();read=Counter()
+    split=policy.get('lifetime_policy','until_operands')=='issue_only'
+    if split and not policy.get('return_tracking'):raise ValueError('Issue-only state has no finite return table')
+    tasks={t['id']:t for t in result['graph']['tasks']};live=defaultdict(set);peak=Counter();read=Counter();issued=Counter()
     requests={};outstanding=Counter();out_peak=Counter();issue=Counter();funding=defaultdict(list)
     for event in result['events']:
         kind=event['kind'];key=event.get('task');at=event['time_ps']
@@ -20,6 +22,7 @@ def audit_fetch_execution(result):
             tile=tasks[key]['tile']
             if key not in live[tile]:raise ValueError('Read issued without bounded fetch ownership')
             requests[event['request']]=key;outstanding[tile]+=1;out_peak[tile]=max(out_peak[tile],outstanding[tile]);issue[tile,at]+=1
+            issued[key]+=event['bytes']
             if outstanding[tile]>result['spec']['outstanding_per_tile'] or issue[tile,at]>result['spec']['read_requests_per_tile_cycle']:
                 raise ValueError('Shared read issue or outstanding limit exceeded')
         elif kind=='read_deliver':
@@ -27,13 +30,17 @@ def audit_fetch_execution(result):
         elif kind=='cache_operands_ready':read[key]+=event['bytes']
         elif kind=='fetch_context_release':
             tile=tasks[key]['tile']
-            if key not in live[tile] or read[key]!=sum(r['size_bytes'] for r in tasks[key]['reads']):raise ValueError('Fetch state released before complete operands')
+            completed=issued[key] if split else read[key]
+            if key not in live[tile] or completed!=sum(r['size_bytes'] for r in tasks[key]['reads']):raise ValueError('Fetch state released before its declared lifetime boundary')
             live[tile].remove(key)
     if any(live.values()) or any(outstanding.values()) or policy['live_contexts'] or dict(peak)!=policy['peak_contexts']:
         raise ValueError('Fetch state or requester lifecycle did not drain')
     for tile in (t['id'] for t in result['spec']['tiles']):
         if funding[tile]!=[policy['metadata_bytes_per_cluster'],-policy['metadata_bytes_per_cluster']]:raise ValueError('Fetch state was not reserved inside existing SRAM')
     if dict(out_peak)!=result['outstanding_peak']:raise ValueError('Independent outstanding peak differs')
+    if split:
+        from .return_tracking import audit_return_tracking
+        audit_return_tracking(result)
     return dict(passed=True,contexts_per_cluster=policy['contexts_per_cluster'],peak_contexts=dict(peak),
         metadata_bytes_per_cluster=policy['metadata_bytes_per_cluster'],issue_and_outstanding_shared=True)
 

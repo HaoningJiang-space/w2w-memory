@@ -17,7 +17,9 @@ from w2w.system.builder import SystemBuilder
 
 class SystemExecution:
     def __init__(self, spec, graph, native=None, *, network_factory=None,
-                 activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count',fetch_contexts=0,read_issue_policy='ordered',compute_epoch=False,compute_epoch_evidence='full',interactive_compute=False,interactive_compute_evidence='full',causal_boundary=False):
+                 activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count',fetch_contexts=0,read_issue_policy='ordered',compute_epoch=False,compute_epoch_evidence='full',interactive_compute=False,interactive_compute_evidence='full',causal_boundary=False,return_contexts=0):
+        if type(return_contexts) is not int or not 0<=return_contexts<=8 or return_contexts and (not fetch_contexts or weight_cache):
+            raise ValueError('Split-phase gate requires finite issue contexts, 0..8 return entries, and cold operands')
         self.spec, self.graph = spec, graph
         self.builder = SystemBuilder(spec).validate_graph(graph)
         self.events = [];self.event_observer=event_observer
@@ -106,11 +108,12 @@ class SystemExecution:
             raise ValueError('Round-robin issue requires finite fetch contexts')
         self.fetch_contexts=fetch_contexts;self.read_issue_policy=read_issue_policy
         from w2w.system.fetch_scheduler import FetchScheduler
-        self.fetch_scheduler=FetchScheduler(self,fetch_contexts,read_issue_policy)
+        self.fetch_scheduler=FetchScheduler(self,fetch_contexts,read_issue_policy,return_contexts)
         self.fetch_live=self.fetch_scheduler.live;self.fetch_peak=self.fetch_scheduler.peak;self.issue_cursor=self.fetch_scheduler.cursor
         self.fetch_metadata_bytes=self.fetch_scheduler.metadata_bytes
         for tile in self.builder.tiles:
             if self.fetch_metadata_bytes:self._sram(tile,self.fetch_metadata_bytes,'fetch-context-state')
+            if self.fetch_scheduler.returns:self._sram(tile,self.fetch_scheduler.returns.metadata_bytes,'return-tracker-state')
         self.context_metadata_bytes=(compute_contexts-1)*64
         for tile in self.builder.tiles:
             if self.context_metadata_bytes:self._sram(tile,self.context_metadata_bytes,'compute-context-state')
@@ -186,6 +189,7 @@ class SystemExecution:
                          memory=req.memory, bank=req.bank, word_address=req.word_address,
                          receive_service=(self.network.packet_metrics(packet.id)
                             if hasattr(self.network,'packet_metrics') else None))
+                self.fetch_scheduler.return_commit(key)
                 if stream is not None:
                     self.log('stream_operand_ready',task=req.task,request=key,object=req.object_id,
                         object_offset=req.object_offset,bytes=req.size_bytes)
@@ -589,6 +593,10 @@ class SystemExecution:
                 if self.context_metadata_bytes:
                     for tile in self.builder.tiles:self._sram(tile,-self.context_metadata_bytes,'compute-context-state')
                 if self.fetch_metadata_bytes:
+                    if self.fetch_scheduler.returns:
+                        if any(self.fetch_scheduler.returns.live.values()) or self.fetch_scheduler.returns.bindings:
+                            raise RuntimeError('Split-phase return state did not drain')
+                        for tile in self.builder.tiles:self._sram(tile,-self.fetch_scheduler.returns.metadata_bytes,'return-tracker-state')
                     if any(self.fetch_live.values()):raise RuntimeError('Completed with live fetch contexts')
                     for tile in self.builder.tiles:self._sram(tile,-self.fetch_metadata_bytes,'fetch-context-state')
                 if self.weight_cache:
@@ -641,14 +649,17 @@ class SystemExecution:
         if self.fetch_contexts:record['fetch_execution']=dict(contexts_per_cluster=self.fetch_contexts,peak_contexts=dict(self.fetch_peak),
             live_contexts=sum(map(len,self.fetch_live.values())),metadata_bytes_per_cluster=self.fetch_metadata_bytes,read_issue_policy=self.read_issue_policy,
             contract='64 B/matrix fetch slot plus 8 B shared selector, inside original SRAM; round-robin descriptors share original issue and outstanding limits; full matrix storage still reserved')
+        if self.fetch_scheduler.returns:
+            record['fetch_execution']['lifetime_policy']='issue_only'
+            record['fetch_execution']['return_tracking']=self.fetch_scheduler.returns.record()
         record['input_sha256'] = sha256(json.dumps([record['spec'], record['graph']], sort_keys=True).encode()).hexdigest()
         return record
 
 
 def execute_system(spec, graph, *, native=None, network_factory=None, max_ps=10_000_000,
-                   time_advance='gcd',activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count',fetch_contexts=0,read_issue_policy='ordered',compute_epoch=False,compute_epoch_evidence='full',interactive_compute=False,interactive_compute_evidence='full',causal_boundary=False):
+                   time_advance='gcd',activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count',fetch_contexts=0,read_issue_policy='ordered',compute_epoch=False,compute_epoch_evidence='full',interactive_compute=False,interactive_compute_evidence='full',causal_boundary=False,return_contexts=0):
     execution = SystemExecution(spec, graph, native, network_factory=network_factory,
-                                activation_sram_read_bytes_per_cycle=activation_sram_read_bytes_per_cycle,compute_contexts=compute_contexts,weight_cache=weight_cache,event_observer=event_observer,operand_readiness=operand_readiness,fetch_contexts=fetch_contexts,read_issue_policy=read_issue_policy,compute_epoch=compute_epoch,compute_epoch_evidence=compute_epoch_evidence,interactive_compute=interactive_compute,interactive_compute_evidence=interactive_compute_evidence,causal_boundary=causal_boundary)
+                                activation_sram_read_bytes_per_cycle=activation_sram_read_bytes_per_cycle,compute_contexts=compute_contexts,weight_cache=weight_cache,event_observer=event_observer,operand_readiness=operand_readiness,fetch_contexts=fetch_contexts,read_issue_policy=read_issue_policy,compute_epoch=compute_epoch,compute_epoch_evidence=compute_epoch_evidence,interactive_compute=interactive_compute,interactive_compute_evidence=interactive_compute_evidence,causal_boundary=causal_boundary,return_contexts=return_contexts)
     try:
         return execution.run(max_ps,time_advance=time_advance)
     except BaseException:
