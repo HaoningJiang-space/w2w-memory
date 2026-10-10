@@ -24,7 +24,7 @@ from w2w.validation.request_control import audit_request_control
 
 
 def inputs(policy,mode,execution='s0'):
-    if execution not in ('s0','s1') or (execution=='s1' and mode!='cold'):raise ValueError('S1 currently supports the explicit cold FFN study')
+    if execution not in ('s0','s1'):raise ValueError('Unknown FFN dependency policy')
     machine=compile_machine(from_recipe('configs/machine/v3-small.json','distributed'))
     logical=load_workload('configs/workloads/c0_b1.json')
     reference=static_weights(logical,machine.stack,'reference');weights=static_weights(logical,machine.stack,policy)
@@ -36,7 +36,7 @@ def inputs(policy,mode,execution='s0'):
         catalog=build_moe((routing['token_experts'][0],),**routing['shape'])
         reference=static_weights(catalog,machine.stack,'reference');weights=static_weights(catalog,machine.stack,policy)
         graph,meta,preload=lower_sequence(routing['token_experts'],machine,layers=routing['layers'],shape=routing['shape'],
-            weight_layout=weights,compute_reference=reference)
+            weight_layout=weights,compute_reference=reference,execution_policy=execution)
         cache=WeightCacheConfig(initial_resident=preload)
         if meta['active_unique_weight_bytes']<=sum(t.sram_bytes for t in machine.tiles):raise ValueError('Multilayer working set does not exceed physical SRAM')
     else:raise ValueError('Unknown placement workload mode')

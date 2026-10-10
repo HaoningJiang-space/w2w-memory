@@ -10,6 +10,22 @@ from w2w.mapping.lowering import lower
 
 
 class DependencyPolicy(unittest.TestCase):
+    def test_sequence_keeps_layer_storage_preload_and_sequence_barriers(self):
+        from w2w.mapping.sequence import lower_sequence
+        spec=compile_machine(vertical_memory());shape=dict(experts=4,topk=1,hidden=1024,intermediate=1536)
+        tokens=((0,),(1,))
+        a,ma,pa=lower_sequence(tokens,spec,shape=shape)
+        b,mb,pb=lower_sequence(tokens,spec,shape=shape,execution_policy='s1')
+        self.assertEqual(a.tasks,b.tasks);self.assertEqual(a.objects,b.objects);self.assertEqual(a.data,b.data)
+        self.assertEqual(pa,pb)
+        for key in ma:self.assertEqual(ma[key],mb[key])
+        controls={(e.producer,e.consumer) for e in b.control}
+        self.assertIn(('I0001/t0/combine','I0002/t0/input'),controls)
+        self.assertIn(('I0000/e0/b0/accumulate','I0000/e0/b1/up'),controls)
+        self.assertNotIn(('I0000/e0/b0/gate','I0000/e0/b0/up'),controls)
+        for key in ('macs','vector_ops','catalog_weight_bytes','active_unique_weight_bytes'):
+            self.assertEqual(ma[key],mb[key])
+
     def test_independent_projections_keep_block_and_mathematical_dependencies(self):
         spec=compile_machine(vertical_memory());logical=build_moe(((0,),),experts=4,topk=1)
         weights=static_weights(logical,spec.stack,'reference');placement=place_compute(logical,spec.stack,weights)
@@ -33,6 +49,39 @@ class DependencyPolicy(unittest.TestCase):
 
 @unittest.skipUnless(os.getenv('W2W_BOOKSIM_BINARY') and os.getenv('W2W_RAMULATOR_BRIDGE'),'Native tools required')
 class ConcurrentRuntime(unittest.TestCase):
+    def test_sequence_hits_and_reloads_release_bounded_fetch_state(self):
+        from w2w.mapping.sequence import lower_sequence
+        from w2w.backends.ramulator import VerticalRWDL
+        from w2w.backends.booksim.adapter import factory
+        from w2w.system.kernel import execute_system
+        from w2w.system.weight_cache import WeightCacheConfig
+        from w2w.validation.vertical_access import audit_vertical_result
+        from w2w.validation.request_control import audit_request_control
+        spec=compile_machine(vertical_memory());shape=dict(experts=4,topk=1,hidden=1024,intermediate=512)
+        catalog=build_moe(((0,),),**shape);anchor=static_weights(catalog,spec.stack,'reference')
+        for policy in ('reference','phase-split'):
+            weights=static_weights(catalog,spec.stack,policy)
+            graph,meta,preload=lower_sequence(((0,),(1,),(0,)),spec,shape=shape,weight_layout=weights,
+                compute_reference=anchor,execution_policy='s1')
+            preload=tuple((tile,name) for tile,name in preload if '/e0/' in name)
+            cache=WeightCacheConfig(data_bytes_per_cluster=512*1024,initial_resident=preload)
+            native=VerticalRWDL(spec,refresh=True,request_control=True)
+            try:
+                with tempfile.TemporaryDirectory() as d:
+                    result=execute_system(spec,graph,native=native,compute_contexts=2,fetch_contexts=2,
+                        read_issue_policy='round_robin',weight_cache=cache,operand_readiness='contiguous_prefix',
+                        activation_sram_read_bytes_per_cycle=128,time_advance='boundaries',max_ps=1000000000,
+                        network_factory=factory(binary=Path(os.environ['W2W_BOOKSIM_BINARY']),directory=Path(d)/'network',
+                            ready_router_ids=tuple(r.id for r in spec.routers),ready_slots=16))
+                    self.assertTrue(audit_vertical_result(result)['passed'])
+                    self.assertTrue(audit_request_control(result)['passed'])
+                    stats=result['weight_cache']['stats']
+                    self.assertGreater(stats.get('hits',0),0);self.assertGreater(stats.get('evictions',0),0)
+                    self.assertGreater(stats.get('reload_bytes',0),0)
+                    self.assertEqual(result['fetch_execution']['live_contexts'],0)
+                    self.assertEqual(sum(e.get('macs',0) for e in result['events'] if e['kind']=='stream_compute'),meta['macs'])
+            finally:native.close()
+
     def test_small_phase_split_has_overlapping_fetch_and_shared_ports(self):
         from w2w.backends.ramulator import VerticalRWDL
         from w2w.backends.booksim.adapter import factory

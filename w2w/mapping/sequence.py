@@ -8,7 +8,8 @@ from .compute_placement import place_compute,weight_compute_clusters
 from .lowering import lower
 
 
-def lower_sequence(tokens,machine,*,layers=2,shape=None,weight_layout=None,compute_reference=None):
+def lower_sequence(tokens,machine,*,layers=2,shape=None,weight_layout=None,compute_reference=None,execution_policy='s0'):
+    if execution_policy not in ('s0','s1'):raise ValueError('Unknown FFN dependency policy')
     shape=shape or {}
     catalog=build_moe((tokens[0],),**shape)
     weights=place_weights(catalog,machine.stack) if weight_layout is None else tuple(weight_layout)
@@ -36,7 +37,7 @@ def lower_sequence(tokens,machine,*,layers=2,shape=None,weight_layout=None,compu
             # Sequential single-token requests originate at distributed clusters.
             source=machine.stack.compute_clusters[token%len(machine.stack.compute_clusters)].id
             placement=tuple(replace(p,cluster=source) if p.operation.startswith('t0/') else p for p in placement)
-            graph,meta=lower(logical,machine,weights,placement)
+            graph,meta=lower(logical,machine,weights,placement,execution_policy=execution_policy)
             prefix=f'I{sequence:04d}/';sequence+=1
             rename=lambda name:prefix+name
             obj=lambda name:f'L{layer}/'+name
@@ -67,4 +68,6 @@ def lower_sequence(tokens,machine,*,layers=2,shape=None,weight_layout=None,compu
         initial_resident_bytes=sum(w.size_bytes for w in weights),
         initial_resident_bytes_by_cluster=dict(Counter({c:sum(w.size_bytes for w in weights if clusters[w.tensor]==c) for c in set(clusters.values())})),
         scope='FFN-only sequential token proxy; independent layer weight addresses; same archived routing reused at each layer; no attention/norm/residual or numerical inference')
+    if execution_policy=='s1':
+        metadata['dependency_policy']='independent gate/up; both wait for previous block accumulate; layer/token barriers and ordered accumulation unchanged'
     return graph,metadata,preload
