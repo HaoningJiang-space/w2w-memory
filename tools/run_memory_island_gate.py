@@ -99,7 +99,8 @@ def analyze(root):
             raise ValueError('Worker process identity differs')
         result=raw
         audit_vertical_result(result);audit_request_control(result);audit_rwdl_commands(result,path/'commands')
-        if result['makespan_ps']!=row['makespan_ps'] or result['kernel_iterations']!=row['kernel_iterations']:
+        if (result['makespan_ps']!=row['makespan_ps'] or result['drained_ps']!=row['drained_ps']
+                or result['kernel_iterations']!=row['kernel_iterations'] or len(result['events'])!=row['stored_events']):
             raise ValueError('Worker summary differs from raw result')
         actual_input=read(path/'input.json')
         from tools.memory_island_inputs import inputs
@@ -111,6 +112,7 @@ def analyze(root):
         for file in sorted(path.glob('commands.ch*')):commands.update(file.name.encode());commands.update(file.read_bytes())
         if commands.hexdigest()!=row['commands_sha256']:raise ValueError('Changed native command evidence')
         semantic=canonical(result);semantic.pop('kernel_iterations');semantic.pop('memory_island',None)
+        row['wakes']=wakes
         groups.setdefault(row['case'],[]).append((semantic,row))
         rows.append(dict(row,worker_wall_seconds=process['wall_seconds']))
     expected={(case,rep,mode) for case in ('continuous','pressure','inserted')
@@ -120,10 +122,18 @@ def analyze(root):
     checks=[]
     for case,items in groups.items():
         baseline=next((value,row) for value,row in items if row['mode']=='off')
+        r=baseline[0];periods={r['spec']['noc_period_ps'],r['spec']['dram_period_ps'],*(t['compute_period_ps'] for t in r['spec']['tiles'])}
+        clocks=sorted({at for p in periods for at in range(0,r['drained_ps']+1,p)})
+        if baseline[1]['wakes']!=clocks:raise ValueError('Ordinary clock union differs')
         for value,row in items:
             if value!=baseline[0]:raise ValueError('Physical record differs: '+case+' '+row['mode'])
             for key in ('endpoint_trace_sha256','endpoint_trace_counts','commands_sha256','input_sha256'):
                 if row[key]!=baseline[1][key]:raise ValueError('Native/input trace differs: '+key)
+            if row['mode']=='native' and row['wakes']!=clocks:raise ValueError('Port-only control skipped clocks')
+            if row['mode']=='coordinated':
+                omitted=set(clocks)-set(row['wakes'])
+                if set(row['wakes'])-set(clocks) or any(at%r['spec']['noc_period_ps']==0 for at in omitted):
+                    raise ValueError('Island skipped an external NoC/compute boundary')
         checks.append(dict(case=case,physical_record_equal=True,native_commands_equal=True,endpoint_trace_equal=True,
             makespan_ps=baseline[1]['makespan_ps'],drained_ps=baseline[1]['drained_ps'],
             iterations={mode:next(row['kernel_iterations'] for _,row in items if row['mode']==mode) for mode in ('off','native','coordinated')},
@@ -134,7 +144,10 @@ def analyze(root):
         python_cpu_seconds_median=statistics.median(row['python_cpu_seconds'] for row in rows if row['case']=='continuous' and row['mode']==mode),
         peak_rss_kib_median=statistics.median(row['peak_rss_kib'] for row in rows if row['case']=='continuous' and row['mode']==mode),
         stored_events=next(row['stored_events'] for row in rows if row['case']=='continuous' and row['mode']==mode)) for mode in ('off','native','coordinated')}
-    verified=dict(passed=True,cases=checks,costs=costs,workers=len(rows),scope='fixed small native system cases; no FFN/placement speedup claim')
+    case_costs={case:{mode:{field:statistics.median(row[field] for row in rows if row['case']==case and row['mode']==mode)
+        for field in ('worker_wall_seconds','execution_wall_seconds','python_cpu_seconds','booksim_child_cpu_seconds','peak_rss_kib')}
+        for mode in ('off','native','coordinated')} for case in ('continuous','pressure','inserted')}
+    verified=dict(passed=True,cases=checks,costs=costs,case_costs=case_costs,workers=len(rows),scope='fixed small native system cases; no FFN/placement speedup claim')
     if (root/'VERIFIED.json').exists():
         if read(root/'VERIFIED.json')!=verified:raise ValueError('Saved verification differs from independent readback')
         manifest=read(root/'COMPLETE.json')

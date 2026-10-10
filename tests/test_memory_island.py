@@ -52,7 +52,14 @@ class MemoryIslandTests(unittest.TestCase):
                     self.assertEqual(expected_ready,actual_ready)
                     self.assertEqual(completed[0],completed[1])
                     self.assertEqual(expected_events,actual_events)
-                    self.assertEqual(normal.record(),island.record())
+                    records=[normal.record(),island.record()]
+                    # Command files intentionally have different destinations;
+                    # all service/config fields and upstream stats remain equal.
+                    for record in records:
+                        record.pop('config_sha256')
+                        for controller in record['config']['memory_system']['controllers']:
+                            for plugin in controller['controller_plugins']:plugin['path']='commands'
+                    self.assertEqual(*records)
                     self.assertLess(island.host_advances,len(clocks)//3)
                     if case=='pressure':self.assertGreater(island.record()['reservation_stall_attempts'],0)
                     first=expected_ready[0][2];self.assertIn(first,stops)
