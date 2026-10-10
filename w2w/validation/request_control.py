@@ -9,14 +9,22 @@ def audit_request_control(result):
     memories={m['id']:m for m in spec['memories']};gateways={g['id']:g for g in stack['gateways']}
     paths={(p['domain_id'],p['gateway_id']):p for p in stack['collection_paths']}
     expected=set();access={};sent={};arrived={};begun={};issued={};acks={};received=set()
+    requests={};ranges={};tx=Counter();domain_live=Counter();tx_peak=Counter();domain_peak=Counter()
     free=Counter();command_bytes=Counter();ack_bytes=Counter()
     edge=lambda at,p:(at+p-1)//p*p
     for e in result['events']:
         at=e['time_ps'];kind=e['kind']
         if kind=='read_issue':
-            m=memories[e['memory']]
-            for i in range(min(e['bytes']//32,m['banks'])):
-                expected.add((e['request'],m['domain_ids'][(e['bank']+i)%m['banks']]))
+            m=memories[e['memory']];requests[e['request']]=m
+            ranges[e['request']]=tuple(m['domain_ids'][(e['bank']+i)%m['banks']] for i in range(min(e['bytes']//32,m['banks'])))
+            expected.update((e['request'],d) for d in ranges[e['request']])
+        elif kind=='native_accept':
+            gateway=requests[e['request']]['gateway_id']
+            tx[gateway]+=len(ranges[e['request']]);tx_peak[gateway]=max(tx_peak[gateway],tx[gateway])
+            if tx[gateway]>record['tx_limits'][gateway]:raise ValueError('Gateway command reservation exceeds credits')
+            for domain in ranges[e['request']]:
+                domain_live[domain]+=1;domain_peak[domain]=max(domain_peak[domain],domain_live[domain])
+                if domain_live[domain]>record['domain_descriptor_entries']:raise ValueError('Physical domain descriptor slots replicated')
         elif kind=='request_gateway_access':
             key=e['request'];g=gateways[e['gateway']]
             if key in access or at%period or at<free['access',g['id']] or e['end_ps']!=at+2*period:
@@ -54,10 +62,15 @@ def audit_request_control(result):
             key=e['request'],e['domain']
             if key in received or acks.get(key)!=at:raise ValueError('Credit returned before ACK')
             received.add(key)
+            tx[e['gateway']]-=1;domain_live[e['domain']]-=1
+            if tx[e['gateway']]<0 or domain_live[e['domain']]<0:raise ValueError('ACK returned unreserved credit')
     if any(set(v)!=expected for v in (sent,arrived,begun,issued,acks,received)):raise ValueError('Range/ACK ledger did not complete once per domain')
     if dict(command_bytes)!=record['bytes_by_gateway'] or dict(ack_bytes)!=record['ack_bytes_by_gateway']:
         raise ValueError('Control byte ledger mismatch')
-    if any(record[k] for k in ('tx_live','domain_ranges_live','ack_live')):raise ValueError('Control credits not drained')
+    domain_indices={d['id']:str(i) for i,d in enumerate(stack['dram_domains'])}
+    if dict(tx_peak)!=record['queue_peak'] or {domain_indices[k]:v for k,v in domain_peak.items()}!={str(k):v for k,v in record['domain_queue_peak'].items()}:
+        raise ValueError('Command reservation peaks disagree with independent admission/ACK ledger')
+    if any(tx.values()) or any(domain_live.values()) or any(record[k] for k in ('tx_live','domain_ranges_live','ack_live')):raise ValueError('Control credits not drained')
     if any(v>record['tx_limits'][k] for k,v in record['queue_peak'].items()) or any(v>record['tx_limits'][k] for k,v in record['ack_queue_peak'].items()):
         raise ValueError('Control gateway capacity exceeded')
     if any(v>record['domain_descriptor_entries'] for v in record['domain_queue_peak'].values()):raise ValueError('Domain range buffer exceeded')
