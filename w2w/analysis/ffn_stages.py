@@ -129,14 +129,20 @@ def stages(result):
             link=paths[req]['links'].setdefault((packet,e['link']),dict(packet=packet,link=e['link'],first_ps=e['time_ps'],last_ps=e['time_ps'],flits=0))
             link['last_ps']=e['time_ps'];link['flits']+=1
         elif e['kind'] in ('packet_accept','packet_deliver'):paths[req]['events'].append(e)
-    for value in paths.values():value['links']=list(value['links'].values())
+    event_level=result.get('network',{}).get('event_level','unknown')
+    link_events_available=event_level=='flit'
+    for value in paths.values():
+        value['links']=list(value['links'].values())
+        value['per_flit_link_events_available']=link_events_available
     return dict(phases=aggregate,invocations=dict(by_invocation),tasks=rows,
         latest_finishing_predecessor_chain=list(reversed(chain)),
-        projection_pairs=pairs,tail_operand_paths=paths,
+        projection_pairs=pairs,tail_operand_paths=paths,network_event_level=event_level,
         contract='Reconstructs exact task milestones and shared-context clock opportunities. Operand wait means no consumable contiguous weight after scale service; '
             'ready-service wait means operands are ready but another grant/clock is awaited. Sums across tasks/contexts overlap; neither sums nor the latest-finishing '
             'dependency chain prove an exclusive system critical path through all implicit resource competition. Pair overlap measures interval overlap, not continuous busy time. '
-            'Tail paths follow the descriptor that completes the consumed prefix along the observed finishing chain. Native array event timestamps retain their original convention.')
+            'Tail paths follow the descriptor that completes the consumed prefix along the observed finishing chain. '
+            'Transaction-level captures retain packet admission/delivery, not per-flit link timestamps; empty links are not proof of a local path. '
+            'Native array event timestamps retain their original convention.')
 
 
 def analyze(source,audited):

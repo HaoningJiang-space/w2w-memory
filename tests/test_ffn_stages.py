@@ -8,7 +8,8 @@ class StageEvents(unittest.TestCase):
         return dict(graph=dict(tasks=[dict(id='e0/b0/gate',tile='c0',release_ps=0,stream=dict(weight_data_bytes=128))],data=[],control=[]),
             spec=dict(stack=dict(compute_clusters=[dict(id='c0',profile=dict(period_ps=1000))])),
             events=[dict(task='e0/b0/gate',**e) for e in events],
-            tasks={'e0/b0/gate':dict(start_ps=0,finish_ps=finish)},compute_busy_ps={'c0':busy})
+            tasks={'e0/b0/gate':dict(start_ps=0,finish_ps=finish)},compute_busy_ps={'c0':busy},
+            network=dict(event_level='transaction'))
 
     def test_prefix_hole_and_ungranted_ready_clock(self):
         events=[dict(kind='task_allocate',time_ps=0),
@@ -19,10 +20,12 @@ class StageEvents(unittest.TestCase):
             dict(kind='stream_operand_ready',time_ps=2500,object_offset=0,bytes=64,request='r0'),
             dict(kind='stream_compute',time_ps=3000,weight_bytes=64),
             dict(kind='stream_compute',time_ps=5000,weight_bytes=64),dict(kind='task_finish',time_ps=6000)]
-        row=stages(self.record(events,6000,3000))['tasks']['e0/b0/gate']
+        analyzed=stages(self.record(events,6000,3000));row=analyzed['tasks']['e0/b0/gate']
         self.assertEqual(row['operand_wait_ps'],2000)
         self.assertEqual(row['ready_service_wait_ps'],1000)
         self.assertEqual(row['busy_ps'],3000)
+        self.assertFalse(analyzed['tail_operand_paths']['r0']['per_flit_link_events_available'])
+        self.assertEqual(analyzed['tail_operand_paths']['r0']['links'],[])
 
     def test_cached_operands_have_no_memory_wait(self):
         events=[dict(kind='task_allocate',time_ps=0),dict(kind='cache_operands_ready',time_ps=0),
