@@ -34,7 +34,7 @@ def finish(root,baseline):
     for name,values in [('Complete time (ms)',[x['makespan_ps']/1e9 for x in (a,b)]),
                         ('Token-12–23 time (ms)',[x['late_window']['duration_ps']/1e9 for x in (a,b)]),
                         ('Native bytes',[x['audit']['native_bytes'] for x in (a,b)]),
-                        ('Reload bytes',[x['traffic_totals']['reload_bytes'] for x in (a,b)]),
+                        ('Reload bytes',[x['traffic_totals'].get('reload_bytes',0) for x in (a,b)]),
                         ('NoC data-lane byte·um',[x['pressure']['actual_data_lane_byte_um'] for x in (a,b)])]:
         lines.append('| '+name+' | '+str(values[0])+' | '+str(values[1])+' |')
     lines.extend(['','Warm completion reduction: '+str(summary['warm_completion_reduction_percent'])+'%.',
