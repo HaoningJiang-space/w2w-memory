@@ -1,0 +1,31 @@
+{
+  "schema": "w2w.operand-access-pair.v1",
+  "source_commit": "8a8e34bd9ca451b2e3ecb1c7fcf0a0eca53a692f",
+  "cases": {
+    "central-plus": {
+      "input_sha256": "38d6ba384e808c078991cd8f5edb4a5d1ce0d478a437daa4985420bab33c9616"
+    },
+    "distributed": {
+      "input_sha256": "ee001bd5d4a71db0581811ee61a978537b6c35f66ba14ba6549c4427ab316cb3"
+    }
+  },
+  "budget_match": {
+    "passed": true,
+    "conserved": [
+      "compute",
+      "SRAM",
+      "native capacity and service",
+      "fabric",
+      "HB data lanes",
+      "gateway output",
+      "gateway staging",
+      "descriptor slots"
+    ],
+    "additional_control_bits": 1536,
+    "collection_wire_bit_um_change": -120832000,
+    "metadata": "ports/control and raw collection wire/pipeline costs are reported, not assumed equal"
+  },
+  "max_ps": 3000000000,
+  "scope": "one cold full-size routed FFN, one archived decode token, eight selected experts; not multi-layer Transformer or numerical inference",
+  "contract": "same full-size graph/addresses/placement; two shared-service contexts; finite 16-entry admission-priority selector at every router; contiguous matrix descriptors; physical command/ACK and refresh; no cache"
+}

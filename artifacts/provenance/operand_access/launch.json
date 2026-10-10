@@ -1,0 +1,14 @@
+{
+  "time_utc": "2026-10-10T05:02:06.552091+00:00",
+  "source_commit": "8a8e34bd9ca451b2e3ecb1c7fcf0a0eca53a692f",
+  "booksim_build_source": "9a787a777bcf5b0cbe77b05afa5fe579b5bfa136",
+  "binary_sha256": "ccb3c9f852d42b6b8a554cc789c232d1b749a0c7ef8f28a4526be976c61c9f58",
+  "pids": {
+    "central-plus": 326673,
+    "distributed": 326674,
+    "monitor": 326675
+  },
+  "available_kib": 90835932,
+  "source": "/Projects/haoning/w2w-full-system-gateway-cache-20261009/execution-operand-access-r1",
+  "interval_seconds": 60
+}

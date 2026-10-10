@@ -1,0 +1,472 @@
+{
+  "cases": {
+    "hot-one": {
+      "audit": {
+        "data_bytes": 0,
+        "gateway_bytes": 262144,
+        "native_and_gateway_reservations_drained": true,
+        "native_bytes": 262144,
+        "packets": 128,
+        "passed": true,
+        "physical_collection_charged": true,
+        "physical_domains": 128,
+        "physical_link_flits": 0,
+        "read_descriptors": 64,
+        "read_words": 8192,
+        "tasks": 1
+      },
+      "booksim_sha256": "ccb3c9f852d42b6b8a554cc789c232d1b749a0c7ef8f28a4526be976c61c9f58",
+      "bridge_sha256": "37eb00768993fb5cfd903c690e72a21cdc69e10f4acbc421762f54dc5a33ba54",
+      "case": "hot-one",
+      "command_audit": {
+        "active_read_domains": 1,
+        "channels": {
+          "d0_0": {
+            "commands": {
+              "ACT": 275,
+              "PREab": 19,
+              "PREpb": 255,
+              "RD": 16384,
+              "REFab": 21
+            },
+            "first_rd_cycle": 34,
+            "last_rd_cycle": 22502,
+            "read_bus_cycles": 16384,
+            "refresh_busy_cycles": 3612
+          }
+        },
+        "contract": "one command/domain/cycle; open-row legality, declared ACT/PRE/RD/REF gaps and exact physical RD address multiset",
+        "limits": "read-only candidate command audit; no WR path, silicon calibration, power or temperature validation",
+        "passed": true,
+        "read_atoms": 16384
+      },
+      "control_audit": {
+        "ack_bytes": 512,
+        "command_bytes": 1024,
+        "enabled": true,
+        "passed": true,
+        "ranges": 64
+      },
+      "domain_atoms": {
+        "0": 16384
+      },
+      "drained_ps": 84779000,
+      "effective_payload_gb_s": 3.0920864836811,
+      "idle_domain_command_totals": {
+        "REFab": 2759
+      },
+      "input_sha256": "c4ef08d0eef1d4f07482b634a264a73cd73f709be1b90cddf6c591786aafb55d",
+      "limits": "fractions use whole drained interval; command/queue counts and summed RX job waits are not additive critical-path stalls; refresh budget can extend past drain; no WR validation",
+      "machine_sha256": "4b996581328be065e47f9ffe5f35a44f774cbebd97c6c507720f06775f7e2029",
+      "makespan_ps": 84779000,
+      "native_bytes": 262144,
+      "native_config_sha256": "51e42ccf86fa272c40c8b98e0018d64cbede8381094aa0e024c5196000b1ae15",
+      "native_first_tail_ps": 139120,
+      "native_last_tail_ps": 84618800,
+      "necessary_bounds_ps": {
+        "active_hb_lanes": 61603840,
+        "gateway_output": 2048000,
+        "native_interface": 61603840,
+        "receiver_payload": 2048000
+      },
+      "omitted_idle_read_domains": 127,
+      "physical_capacity_bytes": 8589934592,
+      "physical_domains": 128,
+      "pressure": {
+        "compute_busy_ps": {},
+        "compute_hop_flits": 0,
+        "domains": {
+          "d0_0": {
+            "commands": {
+              "ACT": 275,
+              "PREab": 19,
+              "PREpb": 255,
+              "RD": 16384,
+              "REFab": 21
+            },
+            "first_rd_cycle": 34,
+            "last_rd_cycle": 22502,
+            "read_bus_cycles": 16384,
+            "read_interface_busy_fraction": 0.7266403236650586,
+            "refresh_budget_fraction": 0.16019438776112008,
+            "refresh_busy_cycles": 3612
+          }
+        },
+        "gateway_busy_cycles": {
+          "g0": 16384
+        },
+        "gateway_busy_fraction": {
+          "g0": 0.19325540523006876
+        },
+        "gateway_bytes": {
+          "g0": 262144
+        },
+        "gateway_queue_peak_bytes": {
+          "g0": 16
+        },
+        "mc_pool_peak": {
+          "pool0": 32
+        },
+        "native_reservation_peak_atoms": {
+          "0": 50
+        },
+        "queue_stall_attempts": 6086,
+        "reservation_stall_attempts": 0,
+        "rx_job_wait_sum_ps": {
+          "c0": 0
+        },
+        "rx_write_bytes": {
+          "c0": 262144
+        },
+        "rx_write_cycles": {
+          "c0": 2048
+        }
+      },
+      "source_commit": "f30829960fb654dfd256aeec1c17216894bbda4b",
+      "wall_seconds": 5.351031756959856
+    },
+    "uniform-eight": {
+      "audit": {
+        "data_bytes": 0,
+        "gateway_bytes": 262144,
+        "native_and_gateway_reservations_drained": true,
+        "native_bytes": 262144,
+        "packets": 128,
+        "passed": true,
+        "physical_collection_charged": true,
+        "physical_domains": 128,
+        "physical_link_flits": 0,
+        "read_descriptors": 64,
+        "read_words": 8192,
+        "tasks": 1
+      },
+      "booksim_sha256": "ccb3c9f852d42b6b8a554cc789c232d1b749a0c7ef8f28a4526be976c61c9f58",
+      "bridge_sha256": "37eb00768993fb5cfd903c690e72a21cdc69e10f4acbc421762f54dc5a33ba54",
+      "case": "uniform-eight",
+      "command_audit": {
+        "active_read_domains": 8,
+        "channels": {
+          "d0_0": {
+            "commands": {
+              "ACT": 34,
+              "PREab": 2,
+              "PREpb": 31,
+              "RD": 2048,
+              "REFab": 2
+            },
+            "first_rd_cycle": 34,
+            "last_rd_cycle": 2722,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 344
+          },
+          "d0_1": {
+            "commands": {
+              "ACT": 35,
+              "PREab": 3,
+              "PREpb": 31,
+              "RD": 2048,
+              "REFab": 3
+            },
+            "first_rd_cycle": 34,
+            "last_rd_cycle": 2906,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 516
+          },
+          "d0_10": {
+            "commands": {
+              "ACT": 34,
+              "PREab": 2,
+              "PREpb": 31,
+              "RD": 2048,
+              "REFab": 3
+            },
+            "first_rd_cycle": 36,
+            "last_rd_cycle": 2896,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 516
+          },
+          "d0_11": {
+            "commands": {
+              "ACT": 35,
+              "PREab": 3,
+              "PREpb": 31,
+              "RD": 2048,
+              "REFab": 3
+            },
+            "first_rd_cycle": 36,
+            "last_rd_cycle": 2906,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 516
+          },
+          "d0_2": {
+            "commands": {
+              "ACT": 35,
+              "PREab": 3,
+              "PREpb": 31,
+              "RD": 2048,
+              "REFab": 3
+            },
+            "first_rd_cycle": 34,
+            "last_rd_cycle": 2906,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 516
+          },
+          "d0_3": {
+            "commands": {
+              "ACT": 35,
+              "PREab": 3,
+              "PREpb": 31,
+              "RD": 2048,
+              "REFab": 3
+            },
+            "first_rd_cycle": 34,
+            "last_rd_cycle": 2906,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 516
+          },
+          "d0_8": {
+            "commands": {
+              "ACT": 35,
+              "PREab": 3,
+              "PREpb": 31,
+              "RD": 2048,
+              "REFab": 3
+            },
+            "first_rd_cycle": 36,
+            "last_rd_cycle": 2905,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 516
+          },
+          "d0_9": {
+            "commands": {
+              "ACT": 34,
+              "PREab": 2,
+              "PREpb": 31,
+              "RD": 2048,
+              "REFab": 3
+            },
+            "first_rd_cycle": 36,
+            "last_rd_cycle": 2896,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 516
+          }
+        },
+        "contract": "one command/domain/cycle; open-row legality, declared ACT/PRE/RD/REF gaps and exact physical RD address multiset",
+        "limits": "read-only candidate command audit; no WR path, silicon calibration, power or temperature validation",
+        "passed": true,
+        "read_atoms": 16384
+      },
+      "control_audit": {
+        "ack_bytes": 4096,
+        "command_bytes": 8192,
+        "enabled": true,
+        "passed": true,
+        "ranges": 512
+      },
+      "domain_atoms": {
+        "0": 2048,
+        "1": 2048,
+        "10": 2048,
+        "11": 2048,
+        "2": 2048,
+        "3": 2048,
+        "8": 2048,
+        "9": 2048
+      },
+      "drained_ps": 11087000,
+      "effective_payload_gb_s": 23.644268061693875,
+      "idle_domain_command_totals": {
+        "REFab": 341
+      },
+      "input_sha256": "c0e89cac4c0a2a66ed0ac576254997da2a742357c90d6e60a1c955b42b79482c",
+      "limits": "fractions use whole drained interval; command/queue counts and summed RX job waits are not additive critical-path stalls; refresh budget can extend past drain; no WR validation",
+      "machine_sha256": "4b996581328be065e47f9ffe5f35a44f774cbebd97c6c507720f06775f7e2029",
+      "makespan_ps": 11087000,
+      "native_bytes": 262144,
+      "native_config_sha256": "7e1976032c44bb10cacdfc119d5ec286319ab648d4bd3e75fdcee8f2151566a0",
+      "native_first_tail_ps": 139120,
+      "native_last_tail_ps": 10937840,
+      "necessary_bounds_ps": {
+        "active_hb_lanes": 7700480,
+        "gateway_output": 2048000,
+        "native_interface": 7700480,
+        "receiver_payload": 2048000
+      },
+      "omitted_idle_read_domains": 120,
+      "physical_capacity_bytes": 8589934592,
+      "physical_domains": 128,
+      "pressure": {
+        "compute_busy_ps": {},
+        "compute_hop_flits": 0,
+        "domains": {
+          "d0_0": {
+            "commands": {
+              "ACT": 34,
+              "PREab": 2,
+              "PREpb": 31,
+              "RD": 2048,
+              "REFab": 2
+            },
+            "first_rd_cycle": 34,
+            "last_rd_cycle": 2722,
+            "read_bus_cycles": 2048,
+            "read_interface_busy_fraction": 0.6945503743122576,
+            "refresh_budget_fraction": 0.11666275818526202,
+            "refresh_busy_cycles": 344
+          },
+          "d0_1": {
+            "commands": {
+              "ACT": 35,
+              "PREab": 3,
+              "PREpb": 31,
+              "RD": 2048,
+              "REFab": 3
+            },
+            "first_rd_cycle": 34,
+            "last_rd_cycle": 2906,
+            "read_bus_cycles": 2048,
+            "read_interface_busy_fraction": 0.6945503743122576,
+            "refresh_budget_fraction": 0.17499413727789304,
+            "refresh_busy_cycles": 516
+          },
+          "d0_10": {
+            "commands": {
+              "ACT": 34,
+              "PREab": 2,
+              "PREpb": 31,
+              "RD": 2048,
+              "REFab": 3
+            },
+            "first_rd_cycle": 36,
+            "last_rd_cycle": 2896,
+            "read_bus_cycles": 2048,
+            "read_interface_busy_fraction": 0.6945503743122576,
+            "refresh_budget_fraction": 0.17499413727789304,
+            "refresh_busy_cycles": 516
+          },
+          "d0_11": {
+            "commands": {
+              "ACT": 35,
+              "PREab": 3,
+              "PREpb": 31,
+              "RD": 2048,
+              "REFab": 3
+            },
+            "first_rd_cycle": 36,
+            "last_rd_cycle": 2906,
+            "read_bus_cycles": 2048,
+            "read_interface_busy_fraction": 0.6945503743122576,
+            "refresh_budget_fraction": 0.17499413727789304,
+            "refresh_busy_cycles": 516
+          },
+          "d0_2": {
+            "commands": {
+              "ACT": 35,
+              "PREab": 3,
+              "PREpb": 31,
+              "RD": 2048,
+              "REFab": 3
+            },
+            "first_rd_cycle": 34,
+            "last_rd_cycle": 2906,
+            "read_bus_cycles": 2048,
+            "read_interface_busy_fraction": 0.6945503743122576,
+            "refresh_budget_fraction": 0.17499413727789304,
+            "refresh_busy_cycles": 516
+          },
+          "d0_3": {
+            "commands": {
+              "ACT": 35,
+              "PREab": 3,
+              "PREpb": 31,
+              "RD": 2048,
+              "REFab": 3
+            },
+            "first_rd_cycle": 34,
+            "last_rd_cycle": 2906,
+            "read_bus_cycles": 2048,
+            "read_interface_busy_fraction": 0.6945503743122576,
+            "refresh_budget_fraction": 0.17499413727789304,
+            "refresh_busy_cycles": 516
+          },
+          "d0_8": {
+            "commands": {
+              "ACT": 35,
+              "PREab": 3,
+              "PREpb": 31,
+              "RD": 2048,
+              "REFab": 3
+            },
+            "first_rd_cycle": 36,
+            "last_rd_cycle": 2905,
+            "read_bus_cycles": 2048,
+            "read_interface_busy_fraction": 0.6945503743122576,
+            "refresh_budget_fraction": 0.17499413727789304,
+            "refresh_busy_cycles": 516
+          },
+          "d0_9": {
+            "commands": {
+              "ACT": 34,
+              "PREab": 2,
+              "PREpb": 31,
+              "RD": 2048,
+              "REFab": 3
+            },
+            "first_rd_cycle": 36,
+            "last_rd_cycle": 2896,
+            "read_bus_cycles": 2048,
+            "read_interface_busy_fraction": 0.6945503743122576,
+            "refresh_budget_fraction": 0.17499413727789304,
+            "refresh_busy_cycles": 516
+          }
+        },
+        "gateway_busy_cycles": {
+          "g0": 2886
+        },
+        "gateway_busy_fraction": {
+          "g0": 0.26030486154956256
+        },
+        "gateway_bytes": {
+          "g0": 262144
+        },
+        "gateway_queue_peak_bytes": {
+          "g0": 128
+        },
+        "mc_pool_peak": {
+          "pool0": 32
+        },
+        "native_reservation_peak_atoms": {
+          "0": 50,
+          "1": 47,
+          "10": 35,
+          "11": 32,
+          "2": 44,
+          "3": 40,
+          "8": 42,
+          "9": 39
+        },
+        "queue_stall_attempts": 6395,
+        "reservation_stall_attempts": 0,
+        "rx_job_wait_sum_ps": {
+          "c0": 0
+        },
+        "rx_write_bytes": {
+          "c0": 262144
+        },
+        "rx_write_cycles": {
+          "c0": 2048
+        }
+      },
+      "source_commit": "f30829960fb654dfd256aeec1c17216894bbda4b",
+      "wall_seconds": 1.2666930370032787
+    }
+  },
+  "hot_over_uniform_time": 7.646703346261387,
+  "limits": "same physical central machine, different static address views; not a Central+/Distributed application comparison, measured hardware calibration or full physical closure; no WR/PIM",
+  "matched_native_service_sha256": "ced3097073c90660c35e58350d493844b91afa24c220d8f06b44a5e1606ca5c5",
+  "passed": true,
+  "schema": "w2w.rwdl-domain-probe.v1",
+  "scope": "independent RWDL service, exact native addresses/commands, physical collection/HB/CDC, finite gateway and SRAM drain; read-only subsystem evidence",
+  "selection": "Active read-domain pressure retained; idle read-domain command totals summarized. Complete raw trace identities in evidence-sha256.json.",
+  "source_commit": "f30829960fb654dfd256aeec1c17216894bbda4b"
+}

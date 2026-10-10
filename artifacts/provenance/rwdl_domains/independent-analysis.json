@@ -1,0 +1,195 @@
+{
+  "analysis_source_commit": "8a8e34bd9ca451b2e3ecb1c7fcf0a0eca53a692f",
+  "cases": {
+    "hot-one": {
+      "audit": {
+        "data_bytes": 0,
+        "gateway_bytes": 262144,
+        "native_and_gateway_reservations_drained": true,
+        "native_bytes": 262144,
+        "packets": 128,
+        "passed": true,
+        "physical_collection_charged": true,
+        "physical_domains": 128,
+        "physical_link_flits": 0,
+        "read_descriptors": 64,
+        "read_words": 8192,
+        "tasks": 1
+      },
+      "command_audit": {
+        "active_read_domains": 1,
+        "channels": {
+          "d0_0": {
+            "commands": {
+              "ACT": 275,
+              "PREab": 19,
+              "PREpb": 255,
+              "RD": 16384,
+              "REFab": 21
+            },
+            "first_rd_cycle": 34,
+            "last_rd_cycle": 22502,
+            "read_bus_cycles": 16384,
+            "refresh_busy_cycles": 3612
+          }
+        },
+        "contract": "one command/domain/cycle; open-row legality, declared ACT/PRE/RD/REF gaps and exact physical RD address multiset",
+        "limits": "read-only candidate command audit; no WR path, silicon calibration, power or temperature validation",
+        "passed": true,
+        "read_atoms": 16384
+      },
+      "control_audit": {
+        "ack_bytes": 512,
+        "command_bytes": 1024,
+        "enabled": true,
+        "passed": true,
+        "ranges": 64
+      },
+      "makespan_ps": 84779000,
+      "passed": true
+    },
+    "uniform-eight": {
+      "audit": {
+        "data_bytes": 0,
+        "gateway_bytes": 262144,
+        "native_and_gateway_reservations_drained": true,
+        "native_bytes": 262144,
+        "packets": 128,
+        "passed": true,
+        "physical_collection_charged": true,
+        "physical_domains": 128,
+        "physical_link_flits": 0,
+        "read_descriptors": 64,
+        "read_words": 8192,
+        "tasks": 1
+      },
+      "command_audit": {
+        "active_read_domains": 8,
+        "channels": {
+          "d0_0": {
+            "commands": {
+              "ACT": 34,
+              "PREab": 2,
+              "PREpb": 31,
+              "RD": 2048,
+              "REFab": 2
+            },
+            "first_rd_cycle": 34,
+            "last_rd_cycle": 2722,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 344
+          },
+          "d0_1": {
+            "commands": {
+              "ACT": 35,
+              "PREab": 3,
+              "PREpb": 31,
+              "RD": 2048,
+              "REFab": 3
+            },
+            "first_rd_cycle": 34,
+            "last_rd_cycle": 2906,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 516
+          },
+          "d0_10": {
+            "commands": {
+              "ACT": 34,
+              "PREab": 2,
+              "PREpb": 31,
+              "RD": 2048,
+              "REFab": 3
+            },
+            "first_rd_cycle": 36,
+            "last_rd_cycle": 2896,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 516
+          },
+          "d0_11": {
+            "commands": {
+              "ACT": 35,
+              "PREab": 3,
+              "PREpb": 31,
+              "RD": 2048,
+              "REFab": 3
+            },
+            "first_rd_cycle": 36,
+            "last_rd_cycle": 2906,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 516
+          },
+          "d0_2": {
+            "commands": {
+              "ACT": 35,
+              "PREab": 3,
+              "PREpb": 31,
+              "RD": 2048,
+              "REFab": 3
+            },
+            "first_rd_cycle": 34,
+            "last_rd_cycle": 2906,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 516
+          },
+          "d0_3": {
+            "commands": {
+              "ACT": 35,
+              "PREab": 3,
+              "PREpb": 31,
+              "RD": 2048,
+              "REFab": 3
+            },
+            "first_rd_cycle": 34,
+            "last_rd_cycle": 2906,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 516
+          },
+          "d0_8": {
+            "commands": {
+              "ACT": 35,
+              "PREab": 3,
+              "PREpb": 31,
+              "RD": 2048,
+              "REFab": 3
+            },
+            "first_rd_cycle": 36,
+            "last_rd_cycle": 2905,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 516
+          },
+          "d0_9": {
+            "commands": {
+              "ACT": 34,
+              "PREab": 2,
+              "PREpb": 31,
+              "RD": 2048,
+              "REFab": 3
+            },
+            "first_rd_cycle": 36,
+            "last_rd_cycle": 2896,
+            "read_bus_cycles": 2048,
+            "refresh_busy_cycles": 516
+          }
+        },
+        "contract": "one command/domain/cycle; open-row legality, declared ACT/PRE/RD/REF gaps and exact physical RD address multiset",
+        "limits": "read-only candidate command audit; no WR path, silicon calibration, power or temperature validation",
+        "passed": true,
+        "read_atoms": 16384
+      },
+      "control_audit": {
+        "ack_bytes": 4096,
+        "command_bytes": 8192,
+        "enabled": true,
+        "passed": true,
+        "ranges": 512
+      },
+      "makespan_ps": 11087000,
+      "passed": true
+    }
+  },
+  "execution_source_commit": "f30829960fb654dfd256aeec1c17216894bbda4b",
+  "hot_over_uniform_time": 7.646703346261387,
+  "limits": "same physical central machine, different static address views; not a Central+/Distributed application comparison, measured hardware calibration or full physical closure; no WR/PIM",
+  "passed": true,
+  "schema": "w2w.rwdl-domain-audit.v1"
+}

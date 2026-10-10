@@ -81,3 +81,18 @@ not a new full application result or a claim of silicon-calibrated physical
 closure. Combine it with the existing paid operand-prefix evidence before a new
 Central+/Distributed comparison. Full-size prefix sensitivity and prefill remain
 unmeasured; a multi-layer FFN proxy is not a complete Transformer.
+
+That read-only domain service gate is now complete at `f308299`, with separate
+offline audit at `8a8e34b`: 256 KiB takes 11.087 µs across eight existing domains
+and 84.779 µs on one. Actual commands/addresses, read callback timing and finite
+vertical/control drain pass. This is subsystem parallelism evidence, not an
+application acceleration or WR/silicon validation. See
+[RWDL_SERVICE_DOMAIN_REPORT](reports/RWDL_SERVICE_DOMAIN_REPORT.md).
+
+The full-size cold operand-aware Central+/Distributed pair is registered/running
+at `8a8e34b` in `execution-operand-access-r1`; its `operand-access-r1/monitor.log`
+checks every 60 seconds and runs offline analysis after both cases finish. Both
+use contiguous-prefix operands, two shared-service contexts, finite selectors
+at all routers, command/ACK and refresh. No cache is enabled. Keep this identity
+separate from the older two-layer cache execution. Archive complete/audited
+outputs before reporting a full-size spatial-access benefit.
