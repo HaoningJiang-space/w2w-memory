@@ -55,8 +55,10 @@ def summarize_pressure(result):
     gateway_stats={}
     for gateway in stack.gateways:
         busy=native['gateway_busy_cycles'].get(gateway.id,0)
-        gateway_stats[gateway.id]=dict(payload_bytes=native['gateway_bytes'].get(gateway.id,0),busy_cycles=busy,
-            average_output_service_fraction=busy*result['spec']['noc_period_ps']/duration,
+        payload=native['gateway_bytes'].get(gateway.id,0)
+        gateway_stats[gateway.id]=dict(payload_bytes=payload,busy_cycles=busy,
+            busy_cycle_fraction=busy*result['spec']['noc_period_ps']/duration,
+            payload_lane_service_fraction=payload*result['spec']['noc_period_ps']/gateway.data_bytes_per_cycle/duration,
             queue_peak_bytes=native['gateway_queue_peak_bytes'].get(gateway.id,0))
     busiest=max(flits,key=flits.get,default=None)
     return dict(native_totals=native_totals,domains=domain_stats,gateways=gateway_stats,
