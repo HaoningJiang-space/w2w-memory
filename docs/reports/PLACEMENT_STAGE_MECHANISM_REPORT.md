@@ -1,9 +1,9 @@
 # FFN stage timing and controlled gate/up intervention
 
-The P0–P3 performance/placement stage is complete. The 24-token P4 confirmation
-is still running. This report adds descriptive stage evidence and a registered
-controlled intervention; it does not strengthen the architecture claim before
-P4 completes.
+The P0–P3 performance/placement stage and controlled gate/up intervention are
+complete. The 24-token P4 confirmation is still running. Stage evidence does not
+establish a universal placement principle; S1 now tests the stronger question
+of independent projection fetch under finite resources.
 
 ## Correct comparison boundary
 
@@ -20,10 +20,26 @@ Compute tasks, dependencies, input placement, all hardware and arithmetic work
 are unchanged. This changes gate/up physical placement and addresses, including
 possible row locality; it is not a pure propagation-delay experiment.
 
-Both Hybrid and the intervention are registered under execution source
-`7a694db`. The Hybrid rerun will be compared against the complete frozen `47e68e5`
-physical record to check migration equivalence. No new optimized placement
-strategy, search or larger hardware is introduced.
+Both Hybrid and the intervention execute at `7a694db`. The Hybrid rerun matches
+the complete frozen `47e68e5` physical record, including every event and integer-ps
+timing. No larger hardware or search is introduced.
+
+| Controlled S0 layout | Completion | Hop-flits | Last native tail |
+|---|---:|---:|---:|
+| Hybrid | 562.863 µs | 418,356 | 560.157280 µs |
+| Hybrid down + striped gate/up | 544.288 µs | 1,167,416 | 541.594160 µs |
+
+Changing gate/up placement while keeping down's complete physical identity fixed
+reduces completion by **3.300%**. It has the same hop-flit count as original
+Balanced, yet is faster than its 582.050 µs. Thus the earlier hypothesis that
+preserving local gate/up explains Hybrid's advantage is not supported by this
+intervention. Changed addresses/row locality and request feedback remain part
+of the gate/up intervention; this result does not allocate savings to one cause.
+
+[Independent audit](../../artifacts/provenance/static_placement/gate-up-ablation-analysis.json),
+[registration](../../artifacts/provenance/static_placement/gate-up-ablation-registration.json)
+and [migration proof](../../artifacts/provenance/static_placement/gate-up-migration-proof.json)
+retain exact sources, input/result hashes and observed resources.
 
 ## How stage time is measured
 
@@ -115,8 +131,51 @@ native/domain/gateway work, stage readiness and resource drain. Subsequent cache
 traffic is observed, not forced equal. Both layers still reuse the same archived
 routing and remain an FFN-only timing proxy.
 
-The controlled cold pair uses `gate-up-ablation-r1` in the same isolated remote
-archive. Once/minute monitors audit each completed study and reconstruct stages.
-Failed runs stop for inspection and are not automatically retried. Independent
-routing and physical-parameter sensitivity remain subsequent work; no large DSE
-is required by these registrations.
+The completed controlled cold pair uses `gate-up-ablation-r1` in the same
+isolated remote archive. Once/minute monitors audit each completed study and
+reconstruct stages. Failed runs stop for inspection and are not automatically
+retried. Independent routing and physical-parameter sensitivity remain
+subsequent work; no large DSE is required by these registrations.
+
+## S1 and Phase-Split: frozen, running
+
+S0 retains historical Gate→Up and previous-block-accumulate→Gate control edges.
+S1 removes Gate→Up and keeps the previous-block barrier for **both** Gate and Up.
+All mathematical tensor edges, arithmetic work, compute placement and reduction
+order are unchanged. S1 allows both projection fetch and compute overlap; it does
+not prefetch the next block.
+
+The existing allocated/read-ready and compute-ready states are exposed through
+two finite matrix fetch slots per cluster. Descriptor issue rotates among those
+slots, still sharing the original two requests/cluster/cycle, 32 outstanding,
+two compute contexts and one MAC/read grant per cycle. Full matrix storage remains
+reserved. Two 64 B fetch entries plus an 8 B selector (136 B/cluster) are charged
+inside existing SRAM. No MAC, SRAM data port, native domain, HB lane or fabric
+port is duplicated. This is an explicit bounded admission/issue policy as well
+as a dependency intervention; it is not merely deletion of a graph edge.
+
+Phase-Split covers all 128 experts. It keeps Reference Gate and Down addresses
+fixed and places Up at the adjacent same-row gateway, filling released aligned
+Up slots. In this frozen cold input its gateway matrix counts become
+18/18/15/21, with a 344.148 µs hottest-gateway payload work bound and one-third
+remote weight payload. These are resource-work calculations, not predicted
+execution times.
+
+Small native FFN execution demonstrates overlapping Gate/Up request windows
+and actual output observations at both gateways; independent audits check fetch
+ownership, metadata SRAM, per-cycle issue, outstanding, MAC/read service, operands,
+command/ACK, native bytes and complete drain. Dependency and existing native
+regressions pass. Gateway payload/busy time series use 1 µs fixed bins in the
+full study (0.1 µs in the probe); this records service without changing it and
+does not resolve every within-bin burst. Tail analysis follows the actual final
+prefix descriptor through request, native/gateway observations, recorded NoC
+links, SRAM delivery and compute.
+
+Execution source is `869f0ac`. `concurrent-service-r1` registers S0 Reference /
+Phase-Split and S1 Reference / Hybrid / Balanced / Phase-Split. Six full cold
+executions run at most two at a time, with minute monitoring, independent audits
+and an S0 Reference migration gate. Old S0 Hybrid/Balanced evidence remains frozen.
+No final S1 ranking is claimed before completions. See
+[S0 registration](../../artifacts/provenance/static_placement/concurrent-s0-registration.json),
+[S1 registration](../../artifacts/provenance/static_placement/concurrent-s1-registration.json)
+and [launch](../../artifacts/provenance/static_placement/concurrent-launch.json).

@@ -1,0 +1,7 @@
+{
+  "interval_seconds": 60,
+  "pid": 392159,
+  "scope": "six cold executions, max two at a time; no S2 next-block prefetch or new hardware",
+  "source_commit": "869f0acf50f7e26089a8c06e7d4a7df75b57c67a",
+  "started_utc": "2026-10-10T07:56:06.283870+00:00"
+}

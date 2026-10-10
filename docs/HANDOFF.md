@@ -102,14 +102,29 @@ records. Reference/Hybrid finish through expert 62; the final block inherits an
 Its individual gate/up/down context durations are slightly longer, not shorter.
 Do not claim Balanced isolates gate/up locality: its down mapping differs.
 
-One controlled cold pair is registered at `7a694db` in `gate-up-ablation-r1`.
+The controlled cold pair at `7a694db` in `gate-up-ablation-r1` is complete:
+Hybrid 562.863 µs versus striped gate/up 544.288 µs (3.300% improvement).
 `hybrid-gate-up-striped` changes only gate/up physical placement, preserving
 all Hybrid down memory/offset/size identities and every unmoved object. It is
-an intervention, not an additional optimized policy. `stage-monitor-r1` at
+an intervention, not an additional optimized policy. This does not support the
+earlier hypothesis that preserving local gate/up is Hybrid's principal benefit.
+Hybrid rerun matches every old physical result/event. `stage-monitor-r1` at
 `d35d2ad` checks the pair once/minute, audits/stage-analyzes it and verifies the
 Hybrid rerun against the old full physical record. Its second monitor waits for
 P4's original audit and then derives actual pressure and stage observations.
 Logs: `logs/stage-monitor-{gate-up,p4}-r1.log`; no automatic retries.
+
+New steering prioritizes dependency-aware memory concurrency. Source `869f0ac`
+has tested S1: independent Gate/Up, previous-block barriers retained for both,
+two paid fetch slots, round-robin descriptors, unchanged shared issue/outstanding,
+MAC/read and two compute contexts. Phase-Split moves only Up to its adjacent
+same-row gateway, freezing Gate/Down addresses across the full catalog.
+`concurrent-service-r1` now runs six registered cold cases, max two at a time,
+with minute controller checks in `logs/concurrent-service-controller-r1.log`.
+Execution worktree: `execution-concurrent-service-r3`. After completion, audit
+the S0/S1 matrix, actual projection overlap, gateway service bins and final
+operand paths. Do not add S2, fragments or a larger matrix before this result.
+P4 remains untouched at `47e68e5`; subsequent cache traffic must be observed.
 
 ## Limits
 

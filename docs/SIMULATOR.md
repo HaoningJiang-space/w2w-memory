@@ -79,3 +79,13 @@ order and at the same acceptance boundary. This changes host bookkeeping, not
 hardware admission or physical bandwidth. Full command, endpoint and physical
 result equivalence is required by the
 [performance gate](reports/SIMULATOR_PERFORMANCE_PLACEMENT_REPORT.md).
+
+The optional S1 FFN lowering removes the resource-order Gate→Up barrier, while
+both projections still wait for the previous block accumulator. Mathematical
+tensor dependencies and ordered accumulation remain unchanged. Its separate
+two-slot fetch policy reserves 64 B/slot plus 8 B selector inside SRAM. Slots
+remain held through complete matrix/scale delivery or cache lookup, and descriptor
+issue rotates while sharing the original issue width and requester outstanding
+limit. Compute-ready contexts still share one MAC/read grant and the original
+finite engine slots. Full weight matrices are materialized; S1 does not imply
+next-block prefetch or streamed-buffer-only storage. S0 remains the default.
