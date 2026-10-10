@@ -582,7 +582,13 @@ class SystemExecution:
             if self.compute_epoch_resume is not None:
                 now,self.compute_epoch_resume=self.compute_epoch_resume,None
                 continue
-            candidates = [(now//period+1)*period for period in set(periods)]
+            clock_periods=set(periods)
+            if getattr(self.native,'internal_clock_service',False):
+                # The island owns array/frontend clocks; external descriptor
+                # admission still occurs at every original DRAM boundary.
+                waits=any(self.requests[k]['stage']=='native_wait' for k in self.memory_candidates)
+                if not waits:clock_periods.discard(self.spec.dram_period_ps)
+            candidates = [(now//period+1)*period for period in clock_periods]
             while releases and releases[0] <= now:
                 releases.pop(0)
             if releases: candidates.append(releases[0])

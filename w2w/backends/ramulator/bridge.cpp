@@ -2,6 +2,8 @@
 #include <nanobind/nanobind.h>
 #include <nanobind/stl/vector.h>
 #include <nanobind/stl/pair.h>
+#include <nanobind/stl/array.h>
+#include <nanobind/stl/string.h>
 #include <memory>
 #include <set>
 #include <stdexcept>
@@ -91,6 +93,8 @@ class IncrementalMemory {
   ~IncrementalMemory() { try { close(); } catch (...) {} }
 };
 
+#include "memory_island.hpp"
+
 NB_MODULE(_w2w_ramulator, m) {
   m.attr("upstream_commit") = W2W_RAMULATOR_COMMIT;
   nb::class_<IncrementalMemory>(m, "IncrementalMemory")
@@ -101,4 +105,9 @@ NB_MODULE(_w2w_ramulator, m) {
     .def("stats", &IncrementalMemory::stats)
     .def("outstanding", &IncrementalMemory::outstanding)
     .def("close", &IncrementalMemory::close);
+  nb::class_<MemoryServiceIsland>(m,"MemoryServiceIsland")
+    .def(nb::init<IncrementalMemory&,nb::dict>(),nb::keep_alive<1,2>())
+    .def("submit",&MemoryServiceIsland::submit)
+    .def("advance",&MemoryServiceIsland::advance,nb::arg("target_ps"),nb::arg("until_observable")=false)
+    .def("ledger",&MemoryServiceIsland::ledger);
 }
