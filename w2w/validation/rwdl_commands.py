@@ -90,6 +90,12 @@ def audit_rwdl_commands(result, trace_base):
     if expected!=observed:raise ValueError('Native RD address multiset differs from the required physical reads')
     if result['native']['completed_atoms']!=sum(observed.values()):
         raise ValueError('Native callbacks differ from actual RD commands')
+    read_channels=[r for r in channels.values() if r['first_rd_cycle'] is not None]
+    latency=stack['native_policy']['nCL']+stack['native_policy']['nBL']
+    period=result['native']['tck_ps']
+    if (result['native']['native_first_tail_ps']!=(min(r['first_rd_cycle'] for r in read_channels)+latency)*period or
+            result['native']['native_last_tail_ps']!=(max(r['last_rd_cycle'] for r in read_channels)+latency)*period):
+        raise ValueError('Native callback timestamps differ from the issued read latency')
     return dict(passed=True,read_atoms=sum(observed.values()),active_read_domains=sum(bool(r['commands'].get('RD')) for r in channels.values()),
         channels=channels,contract='one command/domain/cycle; open-row legality, declared ACT/PRE/RD/REF gaps and exact physical RD address multiset',
         limits='read-only candidate command audit; no WR path, silicon calibration, power or temperature validation')
