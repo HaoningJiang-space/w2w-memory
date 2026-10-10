@@ -14,7 +14,7 @@ class VerticalRWDL:
     stream_origin='home_controller'
     atomic_bytes=16
 
-    def __init__(self,spec,*,refresh=True,backend=None):
+    def __init__(self,spec,*,refresh=True,backend=None,request_control=False):
         from w2w.backends.ramulator.rwdl import RamulatorRWDL
         self.spec=spec;self.stack=spec.stack
         self.domains={d.id:d for d in self.stack.dram_domains}
@@ -42,6 +42,46 @@ class VerticalRWDL:
         self.aggregate_bytes=Counter();self.aggregate_busy_cycles=Counter();self.aggregate_peak=Counter()
         self.channel_atoms=Counter();self.native_first_ps=self.native_last_ps=None
         self.collection_atom_ps=self.cdc_atom_ps=self.gateway_atom_ps=0
+        self.request_control=request_control
+        self.command_free=Counter();self.command_live=Counter();self.command_peak=Counter()
+        self.domain_descriptors=Counter();self.domain_descriptor_peak=Counter()
+        self.command_bytes=Counter();self.command_stalls=0
+        self.access_free=Counter();self.ack_free=Counter();self.ack_pending=Counter();self.ack_peak=Counter()
+        self.control_requests={};self.command_started=set();self.ack_bytes=Counter()
+        self.tx_limits={g.id:g.descriptor_slots*max((m.banks for m in spec.memories if m.gateway_id==g.id),default=0) for g in self.stack.gateways}
+        self.control_ports={p.gateway_id:p for p in self.stack.vertical_ports}
+        if request_control:
+            if self.stack.external_ports:raise ValueError('External request control needs a separately declared I/O protocol')
+            owners=defaultdict(set)
+            for p in self.stack.collection_paths:owners[p.domain_id].add(p.gateway_id)
+            if any(len(v)!=1 for v in owners.values()):raise ValueError('First control frontend requires one owning gateway/domain')
+            if any(p.control_bits!=64 or p.control_period_ps!=spec.noc_period_ps for p in self.stack.vertical_ports):
+                raise ValueError('First control path declares 32 forward and 32 reverse bits at the logic clock')
+
+    @staticmethod
+    def _edge(at,period):return (at+period-1)//period*period
+
+    def _command(self,req,channel,offset,now,access_end):
+        g=self.gateways[self.interfaces[req.memory].gateway_id]
+        path=self.paths[self.domain_names[channel],g.id];period=self.control_ports[g.id].control_period_ps
+        start=self._edge(max(access_end,self.command_free[g.id]),period);end=start+4*period
+        self.command_free[g.id]=end
+        arrival=self._edge(end+(1+path.pipeline_cycles)*period+2*self.period_ps,self.period_ps)
+        self.command_live[g.id]+=1;self.command_peak[g.id]=max(self.command_peak[g.id],self.command_live[g.id])
+        self.domain_descriptors[channel]+=1;self.domain_descriptor_peak[channel]=max(self.domain_descriptor_peak[channel],self.domain_descriptors[channel])
+        self.command_bytes[g.id]+=16
+        self.native_events.append(dict(time_ps=start,kind='request_control_send',request=req.id,domain=self.domain_names[channel],
+            gateway=g.id,bytes=16,end_ps=end,arrival_ps=arrival,access_end_ps=access_end))
+        self._schedule(arrival,'command',req.id,offset,channel,now)
+
+    def _ack(self,key,channel,now):
+        g=self.gateways[self.control_requests[key]['gateway']];path=self.paths[self.domain_names[channel],g.id]
+        period=self.control_ports[g.id].control_period_ps
+        # Return credit only after the last atomic request was accepted by the
+        # local controller and the finite ACK has traversed the physical path.
+        ready=self._edge(now+(1+path.pipeline_cycles)*period,period)
+        self._schedule(ready,'ack_ready',key,0,channel,now)
+        self.native_events.append(dict(time_ps=now,kind='domain_range_issued',request=key,domain=self.domain_names[channel],gateway=g.id,ack_ready_ps=ready))
 
     def address(self,req,offset):
         memory=self.interfaces[req.memory]
@@ -60,10 +100,23 @@ class VerticalRWDL:
         if not 0<=req.bank<memory.banks:raise ValueError('Invalid logical bank')
         if self.pool_live[memory.mc_pool_id]>=memory.transaction_slots:return False
         cursors={self.channels[d]:((i-req.bank)%memory.banks)*32 for i,d in enumerate(memory.domain_ids)}
+        active=[channel for channel,offset in cursors.items() if offset<req.size_bytes]
+        if self.request_control and (self.command_live[memory.gateway_id]+len(active)>self.tx_limits[memory.gateway_id] or any(self.domain_descriptors[c]>=32 for c in active)):
+            self.command_stalls+=1;return False
         row=dict(request=req,cursors=cursors,completed=0,raw_completed=0)
         self.groups[req.id]=row
+        access_end=now
+        if self.request_control:
+            g=self.gateways[memory.gateway_id];period=self.spec.noc_period_ps
+            start=self._edge(max(now,self.access_free[g.id]),period);end=start+2*period
+            self.access_free[g.id]=end;access_end=end+g.router_access_cycles*period
+            self.control_requests[req.id]=dict(gateway=g.id,left=len(active))
+            self.native_events.append(dict(time_ps=start,kind='request_gateway_access',request=req.id,gateway=g.id,
+                bytes=16,end_ps=end,arrival_ps=access_end))
         for channel,offset in cursors.items():
-            if offset<req.size_bytes:self.queues[channel].append(req.id)
+            if offset>=req.size_bytes:continue
+            if not self.request_control:self.queues[channel].append(req.id)
+            else:self._command(req,channel,offset,now,access_end)
         self.pool_live[memory.mc_pool_id]+=1
         self.pool_peak[memory.mc_pool_id]=max(self.pool_peak[memory.mc_pool_id],self.pool_live[memory.mc_pool_id])
         self.accepted+=1
@@ -99,19 +152,38 @@ class VerticalRWDL:
             self.native_last_ps=at
             self._schedule(sample,'collect',key,offset,channel,at)
         completed=[]
-        if now%self.spec.noc_period_ps==0:
-            while self.future and self.future[0][0]<=now:
-                at,_,kind,key,offset,channel,origin=heapq.heappop(self.future)
-                row=self.groups[key];memory=self.interfaces[row['request'].memory]
-                if kind=='collect':
-                    q=self.aggregate[memory.gateway_id];q.append((key,offset,channel,at,origin))
-                    self.aggregate_peak[memory.gateway_id]=max(self.aggregate_peak[memory.gateway_id],len(q)*16)
+        while self.future and self.future[0][0]<=now:
+            at,_,kind,key,offset,channel,origin=heapq.heappop(self.future)
+            if kind in ('ack_ready','command_ack'):
+                g=self.gateways[self.control_requests[key]['gateway']];period=self.control_ports[g.id].control_period_ps
+                if kind=='ack_ready':
+                    self.ack_pending[g.id]+=1;self.ack_peak[g.id]=max(self.ack_peak[g.id],self.ack_pending[g.id])
+                    if self.ack_pending[g.id]>self.tx_limits[g.id]:raise RuntimeError('Finite ACK queue exceeded')
+                    start=self._edge(max(at,self.ack_free[g.id]),period);end=start+2*period
+                    self.ack_free[g.id]=end;arrival=end+2*period;self.ack_bytes[g.id]+=8
+                    self.native_events.append(dict(time_ps=start,kind='request_ack_send',request=key,domain=self.domain_names[channel],
+                        gateway=g.id,bytes=8,end_ps=end,arrival_ps=arrival,issued_ps=origin,ready_ps=at))
+                    self._schedule(arrival,'command_ack',key,0,channel,origin)
                 else:
-                    self.reserved[channel]-=1;self.ready.append((key,offset,16));row['completed']+=1
-                    self.gateway_atom_ps+=at-origin
-                    if row['completed']*16==row['request'].size_bytes:
-                        completed.append(key);self.pool_live[memory.mc_pool_id]-=1
-                        del self.groups[key];self.completed+=1
+                    self.ack_pending[g.id]-=1;self.command_live[g.id]-=1;self.domain_descriptors[channel]-=1
+                    self.control_requests[key]['left']-=1
+                    if self.control_requests[key]['left']==0:del self.control_requests[key]
+                    self.native_events.append(dict(time_ps=at,kind='request_ack_arrive',request=key,domain=self.domain_names[channel],gateway=g.id))
+                continue
+            row=self.groups[key];memory=self.interfaces[row['request'].memory]
+            if kind=='command':
+                self.queues[channel].append(key)
+                self.native_events.append(dict(time_ps=at,kind='request_control_arrive',request=key,domain=self.domain_names[channel],gateway=memory.gateway_id))
+            elif kind=='collect':
+                q=self.aggregate[memory.gateway_id];q.append((key,offset,channel,at,origin))
+                self.aggregate_peak[memory.gateway_id]=max(self.aggregate_peak[memory.gateway_id],len(q)*16)
+            else:
+                self.reserved[channel]-=1;self.ready.append((key,offset,16));row['completed']+=1
+                self.gateway_atom_ps+=at-origin
+                if row['completed']*16==row['request'].size_bytes:
+                    completed.append(key);self.pool_live[memory.mc_pool_id]-=1
+                    del self.groups[key];self.completed+=1
+        if now%self.spec.noc_period_ps==0:
             for key,queue in self.aggregate.items():
                 gateway=self.gateways[key];count=min(len(queue),gateway.data_bytes_per_cycle//16)
                 if count:self.aggregate_busy_cycles[key]+=1
@@ -137,13 +209,19 @@ class VerticalRWDL:
                 if mapped!=channel:raise RuntimeError('Physical domain mapping changed')
                 ticket=self.backend.submit(channel,address)
                 if ticket is None:self.queue_stalls+=1;continue
+                if self.request_control and (key,channel) not in self.command_started:
+                    self.command_started.add((key,channel))
+                    self.native_events.append(dict(time_ps=now,kind='domain_descriptor_begin',request=key,domain=self.domain_names[channel],gateway=self.interfaces[req.memory].gateway_id))
                 self.tickets[ticket]=(key,offset,channel);self.reserved[channel]+=1
                 self.reservation_peak[channel]=max(self.reservation_peak[channel],self.reserved[channel])
                 self.channel_atoms[channel]+=1;self.selected_row[channel]=address//64
                 self.round_robin[channel]=(index+1)%p.descriptor_window
                 offset+=16 if offset%32==0 else self.interfaces[req.memory].banks*32-16
                 row['cursors'][channel]=offset
-                if offset>=req.size_bytes:queue.remove(key)
+                if offset>=req.size_bytes:
+                    queue.remove(key)
+                    if self.request_control:
+                        self.command_started.remove((key,channel));self._ack(key,channel,now)
         return completed
 
     def take_ready(self):
@@ -166,6 +244,19 @@ class VerticalRWDL:
             collection_atom_ps=self.collection_atom_ps,cdc_atom_ps=self.cdc_atom_ps,
             gateway_total_atom_ps=self.gateway_atom_ps,pool_peak=dict(self.pool_peak),
             scope='physical native domains counted once; finite reservations through physical transport; assumed array timing')
+        record['request_control']=dict(enabled=self.request_control,command_bytes_per_domain_descriptor=16,
+            ack_bytes_per_domain_descriptor=8,tx_limits=dict(self.tx_limits),domain_descriptor_entries=32,
+            queue_peak=dict(self.command_peak),domain_queue_peak=dict(self.domain_descriptor_peak),ack_queue_peak=dict(self.ack_peak),
+            tx_live=sum(self.command_live.values()),domain_ranges_live=sum(self.domain_descriptors.values()),
+            ack_live=sum(self.ack_pending.values()),bytes_by_gateway=dict(self.command_bytes),ack_bytes_by_gateway=dict(self.ack_bytes),admission_stalls=self.command_stalls,
+            additional_tx_storage_bytes=16*sum(self.tx_limits.values()) if self.request_control else 0,
+            additional_ack_storage_bytes=16*sum(self.tx_limits.values()) if self.request_control else 0,
+            additional_domain_descriptor_bytes=512*len(self.domains) if self.request_control else 0,
+            control_wire_bit_um=sum(64*p.length_um for p in self.stack.collection_paths) if self.request_control else 0,
+            control_pipeline_bits=sum(64*p.pipeline_cycles for p in self.stack.collection_paths) if self.request_control else 0,
+            gateway_access_control_wire_bit_um=sum(g.control_bits*sum(abs(a-b) for a,b in zip(g.position_um,next(r for r in self.stack.routers if r.id==g.router_id).position_um)) for g in self.stack.gateways) if self.request_control else 0,
+            gateway_access_control_pipeline_bits=sum(g.control_bits*g.router_access_cycles for g in self.stack.gateways) if self.request_control else 0,
+            contract='16 B range/domain; shared 32-bit forward and reverse HB control at logic clock; explicit router-to-gateway access, physical domain propagation and CDC; range expanded locally; credits retained through 8 B serialized ACK; bounded queues, native ACT/PRE/RD unchanged')
         return record
 
     def close(self):self.backend.close()

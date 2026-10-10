@@ -107,6 +107,9 @@ class BoundaryTrafficManager : public OnlineTrafficManager {
         progress.push_back({{"event","receive"},{"id",mid},{"flit",fid},
             {"ordinal",ordinals.at(fid)},{"cycle",_time+1},{"destination",node},{"record",event}});
         ordinals.erase(fid);
+        // Execution state is bounded by live traffic. The completed reply and
+        // current progress batch already own their copies of these records.
+        if(msg_flits_remaining.at(mid)==0) message_flits[mid]=json::array();
     }
     void ReturnCredits() {
         for (int node=0;node<_nodes;++node) if (!returns[node].empty()) {

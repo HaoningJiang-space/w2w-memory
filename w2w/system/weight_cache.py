@@ -72,7 +72,7 @@ class WeightCache:
     def filled(self,tile,key,task):
         entry=self.entries[tile][key]
         if entry['valid'] or not entry['pins']:raise ValueError('Repeated/unowned cache fill')
-        entry['valid']=True;self.entries[tile].move_to_end(key)
+        entry['valid']=True  # LRU is lookup recency, independent of fill arrival order.
         self.log('cache_fill',tile=tile,object=key,bytes=entry['size'],task=task)
 
     def release(self,tile,key):

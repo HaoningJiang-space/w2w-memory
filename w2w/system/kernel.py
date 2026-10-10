@@ -500,7 +500,7 @@ class SystemExecution:
                 self.network.step(self.now)
             if self.done_count==len(self.tasks) and makespan is None:
                 makespan = self.now
-            if makespan is not None and self.network.drained():
+            if makespan is not None and self.network.drained() and not self.native.record()['pending']:
                 if self.context_metadata_bytes:
                     for tile in self.builder.tiles:self._sram(tile,-self.context_metadata_bytes,'compute-context-state')
                 if self.weight_cache:

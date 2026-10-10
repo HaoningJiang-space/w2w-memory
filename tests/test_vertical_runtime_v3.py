@@ -76,3 +76,27 @@ class VerticalRuntime(unittest.TestCase):
 
 
 if __name__=='__main__':unittest.main()
+
+@unittest.skipUnless(os.getenv('W2W_BOOKSIM_BINARY') and os.getenv('W2W_RAMULATOR_BRIDGE'),'Native tools required')
+class RequestControl(unittest.TestCase):
+    def test_finite_command_and_ack_path(self):
+        from w2w.validation.request_control import audit_request_control
+        for organization in ('central','distributed'):
+            stack=vertical_memory(organization);spec=compile_machine(stack)
+            logical=build_moe(((0,),),experts=4,topk=1,intermediate=512)
+            weights=place_weights(logical,stack)
+            graph,_=lower(logical,spec,weights,place_compute(logical,stack,weights))
+            native=VerticalRWDL(spec,refresh=False,request_control=True)
+            try:
+                with tempfile.TemporaryDirectory() as directory:
+                    r=execute_system(spec,graph,native=native,compute_contexts=2,time_advance='boundaries',max_ps=1000000000,
+                        network_factory=factory(binary=Path(os.environ['W2W_BOOKSIM_BINARY']),directory=Path(directory)/'network'))
+                    self.assertTrue(audit_vertical_result(r)['passed'])
+                    audit=audit_request_control(r)
+                    self.assertEqual(audit['command_bytes'],2*audit['ack_bytes'])
+                    self.assertGreater(audit['ranges'],0)
+                    self.assertEqual(r['native']['request_control']['additional_tx_storage_bytes'],16384)
+                    event=next(e for e in r['events'] if e['kind']=='request_control_arrive')
+                    event['time_ps']-=40
+                    with self.assertRaises(ValueError):audit_request_control(r)
+            finally:native.close()

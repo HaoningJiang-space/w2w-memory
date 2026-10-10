@@ -14,6 +14,7 @@ class VerticalPort:
     control_bits: int = 64
     hb_sites: int = 0
     landing_pitch_um: int = 4
+    control_period_ps: int = 1000
 
     @property
     def landing_bounds_um(self):
