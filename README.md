@@ -44,6 +44,11 @@ Distributed completion from **581.384 to 562.863 µs (3.19%)**; more uniform
 Balanced placement takes 582.050 µs. The registered 24-token two-layer
 Reference/Hybrid confirmation is running; it has no completed result yet.
 
+The [dependency-policy study](docs/reports/CONCURRENT_VERTICAL_SERVICE_REPORT.md)
+retains S0 and tests bounded independent Gate/Up fetch in S1. A small native
+Phase-Split probe improves only with S1 (17.794 → 11.556 µs); this is mechanism
+evidence. Full cold placement comparisons and P4 audits remain in progress.
+
 Builds, tests and execution run in isolated directories on `hn072`; edit source
 locally and synchronize committed revisions through Git. No sibling simulator
 checkout is needed. From the repository root on the execution host:
