@@ -36,3 +36,18 @@ leaves little safe time, report that result. Forty-percent fewer wakeups is a
 research target, not a gate weakened by counting already accepted quiescent
 skips. Do not manufacture native delays or change clocks/bandwidth to pass.
 P2 or a larger matrix requires evidence of a useful coordination boundary.
+
+```sh
+python3 tools/census_causal_boundaries.py CENSUS --binary BOOKSIM
+python3 -m unittest discover -s tests -v
+python3 tools/run_causal_boundary_gate.py GATE --binary BOOKSIM
+python3 tools/run_causal_boundary_gate.py GATE --readback
+python3 tools/check_causal_boundary_evidence.py ROOT VERDICT.json
+```
+
+The readback ROOT contains `census-002` and `gate-001`. Receipt audit success is
+separate from active coordination and the 40% target. The first census's atom
+success counter treated ticket zero as false; preserve it as unaccepted and use
+the corrected second census. The initial clock-audit negative exposed that equal
+service counts alone cannot bind a resume: the final receipt also binds Native
+stop cycle and callback count. These checks do not substitute for native closure.
