@@ -1,0 +1,66 @@
+test_matched_physical_machine (test_architecture_v3.ArchitectureV3) ... ok
+test_metadata_expands_for_more_than_64_nodes (test_architecture_v3.ArchitectureV3) ... ok
+test_regions_and_execution_resources_are_independent (test_architecture_v3.ArchitectureV3) ... ok
+test_resource_and_position_rejections (test_architecture_v3.ArchitectureV3) ... ok
+test_split_cannot_duplicate_compute_budget (test_architecture_v3.ArchitectureV3) ... ok
+test_stitch_is_short_and_internal_path_paid (test_architecture_v3.ArchitectureV3) ... ok
+test_callback_is_not_visible_until_reserved_boundary (test_causal_boundary.CausalBoundaryTests) ... ok
+test_compute_bulk_matches_exact_services_before_callback (test_causal_boundary.CausalBoundaryTests) ... ok
+test_forged_skipped_clock_and_service_accounting_rejected (test_causal_boundary.CausalBoundaryTests) ... ok
+test_known_frontend_event_and_deadline_cap_the_interval (test_causal_boundary.CausalBoundaryTests) ... ok
+test_no_callback_cap_still_locks_new_input (test_causal_boundary.CausalBoundaryTests) ... ok
+test_transport_frontend_queues_and_unknown_callback_disable (test_causal_boundary.CausalBoundaryTests) ... ok
+test_matches_tick_reference_and_preserves_refresh (test_causal_boundary.NativeFirstCallback) ... ok
+test_batch_equals_original_compute_updates_and_leaves_tail (test_compute_epoch.ComputeEpochTests) ... ok
+test_batch_total_cannot_be_forged_with_otherwise_correct_events (test_compute_epoch.ComputeEpochTests) ... ok
+test_compact_independent_expansion_and_bad_service_rejected (test_compute_epoch.ComputeEpochTests) ... ok
+test_credit_pending_unavailable_data_observer_and_context_disable (test_compute_epoch.ComputeEpochTests) ... ok
+test_deadline_is_not_crossed (test_compute_epoch.ComputeEpochTests) ... ok
+test_release_between_clocks_stops_at_original_integer_grid (test_compute_epoch.ComputeEpochTests) ... ok
+test_unrecognized_native_backend_has_no_epoch_capability (test_compute_epoch.ComputeEpochTests) ... ok
+test_sequence_hits_and_reloads_release_bounded_fetch_state (test_concurrent_service.ConcurrentRuntime) ... ok
+test_small_phase_split_has_overlapping_fetch_and_shared_ports (test_concurrent_service.ConcurrentRuntime) ... ok
+test_independent_projections_keep_block_and_mathematical_dependencies (test_concurrent_service.DependencyPolicy) ... ok
+test_phase_split_moves_only_up_to_same_row_peer (test_concurrent_service.DependencyPolicy) ... ok
+test_sequence_keeps_layer_storage_preload_and_sequence_barriers (test_concurrent_service.DependencyPolicy) ... ok
+test_cached_operands_have_no_memory_wait (test_ffn_stages.StageEvents) ... ok
+test_prefix_hole_and_ungranted_ready_clock (test_ffn_stages.StageEvents) ... ok
+test_active_transport_partial_prefix_equals_exact_state_at_each_boundary (test_interactive_compute.InteractiveComputeTests) ... ok
+test_byte_count_contexts_cache_observer_and_short_frontier_fall_back (test_interactive_compute.InteractiveComputeTests) ... ok
+test_compact_expansion_preserves_equal_time_insertion (test_interactive_compute.InteractiveComputeTests) ... ok
+test_competitor_flushes_only_already_executed_service (test_interactive_compute.InteractiveComputeTests) ... ok
+test_frontier_holes_are_distinguishable_after_same_future_commit (test_interactive_compute.InteractiveComputeTests) ... ok
+test_new_prefix_extends_next_interval_without_rewriting_existing_one (test_interactive_compute.InteractiveComputeTests) ... ok
+test_noncompute_clock_and_duplicate_call_do_not_create_service (test_interactive_compute.InteractiveComputeTests) ... ok
+test_wrong_interval_progress_prefix_count_and_duplicate_marker_rejected (test_interactive_compute.InteractiveComputeTests) ... ok
+test_zero_coverage_fallback_receipt_is_valid_for_unsupported_policy (test_interactive_compute.InteractiveComputeTests) ... ok
+test_same_workload_different_fabric_and_gateway (test_mapping_v3.MappingV3) ... ok
+test_scale_storage_tracks_matrix_shape (test_mapping_v3.MappingV3) ... ok
+test_tensor_identity_is_not_a_copy (test_mapping_v3.MappingV3) ... ok
+test_later_chunk_waits_for_earlier_hole (test_operand_readiness.OperandReadiness) ... ok
+test_collection_timing_and_pair_identity (test_physical_contracts.PhysicalContracts) ... ok
+test_memory_outline_and_hb_footprint (test_physical_contracts.PhysicalContracts) ... ok
+test_pipeline_and_router_cannot_be_overridden_silently (test_physical_contracts.PhysicalContracts) ... ok
+test_recipe_unknown_fields_fail_and_external_lands_are_distinct (test_physical_contracts.PhysicalContracts) ... ok
+test_ready_bypasses_unsupplied_with_one_port (test_ready_arbiter.ReadyArbiter) ... ok
+test_row_change_and_refresh_constraints (test_rwdl_commands.CommandAudit) ... ok
+test_wrong_operand_and_early_read (test_rwdl_commands.CommandAudit) ... ok
+test_two_layer_addresses_are_distinct_and_mapping_is_matched (test_sequence_mapping.SequenceMapping) ... ok
+test_current_source_has_no_old_architecture_imports (test_source_boundary_v3.SourceBoundary) ... ok
+test_native_views_cannot_clone_resident_capacity (test_source_boundary_v3.SourceBoundary) ... ok
+test_physical_record_round_trip (test_source_boundary_v3.SourceBoundary) ... ok
+test_catalog_is_independent_of_eval_routing (test_static_placement.StaticPlacement) ... ok
+test_compute_and_preload_are_frozen_across_memory_layouts (test_static_placement.StaticPlacement) ... ok
+test_gate_up_intervention_preserves_down_addresses_and_locked_objects (test_static_placement.StaticPlacement) ... ok
+test_finite_command_and_ack_path (test_vertical_runtime_v3.RequestControl) ... ok
+test_finite_contexts_share_one_arithmetic_service (test_vertical_runtime_v3.VerticalRuntime) ... ok
+test_small_complete_ffn (test_vertical_runtime_v3.VerticalRuntime) ... ok
+test_two_access_views_share_one_native_service (test_vertical_runtime_v3.VerticalRuntime) ... ok
+test_eviction_without_revisit_is_valid (test_weight_cache.CacheLifetime) ... {"complete": true, "case": "causal-no-revisit-fixture", "capacity_reload_observed": false}
+ok
+test_warm_hit_then_eviction_and_reload (test_weight_cache.CacheLifetime) ... ok
+
+----------------------------------------------------------------------
+Ran 60 tests in 95.837s
+
+OK

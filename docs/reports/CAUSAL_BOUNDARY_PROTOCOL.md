@@ -1,5 +1,10 @@
 # Causal boundary census and minimal native callback gate
 
+Completed at execution `4daf6e4`, independent readback `d987cf0`:
+[report](CAUSAL_BOUNDARY_REPORT.md). Evidence checks pass, but all three native
+inputs have zero certified active intervals. The 40% wakeup target was not met
+and this candidate provides no measured acceleration.
+
 P0 separates observed interface progress, resource-state projection changes,
 compute-only service and admission retries in three fixed small cases: the
 accepted stable and transport inputs, plus two independent contexts on c2/c3

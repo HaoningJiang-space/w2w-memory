@@ -191,6 +191,24 @@ captures stay in `/Projects/haoning/w2w-full-system-interactive-epoch-20261010`.
 The next material performance opportunity needs certified component event
 boundaries/interruptible service, not further tuning of this local rule.
 
+## Causal boundary finding
+
+The [boundary census and minimal P1](reports/CAUSAL_BOUNDARY_REPORT.md) executes
+at `4daf6e4` with independent readback `d987cf0`. Sixty tests and 15 native
+workers preserve physical events, command/endpoint fingerprints and drain,
+including ordinary-path equivalence to the old accepted stable/transport runs.
+Stable has 18,665 of 22,215 wakes without observed interface or projected
+resource change, but that projection does not certify safe lookahead. All three
+cases have zero certified active-array intervals; iterations and wall time do
+not improve. The first-callback primitive alone cannot bypass pending atom
+admission, finite Gateway output and NoC feedback. Keep the coordinator default
+off; the verdict explicitly separates evidence success from acceleration
+failure. Compact receipts are in `artifacts/provenance/causal_boundary`; raw
+diagnostics and all failed attempts remain in
+`/Projects/haoning/w2w-full-system-causal-boundary-20261010`. Select a qualified
+eligibility or joint frontend/Gateway boundary before extending this route;
+no P2, application matrix, or new speedup claim is authorized by this receipt.
+
 ## Limits
 
 No search/DSE, new fanout/endpoint RTL, partitioning rewrite, thermal/yield

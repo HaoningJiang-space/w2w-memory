@@ -1,0 +1,165 @@
+{
+  "cases": [
+    {
+      "batched_compute_cycles": 254,
+      "case": "concurrent",
+      "coordination_audit": {
+        "bulk_services": 0,
+        "intervals": 0,
+        "omitted_boundaries": 0
+      },
+      "drained_ps": 1740000,
+      "endpoint_trace_equal": true,
+      "interval_audits": {
+        "coordinated": {
+          "arithmetic_updates": 5,
+          "batched_compute_cycles": 254,
+          "intervals": 3,
+          "overlapping_intervals": 0,
+          "partial_prefix_intervals": 1,
+          "weight_services": 256
+        },
+        "interactive": {
+          "arithmetic_updates": 5,
+          "batched_compute_cycles": 254,
+          "intervals": 3,
+          "overlapping_intervals": 0,
+          "partial_prefix_intervals": 1,
+          "weight_services": 256
+        },
+        "off": {
+          "arithmetic_updates": null,
+          "batched_compute_cycles": 0,
+          "intervals": 0,
+          "overlapping_intervals": 0,
+          "partial_prefix_intervals": 0,
+          "weight_services": 256
+        }
+      },
+      "iterations": {
+        "coordinated": 2185,
+        "interactive": 2185,
+        "off": 2185
+      },
+      "makespan_ps": 1740000,
+      "native_commands_equal": true,
+      "physical_record_equal": true
+    },
+    {
+      "batched_compute_cycles": 16383,
+      "case": "stable",
+      "coordination_audit": {
+        "bulk_services": 0,
+        "intervals": 0,
+        "omitted_boundaries": 0
+      },
+      "drained_ps": 17696000,
+      "endpoint_trace_equal": true,
+      "interval_audits": {
+        "coordinated": {
+          "arithmetic_updates": 4,
+          "batched_compute_cycles": 16383,
+          "intervals": 3,
+          "overlapping_intervals": 2,
+          "partial_prefix_intervals": 2,
+          "weight_services": 16384
+        },
+        "interactive": {
+          "arithmetic_updates": 4,
+          "batched_compute_cycles": 16383,
+          "intervals": 3,
+          "overlapping_intervals": 2,
+          "partial_prefix_intervals": 2,
+          "weight_services": 16384
+        },
+        "off": {
+          "arithmetic_updates": null,
+          "batched_compute_cycles": 0,
+          "intervals": 0,
+          "overlapping_intervals": 0,
+          "partial_prefix_intervals": 0,
+          "weight_services": 16384
+        }
+      },
+      "iterations": {
+        "coordinated": 22215,
+        "interactive": 22215,
+        "off": 22215
+      },
+      "makespan_ps": 17696000,
+      "native_commands_equal": true,
+      "physical_record_equal": true
+    },
+    {
+      "batched_compute_cycles": 0,
+      "case": "transport",
+      "coordination_audit": {
+        "bulk_services": 0,
+        "intervals": 0,
+        "omitted_boundaries": 0
+      },
+      "drained_ps": 1490000,
+      "endpoint_trace_equal": true,
+      "interval_audits": {
+        "coordinated": {
+          "arithmetic_updates": 2,
+          "batched_compute_cycles": 0,
+          "intervals": 0,
+          "overlapping_intervals": 0,
+          "partial_prefix_intervals": 0,
+          "weight_services": 2
+        },
+        "interactive": {
+          "arithmetic_updates": 2,
+          "batched_compute_cycles": 0,
+          "intervals": 0,
+          "overlapping_intervals": 0,
+          "partial_prefix_intervals": 0,
+          "weight_services": 2
+        },
+        "off": {
+          "arithmetic_updates": null,
+          "batched_compute_cycles": 0,
+          "intervals": 0,
+          "overlapping_intervals": 0,
+          "partial_prefix_intervals": 0,
+          "weight_services": 2
+        }
+      },
+      "iterations": {
+        "coordinated": 1872,
+        "interactive": 1872,
+        "off": 1872
+      },
+      "makespan_ps": 1433000,
+      "native_commands_equal": true,
+      "physical_record_equal": true
+    }
+  ],
+  "costs": {
+    "coordinated": {
+      "execution_seconds_median": 1.6771688675507903,
+      "peak_rss_kib_median": 51676,
+      "python_cpu_seconds_median": 1.472049663,
+      "stored_events": 17453,
+      "worker_wall_seconds_median": 2.206480850931257
+    },
+    "interactive": {
+      "execution_seconds_median": 1.5728238569572568,
+      "peak_rss_kib_median": 51364,
+      "python_cpu_seconds_median": 1.3739496690000002,
+      "stored_events": 17453,
+      "worker_wall_seconds_median": 2.1750002428889275
+    },
+    "off": {
+      "execution_seconds_median": 1.094037998933345,
+      "peak_rss_kib_median": 51520,
+      "python_cpu_seconds_median": 1.007940687,
+      "stored_events": 17453,
+      "worker_wall_seconds_median": 1.5827441848814487
+    }
+  },
+  "passed": true,
+  "scope": "fixed small native system cases; no FFN/placement speedup claim",
+  "workers": 15
+}

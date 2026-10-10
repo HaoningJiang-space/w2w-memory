@@ -1,0 +1,80 @@
+{
+  "active_coordination_demonstrated": false,
+  "active_first_callback_intervals": 0,
+  "census": [
+    {
+      "case": "stable",
+      "census_sha256": "5454cba16d3037013ef07bf90aa61f788e907ac5eaccbbe23557e37da602ed55",
+      "classification": {
+        "empty_advance_reply": 2523,
+        "no_observed_interface_or_resource_change": 18665,
+        "potential_active_array_gap": 0,
+        "quiet_with_compute_service": 14570,
+        "quiet_without_compute_service": 4095,
+        "resource_projection_changes": 3459,
+        "with_array_callback": 764,
+        "with_gateway_ready": 2219,
+        "with_network_progress": 913,
+        "with_observed_interface_progress": 3192
+      },
+      "clock_wakeups": 22215,
+      "descriptive_clock_per_observed_interaction": 6.959586466165414,
+      "diagnostic_changes_physical_record": false,
+      "observed_interface_times": 3192,
+      "source_bridge_equivalence": [
+        "old accepted result, command and endpoint fingerprints equal; only bridge identity changed"
+      ]
+    },
+    {
+      "case": "transport",
+      "census_sha256": "5f55e402b4eda8681a4c1e1d1c387895dd2405e026efe6814fd62ab8f5ab58a9",
+      "classification": {
+        "empty_advance_reply": 1328,
+        "no_observed_interface_or_resource_change": 1185,
+        "potential_active_array_gap": 0,
+        "quiet_with_compute_service": 0,
+        "quiet_without_compute_service": 1185,
+        "resource_projection_changes": 613,
+        "with_array_callback": 182,
+        "with_gateway_ready": 309,
+        "with_network_progress": 129,
+        "with_observed_interface_progress": 639
+      },
+      "clock_wakeups": 1872,
+      "descriptive_clock_per_observed_interaction": 2.9295774647887325,
+      "diagnostic_changes_physical_record": false,
+      "observed_interface_times": 639,
+      "source_bridge_equivalence": [
+        "old accepted result, command and endpoint fingerprints equal; only bridge identity changed"
+      ]
+    },
+    {
+      "case": "concurrent",
+      "census_sha256": "ddc02caa3e147c2d7ba7e6d0453f127f7c14f1e513ec6495c374e8f2e5a22913",
+      "classification": {
+        "empty_advance_reply": 1431,
+        "no_observed_interface_or_resource_change": 965,
+        "potential_active_array_gap": 0,
+        "quiet_with_compute_service": 170,
+        "quiet_without_compute_service": 795,
+        "resource_projection_changes": 1139,
+        "with_array_callback": 297,
+        "with_gateway_ready": 611,
+        "with_network_progress": 238,
+        "with_observed_interface_progress": 1094
+      },
+      "clock_wakeups": 2185,
+      "descriptive_clock_per_observed_interaction": 1.9972577696526508,
+      "diagnostic_changes_physical_record": false,
+      "observed_interface_times": 1094,
+      "source_bridge_equivalence": []
+    }
+  ],
+  "conclusion": "first-callback primitive tested; no certified active system interval in these inputs; no acceleration claim",
+  "evidence_verified": true,
+  "execution_commit": "4daf6e4ef39fecb9c0efaead9c1f64a9431438bb",
+  "gate_verified_sha256": "afa514625e08908018bb11b4e921c226f642158e662a217debc823a79a02c415",
+  "limits": "observed interaction density is descriptive; state projection is not a sufficiency proof",
+  "source_commit": "d987cf01228dff173671baa8393b98a4798b9bcf",
+  "wakeup_target_40_percent_achieved": false
+}

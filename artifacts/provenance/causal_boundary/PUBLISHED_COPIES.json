@@ -1,0 +1,82 @@
+{
+  "ACCEPTED_ENVIRONMENT.json": {
+    "bytes": 3035,
+    "remote_path": "/Projects/haoning/w2w-full-system-causal-boundary-20261010/ACCEPTED_ENVIRONMENT.json",
+    "sha256": "edbb7d5539a4b7ada24cdf5163865f4978296a4553e6c51e2d6fc39a6d7629e7"
+  },
+  "BOOKSIM_BUILD_MANIFEST.json": {
+    "bytes": 33924,
+    "remote_path": "/Projects/haoning/w2w-full-system-performance-placement-20261010/native-fast-r1/build-manifest.json",
+    "sha256": "6b7fcabc0f30a54222783710167e3604800765d3430da64684880c22d3717cdc"
+  },
+  "BUILD_MANIFEST.json": {
+    "bytes": 2831,
+    "remote_path": "/Projects/haoning/w2w-full-system-causal-boundary-20261010/native-dram/build-manifest.json",
+    "sha256": "98b80899df225ee9af3ac1685f8b69a1eb1157ba496ca302c8af972104b4daf6"
+  },
+  "CENSUS.log": {
+    "bytes": 76,
+    "remote_path": "/Projects/haoning/w2w-full-system-causal-boundary-20261010/census-002.log",
+    "sha256": "a092f11b738d7ebb901aec8acd9e5082dbf119fe139b77da1ae2962299cd0413"
+  },
+  "CENSUS_COMPLETE.json": {
+    "bytes": 42658,
+    "remote_path": "/Projects/haoning/w2w-full-system-causal-boundary-20261010/census-002/COMPLETE.json",
+    "sha256": "7200162c3a8c238e0e54fecf52db7fe4613d24518c0732438b83e2188d6a65ee"
+  },
+  "CENSUS_CONCURRENT.json": {
+    "bytes": 2684,
+    "remote_path": "/Projects/haoning/w2w-full-system-causal-boundary-20261010/census-002/concurrent/CENSUS.json",
+    "sha256": "ddc02caa3e147c2d7ba7e6d0453f127f7c14f1e513ec6495c374e8f2e5a22913"
+  },
+  "CENSUS_STABLE.json": {
+    "bytes": 2776,
+    "remote_path": "/Projects/haoning/w2w-full-system-causal-boundary-20261010/census-002/stable/CENSUS.json",
+    "sha256": "5454cba16d3037013ef07bf90aa61f788e907ac5eaccbbe23557e37da602ed55"
+  },
+  "CENSUS_TRANSPORT.json": {
+    "bytes": 2663,
+    "remote_path": "/Projects/haoning/w2w-full-system-causal-boundary-20261010/census-002/transport/CENSUS.json",
+    "sha256": "5f55e402b4eda8681a4c1e1d1c387895dd2405e026efe6814fd62ab8f5ab58a9"
+  },
+  "COMPLETE.json": {
+    "bytes": 225249,
+    "remote_path": "/Projects/haoning/w2w-full-system-causal-boundary-20261010/gate-001/COMPLETE.json",
+    "sha256": "a9568bac627ad8306c692ecec0036c4376a6b94a760807c9ea4630bc97c6a6c5"
+  },
+  "GATE.log": {
+    "bytes": 398,
+    "remote_path": "/Projects/haoning/w2w-full-system-causal-boundary-20261010/gate-001.log",
+    "sha256": "cc7f9acaa918c8af496799bf1304fd74eafb2adcf430e9a2602d4f2d2153a8bc"
+  },
+  "READBACK.log": {
+    "bytes": 47,
+    "remote_path": "/Projects/haoning/w2w-full-system-causal-boundary-20261010/readback-001.log",
+    "sha256": "bb0e49c34fbd8eb7bfa7d6f7e2425de721c665eebb447d6ba0bfb7e059e24e42"
+  },
+  "STARTED.json": {
+    "bytes": 10738,
+    "remote_path": "/Projects/haoning/w2w-full-system-causal-boundary-20261010/gate-001/STARTED.json",
+    "sha256": "1ee8abff62c908edb5ff8bd4b265a109b66043fcbbd30af500e796d2bff2d6b1"
+  },
+  "SUPPLEMENTAL.log": {
+    "bytes": 105,
+    "remote_path": "/Projects/haoning/w2w-full-system-causal-boundary-20261010/supplemental-001.log",
+    "sha256": "023eeb0038bd6c4e1a562000b5066fe433db30a396b716565d6da26ce82839ce"
+  },
+  "TESTS.log": {
+    "bytes": 6149,
+    "remote_path": "/Projects/haoning/w2w-full-system-causal-boundary-20261010/tests-002.log",
+    "sha256": "f906435832596e38a51f7848ac51a0257f1d8afc52effba90efe5699b4f1476b"
+  },
+  "VERDICT.json": {
+    "bytes": 3321,
+    "remote_path": "/Projects/haoning/w2w-full-system-causal-boundary-20261010/VERDICT.json",
+    "sha256": "d65e3de939b45bdc85ac2cc27a76b15f7a900fe754a1af68bf7aa2be939dec91"
+  },
+  "VERIFIED.json": {
+    "bytes": 4668,
+    "remote_path": "/Projects/haoning/w2w-full-system-causal-boundary-20261010/gate-001/VERIFIED.json",
+    "sha256": "afa514625e08908018bb11b4e921c226f642158e662a217debc823a79a02c415"
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "analysis_commit": "d987cf01228dff173671baa8393b98a4798b9bcf",
+  "booksim": {
+    "bytes": 25805616,
+    "path": "/Projects/haoning/w2w-full-system-performance-placement-20261010/native-fast-r1/booksim/endpoint_booksim",
+    "sha256": "9d18611aa0cc74b6d8a475e302134c7888b1417648607abce3a6f8d04311e308"
+  },
+  "booksim_build_inputs_matched": 155,
+  "booksim_build_manifest": {
+    "bytes": 33924,
+    "path": "/Projects/haoning/w2w-full-system-performance-placement-20261010/native-fast-r1/build-manifest.json",
+    "sha256": "6b7fcabc0f30a54222783710167e3604800765d3430da64684880c22d3717cdc"
+  },
+  "bridge": {
+    "bytes": 1431696,
+    "path": "/Projects/haoning/w2w-full-system-causal-boundary-20261010/native-dram/dram_bridge/_w2w_ramulator.cpython-310-x86_64-linux-gnu.so",
+    "sha256": "2f0ce7820967b76977ebaca5f10b66bdb809c34f76e1afdcf4aec21a709ebb1a"
+  },
+  "execution_commit": "4daf6e4ef39fecb9c0efaead9c1f64a9431438bb",
+  "execution_result": "evidence verified; zero certified active intervals; no acceleration",
+  "host": "ee4e072",
+  "platform": "Linux-6.8.0-40-generic-x86_64-with-glibc2.35",
+  "preserved_unaccepted_attempts": [
+    "/Projects/haoning/w2w-full-system-causal-boundary-20261010/tests-001.log",
+    "/Projects/haoning/w2w-full-system-causal-boundary-20261010/census-001"
+  ],
+  "python": {
+    "bytes": 5904936,
+    "path": "/usr/bin/python3",
+    "sha256": "6ce8f488520d0f0cb8ccc405ba844279492c3926e18b73f0539e5fecd8033467"
+  },
+  "python_version": "3.10.12 (main, Jul 29 2024, 16:56:48) [GCC 11.4.0]",
+  "ramulator_build_inputs_matched": 8,
+  "ramulator_build_manifest": {
+    "bytes": 2831,
+    "path": "/Projects/haoning/w2w-full-system-causal-boundary-20261010/native-dram/build-manifest.json",
+    "sha256": "98b80899df225ee9af3ac1685f8b69a1eb1157ba496ca302c8af972104b4daf6"
+  },
+  "ramulator_library": {
+    "bytes": 2470064,
+    "path": "/Projects/haoning/w2w-full-system-closure-20261009/dram-clean-a9066bc/ramulator2/libramulator.so",
+    "sha256": "bdee8df7ac4486e77f4ce8689cdb9eed814ca222cbd1322b2bfaf342af203120"
+  },
+  "ramulator_upstream_commit": "72427a1bba3771564c4fb0e494ba02242fd1eaa7",
+  "reproducibility_controls": {
+    "performance_profiler": false,
+    "physical_backend_rules": "unchanged",
+    "worker_affinity": [
+      18,
+      19
+    ]
+  },
+  "schema": "w2w.causal-boundary.environment.v1",
+  "source_manifest": {
+    "bytes": 10738,
+    "path": "/Projects/haoning/w2w-full-system-causal-boundary-20261010/gate-001/STARTED.json",
+    "sha256": "1ee8abff62c908edb5ff8bd4b265a109b66043fcbbd30af500e796d2bff2d6b1"
+  },
+  "tests": {
+    "log": {
+      "bytes": 6149,
+      "path": "/Projects/haoning/w2w-full-system-causal-boundary-20261010/tests-002.log",
+      "sha256": "f906435832596e38a51f7848ac51a0257f1d8afc52effba90efe5699b4f1476b"
+    },
+    "passed": 60
+  },
+  "verdict": {
+    "bytes": 3321,
+    "path": "/Projects/haoning/w2w-full-system-causal-boundary-20261010/VERDICT.json",
+    "sha256": "d65e3de939b45bdc85ac2cc27a76b15f7a900fe754a1af68bf7aa2be939dec91"
+  }
+}
