@@ -1,0 +1,37 @@
+{
+  "checks": {
+    "ready_arbiter": 1,
+    "vertical_runtime": 4,
+    "weight_cache": 2
+  },
+  "execution_source_commit": "5e7bd31cd938f41a5aac4542a1bee75f0263a95d",
+  "files": {
+    "/Projects/haoning/w2w-full-system-gateway-cache-20261009/migration-r3.json": "449c7056e55e8b18b89e27e7f7efed18f51e6a335d29b32c956056bfbac3cda3",
+    "/Projects/haoning/w2w-full-system-gateway-cache-20261009/native-ready-r4/booksim/endpoint_booksim": "ccb3c9f852d42b6b8a554cc789c232d1b749a0c7ef8f28a4526be976c61c9f58",
+    "/Projects/haoning/w2w-full-system-gateway-cache-20261009/native-ready-r4/build-manifest.json": "ee0818961b7c7e240d0ffa62118ef74b1b8c4c928d12584ce30dae9457802ab1",
+    "/Projects/haoning/w2w-full-system-gateway-cache-20261009/review-checks-r2.log": "0df2403f06e6a48e522f16c710bc4d0d24aeda34b9622b7c04e854cf2bb4dc59",
+    "/Projects/haoning/w2w-full-system-gateway-cache-20261009/review-migration.json": "449c7056e55e8b18b89e27e7f7efed18f51e6a335d29b32c956056bfbac3cda3"
+  },
+  "log": ".\n----------------------------------------------------------------------\nRan 1 test in 0.050s\n\nOK\n{\"complete\": true, \"case\": \"causal-no-revisit-fixture\", \"capacity_reload_observed\": false}\n..\n----------------------------------------------------------------------\nRan 2 tests in 7.618s\n\nOK\n....\n----------------------------------------------------------------------\nRan 4 tests in 67.278s\n\nOK\n{'central': 54489000, 'distributed': 54143000, 'external': 54748000}\nREVIEW_CHECKS_COMPLETE\n",
+  "makespan_ps": {
+    "central": 54489000,
+    "distributed": 54143000,
+    "external": 54748000
+  },
+  "migration_exact": true,
+  "native_build": {
+    "complete": true,
+    "host": "ee4e072",
+    "outputs": {
+      "booksim": {
+        "path": "/Projects/haoning/w2w-full-system-gateway-cache-20261009/native-ready-r4/booksim/endpoint_booksim",
+        "sha256": "ccb3c9f852d42b6b8a554cc789c232d1b749a0c7ef8f28a4526be976c61c9f58"
+      }
+    },
+    "schema": "w2w.native-build.v1"
+  },
+  "native_build_source_commit": "9a787a777bcf5b0cbe77b05afa5fe579b5bfa136",
+  "passed": true,
+  "schema": "w2w.review-acceptance.v1",
+  "scope": "remote relevant checks and exact selected integer-ps migration fields; negative reload acceptance, metadata and arbiter naming; not a new full-layer result"
+}

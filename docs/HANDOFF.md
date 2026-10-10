@@ -21,7 +21,8 @@ Finite pinned matrix caching and serialized request/ACK control are implemented
 and pass native/model checks. The three hierarchy cases are registered at 3fb523e
 with both two-layer cases running in an immutable worktree on hn072:
 /Projects/haoning/w2w-full-system-gateway-cache-20261009/execution-hierarchy-r1
-Results/logs: sibling hierarchy-study-r1. Monitor: periodic-hierarchy-r1.log.
+Results/logs: sibling hierarchy-study-r1. Current monitor: periodic-hierarchy-r2.log
+(the original r1 monitor log is retained).
 The monitor checks every 60 seconds and runs independent analysis and SHA-256
 inventory after all cases finish. It stops on traceback, without automatic retry.
 
@@ -64,3 +65,19 @@ source and records analysis identity separately. It does not rerun or overwrite
 completed cases. The versioned monitor in `tools/monitor_memory_hierarchy.py`
 supports this case and stops on other failures. Native metadata now describes
 the actual array capacity; selector naming is oldest-admitted among ready.
+
+Review acceptance at `5e7bd31` is complete on hn072: relevant native checks and
+all selected default migration fields match exactly (Central 54.489 µs,
+Distributed 54.143 µs, corrected External 54.748 µs). The R4 BookSim build source
+is `9a787a7`; only arbiter metadata wording changed, and build-input SHAs match
+the review checkout. `artifacts/provenance/review_acceptance/checks.json` retains
+the independent checks, log and binary/raw migration identities. The registered
+hierarchy execution remains at `3fb523e` with R3, without an in-flight change.
+
+Next service gate: equal-byte eight-domain versus one-domain reads through the
+same physical native, collection/HB, command/ACK, gateway and RX resources.
+Record actual native command/address traces. This is read-only service evidence,
+not a new full application result or a claim of silicon-calibrated physical
+closure. Combine it with the existing paid operand-prefix evidence before a new
+Central+/Distributed comparison. Full-size prefix sensitivity and prefill remain
+unmeasured; a multi-layer FFN proxy is not a complete Transformer.
