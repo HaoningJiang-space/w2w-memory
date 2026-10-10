@@ -1,0 +1,32 @@
+{
+  "analysis_source_commit": "8a8e34bd9ca451b2e3ecb1c7fcf0a0eca53a692f",
+  "execution_source_commit": "8a8e34bd9ca451b2e3ecb1c7fcf0a0eca53a692f",
+  "files": {
+    "cases/central-plus/completion.json": {
+      "bytes": 4726,
+      "sha256": "67d13965850b93abf851014a326dd3c861dac31088223f8582ec700fca740eaa"
+    },
+    "cases/central-plus/result.json.gz": {
+      "bytes": 33819651,
+      "sha256": "e4dad470fb90170c083f88bf6d99acc810fbc4e934f6cc81477986bbc5a19e13"
+    },
+    "cases/distributed/completion.json": {
+      "bytes": 4966,
+      "sha256": "96f29cc1e0715b600b6291e18845659c9b636ff14573a8561781f75cfdd63454"
+    },
+    "cases/distributed/result.json.gz": {
+      "bytes": 29301591,
+      "sha256": "7f6a21bbd1381663ca930bd54e503e1f9120b895df7de423b5e80d5f726c1a13"
+    },
+    "inputs/central-plus.json": {
+      "bytes": 3065933,
+      "sha256": "44b8fa4e568a0890a2d31748fbccfb689b9eea3e5a1f470c6e1231335d4fcdca"
+    },
+    "inputs/distributed.json": {
+      "bytes": 3076874,
+      "sha256": "e0eb61aac63fe05a2b841aba918cad3bbfd60cec1b7f3be3d882771de5ccd032"
+    }
+  },
+  "full_analysis_sha256": "1c1b9c58b78dd694a692d986f898360002b5456ec5e3cd097af7f617bcd2bb19",
+  "remote_root": "/Projects/haoning/w2w-full-system-gateway-cache-20261009/operand-access-r1"
+}

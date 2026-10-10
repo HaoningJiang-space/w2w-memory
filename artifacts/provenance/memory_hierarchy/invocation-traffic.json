@@ -1,0 +1,2157 @@
+{
+  "analysis_source_commit": "1a92654879a26ba28701a31b0dcd0f03ea58ca28",
+  "cases": {
+    "central-plus-two-layer": {
+      "input_sha256": "d2b0d23a109df78e290a7e13f023555cc1d9d9114c572511ed9eb0e74937f1ba",
+      "invocations": [
+        {
+          "duration_ps": 27033000,
+          "finish_ps": 27033000,
+          "finish_task": "I0000/t0/combine",
+          "input_task": "I0000/t0/input",
+          "layer": 0,
+          "prefix": "I0000/",
+          "source": "c0",
+          "start_ps": 0,
+          "token": 0,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 971124000,
+          "finish_ps": 998222000,
+          "finish_task": "I0001/t0/combine",
+          "input_task": "I0001/t0/input",
+          "layer": 1,
+          "prefix": "I0001/",
+          "source": "c0",
+          "start_ps": 27098000,
+          "token": 0,
+          "traffic": {
+            "compulsory_bytes": 151031808,
+            "miss_bytes": 151031808,
+            "misses": 288,
+            "native_bytes": 151031808
+          }
+        },
+        {
+          "duration_ps": 26093000,
+          "finish_ps": 1024315000,
+          "finish_task": "I0002/t0/combine",
+          "input_task": "I0002/t0/input",
+          "layer": 0,
+          "prefix": "I0002/",
+          "source": "c1",
+          "start_ps": 998222000,
+          "token": 1,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 780258000,
+          "finish_ps": 1804638000,
+          "finish_task": "I0003/t0/combine",
+          "input_task": "I0003/t0/input",
+          "layer": 1,
+          "prefix": "I0003/",
+          "source": "c1",
+          "start_ps": 1024380000,
+          "token": 1,
+          "traffic": {
+            "compulsory_bytes": 151031808,
+            "miss_bytes": 151031808,
+            "misses": 288,
+            "native_bytes": 151031808
+          }
+        },
+        {
+          "duration_ps": 27789000,
+          "finish_ps": 1832427000,
+          "finish_task": "I0004/t0/combine",
+          "input_task": "I0004/t0/input",
+          "layer": 0,
+          "prefix": "I0004/",
+          "source": "c4",
+          "start_ps": 1804638000,
+          "token": 2,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 392951000,
+          "finish_ps": 2225443000,
+          "finish_task": "I0005/t0/combine",
+          "input_task": "I0005/t0/input",
+          "layer": 1,
+          "prefix": "I0005/",
+          "source": "c4",
+          "start_ps": 1832492000,
+          "token": 2,
+          "traffic": {
+            "compulsory_bytes": 56636928,
+            "hit_bytes": 94394880,
+            "hits": 180,
+            "miss_bytes": 56636928,
+            "misses": 108,
+            "native_bytes": 56636928
+          }
+        },
+        {
+          "duration_ps": 26157000,
+          "finish_ps": 2251600000,
+          "finish_task": "I0006/t0/combine",
+          "input_task": "I0006/t0/input",
+          "layer": 0,
+          "prefix": "I0006/",
+          "source": "c5",
+          "start_ps": 2225443000,
+          "token": 3,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 537058000,
+          "finish_ps": 2788723000,
+          "finish_task": "I0007/t0/combine",
+          "input_task": "I0007/t0/input",
+          "layer": 1,
+          "prefix": "I0007/",
+          "source": "c5",
+          "start_ps": 2251665000,
+          "token": 3,
+          "traffic": {
+            "compulsory_bytes": 94394880,
+            "hit_bytes": 56636928,
+            "hits": 108,
+            "miss_bytes": 94394880,
+            "misses": 180,
+            "native_bytes": 94394880
+          }
+        },
+        {
+          "duration_ps": 28637000,
+          "finish_ps": 2817360000,
+          "finish_task": "I0008/t0/combine",
+          "input_task": "I0008/t0/input",
+          "layer": 0,
+          "prefix": "I0008/",
+          "source": "c2",
+          "start_ps": 2788723000,
+          "token": 4,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 797961000,
+          "finish_ps": 3615386000,
+          "finish_task": "I0009/t0/combine",
+          "input_task": "I0009/t0/input",
+          "layer": 1,
+          "prefix": "I0009/",
+          "source": "c2",
+          "start_ps": 2817425000,
+          "token": 4,
+          "traffic": {
+            "compulsory_bytes": 151031808,
+            "miss_bytes": 151031808,
+            "misses": 288,
+            "native_bytes": 151031808
+          }
+        },
+        {
+          "duration_ps": 27870000,
+          "finish_ps": 3643256000,
+          "finish_task": "I0010/t0/combine",
+          "input_task": "I0010/t0/input",
+          "layer": 0,
+          "prefix": "I0010/",
+          "source": "c3",
+          "start_ps": 3615386000,
+          "token": 5,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 795981000,
+          "finish_ps": 4439302000,
+          "finish_task": "I0011/t0/combine",
+          "input_task": "I0011/t0/input",
+          "layer": 1,
+          "prefix": "I0011/",
+          "source": "c3",
+          "start_ps": 3643321000,
+          "token": 5,
+          "traffic": {
+            "compulsory_bytes": 132152832,
+            "hit_bytes": 18878976,
+            "hits": 36,
+            "miss_bytes": 132152832,
+            "misses": 252,
+            "native_bytes": 132152832
+          }
+        },
+        {
+          "duration_ps": 27391000,
+          "finish_ps": 4466693000,
+          "finish_task": "I0012/t0/combine",
+          "input_task": "I0012/t0/input",
+          "layer": 0,
+          "prefix": "I0012/",
+          "source": "c6",
+          "start_ps": 4439302000,
+          "token": 6,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 735332000,
+          "finish_ps": 5202090000,
+          "finish_task": "I0013/t0/combine",
+          "input_task": "I0013/t0/input",
+          "layer": 1,
+          "prefix": "I0013/",
+          "source": "c6",
+          "start_ps": 4466758000,
+          "token": 6,
+          "traffic": {
+            "compulsory_bytes": 132152832,
+            "hit_bytes": 18878976,
+            "hits": 36,
+            "miss_bytes": 132152832,
+            "misses": 252,
+            "native_bytes": 132152832
+          }
+        },
+        {
+          "duration_ps": 25986000,
+          "finish_ps": 5228076000,
+          "finish_task": "I0014/t0/combine",
+          "input_task": "I0014/t0/input",
+          "layer": 0,
+          "prefix": "I0014/",
+          "source": "c7",
+          "start_ps": 5202090000,
+          "token": 7,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 399035000,
+          "finish_ps": 5627176000,
+          "finish_task": "I0015/t0/combine",
+          "input_task": "I0015/t0/input",
+          "layer": 1,
+          "prefix": "I0015/",
+          "source": "c7",
+          "start_ps": 5228141000,
+          "token": 7,
+          "traffic": {
+            "compulsory_bytes": 56636928,
+            "hit_bytes": 94394880,
+            "hits": 180,
+            "miss_bytes": 56636928,
+            "misses": 108,
+            "native_bytes": 56636928
+          }
+        },
+        {
+          "duration_ps": 26854000,
+          "finish_ps": 5654030000,
+          "finish_task": "I0016/t0/combine",
+          "input_task": "I0016/t0/input",
+          "layer": 0,
+          "prefix": "I0016/",
+          "source": "c8",
+          "start_ps": 5627176000,
+          "token": 8,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 219350000,
+          "finish_ps": 5873445000,
+          "finish_task": "I0017/t0/combine",
+          "input_task": "I0017/t0/input",
+          "layer": 1,
+          "prefix": "I0017/",
+          "source": "c8",
+          "start_ps": 5654095000,
+          "token": 8,
+          "traffic": {
+            "compulsory_bytes": 37757952,
+            "hit_bytes": 113273856,
+            "hits": 216,
+            "miss_bytes": 37757952,
+            "misses": 72,
+            "native_bytes": 37757952
+          }
+        },
+        {
+          "duration_ps": 28114000,
+          "finish_ps": 5901559000,
+          "finish_task": "I0018/t0/combine",
+          "input_task": "I0018/t0/input",
+          "layer": 0,
+          "prefix": "I0018/",
+          "source": "c9",
+          "start_ps": 5873445000,
+          "token": 9,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 600797000,
+          "finish_ps": 6502421000,
+          "finish_task": "I0019/t0/combine",
+          "input_task": "I0019/t0/input",
+          "layer": 1,
+          "prefix": "I0019/",
+          "source": "c9",
+          "start_ps": 5901624000,
+          "token": 9,
+          "traffic": {
+            "compulsory_bytes": 94394880,
+            "hit_bytes": 56636928,
+            "hits": 108,
+            "miss_bytes": 94394880,
+            "misses": 180,
+            "native_bytes": 94394880
+          }
+        },
+        {
+          "duration_ps": 395128000,
+          "finish_ps": 6897549000,
+          "finish_task": "I0020/t0/combine",
+          "input_task": "I0020/t0/input",
+          "layer": 0,
+          "prefix": "I0020/",
+          "source": "c12",
+          "start_ps": 6502421000,
+          "token": 10,
+          "traffic": {
+            "hit_bytes": 94394880,
+            "hits": 180,
+            "miss_bytes": 56636928,
+            "misses": 108,
+            "native_bytes": 56636928,
+            "reload_bytes": 56636928
+          }
+        },
+        {
+          "duration_ps": 602091000,
+          "finish_ps": 7499705000,
+          "finish_task": "I0021/t0/combine",
+          "input_task": "I0021/t0/input",
+          "layer": 1,
+          "prefix": "I0021/",
+          "source": "c12",
+          "start_ps": 6897614000,
+          "token": 10,
+          "traffic": {
+            "compulsory_bytes": 113273856,
+            "hit_bytes": 37757952,
+            "hits": 72,
+            "miss_bytes": 113273856,
+            "misses": 216,
+            "native_bytes": 113273856
+          }
+        },
+        {
+          "duration_ps": 26701000,
+          "finish_ps": 7526406000,
+          "finish_task": "I0022/t0/combine",
+          "input_task": "I0022/t0/input",
+          "layer": 0,
+          "prefix": "I0022/",
+          "source": "c13",
+          "start_ps": 7499705000,
+          "token": 11,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 200743000,
+          "finish_ps": 7727214000,
+          "finish_task": "I0023/t0/combine",
+          "input_task": "I0023/t0/input",
+          "layer": 1,
+          "prefix": "I0023/",
+          "source": "c13",
+          "start_ps": 7526471000,
+          "token": 11,
+          "traffic": {
+            "compulsory_bytes": 18878976,
+            "hit_bytes": 132152832,
+            "hits": 252,
+            "miss_bytes": 18878976,
+            "misses": 36,
+            "native_bytes": 18878976
+          }
+        },
+        {
+          "duration_ps": 212967000,
+          "finish_ps": 7940181000,
+          "finish_task": "I0024/t0/combine",
+          "input_task": "I0024/t0/input",
+          "layer": 0,
+          "prefix": "I0024/",
+          "source": "c10",
+          "start_ps": 7727214000,
+          "token": 12,
+          "traffic": {
+            "hit_bytes": 132152832,
+            "hits": 252,
+            "miss_bytes": 18878976,
+            "misses": 36,
+            "native_bytes": 18878976,
+            "reload_bytes": 18878976
+          }
+        },
+        {
+          "duration_ps": 404259000,
+          "finish_ps": 8344505000,
+          "finish_task": "I0025/t0/combine",
+          "input_task": "I0025/t0/input",
+          "layer": 1,
+          "prefix": "I0025/",
+          "source": "c10",
+          "start_ps": 7940246000,
+          "token": 12,
+          "traffic": {
+            "compulsory_bytes": 56636928,
+            "hit_bytes": 94394880,
+            "hits": 180,
+            "miss_bytes": 56636928,
+            "misses": 108,
+            "native_bytes": 56636928
+          }
+        },
+        {
+          "duration_ps": 539358000,
+          "finish_ps": 8883863000,
+          "finish_task": "I0026/t0/combine",
+          "input_task": "I0026/t0/input",
+          "layer": 0,
+          "prefix": "I0026/",
+          "source": "c11",
+          "start_ps": 8344505000,
+          "token": 13,
+          "traffic": {
+            "hit_bytes": 75515904,
+            "hits": 144,
+            "miss_bytes": 75515904,
+            "misses": 144,
+            "native_bytes": 75515904,
+            "reload_bytes": 75515904
+          }
+        },
+        {
+          "duration_ps": 597666000,
+          "finish_ps": 9481594000,
+          "finish_task": "I0027/t0/combine",
+          "input_task": "I0027/t0/input",
+          "layer": 1,
+          "prefix": "I0027/",
+          "source": "c11",
+          "start_ps": 8883928000,
+          "token": 13,
+          "traffic": {
+            "compulsory_bytes": 113273856,
+            "hit_bytes": 37757952,
+            "hits": 72,
+            "miss_bytes": 113273856,
+            "misses": 216,
+            "native_bytes": 113273856
+          }
+        },
+        {
+          "duration_ps": 394577000,
+          "finish_ps": 9876171000,
+          "finish_task": "I0028/t0/combine",
+          "input_task": "I0028/t0/input",
+          "layer": 0,
+          "prefix": "I0028/",
+          "source": "c14",
+          "start_ps": 9481594000,
+          "token": 14,
+          "traffic": {
+            "hit_bytes": 94394880,
+            "hits": 180,
+            "miss_bytes": 56636928,
+            "misses": 108,
+            "native_bytes": 56636928,
+            "reload_bytes": 56636928
+          }
+        },
+        {
+          "duration_ps": 586190000,
+          "finish_ps": 10462426000,
+          "finish_task": "I0029/t0/combine",
+          "input_task": "I0029/t0/input",
+          "layer": 1,
+          "prefix": "I0029/",
+          "source": "c14",
+          "start_ps": 9876236000,
+          "token": 14,
+          "traffic": {
+            "compulsory_bytes": 56636928,
+            "hit_bytes": 75515904,
+            "hits": 144,
+            "miss_bytes": 75515904,
+            "misses": 144,
+            "native_bytes": 75515904,
+            "reload_bytes": 18878976
+          }
+        },
+        {
+          "duration_ps": 28456000,
+          "finish_ps": 10490882000,
+          "finish_task": "I0030/t0/combine",
+          "input_task": "I0030/t0/input",
+          "layer": 0,
+          "prefix": "I0030/",
+          "source": "c15",
+          "start_ps": 10462426000,
+          "token": 15,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 28456000,
+          "finish_ps": 10519403000,
+          "finish_task": "I0031/t0/combine",
+          "input_task": "I0031/t0/input",
+          "layer": 1,
+          "prefix": "I0031/",
+          "source": "c15",
+          "start_ps": 10490947000,
+          "token": 15,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 361174000,
+          "finish_ps": 10880577000,
+          "finish_task": "I0032/t0/combine",
+          "input_task": "I0032/t0/input",
+          "layer": 0,
+          "prefix": "I0032/",
+          "source": "c0",
+          "start_ps": 10519403000,
+          "token": 16,
+          "traffic": {
+            "hit_bytes": 94394880,
+            "hits": 180,
+            "miss_bytes": 56636928,
+            "misses": 108,
+            "native_bytes": 56636928,
+            "reload_bytes": 56636928
+          }
+        },
+        {
+          "duration_ps": 354800000,
+          "finish_ps": 11235442000,
+          "finish_task": "I0033/t0/combine",
+          "input_task": "I0033/t0/input",
+          "layer": 1,
+          "prefix": "I0033/",
+          "source": "c0",
+          "start_ps": 10880642000,
+          "token": 16,
+          "traffic": {
+            "compulsory_bytes": 37757952,
+            "hit_bytes": 94394880,
+            "hits": 180,
+            "miss_bytes": 56636928,
+            "misses": 108,
+            "native_bytes": 56636928,
+            "reload_bytes": 18878976
+          }
+        },
+        {
+          "duration_ps": 201311000,
+          "finish_ps": 11436753000,
+          "finish_task": "I0034/t0/combine",
+          "input_task": "I0034/t0/input",
+          "layer": 0,
+          "prefix": "I0034/",
+          "source": "c1",
+          "start_ps": 11235442000,
+          "token": 17,
+          "traffic": {
+            "hit_bytes": 132152832,
+            "hits": 252,
+            "miss_bytes": 18878976,
+            "misses": 36,
+            "native_bytes": 18878976,
+            "reload_bytes": 18878976
+          }
+        },
+        {
+          "duration_ps": 201558000,
+          "finish_ps": 11638376000,
+          "finish_task": "I0035/t0/combine",
+          "input_task": "I0035/t0/input",
+          "layer": 1,
+          "prefix": "I0035/",
+          "source": "c1",
+          "start_ps": 11436818000,
+          "token": 17,
+          "traffic": {
+            "hit_bytes": 132152832,
+            "hits": 252,
+            "miss_bytes": 18878976,
+            "misses": 36,
+            "native_bytes": 18878976,
+            "reload_bytes": 18878976
+          }
+        },
+        {
+          "duration_ps": 27892000,
+          "finish_ps": 11666268000,
+          "finish_task": "I0036/t0/combine",
+          "input_task": "I0036/t0/input",
+          "layer": 0,
+          "prefix": "I0036/",
+          "source": "c4",
+          "start_ps": 11638376000,
+          "token": 18,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 27892000,
+          "finish_ps": 11694225000,
+          "finish_task": "I0037/t0/combine",
+          "input_task": "I0037/t0/input",
+          "layer": 1,
+          "prefix": "I0037/",
+          "source": "c4",
+          "start_ps": 11666333000,
+          "token": 18,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 209483000,
+          "finish_ps": 11903708000,
+          "finish_task": "I0038/t0/combine",
+          "input_task": "I0038/t0/input",
+          "layer": 0,
+          "prefix": "I0038/",
+          "source": "c5",
+          "start_ps": 11694225000,
+          "token": 19,
+          "traffic": {
+            "hit_bytes": 132152832,
+            "hits": 252,
+            "miss_bytes": 18878976,
+            "misses": 36,
+            "native_bytes": 18878976,
+            "reload_bytes": 18878976
+          }
+        },
+        {
+          "duration_ps": 209481000,
+          "finish_ps": 12113254000,
+          "finish_task": "I0039/t0/combine",
+          "input_task": "I0039/t0/input",
+          "layer": 1,
+          "prefix": "I0039/",
+          "source": "c5",
+          "start_ps": 11903773000,
+          "token": 19,
+          "traffic": {
+            "compulsory_bytes": 18878976,
+            "hit_bytes": 132152832,
+            "hits": 252,
+            "miss_bytes": 18878976,
+            "misses": 36,
+            "native_bytes": 18878976
+          }
+        },
+        {
+          "duration_ps": 590051000,
+          "finish_ps": 12703305000,
+          "finish_task": "I0040/t0/combine",
+          "input_task": "I0040/t0/input",
+          "layer": 0,
+          "prefix": "I0040/",
+          "source": "c2",
+          "start_ps": 12113254000,
+          "token": 20,
+          "traffic": {
+            "hit_bytes": 56636928,
+            "hits": 108,
+            "miss_bytes": 94394880,
+            "misses": 180,
+            "native_bytes": 94394880,
+            "reload_bytes": 94394880
+          }
+        },
+        {
+          "duration_ps": 589764000,
+          "finish_ps": 13293134000,
+          "finish_task": "I0041/t0/combine",
+          "input_task": "I0041/t0/input",
+          "layer": 1,
+          "prefix": "I0041/",
+          "source": "c2",
+          "start_ps": 12703370000,
+          "token": 20,
+          "traffic": {
+            "compulsory_bytes": 37757952,
+            "hit_bytes": 56636928,
+            "hits": 108,
+            "miss_bytes": 94394880,
+            "misses": 180,
+            "native_bytes": 94394880,
+            "reload_bytes": 56636928
+          }
+        },
+        {
+          "duration_ps": 400411000,
+          "finish_ps": 13693545000,
+          "finish_task": "I0042/t0/combine",
+          "input_task": "I0042/t0/input",
+          "layer": 0,
+          "prefix": "I0042/",
+          "source": "c3",
+          "start_ps": 13293134000,
+          "token": 21,
+          "traffic": {
+            "hit_bytes": 75515904,
+            "hits": 144,
+            "miss_bytes": 75515904,
+            "misses": 144,
+            "native_bytes": 75515904,
+            "reload_bytes": 75515904
+          }
+        },
+        {
+          "duration_ps": 535131000,
+          "finish_ps": 14228741000,
+          "finish_task": "I0043/t0/combine",
+          "input_task": "I0043/t0/input",
+          "layer": 1,
+          "prefix": "I0043/",
+          "source": "c3",
+          "start_ps": 13693610000,
+          "token": 21,
+          "traffic": {
+            "compulsory_bytes": 94394880,
+            "hit_bytes": 56636928,
+            "hits": 108,
+            "miss_bytes": 94394880,
+            "misses": 180,
+            "native_bytes": 94394880
+          }
+        },
+        {
+          "duration_ps": 200039000,
+          "finish_ps": 14428780000,
+          "finish_task": "I0044/t0/combine",
+          "input_task": "I0044/t0/input",
+          "layer": 0,
+          "prefix": "I0044/",
+          "source": "c6",
+          "start_ps": 14228741000,
+          "token": 22,
+          "traffic": {
+            "hit_bytes": 132152832,
+            "hits": 252,
+            "miss_bytes": 18878976,
+            "misses": 36,
+            "native_bytes": 18878976,
+            "reload_bytes": 18878976
+          }
+        },
+        {
+          "duration_ps": 199001000,
+          "finish_ps": 14627846000,
+          "finish_task": "I0045/t0/combine",
+          "input_task": "I0045/t0/input",
+          "layer": 1,
+          "prefix": "I0045/",
+          "source": "c6",
+          "start_ps": 14428845000,
+          "token": 22,
+          "traffic": {
+            "compulsory_bytes": 18878976,
+            "hit_bytes": 132152832,
+            "hits": 252,
+            "miss_bytes": 18878976,
+            "misses": 36,
+            "native_bytes": 18878976
+          }
+        },
+        {
+          "duration_ps": 200896000,
+          "finish_ps": 14828742000,
+          "finish_task": "I0046/t0/combine",
+          "input_task": "I0046/t0/input",
+          "layer": 0,
+          "prefix": "I0046/",
+          "source": "c7",
+          "start_ps": 14627846000,
+          "token": 23,
+          "traffic": {
+            "hit_bytes": 132152832,
+            "hits": 252,
+            "miss_bytes": 18878976,
+            "misses": 36,
+            "native_bytes": 18878976,
+            "reload_bytes": 18878976
+          }
+        },
+        {
+          "duration_ps": 201215000,
+          "finish_ps": 15030022000,
+          "finish_task": "I0047/t0/combine",
+          "input_task": "I0047/t0/input",
+          "layer": 1,
+          "prefix": "I0047/",
+          "source": "c7",
+          "start_ps": 14828807000,
+          "token": 23,
+          "traffic": {
+            "hit_bytes": 132152832,
+            "hits": 252,
+            "miss_bytes": 18878976,
+            "misses": 36,
+            "native_bytes": 18878976,
+            "reload_bytes": 18878976
+          }
+        }
+      ],
+      "late_window": {
+        "duration_ps": 7302808000,
+        "finish_ps": 15030022000,
+        "first_token": 12,
+        "last_token": 23,
+        "layer_invocations": 24,
+        "scope": "last registered layer invocations, including their actual compulsory/reload bytes; finite trace, not stationary steady state",
+        "start_ps": 7727214000,
+        "traffic": {
+          "compulsory_bytes": 434216448,
+          "hit_bytes": 2605298688,
+          "hits": 4968,
+          "miss_bytes": 1019464704,
+          "misses": 1944,
+          "native_bytes": 1019464704,
+          "reload_bytes": 585248256
+        }
+      },
+      "source_commit": "3fb523ecf878e715044a35324d44b8ab0f20e1e3",
+      "totals": {
+        "compulsory_bytes": 1623591936,
+        "hit_bytes": 4984049664,
+        "hits": 9504,
+        "miss_bytes": 2265477120,
+        "misses": 4320,
+        "native_bytes": 2265477120,
+        "reload_bytes": 641885184
+      }
+    },
+    "distributed-two-layer": {
+      "input_sha256": "da8dc1a0df4d605c550ab1bc98fea5b84d5d4e6af46fc29422aa557366aba2c1",
+      "invocations": [
+        {
+          "duration_ps": 27033000,
+          "finish_ps": 27033000,
+          "finish_task": "I0000/t0/combine",
+          "input_task": "I0000/t0/input",
+          "layer": 0,
+          "prefix": "I0000/",
+          "source": "c0",
+          "start_ps": 0,
+          "token": 0,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 966883000,
+          "finish_ps": 993981000,
+          "finish_task": "I0001/t0/combine",
+          "input_task": "I0001/t0/input",
+          "layer": 1,
+          "prefix": "I0001/",
+          "source": "c0",
+          "start_ps": 27098000,
+          "token": 0,
+          "traffic": {
+            "compulsory_bytes": 151031808,
+            "miss_bytes": 151031808,
+            "misses": 288,
+            "native_bytes": 151031808
+          }
+        },
+        {
+          "duration_ps": 26093000,
+          "finish_ps": 1020074000,
+          "finish_task": "I0002/t0/combine",
+          "input_task": "I0002/t0/input",
+          "layer": 0,
+          "prefix": "I0002/",
+          "source": "c1",
+          "start_ps": 993981000,
+          "token": 1,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 774467000,
+          "finish_ps": 1794606000,
+          "finish_task": "I0003/t0/combine",
+          "input_task": "I0003/t0/input",
+          "layer": 1,
+          "prefix": "I0003/",
+          "source": "c1",
+          "start_ps": 1020139000,
+          "token": 1,
+          "traffic": {
+            "compulsory_bytes": 151031808,
+            "miss_bytes": 151031808,
+            "misses": 288,
+            "native_bytes": 151031808
+          }
+        },
+        {
+          "duration_ps": 27789000,
+          "finish_ps": 1822395000,
+          "finish_task": "I0004/t0/combine",
+          "input_task": "I0004/t0/input",
+          "layer": 0,
+          "prefix": "I0004/",
+          "source": "c4",
+          "start_ps": 1794606000,
+          "token": 2,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 390047000,
+          "finish_ps": 2212507000,
+          "finish_task": "I0005/t0/combine",
+          "input_task": "I0005/t0/input",
+          "layer": 1,
+          "prefix": "I0005/",
+          "source": "c4",
+          "start_ps": 1822460000,
+          "token": 2,
+          "traffic": {
+            "compulsory_bytes": 56636928,
+            "hit_bytes": 94394880,
+            "hits": 180,
+            "miss_bytes": 56636928,
+            "misses": 108,
+            "native_bytes": 56636928
+          }
+        },
+        {
+          "duration_ps": 26157000,
+          "finish_ps": 2238664000,
+          "finish_task": "I0006/t0/combine",
+          "input_task": "I0006/t0/input",
+          "layer": 0,
+          "prefix": "I0006/",
+          "source": "c5",
+          "start_ps": 2212507000,
+          "token": 3,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 390277000,
+          "finish_ps": 2629006000,
+          "finish_task": "I0007/t0/combine",
+          "input_task": "I0007/t0/input",
+          "layer": 1,
+          "prefix": "I0007/",
+          "source": "c5",
+          "start_ps": 2238729000,
+          "token": 3,
+          "traffic": {
+            "compulsory_bytes": 94394880,
+            "hit_bytes": 56636928,
+            "hits": 108,
+            "miss_bytes": 94394880,
+            "misses": 180,
+            "native_bytes": 94394880
+          }
+        },
+        {
+          "duration_ps": 28637000,
+          "finish_ps": 2657643000,
+          "finish_task": "I0008/t0/combine",
+          "input_task": "I0008/t0/input",
+          "layer": 0,
+          "prefix": "I0008/",
+          "source": "c2",
+          "start_ps": 2629006000,
+          "token": 4,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 774245000,
+          "finish_ps": 3431953000,
+          "finish_task": "I0009/t0/combine",
+          "input_task": "I0009/t0/input",
+          "layer": 1,
+          "prefix": "I0009/",
+          "source": "c2",
+          "start_ps": 2657708000,
+          "token": 4,
+          "traffic": {
+            "compulsory_bytes": 151031808,
+            "miss_bytes": 151031808,
+            "misses": 288,
+            "native_bytes": 151031808
+          }
+        },
+        {
+          "duration_ps": 27870000,
+          "finish_ps": 3459823000,
+          "finish_task": "I0010/t0/combine",
+          "input_task": "I0010/t0/input",
+          "layer": 0,
+          "prefix": "I0010/",
+          "source": "c3",
+          "start_ps": 3431953000,
+          "token": 5,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 581724000,
+          "finish_ps": 4041612000,
+          "finish_task": "I0011/t0/combine",
+          "input_task": "I0011/t0/input",
+          "layer": 1,
+          "prefix": "I0011/",
+          "source": "c3",
+          "start_ps": 3459888000,
+          "token": 5,
+          "traffic": {
+            "compulsory_bytes": 132152832,
+            "hit_bytes": 18878976,
+            "hits": 36,
+            "miss_bytes": 132152832,
+            "misses": 252,
+            "native_bytes": 132152832
+          }
+        },
+        {
+          "duration_ps": 27391000,
+          "finish_ps": 4069003000,
+          "finish_task": "I0012/t0/combine",
+          "input_task": "I0012/t0/input",
+          "layer": 0,
+          "prefix": "I0012/",
+          "source": "c6",
+          "start_ps": 4041612000,
+          "token": 6,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 582634000,
+          "finish_ps": 4651702000,
+          "finish_task": "I0013/t0/combine",
+          "input_task": "I0013/t0/input",
+          "layer": 1,
+          "prefix": "I0013/",
+          "source": "c6",
+          "start_ps": 4069068000,
+          "token": 6,
+          "traffic": {
+            "compulsory_bytes": 132152832,
+            "hit_bytes": 18878976,
+            "hits": 36,
+            "miss_bytes": 132152832,
+            "misses": 252,
+            "native_bytes": 132152832
+          }
+        },
+        {
+          "duration_ps": 25986000,
+          "finish_ps": 4677688000,
+          "finish_task": "I0014/t0/combine",
+          "input_task": "I0014/t0/input",
+          "layer": 0,
+          "prefix": "I0014/",
+          "source": "c7",
+          "start_ps": 4651702000,
+          "token": 7,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 391083000,
+          "finish_ps": 5068836000,
+          "finish_task": "I0015/t0/combine",
+          "input_task": "I0015/t0/input",
+          "layer": 1,
+          "prefix": "I0015/",
+          "source": "c7",
+          "start_ps": 4677753000,
+          "token": 7,
+          "traffic": {
+            "compulsory_bytes": 56636928,
+            "hit_bytes": 94394880,
+            "hits": 180,
+            "miss_bytes": 56636928,
+            "misses": 108,
+            "native_bytes": 56636928
+          }
+        },
+        {
+          "duration_ps": 26854000,
+          "finish_ps": 5095690000,
+          "finish_task": "I0016/t0/combine",
+          "input_task": "I0016/t0/input",
+          "layer": 0,
+          "prefix": "I0016/",
+          "source": "c8",
+          "start_ps": 5068836000,
+          "token": 8,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 197875000,
+          "finish_ps": 5293630000,
+          "finish_task": "I0017/t0/combine",
+          "input_task": "I0017/t0/input",
+          "layer": 1,
+          "prefix": "I0017/",
+          "source": "c8",
+          "start_ps": 5095755000,
+          "token": 8,
+          "traffic": {
+            "compulsory_bytes": 37757952,
+            "hit_bytes": 113273856,
+            "hits": 216,
+            "miss_bytes": 37757952,
+            "misses": 72,
+            "native_bytes": 37757952
+          }
+        },
+        {
+          "duration_ps": 28114000,
+          "finish_ps": 5321744000,
+          "finish_task": "I0018/t0/combine",
+          "input_task": "I0018/t0/input",
+          "layer": 0,
+          "prefix": "I0018/",
+          "source": "c9",
+          "start_ps": 5293630000,
+          "token": 9,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 389858000,
+          "finish_ps": 5711667000,
+          "finish_task": "I0019/t0/combine",
+          "input_task": "I0019/t0/input",
+          "layer": 1,
+          "prefix": "I0019/",
+          "source": "c9",
+          "start_ps": 5321809000,
+          "token": 9,
+          "traffic": {
+            "compulsory_bytes": 94394880,
+            "hit_bytes": 56636928,
+            "hits": 108,
+            "miss_bytes": 94394880,
+            "misses": 180,
+            "native_bytes": 94394880
+          }
+        },
+        {
+          "duration_ps": 390090000,
+          "finish_ps": 6101757000,
+          "finish_task": "I0020/t0/combine",
+          "input_task": "I0020/t0/input",
+          "layer": 0,
+          "prefix": "I0020/",
+          "source": "c12",
+          "start_ps": 5711667000,
+          "token": 10,
+          "traffic": {
+            "hit_bytes": 94394880,
+            "hits": 180,
+            "miss_bytes": 56636928,
+            "misses": 108,
+            "native_bytes": 56636928,
+            "reload_bytes": 56636928
+          }
+        },
+        {
+          "duration_ps": 581708000,
+          "finish_ps": 6683530000,
+          "finish_task": "I0021/t0/combine",
+          "input_task": "I0021/t0/input",
+          "layer": 1,
+          "prefix": "I0021/",
+          "source": "c12",
+          "start_ps": 6101822000,
+          "token": 10,
+          "traffic": {
+            "compulsory_bytes": 113273856,
+            "hit_bytes": 37757952,
+            "hits": 72,
+            "miss_bytes": 113273856,
+            "misses": 216,
+            "native_bytes": 113273856
+          }
+        },
+        {
+          "duration_ps": 26701000,
+          "finish_ps": 6710231000,
+          "finish_task": "I0022/t0/combine",
+          "input_task": "I0022/t0/input",
+          "layer": 0,
+          "prefix": "I0022/",
+          "source": "c13",
+          "start_ps": 6683530000,
+          "token": 11,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 197288000,
+          "finish_ps": 6907584000,
+          "finish_task": "I0023/t0/combine",
+          "input_task": "I0023/t0/input",
+          "layer": 1,
+          "prefix": "I0023/",
+          "source": "c13",
+          "start_ps": 6710296000,
+          "token": 11,
+          "traffic": {
+            "compulsory_bytes": 18878976,
+            "hit_bytes": 132152832,
+            "hits": 252,
+            "miss_bytes": 18878976,
+            "misses": 36,
+            "native_bytes": 18878976
+          }
+        },
+        {
+          "duration_ps": 197041000,
+          "finish_ps": 7104625000,
+          "finish_task": "I0024/t0/combine",
+          "input_task": "I0024/t0/input",
+          "layer": 0,
+          "prefix": "I0024/",
+          "source": "c10",
+          "start_ps": 6907584000,
+          "token": 12,
+          "traffic": {
+            "hit_bytes": 132152832,
+            "hits": 252,
+            "miss_bytes": 18878976,
+            "misses": 36,
+            "native_bytes": 18878976,
+            "reload_bytes": 18878976
+          }
+        },
+        {
+          "duration_ps": 389319000,
+          "finish_ps": 7494009000,
+          "finish_task": "I0025/t0/combine",
+          "input_task": "I0025/t0/input",
+          "layer": 1,
+          "prefix": "I0025/",
+          "source": "c10",
+          "start_ps": 7104690000,
+          "token": 12,
+          "traffic": {
+            "compulsory_bytes": 56636928,
+            "hit_bytes": 94394880,
+            "hits": 180,
+            "miss_bytes": 56636928,
+            "misses": 108,
+            "native_bytes": 56636928
+          }
+        },
+        {
+          "duration_ps": 390581000,
+          "finish_ps": 7884590000,
+          "finish_task": "I0026/t0/combine",
+          "input_task": "I0026/t0/input",
+          "layer": 0,
+          "prefix": "I0026/",
+          "source": "c11",
+          "start_ps": 7494009000,
+          "token": 13,
+          "traffic": {
+            "hit_bytes": 75515904,
+            "hits": 144,
+            "miss_bytes": 75515904,
+            "misses": 144,
+            "native_bytes": 75515904,
+            "reload_bytes": 75515904
+          }
+        },
+        {
+          "duration_ps": 582574000,
+          "finish_ps": 8467229000,
+          "finish_task": "I0027/t0/combine",
+          "input_task": "I0027/t0/input",
+          "layer": 1,
+          "prefix": "I0027/",
+          "source": "c11",
+          "start_ps": 7884655000,
+          "token": 13,
+          "traffic": {
+            "compulsory_bytes": 113273856,
+            "hit_bytes": 37757952,
+            "hits": 72,
+            "miss_bytes": 113273856,
+            "misses": 216,
+            "native_bytes": 113273856
+          }
+        },
+        {
+          "duration_ps": 390058000,
+          "finish_ps": 8857287000,
+          "finish_task": "I0028/t0/combine",
+          "input_task": "I0028/t0/input",
+          "layer": 0,
+          "prefix": "I0028/",
+          "source": "c14",
+          "start_ps": 8467229000,
+          "token": 14,
+          "traffic": {
+            "hit_bytes": 94394880,
+            "hits": 180,
+            "miss_bytes": 56636928,
+            "misses": 108,
+            "native_bytes": 56636928,
+            "reload_bytes": 56636928
+          }
+        },
+        {
+          "duration_ps": 582123000,
+          "finish_ps": 9439475000,
+          "finish_task": "I0029/t0/combine",
+          "input_task": "I0029/t0/input",
+          "layer": 1,
+          "prefix": "I0029/",
+          "source": "c14",
+          "start_ps": 8857352000,
+          "token": 14,
+          "traffic": {
+            "compulsory_bytes": 56636928,
+            "hit_bytes": 75515904,
+            "hits": 144,
+            "miss_bytes": 75515904,
+            "misses": 144,
+            "native_bytes": 75515904,
+            "reload_bytes": 18878976
+          }
+        },
+        {
+          "duration_ps": 28456000,
+          "finish_ps": 9467931000,
+          "finish_task": "I0030/t0/combine",
+          "input_task": "I0030/t0/input",
+          "layer": 0,
+          "prefix": "I0030/",
+          "source": "c15",
+          "start_ps": 9439475000,
+          "token": 15,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 28456000,
+          "finish_ps": 9496452000,
+          "finish_task": "I0031/t0/combine",
+          "input_task": "I0031/t0/input",
+          "layer": 1,
+          "prefix": "I0031/",
+          "source": "c15",
+          "start_ps": 9467996000,
+          "token": 15,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 197575000,
+          "finish_ps": 9694027000,
+          "finish_task": "I0032/t0/combine",
+          "input_task": "I0032/t0/input",
+          "layer": 0,
+          "prefix": "I0032/",
+          "source": "c0",
+          "start_ps": 9496452000,
+          "token": 16,
+          "traffic": {
+            "hit_bytes": 94394880,
+            "hits": 180,
+            "miss_bytes": 56636928,
+            "misses": 108,
+            "native_bytes": 56636928,
+            "reload_bytes": 56636928
+          }
+        },
+        {
+          "duration_ps": 198046000,
+          "finish_ps": 9892138000,
+          "finish_task": "I0033/t0/combine",
+          "input_task": "I0033/t0/input",
+          "layer": 1,
+          "prefix": "I0033/",
+          "source": "c0",
+          "start_ps": 9694092000,
+          "token": 16,
+          "traffic": {
+            "compulsory_bytes": 37757952,
+            "hit_bytes": 94394880,
+            "hits": 180,
+            "miss_bytes": 56636928,
+            "misses": 108,
+            "native_bytes": 56636928,
+            "reload_bytes": 18878976
+          }
+        },
+        {
+          "duration_ps": 197091000,
+          "finish_ps": 10089229000,
+          "finish_task": "I0034/t0/combine",
+          "input_task": "I0034/t0/input",
+          "layer": 0,
+          "prefix": "I0034/",
+          "source": "c1",
+          "start_ps": 9892138000,
+          "token": 17,
+          "traffic": {
+            "hit_bytes": 132152832,
+            "hits": 252,
+            "miss_bytes": 18878976,
+            "misses": 36,
+            "native_bytes": 18878976,
+            "reload_bytes": 18878976
+          }
+        },
+        {
+          "duration_ps": 196993000,
+          "finish_ps": 10286287000,
+          "finish_task": "I0035/t0/combine",
+          "input_task": "I0035/t0/input",
+          "layer": 1,
+          "prefix": "I0035/",
+          "source": "c1",
+          "start_ps": 10089294000,
+          "token": 17,
+          "traffic": {
+            "hit_bytes": 132152832,
+            "hits": 252,
+            "miss_bytes": 18878976,
+            "misses": 36,
+            "native_bytes": 18878976,
+            "reload_bytes": 18878976
+          }
+        },
+        {
+          "duration_ps": 27892000,
+          "finish_ps": 10314179000,
+          "finish_task": "I0036/t0/combine",
+          "input_task": "I0036/t0/input",
+          "layer": 0,
+          "prefix": "I0036/",
+          "source": "c4",
+          "start_ps": 10286287000,
+          "token": 18,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 27892000,
+          "finish_ps": 10342136000,
+          "finish_task": "I0037/t0/combine",
+          "input_task": "I0037/t0/input",
+          "layer": 1,
+          "prefix": "I0037/",
+          "source": "c4",
+          "start_ps": 10314244000,
+          "token": 18,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 197587000,
+          "finish_ps": 10539723000,
+          "finish_task": "I0038/t0/combine",
+          "input_task": "I0038/t0/input",
+          "layer": 0,
+          "prefix": "I0038/",
+          "source": "c5",
+          "start_ps": 10342136000,
+          "token": 19,
+          "traffic": {
+            "hit_bytes": 132152832,
+            "hits": 252,
+            "miss_bytes": 18878976,
+            "misses": 36,
+            "native_bytes": 18878976,
+            "reload_bytes": 18878976
+          }
+        },
+        {
+          "duration_ps": 197835000,
+          "finish_ps": 10737623000,
+          "finish_task": "I0039/t0/combine",
+          "input_task": "I0039/t0/input",
+          "layer": 1,
+          "prefix": "I0039/",
+          "source": "c5",
+          "start_ps": 10539788000,
+          "token": 19,
+          "traffic": {
+            "compulsory_bytes": 18878976,
+            "hit_bytes": 132152832,
+            "hits": 252,
+            "miss_bytes": 18878976,
+            "misses": 36,
+            "native_bytes": 18878976
+          }
+        },
+        {
+          "duration_ps": 582299000,
+          "finish_ps": 11319922000,
+          "finish_task": "I0040/t0/combine",
+          "input_task": "I0040/t0/input",
+          "layer": 0,
+          "prefix": "I0040/",
+          "source": "c2",
+          "start_ps": 10737623000,
+          "token": 20,
+          "traffic": {
+            "hit_bytes": 56636928,
+            "hits": 108,
+            "miss_bytes": 94394880,
+            "misses": 180,
+            "native_bytes": 94394880,
+            "reload_bytes": 94394880
+          }
+        },
+        {
+          "duration_ps": 581303000,
+          "finish_ps": 11901290000,
+          "finish_task": "I0041/t0/combine",
+          "input_task": "I0041/t0/input",
+          "layer": 1,
+          "prefix": "I0041/",
+          "source": "c2",
+          "start_ps": 11319987000,
+          "token": 20,
+          "traffic": {
+            "compulsory_bytes": 37757952,
+            "hit_bytes": 56636928,
+            "hits": 108,
+            "miss_bytes": 94394880,
+            "misses": 180,
+            "native_bytes": 94394880,
+            "reload_bytes": 56636928
+          }
+        },
+        {
+          "duration_ps": 199167000,
+          "finish_ps": 12100457000,
+          "finish_task": "I0042/t0/combine",
+          "input_task": "I0042/t0/input",
+          "layer": 0,
+          "prefix": "I0042/",
+          "source": "c3",
+          "start_ps": 11901290000,
+          "token": 21,
+          "traffic": {
+            "hit_bytes": 75515904,
+            "hits": 144,
+            "miss_bytes": 75515904,
+            "misses": 144,
+            "native_bytes": 75515904,
+            "reload_bytes": 75515904
+          }
+        },
+        {
+          "duration_ps": 390385000,
+          "finish_ps": 12490907000,
+          "finish_task": "I0043/t0/combine",
+          "input_task": "I0043/t0/input",
+          "layer": 1,
+          "prefix": "I0043/",
+          "source": "c3",
+          "start_ps": 12100522000,
+          "token": 21,
+          "traffic": {
+            "compulsory_bytes": 94394880,
+            "hit_bytes": 56636928,
+            "hits": 108,
+            "miss_bytes": 94394880,
+            "misses": 180,
+            "native_bytes": 94394880
+          }
+        },
+        {
+          "duration_ps": 197227000,
+          "finish_ps": 12688134000,
+          "finish_task": "I0044/t0/combine",
+          "input_task": "I0044/t0/input",
+          "layer": 0,
+          "prefix": "I0044/",
+          "source": "c6",
+          "start_ps": 12490907000,
+          "token": 22,
+          "traffic": {
+            "hit_bytes": 132152832,
+            "hits": 252,
+            "miss_bytes": 18878976,
+            "misses": 36,
+            "native_bytes": 18878976,
+            "reload_bytes": 18878976
+          }
+        },
+        {
+          "duration_ps": 197845000,
+          "finish_ps": 12886044000,
+          "finish_task": "I0045/t0/combine",
+          "input_task": "I0045/t0/input",
+          "layer": 1,
+          "prefix": "I0045/",
+          "source": "c6",
+          "start_ps": 12688199000,
+          "token": 22,
+          "traffic": {
+            "compulsory_bytes": 18878976,
+            "hit_bytes": 132152832,
+            "hits": 252,
+            "miss_bytes": 18878976,
+            "misses": 36,
+            "native_bytes": 18878976
+          }
+        },
+        {
+          "duration_ps": 197942000,
+          "finish_ps": 13083986000,
+          "finish_task": "I0046/t0/combine",
+          "input_task": "I0046/t0/input",
+          "layer": 0,
+          "prefix": "I0046/",
+          "source": "c7",
+          "start_ps": 12886044000,
+          "token": 23,
+          "traffic": {
+            "hit_bytes": 132152832,
+            "hits": 252,
+            "miss_bytes": 18878976,
+            "misses": 36,
+            "native_bytes": 18878976,
+            "reload_bytes": 18878976
+          }
+        },
+        {
+          "duration_ps": 197419000,
+          "finish_ps": 13281470000,
+          "finish_task": "I0047/t0/combine",
+          "input_task": "I0047/t0/input",
+          "layer": 1,
+          "prefix": "I0047/",
+          "source": "c7",
+          "start_ps": 13084051000,
+          "token": 23,
+          "traffic": {
+            "hit_bytes": 132152832,
+            "hits": 252,
+            "miss_bytes": 18878976,
+            "misses": 36,
+            "native_bytes": 18878976,
+            "reload_bytes": 18878976
+          }
+        }
+      ],
+      "late_window": {
+        "duration_ps": 6373886000,
+        "finish_ps": 13281470000,
+        "first_token": 12,
+        "last_token": 23,
+        "layer_invocations": 24,
+        "scope": "last registered layer invocations, including their actual compulsory/reload bytes; finite trace, not stationary steady state",
+        "start_ps": 6907584000,
+        "traffic": {
+          "compulsory_bytes": 434216448,
+          "hit_bytes": 2605298688,
+          "hits": 4968,
+          "miss_bytes": 1019464704,
+          "misses": 1944,
+          "native_bytes": 1019464704,
+          "reload_bytes": 585248256
+        }
+      },
+      "source_commit": "3fb523ecf878e715044a35324d44b8ab0f20e1e3",
+      "totals": {
+        "compulsory_bytes": 1623591936,
+        "hit_bytes": 4984049664,
+        "hits": 9504,
+        "miss_bytes": 2265477120,
+        "misses": 4320,
+        "native_bytes": 2265477120,
+        "reload_bytes": 641885184
+      }
+    },
+    "single-layer-warm": {
+      "input_sha256": "676a7ece36d0a63506e210ae323a634866459203867b8017d83f51eb520b037a",
+      "invocations": [
+        {
+          "duration_ps": 27033000,
+          "finish_ps": 27033000,
+          "finish_task": "I0000/t0/combine",
+          "input_task": "I0000/t0/input",
+          "layer": 0,
+          "prefix": "I0000/",
+          "source": "c0",
+          "start_ps": 0,
+          "token": 0,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 26093000,
+          "finish_ps": 53126000,
+          "finish_task": "I0001/t0/combine",
+          "input_task": "I0001/t0/input",
+          "layer": 0,
+          "prefix": "I0001/",
+          "source": "c1",
+          "start_ps": 27033000,
+          "token": 1,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 27789000,
+          "finish_ps": 80915000,
+          "finish_task": "I0002/t0/combine",
+          "input_task": "I0002/t0/input",
+          "layer": 0,
+          "prefix": "I0002/",
+          "source": "c4",
+          "start_ps": 53126000,
+          "token": 2,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 26157000,
+          "finish_ps": 107072000,
+          "finish_task": "I0003/t0/combine",
+          "input_task": "I0003/t0/input",
+          "layer": 0,
+          "prefix": "I0003/",
+          "source": "c5",
+          "start_ps": 80915000,
+          "token": 3,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 28637000,
+          "finish_ps": 135709000,
+          "finish_task": "I0004/t0/combine",
+          "input_task": "I0004/t0/input",
+          "layer": 0,
+          "prefix": "I0004/",
+          "source": "c2",
+          "start_ps": 107072000,
+          "token": 4,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 27870000,
+          "finish_ps": 163579000,
+          "finish_task": "I0005/t0/combine",
+          "input_task": "I0005/t0/input",
+          "layer": 0,
+          "prefix": "I0005/",
+          "source": "c3",
+          "start_ps": 135709000,
+          "token": 5,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 27391000,
+          "finish_ps": 190970000,
+          "finish_task": "I0006/t0/combine",
+          "input_task": "I0006/t0/input",
+          "layer": 0,
+          "prefix": "I0006/",
+          "source": "c6",
+          "start_ps": 163579000,
+          "token": 6,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 25986000,
+          "finish_ps": 216956000,
+          "finish_task": "I0007/t0/combine",
+          "input_task": "I0007/t0/input",
+          "layer": 0,
+          "prefix": "I0007/",
+          "source": "c7",
+          "start_ps": 190970000,
+          "token": 7,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 26854000,
+          "finish_ps": 243810000,
+          "finish_task": "I0008/t0/combine",
+          "input_task": "I0008/t0/input",
+          "layer": 0,
+          "prefix": "I0008/",
+          "source": "c8",
+          "start_ps": 216956000,
+          "token": 8,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 28114000,
+          "finish_ps": 271924000,
+          "finish_task": "I0009/t0/combine",
+          "input_task": "I0009/t0/input",
+          "layer": 0,
+          "prefix": "I0009/",
+          "source": "c9",
+          "start_ps": 243810000,
+          "token": 9,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 25873000,
+          "finish_ps": 297797000,
+          "finish_task": "I0010/t0/combine",
+          "input_task": "I0010/t0/input",
+          "layer": 0,
+          "prefix": "I0010/",
+          "source": "c12",
+          "start_ps": 271924000,
+          "token": 10,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 26701000,
+          "finish_ps": 324498000,
+          "finish_task": "I0011/t0/combine",
+          "input_task": "I0011/t0/input",
+          "layer": 0,
+          "prefix": "I0011/",
+          "source": "c13",
+          "start_ps": 297797000,
+          "token": 11,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 28023000,
+          "finish_ps": 352521000,
+          "finish_task": "I0012/t0/combine",
+          "input_task": "I0012/t0/input",
+          "layer": 0,
+          "prefix": "I0012/",
+          "source": "c10",
+          "start_ps": 324498000,
+          "token": 12,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 28185000,
+          "finish_ps": 380706000,
+          "finish_task": "I0013/t0/combine",
+          "input_task": "I0013/t0/input",
+          "layer": 0,
+          "prefix": "I0013/",
+          "source": "c11",
+          "start_ps": 352521000,
+          "token": 13,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 27573000,
+          "finish_ps": 408279000,
+          "finish_task": "I0014/t0/combine",
+          "input_task": "I0014/t0/input",
+          "layer": 0,
+          "prefix": "I0014/",
+          "source": "c14",
+          "start_ps": 380706000,
+          "token": 14,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 28456000,
+          "finish_ps": 436735000,
+          "finish_task": "I0015/t0/combine",
+          "input_task": "I0015/t0/input",
+          "layer": 0,
+          "prefix": "I0015/",
+          "source": "c15",
+          "start_ps": 408279000,
+          "token": 15,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 26896000,
+          "finish_ps": 463631000,
+          "finish_task": "I0016/t0/combine",
+          "input_task": "I0016/t0/input",
+          "layer": 0,
+          "prefix": "I0016/",
+          "source": "c0",
+          "start_ps": 436735000,
+          "token": 16,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 28254000,
+          "finish_ps": 491885000,
+          "finish_task": "I0017/t0/combine",
+          "input_task": "I0017/t0/input",
+          "layer": 0,
+          "prefix": "I0017/",
+          "source": "c1",
+          "start_ps": 463631000,
+          "token": 17,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 27892000,
+          "finish_ps": 519777000,
+          "finish_task": "I0018/t0/combine",
+          "input_task": "I0018/t0/input",
+          "layer": 0,
+          "prefix": "I0018/",
+          "source": "c4",
+          "start_ps": 491885000,
+          "token": 18,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 26497000,
+          "finish_ps": 546274000,
+          "finish_task": "I0019/t0/combine",
+          "input_task": "I0019/t0/input",
+          "layer": 0,
+          "prefix": "I0019/",
+          "source": "c5",
+          "start_ps": 519777000,
+          "token": 19,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 27424000,
+          "finish_ps": 573698000,
+          "finish_task": "I0020/t0/combine",
+          "input_task": "I0020/t0/input",
+          "layer": 0,
+          "prefix": "I0020/",
+          "source": "c2",
+          "start_ps": 546274000,
+          "token": 20,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 27488000,
+          "finish_ps": 601186000,
+          "finish_task": "I0021/t0/combine",
+          "input_task": "I0021/t0/input",
+          "layer": 0,
+          "prefix": "I0021/",
+          "source": "c3",
+          "start_ps": 573698000,
+          "token": 21,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 27205000,
+          "finish_ps": 628391000,
+          "finish_task": "I0022/t0/combine",
+          "input_task": "I0022/t0/input",
+          "layer": 0,
+          "prefix": "I0022/",
+          "source": "c6",
+          "start_ps": 601186000,
+          "token": 22,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        },
+        {
+          "duration_ps": 29674000,
+          "finish_ps": 658065000,
+          "finish_task": "I0023/t0/combine",
+          "input_task": "I0023/t0/input",
+          "layer": 0,
+          "prefix": "I0023/",
+          "source": "c7",
+          "start_ps": 628391000,
+          "token": 23,
+          "traffic": {
+            "hit_bytes": 151031808,
+            "hits": 288
+          }
+        }
+      ],
+      "late_window": {
+        "duration_ps": 658065000,
+        "finish_ps": 658065000,
+        "first_token": 0,
+        "last_token": 23,
+        "layer_invocations": 24,
+        "scope": "last registered layer invocations, including their actual compulsory/reload bytes; finite trace, not stationary steady state",
+        "start_ps": 0,
+        "traffic": {
+          "hit_bytes": 3624763392,
+          "hits": 6912
+        }
+      },
+      "source_commit": "3fb523ecf878e715044a35324d44b8ab0f20e1e3",
+      "totals": {
+        "hit_bytes": 3624763392,
+        "hits": 6912
+      }
+    }
+  },
+  "execution_source_commit": "3fb523ecf878e715044a35324d44b8ab0f20e1e3",
+  "late_window_completion_reduction_percent": 12.720066034873156,
+  "limits": "counts actual lookup and committed native-read events; preloads excluded; warm reference has fewer total layers; no attention/KV/numerical validation",
+  "passed": true,
+  "schema": "w2w.cache-invocation-traffic.v1"
+}

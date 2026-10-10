@@ -80,10 +80,12 @@ implementation are declared research assumptions, not a reproduction of its
 
 ## Gate B: registered full-size operand-aware comparison
 
-The next pair is frozen at `8a8e34b` and running in
+The pair is frozen at `8a8e34b` and completed in
 `execution-operand-access-r1`, with results under `operand-access-r1`. The
 registration and launch identities are retained in
-`artifacts/provenance/operand_access`. No full-size outcome is claimed yet.
+`artifacts/provenance/operand_access`. Independent raw audits pass: Central+
+782.060 µs versus Distributed 581.384 µs, a 25.6599% reduction. See
+[OPERAND_AWARE_ACCESS_REPORT](OPERAND_AWARE_ACCESS_REPORT.md) for bounds and scope.
 
 Both Central+ and Distributed use the same archived `c0_b1` routing, 128-expert
 static weight catalog, eight selected experts, addresses, compute placement and
@@ -113,13 +115,15 @@ control contract; it is not inserted into an allegedly equal-budget comparison.
 
 ## Gate C and research limits
 
-The registered 24-token two-layer cache experiments remain frozen at `3fb523e`,
+The completed 24-token two-layer cache experiments remain frozen at `3fb523e`,
 with their original native binary and byte-count execution contract. They are
 not rerun or re-labelled as operand-aware. Warm single-layer residency already
 gives zero DRAM weight reads; zero reload is also a valid negative observation.
 The current monitor accepts only a fully re-audited instance of the old runner's
 specific zero-reload post-run rejection, and retains execution/analysis identities
-separately. Final two-layer results must exist before comparing them.
+separately. Both completed with actual reload and independent audits: 15.030022
+versus 13.281470 ms (11.6337% reduction). The late half also has nonzero reload;
+[TWO_LAYER_CACHE_REPORT](TWO_LAYER_CACHE_REPORT.md) records the finite window.
 
 The two independent layer weight catalogs create real aggregate/per-cluster SRAM
 pressure, but reuse archived routing at the second layer. They remain an FFN-only

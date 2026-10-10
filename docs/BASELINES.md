@@ -34,3 +34,12 @@ not a new invention. Experiments measure one cold layer, not warm SRAM residency
 or whole-model inference. The layer's complete weight library fits in aggregate
 3 GiB SRAM; these results do not establish a need for DRAM in repeated execution
 of a single resident layer.
+
+The newer [operand-aware cold pair](reports/OPERAND_AWARE_ACCESS_REPORT.md) and
+[two-layer finite-cache result](reports/TWO_LAYER_CACHE_REPORT.md) are complete.
+The warm zero-read reference is retained; two independent weight catalogs create
+capacity/reload pressure without forcing every access to miss. These remain
+FFN timing studies with different declared operand contracts, not full-model or
+equal-PPA evidence. Independent RWDL channels and streaming are prior interface/
+execution ideas; the studied variable is exposure of finite native service to
+spatial compute consumers and its interaction with placement.

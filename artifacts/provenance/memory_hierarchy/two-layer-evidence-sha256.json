@@ -1,0 +1,45 @@
+{
+  "analysis_exit": 0,
+  "files": {
+    "cases/central-plus-two-layer/completion.json": {
+      "bytes": 22080,
+      "sha256": "017f8461ed1f27213c6a4f58a67ef5184319366de4a47cb2a4e1f23ed4b5d6b0"
+    },
+    "cases/central-plus-two-layer/result.json.gz": {
+      "bytes": 531557169,
+      "sha256": "b84f3343eab6c933a5c05b6a602b326f17c7a50ff493a03078ac66006772361a"
+    },
+    "cases/distributed-two-layer/completion.json": {
+      "bytes": 23139,
+      "sha256": "e8397be3a509f67ef033486b4a5485ea771e89f1352ecf514c3d9b25883e52e7"
+    },
+    "cases/distributed-two-layer/result.json.gz": {
+      "bytes": 474147311,
+      "sha256": "1c1d0edafe36780c4a27463d5db17c0a2bd87e7fa51d4af0f46ebc6a3ecdeba4"
+    },
+    "cases/single-layer-warm/completion.json": {
+      "bytes": 12970,
+      "sha256": "5631a69187e1baa98daa632319bcac55be9e6161dd2a96bfd8273638cb9d80cf"
+    },
+    "cases/single-layer-warm/result.json.gz": {
+      "bytes": 14988662,
+      "sha256": "baa095073f76ab7ec9ed221008a956558b3d79d50d3202bfdbdd1bd1d2203cfe"
+    },
+    "inputs/central-plus-two-layer.json.gz": {
+      "bytes": 747119,
+      "sha256": "02e8b01514ffd00834001ab2878a463d4c1763ad0027ff036064a823f6dc0c25"
+    },
+    "inputs/distributed-two-layer.json.gz": {
+      "bytes": 747470,
+      "sha256": "ee42b5e638f2de4afe4cd56afbe36aec5d84f45138118d60586d41c7434e6063"
+    },
+    "inputs/single-layer-warm.json.gz": {
+      "bytes": 388900,
+      "sha256": "3ff6986e4d0de25bf215f3d888a1a6c023c14fb0914a5e0f0f2802eb136f2fa4"
+    },
+    "registration.json": {
+      "bytes": 1091,
+      "sha256": "5ee99626b823a40810e4e400cae8f6fe37c882693fca887d234c90033b32f0a1"
+    }
+  }
+}
