@@ -67,7 +67,8 @@ def main():
             if completions[0][key]!=completions[1][key]:raise ValueError('Detailed trace differs: '+key)
         proof['endpoint_trace_sha256']=completions[0]['endpoint_trace_sha256']
         proof['commands_sha256']=completions[0]['commands_sha256']
-        proof['speedup']=completions[0]['execution_wall_seconds']/completions[1]['execution_wall_seconds']
+        if all('execution_wall_seconds' in c for c in completions):
+            proof['speedup']=completions[0]['execution_wall_seconds']/completions[1]['execution_wall_seconds']
     if a.detailed:
         traces=[protocol_digest(d/'network/online_protocol.jsonl') for d in (a.baseline,a.candidate)]
         if traces[0]!=traces[1]:raise ValueError('Flit/VC/endpoint supply/commit events differ')
