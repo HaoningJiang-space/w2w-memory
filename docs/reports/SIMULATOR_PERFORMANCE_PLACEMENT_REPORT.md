@@ -115,10 +115,44 @@ it tracks the layer finish closely. The hottest receive write service is
 all moved weights stay within their original physical region. Neither a larger
 global cut budget nor extra physical memory parallelism was added.
 
-Execution source is `47e68e5`; independent analysis is `9d0ec5d`.
+Execution source is `47e68e5`; selection analysis is `9d0ec5d`, with additional
+executed pressure/cut analysis at `ecab49f` on the same immutable raw records.
 [Cold analysis](../../artifacts/provenance/static_placement/cold-analysis.json) and
 [cold registration](../../artifacts/provenance/static_placement/cold-registration.json)
 retain result/input hashes, resource counters and screening values.
+
+### What the executed records can explain
+
+| Observation | Reference | Balanced | Hybrid |
+|---|---:|---:|---:|
+| Intra-reticle hop-flits | 34,980 | 1,149,860 | 400,800 |
+| Cross-reticle hop-flits | 17,556 | 17,556 | 17,556 |
+| Largest regional directed-cut work bound | 4.579 µs | 47.551 µs | 19.473 µs |
+| Busiest channel mean lane service | 1.13% | 9.96% | 3.97% |
+| Native read row conflicts | 150,636 | 158,800 | 153,551 |
+| Mean native-controller read latency | 32.351 ns | 32.518 ns | 32.428 ns |
+| Largest gateway queued payload | 544 B | 576 B | 576 B |
+
+Cuts are reconstructed from actual directed-channel counters and physical router
+positions. Their work bound divides data-lane bytes by the crossing channels'
+declared rates. It includes traffic that actually crossed, not a planned-route
+estimate. It is an optimistic service reference, not a critical-path delay.
+The extra traffic is region-local; mean occupancy does not establish sustained
+fabric bandwidth saturation. All layouts have zero observed HOL-with-credit
+opportunities under the existing ready-aware policy.
+
+Balanced has 5.42% more row conflicts, but only 0.52% higher mean controller read
+latency. Controller latency begins at native acceptance and excludes upstream
+waiting; it cannot explain the whole application timeline. Native return-space
+rejection attempts are zero in all cases. Queue rejection attempts and sums of
+receive job waits are retained in the evidence, but are not unique stall cycles.
+
+Hybrid preserves local gate/up matrices and moves only some down matrices.
+Balanced also moves gate/up matrices, adding paths on the dependencies that
+produce gated activations. That is a concrete difference between the policies,
+consistent with a locality/feedback tradeoff; the current three executions do
+not isolate each phase's causal contribution. The modest cold gain warrants the
+registered multi-layer check rather than a claim of universally optimal balance.
 
 ## P4: registered multi-layer confirmation, running
 
