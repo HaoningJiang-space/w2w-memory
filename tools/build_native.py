@@ -27,6 +27,7 @@ def main():
     p.add_argument('--output', type=Path, required=True)
     p.add_argument('--tool', choices=('booksim','dram','all'), default='all')
     p.add_argument('--jobs', type=int, default=4)
+    p.add_argument('--gprof',action='store_true',help='Diagnostic BookSim build with gprof instrumentation; not used for wall-clock speedup claims')
     p.add_argument('--ramulator-source', type=Path,
                    help='Reuse a built pinned upstream; otherwise clone/build into output')
     args = p.parse_args()
@@ -51,6 +52,7 @@ def main():
                         python=sys.version, commands=commands, outputs={}, sources={})
         manifest['tools'] = {name: shutil.which(name) for name in required}
         manifest['w2w_commit'] = subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
+        manifest['gprof']=args.gprof
         try:
             if args.tool in ('booksim','all'):
                 inputs = json.loads((VENDOR/'manifest.json').read_text())
@@ -69,12 +71,13 @@ def main():
                     run(['git','apply',VENDOR/patch],build)
                 includes = ['-I'+str(native/path) for path in ('','allocators','arbiters','routers','networks','power')]
                 includes.append('-I'+str(VENDOR/'include'))
-                run(['make','-C',native,f'-j{args.jobs}','CXX=g++ -I'+str(VENDOR/'include')])
-                run(['g++','-std=c++17','-O3',*includes,'-Dmain=unused_booksim_main','-c',native/'main.cpp','-o',build/'globals.o'])
-                run(['g++','-std=c++17','-O3','-Wall',*includes,'-DWAFER_ENDPOINT_BOUNDARY','-c',VENDOR/'native/online_booksim.cpp','-o',build/'online.o'])
+                profile_flags=['-pg','-g'] if args.gprof else []
+                run(['make','-C',native,f'-j{args.jobs}','CXX=g++ '+(' '.join(profile_flags)+' ' if profile_flags else '')+'-I'+str(VENDOR/'include')])
+                run(['g++','-std=c++17','-O3',*profile_flags,*includes,'-Dmain=unused_booksim_main','-c',native/'main.cpp','-o',build/'globals.o'])
+                run(['g++','-std=c++17','-O3','-Wall',*profile_flags,*includes,'-DWAFER_ENDPOINT_BOUNDARY','-c',VENDOR/'native/online_booksim.cpp','-o',build/'online.o'])
                 objects = sorted(p for p in native.rglob('*.o') if p.name != 'main.o')
                 binary = build/'endpoint_booksim'
-                run(['g++','-std=c++17','-O3',build/'online.o',build/'globals.o',*objects,'-o',binary])
+                run(['g++','-std=c++17','-O3',*profile_flags,build/'online.o',build/'globals.o',*objects,'-o',binary])
                 manifest['outputs']['booksim'] = dict(path=str(binary),sha256=digest(binary))
             if args.tool in ('dram','all'):
                 if args.ramulator_source:

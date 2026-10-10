@@ -33,6 +33,7 @@ def main():
     p.add_argument('--case',choices=('central-plus','distributed'),required=True)
     p.add_argument('--booksim-binary',type=Path,required=True)
     p.add_argument('--cprofile',action='store_true')
+    p.add_argument('--small',action='store_true',help='4-expert catalog, one active expert, 512 intermediate dimensions; diagnostic only')
     args=p.parse_args();args.output.mkdir(parents=True,exist_ok=False)
     counters=defaultdict(lambda:dict(calls=0,wall_ns=0))
     def timed(label,fn):
@@ -63,6 +64,16 @@ def main():
     for name in ('advance','submit'):
         setattr(VerticalRWDL,name,timed('vertical.'+name,getattr(VerticalRWDL,name)))
     spec,graph,data=inputs(args.case)
+    if args.small:
+        from dataclasses import asdict
+        from w2w.workloads.moe import build_moe
+        from w2w.mapping.data_placement import place_weights
+        from w2w.mapping.compute_placement import place_compute
+        from w2w.mapping.lowering import lower
+        logical=build_moe(((0,),),experts=4,topk=1,intermediate=512)
+        weights=place_weights(logical,spec.stack)
+        graph,meta=lower(logical,spec,weights,place_compute(logical,spec.stack,weights))
+        data.update(logical=asdict(logical),graph=asdict(graph),metadata=meta,scope='small diagnostic FFN, not full application performance')
     write_json(args.output/'input.json',data)
     native=VerticalRWDL(spec,request_control=True)
     profile=cProfile.Profile() if args.cprofile else None
