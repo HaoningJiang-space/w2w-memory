@@ -82,6 +82,18 @@ def analyze(root):
             del old
         last_gate = max((t for t in r['tasks'] if t.endswith('/gate')),
                         key=lambda t:r['tasks'][t]['finish_ps'])
+        stack = r['spec']['stack']
+        gateway_rates = {g['id']:g['data_bytes_per_cycle']/r['spec']['noc_period_ps']
+                         for g in stack['gateways']}
+        domains = stack['dram_domains']
+        domain_bytes = {d['id']:r['native']['channel_atoms'].get(str(i),
+                       r['native']['channel_atoms'].get(i,0))*16 for i,d in enumerate(domains)}
+        bounds = dict(global_gateway_payload_ps=a['native_bytes']/sum(gateway_rates.values()),
+            busiest_gateway_payload_ps=max(v/gateway_rates[g] for g,v in r['native']['gateway_bytes'].items()),
+            busiest_native_domain_payload_ps=max(domain_bytes[d['id']]*d['period_ps']/(d['data_bits']/8)
+                                                 for d in domains),
+            per_gateway_bytes=r['native']['gateway_bytes'], per_domain_bytes=domain_bytes,
+            scope='Necessary payload-work bounds at fixed executed placement; ignore command gaps, refresh, dependencies and drain.')
         targets = sorted({'e62/b6/gate','e62/b7/gate','e62/b8/gate',last_gate})
         tail = {t:dict(r['tasks'][t]) for t in targets}
         # The timing counterfactual intentionally does not follow the geometry
@@ -95,6 +107,7 @@ def analyze(root):
             native_bytes=a['native_bytes'], completed_tasks=sum(finished.values()),
             wall_seconds=complete['wall_seconds'], diagnostic=data['diagnostic'], resources=data['resources'],
             fixed_block_tail=tail, final_gate=last_gate, e62_b8_pool=diagnosis,
+            payload_work_bounds=bounds,
             native_reservation_stall_attempts=r['native']['reservation_stall_attempts'],
             native_queue_stall_attempts=r['native']['queue_stall_attempts'],
             mc_pool_peak=r['mc_pool_peak'], gateway_queue_peak_bytes=r['native']['gateway_queue_peak_bytes'])
