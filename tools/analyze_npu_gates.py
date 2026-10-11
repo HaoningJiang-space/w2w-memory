@@ -15,7 +15,7 @@ def accepted(path):
     return value
 
 
-def render(evidence,output,*,study=None,serving=None,final=False,npu_reference=None):
+def render(evidence,output,*,study=None,serving=None,final=False,npu_reference=None,serving_readback=None):
     output.mkdir(parents=True,exist_ok=False);reference=npu_reference or evidence/'npu-reference-r2.json'
     d=accepted(evidence/'demand-r2.json');n=accepted(reference)
     sources={'demand-r2.json':file_sha(evidence/'demand-r2.json'),'npu_reference':dict(path=str(reference),sha256=file_sha(reference))}
@@ -47,6 +47,13 @@ def render(evidence,output,*,study=None,serving=None,final=False,npu_reference=N
             else:pending.append(name)
     if final and (len(cases)!=12 or pending or not serving or not (serving/'serving-results.json').exists()):
         raise ValueError('G5 final decision requires every complete G3 case and complete accepted G4 serving evidence')
+    if final and serving_readback is None:raise ValueError('Final decision requires current full-serving physical-notice readback')
+    if serving_readback:
+        readback=accepted(serving_readback)
+        names={'registration.json','deployment.json','serving-results.json','link-evidence.json'}
+        if not serving or set(readback['sources'])!=names or any(file_sha(serving/name)!=sha for name,sha in readback['sources'].items()):
+            raise ValueError('Serving readback belongs to different complete physical evidence')
+        sources['serving_readback']=dict(path=str(serving_readback),sha256=file_sha(serving_readback))
     decision=dict(status='awaiting_complete_physical_studies',pending_cases=pending,
         new_hardware_justified=False,reason='Trace/shape evidence alone does not establish a new physical structure or calibrated cost advantage.')
     if len(cases)==12:
@@ -89,4 +96,5 @@ def render(evidence,output,*,study=None,serving=None,final=False,npu_reference=N
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--evidence',type=Path,required=True);p.add_argument('--output',type=Path,required=True)
     p.add_argument('--study',type=Path);p.add_argument('--serving',type=Path);p.add_argument('--final',action='store_true');p.add_argument('--npu-reference',type=Path)
-    a=p.parse_args();render(a.evidence,a.output,study=a.study,serving=a.serving,final=a.final,npu_reference=a.npu_reference)
+    p.add_argument('--serving-readback',type=Path)
+    a=p.parse_args();render(a.evidence,a.output,study=a.study,serving=a.serving,final=a.final,npu_reference=a.npu_reference,serving_readback=a.serving_readback)

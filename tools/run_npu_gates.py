@@ -78,9 +78,13 @@ def run(root,evidence,corpus,config,binary,resource,context,resource_pid,context
             if existing_moe_study and (g3/'controller-status.json').exists() and json.loads((g3/'controller-status.json').read_text()).get('state') in ('failed','storage_blocked'):
                 raise RuntimeError('External G3 controller stopped; accepted completed cases are preserved')
             if status['G3']=='complete' and g4_error:raise RuntimeError(g4_error)
-            if status['G3']=='complete' and status['G4']=='complete' and 'G5' not in jobs:
+            serving_readback=root/'full-serving-current-readback.json'
+            if status['G4']=='complete' and 'G4_readback' not in jobs:
+                launch('G4_readback',['-m','tools.audit_full_llm_serving','--root',str(g4),'--output',str(serving_readback)])
+            if status['G3']=='complete' and status['G4']=='complete' and serving_readback.exists() and 'G5' not in jobs:
+                ready(serving_readback)
                 args=['tools/analyze_npu_gates.py','--evidence',str(evidence),'--output',str(root/'final-analysis'),
-                    '--study',str(g3),'--serving',str(g4),'--final']
+                    '--study',str(g3),'--serving',str(g4),'--serving-readback',str(serving_readback),'--final']
                 if npu_reference:args+=['--npu-reference',str(npu_reference)]
                 launch('G5',args)
             if 'G5' in jobs and jobs['G5'].poll()==0:
