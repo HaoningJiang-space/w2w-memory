@@ -2,15 +2,18 @@
 import argparse,json,subprocess,time
 from pathlib import Path
 import numpy as np
-from validate_npu_reference import reference,bf16
+from tools.validate_npu_reference import reference,bf16
 from w2w.architecture.npu_profile import reference_profile
 from w2w.system.npu_kernel import program
 from w2w.common.io import write_json
 from w2w.provenance import revision
 
 
-def numerical(length):
-    rng=np.random.default_rng(20261011+length);P=min(3,length);D=128
+def numerical(length,prefill_rows=None):
+    P=min(3,length) if prefill_rows is None else prefill_rows
+    if type(length) is not int or type(P) is not int or not 1<=P<=length:
+        raise ValueError('Complete causal query rows and KV length required')
+    rng=np.random.default_rng(20261011+length);D=128
     q=bf16(rng.normal(0,.125,(P,64,D)).astype(np.float32));k=bf16(rng.normal(0,.125,(length,4,D)).astype(np.float32));v=bf16(rng.normal(0,.125,(length,4,D)).astype(np.float32))
     positions=np.arange(length-P,length);independent=[];grouped=[]
     for h in range(64):
