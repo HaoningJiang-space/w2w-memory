@@ -1,0 +1,7 @@
+{
+  "pid": 740346,
+  "source_commit": "a708d50",
+  "script_sha256": "dc157c266568e1cfafcfd244632c3729081fcf0bfc38d6a89c210bfedefabf6f",
+  "study": "/Projects/haoning/w2w-full-system-vertical-delivery-20261011/full-request-r2",
+  "scope": "Full 46-token prefill + 128-token decode, two actual layers, serial paired jobs after tests/registration; no retries"
+}

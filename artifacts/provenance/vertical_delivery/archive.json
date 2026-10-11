@@ -1,0 +1,15 @@
+{
+  "schema": "w2w.vertical-delivery-archive.v1",
+  "passed": true,
+  "host": "hn072",
+  "remote_root": "/Projects/haoning/w2w-full-system-vertical-delivery-20261011",
+  "analysis_source": "3233bb3097281aec74f217b6980a10b7f0c3e594",
+  "final_tests_source": "a708d50",
+  "scope": "Hash-verified saved results, read-only activity and non-executable readiness/directory costs; no candidate timing/PPA",
+  "source_files": {
+    "model-config-source.json": "fcd551620ea70ce8b3c02b97ada2480009b6696ef6f424b54c9a0515d8eb3675",
+    "tests-r1.log": "276933b7c4a798ad5ad7e1fa7600ece1687adbf18cfb50847508ab99161d6fbe",
+    "tests-r3.log": "385d2814c9f4ed975fbba351ef5b82bdc5748ad7cf57b73b4fa0f07296e5f9c6",
+    "analysis.json": "1e4e2eb6f5046df750ba09286ac3294ace0af2cf60a27f8d34b91f4e9009cba6"
+  }
+}

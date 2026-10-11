@@ -1,0 +1,42 @@
+{
+  "observed_at_utc": "2026-10-11T13:06:42.500597+00:00",
+  "pipeline": {
+    "stage": "full-request-controller-r2",
+    "state": "running",
+    "pid": 742453,
+    "command": [
+      "/Projects/haoning/w2w/.venv/bin/python",
+      "-m",
+      "tools.run_captured_moe_study",
+      "--root",
+      "/Projects/haoning/w2w-full-system-vertical-delivery-20261011/full-request-r2",
+      "--booksim-binary",
+      "/Projects/haoning/w2w-full-system-performance-placement-20261010/native-fast-r1/booksim/endpoint_booksim"
+    ],
+    "source": "a708d50"
+  },
+  "controller": {
+    "state": "running",
+    "case": "reference_compute",
+    "worker_pid": 742455,
+    "elapsed_wall_seconds": 150.15232423413545,
+    "source_commit": "a708d50dbc2e7959d06e44b467c0eee39772f9f8"
+  },
+  "complete_capture_audit": {
+    "schema": "w2w.captured-moe-coverage-audit.v1",
+    "passed": true,
+    "analysis_source_commit": "3233bb3097281aec74f217b6980a10b7f0c3e594",
+    "source_manifest_sha256": "9eb482ad534961f3a3e0db4586b5288ad0f07c5100f64bf2510a6e844fb382bd",
+    "normalized_manifest_sha256": "3cbfa50f0022025c17c144ffcd6ef49e4bd846c2e252a332b62031c219dcac41",
+    "requests": 256,
+    "expert_assignments": 32507456,
+    "compared_every_raw_selection": true,
+    "scope": "Complete capture coverage and source identity, not application execution or numerical validation"
+  },
+  "execution_source": "a708d50dbc2e7959d06e44b467c0eee39772f9f8",
+  "worktree_clean": true,
+  "complete_cases": [],
+  "contract": "Actual observed background state; Native output not complete and no speedup claimed. Entire capture coverage is separate from selected-layer request execution.",
+  "worker_ps": "    PID    PPID     ELAPSED %CPU   RSS STAT COMMAND\n 742455  742453       02:51 96.2 1033648 R  /Projects/haoning/w2w/.venv/bin/python -m w2w.experiments.run_captured_moe --output /Projects/haoning/w2w-full-system-vertical-delivery-20261011/full-request-r2 --case reference_compute --booksim-binary /Projects/haoning/w2w-full-system-performance-placement-20261010/native-fast-r1/booksim/endpoint_booksim\n",
+  "native_children": "742971 /Projects/haoning/w2w-full-system-performance-placement-20261010/native-fast-r1/booksim/endpoint_booksim /Projects/haoning/w2w-full-system-vertical-delivery-20261011/full-request-r2/cases/reference_compute/network/network.conf 7\n"
+}

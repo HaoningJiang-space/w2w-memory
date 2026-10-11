@@ -1,0 +1,45 @@
+{
+  "schema": "w2w.captured-moe-study.v1",
+  "source_commit": "a708d50dbc2e7959d06e44b467c0eee39772f9f8",
+  "cases": {
+    "reference_compute": {
+      "input_sha256": "1410fece670a6caa9ef7921ad9bfe69654c8b3c83c458435d42d8a460f2d19bc",
+      "graph_sha256": "f52b43107f3b3aea9c47de0183f2e9d5cb544c733f7440d818b8d1347e969ccd",
+      "tasks": 139449
+    },
+    "up_local_compute": {
+      "input_sha256": "25f6dd585792c06bb744b3fd96bcc6f9b2a7e4f6c74729f6a0a1f0461aab7c85",
+      "graph_sha256": "d0120d9f5b20c65d23815fd6bc3069607e9a8230e27db4b56fb1c9ee35f382e3",
+      "tasks": 139449
+    }
+  },
+  "selection": "First manifest request by pre-existing source order; original layers explicitly named, no performance selection",
+  "manifest_index": 0,
+  "request_id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/59.json",
+  "raw_sha256": "500f15d6e4f628f7a7fc86379d51821ecfa14c041adbe142eec1a5dcd06bb0da",
+  "capture_sha256": "c89bab5b3d00ca16e637e97ae98c18da073c26c25176c3e87a111cd12949dc4c",
+  "corpus_manifest_sha256": "3cbfa50f0022025c17c144ffcd6ef49e4bd846c2e252a332b62031c219dcac41",
+  "corpus_audit_sha256": "faf0b479c028de36167dac91ee94fcdec1aa1885ea08c7e48cdf7a26509e3a4f",
+  "dataset_revision": "27febb7b2d24169560a9f6f83d38eb53f94916cf",
+  "model_source": {
+    "model": "Qwen/Qwen3-235B-A22B-FP8",
+    "revision": "39eb2b067ea6b8e3e1dd97d3cd0c7ffeaf3e1a35",
+    "url": "https://huggingface.co/Qwen/Qwen3-235B-A22B-FP8/resolve/39eb2b067ea6b8e3e1dd97d3cd0c7ffeaf3e1a35/config.json",
+    "sha256": "702c46d431bb984db9035a1225186bbfdb52c0d19c82104df4a37cd005e0369e"
+  },
+  "layer_keys": [
+    "0",
+    "1"
+  ],
+  "captured_layers": 94,
+  "execution_omitted_layers": 92,
+  "prefill_tokens": 46,
+  "decode_tokens": 128,
+  "execution_omitted_tokens": 0,
+  "max_ps": 600000000000,
+  "full_model_expert_catalog_bytes": 227151839232,
+  "selected_expert_catalog_bytes": 4833017856,
+  "physical_dram_bytes": 8589934592,
+  "scope": "Full captured prefill/decode request for selected real layers; explicit token dispatch, expert gated FFNs, ordered block/partition sums and weighted combine. Post-router timing only: captured IDs, unavailable coefficient values (4-byte transfer format assumed). No router matmul/top-k, attention/KV/norm/residual or numerical full-model inference. No layer-route reuse or token truncation.",
+  "contract": "Two paid fetch slots and contexts, shared MAC/read, finite empty cache, Native refresh/control/NoC. Every selected real layer uses its own captured routing. Complete request phases; no smoke token/shape reduction. Selected-layer replay is not full-model execution. No performance filtering, automatic retries or new hardware."
+}

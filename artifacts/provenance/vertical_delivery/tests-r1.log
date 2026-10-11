@@ -1,0 +1,13 @@
+test_directory_preserves_capacity_and_pays_validity (tests.test_vertical_delivery.VerticalDelivery) ... ok
+test_fifo_replay_charges_committed_bytes_and_rejects_early_compute (tests.test_vertical_delivery.VerticalDelivery) ... ok
+test_full_frozen_workload_pays_activation_and_original_scale_transport (tests.test_vertical_delivery.VerticalDelivery) ... ok
+test_small_fifo_requires_a_different_readiness_contract (tests.test_vertical_delivery.VerticalDelivery) ... ok
+test_direct_raw_audit_detects_layer_reuse (tests.test_captured_moe_trace.CapturedMoETrace) ... ok
+test_dispatch_and_combine_preserve_real_expert_membership (tests.test_captured_moe_trace.CapturedMoETrace) ... ok
+test_no_prefill_decode_or_layer_substitution (tests.test_captured_moe_trace.CapturedMoETrace) ... ok
+test_real_layer_namespaces_and_complete_request_phases (tests.test_captured_moe_trace.CapturedMoETrace) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 5.331s
+
+OK

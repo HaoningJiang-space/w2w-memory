@@ -1,0 +1,494 @@
+{
+  "schema": "w2w.vertical-delivery-screen.v1",
+  "passed": true,
+  "analysis_source_commit": "3233bb3097281aec74f217b6980a10b7f0c3e594",
+  "cases": {
+    "cold": {
+      "source_commit": "02dab2a60ef69bfca24d5bf72b1a16a31157838a",
+      "input_sha256": "24c4ae8f9b85e3a8b2a5628b5f1b7690a2ad55ffe22adb9d12e3cd0d045ede17",
+      "raw_sha256": "6892d8dbd5eddf7cf631d57ce64ca0c2a886a15ea11daaad6bba5e701b8a3868",
+      "proof_sha256": "6f9e37e563b1ccef9da23bfe299ec50e477ba1f925ce77d553ab826996d164bd",
+      "makespan_ps": 451676000,
+      "native_bytes": 151031808,
+      "fp8_stream_read_bytes": 150994944,
+      "fp8_miss_read_bytes": 150994944,
+      "fp8_hit_read_bytes": 0,
+      "maximum_first_use_read_fraction": 1.0,
+      "phase_miss_matrices": {
+        "gate": 96,
+        "up": 96,
+        "down": 96
+      },
+      "measured_collection_byte_um": 1113859584000,
+      "measured_global_noc_byte_um": 97132108800,
+      "proposed_same_miss_native_bytes": 151044096,
+      "local_star": {
+        "blocks": 96,
+        "roles": {
+          "X_fanout": {
+            "messages": 1536,
+            "sink_payload_bytes": 12582912,
+            "payload_byte_um": 92798976000,
+            "data_lane_bit_um": 743841792000,
+            "cell_bit_um": 836822016000
+          },
+          "scale_collect": {
+            "messages": 192,
+            "sink_payload_bytes": 24576,
+            "payload_byte_um": 221184000,
+            "data_lane_bit_um": 1990656000,
+            "cell_bit_um": 2239488000
+          },
+          "scale_fanout": {
+            "messages": 1344,
+            "sink_payload_bytes": 172032,
+            "payload_byte_um": 1228800000,
+            "data_lane_bit_um": 11059200000,
+            "cell_bit_um": 12441600000
+          },
+          "U_collect": {
+            "messages": 768,
+            "sink_payload_bytes": 49152,
+            "payload_byte_um": 362496000,
+            "data_lane_bit_um": 3624960000,
+            "cell_bit_um": 4078080000
+          },
+          "U_scatter": {
+            "messages": 768,
+            "sink_payload_bytes": 49152,
+            "payload_byte_um": 362496000,
+            "data_lane_bit_um": 3624960000,
+            "cell_bit_um": 4078080000
+          },
+          "H_collect": {
+            "messages": 768,
+            "sink_payload_bytes": 24576,
+            "payload_byte_um": 181248000,
+            "data_lane_bit_um": 2174976000,
+            "cell_bit_um": 2446848000
+          },
+          "H_fanout": {
+            "messages": 768,
+            "sink_payload_bytes": 196608,
+            "payload_byte_um": 1449984000,
+            "data_lane_bit_um": 12324864000,
+            "cell_bit_um": 13865472000
+          },
+          "Y_collect": {
+            "messages": 768,
+            "sink_payload_bytes": 1572864,
+            "payload_byte_um": 11599872000,
+            "data_lane_bit_um": 93523968000,
+            "cell_bit_um": 105214464000
+          }
+        },
+        "totals": {
+          "messages": 6912,
+          "sink_payload_bytes": 14671872,
+          "payload_byte_um": 108205056000,
+          "data_lane_bit_um": 872165376000,
+          "cell_bit_um": 981186048000
+        },
+        "wire": {
+          "bidirectional_data_bit_um": 241664000,
+          "bidirectional_sideband_bit_um": 30208000
+        },
+        "contract": "Counterfactual routed work, not executed traffic or a lower bound. Fixed star with one 128-bit header and 16 sideband bits per word; no free X reuse, multicast, U fusion or output bypass. U/global traffic and whole-H barriers remain at current roots. Baseline internal cluster work is unmeasured and credited zero, favoring the baseline. Local buffer/control/clock costs are additional."
+      },
+      "committed_fifo_lower_bound": {
+        "peak_by_cluster": {
+          "c12": 24576,
+          "c14": 24576,
+          "c4": 32768,
+          "c6": 28672,
+          "c13": 32768,
+          "c15": 32768,
+          "c5": 24576,
+          "c7": 49152,
+          "c11": 49152,
+          "c1": 45056,
+          "c3": 53248,
+          "c9": 61440,
+          "c10": 49152,
+          "c2": 57344,
+          "c8": 65536,
+          "c0": 12288
+        },
+        "maximum_bytes": 65536,
+        "per_task_maximum_bytes": 49152,
+        "witness": {
+          "c12": {
+            "time_ps": 1752000,
+            "task": "e10/b0/gate",
+            "bytes": 24576
+          },
+          "c14": {
+            "time_ps": 1752000,
+            "task": "e10/b3/gate",
+            "bytes": 24576
+          },
+          "c4": {
+            "time_ps": 44109000,
+            "task": "e109/b9/up",
+            "bytes": 32768
+          },
+          "c6": {
+            "time_ps": 1204000,
+            "task": "e10/b9/gate",
+            "bytes": 28672
+          },
+          "c13": {
+            "time_ps": 2282000,
+            "task": "e10/b0/up",
+            "bytes": 32768
+          },
+          "c15": {
+            "time_ps": 2281000,
+            "task": "e10/b3/up",
+            "bytes": 32768
+          },
+          "c5": {
+            "time_ps": 1055000,
+            "task": "e108/b0/gate",
+            "bytes": 24576
+          },
+          "c7": {
+            "time_ps": 1860000,
+            "task": "e10/b9/up",
+            "bytes": 49152
+          },
+          "c11": {
+            "time_ps": 2599000,
+            "task": "e36/b9/gate",
+            "bytes": 49152
+          },
+          "c1": {
+            "time_ps": 2434000,
+            "task": "e23/b3/gate",
+            "bytes": 45056
+          },
+          "c3": {
+            "time_ps": 2718000,
+            "task": "e36/b3/gate",
+            "bytes": 53248
+          },
+          "c9": {
+            "time_ps": 3077000,
+            "task": "e23/b9/gate",
+            "bytes": 61440
+          },
+          "c10": {
+            "time_ps": 2521000,
+            "task": "e36/b9/up",
+            "bytes": 49152
+          },
+          "c2": {
+            "time_ps": 2892000,
+            "task": "e23/b6/up",
+            "bytes": 57344
+          },
+          "c8": {
+            "time_ps": 3071000,
+            "task": "e36/b6/up",
+            "bytes": 65536
+          },
+          "c0": {
+            "time_ps": 1215000,
+            "task": "e23/b3/up",
+            "bytes": 12288
+          }
+        },
+        "fp8_miss_bytes": 150994944,
+        "contract": "Lower bound for preserving recorded descriptor commits and compute schedule, ignoring earlier partial receive writes, scale/X/H storage and native reservations. Not a safe FIFO size for changed word-level readiness; bypass/staging RAM and early consumption are distinct mechanisms."
+      },
+      "transport_break_even": {
+        "memory_collection_bit_um": 8910876672000,
+        "added_local_cell_bit_um": 981186048000,
+        "logic_to_memory_energy_per_bit_distance_limit": 9.081740094208921,
+        "inequality": "e_logic*added_local_cell_bit_um + incremental_residual_energy < e_memory*collection_bit_um",
+        "contract": "Equal current miss identities only; coefficient ratio bound sets all other increments to zero. No calibrated energy, EDP, latency or area result. Headers/sideband are paid on logic; array data collection counts payload only. Controls, padding reads, buffers, shared directory and clocks remain residual."
+      },
+      "limits": [
+        "Warm consumer FIFO is not reconstructed; traffic comes from hashed completed independent evidence.",
+        "First-use SRAM read saving is an upper bound shared by a Gateway-to-PE bypass reference.",
+        "The local protocol routes actual frozen workload demands; placement itself is not optimized with future routing."
+      ]
+    },
+    "multilayer": {
+      "source_commit": "02dab2a60ef69bfca24d5bf72b1a16a31157838a",
+      "input_sha256": "3f6cedf49cc3e8ff6813f06baf698f54d14845f1e69f90c6a1766ef16c7157ad",
+      "raw_sha256": "03667e4f763fe5bcab9a2a80da6b4bcde56bbf46f06209cb520927ca656447f0",
+      "proof_sha256": "e6cd010559776e029ded3469979d1c3a74c7272b682b2669a7f8d059fd1211e0",
+      "makespan_ps": 9656156000,
+      "native_bytes": 2017952768,
+      "fp8_stream_read_bytes": 7247757312,
+      "fp8_miss_read_bytes": 2017460224,
+      "fp8_hit_read_bytes": 5230297088,
+      "maximum_first_use_read_fraction": 0.27835648148148145,
+      "phase_miss_matrices": {
+        "gate": 1272,
+        "up": 1304,
+        "down": 1272
+      },
+      "measured_collection_byte_um": 14882401664000,
+      "measured_global_noc_byte_um": 4023542323200,
+      "proposed_same_miss_native_bytes": 2018115584,
+      "local_star": {
+        "blocks": 4608,
+        "roles": {
+          "X_fanout": {
+            "messages": 73728,
+            "sink_payload_bytes": 603979776,
+            "payload_byte_um": 4454350848000,
+            "data_lane_bit_um": 35704406016000,
+            "cell_bit_um": 40167456768000
+          },
+          "scale_collect": {
+            "messages": 9216,
+            "sink_payload_bytes": 1179648,
+            "payload_byte_um": 10616832000,
+            "data_lane_bit_um": 95551488000,
+            "cell_bit_um": 107495424000
+          },
+          "scale_fanout": {
+            "messages": 64512,
+            "sink_payload_bytes": 8257536,
+            "payload_byte_um": 58982400000,
+            "data_lane_bit_um": 530841600000,
+            "cell_bit_um": 597196800000
+          },
+          "U_collect": {
+            "messages": 36864,
+            "sink_payload_bytes": 2359296,
+            "payload_byte_um": 17399808000,
+            "data_lane_bit_um": 173998080000,
+            "cell_bit_um": 195747840000
+          },
+          "U_scatter": {
+            "messages": 36864,
+            "sink_payload_bytes": 2359296,
+            "payload_byte_um": 17399808000,
+            "data_lane_bit_um": 173998080000,
+            "cell_bit_um": 195747840000
+          },
+          "H_collect": {
+            "messages": 36864,
+            "sink_payload_bytes": 1179648,
+            "payload_byte_um": 8699904000,
+            "data_lane_bit_um": 104398848000,
+            "cell_bit_um": 117448704000
+          },
+          "H_fanout": {
+            "messages": 36864,
+            "sink_payload_bytes": 9437184,
+            "payload_byte_um": 69599232000,
+            "data_lane_bit_um": 591593472000,
+            "cell_bit_um": 665542656000
+          },
+          "Y_collect": {
+            "messages": 36864,
+            "sink_payload_bytes": 75497472,
+            "payload_byte_um": 556793856000,
+            "data_lane_bit_um": 4489150464000,
+            "cell_bit_um": 5050294272000
+          }
+        },
+        "totals": {
+          "messages": 331776,
+          "sink_payload_bytes": 704249856,
+          "payload_byte_um": 5193842688000,
+          "data_lane_bit_um": 41863938048000,
+          "cell_bit_um": 47096930304000
+        },
+        "wire": {
+          "bidirectional_data_bit_um": 241664000,
+          "bidirectional_sideband_bit_um": 30208000
+        },
+        "contract": "Counterfactual routed work, not executed traffic or a lower bound. Fixed star with one 128-bit header and 16 sideband bits per word; no free X reuse, multicast, U fusion or output bypass. U/global traffic and whole-H barriers remain at current roots. Baseline internal cluster work is unmeasured and credited zero, favoring the baseline. Local buffer/control/clock costs are additional."
+      },
+      "committed_fifo_lower_bound": null,
+      "transport_break_even": {
+        "memory_collection_bit_um": 119059213312000,
+        "added_local_cell_bit_um": 47096930304000,
+        "logic_to_memory_energy_per_bit_distance_limit": 2.5279612183532936,
+        "inequality": "e_logic*added_local_cell_bit_um + incremental_residual_energy < e_memory*collection_bit_um",
+        "contract": "Equal current miss identities only; coefficient ratio bound sets all other increments to zero. No calibrated energy, EDP, latency or area result. Headers/sideband are paid on logic; array data collection counts payload only. Controls, padding reads, buffers, shared directory and clocks remain residual."
+      },
+      "limits": [
+        "Warm consumer FIFO is not reconstructed; traffic comes from hashed completed independent evidence.",
+        "First-use SRAM read saving is an upper bound shared by a Gateway-to-PE bypass reference.",
+        "The local protocol routes actual frozen workload demands; placement itself is not optimized with future routing."
+      ]
+    }
+  },
+  "prefetch_fifo_lower_bound": {
+    "peak_by_cluster": {
+      "c12": 524288,
+      "c14": 524288,
+      "c4": 524288,
+      "c6": 524288,
+      "c13": 528384,
+      "c15": 528384,
+      "c5": 528384,
+      "c7": 528384,
+      "c11": 49152,
+      "c1": 45056,
+      "c3": 53248,
+      "c9": 61440,
+      "c10": 49152,
+      "c2": 57344,
+      "c8": 65536,
+      "c0": 12288
+    },
+    "maximum_bytes": 528384,
+    "per_task_maximum_bytes": 524288,
+    "witness": {
+      "c12": {
+        "time_ps": 167071000,
+        "task": "e108/b7/up",
+        "bytes": 524288
+      },
+      "c14": {
+        "time_ps": 167071000,
+        "task": "e108/b10/up",
+        "bytes": 524288
+      },
+      "c4": {
+        "time_ps": 167071000,
+        "task": "e108/b1/up",
+        "bytes": 524288
+      },
+      "c6": {
+        "time_ps": 167071000,
+        "task": "e108/b4/up",
+        "bytes": 524288
+      },
+      "c13": {
+        "time_ps": 449592000,
+        "task": "e62/b2/gate",
+        "bytes": 528384
+      },
+      "c15": {
+        "time_ps": 449592000,
+        "task": "e62/b5/gate",
+        "bytes": 528384
+      },
+      "c5": {
+        "time_ps": 449592000,
+        "task": "e62/b8/gate",
+        "bytes": 528384
+      },
+      "c7": {
+        "time_ps": 449592000,
+        "task": "e62/b11/gate",
+        "bytes": 528384
+      },
+      "c11": {
+        "time_ps": 2599000,
+        "task": "e36/b9/gate",
+        "bytes": 49152
+      },
+      "c1": {
+        "time_ps": 2434000,
+        "task": "e23/b3/gate",
+        "bytes": 45056
+      },
+      "c3": {
+        "time_ps": 2718000,
+        "task": "e36/b3/gate",
+        "bytes": 53248
+      },
+      "c9": {
+        "time_ps": 3077000,
+        "task": "e23/b9/gate",
+        "bytes": 61440
+      },
+      "c10": {
+        "time_ps": 2521000,
+        "task": "e36/b9/up",
+        "bytes": 49152
+      },
+      "c2": {
+        "time_ps": 2892000,
+        "task": "e23/b6/up",
+        "bytes": 57344
+      },
+      "c8": {
+        "time_ps": 3071000,
+        "task": "e36/b6/up",
+        "bytes": 65536
+      },
+      "c0": {
+        "time_ps": 1215000,
+        "task": "e23/b3/up",
+        "bytes": 12288
+      }
+    },
+    "fp8_miss_bytes": 150994944,
+    "contract": "Lower bound for preserving recorded descriptor commits and compute schedule, ignoring earlier partial receive writes, scale/X/H storage and native reservations. Not a safe FIFO size for changed word-level readiness; bypass/staging RAM and early consumption are distinct mechanisms."
+  },
+  "directory": {
+    "slices": 8,
+    "data_bytes_per_neighborhood": 192937984,
+    "entries": 512,
+    "original_tag_bits": 128,
+    "lookup_slots": 32,
+    "lookup_cycles": 1,
+    "slice_data_bytes": 65536,
+    "maximum_owned_scale_bytes": 128,
+    "original_matrix_bytes": 524416,
+    "executable": false,
+    "collective_replacement": true,
+    "slot_stride_bytes": 65664,
+    "slots": 367,
+    "original_slots": 367,
+    "tag_bytes": 9216,
+    "original_tag_bytes": 8192,
+    "metadata_bytes": 9616,
+    "allocated_data_bytes": 192789504,
+    "slot_padding_bytes_per_matrix": 896,
+    "independent_equal_tag_entries_per_slice": 64,
+    "independent_equal_tag_capacity_bytes": 4194304,
+    "contract": "One common slot/LRU/pin ownership per matrix, derived addresses and paid valid/fill masks; no independent slice eviction or partial-hit policy. Exact same-order whole-matrix residency capacity, not a prediction of cache traffic under changed execution. Ports, active frame associations, clocks and macro area unclosed."
+  },
+  "readiness_contracts": {
+    "descriptor_staging": {
+      "ready_granule_bytes": 4096,
+      "fifo_bytes": 64,
+      "descriptor_bytes": 4096,
+      "native_atom_bytes": 16,
+      "slice_data_bytes": 65536,
+      "coupled_frames_per_neighborhood": 2,
+      "slices_per_neighborhood": 8,
+      "additional_staging_bytes": 4096,
+      "executable": false,
+      "prefix_bytes_per_active_slice": 10,
+      "prefix_bytes_per_neighborhood": 160,
+      "requires_staging_read": true,
+      "bypass_requires": "X/H and original scales ready, real PE grant and retention-write acceptance; otherwise defer fetch or pay spill/staging and subsequent read. Native return reservations remain separate.",
+      "contract": "Minimum holding and prefix metadata, not a sufficiency proof for out-of-order returns or backpressure. 4096-byte readiness retains a staging read; 32-byte readiness changes the operand interface. No new issue contexts, independent MAC grants, clocks or free cache-fill path."
+    },
+    "word_fifo": {
+      "ready_granule_bytes": 32,
+      "fifo_bytes": 64,
+      "descriptor_bytes": 4096,
+      "native_atom_bytes": 16,
+      "slice_data_bytes": 65536,
+      "coupled_frames_per_neighborhood": 2,
+      "slices_per_neighborhood": 8,
+      "additional_staging_bytes": 0,
+      "executable": false,
+      "prefix_bytes_per_active_slice": 264,
+      "prefix_bytes_per_neighborhood": 4224,
+      "requires_staging_read": false,
+      "bypass_requires": "X/H and original scales ready, real PE grant and retention-write acceptance; otherwise defer fetch or pay spill/staging and subsequent read. Native return reservations remain separate.",
+      "contract": "Minimum holding and prefix metadata, not a sufficiency proof for out-of-order returns or backpressure. 4096-byte readiness retains a staging read; 32-byte readiness changes the operand interface. No new issue contexts, independent MAC grants, clocks or free cache-fill path."
+    }
+  },
+  "matched_word_readiness": {
+    "original_whole_matrix_prefix_bytes_per_neighborhood": 4112,
+    "domain_slices_prefix_bytes_per_neighborhood": 4224
+  },
+  "verdict": "No structural necessity established for 128 tiles. Evaluate Gateway FIFO bypass at matched word readiness, then compare direct-domain delivery with matched tile resolution and collective residency. Potential independent advantage is removal of measured memory collection work, conditional on local fabric and residual cost.",
+  "contract": "Saved-evidence analysis and non-executable cost contracts only; no new Native run, parameter sweep or simulated candidate timing."
+}

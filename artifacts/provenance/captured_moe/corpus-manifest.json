@@ -1,0 +1,4129 @@
+{
+  "schema": "w2w.captured-moe-corpus.v1",
+  "passed": true,
+  "source_commit": "3233bb3097281aec74f217b6980a10b7f0c3e594",
+  "dataset_source": "https://huggingface.co/datasets/core12345/MoE_expert_selection_trace",
+  "dataset_revision": "27febb7b2d24169560a9f6f83d38eb53f94916cf",
+  "source_manifest_sha256": "9eb482ad534961f3a3e0db4586b5288ad0f07c5100f64bf2510a6e844fb382bd",
+  "model_source": {
+    "model": "Qwen/Qwen3-235B-A22B-FP8",
+    "revision": "39eb2b067ea6b8e3e1dd97d3cd0c7ffeaf3e1a35",
+    "url": "https://huggingface.co/Qwen/Qwen3-235B-A22B-FP8/resolve/39eb2b067ea6b8e3e1dd97d3cd0c7ffeaf3e1a35/config.json",
+    "sha256": "702c46d431bb984db9035a1225186bbfdb52c0d19c82104df4a37cd005e0369e"
+  },
+  "shape": {
+    "hidden": 4096,
+    "intermediate": 1536,
+    "experts": 128,
+    "topk": 8,
+    "layers": 94
+  },
+  "requests": [
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/59.json",
+      "path": "request-0000.json.gz",
+      "raw_sha256": "500f15d6e4f628f7a7fc86379d51821ecfa14c041adbe142eec1a5dcd06bb0da",
+      "normalized_sha256": "c89bab5b3d00ca16e637e97ae98c18da073c26c25176c3e87a111cd12949dc4c",
+      "file_sha256": "8cc615d4e7865692fd0f9b6cf6476685e74d0561c579e9d4d232f830ce451b0b",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 46,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 130848
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/47.json",
+      "path": "request-0001.json.gz",
+      "raw_sha256": "9454f60ed9f533192f106ff0eb8cdbb3fbb94653c3c8c7764c90bfeb456e73f6",
+      "normalized_sha256": "902b0261932cab08f19b0980edbc99d9a75b75340017bad30cf841934b15a721",
+      "file_sha256": "f0c1f0d0495d6cc77a0a6794513c40496a1193dd121776d074e31f465284bdd0",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 27,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 116560
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/89.json",
+      "path": "request-0002.json.gz",
+      "raw_sha256": "d715fa164ba0c60d14b787a6dd10f746a5fb6dc654696c70b1e14cb75d18f89c",
+      "normalized_sha256": "a82f400ad398890d2c9ad21085b5b1e63fe0f58e95044f2e48341d309a4a9acb",
+      "file_sha256": "9b5ca78aaeaeae9899d5c8620dc4331193cd13bb6e6b485fa79b8932faffab46",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 24,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 114304
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/26.json",
+      "path": "request-0003.json.gz",
+      "raw_sha256": "39d11b4403a39411cf52611cbc1d0a63b9a286a46eaed219e75c8aa65fb0aca4",
+      "normalized_sha256": "98f3a64c16b72283cbb712e302c30bfeed404de0738f62af055af6e1dbd95dc5",
+      "file_sha256": "c0e57a34bb5eb53af72ca7125e2078a00464fd5799f4a3f259b6748091d9958a",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 35,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 122576
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/44.json",
+      "path": "request-0004.json.gz",
+      "raw_sha256": "22bbe4be96ae3cec6aebd148c5ac17829017ce06e726cd9b0fca904aec69188c",
+      "normalized_sha256": "06300480933d42bffd72bbb66e649dca8aa9c9489837a18eef965d251622988f",
+      "file_sha256": "deb5f84fd473726c1d14b8c37bc71266e79b8ddafc9b82c4c15312865fd693db",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 61,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 142128
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/77.json",
+      "path": "request-0005.json.gz",
+      "raw_sha256": "f4604cc5db3d4334bd9c53e2fcf4a9b5f513130c12c58c5e41c525f93ffe991f",
+      "normalized_sha256": "c4694effee07b074d0976ea0f5a6b034cd72583dd65e2f7a2ba8c801981d1e2a",
+      "file_sha256": "7e9dd97bf3c2f6105d280437783d49197f744cc9cef6f369f0abdc833a3ee2fe",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 3,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 98512
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/40.json",
+      "path": "request-0006.json.gz",
+      "raw_sha256": "4e31cd3c2d34db190aff973cec64441d708e25288276f14e35af3a4d01e42705",
+      "normalized_sha256": "00b09af48087d3c12ee5b047bc8aab4bf97f09fc45edf232ce048508f1a52258",
+      "file_sha256": "7597c68fab34bdce9e03995973a9e1d2be07057e1b559e4369069338b516fc0f",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 36,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 123328
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/42.json",
+      "path": "request-0007.json.gz",
+      "raw_sha256": "1517e588c8b7078a5757e8fd6cded20b82dcffe864e7b8eceed2be28d35cdaa8",
+      "normalized_sha256": "516349926ea5404cd5db002d9d887d6dfd9d7e32f093f309ed6bc1c9326dbeb5",
+      "file_sha256": "6d1575ab87b2cafeb063fc9cf7560d8d95e7c05beddf1a2b0a721755fe297aa6",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 57,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 139120
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/98.json",
+      "path": "request-0008.json.gz",
+      "raw_sha256": "0a9933a9207fd02d20dd2a66b67537dd2c48e7320d54a298b78fb6078b729dae",
+      "normalized_sha256": "c31274d35d754918b79aff619c2c26a2f98cc606aa445e70d24115f1abe1ffbb",
+      "file_sha256": "1db3205d85d0482689914b18891107f53250dc66002e50771ca51a69ccec75ea",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 18,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 109792
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/39.json",
+      "path": "request-0009.json.gz",
+      "raw_sha256": "a59ace9073328d14062258aeb20c91d59fefe1516a4ddf1fad9135b1e753fdec",
+      "normalized_sha256": "0f884c8d87382d70256625c6c3bfef0a03c0419334ca5ca515e60d9c025e6560",
+      "file_sha256": "4437898a33c31d930aa70b31046b1dac752ece2033e30d61dc978e246e9beb68",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 15,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 107536
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/13.json",
+      "path": "request-0010.json.gz",
+      "raw_sha256": "2518e79a1c0335b2487e7affb0d758eccd8c17ae4d3747e9ab23ba75ad8dc4d4",
+      "normalized_sha256": "de2909694b7d7c129bb6fa75c6c1bce368dfc07ecf38fde8a9be8ce6b721c8f1",
+      "file_sha256": "5f49f7fe74c1eddc90c4527dd51c63e7a440f7f12b01dcc9acfd223ef966d581",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 36,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 123328
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/64.json",
+      "path": "request-0011.json.gz",
+      "raw_sha256": "da2a725c606b5b0a5a48bd091f42fa5603ed863b68e2fda32b005de5079c8d69",
+      "normalized_sha256": "1667b71ce994c5a9829e1a2b19fda4cb31563b29ac9fb1a8011fd047a1b8387c",
+      "file_sha256": "787fb5bb26050693e1daba9640812173d19d6ef2685666cfd36357d910b8fa00",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 15,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 107536
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/5.json",
+      "path": "request-0012.json.gz",
+      "raw_sha256": "18a3b2616f818cdf1a95f8988abd4c34cab369d16c8dfd72345f688bc28bd4fc",
+      "normalized_sha256": "bf4b4f45cf9308f63e8dabb1240695accc9081d45f9c1c4fec567d51650f8e31",
+      "file_sha256": "08280b8ceabb01293264c693b268999aa0a3b2b8715b225c9bfa6c0ae2be352f",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 59,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 140624
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/38.json",
+      "path": "request-0013.json.gz",
+      "raw_sha256": "b505127ec81430a476a810b788a558eef7658e5e6b5489588b16b4bf373659f1",
+      "normalized_sha256": "2a65227a0bf469c64fa5114f17301a7b1a52c02d5f4eeda0cac9739f7c33a6e5",
+      "file_sha256": "64a5d50aa667b92e86a409b2345698da936245582e9b5db5a5778855de806fee",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 9,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 103024
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/21.json",
+      "path": "request-0014.json.gz",
+      "raw_sha256": "fd639abd042c5e9ceefacb851f3abcf940b5fb9ce2058b9877036296ff56d91c",
+      "normalized_sha256": "addb1029346691f51255366c7c704b0e93793863249fa945b256cb475b97dae9",
+      "file_sha256": "77a517570b238b2905d811ce4d92d1ddef9b6dfd22665423f7b6b3b93a83bea2",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 45,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 130096
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/34.json",
+      "path": "request-0015.json.gz",
+      "raw_sha256": "9866e68c22cc089d76b98ff98a2a996ed58c86d755c3bd8288d7b80dd2023736",
+      "normalized_sha256": "4bd10c060b31d9e1f6d6f999b651f0b7b9566940cfe8a993391c1162293cf22e",
+      "file_sha256": "4f74a4ac08306e8b7b2a61bc0526462232230389316d580c5299c2936f5d24fb",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 62,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 142880
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/91.json",
+      "path": "request-0016.json.gz",
+      "raw_sha256": "0c83938a306230f025930fa5a7e9718074f1afa821cc75f9ab863a592c9f923a",
+      "normalized_sha256": "410ddcfcd666ea71235e6861dcf6244811f4f75d220e6a156d857b3e41cdd6aa",
+      "file_sha256": "d3108e501d5a546b8eee0751269eaadd0de1e2ba5c7b85c0bab18c1be05af5b5",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 13,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 106032
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/55.json",
+      "path": "request-0017.json.gz",
+      "raw_sha256": "c05671807823ce17a1c07366b136fdec348f14991440f595c4013dd025b541c8",
+      "normalized_sha256": "6ff8ded2eff778a4926fc0c99f9e1c65489cfcec54efd200f2869e23ada959b6",
+      "file_sha256": "950c979d6dfc15c133554fd32d22031791aa7a88d57ebf1cde0bc4a60d7ba725",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 31,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 119568
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/63.json",
+      "path": "request-0018.json.gz",
+      "raw_sha256": "f46cee4308b0a946fb11cfd2775195d108249b3d7db84f0d35a87bbe0ec4cbca",
+      "normalized_sha256": "34623faf90b66c8661c71355ff08d56ec45c5213fcbbcbc7d27d14aeaa54b443",
+      "file_sha256": "55b05f4f360bf2b71bd5ef6cdd6644777e9fff19b0509b2b05178209a7e80f62",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 35,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 122576
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/35.json",
+      "path": "request-0019.json.gz",
+      "raw_sha256": "6d0c0b0c73a97aec8575c80c91081e7a926238e66ec48b99f2cefbf0caf9e160",
+      "normalized_sha256": "2291a810a377f4c50099f4d820bf48be3d10f8746b52036228533756cb0c43ff",
+      "file_sha256": "39b9243c30978ff5f8397e9e1a17fc486f56a04b2ca63846ad41c788b3a4d0a8",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 4,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 99264
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/92.json",
+      "path": "request-0020.json.gz",
+      "raw_sha256": "ba335c1452312d551a8f8984d926be9f6f24560fba7f8947ff5f0941aff44d0e",
+      "normalized_sha256": "5dcd61ec264e76bfb8db0bd1e1d294f75a951b6f90420f8bea97935f8d2de653",
+      "file_sha256": "8fbf5c5f7b27e2df27f5ffe8a770bcc04100ef87c68093c9f7fb47fbe70814ca",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 8,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 102272
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/27.json",
+      "path": "request-0021.json.gz",
+      "raw_sha256": "02382d84262640a51be965fb6e83c8a69967900882a80938704ee772c7155b6c",
+      "normalized_sha256": "f3775229d43ccc705a664a4adf805551e12dcf5f503fa57b536fff73c4e149de",
+      "file_sha256": "c588ccfc50d47702d80cc8931f0a024e623d0b0cc992195c2f6f508fb0e42e2c",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 40,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 126336
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/9.json",
+      "path": "request-0022.json.gz",
+      "raw_sha256": "9128a25575114114704cd71251d57873f84a468e0192e37720931526b6b3ad37",
+      "normalized_sha256": "5d9d90de6d1659cab2838a1b51e25b38578c68cf04fadc9185a405035ae0e0b7",
+      "file_sha256": "4b1c5a60468272f6f54b48ca86c97f1b0ad2b19e2827ccc055f33159e43956bc",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 12,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 105280
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/1.json",
+      "path": "request-0023.json.gz",
+      "raw_sha256": "51586971176a8edb268d4a0b511c62a930b6849f938165054ef88536f6be2b80",
+      "normalized_sha256": "00bed2a135d7d0c55b23a9517e621afcfdc4728a3cf925b666c845ed55d4a61a",
+      "file_sha256": "cc7a8b554d4537b94fea7dba07f3143522e4f2105ab47dce625a3fec3ee0ff7f",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 37,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 124080
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/84.json",
+      "path": "request-0024.json.gz",
+      "raw_sha256": "b04df7a959271ceed0d7c4f1af7157d914881e86cdf613988d1df140a81049fa",
+      "normalized_sha256": "be051d6b46b11cfc1978e350cadaf3be35cd16a4d58bda339231cd4c290cbe82",
+      "file_sha256": "6a225eac85377dec1ec9eaa6f35b704b586a81be5971cb378a9b3e59cd8da4e4",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 20,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 111296
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/52.json",
+      "path": "request-0025.json.gz",
+      "raw_sha256": "c494b8d8344d6109fcf868cc0d0380d86475c56c9b67dd8b3f4e3d6ad3324889",
+      "normalized_sha256": "021139e5dcb4c53f1ffe4b98352e57438c6d6cf68b1938c46c7dd25ba92a6b00",
+      "file_sha256": "3506f52ca8a41834d0d61d5e6a4e72b1aa31fce550ba107e68840380b688f7ca",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 28,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 117312
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/43.json",
+      "path": "request-0026.json.gz",
+      "raw_sha256": "e9a0ed1440c817558e5f59f5457759c6af0033f4c34a4459504edc3da8f0ce7b",
+      "normalized_sha256": "de26284666b2bdc1b411454d91f98ab6d56321d8708a58165ef91503a4643523",
+      "file_sha256": "78e619f0afab88ffcb37b769f1eab32b6deff62000aea3bbcbb220c45c9cd11f",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 22,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 112800
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/10.json",
+      "path": "request-0027.json.gz",
+      "raw_sha256": "9e895dd3edac84a935f919ec363fd4d0aa150ed82ce272aa77cb98a46017b24e",
+      "normalized_sha256": "6215569ea11fffe24b9d651257075ef90412f0aa05bb3352ed53697fe3966893",
+      "file_sha256": "aa265deb416fdd33479b2acd8e75bdd238b93fe705517d8df5e350ba07a2ac65",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 50,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 133856
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/18.json",
+      "path": "request-0028.json.gz",
+      "raw_sha256": "4844715b45d038b90e935ee07d0fcf8350533066172b4defe67703f859cacce4",
+      "normalized_sha256": "66f2f0b5a87c24aac8cfa941c954c2a00ae67a80593d97b958558fbc389b3a98",
+      "file_sha256": "41da4ea9c696a6e9a0d7ade5a0fe954be405696135def93b4dfa953c6d348c3b",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 15,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 107536
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/75.json",
+      "path": "request-0029.json.gz",
+      "raw_sha256": "326c91b193671f5b8accb2e2f3d4949f7a65a7ab93b92089aca18172a72907fa",
+      "normalized_sha256": "d0ce5e3d3cc36b73b7ca8472df190cda748e6226873813c4f3f24ea4f89013d5",
+      "file_sha256": "42ef4b87d29f7920c8de315731d7e020e7398c6b464dffb76211963cd88d476b",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 33,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 121072
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/17.json",
+      "path": "request-0030.json.gz",
+      "raw_sha256": "e50d626fd877aef838f0aa62a66055292e26aa74dda5cf5ccb8f8c1e4023b1f3",
+      "normalized_sha256": "90b711c94ce8b4600e1091a785888ee65172923ab0bae02994311bf8f1d4840a",
+      "file_sha256": "d856f34c222b7d24ee16cbc0085b6063a10e9eb9b1d185fdc881c12af0167bea",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 25,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 115056
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/16.json",
+      "path": "request-0031.json.gz",
+      "raw_sha256": "66ccf3cf2eebce3d8c50577a2115f61b1c4da02c75d319cfdadb9ad1ff226bff",
+      "normalized_sha256": "cb57f87f8376658f00fb083e8c70ebe3a6ef4813caec097361e99184527c4767",
+      "file_sha256": "9f93507f1e2006d8c3b7b129da35ad8b7cec82be58e71389b0f9f7734ee95066",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 22,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 112800
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1534.json",
+      "path": "request-0032.json.gz",
+      "raw_sha256": "7a8e3cc4dc869a48b75a4e9a5c0edb066166902e69252335cbdc9a703b1b1a70",
+      "normalized_sha256": "5ae7c57172c87cc23652133500738380b22d132ebc94a21e21afd2e901f3ef86",
+      "file_sha256": "6dd134e124d38f9147ca595951808612363f917602d0c649db6e7e8cd397635d",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 19,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 110544
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1490.json",
+      "path": "request-0033.json.gz",
+      "raw_sha256": "e22faf41cb4243fec6ff7bbdacc62e56b260c8ff9fb7bc066dc734b5cd7316fb",
+      "normalized_sha256": "c7bb02d48a316a01188a06166b40b07c5d9f7a0b9f6aa1102dcfff25be2186e1",
+      "file_sha256": "11be67fdd348685590cc7d67eb1aa85df58ac0e3bad95b389a453230645559d4",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 13,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 106032
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1515.json",
+      "path": "request-0034.json.gz",
+      "raw_sha256": "ae1f959b82c1c41c69d47664e41de9948f60060fa59d43981ebff7a1c5730278",
+      "normalized_sha256": "597a11b5ab83bbbc29dec7e5fb6fa4e5b9e316fa4386fe5f049debb01b7ddc39",
+      "file_sha256": "9bae37927a6a4403c36c9883c399c3892dfb11c66f28d904f99caff5a546ae6b",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 28,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 117312
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1547.json",
+      "path": "request-0035.json.gz",
+      "raw_sha256": "33d60fe2313f8f970b2c426688cd9f34272bf9f2de3c32208bc90afb6708205d",
+      "normalized_sha256": "04462f1614f38368863a90fab5352843665226b5e9a0055e3451745cefc69e8f",
+      "file_sha256": "4b78c50863ee63e4a87020f13773fd44f526fdd6ef44af0d6dacbb9ea4ed3d66",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 41,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 127088
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1533.json",
+      "path": "request-0036.json.gz",
+      "raw_sha256": "9571d964ba979e3e62ce11e0dd15fa2a4def62d1eeabb2a0ac47111103041adb",
+      "normalized_sha256": "134262904f1616e85be563655b4650123be1db5cb275dd205aca7a99e92c77da",
+      "file_sha256": "033c207e750fce9cced2d39224926b1d8e9700663851f9afd489c0076eef2604",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 94,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 166944
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1568.json",
+      "path": "request-0037.json.gz",
+      "raw_sha256": "e83daeb513e220a6eb7d600aab4a531190276a07b5714bc4e187d19037601699",
+      "normalized_sha256": "319533c678031b567b6ddf749bb701f85d4f76a50c8138d6db5c0a7259ae3f43",
+      "file_sha256": "c238f1c742a2ffa165e515af005a6012c03d9b90ab99f24411778252b7fa3b02",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 7,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 101520
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1496.json",
+      "path": "request-0038.json.gz",
+      "raw_sha256": "0b15b406b9bd62a42521b7f52c4afc2aa9d8d5864de554f2f751e41c5e8ea496",
+      "normalized_sha256": "369f7acfdab0374a852a765aaa9a303f3b0eb1ee8624abebf3113f08f1ab56e1",
+      "file_sha256": "86a7f52701fa1e9a6d1d2741d19580ec912cd1ade0ab5ede88d8d58de90d0967",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 25,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 115056
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1536.json",
+      "path": "request-0039.json.gz",
+      "raw_sha256": "45fcde8588f880c33140029ef82986094ea023f059d637e9d6ce162658bd73b9",
+      "normalized_sha256": "8ba440dd7a9d0dbee56823630793e152a3328271073459ebbfdd7cd5f1831547",
+      "file_sha256": "fb2ac991c2f0616e29bee0d4a5cde9424ac309f0c14fbe120e985b9f7a45c54f",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 68,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 147392
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1517.json",
+      "path": "request-0040.json.gz",
+      "raw_sha256": "c89f139c014c8eaf0f2654cc0342fe896a92012d42d43ce238e2c0b69d60c633",
+      "normalized_sha256": "0521d9556b606f21c095fc0f3edca40dfbfd9ad51c75c2a4245ff1fba18c9dbe",
+      "file_sha256": "457c1c1aee46c23cc93f890596aacc06d3443be75b8d66d5106d697864eedca2",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 26,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 115808
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1481.json",
+      "path": "request-0041.json.gz",
+      "raw_sha256": "ba3242067aee6553aac587472e22f9c33ac325f40cda80af91eb97f51db91bf5",
+      "normalized_sha256": "86817d3e3583d30de2e458068d19d169b8b41f5f4938f84bb3fd09b398aba386",
+      "file_sha256": "f3425d5a9aff3510ef883f5acfafb5d6af52fb456d59c28c5d6d04a3a6b0e747",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 3,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 98512
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1519.json",
+      "path": "request-0042.json.gz",
+      "raw_sha256": "d6a243a25ffa92384425998dc59e6aeb4b4571b23df054b5ee189de2c6e72785",
+      "normalized_sha256": "19f254c2a16c0586e06c2c9374887660e9300362234d26dd590d135855fbba10",
+      "file_sha256": "54d177afc4411ea3ea16a87c7fd209826f3dcd748352145beaadb35785355691",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 3,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 98512
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1488.json",
+      "path": "request-0043.json.gz",
+      "raw_sha256": "5de4792fcd96b01bfc01ff8608c6d62dd6925226265a0009be3c865ebccd908a",
+      "normalized_sha256": "5f29dae2791d77eb8faeebb47140d374130724214d5d3982443d3abb8eadfe02",
+      "file_sha256": "32320ff1765d7585606e8b18bb6bc58250c515e2f142429579db815da78c2828",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 3,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 98512
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1545.json",
+      "path": "request-0044.json.gz",
+      "raw_sha256": "210de434f476d0afbd4c86b7f3e40e8b52f77d490dce664fce422db313613716",
+      "normalized_sha256": "53e14992d975995bc94f65fa155175fd12e36c04a91e662bee6963161b4d6022",
+      "file_sha256": "a5947b7f5c658ae3ea867a7c9670ce434f45f0ed50d4b33db5bf753e1e870298",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 2,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 97760
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1471.json",
+      "path": "request-0045.json.gz",
+      "raw_sha256": "fe070667f3e5304da8addbc76ca93985efbb9291a14bfdfbfdf9df2e6ed9a097",
+      "normalized_sha256": "c5616a18f9c707fa84ba5aa8e475ba2d94dc6546e234bedcf654e45e3ced12ae",
+      "file_sha256": "8ab005249fd1821822f95b89fc118e9da844c50fc727c1b2401bb01ce9b943a2",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 20,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 111296
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1487.json",
+      "path": "request-0046.json.gz",
+      "raw_sha256": "8f0654b7b99f5c4f0b9bb7ae94217964ab822144ce0f50671330a3c3acf72d18",
+      "normalized_sha256": "4027226237e8678e8eee38d7c8e94f6eec932f729aa2492156fd29baf696f3df",
+      "file_sha256": "5180c80a43cbd9bc35c171b35b84d1a42fcad18c03a8f2f6b6f0cf3096aa0bf7",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 10,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 103776
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1512.json",
+      "path": "request-0047.json.gz",
+      "raw_sha256": "358d52f1f83f16f330f9fbc343f6e6670de2c5c0515b151dedd118f91d9d085c",
+      "normalized_sha256": "69d9a53b655ff340ae7551c92533107dfb7f8bd2ec2009b2bca5f512491e7f5f",
+      "file_sha256": "7a609b28d83b79544557ce34a34f4b4d023f655d5806e23a7d715b2baddb78fc",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 27,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 116560
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1529.json",
+      "path": "request-0048.json.gz",
+      "raw_sha256": "287e029c2ccc859a3a4f0b58fc96a84bcd204c4cdeda89744b613f934b48d5b5",
+      "normalized_sha256": "6f708619fca6e8eb8d48edf303d92fd3718ddec4fa0ee732ebc0c1168d555632",
+      "file_sha256": "1b90e80de38703e2376c045f3798d0af0dfc0b9d349da8ff325354ba85803815",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 15,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 107536
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1567.json",
+      "path": "request-0049.json.gz",
+      "raw_sha256": "a71b2b268c33dc6c304f0ef717624e7a9f8e06b6031a76822f3bc06f2786b930",
+      "normalized_sha256": "9969ddedb1bd0a6a2b9994f17bc49d407245c22ef5b7f3c075c9172c29176c70",
+      "file_sha256": "9e7a3a89d86463310845beed96389f88eccb4adb9252bb29ce5dac1bfe1e3768",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 7,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 101520
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1497.json",
+      "path": "request-0050.json.gz",
+      "raw_sha256": "ac162b239c80d13dd6fb69d2cb0223aad39e8fa6eed7f8433b5c98ec5f1e22a9",
+      "normalized_sha256": "1c1fb4c5303186680f042dbebcf58ffdba853c24b377addf619cd4b5c80cb44c",
+      "file_sha256": "3648a8b85ec2fff5ebaebc429ee91f8215dcd88beea72865483add4caabcc119",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 19,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 110544
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1531.json",
+      "path": "request-0051.json.gz",
+      "raw_sha256": "c25587f162e766cf15401d474543a40754ecab3436d8980bcc5989e1b1b7155e",
+      "normalized_sha256": "669368a52866a1a352183d6958a40e2a0e6b944c966bb52570f1c7e60adb8cd5",
+      "file_sha256": "6dba6caccd318f4368135e8105826c545809c9d9537a7d6d7a85e414067c4d21",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 13,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 106032
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1506.json",
+      "path": "request-0052.json.gz",
+      "raw_sha256": "0232e016d58294b381603823ca30cb84d54a16367346b2037c6d9266c3064acd",
+      "normalized_sha256": "0f77aefe95742b4e7402fe2f54318adc37aa8d14dff341a75b47bd11cef9d4fb",
+      "file_sha256": "6625c4eec2811f11bde4403d9d436d8dd562aaba8986d36b328eb9abd6f3c873",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 9,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 103024
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1514.json",
+      "path": "request-0053.json.gz",
+      "raw_sha256": "05969d700f55b0784b8afa806b56a727ed9f0ba8394be779bdd05acf23e3fc54",
+      "normalized_sha256": "c5078111886ba43d8822acce841af1c3007ee8d8103214ba1ef9df445bbfb97e",
+      "file_sha256": "8d5dd0a6c67724bb2efeabfb7aec4bd9197c43c6c30e521bdd9ee0fd832c576a",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 6,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 100768
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1524.json",
+      "path": "request-0054.json.gz",
+      "raw_sha256": "d780856366d3e40bb3e424b6de5a2289b813ff2a4e9632f941d25b214a69f606",
+      "normalized_sha256": "52b4e4dce35fd3b4ea5e8805c69761bb0223a220be16805bd601f5738089b9f2",
+      "file_sha256": "7c1983b76131e51f5af3920bb3f9b89e9b5e86de534eb775cd78d54026854da2",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 11,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 104528
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1494.json",
+      "path": "request-0055.json.gz",
+      "raw_sha256": "5ebb9d028d1fbbbe37c49d81bfbe2c8bc14f825def20ca30e039c44f032f1332",
+      "normalized_sha256": "7be5778f0b020e6bb09bd1efbfb25abf20b96bc3c2ca87e7cb63a19c8df04d5e",
+      "file_sha256": "0226f6777b9c3c17e499a837747c60bb96f4b3ef675449120ee8a6decf586239",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 13,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 106032
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1548.json",
+      "path": "request-0056.json.gz",
+      "raw_sha256": "dbf206aeebfba0b040a4e76ad89149e9c4cc2b339ee9cee980b7a6e4bfc3c23e",
+      "normalized_sha256": "fddb2d41674ef8e15aaa4b13a25fd9f385591d62348bcc2f03fb8163f6f7e94b",
+      "file_sha256": "65d084d9e75994ab87bfb4a87121ad1a6e4b4757f2c3465e84551abaf99902e3",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 33,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 121072
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1489.json",
+      "path": "request-0057.json.gz",
+      "raw_sha256": "14177893fa932e506837667614e88904b0d04e2dddbea91d7ec5b27c1910861b",
+      "normalized_sha256": "438ca13f8d868ee04bf3c95bd178f3eca4af8c2530474df7ebf9b898c262fa01",
+      "file_sha256": "c9e7b31a223950051babb64d2ceee82fbc9a1f46f9596dac6be45e26efb63e53",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 5,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 100016
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1521.json",
+      "path": "request-0058.json.gz",
+      "raw_sha256": "ca38dec4e3ccc198ef26c7d381e16a815e16fe158b31d518e286399087a95d85",
+      "normalized_sha256": "6be0fb7418815d12f5ec161daee91d45dc8eef61ea9630721aff39a48fca040d",
+      "file_sha256": "8e45dcf44d0304f2677626b734d6670082c6b404100346b2626970a710e70230",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 17,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 109040
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1505.json",
+      "path": "request-0059.json.gz",
+      "raw_sha256": "7260b89294b2270472f72543bea7a45e0855da358a55f863e2c80119a8b6c1eb",
+      "normalized_sha256": "de269cc6d0cecf8295b4b87f1372d01d475b841f69589b289e907fb5f2d3bc85",
+      "file_sha256": "89f289df6f42869ecee26cb6fa1f8306a155ee3c7c440a29c94a2461a404046b",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 3,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 98512
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1552.json",
+      "path": "request-0060.json.gz",
+      "raw_sha256": "69d77414d7dca4a8401b921335bfca56ea776ffd03d098e914d1b9a744ab38e5",
+      "normalized_sha256": "e090e13532769bf19b2d6b1dc4d6853f95d3f1692673edceb7fd595c152543dd",
+      "file_sha256": "8000b78289344c97e530d448ba2a6ce86bf96a8a86e6d5bb0fbf4598d7b68579",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 8,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 102272
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1569.json",
+      "path": "request-0061.json.gz",
+      "raw_sha256": "50724a4fe165358e6677df99f8b30a0b2c8a2ce637389540540b4a5bc93c4971",
+      "normalized_sha256": "bbe673164a785186cbe0db98aec36487e5a1dc53f9367c7f28fe76da0d823170",
+      "file_sha256": "4c5b0586ad4e323d151071a10aa73b20e629a51f66feda1504220e63e0782448",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 15,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 107536
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1566.json",
+      "path": "request-0062.json.gz",
+      "raw_sha256": "9c3fa5c178f86399f82c187a2ff9b698ddeea912f3138734e7fa598526ff2a89",
+      "normalized_sha256": "44880f700930066fc77cad3e54a391386cc6a5930adc2f645b9df4eb46860120",
+      "file_sha256": "bbdbf1a588a29d8b959529878f0b30667e2f160bb924e277e29c30536fab903d",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 6,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 100768
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1486.json",
+      "path": "request-0063.json.gz",
+      "raw_sha256": "ce04ee8b2edefe615d31e67e832853ca972446b494f712fd649c8dc8c3bc19f9",
+      "normalized_sha256": "0f12c84cb1160e0b928891604b70022549b9330f75c13cf4c5ee6334b44d86b7",
+      "file_sha256": "3db008ae65821e1ac2332fd75282243198051c4206051494bdb8378db18c9cab",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 16,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 108288
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12203.json",
+      "path": "request-0064.json.gz",
+      "raw_sha256": "609d712a4549fe71153b34e0ac3798fd6cdaae36673894107d6592e12fdc2564",
+      "normalized_sha256": "4a01e48de227596080a92d4f177b9110a41f554c5b0405a7c7f730b55d7cb040",
+      "file_sha256": "62743092106c71e5edb175f155ff7866bd2d73697efbb2e7d76c3609dcbaa0d7",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 95,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 167696
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12189.json",
+      "path": "request-0065.json.gz",
+      "raw_sha256": "5ce0cac64506211f825f371b3f29337075c59cce967963fc7e70d0b71f51ea82",
+      "normalized_sha256": "0469c8e5b2c2cce10550c6815ed741de5e5b50d5b26a20ad1cec8fde024842d2",
+      "file_sha256": "40b838b77c41f7840621ef013dffe9f9b5cd86b8ba542ac5e761d45ee8bed20f",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 169,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 223344
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12214.json",
+      "path": "request-0066.json.gz",
+      "raw_sha256": "ad90b21e3086e357b3fc1da88e5209f9d5fad10a49e116e83b7b9a7a027b009d",
+      "normalized_sha256": "60a3e5dd7b493300636f05afa5082bd3b3c47419889534b2ee48f2ab8d01a3b6",
+      "file_sha256": "673ca38aa4712dc94a5a34dc6a7eb5cf044951b263c79d9a737555447c14b010",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 87,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 161680
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12360.json",
+      "path": "request-0067.json.gz",
+      "raw_sha256": "ee3123454434e92cee0b659acca131fecdaed1c92e89edf1c1c648d84f833d8c",
+      "normalized_sha256": "ad907b0d9f881592e836a1ce2ea297afa4522c0891d408daa53ffda7955d67cc",
+      "file_sha256": "153d767e0223df2fdfe1f34048100f095f88deb238cc49dacac180a4674973a6",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 66,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 145888
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12245.json",
+      "path": "request-0068.json.gz",
+      "raw_sha256": "251a374f89923a47a9807f577cb07c1ebc1bd1ce072a9e363b4d9c85f5103486",
+      "normalized_sha256": "6dbcb2887bf50a320b24d8a3779b18386ec63925ef5b5a50e9dabf5441a5b30b",
+      "file_sha256": "bbaf25a1dfee7ef22695275fe3e78dbebe8e0b51f14b8f4e83de37e8c7551978",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 76,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 153408
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12304.json",
+      "path": "request-0069.json.gz",
+      "raw_sha256": "9860388f2554ee9b5b3b9a50eb913fd135effafd4c9d5cd893dc291c78f581f8",
+      "normalized_sha256": "d6243059ac8b49fc20a3add654436eeca6b391188bcd23fc92d1b05d6da8709f",
+      "file_sha256": "fcd2c66474459dd0c37748347a8094e77560aa4dc37dac5f9da3a0796498405e",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 153,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 211312
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12402.json",
+      "path": "request-0070.json.gz",
+      "raw_sha256": "89caf803b725f47afb8f934933e103febd3bfa1e686528dd82008bac6467a6a7",
+      "normalized_sha256": "23231cdd1a44eaa6471ac413e06d7ef75bc4ce7636c3d458d75ea84bfb12cd7c",
+      "file_sha256": "03e9b5de11b67ef6fc2592ce3b13ba44e0fc8493fdfa03e69db034a091c77d38",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 178,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 230112
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12231.json",
+      "path": "request-0071.json.gz",
+      "raw_sha256": "e66e41c36b838da61c727efb11710c96a22b5e73f9e978167482a967f6873829",
+      "normalized_sha256": "823b5466465b7eb0c6a9007c0e2ffc5f36bb05fd4c32fee1db1e965fa77b1dcc",
+      "file_sha256": "e64db57ee3df8265d83cea9e67e0e24d0089e90a2b53ec47e981c296d30c8e6a",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 279,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 306064
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12330.json",
+      "path": "request-0072.json.gz",
+      "raw_sha256": "534962ec64d2287c73781ef5e83909c91a8d69b1bdba75cfdb6c22e2697747e8",
+      "normalized_sha256": "28f8f3d015332242a5f35f7ac2938e2a11755e689a6cc98d12cf48c4ecac63e0",
+      "file_sha256": "20e8dc45bd8a2028476a421841dec9440f2f64e2c8f9414c1fb981109fe03e1b",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 95,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 167696
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12371.json",
+      "path": "request-0073.json.gz",
+      "raw_sha256": "0fb5e973910c9957f318edefe0de9f6e8740f1b98958730daea98d9b4c494a39",
+      "normalized_sha256": "32d9e1f3257422a4fae927dfac1676c08359f635da35cfc441a78a42d42ccf8e",
+      "file_sha256": "a80ce32254fc1b4dd928f09310d6d61fe856e02cc942da3f88a31bd9d4df772e",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 155,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 212816
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12335.json",
+      "path": "request-0074.json.gz",
+      "raw_sha256": "2d1b940660253200bfa6a8b6efc96e225c0ba5d8207a819467cbdd8e106093a4",
+      "normalized_sha256": "4f8457baef06b8b124b9486701117fb1677e74af200ee883ad31899171c120e9",
+      "file_sha256": "a9d4ca15fda84eaba484fbe33c82be0cb6bef5aefba6b15bec05bb0813cc3c16",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 179,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 230864
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12369.json",
+      "path": "request-0075.json.gz",
+      "raw_sha256": "e576ee204871487a4c549ad374da35a656bbc3a4bbd591994b50ce450923eb31",
+      "normalized_sha256": "e645f97a5d04321b28658de82df0f452e7c77dcfe9fa1d52eebcde03609ece2b",
+      "file_sha256": "904e8501ec6be687d61e9e72b914f71c90a6cb19b83bd4c7a0ec0d00414c28c2",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 94,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 166944
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12234.json",
+      "path": "request-0076.json.gz",
+      "raw_sha256": "ebdcaa7d14dae8ec900fded2cbddd3a956e56165471332c1355888ed6b9de593",
+      "normalized_sha256": "f9aaa86b2133797a16576663ddd50e2db640116235a69d0a266179e922abfa63",
+      "file_sha256": "5c3bd6cd237e49e70bb2974eb86548916a9e31f4562fbae9f15ae43e0529dbe6",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 59,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 140624
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12233.json",
+      "path": "request-0077.json.gz",
+      "raw_sha256": "313a700b5f69ceb64d64d4e8de11f61538663ca13daae82ff520f80623b6c7e8",
+      "normalized_sha256": "d7cd2ba630bf35adca72d4b0031cb2fff6d72750a408863ab1c8cc40640bc20e",
+      "file_sha256": "9a6112551f414189656e42f15d928dc4a100f764cb1d1152d7e6708d08b702f0",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 67,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 146640
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12340.json",
+      "path": "request-0078.json.gz",
+      "raw_sha256": "09a4ddc57e6f2a6ef9bdcb5b0edc8c4851b04afcf870d3eeadfc50284e2da6be",
+      "normalized_sha256": "a16a77783ea45804a8c9b8f5b4e6f45b5d99f0fb7564b453ffe7cac1d74fc152",
+      "file_sha256": "018a7eb2540ffdd4d40c0daee3f9855921fb512a0d09eddf2007ab769dfa0350",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 146,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 206048
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12408.json",
+      "path": "request-0079.json.gz",
+      "raw_sha256": "c85a739f2011c2de1a810aca020514cd25305898fa742221ca98905efe409b3b",
+      "normalized_sha256": "ee202019a160646afc058058d1728bd8302841650e53888aa58dc8db61651c8f",
+      "file_sha256": "6fd0f9a7ca68216f840b883b8c220d61c2049ef9b14fd731e481c2999a6fe0de",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 203,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 248912
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12399.json",
+      "path": "request-0080.json.gz",
+      "raw_sha256": "d668fb577b96d46e649f79c4849bffb8585dc40f9856c3e4bc000fb1673367d9",
+      "normalized_sha256": "926639eb8bb83774174ad46a2260caeae16b78a5e2426f46046d6d7da0466322",
+      "file_sha256": "f31ff01584c80fa3c8a69f81756a661a1ced398585f05cef7508268c8f2b8093",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 40,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 126336
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12177.json",
+      "path": "request-0081.json.gz",
+      "raw_sha256": "b146363b3f439be955466973d886fbfae43e4836f758147f5e5e3fa71a95cf7c",
+      "normalized_sha256": "9547a4f3e0200d3811681fc61b82a30cf1574a43d73381141048da996960313c",
+      "file_sha256": "07e26ec8ea61552e425829f5643d315ecc1eaf7836ad9985eb3bd3df5421532d",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 159,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 215824
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12345.json",
+      "path": "request-0082.json.gz",
+      "raw_sha256": "6fced40ba9ca397606557771a5ab939d3fea0490a663b7bc081e359d9e8f2502",
+      "normalized_sha256": "e593d4233fb19e9620bb982ac45cf008289a52b7c1653bf10ea416efdb6797b6",
+      "file_sha256": "3e23815f42fc3c330fe6e3bc91d09745f8a1e6673dc5cbf19679e7e16682f370",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 137,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 199280
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12257.json",
+      "path": "request-0083.json.gz",
+      "raw_sha256": "34ce5529eb4dc6babdae94e4bee3642cd5687dcb204e41435040805aeb54f449",
+      "normalized_sha256": "b63b35888da212cc3ac048058c28236de8fd979caf59249ac73f9d84682d169c",
+      "file_sha256": "17c2ff14a7a97cbf69a55d0b3b00ff3ae41c211bac702019ce0c8fa736fcca1e",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 177,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 229360
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12294.json",
+      "path": "request-0084.json.gz",
+      "raw_sha256": "5344cc7a42d62de652230ec7a427ee034276cbe8f916044c2a0a85e1334aa235",
+      "normalized_sha256": "758a615325dcfc32fa1c175721faf73c6659fcaac3a9ca189cd0dfa86050d22a",
+      "file_sha256": "0244e38844ee0181304f14192ed4aa4ae945a3068a18882eef300d9cc2f811c4",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 161,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 217328
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12295.json",
+      "path": "request-0085.json.gz",
+      "raw_sha256": "1c430355152f7ffd97e8e772d269f0db930321b29f9842c7c3c2c95abb6be0fa",
+      "normalized_sha256": "7c2d7b073b97d9fa2e1e5c6d364857d2bb03e6b236c3c3da8f44c78b50f31bf3",
+      "file_sha256": "cb96765659c3a9fea30178f7cb1772f5cd9fab08560aba81352f420fab873bc7",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 130,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 194016
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12430.json",
+      "path": "request-0086.json.gz",
+      "raw_sha256": "d536b305ca8e1b10e64265adb239b0310ff1712aa76bd3d3a5881a1a0b2ba6d6",
+      "normalized_sha256": "1cdb0f85bf6d78e2ab66e51fd12636b89be54c6a180046e79fca5f6ada313731",
+      "file_sha256": "f5dc7260b42bc8e118fa5dc7e49d0edd5785c9631dc04e2e3d8855b958ff2942",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 122,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 188000
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12341.json",
+      "path": "request-0087.json.gz",
+      "raw_sha256": "376e7d0de767de6a8e707903c938fd92c435a10aa393d7d8c13e54530aaa5b4c",
+      "normalized_sha256": "ba95d6a1b11866989ef35c5638f66efa31a5f44e056c763856f47f3e82c74749",
+      "file_sha256": "6ba31c99b6d3cae102c25e21d74b9402b54dadfe8ff1eb285a7e4966b573d826",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 60,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 141376
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12324.json",
+      "path": "request-0088.json.gz",
+      "raw_sha256": "0fdd5e7361858d430ce837e8c01b9e29e1bbdcdbf87a35c988d9a37e432416b6",
+      "normalized_sha256": "49022f0e61f5698680e7a924e9ae2cf30bad866720927d5eabb6d323adef00fa",
+      "file_sha256": "3474c93695c4522304f24c02ea6177752db5bbf91fe2059664c0038c2c63825b",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 155,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 212816
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12353.json",
+      "path": "request-0089.json.gz",
+      "raw_sha256": "02bbebb8b94796de7ef2e267e0352acbbaccb234bc019b5f57e7853d3240f71d",
+      "normalized_sha256": "646f22a068f5b8b261d291920a1d34884d404d5b24263a48bd26567a7ccfd2c7",
+      "file_sha256": "077ea6a75c80a3f9a726d971bbe31e00e4df8b7c77e700159685241ac9e449e6",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 352,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 360960
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12418.json",
+      "path": "request-0090.json.gz",
+      "raw_sha256": "e82134704ed66168e9ee04f0a87743472e652a8d4d840c2769aa736567ad0d54",
+      "normalized_sha256": "04137e5689af8c047c597630b873351394a13b118a044e9f668137021071d0d4",
+      "file_sha256": "2b3a2ffe2b158bdf190cb7c082fe267ee53ba37c2fc98229b385b87384f759fb",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 126,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 191008
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12383.json",
+      "path": "request-0091.json.gz",
+      "raw_sha256": "719ce47469679fad8ed5ac1258affbb571352f9357b1495dae711f97436ff478",
+      "normalized_sha256": "aef7824e7315d504b3b8dabff0e2b618f59c8f9141e2fbd01d04d33af25d3614",
+      "file_sha256": "b652fd74f720eb6bb1ff7feb2ae8f15460bb874b4598cf0496cd3ce9bb59e3bf",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 76,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 153408
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12361.json",
+      "path": "request-0092.json.gz",
+      "raw_sha256": "191185271c0fcdd920b4c85aedc8e1d58e52320ffe0c76203f314a958e3b2880",
+      "normalized_sha256": "b8971798bf5f164655503d73805580d711ded11055cfe5e7b301dc989c767a1d",
+      "file_sha256": "295d548be9bf56f8cc446cde07061493f75d57d3d0f3500120904c4555469508",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 254,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 287264
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12192.json",
+      "path": "request-0093.json.gz",
+      "raw_sha256": "02aa663f47e1bafee960bb17c532e997d42f87cb4dd7aea2c82a249b6e577cc7",
+      "normalized_sha256": "361f837cc019971878b0a4cd1633248b77024b1adad8895dfa61a3148a00cf05",
+      "file_sha256": "bfed364717acee9bc758cfc7e5f15d42a7edfc10d7dfc1d4974413dbefdd9728",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 130,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 194016
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12272.json",
+      "path": "request-0094.json.gz",
+      "raw_sha256": "48c9ea87dca196bad8c14b5c2073d2434bd6d566ff476cf1f1ce9719ecfb5206",
+      "normalized_sha256": "ffd7be4443eaeb21226626b80269a067129be470d93ebc548810ee3ee9326ca8",
+      "file_sha256": "b56bac17aad2a504a11068528685df696c3ed7a5582549a9d0974078d8a01c09",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 83,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 158672
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12433.json",
+      "path": "request-0095.json.gz",
+      "raw_sha256": "9de3fd35f49d4a8bc33cf80afdb7db12971ca42db2c76c8ee90fd58eed3fc06a",
+      "normalized_sha256": "ed7dd4350a96901763cd4df22325605681d4f495799cc61291255b11914b4e23",
+      "file_sha256": "9e75d160e5cbff55e8d79f0dfe05060f105d06472a6c0dbbc2a51269d140926f",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 179,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 230864
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9894.json",
+      "path": "request-0096.json.gz",
+      "raw_sha256": "4875e544c3b8bbceea44c8a6b30b8aa060cfa984a38e6c40e515a8ea13940dc1",
+      "normalized_sha256": "a14566bb0c8a50fbad02a9fea496a7ece6c966a5c3d47214593e104eaa8a5e10",
+      "file_sha256": "4f7f58b27ed639b4e4e9ce4180be9d4b077d4de88d2df068ea6a70194b6cea24",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 9,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 103024
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9849.json",
+      "path": "request-0097.json.gz",
+      "raw_sha256": "13346873f8f5d51e2e8e4ea0c7f7b92ce8b144f6f65dfabe2ebadd84be211042",
+      "normalized_sha256": "94fdd95f19771cd15c7e76dc1e7a2324db0dab076ab34bc91e8f7ef81d81bb20",
+      "file_sha256": "10beb40c6deb79539ab9aefa49202db07537edf97396279c547fcfcb046e0dc3",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 41,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 127088
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9968.json",
+      "path": "request-0098.json.gz",
+      "raw_sha256": "464af1dbb5bb54d0e11d31d54c089f04453bd8951a22924aa53d0d7c89d053d7",
+      "normalized_sha256": "02e48d740010c1ac1358320e51f336c6ed21405cad817ce2f65f6ec38e1c4ef8",
+      "file_sha256": "82b2bc6a423366e3bfb95bb5426e6b95f7d24c476d78e2c83ac850aaa50ee40e",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 12,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 105280
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9937.json",
+      "path": "request-0099.json.gz",
+      "raw_sha256": "73bfbbd76afd6adb91469abf3156768fca38a676eeb147587afc5b7ad8bbfc8a",
+      "normalized_sha256": "a0a97ac977c42ac26c5c41bc51f129db66ba7f3e647137a0459b95cb5f24a4ae",
+      "file_sha256": "f4fb9371abec65fddf96ca4d8029a56f6c050c223ee555c91ccd2886cd44e4ed",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 6,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 100768
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9716.json",
+      "path": "request-0100.json.gz",
+      "raw_sha256": "c288e267bfb0331f8399bd9d9761ce7c65c6d618daf6e5196b19560b50da39b7",
+      "normalized_sha256": "fa4feddb55e40a746b326ae5275651c46975eb6498c6b4810bf75200c5bdf679",
+      "file_sha256": "5ae0a6601b01ec6d5d499b0517c2ffbbea84e0748340bd3b3f2dfad81f3de4e6",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 14,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 106784
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/10005.json",
+      "path": "request-0101.json.gz",
+      "raw_sha256": "b6dc293a45794e24601d6627af3af0725f69ab9a093bfa5a8fc412d0769aaca3",
+      "normalized_sha256": "e0705207479ac84e6a817c9544509956bd548d37f6110009883b8503449f21f8",
+      "file_sha256": "ae2e2d863de0537899a4493b425a3d4669544e296c76659638a82a16bd32288e",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 15,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 107536
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9732.json",
+      "path": "request-0102.json.gz",
+      "raw_sha256": "fbb2fdf5e4d7d0bb06cea0f7a065455f0d5802edfbf436306be0f5f2c252bc4f",
+      "normalized_sha256": "360f7295dec30f511e9804f77913945a2c43a39dce48c7eb9a757a0a3c0a0334",
+      "file_sha256": "eb70f338b178280b2efe165a45c6af4389160f03dabf5e529649bdb9198acf32",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 10,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 103776
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9724.json",
+      "path": "request-0103.json.gz",
+      "raw_sha256": "6c21c3386a8c131aafe36773c550e9d54833478ca9cb42736c498364782ecb03",
+      "normalized_sha256": "1b0a2a4c029fd1411dde24f7a0ccc52452e40fb050f48ab2aba8bcebfade222a",
+      "file_sha256": "9c7a11d78c79adb915b7f827fa5f0691eaf8f59b4cf5c98da4f785f87ba99610",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 10,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 103776
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9988.json",
+      "path": "request-0104.json.gz",
+      "raw_sha256": "f6a63ca838f87a4293614147a5f50c9f8682c63c5f1d007bfd81a1c6ad8dc60b",
+      "normalized_sha256": "e1b3f8538f013e8883c4a2333290bd2b114156f3bcc92ca6924b23309fd45af1",
+      "file_sha256": "a1b3f1a83c3406bbb37881ec7c6669a27399d00996611da3e1fcf860f31f2b02",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 7,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 101520
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9909.json",
+      "path": "request-0105.json.gz",
+      "raw_sha256": "bc5fdda2c6b9ca5fdd83411ca675b3e9bc34e34a991f3b2564158b2e133587b9",
+      "normalized_sha256": "50d655d68f9719483ddf9ad3b3454477740fc8b51a8eae3406f5517fe8ecdec6",
+      "file_sha256": "66587575e1f3eefd6b32cd707df70478ad13f41a43f74effe744acb0c82ca919",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 16,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 108288
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9888.json",
+      "path": "request-0106.json.gz",
+      "raw_sha256": "f9fcf1140fa42b9d4871fd6687a7200aa093ff2dbc818d4740846712cdd8ba47",
+      "normalized_sha256": "b4ee14daf586915ad7d23531e83470b44285c63e10aa99e845fb585693c6815d",
+      "file_sha256": "ffb8d75305b68338d45897580e6c3720d884091013c7c4f55ca21eb56191bec0",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 9,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 103024
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9767.json",
+      "path": "request-0107.json.gz",
+      "raw_sha256": "d07f1235ad501238c49c1c780569c336beefe4da320fd455511e0264c665c724",
+      "normalized_sha256": "3ffbae7c959f691c1ad780b7aa66d19eee7292fec5eddb8ccbb0c5d51a71b778",
+      "file_sha256": "d982178a547d126954f52805bfc1f2d4b0cd79cb63ccb957da03d1e7d7dfbe4b",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 49,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 133104
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9714.json",
+      "path": "request-0108.json.gz",
+      "raw_sha256": "7e5070f4cbb7a4691503bc1cc21b3d5a9367e8a05ea01f4644d8ee1481d1d888",
+      "normalized_sha256": "fbfae55c3511e97f391f6c3e3f1389afaa36a0df34778db788be15ccc097e9d2",
+      "file_sha256": "fb380099cb46d8906a1cbbb88637482f748b055be32bd6ad4ae9fd646a7ba2e1",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 9,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 103024
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9929.json",
+      "path": "request-0109.json.gz",
+      "raw_sha256": "803695517521c0d8538b223d543edaec775eebfdf3d100e7963e457bdeea1c6c",
+      "normalized_sha256": "bf5244bcae70758b9af469d48cc81026600bdbc900656ea4533e3e630a3c2b0a",
+      "file_sha256": "196e423395d0e7fd36ef22eb9559570f3aeb716a64be9e63fbab6f5d90c3a6e0",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 5,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 100016
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9913.json",
+      "path": "request-0110.json.gz",
+      "raw_sha256": "244bf9214da2e221ae4303738a9f7812d5d76d9ca118aa8c15b10b072f8dde4e",
+      "normalized_sha256": "ee775c251ab64e492fa7411681ea18207c466aae652c92ae5d64f96688b713cd",
+      "file_sha256": "62f951b349f3a8946e6e593871b9d488d6029d261c1f04e45383a1c41e70edd9",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 10,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 103776
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9735.json",
+      "path": "request-0111.json.gz",
+      "raw_sha256": "cb85fc38146b43df3b9bde9c2cd20e20dca691aa6785235b89cdf42be40e9f93",
+      "normalized_sha256": "cd3b1785412e3a41449ed1ba87d044c5a34cacad0517bf838e3f001112943203",
+      "file_sha256": "faf0bc674860c89670e55e96fb3c653a20e0a38ccb59169e1e71d2b58e7b256a",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 8,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 102272
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9756.json",
+      "path": "request-0112.json.gz",
+      "raw_sha256": "1a2e2d944a28f45c90cc2150e287a67704c498aed06821b60f27b0b3a8d2724f",
+      "normalized_sha256": "d091da82b46a2fc0f1a5f578d860278edee6daaeea8ea8fa0d27cd28a8c46032",
+      "file_sha256": "9e7e651eb088cf6d6bab068a882d400dc37917a13dbe539c5c911875bbaf025c",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 26,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 115808
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9976.json",
+      "path": "request-0113.json.gz",
+      "raw_sha256": "3481b852a9b60e2c4f316b17195c207c195b0b894877d0921c8671ad7bf96b13",
+      "normalized_sha256": "5bdcad06890a42b13b5bcdf946fb15447daf2c17638b6c0df2d5a588deb0bd48",
+      "file_sha256": "e66b0b9328c005db72104dfa6ca42dad571580c1f904b7975574f5e3c3b9dca7",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 3,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 98512
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9992.json",
+      "path": "request-0114.json.gz",
+      "raw_sha256": "72e675bb26086e0b448a959f7ec457793cbc742aff7c7181a7a9bedb68ca5db2",
+      "normalized_sha256": "e7cd26b0aac4144cc54b3dcae94906bf02db4e48ce152506b2200e38d813ab93",
+      "file_sha256": "aab3b14cf156cfb32259ebcd618ccff056c913e31787f25c0c2de51bc297e106",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 16,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 108288
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9749.json",
+      "path": "request-0115.json.gz",
+      "raw_sha256": "cb85d6c3119adf8daf75b89f60661edbd5ce6c5d021070e24447d6a1ae73bcac",
+      "normalized_sha256": "04e765c843b9ec2ddbc7ade94a85275b5fa695d30f87f9b1ace17490d5d3a602",
+      "file_sha256": "330ab98993eb3eeee8c1faf7e02dc0ae742ffd017acb59064f798392164f7bb0",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 24,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 114304
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/10003.json",
+      "path": "request-0116.json.gz",
+      "raw_sha256": "606ac9b233fc2031caf87bc00b7b9303b3834d522a4e84548e7980daf8a593df",
+      "normalized_sha256": "0b52d084041f6495a9403547ddc10005b652833c3cb216738a9c828092ab2ac9",
+      "file_sha256": "2a88106aa9d201e06a0efbd9b52ec1ab788e57bc637aecc76be1382887cbede5",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 112,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 180480
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9903.json",
+      "path": "request-0117.json.gz",
+      "raw_sha256": "f09ef303a3ee11417393fe45b0e0e630d7592450c828aa9cb7008bcf5472098e",
+      "normalized_sha256": "0a8109a877b0c5520c75180941f7b6bfa8fa347b7d73e0f9164b09d57cdb9150",
+      "file_sha256": "436422c1180d62392523f13676ce3ec72b1f9e2f5d5eef1c58edeaa769576f92",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 26,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 115808
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9901.json",
+      "path": "request-0118.json.gz",
+      "raw_sha256": "4b13437f3cb2b54f7d66479ea2f78b3d5d72721c0bb02b181021d0c788624fb5",
+      "normalized_sha256": "58032f17ba116ca38f2ea40c7e12dc7bf27fcb3fb641ec2e9f31167becd8dbea",
+      "file_sha256": "8005fbc6d278f145dba3dc7ba194f445f56eae1e020c62f0076e7bc29155d094",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 8,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 102272
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9816.json",
+      "path": "request-0119.json.gz",
+      "raw_sha256": "767823a026b8ffe92fd654062736bf9aeaf1cceb122d618781af2d1a76bef349",
+      "normalized_sha256": "1afcaaf30265846dba4acd0e91d68a43f3d89d827f04bfc13976460ac3307370",
+      "file_sha256": "1dff6921db054c6912f5ad883b34d2c8f0b549d22a47137ce95b15b8b719f38b",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 10,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 103776
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9857.json",
+      "path": "request-0120.json.gz",
+      "raw_sha256": "8ea3a4b8177e0e1e450372f708290abafe4f6e9b143679d5743d79ec5bc14b29",
+      "normalized_sha256": "c44f6ae4cc2fc0d38447c2a904decc16e33b8974403777c7aa214b208f478dff",
+      "file_sha256": "dc2d37af789cfcb33c4744e75c0958cbaa422049d61e5f8ab954194e83162a1e",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 5,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 100016
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9763.json",
+      "path": "request-0121.json.gz",
+      "raw_sha256": "062841eceaeb5a58a61bbfd426fd34567fefaa926b02de7974f9fded3a2cf89b",
+      "normalized_sha256": "08a70d32ed15821d0484fac4f8f66c78b861928178591f5e892a4a4904614764",
+      "file_sha256": "7ca01aa0a3aa07c154ad83872e64916f9d9a82aef6990e939f4499a9f4db0013",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 13,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 106032
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9916.json",
+      "path": "request-0122.json.gz",
+      "raw_sha256": "97fd0367a8e53a499328a2c19e1962f008f5617add07ee46752b340a567393ac",
+      "normalized_sha256": "a8aa67484e79c19e3aff66ecb5f6cf2484a8d961c708d03b88f028ab50bf7263",
+      "file_sha256": "6f27b39241b50301723f3dfc01be8dde137fe07a5384fefd9bcf00af7ea0c15c",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 8,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 102272
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9782.json",
+      "path": "request-0123.json.gz",
+      "raw_sha256": "f0a93c7c20cb63305beb2acb35296c44d14f7db789bbd877a30266787beb2bd1",
+      "normalized_sha256": "f61b6c1eaab52540c37e995e530fd87fa935dafb182e63c341942e2f13763bd8",
+      "file_sha256": "dd0c12e8c70b73bae487d8e1a8c534a7ae181cf10f85712eeb6c3a41ca6fc124",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 12,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 105280
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9733.json",
+      "path": "request-0124.json.gz",
+      "raw_sha256": "34e1846f90d09039c1027fea292f17d0507556c1ade54a0c7e0b1d57cb56d0ae",
+      "normalized_sha256": "7c144913cc7e83f4d56bff54d22bd39d5538ed05370746462717f0c4c73cb70c",
+      "file_sha256": "90ac68216bf3d163d3678198e0440b29e264580318647cf378788afc4c3d31b0",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 12,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 105280
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/10008.json",
+      "path": "request-0125.json.gz",
+      "raw_sha256": "7e7430b227360e01a44134009d7733dee700493a6d8ed1fc6e70943ecc1281e7",
+      "normalized_sha256": "9284cf02f176bebc332b2ef20d8ace2fabcd921c34b8eef38867fda6a7c815df",
+      "file_sha256": "e134f82bd3ece13d9c8fe5513281446c22370baffd6287f5ac10a406e684b6f1",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 19,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 110544
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9728.json",
+      "path": "request-0126.json.gz",
+      "raw_sha256": "a4765dcaf0bc6d7c2e5beb7506b41e29c8aa22308a14acd5935e509eb56ca088",
+      "normalized_sha256": "753fcdffd8661738889d377cadc9a3a4b22d35660d401fbd3bc8a14691c1923c",
+      "file_sha256": "dd38064a4a412cc127cba44ff6058d40451ae06aadc1c218a716bd65188c795b",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 30,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 118816
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9739.json",
+      "path": "request-0127.json.gz",
+      "raw_sha256": "b698ea80feb32c91b5897d1150449f2f584e556b327d3409dd51e2cf93e87ba9",
+      "normalized_sha256": "d30f8112a808497c3a15a6e5519e5f16676b4893e121e57a3d117ecaa320c8b5",
+      "file_sha256": "81650212ae26da15e18bba0b084744d16e0956987f9a791f0d593e7c79fafd30",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 9,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 103024
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2703.json",
+      "path": "request-0128.json.gz",
+      "raw_sha256": "855cd1f53d19054a746e0235a53852cb51dc929577e4a722395223de99eb911c",
+      "normalized_sha256": "1e39d91cdd331e4fc535cb3ce49c65180fa26c8e406f9b262754d855f1356790",
+      "file_sha256": "aef7986775f7044ac5b926c59bd9dbadae81a6578a2b68f82f489560ecaec4b1",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 11,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 104528
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2834.json",
+      "path": "request-0129.json.gz",
+      "raw_sha256": "2746310529d8ce7d514550b96c9b9ce34670d30c5785bcec92ea1c1e8f0edf21",
+      "normalized_sha256": "288239037cbbae1d9fcc4f676017638fde37d804b67ecddb2b5bd9ef7f3bea71",
+      "file_sha256": "9ba3bab070b5dd43504d50477498d4f6cf8cd14cff971ac0c6b6924c63a1e42c",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 11,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 104528
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2916.json",
+      "path": "request-0130.json.gz",
+      "raw_sha256": "f2740cebb64f7db13969423174e96a7b90605a507f146c78ac1d63761155d20e",
+      "normalized_sha256": "3aae03b427b2f9aa369b172789adff573bfc8b55b60d4042f37b51124ed2b1d9",
+      "file_sha256": "ec58ad2d0b63d0c1d5972a58aa985ff71f5a7b63683470a31d42eed1f915d4ec",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 32,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 120320
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2763.json",
+      "path": "request-0131.json.gz",
+      "raw_sha256": "5545f2a458070cfd9a4cc7bae0c9fc213686f3d8839596ce2293e6d5f6c3ce61",
+      "normalized_sha256": "84572be8bc9d32f76ce2841f1ec81b35733e0a6c8b63825c472c9fb5963132c4",
+      "file_sha256": "a1db3eda969fa9a677101c7cfb30b89d8e5c12043e36767a495946e8fad11ccc",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 9,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 103024
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2682.json",
+      "path": "request-0132.json.gz",
+      "raw_sha256": "167809066e4e30983fdf1283bc5a4be8b1c7dcb0d9de40e5296945829058d70f",
+      "normalized_sha256": "a73be558790d9de591a0a3bd2ed1efdfd74984267473c0d2963e90466f0bf69d",
+      "file_sha256": "bbe85c809573db62ab527e7f62d7711f59c2adf992d7af3a5458ba197cdccaeb",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 15,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 107536
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2797.json",
+      "path": "request-0133.json.gz",
+      "raw_sha256": "3cd8f54c6683b9be664232b9988e8e2fd23143c51b72fd5efa0402955cf7dfc8",
+      "normalized_sha256": "658f88d00e04bdd3169ee1a5fd83a48d5d9182b276b07140720200d7b9b98701",
+      "file_sha256": "0d6d6b606523ac1c60a8ffaa10f771bb1bbc37129023e65c2e1223465f95a356",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 14,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 106784
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2859.json",
+      "path": "request-0134.json.gz",
+      "raw_sha256": "e7c354c6dc0b0b06d6f420cf33ee9fdd7955f2910a05a6d3cef4b955b809d284",
+      "normalized_sha256": "0e599b987d611551b57c5cc33bb9d9c27fefbc8435433231761eeb6a072c54e9",
+      "file_sha256": "090e1a32495f236fb8f9b42dad6fa0aaa0a0b027fbdb1d2deb593fc6465f2bc5",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 39,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 125584
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2726.json",
+      "path": "request-0135.json.gz",
+      "raw_sha256": "1b2aba9e4dfd3833f2c83674d16fb1500388575f996dae86c1d080d3bad5a0e5",
+      "normalized_sha256": "3448b17f153de0704db6adad7d533d11cab023d6e10ba520bab11a6520b0aabc",
+      "file_sha256": "c7de63f88b0973998409c46b59abb47c1b47ea1adaa1ed9b734e4b2a9312fdda",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 34,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 121824
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2840.json",
+      "path": "request-0136.json.gz",
+      "raw_sha256": "94f7f699d11c29b0ada34ea3fbaa94f9b8d4aa2a797194503296cf631d37c885",
+      "normalized_sha256": "4993605a3c6bf61a04429d31f0372a67a0ed01cdc1a30dbff0f2b525ecd42c3d",
+      "file_sha256": "3daa10a3eeec295ec5896fe81707b3e48abd7e3dec40ae597cd5bf5b0823046d",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 39,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 125584
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2674.json",
+      "path": "request-0137.json.gz",
+      "raw_sha256": "33640aeca651875d8d5a37efc216d80251c823961f2a9653c174318eb1d0a4f6",
+      "normalized_sha256": "a133d906c07fcfceb0b6fae5fa4dddcb2852ccc8d91fa65cca157fe67c90dcdf",
+      "file_sha256": "b99eff79ebfc366344eb52a4e4b410559d0673902d5fb89d452bfb407b7894df",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 11,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 104528
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2779.json",
+      "path": "request-0138.json.gz",
+      "raw_sha256": "e56a048d319d844a55ffaf253c98a00df3b274898e7213a743ccc742b9c4e26d",
+      "normalized_sha256": "c419e151f790f635f03d8c108beb85b29b1f86c8e42cee20a935dc8a311dd66e",
+      "file_sha256": "72f1179b354565e94fe2837d06fdf1608b329b85f033dec8eef02172e995699e",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 101,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 172208
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2846.json",
+      "path": "request-0139.json.gz",
+      "raw_sha256": "cc639c45cefcb09de5005d81fe4309ed71b53ece62c72e806e735bf10561c7ad",
+      "normalized_sha256": "5e4f40d305fa293739985078e2dad920e6266b06fd8276b64c376027689061fc",
+      "file_sha256": "2880923fc43999b8884658414b3ecf332616dd70aec144921297f82879833d03",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 20,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 111296
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2909.json",
+      "path": "request-0140.json.gz",
+      "raw_sha256": "63324d4f77304a77d538f681d4ccd8067ef3868ad405549d00a197d4f0dfd5b5",
+      "normalized_sha256": "8fd785ab2f73d2c5237349373ccb72b07ebf0894f2267b2f85f175872f47514b",
+      "file_sha256": "7653c2464bb769838e1235e455ed5705504602da1756db3171cfc1a5daa301e6",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 32,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 120320
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2775.json",
+      "path": "request-0141.json.gz",
+      "raw_sha256": "e40d6ca1979f6e6e224a0a8d52dcc2205415ace63da333db81e2660bf8dccda1",
+      "normalized_sha256": "dd81584796afab4a30ee6076f0acfa39db6e00530d52dc2513df030db0aa0495",
+      "file_sha256": "ff9d73d6860d9f0c6f7c98c281d6489bba1cf102fe958788b6f25790967ca0bc",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 67,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 146640
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2735.json",
+      "path": "request-0142.json.gz",
+      "raw_sha256": "1fda08b144dad9e35ba0c2388a5fdc1061cfa8817982d02bc992f90415259d79",
+      "normalized_sha256": "410e76fdb0513f76a57dabffe9423db8764818969bf986c4bb73899e8e51c4f3",
+      "file_sha256": "1a36f60e6fcd44ac9b500c94aae0d37f34b66afa27d11bab308276d139c5c331",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 8,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 102272
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2923.json",
+      "path": "request-0143.json.gz",
+      "raw_sha256": "178aad710b3d3ee47f6d9b01212a84aabe161fbf8ef13959eeba7d18875935e8",
+      "normalized_sha256": "eabcbb896034b11ea6fa5636c8c468a11670a03df786907bdfd826d1768c04f0",
+      "file_sha256": "70c5cf336e7e555ec874b3e93b528d65da8746552fa0f0ff367f06d613c02432",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 7,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 101520
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2902.json",
+      "path": "request-0144.json.gz",
+      "raw_sha256": "8056e1bc47c6e5bd69a340b086bb8df8c1b7de289e75720537b9524e683da821",
+      "normalized_sha256": "fbabde2dc8b263684d63acec68403f669558808ec944d2ae7aee7688527cdd43",
+      "file_sha256": "cf76b370da78b9dfab09418361ac9becb88c663b11785e1b86b4c312c9151a9f",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 27,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 116560
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2731.json",
+      "path": "request-0145.json.gz",
+      "raw_sha256": "2eab86d4e8bf21168257f7e0310d8d0a07006d13daa4dcd24af74b2dfab7f793",
+      "normalized_sha256": "bd54f050187452070f0d662bdb6185ebb29f2e02dea4e2d87d61ec4ac62a12b8",
+      "file_sha256": "ee76b45df027a1e466be2c19bc7c5d42f7a02a982e293e5effdcf57fe3134ace",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 12,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 105280
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2908.json",
+      "path": "request-0146.json.gz",
+      "raw_sha256": "00e492be1da20de9aded1f27420483bf85f320410765a7118488200b2745dc80",
+      "normalized_sha256": "4056c67507470734087425b853695b7fc48488c02c9a7d5f41f0cec08e7bd322",
+      "file_sha256": "3371cf97ce361aaaa01c939e321e22bd1153437f8decb84022cebd9eb547a8fd",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 11,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 104528
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2698.json",
+      "path": "request-0147.json.gz",
+      "raw_sha256": "197794a2fb3a230f49efec95f3dc7deff8d2a6c050883ab5c8878fc1dfad5554",
+      "normalized_sha256": "d994270d7f81dc50195809bc71a603fe61da84b785c84ff6465500eec172a0a3",
+      "file_sha256": "e7251f53b803bc83987e40b1458a8dd08428b9cebb33df83d1f8b6223d4a38d2",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 9,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 103024
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2861.json",
+      "path": "request-0148.json.gz",
+      "raw_sha256": "15a82aea2db1749d7c7d4b6b143cfcf944548b2954eb38924ab60b972a04c0bb",
+      "normalized_sha256": "868030991ca2cc666549d4380f18fadd7f5c039aa9db67e522b03ed4fb953ddf",
+      "file_sha256": "cc50761d93e8c7ab17f3fc08b1e364a4df10f29a10807b49533d8f61f97678cc",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 28,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 117312
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2676.json",
+      "path": "request-0149.json.gz",
+      "raw_sha256": "720e08cd46e5a677d5e5cf6b2196e828cda5f460f8b2e9f8da989061eaaaabd8",
+      "normalized_sha256": "69cefb1721f9041a15815f0d9f1c2ce26e9e86ffd595de24c8bce21379b921cc",
+      "file_sha256": "b72477746b29fb187ac300bc79f0ae977b440560986ab8d69c15b5a78d408b27",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 12,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 105280
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2961.json",
+      "path": "request-0150.json.gz",
+      "raw_sha256": "a7608ccd7c71c3e4873061a9c49c64fae890d2eb0a18c03268366c1749185133",
+      "normalized_sha256": "b4d030dc98ddb0ca14116d1c986ab3c1ffd054149599104652a2d9d000ab6f37",
+      "file_sha256": "07f498140ee8277c072a1217a81e2343f8057c7ac458baf55103f719c130177d",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 50,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 133856
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2743.json",
+      "path": "request-0151.json.gz",
+      "raw_sha256": "4b7791035ea2932a84c9bc567e70568427c0d3a68307809fe6635296409f4a6f",
+      "normalized_sha256": "92e7c2a0398367407c407781ff497181af26aa89d567a5ecdfa366a895e646a7",
+      "file_sha256": "02aed8656fdf10ad60d144e57185ad6ee61cab6b7e04bc20912fea7ee34bf3bf",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 51,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 134608
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2689.json",
+      "path": "request-0152.json.gz",
+      "raw_sha256": "41292efb9a3ebfe477d737182ddd088120bace5e297704e3e2343cbd86a699c7",
+      "normalized_sha256": "546ca4dabe3ec2bcf80d0f9c836273d8a967b44a0d7c2c610383932f139948d3",
+      "file_sha256": "505b793d0e9159923824340892901ceb22cc574605e7b1f9b644c92975215d54",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 3,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 98512
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2777.json",
+      "path": "request-0153.json.gz",
+      "raw_sha256": "a6aacfae97370f0ff00ef173a2b69bd31f0bfa289cd163d744fd39bbbe373b72",
+      "normalized_sha256": "5660e12f4ec2799170b3b1e012f847d0d1613ce0823ae697524c7917d66965a6",
+      "file_sha256": "c91df9b1de3c5ae68120ff5730c9d1a5d60f3765967bcbc4c9c94a90b0595f67",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 25,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 115056
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2809.json",
+      "path": "request-0154.json.gz",
+      "raw_sha256": "4fc2bb52f1cb994f767f83bb439d0a98d2713631634b1ecd6097e868aa891f2c",
+      "normalized_sha256": "4272b2891e89fe0e54e7d91039c05ae744c7dc7780157068d262dd6640fe179e",
+      "file_sha256": "d1bcd9b2fc51fac38a0b14243d30d5c2211d529337c2c0e1c79672a6525919d9",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 14,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 106784
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2890.json",
+      "path": "request-0155.json.gz",
+      "raw_sha256": "30e9031fe55d5e823e73676906068974c5697595ab62b871e8b05b97393ceaf5",
+      "normalized_sha256": "2e43f5a0fcf511dcb306b657d6c988857e7103dd061ab4b74bb6adc948894f70",
+      "file_sha256": "44146a80dcd98faf3f00112c626da9b3e24981035e9518e1d6f2ab28686df74e",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 10,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 103776
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2854.json",
+      "path": "request-0156.json.gz",
+      "raw_sha256": "789cd73fbccdff35f8aae8179fccd0de360ef4afffb430744ea494f0b497923d",
+      "normalized_sha256": "a9007fba25745a0c0e18d503d92d1b2231c9e6d284c39c412b69e28307515e97",
+      "file_sha256": "db90c984fd6c2b3d7e09a5edf0a2078b5928a7f8471b3c1c515f91e7b4890825",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 5,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 100016
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2967.json",
+      "path": "request-0157.json.gz",
+      "raw_sha256": "d6019981b50100323bb30e6102b5fd8c1c177e8079ae678eecb3c4882f907544",
+      "normalized_sha256": "4ef8cd090dfd5227dad3c6d28201660bda4b70b5cee13de40e7b810a2439d24b",
+      "file_sha256": "2b2a549d1f4028522a52f56bc504ac6ae27b97e6989c139f1b4038f473de0ab5",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 13,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 106032
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2822.json",
+      "path": "request-0158.json.gz",
+      "raw_sha256": "008d2e1eb6710340431d407777197c718e3608315b689f3405b3b5ab9c52e0ae",
+      "normalized_sha256": "d8bf1af4fe8525a5680d2170a02d3d3c73608abea95b213dc9c76c0dd0277aec",
+      "file_sha256": "8a27d605a92845193ec9f33eb40814d60921f5f80da2c3b3e0c6d51c79c0d709",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 11,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 104528
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_biology/2832.json",
+      "path": "request-0159.json.gz",
+      "raw_sha256": "08932819cc7b2879a955ee432a9b0ca881d804b8e431a059ea2fed7897337219",
+      "normalized_sha256": "50c41bcd71818f5c8aadc7c7beb035c478d2b71540b14d0ebf17d2d7eebaa411",
+      "file_sha256": "3c42c1b383197c50cba34a1a1c999d3fcb662be0060996634f51fd3999d78cea",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 20,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 111296
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4741.json",
+      "path": "request-0160.json.gz",
+      "raw_sha256": "d56e322aeed683f5e3b63835a52f9fcf43edf4bb4b7e4fd0e5075ed069856c55",
+      "normalized_sha256": "66ca5a57341e7152bf201ff41c04a7fd820b4cdae2d5d185d5decaad936737dd",
+      "file_sha256": "e6768fcbacdc52cebe923855fd9f6e10998a5bda9ed0e4f64a228fd3571f001b",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 42,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 127840
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4850.json",
+      "path": "request-0161.json.gz",
+      "raw_sha256": "7a0f0c29cadd8f0f91a505596bb881c86dfefdbbf40271ed10d53bef650085a1",
+      "normalized_sha256": "bc6e3e6022ef80d62a57f54980293ddb1f82374b5dc098eb6a3394a081f2ca87",
+      "file_sha256": "f003071929e1ecfc3f63806c66fbf6ab7e0849b57cc59b731e1230236a3ebd0f",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 24,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 114304
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4739.json",
+      "path": "request-0162.json.gz",
+      "raw_sha256": "38bfb5961a59360b0453dfb7e3ccd5f9a5b612c75967219698d57409db6a407d",
+      "normalized_sha256": "9032d02dc72b90cc92320b9a13e4ef18c0cc8c38a180378df5aac708a909153d",
+      "file_sha256": "6d55c538fe2fe98a60fdffb9a09d5476feca16d5929fcf6cbf830d753f60d1d7",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 59,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 140624
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4805.json",
+      "path": "request-0163.json.gz",
+      "raw_sha256": "9d1e7709302fe10b23df6cf52e4918888acc03b4a61a9f1affec3f44c9de1e77",
+      "normalized_sha256": "80c24f5dfb66f6cb5f927eb478ca4a4cdcf98562bd3c77b86323fe86ac7287cc",
+      "file_sha256": "25bed3906ab52c3797f0b9b132a17cea0a93414fee0fef19613d152225ccd14b",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 70,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 148896
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4791.json",
+      "path": "request-0164.json.gz",
+      "raw_sha256": "f3a1b74b8e6bc45569bcf855a1cdb9360ed235e204ca2c0accff7db41398030f",
+      "normalized_sha256": "b2bb973c74d422b973c2252b4ac22b51442f34d7fc8c963870ed662a0cee88aa",
+      "file_sha256": "05d45dadd086ba9a90a37b1a06ed0246555615ed3b067414d89708b80e3ce6eb",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 28,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 117312
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4792.json",
+      "path": "request-0165.json.gz",
+      "raw_sha256": "22b47df58cf70d67edc4b0b8fee316d4c4ec1b9261da33ceae9757417b445197",
+      "normalized_sha256": "fbf3cf9eaddd0baf3cafb425142332994fcc6924fc8d0fa8a65a981192918033",
+      "file_sha256": "5091c2852dbee1d6e0f2860e8739db407275ac56bc3f352e29ab48dbbc18f750",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 84,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 159424
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4750.json",
+      "path": "request-0166.json.gz",
+      "raw_sha256": "5c95e292b4e898aa3656d30bb59c7670cc90f13e14ce0d9c3481f1f2a20db4e7",
+      "normalized_sha256": "def1e9cb884af71d5d68ced9564851b5dd92d0cd95da815ea298df63b864464c",
+      "file_sha256": "7b9d5b371902cbcecf3e3b64dab17e2743ab50163902b86085abbf2c0819c956",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 39,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 125584
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4862.json",
+      "path": "request-0167.json.gz",
+      "raw_sha256": "40ab9589e3a63697dc0f3d9c6ca15e9050ff418539e443d06f08790370cd860d",
+      "normalized_sha256": "ea4767021e2c94499e6951fca27b5345097ed8dfc3da75f40ec4babc9623587a",
+      "file_sha256": "b9b6dab21424f11a9dec338751121d8ceff72830084de33e0e7094e133d4458b",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 43,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 128592
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4812.json",
+      "path": "request-0168.json.gz",
+      "raw_sha256": "177c729319181da74c7b0d2988d17963888cdeedaf2877339f440932f084bc5b",
+      "normalized_sha256": "8337d3149d085fe3d87c03889ea13a4f5aec430540da5c0abf20c9da228f761f",
+      "file_sha256": "530f601a7decabd453ff532c074a3ce5dd231659686d965d31cc97e4b05e18e8",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 71,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 149648
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4765.json",
+      "path": "request-0169.json.gz",
+      "raw_sha256": "30a3040e6bae3d54e8fc63b6f71b50fd571b3a7372c0e8cd8f6f04d3d3f22bcb",
+      "normalized_sha256": "3a6abadb4198a3385407e4133c350a54c8a8cba7a54ee3d056fdcb715e91ce8b",
+      "file_sha256": "5ed4e38787fa1fb27c3b2141dee4d8aa37f82ad32aa7d3c6af52a37a66537381",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 26,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 115808
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4754.json",
+      "path": "request-0170.json.gz",
+      "raw_sha256": "1f0b50e876b8db946c7b2cbc1149500ef575d5a975ef479266b1c12e02027f72",
+      "normalized_sha256": "e71eb18508ab7e25499a30b5321066b84b05007b68f00001066ec36d8341c742",
+      "file_sha256": "dde4b857c6b777f72f3fab4e88b3f4332e7bd709a0b003c33486586707b4263b",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 32,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 120320
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4823.json",
+      "path": "request-0171.json.gz",
+      "raw_sha256": "a838be4f17de2c81683a8a45b3c6eb019af73225b91bc24807179a17fe8f0d57",
+      "normalized_sha256": "2a3ddfdd7a460a20b216decc181e8ff12ecdefec3356d5738493b377ce2440d6",
+      "file_sha256": "6520dbd6429abc4c1d04cf8eb7120468b6499088dcede00b583e7072351d06c2",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 58,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 139872
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4822.json",
+      "path": "request-0172.json.gz",
+      "raw_sha256": "595b15308fcc00be58cbda697e1ea2bdc15dad4cfeb89eef4f759d9b65fa8a10",
+      "normalized_sha256": "7b125dc269c9c9ad834833ceda8d85578c194ec7eee7ae99e76729d2ca92faf9",
+      "file_sha256": "8296323886d73329ca1d8da1b9559b9a30b35d86951e610be70a84927688fb63",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 27,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 116560
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4866.json",
+      "path": "request-0173.json.gz",
+      "raw_sha256": "dad4d959d1b76558b48dfab6dfcd812e22da7afb12f3128cc763cf661ca38f54",
+      "normalized_sha256": "4c1442efd29fa6da4adccc5f359f2ae63ee7cd64b3f323ba6b2516b9ded9c956",
+      "file_sha256": "8358cd29f9d188fc03a27ec78ce7efe0af8506915b6033ea53d6924411fb8aba",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 55,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 137616
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4819.json",
+      "path": "request-0174.json.gz",
+      "raw_sha256": "0c559f7a882f353ce002a2d8c1b6c17b805722957d4d4e5032d8d8b87b2f42df",
+      "normalized_sha256": "1998ce136ac896cb9f9d060810d5478ca2b8b85ad13574c9daf1f223b89730f3",
+      "file_sha256": "ea929e7bfbfeddb7c0888cd54f135f41ce80eca6b92783644e78b460fbd9677e",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 21,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 112048
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4815.json",
+      "path": "request-0175.json.gz",
+      "raw_sha256": "542f860ee862853abd260e8a59c88a5e032c81517d2ff0e072179a80c8f9b7fa",
+      "normalized_sha256": "2c8aac068c13eb67abd16e272c84754489eb627ca6d82cbf8f000a198f402a7a",
+      "file_sha256": "4b46a91ef55d25baa93343407353ac4771d4e7a50931cccb7758ed407cbe43ad",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 41,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 127088
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4769.json",
+      "path": "request-0176.json.gz",
+      "raw_sha256": "0859384e60d94278759ba33b41ae22fc92cc7083057c1c79d5444d886ea97388",
+      "normalized_sha256": "050e08b51a14957c1ee2c06cebb2284db9cfc5ea63bc30cf120f5773ad9656c0",
+      "file_sha256": "b7dd5f1ad410ea7a2428164a158cf4ac986e3041c7db1d3707dea50ac219771c",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 34,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 121824
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4828.json",
+      "path": "request-0177.json.gz",
+      "raw_sha256": "fd2e1ae0d2db4a8b766f01b3671d3ea21fc99e3c380b870b1383c08d97fd0287",
+      "normalized_sha256": "d02d0bc669b470e23797cd678728590af461922e2f168efc45513f8d5567b47d",
+      "file_sha256": "0d2408b0275582d5d5a975452d5ea72a351eb1b98d8aef28f88459ef78c27a43",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 51,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 134608
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4884.json",
+      "path": "request-0178.json.gz",
+      "raw_sha256": "1bcc47b07fb16e6e92c1ed3f81ab26e9feef23bc74d38e59da07af74e74b2efd",
+      "normalized_sha256": "92831eb017ad3e9bb50d9f7f2a8fc49d16f1d10d2fdf5dfbfd7a0db348e1717f",
+      "file_sha256": "cb4cf51cb3a797d320b4a3ded75311c475ff261264b1ff1d2440913201f77e11",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 42,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 127840
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4785.json",
+      "path": "request-0179.json.gz",
+      "raw_sha256": "b7b39e6fc93dd83009debb0d1842e7908741903ec79167bbcc0a49a4afea56cc",
+      "normalized_sha256": "d042ccbf93d90a6e203f028cc274fb10c02677867e6dcb8d26c90043c392e060",
+      "file_sha256": "8f97109c0d04a896b4e48d1318346fa8b12b209fe42b2331f3344cbb3848f2b4",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 50,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 133856
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4799.json",
+      "path": "request-0180.json.gz",
+      "raw_sha256": "f34753460a8d39a913746e72933b5e331fae8df014822e86dd0abd7650e02b71",
+      "normalized_sha256": "baced19b33a77b91c0b7504bd9b740144454eb6abbfdf5f115f89793a88a1670",
+      "file_sha256": "9d14339d737fd243059177898b754a112b71f58e89f86bbcac80fe171d64e0d0",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 35,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 122576
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4787.json",
+      "path": "request-0181.json.gz",
+      "raw_sha256": "5adce1161325142523e3fb709ecc2d5cc50edbf395d4e9d6b64cf58e4a80cc94",
+      "normalized_sha256": "896e3b00003ec4dcaf978b2a36720b22b8b727747e4a940df7b8cb4070403acf",
+      "file_sha256": "53cccdc59a047c327510adc2d4a5add38c69c9d37cce972b0b865e3de725b631",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 48,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 132352
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4861.json",
+      "path": "request-0182.json.gz",
+      "raw_sha256": "aa8ecd58814f6bec9ac55196e5ecf4ddaf31cf7b98ea1f28876f205e5e05f136",
+      "normalized_sha256": "8cc3e03d038705dced50630baa0a769839d068386f18541de35a296f1718a2d3",
+      "file_sha256": "e277b718843b0667a7c0e01795805f06cd680989338e5df7a1880c75d3877c2f",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 82,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 157920
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4795.json",
+      "path": "request-0183.json.gz",
+      "raw_sha256": "3a7020575f4d9f1b82a449087ab7d3324ebbb41b274bf86625114dc2e5f35ac4",
+      "normalized_sha256": "0d77854d07a7c2f66549c36f32d1c3184885b8a234e4f8dad9a8da0e75d86eeb",
+      "file_sha256": "6def55709d26542c9927f66a9a3ff7220ae69de627c078c8db3dd42dc149bfa9",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 47,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 131600
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4814.json",
+      "path": "request-0184.json.gz",
+      "raw_sha256": "6d7bb75c3eca0f8ac2f153ca7980419c863cade69b85e2c527a24bd02d4a3f23",
+      "normalized_sha256": "e3256ee260382e9e162bad2683f316d379d2ff140c419f5ccc135d9c1807ff98",
+      "file_sha256": "b562e95874263a4222edf2959cde7a04823a07a961a88fdd520b1816d190484f",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 66,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 145888
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4831.json",
+      "path": "request-0185.json.gz",
+      "raw_sha256": "3378d9e6d58d6e03c72ee8371994a8bfef04897f992d097bdcccc22025d80e9a",
+      "normalized_sha256": "d12125eea56ecfceca7ecd847c2d9b51c2458a40c7b02c3f7ae000475e4bee8c",
+      "file_sha256": "1d331136f124a2a9b04df485395a867ab19856553183cd7aeaadb835671ceea8",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 37,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 124080
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4747.json",
+      "path": "request-0186.json.gz",
+      "raw_sha256": "a0e805281d224697573de00f93b2bdeb5a7cff8381758ac54ce77fc90458e5d9",
+      "normalized_sha256": "b413c24ccc6c314d7408b9bc6dd2ac2722d9efcf182a9444018b9c548d3b0e72",
+      "file_sha256": "353e862cb23db060a0b613f4e30a4d0a29061a044e43b7faba906943ba5f8c9b",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 74,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 151904
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4870.json",
+      "path": "request-0187.json.gz",
+      "raw_sha256": "dcf58e67d02c19c7a92b3066b1db14a840396a9b8c29628dd2411bd863fa1e99",
+      "normalized_sha256": "114e4a3b860921d59abf8af8a18852a406f903c6c2ffee7d8b845be68ffa3ce7",
+      "file_sha256": "d6078f827b46cf769775fc3b2630b0f29694e8b15d6ede00acbe8d5304d31eee",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 31,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 119568
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4796.json",
+      "path": "request-0188.json.gz",
+      "raw_sha256": "127065b785064a0c1003b25d974895c9fc2e12efd71c53d6cc16e25430d27133",
+      "normalized_sha256": "60fe54fba51f0ad88474c9bca1d7e47d605b51a487b4e485b784af2738b74985",
+      "file_sha256": "fb2da2ee52ddd2dbf6a2e4788debdcefd8fa0a3ca427f1ce4603176aa6c04a6b",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 51,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 134608
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4775.json",
+      "path": "request-0189.json.gz",
+      "raw_sha256": "261bd5bd59472277d0c2f0a886583610ea21b665e70d33659902514419a3a9f4",
+      "normalized_sha256": "876435bf5c941e97953edc20819b38d2683cf5d52fb8b9240a4e7726503a3018",
+      "file_sha256": "64ac8924a630ad5d58341383358255dee3203ca70e74b61800c573cf402ddc63",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 16,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 108288
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4755.json",
+      "path": "request-0190.json.gz",
+      "raw_sha256": "892a7a470244f3ca8b9e9ccfbf17f88360deb2cf457bc4f1efada8afc13e7b7c",
+      "normalized_sha256": "f0a9cbd4263858b718a1816d68df43ef58e9c3c8820da789b6266d57e6810064",
+      "file_sha256": "234450a07cdbf50af6bd34899e9b578ae7b841d16b34a023670d00a2fa9e9a2a",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 59,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 140624
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/high_school_physics/4811.json",
+      "path": "request-0191.json.gz",
+      "raw_sha256": "b9247914b57a5e3ed3c180450fcc60c1b460f29d55cf4534f06abd32bf69b911",
+      "normalized_sha256": "1a9ec1d854394b5471521c9b2b8ef64962c7ef0fc2c63f6cc037d241a40cbbbc",
+      "file_sha256": "ea82ec3363ee54b69a58ffc2bf1fd59c5ee4270d30584bc8a16d746ff68daa31",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 17,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 109040
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9160.json",
+      "path": "request-0192.json.gz",
+      "raw_sha256": "40d6ce10caa5bde5e7f0ac3bd8a2706b02a3be1d725a54e07aa0289c38706e5d",
+      "normalized_sha256": "b561ee7c2757906f16d2cc171a7b9511239e13e77f6310f60433821173419274",
+      "file_sha256": "245e0d55d67aaa766a09117f314a44496dc23dd5dcbe7291944822c66cc48f48",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 36,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 123328
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9320.json",
+      "path": "request-0193.json.gz",
+      "raw_sha256": "0591ceccd471fd0052e94ec1b0e59fcfbc6c3bfce222a870e3581392ad809950",
+      "normalized_sha256": "c6cb6cb403e31018c290f0717bdbc08d0fe9eeab00f5251c32058f34abd04bb3",
+      "file_sha256": "8c1f3114364657ed0e3ba2305817e120f3635b6cb8cea2f234c7a2eab06671f6",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 27,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 116560
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9152.json",
+      "path": "request-0194.json.gz",
+      "raw_sha256": "d4748a6f485a0538c16e53f535dbd2856aab9e9da4e95fccbce45225f48ea396",
+      "normalized_sha256": "776be4aff5c4b4e79e8def65b667f75b8eefecce76eb56572326987ac6b6e6bc",
+      "file_sha256": "35ca3cdee015cde5dee3f46ef24386f467332d2bb9e809aa634d18726bc5b9bb",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 28,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 117312
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8672.json",
+      "path": "request-0195.json.gz",
+      "raw_sha256": "ed065a7f2bd8f522b3ba2ae0b8fa7e45031c0479a39827f14eaed46f1659e1ab",
+      "normalized_sha256": "47d930835c58cab06f21b3b5a4d3ae751d2830b5e05b7ac2e31501fa642545b1",
+      "file_sha256": "d03b4f87a76bbe0e992ccb6478b430580f169bf38bf50b00c7c458786eafbf95",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 26,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 115808
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8802.json",
+      "path": "request-0196.json.gz",
+      "raw_sha256": "475a872f28804cd39a925ce6a89b3bccf2b1c834b39b2c99f1bbc39e781c7244",
+      "normalized_sha256": "69dd34c4d65210d59ecb3649fcc4a7a0e22b745fa38be4c117f6c2ba5fb12f61",
+      "file_sha256": "ccb5e9d4a75e530a4840cfa631884937f147b193bf2c1fb2b12fbe249899dbe0",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 23,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 113552
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9342.json",
+      "path": "request-0197.json.gz",
+      "raw_sha256": "df33348ca4bdc0b985e90d1e166489bfafd64737b3a06e51370c4660a8d92391",
+      "normalized_sha256": "9bd9bd01f5bf5a6ec805da6ca334bc84f14864c0a3f4ceefb32ad20d524ce248",
+      "file_sha256": "f15bece0ed7a057e856ad1a15b2118421e2c4c01f050017431ef80f3233b1efc",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 31,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 119568
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9216.json",
+      "path": "request-0198.json.gz",
+      "raw_sha256": "97499c84b9a2d885616c3c3d0c2d625bde9fe4823122bcd9a7cd8038e84b15c9",
+      "normalized_sha256": "d7df6076c37ad2024f368abf8726107ae7447a2cd7a426b5ff3be8be2033d65f",
+      "file_sha256": "d1304fb16b699ab164537e5e230ffff0504ca649aebb24835adfcc166e816393",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 32,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 120320
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8692.json",
+      "path": "request-0199.json.gz",
+      "raw_sha256": "6e9a891c5090a4f9c7f68ee8832f9dcea4cffdf4994d3b9e57d0e7ea50c6f55f",
+      "normalized_sha256": "7ece8a6b462d9304d3e78713a1e873f7345f681df81f01f2ca1afc1cc4024e38",
+      "file_sha256": "b70c2bf7c68818b77438105421843eea5dfc6b9cad0c689614f588691ab9e2cf",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 36,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 123328
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8621.json",
+      "path": "request-0200.json.gz",
+      "raw_sha256": "2fccfbb8297003b7eb786e3c80f546ca0e854ccd09e65f88ef2d52419bb4179b",
+      "normalized_sha256": "9bff122044056a3130440dcdd7c9e53758eec2ed3c710e396bf862d7fbc73dab",
+      "file_sha256": "f142d0766c2cdc5ccdc4b7a6babe5e90c5c1e768f09c364f4350a9e81f0a4d12",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 25,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 115056
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9172.json",
+      "path": "request-0201.json.gz",
+      "raw_sha256": "3d6496fa607a6c2538ff33cd2f8a56d6c751debf26a2f236a22f183c390189de",
+      "normalized_sha256": "0b6e76678f9b5a506c06d6974afadd7b2f385cf682b547e1c88330c6db3d2062",
+      "file_sha256": "383f0e7e9f63ae93b116ca4767348fe62e7bb370951d3ffe23aa281b231333b3",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 27,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 116560
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8642.json",
+      "path": "request-0202.json.gz",
+      "raw_sha256": "c77d7bfe16d22235d28a8d99539f152ad4f3f87c6089dfe19d2f8c1b67d90087",
+      "normalized_sha256": "5ffb32317469e910888013741b7b3ba090495136f96ec3032d543a634946c336",
+      "file_sha256": "f5c6f04503f0cf2b2468949a06f7403db6c5785f69d9d98290c9d051ec31c514",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 36,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 123328
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9295.json",
+      "path": "request-0203.json.gz",
+      "raw_sha256": "4c67ccc5e1039c9a759ad041d5d91bfcd1e5c4dbc3d6b7e4b01695db5dfee4fa",
+      "normalized_sha256": "5c8c2b32712461e3b04890ca085efda654ce18926849da25c97d2e2c4184ddb1",
+      "file_sha256": "1ef11e4fce5a7aed9a8b9722c3a5f6cd5f04dcf5a51c73988f676c1aba712dfd",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 24,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 114304
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8915.json",
+      "path": "request-0204.json.gz",
+      "raw_sha256": "7db6820c6e37a8f5d490276cf9c2bcf43ec6926a6abe2904a954f9a81418a467",
+      "normalized_sha256": "de38d83cdc67cef4e9c39828489745de1f945e1e28ceac5f8a0900449d85af32",
+      "file_sha256": "4369e0fa84ec16fbde1e158214cff1075dfdf18a3324a6ff997bcff269042e37",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 23,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 113552
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9159.json",
+      "path": "request-0205.json.gz",
+      "raw_sha256": "e1fc119f8cca3b33d5344006d6df4da0d56a305c340f72ade32bc3eba186989a",
+      "normalized_sha256": "f5a1f39847a659f11dcbc5664648b8b6f25e468be730d8fca915c76879a34199",
+      "file_sha256": "382bd1138151735252537f4cb9d8b23d06a5013f7c986d3d26885017a58b2eab",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 28,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 117312
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9132.json",
+      "path": "request-0206.json.gz",
+      "raw_sha256": "f34be4bda45c6a10a90bc468192bbe2b18e0aa18e655963189086d594aad177c",
+      "normalized_sha256": "3f3812edf21d08d1f759e361a9b93dd6812450de3d71f044985d7d1600914493",
+      "file_sha256": "b438a30332d78c9a09d294b2577a538fc106177998d3a3fda85500fd4db198d0",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 18,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 109792
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8726.json",
+      "path": "request-0207.json.gz",
+      "raw_sha256": "3b94cf989ab98b89a18c9e7306363fa50c430397e4d46ca3be96f7a56f25441d",
+      "normalized_sha256": "f5dab63a0b7d5ebb98793b03d35ef000d87898247a530887462f9a1c9ee474f7",
+      "file_sha256": "052d0ef85d721c6d560c19389f88fb2368fb4cfe8c39a92f0f507f56512f8471",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 22,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 112800
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8525.json",
+      "path": "request-0208.json.gz",
+      "raw_sha256": "9323c832d34ae884fe5d95beb67971db6b6df71e6736fa656f4e7126cc68e72f",
+      "normalized_sha256": "6b0ca1ba4e6d468ccbe6a7adc3bfb59bff775f58106240eb7b4912a6752349e1",
+      "file_sha256": "0651af34d21e7eaca81adc27a6e651d1d4482e2c3c2f6062e5e76ba630933c01",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 36,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 123328
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8561.json",
+      "path": "request-0209.json.gz",
+      "raw_sha256": "4dfdac966d8a28bf7ffde22b794af85cfa36456692528fc25718fdd3b555f34a",
+      "normalized_sha256": "7914424513f2aa74c6b5cda89f8cf1e4300c867a0b7016ea1eae0ac9a15ee6ac",
+      "file_sha256": "986ed607016d3940e1cbe023aacbad34e6ab10a62351cb37509094f5486b2ba9",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 29,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 118064
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9022.json",
+      "path": "request-0210.json.gz",
+      "raw_sha256": "7c726f062ec2b19b96bbe97dc83c5c22a81337c1fbd889a6eeae665433f02146",
+      "normalized_sha256": "ea8bee9e90035cc0389791c1e5be54f7abf9b9761a3d163141b103469542b197",
+      "file_sha256": "c4c7fcfa73430267c0bc7055239c2b2c6c5fdf4e4b7dc7aeef8327826e54219e",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 22,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 112800
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9188.json",
+      "path": "request-0211.json.gz",
+      "raw_sha256": "d93d4ef471a711151603b07804bc30d4ca10db14c135764fc8f5afcb855b6681",
+      "normalized_sha256": "2be440bc37e88668a3a602cf212f19faaeb3331b41be5deddedf0fcdde7c191d",
+      "file_sha256": "e2d3ecb24d1f336bddfcb4612fc0d1f67162711bc281b98fec51695de28308b9",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 30,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 118816
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8904.json",
+      "path": "request-0212.json.gz",
+      "raw_sha256": "c933ba5a2101fa7032abef58aad1478d59060faeac27b688dd064c242b8b7233",
+      "normalized_sha256": "9bc51bf934205117b73c9b912c0d0841e1000f2c8d347d44bbf1664b4294ec8b",
+      "file_sha256": "82ec99019dcf58e39f4f41f64a37c75408979f3b8724d942447d91c62eb191b7",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 35,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 122576
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9111.json",
+      "path": "request-0213.json.gz",
+      "raw_sha256": "19534f52c946a0280a9f9b2c8a5e2788450575ad7e2ec73b123cdb3faf5522b7",
+      "normalized_sha256": "d4bc99ea45669ae1b12e8580c6001d7fe0900d0f7af744d7f941d2e60d3ac7ce",
+      "file_sha256": "b32816e94e5385fdd547694df531f22d831124416d022bb5ee3bdfdc9aef75e8",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 22,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 112800
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9391.json",
+      "path": "request-0214.json.gz",
+      "raw_sha256": "2ca92422d87c297c15f4fd43c642f7b0fbca8e3c659178f28485664285a88926",
+      "normalized_sha256": "b2e4442e2f98758f205e40891b66c49db3e8008ff49c413312df42acb7c6e485",
+      "file_sha256": "fd7ffa5e418facc7ea5df990ca9dc7d966cf00d520e38c16889105514d184b09",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 24,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 114304
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9053.json",
+      "path": "request-0215.json.gz",
+      "raw_sha256": "d96bd6dfca835131fa187f1822f40c8eee43309dbfb05eb16866120cb684fc7f",
+      "normalized_sha256": "50aed11fb8da7c2c5f24e7f832ce1a986255bbc0d53d52471339b25c63f444d7",
+      "file_sha256": "be4f88fc03c3798629c0d61088a42787a16eb94848d9a0a10e5199d1ee8fde65",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 33,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 121072
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8579.json",
+      "path": "request-0216.json.gz",
+      "raw_sha256": "b3a0c25b2ee8f5e1332cc12cce60ddd167d8406df3e09f6dbe3c15572bb8a5c1",
+      "normalized_sha256": "6894f9aa61c5d8214880d293ebf3ba951652684eb09b14f40bba9d8ee728e142",
+      "file_sha256": "88d3b1914f4f5ea31938048d0f7f3c9ce71f7955fa1741389853a9fe4732e545",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 21,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 112048
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9061.json",
+      "path": "request-0217.json.gz",
+      "raw_sha256": "97d85f0bf56180580afd3c8cf05b9c50d68352c9bb3a2432b7474366cce8784b",
+      "normalized_sha256": "d96f9494d584000e3b8fce44d6d6d201d507015476ad856d254f6f8739b9c8b1",
+      "file_sha256": "ff0fc4b69f82137b29caaaecea4b61151599c6d9212f80b4b8fbfe613026253c",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 27,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 116560
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8574.json",
+      "path": "request-0218.json.gz",
+      "raw_sha256": "3ffd65cd864d5525cf2c2899ef94b77e8c323ea6369bfd2c17799b666635c773",
+      "normalized_sha256": "8246ca27a13a142cab3a31530346bc81ae665fad1d6ffc905c53ae4aa28b7ec7",
+      "file_sha256": "1ce27529808332558d6220cbd5c3f8632eb51fcefccbe989622dd07b3ba7888c",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 35,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 122576
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9145.json",
+      "path": "request-0219.json.gz",
+      "raw_sha256": "0b6ed5b94bcfe1e55a4a109552093939587e347d620f475d18ef1fff5c7112e2",
+      "normalized_sha256": "ae1d5aae228981def486234dc128a9e551ed6525487dba53e27728ff71914aae",
+      "file_sha256": "adf8cf530a295cc89fcab73634e7d7d660b0370cbbae9a3a4b3be3a705234a4d",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 26,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 115808
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8863.json",
+      "path": "request-0220.json.gz",
+      "raw_sha256": "8f9d13cb6f593c0e1a1f74a046fc217afbda68d08cc0da26a3c226e0131b96e5",
+      "normalized_sha256": "246c234e3d3522dbbda944aecbb71a9e20f4c28c0fdf237eb0b54351178387a0",
+      "file_sha256": "3882694c06c0f9c7d0fc32cc6617e9714af4d9c37b6931f847d680dc6af96ab9",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 31,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 119568
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9186.json",
+      "path": "request-0221.json.gz",
+      "raw_sha256": "0e49f93a153709becd0e428efc7829676fccd8b4a9bb6b9e3f66353d5484e68f",
+      "normalized_sha256": "8230cdb25b816575eddec6c5023948560adf707d1063a96f48b82d13d35aaf3c",
+      "file_sha256": "78a0ceafd49d9af591f2b9d8178915463edc75956415e1e3d7b038eb3bff7777",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 34,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 121824
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/9368.json",
+      "path": "request-0222.json.gz",
+      "raw_sha256": "ee3142422fe7d4ed941a67b33773c0b979479a605f0a6be2f7a3d265219472de",
+      "normalized_sha256": "017c42dc6c145f5ebea759175d24679111109bf3f10c2deda8f8657a35fad5d1",
+      "file_sha256": "9ad177f539b2e253787b6edef90f30892ac1bd019d02a097c1ff5f72595900de",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 26,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 115808
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/moral_scenarios/8682.json",
+      "path": "request-0223.json.gz",
+      "raw_sha256": "b8d7a8fb41d94a4fc0f3a9d76f35e03eb0a83c3b4b7b14978d5f1082f6e5b3b1",
+      "normalized_sha256": "c8c792c507ef5af9cf7e1152f2d87ee269e5ce584dbb6025c85dfdeefd1fa88b",
+      "file_sha256": "25920ba96e46744a7127d8fb1af7f6f740e3fd38ac79c24df93e2c425f1face6",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 28,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 117312
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/408.json",
+      "path": "request-0224.json.gz",
+      "raw_sha256": "3bbcf81357320eeb53674983a27d4fec187b7b301e48f1f5fc69d156260606b0",
+      "normalized_sha256": "16fb929a042dc6c2c3e4d6019da4a1d237aec1404211cfbc19bf1aec56747739",
+      "file_sha256": "4e053d9c461ab966320a7035308b8706bdb2d349b0f2641b3b16dfc79569017b",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 33,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 121072
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/438.json",
+      "path": "request-0225.json.gz",
+      "raw_sha256": "fd6214b511a0616fc046ea7b2a5efd3b91dea61f36c114f8f4e05a9747d337bc",
+      "normalized_sha256": "32779f089e77d0fc13743696368da91388ddc4504cb0228a6fd768fc6ccf985c",
+      "file_sha256": "73b56e25ab256838e5bc75e83492cdf6a3f2f6e4aea04d415410a84cb1f89571",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 48,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 132352
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/398.json",
+      "path": "request-0226.json.gz",
+      "raw_sha256": "c4ef75345979498926e21ea8f4086bb05c4bc8a08b1e94c1bff7150635a17631",
+      "normalized_sha256": "d568eee93caf5962b99cfb5e4eb4d1be2a3bd114e8c726bddceee6f187449dce",
+      "file_sha256": "b325e1735895998e8d65a61cd9d3944b9f48fae25adef7ba4f79f3ae0b585c31",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 24,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 114304
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/466.json",
+      "path": "request-0227.json.gz",
+      "raw_sha256": "569d60762f80090af611465c34da4fd63778cc01824d4eb7ac90a314a7ac5814",
+      "normalized_sha256": "2eb128d64225aedeec63e484923851f6d5878761a8c0e8517ed496d6ca39e841",
+      "file_sha256": "b3c63096ccc784c08d130413d88a0781d1a633a5e1064ef50772d55029245ccb",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 31,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 119568
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/452.json",
+      "path": "request-0228.json.gz",
+      "raw_sha256": "80ace3cde987bf46d582d01d6979945c80d604e3c14801b59e88f6d6e2d1530a",
+      "normalized_sha256": "5b2341709301f9b058e4405c2e41dc8bd08486296589e2616c1213cdfb8fb9e2",
+      "file_sha256": "f2efae2faff9e809694615e89085c560b874af9460569ca5653028d4bd4ff48f",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 30,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 118816
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/419.json",
+      "path": "request-0229.json.gz",
+      "raw_sha256": "f7ce3e5876133f2500f07f356edaf73ad93b87fbfdcbc33c40b60decf6072b57",
+      "normalized_sha256": "72829695a5b7c7ea99b53904f7250dad6b23190bdc56e7e115364d998f8b909d",
+      "file_sha256": "f7643b70ed82896bc4eb90371c8cf5f8e0529e05699bd4c39429d02a38230bbc",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 4,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 99264
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/464.json",
+      "path": "request-0230.json.gz",
+      "raw_sha256": "8c338b180f8d08218044b1067cbc2dded8cbbb6db3cd828c23f329f98ceb1573",
+      "normalized_sha256": "348338cfb7019bae0c7c896d38d2987fe4eb019a942637a97ef56cdb9dbced65",
+      "file_sha256": "d1f300dffd5ff64127bb964eea5b83b1ec844b70b80f0dc86a57086d3065317f",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 16,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 108288
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/433.json",
+      "path": "request-0231.json.gz",
+      "raw_sha256": "31379c7e9881ad4f5b153af10ce641611526c1f2d13b45fadc5550b79cd06854",
+      "normalized_sha256": "56fd0bd68e56facfc1ace1e308836c3f56a9b6b06aec97e1a29e50356e0d949d",
+      "file_sha256": "b834fe67c620b4c3ddca050480385df212b85489a8bf89dff35a63f0189c48ff",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 46,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 130848
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/410.json",
+      "path": "request-0232.json.gz",
+      "raw_sha256": "a4abc2b956bac97b9a68c20c378ca7606bc8f63c385dc9058de9d2e1f94ca676",
+      "normalized_sha256": "826eb53210527554607d6391877819a11273c121179020a5436fe52fc405441f",
+      "file_sha256": "75429a4ba7abc8bcba956f41255722fa660bc386eca9d182192b458c4b8cb591",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 17,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 109040
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/470.json",
+      "path": "request-0233.json.gz",
+      "raw_sha256": "9ea5bc760833e32524533c79b00ea060c45d1d3387fd86d58053dd7759b1842f",
+      "normalized_sha256": "232fcf6c9518a395cfc3e6e8355eb10c4f40fa4d13466ba4aa2d31458680fe69",
+      "file_sha256": "6799f66be5179a977efeaf605fc1ec19fcfc7ecb9b5b4b036fb0fe2d91b17c35",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 45,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 130096
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/442.json",
+      "path": "request-0234.json.gz",
+      "raw_sha256": "ccb100c1b060b2011bb371c6d71bf43bfa71e4fb6596d45afe1cf7dafcf99762",
+      "normalized_sha256": "7522d46ca6a5878f3ae02c0887a5b1a35def3e47d9c13b6761081dac10d39d02",
+      "file_sha256": "7c6c38d5296e963035a8daf5eac6085a8ca7eadd7f50e200751d1535338784bf",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 5,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 100016
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/482.json",
+      "path": "request-0235.json.gz",
+      "raw_sha256": "30b381c57e471cfb9cf82a56b74386e4abc261c92d0b83a1dfc72ecbf49aec4e",
+      "normalized_sha256": "7f712eae1b773a5a84f2a82a3b9960e80de0df6a6f81fb0e665b541f353227c9",
+      "file_sha256": "2ab0d1bfff893963157539c136ee1739dd932630ee8f9ee5822ef054dd7201e2",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 34,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 121824
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/460.json",
+      "path": "request-0236.json.gz",
+      "raw_sha256": "622eed28a876ba863fcba3953b647e7ba4db66d21261d3e830c0fd0179837558",
+      "normalized_sha256": "16f8e223fe582b2341714918c94a598290736ab72e817c8cbdac0860862599e3",
+      "file_sha256": "cc8eb3b89ffa13b1d119cf6cdc1aaaedff56244182c74a5315335db4bbc560a2",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 19,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 110544
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/476.json",
+      "path": "request-0237.json.gz",
+      "raw_sha256": "194621ce25a7c1e2ac2566b7abf8edb13a628c8871a79f009bb7b6061467ea6a",
+      "normalized_sha256": "e5b533821a28aaa20f1d67187a70a75edc2a4accdcf4a5c43fe34cf3ca3c3eb1",
+      "file_sha256": "b24251ee0eab29819994355ddc2e4e1616f7a3389916c978b290dd880c5c911e",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 19,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 110544
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/420.json",
+      "path": "request-0238.json.gz",
+      "raw_sha256": "9e07f82de34664b4787bd1cfa87cbf8f239ee9b7c0810f7eda2c88e5eadc324f",
+      "normalized_sha256": "daf96cba601bda165e71741786345896bfef5facc5aeda92c16b3a36609178bf",
+      "file_sha256": "a63e46d99c32aed927577bc43d6c5fed08934e93680e3c0dc40cb810784da719",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 43,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 128592
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/415.json",
+      "path": "request-0239.json.gz",
+      "raw_sha256": "820a790ae8bb5e9f43787dc84ef239b09198e3968528b25f4b29f92310633171",
+      "normalized_sha256": "661a182cb98987529be7a31b2556e8a7c9d8582ff6c794d27167fc55ff5471da",
+      "file_sha256": "a595e2d5c33a660070919d68f1444f7ff260f5e016f9484072947e305582f48e",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 38,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 124832
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/469.json",
+      "path": "request-0240.json.gz",
+      "raw_sha256": "f69447a2a6ede2375934ad98e2e163150df0dd5921732854df39730c4b38cef9",
+      "normalized_sha256": "c2c4739181465c53a5ffcf21d22f0a6bb6328c4594c101afdfa9ae4ac4b2fb16",
+      "file_sha256": "82b54b576a95fd15d7cfdee62329404457cfc0277534a1fd3a78ed99c72e8030",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 24,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 114304
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/441.json",
+      "path": "request-0241.json.gz",
+      "raw_sha256": "39fb620181e3246e28244c6313aa169097d6d3b6748611297211c03d1c2243f9",
+      "normalized_sha256": "e549f3001940d4a5c3241441948fd0a9e0f1cbec9f4dcdfb9ab91f21123744a1",
+      "file_sha256": "e4a90f423effaf531d9961642d40266df268cbfaa35019c9c34ea3034e9a524a",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 24,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 114304
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/477.json",
+      "path": "request-0242.json.gz",
+      "raw_sha256": "78fb160da1628d373a3f82a115aeca51b3e7d2e90710b0485b21b78d32dd93e6",
+      "normalized_sha256": "bd9bbdaace3a42c31fcbe8d3158e1c258fe7370d757178e9332bbce15a9fb4e4",
+      "file_sha256": "9dd15b88aec815fe071cf61f8ac371a43a6655545babe029891c253b380cbddf",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 9,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 103024
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/425.json",
+      "path": "request-0243.json.gz",
+      "raw_sha256": "a5b87fa708684f278e56b983c1264dec173a840f410f724402e5b3ab72f411cf",
+      "normalized_sha256": "9cf9c8a9876c9688073871204e6470c91edae0e5ce944fc2fd067b96cde84a1b",
+      "file_sha256": "0fd345902e9807dfdd45483245d6fabeedfec6096c22c6775caa7347bcf2f7dd",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 19,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 110544
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/486.json",
+      "path": "request-0244.json.gz",
+      "raw_sha256": "3588d38f22aa9132121b7d7df104f8ee55b02e10196091aeacb25b2f64ce6b9a",
+      "normalized_sha256": "7441ee8192954da5a77da6b6ccc7bd0a98d6c3a8a0e91d92d116caa371f48dd5",
+      "file_sha256": "abdc6aefe0f3bb84c4e9a3955a0c466fef4bf7a9c706c3eef76bbdc5495a3a31",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 2,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 97760
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/421.json",
+      "path": "request-0245.json.gz",
+      "raw_sha256": "c6c64bbc2d640934a425e64d8704b4c66d2068f7919d14b82bf9f069911b43ef",
+      "normalized_sha256": "9faff58cec01bb108f095c2f56791dc3d6b160e729042d6376be3fa41adbc326",
+      "file_sha256": "92278956a874196e5fdeaabe0a9fcc9a21526183fd3ac455a7439b7e81e90b6c",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 14,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 106784
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/406.json",
+      "path": "request-0246.json.gz",
+      "raw_sha256": "4ecaa604fbc49db1e5709c893db37fac1039e62ed4a349e00766aa0760272946",
+      "normalized_sha256": "79b8313b58d47d45f15db8da6c6a6f702906e345c8706b6663493af2e97f213b",
+      "file_sha256": "df01e80df219409e3fd99c73fd6e66e748cb5120f42f79392a965c5683123cb2",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 23,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 113552
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/387.json",
+      "path": "request-0247.json.gz",
+      "raw_sha256": "aa61e213394cf6a2667f25f29832175ea488937703cba3c06796c48fc5b39534",
+      "normalized_sha256": "40fe8f4ce7057977fda307bd07283f3f4b894ad86f9327c6cd053fdf133a0e25",
+      "file_sha256": "cf2287ad16341203b16fe797571178b1452b0a364a7680e96495c8dfc1721c58",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 42,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 127840
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/444.json",
+      "path": "request-0248.json.gz",
+      "raw_sha256": "4f18558296aba0d9be3e62596fbf0252ef8973c1fafc87bc77f535ed7ae6f02c",
+      "normalized_sha256": "a71c78944c88f701c9be5ed86e3b048984ad1ca1985d0f08ca9150c50e43c9ba",
+      "file_sha256": "e1f9ef125f8222b8bb0d30f0977f09fa06d172f4f840bdf3543f7a0adbb79df5",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 20,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 111296
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/472.json",
+      "path": "request-0249.json.gz",
+      "raw_sha256": "f1d14827d60382d97f17b4f6650c9aa41a940ec6a0a7e1a0f617049a7a42a548",
+      "normalized_sha256": "fe05bb21e51eab0fff5fac081a0b997a0f8d024e813dcc009dab5965a2557c2c",
+      "file_sha256": "29a4eb1dc1eaca1b9d2d57fd2951c0bdd88fd4b687cc59b7191832e757413006",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 30,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 118816
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/409.json",
+      "path": "request-0250.json.gz",
+      "raw_sha256": "7c2bc65ee6d6e64d5d3ab834637f876b989b9af5e088b89978022edeb362c4eb",
+      "normalized_sha256": "3e51d9c84b477a2c1cefac9d4d1519ebd36d304257790947be3865e32c8e62fc",
+      "file_sha256": "9407e57a1f6d8e0e5139cde17f6ec44c120c1d048697e331841653f75b28a907",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 37,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 124080
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/393.json",
+      "path": "request-0251.json.gz",
+      "raw_sha256": "ef3fa258a5f80f6b0265b20e3074097532524fad22f85a193e612264e7bd2d5a",
+      "normalized_sha256": "911f396005635c6700c17e7c8e8f0361651c8c5b3713b120a698cc83feb44e9e",
+      "file_sha256": "df605d1f54d77ab8ae115c1336c3327001874ff278c7bd4b34588cd1779cb235",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 24,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 114304
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/453.json",
+      "path": "request-0252.json.gz",
+      "raw_sha256": "fdc70790756626ce288388ae932846e7c33def609a9156405e3645658a1de52b",
+      "normalized_sha256": "3b9236eff83b1ce5edaa5db707ace86e3d5900022bb9645553d36ba92e50905e",
+      "file_sha256": "65763c4ebf1d8826f79c5e6dc2e468ef77ddfbea373bd87a1b9f7544d35604d3",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 7,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 101520
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/389.json",
+      "path": "request-0253.json.gz",
+      "raw_sha256": "200e2a2272d508326d58b1b081bc12d819698665ec18a0eea739e9e3280de277",
+      "normalized_sha256": "32e4636db033866048a24ce90feb7922c40e5a7ce3f77cd92f04b7f6ac40d411",
+      "file_sha256": "aeb0aca085295030974f34019fd5c7bad041be2dd12312c96d994db917248d62",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 19,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 110544
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/434.json",
+      "path": "request-0254.json.gz",
+      "raw_sha256": "9cb1c464e225e63b4ede72ccbb4bd5dc313357479f4451aaabfa87e424137ffa",
+      "normalized_sha256": "1c6610cb6080fe203457919132a4903b60f8b09ef168f8a08b117ac102a45866",
+      "file_sha256": "927d08c54961f7c3cea057837b2be46bfcc687cae31d60711bf77fbe5e4fd00c",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 34,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 121824
+      }
+    },
+    {
+      "id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/business_ethics/417.json",
+      "path": "request-0255.json.gz",
+      "raw_sha256": "25abb405030f58c46597dd453cd860351909bfc6bfd271f5a76f734834109b46",
+      "normalized_sha256": "db4655ca27ef4bd7e365562a9494883bcb3219a0f7700c19f8398cd8e1b6a86f",
+      "file_sha256": "0dfc82ee309c1130b100a076b8e6981a714a68e698908bec344c8fe81c80212a",
+      "coverage": {
+        "layers": 94,
+        "prefill_tokens": 35,
+        "decode_tokens": 128,
+        "omitted_layers": 0,
+        "omitted_prefill_tokens": 0,
+        "omitted_decode_tokens": 0,
+        "expert_assignments": 122576
+      }
+    }
+  ],
+  "total_coverage": {
+    "layers": 24064,
+    "prefill_tokens": 10460,
+    "decode_tokens": 32768,
+    "omitted_layers": 0,
+    "omitted_prefill_tokens": 0,
+    "omitted_decode_tokens": 0,
+    "expert_assignments": 32507456
+  },
+  "contract": "Every manifest request and every original layer/prefill/decode selection imported. No downsampling, performance selection, padding, repeated request or reused layer route. Request arrival order/batching are separate execution assumptions, not measured source timing."
+}

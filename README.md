@@ -96,6 +96,21 @@ or earlier final output. A matched-resolution
 baseline and finite local fabric/control/cache contracts are required to isolate
 a genuine direct-delivery advantage from simulator aggregation effects.
 
+The [vertical delivery cost screen](docs/reports/VERTICAL_DELIVERY_NECESSITY_REPORT.md)
+separates a same-Gateway FIFO bypass reference from Domain-direct organization.
+First-use SRAM-read savings are not exclusive to 128 tiles; fine readiness,
+collective cache ownership, local activation/scale transport and residual costs
+must be matched. These are non-executable contracts, not new timing/PPA results.
+
+[Complete captured MoE routing](docs/reports/CAPTURED_MOE_TRACE_REPORT.md) now
+imports and directly verifies all 256 archived real requests: 94 layers, full
+prefill, all 128 captured decode steps and 32,507,456 expert assignments without
+substitution or truncation. A separate long Native study uses actual layer-0/1
+routes, all 46 prefill/128 decode tokens, explicit dispatch/combine and an empty
+finite cache. Its result is pending. Complete capture coverage does not imply
+94-layer/full-Transformer execution; those expert weights exceed the current
+8 GiB physical DRAM, and router values/attention events are not captured.
+
 Builds, tests and execution run in isolated directories on `hn072`; edit source
 locally and synchronize committed revisions through Git. No sibling simulator
 checkout is needed. From the repository root on the execution host:

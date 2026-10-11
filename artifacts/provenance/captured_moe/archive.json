@@ -1,0 +1,24 @@
+{
+  "schema": "w2w.captured-moe-archive.v1",
+  "host": "hn072",
+  "root": "/Projects/haoning/w2w-full-system-vertical-delivery-20261011",
+  "authorized_source_root": "/Projects/haoning/w2w-trace-20261007/memory_results/pbc_corpus256",
+  "normalized_root": "/Projects/haoning/w2w-full-system-vertical-delivery-20261011/complete-corpus-r1",
+  "trace_import_source": "3233bb3097281aec74f217b6980a10b7f0c3e594",
+  "execution_source": "a708d50dbc2e7959d06e44b467c0eee39772f9f8",
+  "study": "full-request-r2",
+  "status": "Complete corpus/raw coverage audit passed; full-request pair registered and first Native case running, no completion yet",
+  "retained_failed_preparation": "full-request-r1 and logs/full-request-prepare-r1.log: serialized task field cycles was rejected before Native execution",
+  "scope": "Complete captures, selected-layer full request execution. No full-model timing, numerical inference, PPA or energy claim.",
+  "local_files": {
+    "corpus-manifest.json": "3cbfa50f0022025c17c144ffcd6ef49e4bd846c2e252a332b62031c219dcac41",
+    "status-snapshot.json": "83f2f2b2a0d715da40f3347fad40087dd4a8c4a3d2fd5586978fdd6ee47489e2",
+    "coverage-audit.json": "faf0b479c028de36167dac91ee94fcdec1aa1885ea08c7e48cdf7a26509e3a4f",
+    "model-config-source.json": "fcd551620ea70ce8b3c02b97ada2480009b6696ef6f424b54c9a0515d8eb3675",
+    "registration.json": "a0d5672d9af71247e9e840bdc534df68b280e950bc70d694439d20e9ed3168f9",
+    "retained-preparation-failure.log": "a18274530c81432c159b6990179b73207835f91ef24bfd5d3647305d5f433c19",
+    "tests-r2.log": "375c0f103fee2ee486b120ae068d4ba6d1e3a873cb053dd9c4044686590b57ce",
+    "tests-r3.log": "385d2814c9f4ed975fbba351ef5b82bdc5748ad7cf57b73b4fa0f07296e5f9c6",
+    "launch.json": "5d61a6a789222afd71b96800b161cb623e1af5f4ab246750610609b97bbb1bb4"
+  }
+}

@@ -368,12 +368,53 @@ Raw catalog, captures and worktrees stay outside Git; compact registration,
 proposal and launch/test receipts are in `artifacts/provenance/domain_organization`.
 No automatic retries or performance-based rejection.
 
+## Vertical delivery and complete captured MoE continuation
+
+The [vertical-delivery screen](reports/VERTICAL_DELIVERY_NECESSITY_REPORT.md)
+at `3233bb3` reuses hashed completed cold, repeated Up-local and Down-prefetch
+records. Descriptor-readiness committed-miss FIFO lower bounds are 64 KiB and
+516 KiB per cluster; a 64 B direct FIFO needs a different word-level protocol.
+Shared Gateway bypass can also save first-use reads. The repeated miss FP8 upper
+bound is 2,017,460,224 B of 7,247,757,312 B read activity (27.84%). A collective
+directory can preserve 367 matrices with paid slice flags/slot padding;
+independent proportional tags cannot. Collection removal is a possible physical
+benefit, conditional on paid local transport and uncalibrated residual costs.
+No 128-tile timing, independent cache traffic, PPA or energy is established.
+
+User explicitly requires complete real MoE traces, not repeated FFN smoke
+fixtures. Source `3233bb3` restores all 256 authorized Qwen3 captures from
+`/Projects/haoning/w2w-trace-20261007/memory_results/pbc_corpus256`:
+94 layers, 10,460 prefill tokens, 32,768 decode tokens, 32,507,456 ranked
+assignments. All raw entries are compared independently; no layer/token omitted
+or reused. [CAPTURED_MOE_TRACE_REPORT](reports/CAPTURED_MOE_TRACE_REPORT.md) and
+`artifacts/provenance/captured_moe` keep source/model/capture hashes and coverage.
+Data/model config pins are distinct and neither contains credentials. The
+capture lacks logits/probabilities/activation values and hardware timings.
+
+Frozen `source-r3` / `a708d50` prepares the long post-router MoE pair under
+`/Projects/haoning/w2w-full-system-vertical-delivery-20261011/full-request-r2`.
+It covers the first original manifest request, true layers 0/1, all 46 prefill
+and 128 decode tokens, 258 invocations, explicit dispatch/expert/combine and
+empty finite SRAM cache. The two cases retain Phase-Split weights with Reference
+versus Up-local compute. No smaller shape, route truncation or copied layer.
+The serial controller/auditor are in the repo, Native tools are the accepted
+frozen binaries, and no automatic retries/performance rejection are permitted.
+Check `pipeline-status-r2.json`, `full-request-r2/controller-status.json` and
+case logs before claiming completion. This is not 94-layer Transformer timing.
+
+The first preparation (`full-request-r1`, source `2b01f4c`) failed on a task-field
+name before Native execution; retained log is `logs/full-request-prepare-r1.log`.
+`a708d50` fixes it and includes registration in the directed regression. Keep the
+failed directory/log and the complete-corpus frozen image; do not reset worktrees.
+Complete 94-layer expert weights alone require 211.552 GiB, exceeding 8 GiB;
+reject unsupported full-model execution rather than shrinking/reusing weights.
+
 ## Limits
 
 No search/DSE, new fanout/endpoint RTL, partitioning rewrite, thermal/yield
 project or additional hardware is required by the completed comparison.
 Optimized central fanout, fair external I/O cost, prefill and a complete
-Transformer remain unmeasured. The two-layer study reuses archived routing at
+Transformer remain unmeasured. The historical two-layer study reuses archived routing at
 the second layer and excludes attention/KV/norm/residual/numerical execution.
 Ideal global RX booking, aggregate SRAM banking and assumed array timing remain
 explicit. Do not promote these resource proxies to product-calibrated PPA.

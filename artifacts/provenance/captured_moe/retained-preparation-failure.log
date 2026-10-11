@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/Projects/haoning/w2w-full-system-vertical-delivery-20261011/source-r2/w2w/experiments/run_captured_moe.py", line 123, in <module>
+    if __name__=='__main__':main()
+  File "/Projects/haoning/w2w-full-system-vertical-delivery-20261011/source-r2/w2w/experiments/run_captured_moe.py", line 117, in main
+    prepare(a.output,a.corpus,a.index,tuple(a.layers))
+  File "/Projects/haoning/w2w-full-system-vertical-delivery-20261011/source-r2/w2w/experiments/run_captured_moe.py", line 52, in prepare
+    identity=[(t['id'],t['cycles'],t['reads'],t['scratch_bytes'],t['stream']) for t in data['graph']['tasks']]
+  File "/Projects/haoning/w2w-full-system-vertical-delivery-20261011/source-r2/w2w/experiments/run_captured_moe.py", line 52, in <listcomp>
+    identity=[(t['id'],t['cycles'],t['reads'],t['scratch_bytes'],t['stream']) for t in data['graph']['tasks']]
+KeyError: 'cycles'

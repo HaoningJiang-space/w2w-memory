@@ -1,0 +1,11 @@
+{
+  "schema": "w2w.captured-moe-coverage-audit.v1",
+  "passed": true,
+  "analysis_source_commit": "3233bb3097281aec74f217b6980a10b7f0c3e594",
+  "source_manifest_sha256": "9eb482ad534961f3a3e0db4586b5288ad0f07c5100f64bf2510a6e844fb382bd",
+  "normalized_manifest_sha256": "3cbfa50f0022025c17c144ffcd6ef49e4bd846c2e252a332b62031c219dcac41",
+  "requests": 256,
+  "expert_assignments": 32507456,
+  "compared_every_raw_selection": true,
+  "scope": "Complete capture coverage and source identity, not application execution or numerical validation"
+}
