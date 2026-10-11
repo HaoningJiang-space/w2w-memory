@@ -22,8 +22,12 @@ def run(source,prior):
     baseline=json.loads(prior.read_text())
     if baseline.get('passed') is not True:raise ValueError('Accepted prior full-shape reference required')
     for row in baseline['kernels']:
-        plan=program(row['M'],row['N'],row['K'],'FP8_E4M3FN',reference_profile(row['array_size']))[1]
+        profile=reference_profile(row['array_size']);plan=program(row['M'],row['N'],row['K'],'FP8_E4M3FN',profile)[1]
         if plan!=row['plan']:raise ValueError('Default kernel program changed; frozen applications cannot be reinterpreted')
+        cycles=sum(max(reference(profile.rows,profile.columns,t['M'],t['N'],t['K'])['cycles'] for t in wave) for wave in plan['waves'])
+        reads=sum(reference(profile.rows,profile.columns,t['M'],t['N'],t['K'])['filter_reads'] for wave in plan['waves'] for t in wave)
+        if cycles!=plan['array_cycles'] or reads!=plan['service']['weight_sram_bytes']:
+            raise ValueError('Prior default reference does not match the explicitly loaded primary source')
     for M in (1,4,8):
         old=program(M,1536,4096,'FP8_E4M3FN',p)[1]
         code,plan=program(M,1536,4096,'FP8_E4M3FN',p,k_partitions=2)
