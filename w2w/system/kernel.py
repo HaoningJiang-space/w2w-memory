@@ -17,7 +17,7 @@ from w2w.system.builder import SystemBuilder
 
 class SystemExecution:
     def __init__(self, spec, graph, native=None, *, network_factory=None,
-                 activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count',fetch_contexts=0,read_issue_policy='ordered',compute_epoch=False,compute_epoch_evidence='full',interactive_compute=False,interactive_compute_evidence='full',causal_boundary=False,return_contexts=0):
+                 activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count',fetch_contexts=0,read_issue_policy='ordered',compute_epoch=False,compute_epoch_evidence='full',interactive_compute=False,interactive_compute_evidence='full',causal_boundary=False,return_contexts=0,down_prefetch_plan=None):
         if type(return_contexts) is not int or not 0<=return_contexts<=8 or return_contexts and (not fetch_contexts or weight_cache):
             raise ValueError('Split-phase gate requires finite issue contexts, 0..8 return entries, and cold operands')
         self.spec, self.graph = spec, graph
@@ -75,6 +75,18 @@ class SystemExecution:
             self.incoming[edge.consumer].append(edge.id);self.outgoing[edge.producer].append(edge.id)
         self.remaining_deps={k:set(v) for k,v in self.predecessors.items()}
         self.alloc_candidates={k for k,v in self.remaining_deps.items() if not v}
+        self.down_prefetch_plan=down_prefetch_plan;self.prefetch_rows={};self.prefetch_live=Counter();self.prefetch_peak=Counter()
+        self.prefetch_remaining={};self.prefetch_followers={k:set() for k in self.tasks}
+        if down_prefetch_plan is not None:
+            from w2w.mapping.down_prefetch import whole_matrix_down_prefetch
+            if (down_prefetch_plan!=whole_matrix_down_prefetch(graph) or fetch_contexts!=2 or compute_contexts!=2
+                    or weight_cache is not None or return_contexts or compute_epoch or interactive_compute or causal_boundary):
+                raise ValueError('Whole-matrix foil requires the exact bounded plan, two original contexts/slots and ordinary execution')
+            self.prefetch_rows={row.task:row for row in down_prefetch_plan.releases}
+            for key,row in self.prefetch_rows.items():
+                self.prefetch_remaining[key]=set(row.fetch_predecessors)
+                if not row.fetch_predecessors:self.alloc_candidates.add(key)
+                for p in row.fetch_predecessors:self.prefetch_followers[p].add(key)
         self.active_edges=set();self.done_count=0
         self.task_order = sorted(self.tasks)
         self.unallocated = set(self.tasks)
@@ -117,6 +129,7 @@ class SystemExecution:
         self.context_metadata_bytes=(compute_contexts-1)*64
         for tile in self.builder.tiles:
             if self.context_metadata_bytes:self._sram(tile,self.context_metadata_bytes,'compute-context-state')
+            if self.down_prefetch_plan:self._sram(tile,self.down_prefetch_plan.metadata_bytes_per_cluster,'down-prefetch-state')
         self.weight_cache=None;self.cache_reserved_bytes=0;self.cache_waiting={}
         if weight_cache is not None:
             from w2w.system.weight_cache import WeightCache
@@ -234,18 +247,25 @@ class SystemExecution:
             self.done_count+=1;self.active_edges.update(self.outgoing[key])
             for consumer in self.followers[key]:
                 self.remaining_deps[consumer].remove(key)
-                if not self.remaining_deps[consumer]:self.alloc_candidates.add(consumer)
+                if not self.remaining_deps[consumer] and not self.state[consumer]['allocated']:self.alloc_candidates.add(consumer)
+            for consumer in self.prefetch_followers[key]:
+                self.prefetch_remaining[consumer].remove(key)
+                if not self.prefetch_remaining[consumer]:self.alloc_candidates.add(consumer)
             self.engine_context_ps[tile]+=self.now-state['start_ps']
             self.log('task_finish', task=key, tile=tile)
 
     def _allocate(self):
-        for key in sorted(self.alloc_candidates):
+        order=sorted(self.alloc_candidates,key=lambda k:(k in self.prefetch_rows,k)) if self.down_prefetch_plan else sorted(self.alloc_candidates)
+        for key in order:
             state, task = self.state[key], self.tasks[key]
             if state['allocated'] or self.now < task.release_ps:
                 continue
             predecessors = self.predecessors[key]
-            if any(not self.state[p].get('done') for p in predecessors):
-                continue
+            if key in self.prefetch_rows:
+                row=self.prefetch_rows[key]
+                if (self.prefetch_remaining[key] or not all(self.state[p]['allocated'] for p in row.demand_tasks)
+                        or self.prefetch_live[task.tile]>=self.down_prefetch_plan.waiting_down_per_cluster):continue
+            elif any(not self.state[p].get('done') for p in predecessors):continue
             if task.reads and not self.fetch_scheduler.can_allocate(task.tile):continue
             size = self.builder.footprint[key]+self._operand_state_bytes(task)
             cache=self.weight_cache if task.stream is not None else None
@@ -275,6 +295,9 @@ class SystemExecution:
                 state['issued_all']=True
             else:self.reading.add(key)
             self.log('task_allocate', task=key, tile=task.tile)
+            if key in self.prefetch_rows:
+                self.prefetch_live[task.tile]+=1;self.prefetch_peak[task.tile]=max(self.prefetch_peak[task.tile],self.prefetch_live[task.tile])
+                self.log('down_prefetch_acquire',task=key,tile=task.tile)
             if task.reads:self.fetch_scheduler.acquire(key)
 
     def _fetch_release(self,key):
@@ -460,6 +483,7 @@ class SystemExecution:
             if (not state['allocated'] or state['start_ps'] is not None
                     or len(self.engine.get(task.tile,()))>=self.compute_contexts or self.now % tile.compute_period_ps):
                 continue
+            if self.down_prefetch_plan and any(not self.state[p].get('done') for p in self.predecessors[key]):continue
             stream=getattr(task,'stream',None)
             if stream is None and state['read_bytes'] != sum(r.size_bytes for r in task.reads):
                 continue
@@ -474,6 +498,9 @@ class SystemExecution:
             self.engine.setdefault(task.tile,[]).append(key)
             self.context_peak[task.tile]=max(self.context_peak[task.tile],len(self.engine[task.tile]))
             self.ready_tasks.remove(key)
+            if key in self.prefetch_rows:
+                self.prefetch_live[task.tile]-=1
+                self.log('down_prefetch_release',task=key,tile=task.tile)
             self.log('task_start', task=key, tile=task.tile)
 
     def _stream_compute_progress(self):
@@ -601,6 +628,9 @@ class SystemExecution:
                     for tile in self.builder.tiles:self._sram(tile,-self.fetch_metadata_bytes,'fetch-context-state')
                 if self.weight_cache:
                     for tile in self.builder.tiles:self._sram(tile,-self.cache_reserved_bytes,'weight-cache-partition')
+                if self.down_prefetch_plan:
+                    if any(self.prefetch_live.values()):raise RuntimeError('Whole-matrix Down prefetch state did not drain')
+                    for tile in self.builder.tiles:self._sram(tile,-self.down_prefetch_plan.metadata_bytes_per_cluster,'down-prefetch-state')
                 if (any(self.outstanding.values()) or any(self.sram.values()) or any(self.mc_slots.values())
                         or any(row['stage'] != 'delivered' for row in self.requests.values())
                         or self.native.record()['pending']):
@@ -640,6 +670,11 @@ class SystemExecution:
                       network=self.network.record(), native=self.native.record(),
                       physical=self.builder.physical_record(), events=self.events)
         if self.weight_cache:record['weight_cache']=self.weight_cache.record()
+        if self.down_prefetch_plan:
+            record['down_prefetch']=dict(plan=asdict(self.down_prefetch_plan),peak_waiting_by_cluster=dict(self.prefetch_peak),
+                live_waiting=sum(self.prefetch_live.values()),
+                contract='Demand Gate/Up admitted first; at most one waiting Down per cluster uses an existing spare coupled fetch slot. '
+                    'Full weights/H storage and shared SRAM, descriptors and MAC ports paid; all original mathematical start dependencies retained.')
         if self.compute_epoch:
             record['compute_epoch']=dict(schema=1,evidence=self.compute_epoch_evidence,
                 intervals=self.compute_epochs,batched_compute_cycles=sum(r['cycles'] for r in self.compute_epochs),
@@ -657,9 +692,9 @@ class SystemExecution:
 
 
 def execute_system(spec, graph, *, native=None, network_factory=None, max_ps=10_000_000,
-                   time_advance='gcd',activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count',fetch_contexts=0,read_issue_policy='ordered',compute_epoch=False,compute_epoch_evidence='full',interactive_compute=False,interactive_compute_evidence='full',causal_boundary=False,return_contexts=0):
+                   time_advance='gcd',activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count',fetch_contexts=0,read_issue_policy='ordered',compute_epoch=False,compute_epoch_evidence='full',interactive_compute=False,interactive_compute_evidence='full',causal_boundary=False,return_contexts=0,down_prefetch_plan=None):
     execution = SystemExecution(spec, graph, native, network_factory=network_factory,
-                                activation_sram_read_bytes_per_cycle=activation_sram_read_bytes_per_cycle,compute_contexts=compute_contexts,weight_cache=weight_cache,event_observer=event_observer,operand_readiness=operand_readiness,fetch_contexts=fetch_contexts,read_issue_policy=read_issue_policy,compute_epoch=compute_epoch,compute_epoch_evidence=compute_epoch_evidence,interactive_compute=interactive_compute,interactive_compute_evidence=interactive_compute_evidence,causal_boundary=causal_boundary,return_contexts=return_contexts)
+                                activation_sram_read_bytes_per_cycle=activation_sram_read_bytes_per_cycle,compute_contexts=compute_contexts,weight_cache=weight_cache,event_observer=event_observer,operand_readiness=operand_readiness,fetch_contexts=fetch_contexts,read_issue_policy=read_issue_policy,compute_epoch=compute_epoch,compute_epoch_evidence=compute_epoch_evidence,interactive_compute=interactive_compute,interactive_compute_evidence=interactive_compute_evidence,causal_boundary=causal_boundary,return_contexts=return_contexts,down_prefetch_plan=down_prefetch_plan)
     try:
         return execution.run(max_ps,time_advance=time_advance)
     except BaseException:
