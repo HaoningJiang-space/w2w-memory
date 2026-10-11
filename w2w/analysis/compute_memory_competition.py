@@ -62,6 +62,7 @@ def competition(result):
     tasks = {t['id']: t for t in result['graph']['tasks']}
     periods = {c['id']: c['profile']['period_ps'] for c in result['spec']['stack']['compute_clusters']}
     changes, fetch, grants = defaultdict(list), defaultdict(list), defaultdict(list)
+    last_issue={}
     for e in result['events']:
         kind, key = e['kind'], e.get('task')
         if key not in tasks:
@@ -75,10 +76,16 @@ def competition(result):
             if at % periods[tile] or grants[tile] and grants[tile][-1] == at:
                 raise ValueError('Shared MAC/read grant duplicated or off clock')
             grants[tile].append(at)
+        elif kind=='read_issue':last_issue[key]=at
     contexts = {t: Occupancy(v, result['compute_execution']['contexts_per_cluster']) for t, v in changes.items()}
     fetches = {t: Occupancy(v, result['fetch_execution']['contexts_per_cluster']) for t, v in fetch.items()}
     shared = Counter()
+    issuing_wait=Counter();return_wait=Counter()
     def observe(key, label, begin, end, count):
+        if label=='operand':
+            split=min(end,max(begin,last_issue.get(key,begin)))
+            before=clocks(begin,split,periods[tasks[key]['tile']])
+            issuing_wait[key]+=before;return_wait[key]+=count-before
         if label != 'ready':
             return
         ticks = grants[tasks[key]['tile']]
@@ -111,6 +118,11 @@ def competition(result):
         # sparse stage partition and work-conserving policy establish this; keep
         # clock-alignment residual separate rather than calling it contention.
         row.update(start_eligible_ps=start_ready,
+            allocated_to_start_eligible_ps=start_ready-m['allocate'],
+            input_missing_after_allocation_ps=max(0,m.get('input_ready',0)-m['allocate']),
+            scale_missing_after_allocation_ps=max(0,m.get('scale_ready',0)-m['allocate']),
+            operand_wait_while_descriptors_issuing_ps=issuing_wait[key]*period,
+            operand_wait_after_last_issue_ps=return_wait[key]*period,
             compute_context_full_before_start_ps=ctx_wait * period,
             pre_start_other_or_alignment_ps=row['start_after_required_inputs_ps'] - ctx_wait * period,
             fetch_full_before_admit_ps=fetch_wait,
@@ -124,7 +136,9 @@ def competition(result):
             a['tasks'] += 1
             for field in ('busy_ps', 'context_ps', 'operand_wait_ps', 'shared_grant_wait_ps',
                           'compute_context_full_before_start_ps', 'fetch_full_before_admit_ps',
-                          'fetch_admission_other_or_alignment_ps', 'pre_start_other_or_alignment_ps'):
+                          'fetch_admission_other_or_alignment_ps', 'pre_start_other_or_alignment_ps',
+                          'allocated_to_start_eligible_ps','input_missing_after_allocation_ps','scale_missing_after_allocation_ps',
+                          'operand_wait_while_descriptors_issuing_ps','operand_wait_after_last_issue_ps'):
                 a[field] += row[field]
     for tile, ctx in contexts.items():
         if ctx.area != result['engine_context_ps'][tile] or clusters[tile]['busy_ps'] != result['compute_busy_ps'][tile]:
@@ -139,6 +153,8 @@ def competition(result):
         contract='Integer-ps reconstruction from full ordinary events. Context clocks partition into service, '
                  'missing consumable contiguous operand, and ready but another shared grant. Pre-start capacity '
                  'counts use half-open occupancy intervals and clock edges; same-tick ordering/alignment remains '
-                 'in the residual. Dependency-to-allocation may also include SRAM/cache/tag availability. '
+                 'in the residual. Fetch-full waiting uses wall-time intersections because allocation need not be clock-aligned. '
+                 'Dependency-to-allocation may also include SRAM/cache/tag availability. Input/scale waits overlap. '
+                 'The last-descriptor split partitions observed operand waiting; it does not isolate a native latency. '
                  'Overlapping per-task/context counters are not additive wall-clock stalls or removable latency. '
                  'The latest-finishing dependency chain omits implicit shared-resource edges; no global causal attribution.')
