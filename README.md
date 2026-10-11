@@ -83,9 +83,16 @@ The registered finite-cache pair has now completed: **10.979869 → 9.656156 ms*
 treated as a communication-only speedup. Consumer-local preload remains outside
 timing. [Competition and conditional EDP analysis](docs/reports/COMPUTE_MEMORY_COMPETITION_ENERGY_REPORT.md)
 use existing captures; no new execution policy or calibrated PPA is introduced.
-The separately registered 24-token finite-cache pair runs in the background
-with actual Up cache objects preloaded at their new consumers. Its performance
-is pending independent completion/readback.
+
+The [domain-aligned organization gate](docs/reports/DOMAIN_ALIGNED_ORGANIZATION_REPORT.md)
+defines 128 domain-local logic tiles with conserved PE/SRAM/HB budgets and a
+full-catalog output-row layout retaining original FP8 scales. It is an explicit
+non-executable proposal: equal row partition does not automatically pipeline H,
+and proportional cache subdivision does not automatically reduce reload. Before
+new physical execution, a cold existing-machine foil tests bounded Down fetch
+before H with unchanged mathematical compute dependencies. A matched-resolution
+baseline and finite local fabric/control/cache contracts are required to isolate
+a genuine direct-delivery advantage from simulator aggregation effects.
 
 Builds, tests and execution run in isolated directories on `hn072`; edit source
 locally and synchronize committed revisions through Git. No sibling simulator

@@ -323,6 +323,38 @@ measured cost evidence before expansion. Compact receipts are in
 `artifacts/provenance/memory_service_island`, raw attempts/builds in
 `/Projects/haoning/w2w-full-system-memory-island-20261010`.
 
+## Domain-aligned organization gate
+
+Latest steering changes the hardware question from placement/parameter tuning
+to Domain → local logic/FIFO/cache ownership. See
+[DOMAIN_ALIGNED_ORGANIZATION_REPORT](reports/DOMAIN_ALIGNED_ORGANIZATION_REPORT.md).
+`domain_compute.py` refuses compilation: it conserves 65,536 PEs, 3 GiB SRAM,
+2.875 GiB weight storage, 16,384 data/1,024 control HB signals, and shared matrix
+issue budgets across 128 proposed domain tiles. Control serialization, scale
+sharing/padding, landing footprint and local wire costs remain explicit.
+
+Do not mistake sixteen aggregate simulator clusters for Cerebras's physical
+compute granularity. Before claiming a new hardware benefit, a 128-tile
+resolution baseline must retain existing Gateway/collection/storage behavior.
+Output-row slices finish together under uniform service; they do not imply
+intermediate-pipeline readiness. Whole-H Down prefetch needs 64 KiB/tile if it
+waits for H. Proportional C/8 and W/8 cache slicing is not capacity pooling.
+
+Source `8d531a9` passes six directed hn072 tests, including synthetic finite
+E4M3FN/BF16 row equivalence and a real native Down-prefetch-before-H case.
+The two cold full-size runs are frozen under
+`/Projects/haoning/w2w-full-system-domain-organization-20261011/cold-r1`:
+default Up-local and one bounded waiting Down per cluster using an existing
+spare coupled fetch slot. Original compute edges, full SRAM storage, real
+Native/NoC returns, two shared contexts/slots, and refresh/control stay intact;
+8 B/cluster association is paid. The policy is cold-only, not a new cache run.
+Default complete physical records must equal frozen `02dab2a` Up-local, and
+the intervention must preserve native address/byte/resource work. Pending
+independent readback; do not infer 128-tile performance or PPA from its bounds.
+Raw catalog, captures and worktrees stay outside Git; compact registration,
+proposal and launch/test receipts are in `artifacts/provenance/domain_organization`.
+No automatic retries or performance-based rejection.
+
 ## Limits
 
 No search/DSE, new fanout/endpoint RTL, partitioning rewrite, thermal/yield

@@ -1,0 +1,27 @@
+{
+  "cases": [
+    {
+      "case": "up-local",
+      "pid": 660928,
+      "source_commit": "8d531a9f374a0cc3dcaaa0fbed49c13f32904539",
+      "log": "/Projects/haoning/w2w-full-system-domain-organization-20261011/up-local.log"
+    },
+    {
+      "case": "up-local-down-prefetch",
+      "pid": 660929,
+      "source_commit": "8d531a9f374a0cc3dcaaa0fbed49c13f32904539",
+      "log": "/Projects/haoning/w2w-full-system-domain-organization-20261011/up-local-down-prefetch.log"
+    }
+  ],
+  "tests_sha256": "c348f8707b1c85513fab7730f8e569c505e55ccd40190cedc12c779ba9cc50b2",
+  "native": {
+    "W2W_BOOKSIM_BINARY": {
+      "path": "/Projects/haoning/w2w-full-system-performance-placement-20261010/native-fast-r1/booksim/endpoint_booksim",
+      "sha256": "9d18611aa0cc74b6d8a475e302134c7888b1417648607abce3a6f8d04311e308"
+    },
+    "W2W_RAMULATOR_BRIDGE": {
+      "path": "/Projects/haoning/w2w-full-system-v3-20261009/native-p6/dram_bridge/_w2w_ramulator.cpython-310-x86_64-linux-gnu.so",
+      "sha256": "37eb00768993fb5cfd903c690e72a21cdc69e10f4acbc421762f54dc5a33ba54"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "schema": "w2w.domain-organization-foil.v1",
+  "source_commit": "8d531a9f374a0cc3dcaaa0fbed49c13f32904539",
+  "cases": {
+    "up-local": {
+      "input_sha256": "23cca2cb8d194b7d8656c837c02663979331415fb4a9e1a91d2b70e1fe5213ed",
+      "graph_sha256": "8b13c8a9bb68dd5ea67b613d2b10ea5e2081901d246479fda63e3aee9aecd0a9"
+    },
+    "up-local-down-prefetch": {
+      "input_sha256": "020c8a0d8b874948757c49e86533eb11c9752965fb4b933e9ced7cfa2d991a2a",
+      "graph_sha256": "8b13c8a9bb68dd5ea67b613d2b10ea5e2081901d246479fda63e3aee9aecd0a9"
+    }
+  },
+  "max_ps": 6000000000,
+  "contract": "No performance filtering or retries. Shared native tools and exact baseline physical-record check. Cold foil only; do not promote proposal bounds to simulated domain hardware or cache/energy results."
+}

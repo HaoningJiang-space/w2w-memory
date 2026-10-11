@@ -1,0 +1,11 @@
+test_complete_row_reduction_and_shared_scale_identity (test_domain_organization.DomainOrganization) ... ok
+test_current_up_local_already_has_all_projection_weights_local (test_domain_organization.DomainOrganization) ... ok
+test_fp8_original_scales_and_bf16_row_math (test_domain_organization.DomainOrganization) ... ok
+test_resources_and_control_serialization_are_not_free (test_domain_organization.DomainOrganization) ... ok
+test_prefetch_real_returns_before_H_without_early_math_or_extra_slots (test_down_prefetch.DownNative) ... ok
+test_fetch_plan_preserves_math_and_previous_block_release (test_down_prefetch.DownPlan) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 17.991s
+
+OK
