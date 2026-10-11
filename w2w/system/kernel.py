@@ -17,11 +17,16 @@ from w2w.system.builder import SystemBuilder
 
 class SystemExecution:
     def __init__(self, spec, graph, native=None, *, network_factory=None,
-                 activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count',fetch_contexts=0,read_issue_policy='ordered',compute_epoch=False,compute_epoch_evidence='full',interactive_compute=False,interactive_compute_evidence='full',causal_boundary=False,return_contexts=0,down_prefetch_plan=None):
+                 activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count',fetch_contexts=0,read_issue_policy='ordered',compute_epoch=False,compute_epoch_evidence='full',interactive_compute=False,interactive_compute_evidence='full',causal_boundary=False,return_contexts=0,down_prefetch_plan=None,npu_model=None):
         if type(return_contexts) is not int or not 0<=return_contexts<=8 or return_contexts and (not fetch_contexts or weight_cache):
             raise ValueError('Split-phase gate requires finite issue contexts, 0..8 return entries, and cold operands')
         self.spec, self.graph = spec, graph
         self.builder = SystemBuilder(spec).validate_graph(graph)
+        self.npu_model=npu_model
+        if npu_model is not None:
+            if compute_epoch or interactive_compute or causal_boundary or down_prefetch_plan:
+                raise ValueError('Shape-aware array service requires ordinary certified clock boundaries')
+            npu_model.validate(spec,graph)
         self.events = [];self.event_observer=event_observer
         if type(compute_epoch) is not bool or compute_epoch_evidence not in ('full','compact'):
             raise ValueError('Declare compute epoch switch and full/compact evidence')
@@ -491,6 +496,7 @@ class SystemExecution:
                 continue
             if any(self.edges[e]['delivered']!=self.edges[e]['edge'].size_bytes for e in self.incoming[key]):
                 continue
+            if self.npu_model is not None and not self.npu_model.ready(key,state,task):continue
             state['start_ps'] = self.now
             duration = task.compute_cycles*tile.compute_period_ps
             state['finish_ps'] = self.now if stream is None and not duration else None
@@ -508,8 +514,8 @@ class SystemExecution:
         for tile,keys in self.engine.items():
             period=self.builder.tiles[tile].compute_period_ps
             if self.now%period or self.compute_service_tick.get(tile)==self.now:continue
-            key=None
-            for i in range(len(keys)):
+            key=self.npu_model.owner(tile,keys,self.state,self.now) if self.npu_model is not None else None
+            for i in range(len(keys)) if key is None else ():
                 index=(self.context_cursor[tile]+i)%len(keys);candidate=keys[index]
                 state=self.state[candidate];stream=self.tasks[candidate].stream
                 if state['finish_ps'] is not None:continue
@@ -522,6 +528,9 @@ class SystemExecution:
             if key is None:continue
             self.compute_service_tick[tile]=self.now
             task=self.tasks[key];stream=task.stream;state=self.state[key]
+            if self.npu_model is not None and key in self.npu_model.kernels:
+                self.npu_model.service(self,key)
+                continue
             if stream is None:
                 state['compute_remaining']-=1;self.busy_ps[tile]+=period
                 self.log('compute_service',task=key,tile=tile,cycles=1)
@@ -670,6 +679,7 @@ class SystemExecution:
                       network=self.network.record(), native=self.native.record(),
                       physical=self.builder.physical_record(), events=self.events)
         if self.weight_cache:record['weight_cache']=self.weight_cache.record()
+        if self.npu_model is not None:record['npu_execution']=self.npu_model.record()
         if self.down_prefetch_plan:
             record['down_prefetch']=dict(plan=asdict(self.down_prefetch_plan),peak_waiting_by_cluster=dict(self.prefetch_peak),
                 live_waiting=sum(self.prefetch_live.values()),
@@ -692,9 +702,9 @@ class SystemExecution:
 
 
 def execute_system(spec, graph, *, native=None, network_factory=None, max_ps=10_000_000,
-                   time_advance='gcd',activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count',fetch_contexts=0,read_issue_policy='ordered',compute_epoch=False,compute_epoch_evidence='full',interactive_compute=False,interactive_compute_evidence='full',causal_boundary=False,return_contexts=0,down_prefetch_plan=None):
+                   time_advance='gcd',activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count',fetch_contexts=0,read_issue_policy='ordered',compute_epoch=False,compute_epoch_evidence='full',interactive_compute=False,interactive_compute_evidence='full',causal_boundary=False,return_contexts=0,down_prefetch_plan=None,npu_model=None):
     execution = SystemExecution(spec, graph, native, network_factory=network_factory,
-                                activation_sram_read_bytes_per_cycle=activation_sram_read_bytes_per_cycle,compute_contexts=compute_contexts,weight_cache=weight_cache,event_observer=event_observer,operand_readiness=operand_readiness,fetch_contexts=fetch_contexts,read_issue_policy=read_issue_policy,compute_epoch=compute_epoch,compute_epoch_evidence=compute_epoch_evidence,interactive_compute=interactive_compute,interactive_compute_evidence=interactive_compute_evidence,causal_boundary=causal_boundary,return_contexts=return_contexts,down_prefetch_plan=down_prefetch_plan)
+                                activation_sram_read_bytes_per_cycle=activation_sram_read_bytes_per_cycle,compute_contexts=compute_contexts,weight_cache=weight_cache,event_observer=event_observer,operand_readiness=operand_readiness,fetch_contexts=fetch_contexts,read_issue_policy=read_issue_policy,compute_epoch=compute_epoch,compute_epoch_evidence=compute_epoch_evidence,interactive_compute=interactive_compute,interactive_compute_evidence=interactive_compute_evidence,causal_boundary=causal_boundary,return_contexts=return_contexts,down_prefetch_plan=down_prefetch_plan,npu_model=npu_model)
     try:
         return execution.run(max_ps,time_advance=time_advance)
     except BaseException:

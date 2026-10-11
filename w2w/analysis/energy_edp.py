@@ -36,6 +36,9 @@ def activity(result):
     for e in result['events']:
         if e['kind'] == 'stream_compute':
             macs += e['macs'];weights += e['weight_bytes'];scales += e['scale_bytes']
+        elif e['kind'] in ('npu_cycle','npu_epoch'):
+            service=e if e['kind']=='npu_cycle' else e['service']
+            macs+=e['macs'];weights+=service['weight_sram_bytes'];scales+=service['scale_sram_bytes']
         elif e['kind'] == 'compute_service':
             vectors += e['cycles']
         elif e['kind'] == 'cache_lookup_complete':

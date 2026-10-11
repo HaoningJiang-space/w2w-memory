@@ -153,6 +153,31 @@ def audit_system_result(result):
             if key not in starts or key in finishes or tick in stream_ticks or event['cycles']!=1:
                 raise ValueError('Arithmetic service copied across contexts')
             stream_ticks.add(tick);last_compute[key]=at;service_cycles[key]+=1
+        elif kind=='npu_cycle':
+            key=event['task'];tick=(event['tile'],at);rule=tasks[key]['stream']
+            npu=result.get('npu_execution',{})
+            if key not in npu.get('kernels',{}) or key not in starts or key in finishes or tick in stream_ticks:
+                raise ValueError('Unregistered or duplicated shape-aware array service')
+            if read[key]!=sum(r['size_bytes'] for r in tasks[key]['reads']):
+                raise ValueError('Reference array acquired before all physical operands committed')
+            stream_ticks.add(tick);last_compute[key]=at
+            if rule:
+                stream_macs[key]+=event['macs'];scale_consumed[key]+=event['scale_sram_bytes']
+                if event['program_cycle']==npu['plans'][key]['cycles']-1:
+                    stream_consumed[key]+=rule['weight_data_bytes']
+            else:service_cycles[key]+=1
+        elif kind=='npu_epoch':
+            key=event['task'];rule=tasks[key]['stream'];npu=result.get('npu_execution',{})
+            if key not in npu.get('kernels',{}) or key not in starts or key in finishes:
+                raise ValueError('Unregistered array interval')
+            if read[key]!=sum(r['size_bytes'] for r in tasks[key]['reads']):
+                raise ValueError('Array interval began before committed operands')
+            period=next(t['compute_period_ps'] for t in spec['tiles'] if t['id']==tasks[key]['tile'])
+            last_compute[key]=event['end_ps']-period
+            if rule:
+                stream_macs[key]+=event['macs'];stream_consumed[key]+=rule['weight_data_bytes']
+                scale_consumed[key]+=event['service']['scale_sram_bytes']
+            else:service_cycles[key]+=event['cycles']
         elif kind == 'stream_compute':
             key=event['task'];rule=tasks[key]['stream']
             tick=(event['tile'],at)

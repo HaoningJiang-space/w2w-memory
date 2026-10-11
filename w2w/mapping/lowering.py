@@ -5,12 +5,12 @@ from w2w.domain.execution import ComputeTask,DataEdge,ControlEdge,ExecutionGraph
 from w2w.common.fingerprints import digest_read_v1
 
 
-def lower(logical, machine, weights, placement, *, streaming_compute=True,execution_policy='s0'):
+def lower(logical, machine, weights, placement, *, streaming_compute=True,execution_policy='s0',npu_profile=None):
     if execution_policy not in ('s0','s1'):raise ValueError('Unknown FFN dependency policy')
     locations={w.tensor:w for w in weights}
     ops={p.operation:p.cluster for p in placement}
     profiles={c.id:c.profile for c in machine.stack.compute_clusters}
-    tasks=[]; work={}
+    tasks=[]; work={};npu_kernels={}
     objects=tuple(ResidentObject(w.tensor,w.memory,w.offset_bytes,w.size_bytes,storage_id=w.tensor) for w in weights)
     for op in logical.operations:
         cluster=ops[op.id]; profile=profiles[cluster]
@@ -24,7 +24,17 @@ def lower(logical, machine, weights, placement, *, streaming_compute=True,execut
             stream=StreamGemm(name,data_bytes,scales,op.macs,profile.macs_per_cycle,profile.weight_read_bytes_per_cycle)
         bytes_=sum(r.size_bytes for r in reads)
         cycles=profile.cycles(op.macs,op.vector_ops,bytes_)
-        tasks.append(ComputeTask(op.id,cluster,cycles,reads,scratch_bytes=op.scratch_bytes,stream=stream))
+        scratch=op.scratch_bytes
+        if npu_profile is not None and op.kind=='gemm':
+            from w2w.domain.npu import GemmKernel
+            from w2w.system.npu_kernel import program
+            npu_profile.validate_cluster(next(c for c in machine.stack.compute_clusters if c.id==cluster))
+            down=op.id.endswith('/down')
+            kernel=GemmKernel(op.id,len(op.token_ids),logical.shape[0] if down else logical.shape[2],
+                logical.shape[2] if down else logical.shape[0],op.weight_tensors[0])
+            _,plan=program(kernel.M,kernel.N,kernel.K,kernel.weight_dtype,npu_profile)
+            cycles=plan['cycles'];scratch+=plan['scratch_bytes'];npu_kernels[op.id]=asdict(kernel)
+        tasks.append(ComputeTask(op.id,cluster,cycles,reads,scratch_bytes=scratch,stream=stream))
         work[op.id]=dict(kind=op.kind,macs=op.macs,vector_ops=op.vector_ops,weight_bytes=bytes_,
             compute_profile=asdict(profile))
     edges=[]; copies=[]
@@ -60,4 +70,6 @@ def lower(logical, machine, weights, placement, *, streaming_compute=True,execut
     meta['compute_contract']=('scale first, then data-driven GEMM on committed descriptor payload; complete gate/up before SiLU; full matrix storage still reserved'
         if streaming_compute else 'blocking GEMM reference')
     if execution_policy=='s1':meta['dependency_policy']='independent gate/up; both wait for previous block accumulate; activation/down and ordered accumulate data edges unchanged'
+    if npu_profile is not None:
+        meta['npu_profile']=asdict(npu_profile);meta['npu_kernels']=npu_kernels
     return graph,meta
