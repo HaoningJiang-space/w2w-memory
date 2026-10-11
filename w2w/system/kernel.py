@@ -772,15 +772,18 @@ class SystemExecution:
             record['fetch_execution']['return_tracking']=self.fetch_scheduler.returns.record()
         record['input_sha256'] = sha256(json.dumps([record['spec'], record['graph']], sort_keys=True).encode()).hexdigest()
         if self.window_source is not None:
+            record['network']['runtime_counter_scope']=dict(accepted_packets='Lifetime cumulative',delivered_packets='Lifetime cumulative',
+                activity='Last observational window only; sum the independently archived windows for whole-run activity',
+                final='Lifetime cumulative Native source-pressure/packet history, IDs retained as audit metadata, not live hardware state')
             record.update(schema='w2w.runtime-window-summary.v1',scope='bounded_window_summary',
                 runtime_windows=self.window_source.summary(),runtime_external_drain=self.window_external_drain,cleanup_events=record.pop('events'))
         return record
 
 
 def execute_system(spec, graph, *, native=None, network_factory=None, max_ps=10_000_000,
-                   time_advance='gcd',activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count',fetch_contexts=0,read_issue_policy='ordered',compute_epoch=False,compute_epoch_evidence='full',interactive_compute=False,interactive_compute_evidence='full',causal_boundary=False,return_contexts=0,down_prefetch_plan=None,npu_model=None,window_source=None):
+                   time_advance='gcd',activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count',fetch_contexts=0,read_issue_policy='ordered',compute_epoch=False,compute_epoch_evidence='full',interactive_compute=False,interactive_compute_evidence='full',causal_boundary=False,return_contexts=0,down_prefetch_plan=None,npu_model=None,window_source=None,idle_release_boundaries=False):
     execution = SystemExecution(spec, graph, native, network_factory=network_factory,
-                                activation_sram_read_bytes_per_cycle=activation_sram_read_bytes_per_cycle,compute_contexts=compute_contexts,weight_cache=weight_cache,event_observer=event_observer,operand_readiness=operand_readiness,fetch_contexts=fetch_contexts,read_issue_policy=read_issue_policy,compute_epoch=compute_epoch,compute_epoch_evidence=compute_epoch_evidence,interactive_compute=interactive_compute,interactive_compute_evidence=interactive_compute_evidence,causal_boundary=causal_boundary,return_contexts=return_contexts,down_prefetch_plan=down_prefetch_plan,npu_model=npu_model,window_source=window_source)
+                                activation_sram_read_bytes_per_cycle=activation_sram_read_bytes_per_cycle,compute_contexts=compute_contexts,weight_cache=weight_cache,event_observer=event_observer,operand_readiness=operand_readiness,fetch_contexts=fetch_contexts,read_issue_policy=read_issue_policy,compute_epoch=compute_epoch,compute_epoch_evidence=compute_epoch_evidence,interactive_compute=interactive_compute,interactive_compute_evidence=interactive_compute_evidence,causal_boundary=causal_boundary,return_contexts=return_contexts,down_prefetch_plan=down_prefetch_plan,npu_model=npu_model,window_source=window_source,idle_release_boundaries=idle_release_boundaries)
     try:
         return execution.run(max_ps,time_advance=time_advance)
     except BaseException:

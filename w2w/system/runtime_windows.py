@@ -108,7 +108,10 @@ class RuntimeWindows:
         for key in ('link_flits','wire_bytes','accepted_bytes','delivered_bytes','source_peak','rx_peak',
                     'injection_flits_by_source','admission_rejections','arbiter_peak'):
             getattr(net,key).clear()
-        net.rejections=0;net.cell_tag_peak=0;net.link_slots.clear();net.native_ids.clear()
+        net.rejections=0;net.cell_tag_peak=0;net.link_slots.clear()
+        # Native source-pressure history is cumulative until close. Its ID ->
+        # archived packet identity association is observation metadata, not live
+        # NI storage/credit, and must survive window retirement.
         for key in ('bytes','cycles','cycles_by_class','wait_ps'):getattr(net.write_port,key).clear()
         # Runtime source retires no future route or pre-instantiated Native atom.
         # Preserve the exact ownership/LRU/lookup phase in the carry chain.

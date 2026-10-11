@@ -20,8 +20,8 @@ from w2w.common.io import write_json
 from w2w.workloads.moe_trace import file_sha
 
 
-def graph(machine,M,N,K,p,tag,*,bf16=False):
-    cluster=machine.stack.compute_clusters[0];memory=next(m for m in machine.memories if m.home_tile==cluster.router_id)
+def graph(machine,M,N,K,p,tag,*,bf16=False,remote=False):
+    cluster=machine.stack.compute_clusters[0];memory=next(m for m in machine.memories if (m.home_tile!=cluster.router_id if remote else m.home_tile==cluster.router_id))
     size=N*K*(2 if bf16 else 1);scales=0 if bf16 else (N//128)*(K//128)*4
     w=ResidentObject('W',memory.id,0,size+scales)
     key=tag+'/gemm';k=GemmKernel(key,M,N,K,w.id,weight_dtype='BF16' if bf16 else 'FP8_E4M3FN',cached_weights=bf16);_,plan=program(M,N,K,k.weight_dtype,p)
@@ -37,11 +37,12 @@ def run(root,binary,mode):
         for kind,N,K in (('gate',1536,4096),('up',1536,4096),('down',4096,1536))]
     if mode=='boundary':cases=[(1,128,4096,16,'boundary')]
     if mode=='bf16-boundary':cases=[(1,128,4096,16,'bf16-boundary')]
+    if mode=='remote-boundary':cases=[(1,128,4096,16,'remote-boundary')]
     if mode=='equivalence':cases=[(1,1536,4096,16,'cycles'),(1,1536,4096,16,'epochs')]
     if mode=='idle-boundary':cases=[(1,1536,4096,16,'ordinary'),(1,1536,4096,16,'idle-boundary')]
     reference=None
     for M,N,K,array,kind in cases:
-        p=reference_profile(array);g,ks=graph(machine,M,N,K,p,kind,bf16=mode=='bf16-boundary')
+        p=reference_profile(array);g,ks=graph(machine,M,N,K,p,kind,bf16=mode=='bf16-boundary',remote=mode=='remote-boundary')
         if mode=='idle-boundary':
             from dataclasses import replace
             g=replace(g,tasks=(replace(g.tasks[0],release_ps=500000000),g.tasks[1]))
@@ -55,8 +56,8 @@ def run(root,binary,mode):
                 phase('normalize',read=8192,write=8192,weights=8192,ops=16384)))
             scalar=ComputeTask(key,g.tasks[-1].tile,len(auxiliary_program(auxiliary[key],p)),scratch_bytes=16384,release_ps=260000000)
             g=replace(g,tasks=(*g.tasks,scalar))
-        if mode in ('boundary','bf16-boundary'):
-            g2,k2=graph(machine,M,N,K,p,'warm',bf16=mode=='bf16-boundary')
+        if mode in ('boundary','bf16-boundary','remote-boundary'):
+            g2,k2=graph(machine,M,N,K,p,'warm',bf16=mode=='bf16-boundary',remote=mode=='remote-boundary')
             meta=lambda keys:dict(npu_kernels={k:asdict(v) for k,v in keys.items()})
             source=RuntimeWindows(directory/'windows',iter(((g2,k2,meta(k2)),)),meta(ks))
         native=VerticalRWDL(machine,request_control=True,refresh=True,gateway_trace_bin_ps=1000000);start=time.monotonic()
@@ -72,6 +73,8 @@ def run(root,binary,mode):
             a=audit_window_chain(r,directory/'windows')
             if a['native_bytes']!=(1048576 if mode=='bf16-boundary' else 524416) or len(source.rows)!=2 or source.rows[1]['native_bytes']!=0:
                 raise ValueError('Continuous boundary lost warm residency or mathematical work')
+            if mode=='remote-boundary' and not r['network']['final']['source_head_wait_by_packet']:
+                raise ValueError('Cross-window native source-pressure identity lifetime was not exercised')
         else:
             a=audit_vertical_result(r);audit_request_control(r);audit_npu_result(r)
             if (mode=='compute' and a['native_bytes']) or (mode=='stream' and a['native_bytes']!=N*K+4*N*K//16384):
@@ -107,5 +110,5 @@ def run(root,binary,mode):
 
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--root',type=Path,required=True)
-    p.add_argument('--booksim-binary',type=Path,required=True);p.add_argument('--mode',choices=('compute','stream','boundary','bf16-boundary','equivalence','idle-boundary'),required=True)
+    p.add_argument('--booksim-binary',type=Path,required=True);p.add_argument('--mode',choices=('compute','stream','boundary','bf16-boundary','equivalence','idle-boundary','remote-boundary'),required=True)
     a=p.parse_args();run(a.root,a.booksim_binary,a.mode)
