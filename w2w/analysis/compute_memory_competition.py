@@ -62,12 +62,23 @@ def competition(result):
     tasks = {t['id']: t for t in result['graph']['tasks']}
     periods = {c['id']: c['profile']['period_ps'] for c in result['spec']['stack']['compute_clusters']}
     changes, fetch, grants = defaultdict(list), defaultdict(list), defaultdict(list)
+    outstanding_changes=defaultdict(list);pool_changes=defaultdict(list)
+    memories={m['id']:m for m in result['spec']['memories']}
+    objects={o['id']:o for o in result['graph']['objects']}
+    pool_limits={m.get('mc_pool_id') or m['id']:m['transaction_slots'] for m in memories.values()}
+    if any(pool_limits[m.get('mc_pool_id') or m['id']]!=m['transaction_slots'] for m in memories.values()):
+        raise ValueError('Shared MC pool has inconsistent capacity declarations')
     last_issue={}
     for e in result['events']:
         kind, key = e['kind'], e.get('task')
+        if kind in ('mc_accept','mc_release'):
+            mem=memories[e['memory']];pool=mem.get('mc_pool_id') or mem['id']
+            pool_changes[pool].append((e['time_ps'],e['request'],kind=='mc_accept'))
         if key not in tasks:
             continue
         tile, at = tasks[key]['tile'], e['time_ps']
+        if kind in ('read_issue','read_deliver'):
+            outstanding_changes[tile].append((at,e['request'],kind=='read_issue'))
         if kind in ('task_start', 'task_finish'):
             changes[tile].append((at, key, kind == 'task_start'))
         elif kind in ('fetch_context_acquire', 'fetch_context_release'):
@@ -79,6 +90,8 @@ def competition(result):
         elif kind=='read_issue':last_issue[key]=at
     contexts = {t: Occupancy(v, result['compute_execution']['contexts_per_cluster']) for t, v in changes.items()}
     fetches = {t: Occupancy(v, result['fetch_execution']['contexts_per_cluster']) for t, v in fetch.items()}
+    outstanding={t:Occupancy(v,result['spec']['outstanding_per_tile']) for t,v in outstanding_changes.items()}
+    pools={p:Occupancy(v,pool_limits[p]) for p,v in pool_changes.items()}
     shared = Counter()
     issuing_wait=Counter();return_wait=Counter()
     def observe(key, label, begin, end, count):
@@ -129,6 +142,11 @@ def competition(result):
             fetch_admission_other_or_alignment_ps=row['dependency_to_allocate_ps'] - fetch_wait,
             shared_grant_wait_ps=shared_wait * period,
             cluster_idle_clocks_during_context=idle)
+        issue_start,issue_end=m.get('read_issue_first',0),m.get('read_issue_last',0)
+        row['outstanding_full_during_issue_window_ps']=outstanding[tile].blocked_time(issue_start,issue_end) if tile in outstanding else 0
+        if tasks[key]['reads']:
+            task_pools={memories[objects[a['object_id']]['memory']].get('mc_pool_id') or objects[a['object_id']]['memory'] for a in tasks[key]['reads']}
+            row['mc_pool_full_during_issue_window_ps']={p:pools[p].blocked_time(issue_start,issue_end) if p in pools else 0 for p in task_pools}
         if min(row['pre_start_other_or_alignment_ps'], row['fetch_admission_other_or_alignment_ps']) < 0:
             raise ValueError('Capacity waiting exceeds observed admission interval')
         for target, label in ((clusters, tile), (phases, row['phase'])):
@@ -138,7 +156,8 @@ def competition(result):
                           'compute_context_full_before_start_ps', 'fetch_full_before_admit_ps',
                           'fetch_admission_other_or_alignment_ps', 'pre_start_other_or_alignment_ps',
                           'allocated_to_start_eligible_ps','input_missing_after_allocation_ps','scale_missing_after_allocation_ps',
-                          'operand_wait_while_descriptors_issuing_ps','operand_wait_after_last_issue_ps'):
+                          'operand_wait_while_descriptors_issuing_ps','operand_wait_after_last_issue_ps',
+                          'outstanding_full_during_issue_window_ps'):
                 a[field] += row[field]
     for tile, ctx in contexts.items():
         if ctx.area != result['engine_context_ps'][tile] or clusters[tile]['busy_ps'] != result['compute_busy_ps'][tile]:
@@ -156,5 +175,7 @@ def competition(result):
                  'in the residual. Fetch-full waiting uses wall-time intersections because allocation need not be clock-aligned. '
                  'Dependency-to-allocation may also include SRAM/cache/tag availability. Input/scale waits overlap. '
                  'The last-descriptor split partitions observed operand waiting; it does not isolate a native latency. '
+                 'Outstanding/MC-full intersections are observed window occupancy and can overlap; they do not prove '
+                 'every missed issue opportunity or a uniquely responsible resource. '
                  'Overlapping per-task/context counters are not additive wall-clock stalls or removable latency. '
                  'The latest-finishing dependency chain omits implicit shared-resource edges; no global causal attribution.')
