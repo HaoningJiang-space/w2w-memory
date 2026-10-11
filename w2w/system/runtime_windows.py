@@ -7,7 +7,7 @@ are never reset. Each archived window has an independently auditable carry pair.
 from collections import Counter
 from dataclasses import asdict
 from pathlib import Path
-import gzip,json,time
+import gzip,json,time,shutil
 from w2w.common.fingerprints import digest_read_v1 as digest
 from w2w.common.io import write_json
 from w2w.workloads.moe_trace import file_sha
@@ -35,6 +35,8 @@ class RuntimeWindows:
         self.backend_base=(e.native.backend.accepted,e.native.backend.completed)
 
     def next_window(self,now):
+        if shutil.disk_usage(self.root).free<10*1024**3:
+            raise RuntimeError('Full evidence archive exhausted safe disk headroom; no truncated result is accepted')
         following=next(self.producer,None)
         if following is None:return None
         graph,kernels,self.metadata=following;self.begin=now
@@ -75,7 +77,7 @@ class RuntimeWindows:
             begin_ps=self.begin,makespan_ps=makespan,drained_ps=e.now,tasks=len(e.tasks),
             carry_in_sha256=digest(self.carry),carry_out_sha256=digest(out),
             native_bytes=a['native_bytes'],cache_stats=cache['stats'] if cache else {},
-            metadata=self.metadata,audit=a,control_audit=b,npu_audit=n,
+            metadata={k:v for k,v in self.metadata.items() if k!='npu_kernels'},audit=a,control_audit=b,npu_audit=n,
             wall_seconds=time.monotonic()-self.wall)
         self.rows.append(row);self.carry=out
         write_json(self.root/'progress.json',dict(completed_windows=len(self.rows),latest=row))

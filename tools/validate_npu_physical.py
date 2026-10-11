@@ -36,6 +36,8 @@ def run(root,binary,mode):
     cases=[(M,N,K,array,kind) for array in (16,32) for M in (1,2,4,8,16,32)
         for kind,N,K in (('gate',1536,4096),('up',1536,4096),('down',4096,1536))]
     if mode=='boundary':cases=[(1,128,4096,16,'boundary')]
+    if mode=='equivalence':cases=[(1,1536,4096,16,'cycles'),(1,1536,4096,16,'epochs')]
+    reference=None
     for M,N,K,array,kind in cases:
         p=reference_profile(array);g,ks=graph(machine,M,N,K,p,kind)
         cache=WeightCacheConfig(initial_resident=((g.tasks[-1].tile,'W'),)) if mode=='compute' else WeightCacheConfig()
@@ -49,7 +51,7 @@ def run(root,binary,mode):
             ready_router_ids=tuple(r.id for r in machine.routers),ready_slots=16),max_ps=2000000000,time_advance='boundaries',
             compute_contexts=2,fetch_contexts=2,read_issue_policy='round_robin',weight_cache=cache,
             operand_readiness='contiguous_prefix',activation_sram_read_bytes_per_cycle=machine.rx_write_bytes_per_cycle,
-            npu_model=NPUKernelModel(p,ks),window_source=source)
+            npu_model=NPUKernelModel(p,ks,evidence=kind if mode=='equivalence' else 'epochs'),window_source=source)
         finally:native.close()
         if source:
             from w2w.analysis.runtime_windows import audit_window_chain
@@ -60,6 +62,14 @@ def run(root,binary,mode):
             a=audit_vertical_result(r);audit_request_control(r);audit_npu_result(r)
             if (mode=='compute' and a['native_bytes']) or (mode=='stream' and a['native_bytes']!=N*K+4*N*K//16384):
                 raise ValueError('Initial-residency/Native byte contract changed')
+        if mode=='equivalence':
+            # Names differ only to make immutable case paths distinct.
+            text=json.dumps(r,sort_keys=True).replace(kind+'/', 'same/')
+            comparable=json.loads(text)
+            comparable['events']=[e for e in comparable['events'] if e['kind'] not in ('npu_cycle','npu_epoch')]
+            comparable.pop('npu_execution');comparable.pop('input_sha256')
+            if reference is None:reference=comparable
+            elif comparable!=reference:raise ValueError('Compact array program changed a physical event/resource/integer-ps result')
         path=directory/'result.json.gz'
         with gzip.open(path,'wt') as f:json.dump(r,f)
         rows.append(dict(M=M,N=N,K=K,array=array,kind=kind,mode=mode,makespan_ps=r['makespan_ps'],
@@ -70,5 +80,5 @@ def run(root,binary,mode):
 
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--root',type=Path,required=True)
-    p.add_argument('--booksim-binary',type=Path,required=True);p.add_argument('--mode',choices=('compute','stream','boundary'),required=True)
+    p.add_argument('--booksim-binary',type=Path,required=True);p.add_argument('--mode',choices=('compute','stream','boundary','equivalence'),required=True)
     a=p.parse_args();run(a.root,a.booksim_binary,a.mode)
