@@ -209,3 +209,27 @@ evidence that a new structure exceeds the strongest legal baseline.
 
 No background registration or directed qualification is labeled a completed
 application result. Failures are retained, not retried automatically.
+
+## Read-only competition diagnosis
+
+`tools/analyze_npu_competition.py` supports explicit array cycles and fixed
+epochs, decoding the complete lossless event archive before re-auditing it.
+It reconstructs dependency eligibility, admission, complete operands, context
+start, first arithmetic grant and completion. Its per-task intervals partition
+that task's span; sums across tasks still overlap and are not application stalls.
+Context area and shared arithmetic service must match the execution ledgers.
+
+The [first actual-token window readback](../../artifacts/provenance/real_npu/npu-competition-window0-r23.json)
+is bound to its raw archive hash and analysis source `f629a39`. This is a
+directed qualification window in real layers 0/1, not a completed request.
+Its last Down (`L1/e55/b11/down`) spends 21.320 µs from admission to complete
+operands and 0.637 µs in array service, with no context-start or first-grant wait.
+During its 17.347 µs descriptor issue span, the MC pool is full for 17.233 µs.
+The disjoint *slot-time* composition of that full interval is 53.43% before
+first atom admission, 41.31% during atom admission, 2.17% from final admission
+to final array callback, 2.91% from callback to final Gateway payload and 0%
+from final payload to MC release (the remaining 0.17% precedes vertical
+admission). Those phases include finite frontend/controller/refresh feedback;
+they do not uniquely isolate DRAM latency or establish a recoverable speedup.
+The result provides a concrete supply-side diagnostic to repeat on the completed
+warm and grouped cases, rather than attributing a full MC pool to one component.

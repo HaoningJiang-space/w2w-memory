@@ -1,0 +1,1122 @@
+{
+  "passed": true,
+  "analysis_source": "f629a39e5a23573bf45bcc741150984ce84ea704",
+  "result_sha256": "bb16173add6b35a84bd8f14e9017dfb7c79d8ca45c304e06b49320a5a774216c",
+  "proof": {
+    "physical": {
+      "passed": true,
+      "packets": 152666,
+      "read_descriptors": 74816,
+      "read_words": 9505024,
+      "data_bytes": 10233024,
+      "physical_link_flits": 100670,
+      "tasks": 1032,
+      "finite_fetch": {
+        "passed": true,
+        "contexts_per_cluster": 2,
+        "peak_contexts": {
+          "c0": 2,
+          "c1": 2,
+          "c2": 2,
+          "c3": 2,
+          "c8": 2,
+          "c9": 2,
+          "c10": 2,
+          "c11": 2,
+          "c6": 2,
+          "c7": 2,
+          "c12": 2,
+          "c13": 2,
+          "c14": 2,
+          "c15": 2,
+          "c4": 2,
+          "c5": 2
+        },
+        "metadata_bytes_per_cluster": 136,
+        "issue_and_outstanding_shared": true
+      },
+      "physical_domains": 128,
+      "native_bytes": 304160768,
+      "gateway_bytes": 304160768,
+      "physical_collection_charged": true,
+      "native_and_gateway_reservations_drained": true
+    },
+    "requests": {
+      "enabled": true,
+      "passed": true,
+      "ranges": 596224,
+      "command_bytes": 9539584,
+      "ack_bytes": 4769792
+    },
+    "npu": {
+      "passed": true,
+      "kernels": 578,
+      "macs": 303038464,
+      "array_service_cycles": 335760,
+      "precision": "BF16 activations, FP8/BF16 weights, ordered FP32 K partials",
+      "scope": "Independent shape/word/fanout/partial/port/ownership audit; array-core cycle calibration is a separate SCALE-Sim receipt. No silicon or real numerical-inference claim."
+    }
+  },
+  "windows": [
+    {
+      "index": 0,
+      "begin_ps": 0,
+      "end_ps": 1180843000,
+      "clusters": {
+        "c0": {
+          "tasks": 91,
+          "context_owned_ps": 27521000,
+          "arithmetic_service_ps": 27521000,
+          "eligible_to_admit_ps": 1731948000,
+          "admit_to_operands_ps": 1893029000,
+          "operands_to_start_ps": 0,
+          "start_to_first_grant_ps": 0,
+          "first_grant_to_finish_ps": 27521000
+        },
+        "c1": {
+          "tasks": 80,
+          "context_owned_ps": 26308000,
+          "arithmetic_service_ps": 26308000,
+          "eligible_to_admit_ps": 647563000,
+          "admit_to_operands_ps": 1679990000,
+          "operands_to_start_ps": 0,
+          "start_to_first_grant_ps": 0,
+          "first_grant_to_finish_ps": 26308000
+        },
+        "c2": {
+          "tasks": 76,
+          "context_owned_ps": 26296000,
+          "arithmetic_service_ps": 26296000,
+          "eligible_to_admit_ps": 1731724000,
+          "admit_to_operands_ps": 1803599000,
+          "operands_to_start_ps": 0,
+          "start_to_first_grant_ps": 0,
+          "first_grant_to_finish_ps": 26296000
+        },
+        "c3": {
+          "tasks": 82,
+          "context_owned_ps": 26318000,
+          "arithmetic_service_ps": 26318000,
+          "eligible_to_admit_ps": 648201000,
+          "admit_to_operands_ps": 1680731000,
+          "operands_to_start_ps": 0,
+          "start_to_first_grant_ps": 0,
+          "first_grant_to_finish_ps": 26318000
+        },
+        "c8": {
+          "tasks": 77,
+          "context_owned_ps": 26297000,
+          "arithmetic_service_ps": 26297000,
+          "eligible_to_admit_ps": 1731840000,
+          "admit_to_operands_ps": 1804503000,
+          "operands_to_start_ps": 0,
+          "start_to_first_grant_ps": 0,
+          "first_grant_to_finish_ps": 26297000
+        },
+        "c9": {
+          "tasks": 84,
+          "context_owned_ps": 26909000,
+          "arithmetic_service_ps": 26328000,
+          "eligible_to_admit_ps": 648056000,
+          "admit_to_operands_ps": 1681757000,
+          "operands_to_start_ps": 0,
+          "start_to_first_grant_ps": 581000,
+          "first_grant_to_finish_ps": 26328000
+        },
+        "c10": {
+          "tasks": 81,
+          "context_owned_ps": 26317000,
+          "arithmetic_service_ps": 26317000,
+          "eligible_to_admit_ps": 1731944000,
+          "admit_to_operands_ps": 1804909000,
+          "operands_to_start_ps": 0,
+          "start_to_first_grant_ps": 0,
+          "first_grant_to_finish_ps": 26317000
+        },
+        "c11": {
+          "tasks": 77,
+          "context_owned_ps": 26297000,
+          "arithmetic_service_ps": 26297000,
+          "eligible_to_admit_ps": 648091000,
+          "admit_to_operands_ps": 1679205000,
+          "operands_to_start_ps": 0,
+          "start_to_first_grant_ps": 0,
+          "first_grant_to_finish_ps": 26297000
+        },
+        "c15": {
+          "tasks": 54,
+          "context_owned_ps": 15802000,
+          "arithmetic_service_ps": 15802000,
+          "eligible_to_admit_ps": 199872000,
+          "admit_to_operands_ps": 1037270000,
+          "operands_to_start_ps": 0,
+          "start_to_first_grant_ps": 0,
+          "first_grant_to_finish_ps": 15802000
+        },
+        "c14": {
+          "tasks": 46,
+          "context_owned_ps": 15844000,
+          "arithmetic_service_ps": 15778000,
+          "eligible_to_admit_ps": 227758000,
+          "admit_to_operands_ps": 1071676000,
+          "operands_to_start_ps": 0,
+          "start_to_first_grant_ps": 66000,
+          "first_grant_to_finish_ps": 15778000
+        },
+        "c5": {
+          "tasks": 48,
+          "context_owned_ps": 15788000,
+          "arithmetic_service_ps": 15788000,
+          "eligible_to_admit_ps": 199915000,
+          "admit_to_operands_ps": 1031805000,
+          "operands_to_start_ps": 0,
+          "start_to_first_grant_ps": 0,
+          "first_grant_to_finish_ps": 15788000
+        },
+        "c4": {
+          "tasks": 45,
+          "context_owned_ps": 15843000,
+          "arithmetic_service_ps": 15777000,
+          "eligible_to_admit_ps": 227799000,
+          "admit_to_operands_ps": 1070297000,
+          "operands_to_start_ps": 0,
+          "start_to_first_grant_ps": 66000,
+          "first_grant_to_finish_ps": 15777000
+        },
+        "c7": {
+          "tasks": 45,
+          "context_owned_ps": 15777000,
+          "arithmetic_service_ps": 15777000,
+          "eligible_to_admit_ps": 199821000,
+          "admit_to_operands_ps": 1030282000,
+          "operands_to_start_ps": 0,
+          "start_to_first_grant_ps": 0,
+          "first_grant_to_finish_ps": 15777000
+        },
+        "c6": {
+          "tasks": 47,
+          "context_owned_ps": 15845000,
+          "arithmetic_service_ps": 15779000,
+          "eligible_to_admit_ps": 227747000,
+          "admit_to_operands_ps": 1072511000,
+          "operands_to_start_ps": 0,
+          "start_to_first_grant_ps": 66000,
+          "first_grant_to_finish_ps": 15779000
+        },
+        "c13": {
+          "tasks": 48,
+          "context_owned_ps": 15788000,
+          "arithmetic_service_ps": 15788000,
+          "eligible_to_admit_ps": 199871000,
+          "admit_to_operands_ps": 1031975000,
+          "operands_to_start_ps": 0,
+          "start_to_first_grant_ps": 0,
+          "first_grant_to_finish_ps": 15788000
+        },
+        "c12": {
+          "tasks": 51,
+          "context_owned_ps": 15865000,
+          "arithmetic_service_ps": 15799000,
+          "eligible_to_admit_ps": 227758000,
+          "admit_to_operands_ps": 1073981000,
+          "operands_to_start_ps": 0,
+          "start_to_first_grant_ps": 66000,
+          "first_grant_to_finish_ps": 15799000
+        }
+      },
+      "last_projection_pairs": [
+        {
+          "gate": "W0000/L1/e55/b1/gate",
+          "up": "W0000/L1/e55/b1/up",
+          "joint_ready_ps": 1107940000,
+          "last_projection": "gate",
+          "early_projection_slack_ps": 17191000
+        },
+        {
+          "gate": "W0000/L1/e55/b4/gate",
+          "up": "W0000/L1/e55/b4/up",
+          "joint_ready_ps": 1107940000,
+          "last_projection": "gate",
+          "early_projection_slack_ps": 17191000
+        },
+        {
+          "gate": "W0000/L1/e55/b7/gate",
+          "up": "W0000/L1/e55/b7/up",
+          "joint_ready_ps": 1107940000,
+          "last_projection": "gate",
+          "early_projection_slack_ps": 17191000
+        },
+        {
+          "gate": "W0000/L1/e55/b10/gate",
+          "up": "W0000/L1/e55/b10/up",
+          "joint_ready_ps": 1107940000,
+          "last_projection": "gate",
+          "early_projection_slack_ps": 17191000
+        },
+        {
+          "gate": "W0000/L1/e55/b2/gate",
+          "up": "W0000/L1/e55/b2/up",
+          "joint_ready_ps": 1156267000,
+          "last_projection": "up",
+          "early_projection_slack_ps": 54000
+        },
+        {
+          "gate": "W0000/L1/e55/b5/gate",
+          "up": "W0000/L1/e55/b5/up",
+          "joint_ready_ps": 1156267000,
+          "last_projection": "up",
+          "early_projection_slack_ps": 54000
+        },
+        {
+          "gate": "W0000/L1/e55/b8/gate",
+          "up": "W0000/L1/e55/b8/up",
+          "joint_ready_ps": 1156267000,
+          "last_projection": "up",
+          "early_projection_slack_ps": 54000
+        },
+        {
+          "gate": "W0000/L1/e55/b11/gate",
+          "up": "W0000/L1/e55/b11/up",
+          "joint_ready_ps": 1156267000,
+          "last_projection": "up",
+          "early_projection_slack_ps": 54000
+        }
+      ],
+      "tail_projections": [
+        {
+          "task": "W0000/L1/e55/b2/gate",
+          "tile": "c11",
+          "kernel": true,
+          "dependency_ready_ps": 1133916000,
+          "admitted_ps": 1133916000,
+          "operands_committed_ps": 1155660000,
+          "context_start_ps": 1155660000,
+          "first_grant_ps": 1155660000,
+          "completed_ps": 1156213000,
+          "observed_intervals_ps": {
+            "eligible_to_admit_ps": 0,
+            "admit_to_operands_ps": 21744000,
+            "operands_to_start_ps": 0,
+            "start_to_first_grant_ps": 0,
+            "first_grant_to_finish_ps": 553000
+          },
+          "arithmetic_service_ps": 553000,
+          "context_owned_ps": 553000,
+          "compute_context_full_before_start_ps": 0,
+          "fetch_full_before_admit_ps": 0,
+          "nonservice_after_start_ps": 0,
+          "cache_hit": false,
+          "shape": {
+            "M": 1,
+            "N": 128,
+            "K": 4096
+          }
+        },
+        {
+          "task": "W0000/L1/e55/b5/gate",
+          "tile": "c1",
+          "kernel": true,
+          "dependency_ready_ps": 1133916000,
+          "admitted_ps": 1133916000,
+          "operands_committed_ps": 1155660000,
+          "context_start_ps": 1155660000,
+          "first_grant_ps": 1155660000,
+          "completed_ps": 1156213000,
+          "observed_intervals_ps": {
+            "eligible_to_admit_ps": 0,
+            "admit_to_operands_ps": 21744000,
+            "operands_to_start_ps": 0,
+            "start_to_first_grant_ps": 0,
+            "first_grant_to_finish_ps": 553000
+          },
+          "arithmetic_service_ps": 553000,
+          "context_owned_ps": 553000,
+          "compute_context_full_before_start_ps": 0,
+          "fetch_full_before_admit_ps": 0,
+          "nonservice_after_start_ps": 0,
+          "cache_hit": false,
+          "shape": {
+            "M": 1,
+            "N": 128,
+            "K": 4096
+          }
+        },
+        {
+          "task": "W0000/L1/e55/b8/gate",
+          "tile": "c3",
+          "kernel": true,
+          "dependency_ready_ps": 1133916000,
+          "admitted_ps": 1133916000,
+          "operands_committed_ps": 1155660000,
+          "context_start_ps": 1155660000,
+          "first_grant_ps": 1155660000,
+          "completed_ps": 1156213000,
+          "observed_intervals_ps": {
+            "eligible_to_admit_ps": 0,
+            "admit_to_operands_ps": 21744000,
+            "operands_to_start_ps": 0,
+            "start_to_first_grant_ps": 0,
+            "first_grant_to_finish_ps": 553000
+          },
+          "arithmetic_service_ps": 553000,
+          "context_owned_ps": 553000,
+          "compute_context_full_before_start_ps": 0,
+          "fetch_full_before_admit_ps": 0,
+          "nonservice_after_start_ps": 0,
+          "cache_hit": false,
+          "shape": {
+            "M": 1,
+            "N": 128,
+            "K": 4096
+          }
+        },
+        {
+          "task": "W0000/L1/e55/b11/gate",
+          "tile": "c9",
+          "kernel": true,
+          "dependency_ready_ps": 1133916000,
+          "admitted_ps": 1133916000,
+          "operands_committed_ps": 1155660000,
+          "context_start_ps": 1155660000,
+          "first_grant_ps": 1155660000,
+          "completed_ps": 1156213000,
+          "observed_intervals_ps": {
+            "eligible_to_admit_ps": 0,
+            "admit_to_operands_ps": 21744000,
+            "operands_to_start_ps": 0,
+            "start_to_first_grant_ps": 0,
+            "first_grant_to_finish_ps": 553000
+          },
+          "arithmetic_service_ps": 553000,
+          "context_owned_ps": 553000,
+          "compute_context_full_before_start_ps": 0,
+          "fetch_full_before_admit_ps": 0,
+          "nonservice_after_start_ps": 0,
+          "cache_hit": false,
+          "shape": {
+            "M": 1,
+            "N": 128,
+            "K": 4096
+          }
+        },
+        {
+          "task": "W0000/L1/e55/b2/up",
+          "tile": "c10",
+          "kernel": true,
+          "dependency_ready_ps": 1133916000,
+          "admitted_ps": 1133916000,
+          "operands_committed_ps": 1155714000,
+          "context_start_ps": 1155714000,
+          "first_grant_ps": 1155714000,
+          "completed_ps": 1156267000,
+          "observed_intervals_ps": {
+            "eligible_to_admit_ps": 0,
+            "admit_to_operands_ps": 21798000,
+            "operands_to_start_ps": 0,
+            "start_to_first_grant_ps": 0,
+            "first_grant_to_finish_ps": 553000
+          },
+          "arithmetic_service_ps": 553000,
+          "context_owned_ps": 553000,
+          "compute_context_full_before_start_ps": 0,
+          "fetch_full_before_admit_ps": 0,
+          "nonservice_after_start_ps": 0,
+          "cache_hit": false,
+          "shape": {
+            "M": 1,
+            "N": 128,
+            "K": 4096
+          }
+        },
+        {
+          "task": "W0000/L1/e55/b5/up",
+          "tile": "c0",
+          "kernel": true,
+          "dependency_ready_ps": 1133916000,
+          "admitted_ps": 1133916000,
+          "operands_committed_ps": 1155714000,
+          "context_start_ps": 1155714000,
+          "first_grant_ps": 1155714000,
+          "completed_ps": 1156267000,
+          "observed_intervals_ps": {
+            "eligible_to_admit_ps": 0,
+            "admit_to_operands_ps": 21798000,
+            "operands_to_start_ps": 0,
+            "start_to_first_grant_ps": 0,
+            "first_grant_to_finish_ps": 553000
+          },
+          "arithmetic_service_ps": 553000,
+          "context_owned_ps": 553000,
+          "compute_context_full_before_start_ps": 0,
+          "fetch_full_before_admit_ps": 0,
+          "nonservice_after_start_ps": 0,
+          "cache_hit": false,
+          "shape": {
+            "M": 1,
+            "N": 128,
+            "K": 4096
+          }
+        },
+        {
+          "task": "W0000/L1/e55/b8/up",
+          "tile": "c2",
+          "kernel": true,
+          "dependency_ready_ps": 1133916000,
+          "admitted_ps": 1133916000,
+          "operands_committed_ps": 1155714000,
+          "context_start_ps": 1155714000,
+          "first_grant_ps": 1155714000,
+          "completed_ps": 1156267000,
+          "observed_intervals_ps": {
+            "eligible_to_admit_ps": 0,
+            "admit_to_operands_ps": 21798000,
+            "operands_to_start_ps": 0,
+            "start_to_first_grant_ps": 0,
+            "first_grant_to_finish_ps": 553000
+          },
+          "arithmetic_service_ps": 553000,
+          "context_owned_ps": 553000,
+          "compute_context_full_before_start_ps": 0,
+          "fetch_full_before_admit_ps": 0,
+          "nonservice_after_start_ps": 0,
+          "cache_hit": false,
+          "shape": {
+            "M": 1,
+            "N": 128,
+            "K": 4096
+          }
+        },
+        {
+          "task": "W0000/L1/e55/b11/up",
+          "tile": "c8",
+          "kernel": true,
+          "dependency_ready_ps": 1133916000,
+          "admitted_ps": 1133916000,
+          "operands_committed_ps": 1155714000,
+          "context_start_ps": 1155714000,
+          "first_grant_ps": 1155714000,
+          "completed_ps": 1156267000,
+          "observed_intervals_ps": {
+            "eligible_to_admit_ps": 0,
+            "admit_to_operands_ps": 21798000,
+            "operands_to_start_ps": 0,
+            "start_to_first_grant_ps": 0,
+            "first_grant_to_finish_ps": 553000
+          },
+          "arithmetic_service_ps": 553000,
+          "context_owned_ps": 553000,
+          "compute_context_full_before_start_ps": 0,
+          "fetch_full_before_admit_ps": 0,
+          "nonservice_after_start_ps": 0,
+          "cache_hit": false,
+          "shape": {
+            "M": 1,
+            "N": 128,
+            "K": 4096
+          }
+        },
+        {
+          "task": "W0000/L1/e55/b2/down",
+          "tile": "c11",
+          "kernel": true,
+          "dependency_ready_ps": 1156356000,
+          "admitted_ps": 1156356000,
+          "operands_committed_ps": 1177676000,
+          "context_start_ps": 1177676000,
+          "first_grant_ps": 1177676000,
+          "completed_ps": 1178313000,
+          "observed_intervals_ps": {
+            "eligible_to_admit_ps": 0,
+            "admit_to_operands_ps": 21320000,
+            "operands_to_start_ps": 0,
+            "start_to_first_grant_ps": 0,
+            "first_grant_to_finish_ps": 637000
+          },
+          "arithmetic_service_ps": 637000,
+          "context_owned_ps": 637000,
+          "compute_context_full_before_start_ps": 0,
+          "fetch_full_before_admit_ps": 0,
+          "nonservice_after_start_ps": 0,
+          "cache_hit": false,
+          "shape": {
+            "M": 1,
+            "N": 4096,
+            "K": 128
+          }
+        },
+        {
+          "task": "W0000/L1/e55/b5/down",
+          "tile": "c1",
+          "kernel": true,
+          "dependency_ready_ps": 1156356000,
+          "admitted_ps": 1156356000,
+          "operands_committed_ps": 1177676000,
+          "context_start_ps": 1177676000,
+          "first_grant_ps": 1177676000,
+          "completed_ps": 1178313000,
+          "observed_intervals_ps": {
+            "eligible_to_admit_ps": 0,
+            "admit_to_operands_ps": 21320000,
+            "operands_to_start_ps": 0,
+            "start_to_first_grant_ps": 0,
+            "first_grant_to_finish_ps": 637000
+          },
+          "arithmetic_service_ps": 637000,
+          "context_owned_ps": 637000,
+          "compute_context_full_before_start_ps": 0,
+          "fetch_full_before_admit_ps": 0,
+          "nonservice_after_start_ps": 0,
+          "cache_hit": false,
+          "shape": {
+            "M": 1,
+            "N": 4096,
+            "K": 128
+          }
+        },
+        {
+          "task": "W0000/L1/e55/b8/down",
+          "tile": "c3",
+          "kernel": true,
+          "dependency_ready_ps": 1156356000,
+          "admitted_ps": 1156356000,
+          "operands_committed_ps": 1177676000,
+          "context_start_ps": 1177676000,
+          "first_grant_ps": 1177676000,
+          "completed_ps": 1178313000,
+          "observed_intervals_ps": {
+            "eligible_to_admit_ps": 0,
+            "admit_to_operands_ps": 21320000,
+            "operands_to_start_ps": 0,
+            "start_to_first_grant_ps": 0,
+            "first_grant_to_finish_ps": 637000
+          },
+          "arithmetic_service_ps": 637000,
+          "context_owned_ps": 637000,
+          "compute_context_full_before_start_ps": 0,
+          "fetch_full_before_admit_ps": 0,
+          "nonservice_after_start_ps": 0,
+          "cache_hit": false,
+          "shape": {
+            "M": 1,
+            "N": 4096,
+            "K": 128
+          }
+        },
+        {
+          "task": "W0000/L1/e55/b11/down",
+          "tile": "c9",
+          "kernel": true,
+          "dependency_ready_ps": 1156356000,
+          "admitted_ps": 1156356000,
+          "operands_committed_ps": 1177676000,
+          "context_start_ps": 1177676000,
+          "first_grant_ps": 1177676000,
+          "completed_ps": 1178313000,
+          "observed_intervals_ps": {
+            "eligible_to_admit_ps": 0,
+            "admit_to_operands_ps": 21320000,
+            "operands_to_start_ps": 0,
+            "start_to_first_grant_ps": 0,
+            "first_grant_to_finish_ps": 637000
+          },
+          "arithmetic_service_ps": 637000,
+          "context_owned_ps": 637000,
+          "compute_context_full_before_start_ps": 0,
+          "fetch_full_before_admit_ps": 0,
+          "nonservice_after_start_ps": 0,
+          "cache_hit": false,
+          "shape": {
+            "M": 1,
+            "N": 4096,
+            "K": 128
+          }
+        }
+      ],
+      "last_projection_with_native_read": {
+        "task": "W0000/L1/e55/b11/down",
+        "pool": "pool2_1",
+        "capacity": 8,
+        "descriptor_count": 129,
+        "bytes": 524416,
+        "issue_window_ps": [
+          1156357000,
+          1173704000
+        ],
+        "issue_window_duration_ps": 17347000,
+        "mc_full_wall_ps": 17233000,
+        "vertical_pool_full_wall_ps": 16996520,
+        "full_intervals_ps": [
+          [
+            1156366000,
+            1156697000
+          ],
+          [
+            1156698000,
+            1156894000
+          ],
+          [
+            1156895000,
+            1157017000
+          ],
+          [
+            1157018000,
+            1157168000
+          ],
+          [
+            1157169000,
+            1157292000
+          ],
+          [
+            1157293000,
+            1157442000
+          ],
+          [
+            1157443000,
+            1157566000
+          ],
+          [
+            1157567000,
+            1157717000
+          ],
+          [
+            1157718000,
+            1157841000
+          ],
+          [
+            1157842000,
+            1157991000
+          ],
+          [
+            1157992000,
+            1158115000
+          ],
+          [
+            1158116000,
+            1158266000
+          ],
+          [
+            1158267000,
+            1158390000
+          ],
+          [
+            1158391000,
+            1158540000
+          ],
+          [
+            1158541000,
+            1158660000
+          ],
+          [
+            1158661000,
+            1158814000
+          ],
+          [
+            1158815000,
+            1159358000
+          ],
+          [
+            1159359000,
+            1159512000
+          ],
+          [
+            1159513000,
+            1159633000
+          ],
+          [
+            1159634000,
+            1159787000
+          ],
+          [
+            1159788000,
+            1159907000
+          ],
+          [
+            1159908000,
+            1160061000
+          ],
+          [
+            1160062000,
+            1160182000
+          ],
+          [
+            1160183000,
+            1160356000
+          ],
+          [
+            1160357000,
+            1160716000
+          ],
+          [
+            1160717000,
+            1160868000
+          ],
+          [
+            1160869000,
+            1160992000
+          ],
+          [
+            1160993000,
+            1161142000
+          ],
+          [
+            1161143000,
+            1161266000
+          ],
+          [
+            1161267000,
+            1161417000
+          ],
+          [
+            1161418000,
+            1161541000
+          ],
+          [
+            1161542000,
+            1161691000
+          ],
+          [
+            1161692000,
+            1161815000
+          ],
+          [
+            1161816000,
+            1161966000
+          ],
+          [
+            1161967000,
+            1162090000
+          ],
+          [
+            1162091000,
+            1162240000
+          ],
+          [
+            1162241000,
+            1162364000
+          ],
+          [
+            1162365000,
+            1162514000
+          ],
+          [
+            1162515000,
+            1162634000
+          ],
+          [
+            1162635000,
+            1163223000
+          ],
+          [
+            1163224000,
+            1163344000
+          ],
+          [
+            1163345000,
+            1163498000
+          ],
+          [
+            1163499000,
+            1163618000
+          ],
+          [
+            1163619000,
+            1163772000
+          ],
+          [
+            1163773000,
+            1163893000
+          ],
+          [
+            1163894000,
+            1164047000
+          ],
+          [
+            1164048000,
+            1164176000
+          ],
+          [
+            1164177000,
+            1164532000
+          ],
+          [
+            1164533000,
+            1164655000
+          ],
+          [
+            1164656000,
+            1164806000
+          ],
+          [
+            1164807000,
+            1164930000
+          ],
+          [
+            1164931000,
+            1165081000
+          ],
+          [
+            1165082000,
+            1165204000
+          ],
+          [
+            1165205000,
+            1165355000
+          ],
+          [
+            1165356000,
+            1165479000
+          ],
+          [
+            1165480000,
+            1165630000
+          ],
+          [
+            1165631000,
+            1165753000
+          ],
+          [
+            1165754000,
+            1165904000
+          ],
+          [
+            1165905000,
+            1166028000
+          ],
+          [
+            1166029000,
+            1166179000
+          ],
+          [
+            1166180000,
+            1166302000
+          ],
+          [
+            1166303000,
+            1166453000
+          ],
+          [
+            1166454000,
+            1166575000
+          ],
+          [
+            1166576000,
+            1167198000
+          ],
+          [
+            1167199000,
+            1167318000
+          ],
+          [
+            1167319000,
+            1167472000
+          ],
+          [
+            1167473000,
+            1167593000
+          ],
+          [
+            1167594000,
+            1167747000
+          ],
+          [
+            1167748000,
+            1167867000
+          ],
+          [
+            1167868000,
+            1168030000
+          ],
+          [
+            1168031000,
+            1168150000
+          ],
+          [
+            1168151000,
+            1168506000
+          ],
+          [
+            1168507000,
+            1168630000
+          ],
+          [
+            1168631000,
+            1168781000
+          ],
+          [
+            1168782000,
+            1168904000
+          ],
+          [
+            1168905000,
+            1169055000
+          ],
+          [
+            1169056000,
+            1169179000
+          ],
+          [
+            1169180000,
+            1169330000
+          ],
+          [
+            1169331000,
+            1169453000
+          ],
+          [
+            1169454000,
+            1169604000
+          ],
+          [
+            1169605000,
+            1169728000
+          ],
+          [
+            1169729000,
+            1169879000
+          ],
+          [
+            1169880000,
+            1170002000
+          ],
+          [
+            1170003000,
+            1170153000
+          ],
+          [
+            1170154000,
+            1170276000
+          ],
+          [
+            1170277000,
+            1170428000
+          ],
+          [
+            1170429000,
+            1171018000
+          ],
+          [
+            1171019000,
+            1171172000
+          ],
+          [
+            1171173000,
+            1171292000
+          ],
+          [
+            1171293000,
+            1171447000
+          ],
+          [
+            1171448000,
+            1171567000
+          ],
+          [
+            1171568000,
+            1171721000
+          ],
+          [
+            1171722000,
+            1171841000
+          ],
+          [
+            1171842000,
+            1171995000
+          ],
+          [
+            1171996000,
+            1172330000
+          ],
+          [
+            1172331000,
+            1172482000
+          ],
+          [
+            1172483000,
+            1172605000
+          ],
+          [
+            1172606000,
+            1172756000
+          ],
+          [
+            1172757000,
+            1172880000
+          ],
+          [
+            1172881000,
+            1173030000
+          ],
+          [
+            1173031000,
+            1173154000
+          ],
+          [
+            1173155000,
+            1173305000
+          ],
+          [
+            1173306000,
+            1173428000
+          ],
+          [
+            1173429000,
+            1173579000
+          ],
+          [
+            1173580000,
+            1173703000
+          ]
+        ],
+        "full_window_phase_slot_ps": {
+          "mc_to_vertical_admission": 236480,
+          "vertical_to_first_atom_admission": 73666320,
+          "atom_admission_span": 56947480,
+          "last_admission_to_last_array_callback": 2996720,
+          "last_array_callback_to_gateway_payload": 4017000,
+          "gateway_payload_to_mc_release": 0
+        },
+        "full_window_phase_fraction": {
+          "mc_to_vertical_admission": 0.001715313642430221,
+          "vertical_to_first_atom_admission": 0.534340509487611,
+          "atom_admission_span": 0.4130699820112575,
+          "last_admission_to_last_array_callback": 0.021736784077061453,
+          "last_array_callback_to_gateway_payload": 0.029137410781639877,
+          "gateway_payload_to_mc_release": 0.0
+        },
+        "owner_phase_slot_ps": {
+          "W0000/L1/e55/b11/down": {
+            "mc_to_vertical_admission": 236480,
+            "vertical_to_first_atom_admission": 73666320,
+            "atom_admission_span": 56947480,
+            "last_admission_to_last_array_callback": 2996720,
+            "last_array_callback_to_gateway_payload": 4017000,
+            "gateway_payload_to_mc_release": 0
+          }
+        },
+        "native_profile": {
+          "read_entries": 4,
+          "descriptor_window": 4,
+          "descriptor_policy": "row_batched",
+          "refresh_phase": "staggered",
+          "nBL": 1,
+          "nCL": 2,
+          "nRCD": 4,
+          "nRP": 4,
+          "nRAS": 9,
+          "nRC": 13,
+          "nWR": 4,
+          "nRTP": 2,
+          "nCWL": 2,
+          "nWTR": 2,
+          "nRTW": 2,
+          "nRFC": 172,
+          "nREFI": 1037
+        },
+        "array_marker_contract": "array_*_ready marker + physical domain period = native callback bus tail; native_*_ready means gateway payload availability, not raw array completion.",
+        "scope": "Saved-record ownership diagnosis. Atom-admission span includes frontend contention, finite reservations, controller/refresh service and overlapping returns. These phases cannot be treated as independent stalls or recoverable makespan. No hypothetical component change or new simulation is performed."
+      },
+      "scope": "Observed integer-ps dependency/admission/complete-operand/context/grant boundaries. Task spans are disjoint within a task but overlap across tasks. Full-capacity intersections and latest projections do not establish counterfactual savings or an exclusive responsible resource. Complete-operand OS policy is a model assumption, not proof of optimal streaming dataflow."
+    }
+  ],
+  "scope": "Read-only diagnosis of completed supplied evidence. The input experiment scope is unchanged; directed qualifications do not become complete-request results. No counterfactual hardware performance or calibrated energy/area claim."
+}
