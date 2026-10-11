@@ -75,11 +75,12 @@ def activity(result):
             noc='Actual channel cells and injection count; distance includes sideband width',
             router='One switch traversal per channel hop plus destination traversal per injected cell',
             buffer='Two transfers per router traversal, a parameterized proxy; no exact buffer toggle counter',
-            sram='Observed stream/scale reads, DMA reads and receive writes; internal activation/psum banking unmeasured',
+            sram=('Observed stream/scale reads, DMA reads, receive writes and explicit NPU activation/partial-output service; macro switching uncalibrated' if 'npu_execution' in result else
+                'Observed stream/scale reads, DMA reads and receive writes; internal activation/psum banking unmeasured'),
             compute='Actual MACs and observed vector service cycles; no bit-level switching',
             control='Observed range/ACK bytes, tag lookups and context-time; associative logic uncalibrated'),
         omitted=['ACT/PRE/REF/background-state energy', 'array/logic clock and power distribution',
-            'internal PE activation and partial-sum SRAM accesses', 'unobserved buffer/control switching',
+            ('unobserved SRAM macro/PE switching beyond explicit NPU service' if 'npu_execution' in result else 'internal PE activation and partial-sum SRAM accesses'), 'unobserved buffer/control switching',
             'initial preload outside the measured warm interval', 'technology-specific leakage and gating'],
         contract='Link terms charge transported cells including headers/padding, not logical payload only. '
             'Buffer proxy does not include credit/control toggles. Common physical power may be swept separately. '

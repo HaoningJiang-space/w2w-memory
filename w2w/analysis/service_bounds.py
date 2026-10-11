@@ -46,7 +46,8 @@ def service_bounds(result):
     gateways = {g.id:g for g in (*stack.gateways, *stack.external_ports)}
     memories = {m['id']:m for m in spec['memories']}
     domains = {d.id:d for d in stack.dram_domains}
-    duration = result['makespan_ps']; period = spec['noc_period_ps']
+    origin=result.get('runtime_window_begin_ps',0)
+    duration = result['makespan_ps']-origin; period = spec['noc_period_ps']
     rates = {key:Fraction(g.data_bytes_per_cycle, period) for key,g in gateways.items()}
     gateway_bytes = Counter(); task_gateway = defaultdict(Counter); task_domain = defaultdict(Counter)
     for event in result['events']:
@@ -92,10 +93,11 @@ def service_bounds(result):
     tile_period = {t['id']:t['compute_period_ps'] for t in spec['tiles']}
     while ready:
         key = ready.pop(); task = tasks[key]; stream = task['stream']; clock = tile_period[task['tile']]
-        cycles = (max(ceil(Fraction(stream['weight_data_bytes'],stream['weight_read_bytes_per_cycle'])),
-                      ceil(Fraction(stream['macs'],stream['macs_per_cycle'])))+1 if stream else task['compute_cycles'])
+        if key in result.get('npu_execution',{}).get('kernels',{}) or not stream:cycles=task['compute_cycles']
+        else:cycles=max(ceil(Fraction(stream['weight_data_bytes'],stream['weight_read_bytes_per_cycle'])),
+            ceil(Fraction(stream['macs'],stream['macs_per_cycle'])))+1
         service = cycles*clock; compute_work[task['tile']] += service
-        finish[key] = max(task['release_ps'], max((finish[p] for p in parents[key]), default=0))+service
+        finish[key] = max(origin,task['release_ps'], max((finish[p] for p in parents[key]), default=origin))+service
         hold = max([ceil(Fraction(n)/rates[g]) for g,n in task_gateway[key].items()] +
                    [n*domains[d].period_ps for d,n in task_domain[key].items()] +
                    [ceil(Fraction(sum(task_gateway[key].values())*period,spec['rx_write_bytes_per_cycle']))])
@@ -120,7 +122,7 @@ def service_bounds(result):
         executed_channel_data_lane_ps=max(channel_bounds.values(),default=0),
         receiver_write_ps=max(rx_bounds.values(),default=0),
         shared_compute_ps=max(compute_work.values(),default=0),
-        arithmetic_dependency_ps=max(finish.values(),default=0),
+        arithmetic_dependency_ps=max(finish.values(),default=origin)-origin,
         finite_fetch_ownership_ps=max(slot_bounds.values(),default=0),
         finite_return_ownership_ps=max(return_bounds.values(),default=0))
     necessary = max(terms.values())

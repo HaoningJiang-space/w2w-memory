@@ -64,6 +64,8 @@ def analyze_case(root,case):
                 combine=prefix+f't{t}/combine'
                 for expert in batch.observations[t].expert_ids:
                     if starts[combine]<ends[prefix+f'e{expert}/scatter']:raise ValueError('Combine ran before a selected expert output')
+        from .service_bounds import service_bounds
+        bounds=service_bounds(r)
         a=activity(r);counts.update(a['counts'])
         plans=r['npu_execution']['plans'];npu_macs+=sum(v['macs'] for v in plans.values());cycles+=sum(v['cycles'] for v in plans.values())
         for plan in plans.values():service.update(plan['service'])
@@ -71,7 +73,8 @@ def analyze_case(root,case):
             decode_step=batches[0].observations[0].decode_step,begin_ps=row['begin_ps'],end_ps=row['makespan_ps'],
             duration_ps=row['makespan_ps']-row['begin_ps'],native_bytes=row['native_bytes'],cache_stats=row['cache_stats'],
             npu_service_cycles=sum(v['cycles'] for v in plans.values()),macs=sum(v['macs'] for v in plans.values()),
-            noc_byte_um=a['counts']['noc_data_bit_mm']*125,gateway_bytes=r['native']['gateway_bytes']))
+            noc_byte_um=a['counts']['noc_data_bit_mm']*125,gateway_bytes=r['native']['gateway_bytes'],
+            necessary_service_bounds_ps=bounds['terms'],necessary_bound_ps=bounds['necessary_bound_ps']))
     proof=audit_window_chain(result,directory/'windows',visit=visit)
     if next(expected,None) is not None:raise ValueError('Registered complete trace was truncated')
     total_tokens=c['prefill_tokens']+choice['B']*c['decode_steps']
