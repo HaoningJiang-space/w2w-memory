@@ -27,7 +27,7 @@ def audit_fetch_execution(result):
                 raise ValueError('Shared read issue or outstanding limit exceeded')
         elif kind=='read_deliver':
             read[key]+=event['bytes'];outstanding[tasks[key]['tile']]-=1
-        elif kind=='cache_operands_ready':read[key]+=event['bytes']
+        elif kind in ('cache_operands_ready','npu_cached_operands_ready'):read[key]+=event['bytes']
         elif kind=='fetch_context_release':
             tile=tasks[key]['tile']
             completed=issued[key] if split else read[key]

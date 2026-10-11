@@ -33,14 +33,19 @@ def activity(result):
     control = native['request_control']
     controls = 8 * sum(control['bytes_by_gateway'].values()) + 8 * sum(control['ack_bytes_by_gateway'].values())
     macs = weights = scales = vectors = tag = 0
+    local=Counter()
     for e in result['events']:
         if e['kind'] == 'stream_compute':
             macs += e['macs'];weights += e['weight_bytes'];scales += e['scale_bytes']
         elif e['kind'] in ('npu_cycle','npu_epoch'):
             service=e if e['kind']=='npu_cycle' else e['service']
             macs+=e['macs'];weights+=service['weight_sram_bytes'];scales+=service['scale_sram_bytes']
+            for field in ('activation_sram_bytes','output_sram_bytes','vector_ops','accumulator_register_bytes','activation_delivery_bytes'):local[field]+=service[field]
         elif e['kind'] == 'compute_service':
             vectors += e['cycles']
+            if 'vector_ops' in e:
+                for field in ('activation_sram_bytes','output_sram_bytes','vector_ops'):local[field]+=e[field]
+                weights+=e['weight_sram_bytes']
         elif e['kind'] == 'cache_lookup_complete':
             tag += 1
     values = dict(
@@ -59,6 +64,10 @@ def activity(result):
         command_ack_bits=controls,active_context_ps=sum(result['engine_context_ps'].values()))
     if values['dram_read_bits'] != values['hb_payload_bits']:
         raise ValueError('Native/HB payload activity differs')
+    if 'npu_execution' in result:
+        values.update(npu_activation_sram_read_bytes=local['activation_sram_bytes'],npu_partial_output_write_bytes=local['output_sram_bytes'],
+            npu_vector_ops=local['vector_ops'],npu_accumulator_register_bytes=local['accumulator_register_bytes'],
+            npu_broadcast_delivery_bytes=local['activation_delivery_bytes'])
     return dict(makespan_ps=result['makespan_ps'],drained_ps=result['drained_ps'],counts=values,
         native_read_atoms=native['completed_atoms'],dram_commands=None,
         coverage=dict(dram='Completed read atoms, not full ACT/PRE/RD/REF trace',

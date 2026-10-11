@@ -64,10 +64,14 @@ def physical_windows(cohort,machine,catalog,profile,layers,prefill_microbatch):
         yield ExecutionGraph(tuple(tasks),catalog['objects'],tuple(data),tuple(control)),kernels,meta
 
 
-def prepare(root,corpus):
+def prepare(root,corpus,gate_receipts=()):
     captures=tuple(load_corpus(corpus));root.mkdir(parents=True,exist_ok=False);(root/'cohorts').mkdir()
     machine=compile_machine(from_recipe('configs/machine/v3-small.json','distributed'));p=reference_profile()
     rows={};cohorts={};layers=('0','1');shape=captures[0]['shape']
+    gates=[]
+    for path in gate_receipts:
+        if json.loads(Path(path).read_text()).get('passed') is not True:raise ValueError('Unpassed kernel/carry/equivalence gate')
+        gates.append(dict(path=str(Path(path).resolve()),sha256=file_sha(path)))
     for B in (1,4,16,32):
         selected=select_cohort(captures,B);path=root/'cohorts'/f'B{B}.json.gz'
         with gzip.open(path,'wt') as f:json.dump(selected,f)
@@ -82,7 +86,7 @@ def prepare(root,corpus):
     write_json(root/'registration.json',dict(schema='w2w.real-npu-moe-study.v1',source_commit=revision(),cases=rows,cohorts=cohorts,
         corpus_manifest_sha256=file_sha(corpus/'manifest.json'),coverage_audit_sha256=file_sha(corpus/'coverage-audit.json'),
         shape=shape,layers=list(layers),prefill_microbatch=32,npu_profile=asdict(p),machine_sha256=digest(asdict(machine)),
-        resources=inventory(machine.stack),cache=asdict(WeightCacheConfig()),max_ps=2000000000000,
+        resources=inventory(machine.stack),cache=asdict(WeightCacheConfig()),max_ps=2000000000000,kernel_gate_receipts=gates,
         selection='Before performance: first four source-order requests per each of eight original subjects, interleaved only for selection; retained cohort order is original manifest order. B cohorts are nested, no route/performance selection.',
         scope='Complete captured prefill and all 128 decode steps for each registered cohort; two true adjacent layers, explicit modeled router/pack/scatter/combine and shape-aware OS NPU. Not full Transformer latency.',
         contract='All three legal mappings share the same NPU/compute/DRAM/HB/NoC/cache budgets. '
@@ -95,6 +99,9 @@ def run(root,case,binary):
     from w2w.backends.ramulator import VerticalRWDL
     from w2w.backends.booksim.adapter import factory
     reg=json.loads((root/'registration.json').read_text());choice=reg['cases'][case]
+    if len(reg.get('kernel_gate_receipts',[]))<5:raise ValueError('Independent shape, compute, Native, continuous-state and event-equivalence gates required')
+    for receipt in reg['kernel_gate_receipts']:
+        if file_sha(receipt['path'])!=receipt['sha256']:raise ValueError('Accepted kernel gate receipt changed')
     if revision()!=reg['source_commit']:raise ValueError('Frozen source changed')
     path=root/'cohorts'/reg['cohorts'][str(choice['B'])]['file']
     if file_sha(path)!=reg['cohorts'][str(choice['B'])]['sha256']:raise ValueError('Complete real cohort changed')
@@ -126,10 +133,11 @@ def run(root,case,binary):
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--root',type=Path,required=True)
     mode=p.add_mutually_exclusive_group(required=True);mode.add_argument('--prepare',action='store_true');mode.add_argument('--case')
-    p.add_argument('--corpus',type=Path);p.add_argument('--booksim-binary',type=Path,default=os.getenv('W2W_BOOKSIM_BINARY'));a=p.parse_args()
+    p.add_argument('--corpus',type=Path);p.add_argument('--gate-receipts',type=Path,nargs='*',default=())
+    p.add_argument('--booksim-binary',type=Path,default=os.getenv('W2W_BOOKSIM_BINARY'));a=p.parse_args()
     if a.prepare:
         if a.corpus is None:p.error('Complete audited corpus required')
-        prepare(a.root,a.corpus)
+        prepare(a.root,a.corpus,a.gate_receipts)
     else:
         if a.booksim_binary is None:p.error('Accepted Native binary required')
         run(a.root,a.case,a.booksim_binary)

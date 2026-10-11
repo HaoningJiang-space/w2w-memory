@@ -11,7 +11,30 @@ from pathlib import Path
 
 def canonical_sha(value):
     h=hashlib.sha256()
-    for part in json.JSONEncoder(sort_keys=True,separators=(',',':'),allow_nan=False).iterencode(value):h.update(part.encode())
+    def key(k):
+        if type(k) is str:return k
+        if k is True:return 'true'
+        if k is False:return 'false'
+        if k is None:return 'null'
+        if type(k) in (int,float):return str(k)
+        raise ValueError('JSON archive keys must be primitive')
+    def tokens(v):
+        if isinstance(v,dict):
+            items=sorted((key(k),x) for k,x in v.items())
+            if len({k for k,_ in items})!=len(items):raise ValueError('JSON key coercion would alias state')
+            yield '{'
+            for i,(k,x) in enumerate(items):
+                if i:yield ','
+                yield json.dumps(k);yield ':';yield from tokens(x)
+            yield '}'
+        elif isinstance(v,(list,tuple)):
+            yield '['
+            for i,x in enumerate(v):
+                if i:yield ','
+                yield from tokens(x)
+            yield ']'
+        else:yield json.dumps(v,allow_nan=False,separators=(',',':'))
+    for part in tokens(value):h.update(part.encode())
     return h.hexdigest()
 
 
