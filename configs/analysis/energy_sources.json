@@ -1,0 +1,40 @@
+{
+  "schema": "w2w.energy-source-catalog.v1",
+  "review_date": "2026-10-11",
+  "calibrated_for_this_machine": false,
+  "sources": [
+    {
+      "id": "dsent-nocs2012",
+      "url": "https://dspace.mit.edu/entities/publication/6fc75ecc-628b-4f2b-891e-283ab4bef330",
+      "role": "Parameterized electrical link/router models; separate dynamic activity and technology-dependent non-data-dependent power.",
+      "transfer_limit": "No DSENT process library or physical router mapping has been fitted to this aggregate machine. Do not import a fixed router pJ or link pJ/mm from another design."
+    },
+    {
+      "id": "eyeriss-isca2016-author-slides",
+      "url": "https://eems.mit.edu/wp-content/uploads/2016/06/eyeriss_isca_2016_slides.pdf",
+      "location": "slide 20 (zero-based page 19)",
+      "public_reference": {"MAC": 1, "RF": 1, "inter_PE": 2, "global_buffer": 6, "DRAM": 200},
+      "unit": "normalized energy per access/operation in the authors' commercial 65nm example",
+      "role": "Shows the need to count hierarchy-specific accesses and local reuse, not just byte-distance.",
+      "transfer_limit": "CNN 16-bit dataflow and 65nm storage/network differ from FP8 weight/FP32 accumulation, aggregate 192MiB SRAM and stacked RWDL. These ratios are contextual anchors, not coefficients or empirical ranges for W2W."
+    },
+    {
+      "id": "drampower",
+      "url": "https://github.com/tukl-msd/DRAMPower",
+      "role": "Command-level energy requires a command trace, memory specification, state durations and signal activity.",
+      "transfer_limit": "Full application captures have read atoms and row statistics, not audited ACT/PRE/REF traces or SeDRAM currents. Command mode rejects missing evidence; per-read-bit mode is conditional and leaves a DRAM state/command residual."
+    },
+    {
+      "id": "imec-w2w-connectivity",
+      "url": "https://www.imec-int.com/en/articles/path-high-density-front-and-backside-wafer-connectivity",
+      "role": "Physical pitch and interconnect scaling affect bandwidth density and energy per bit.",
+      "transfer_limit": "Pitch is not a calibrated payload-energy coefficient. This machine has no measured pad/driver/CDC/clock toggles; HB pJ/bit remains an explicit parameter."
+    }
+  ],
+  "sensitivity_policy": {
+    "link_and_router": "Independent nonnegative coefficients over the complete simplex of reference modeled-energy shares; exact linear inequality, not a chosen favorite pJ/bit value.",
+    "bounded_ranges": "edp_range accepts explicit finite coefficient, common-power and residual bounds. Every parameter is required. Bounds are declared scenarios unless accompanied by matching process/macro calibration.",
+    "residual": "Report allowable unmeasured candidate energy using Tc*R_candidate - Tr*R_reference. An unconstrained residual prevents unconditional total EDP or PPA claims.",
+    "double_counting": "noc_data_bit_mm is diagnostic only. Charge sideband-inclusive cell distance once. Command-array energy replaces the per-read-bit array term; it is never added on top of that term."
+  }
+}

@@ -7,7 +7,7 @@ from w2w.common.fingerprints import digest_read_v1 as digest
 from w2w.provenance import revision
 
 
-def stages(result):
+def stages(result, opportunity_observer=None):
     tasks={t['id']:t for t in result['graph']['tasks']}
     periods={c['id']:c['profile']['period_ps'] for c in result['spec']['stack']['compute_clusters']}
     rows={key:dict(task=key,tile=t['tile'],phase=key.rsplit('/',1)[-1],milestones={},
@@ -24,13 +24,17 @@ def stages(result):
         if s['active'] and s['last'] is not None and at>s['last']:
             first=(s['last']+period-1)//period
             clocks=max(0,(at-1)//period-first+1)
-            if s['granted'] and s['last']%period==0:clocks-=1
+            if s['granted'] and s['last']%period==0:clocks-=1;first+=1
             stream=tasks[key]['stream']
             if stream is None or not s['scale'] or s['prefix']>s['consumed']:
                 rows[key]['ready_service_wait_cycles']+=clocks
+                label='ready'
             elif s['consumed']<stream['weight_data_bytes']:
                 rows[key]['operand_wait_cycles']+=clocks
+                label='operand'
             elif clocks:raise ValueError('Completed GEMM kept an unexplained live clock')
+            else:label='completed'
+            if opportunity_observer and clocks:opportunity_observer(key,label,first*period,at,clocks)
         if s['last']!=at:s['granted']=False
         s['last']=at
     native_names={'array_first_ready':'array_first_event','array_last_ready':'array_last_event',
