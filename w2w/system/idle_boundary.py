@@ -10,7 +10,7 @@ def next_idle_boundary(e,quantum,max_ps):
             or any(e.mc_pool_slots.values()) or any(e.mc_slots.values())):return None
     safe=getattr(e.native,'compute_epoch_quiescent',None)
     if safe is None or not safe() or not e.network.drained():return None
-    frontier=[key for key in e.unallocated if all(e.state[p]['done'] for p in e.predecessors[key])]
+    frontier=[key for key in e.unallocated if all(e.state[p].get('done',False) for p in e.predecessors[key])]
     if frontier:
         limit=min(e.tasks[key].release_ps for key in frontier)
         if limit<=e.now:return None

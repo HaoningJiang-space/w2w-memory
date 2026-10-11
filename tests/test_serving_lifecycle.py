@@ -7,6 +7,18 @@ from w2w.architecture.npu_profile import reference_profile
 
 
 class ServingLifecycle(unittest.TestCase):
+    def test_idle_frontier_does_not_expose_a_blocked_future_task(self):
+        from types import SimpleNamespace
+        from w2w.system.idle_boundary import next_idle_boundary
+        e=SimpleNamespace(requests={},packet_info={},reading=set(),active_edges=set(),cache_waiting={},
+            memory_candidates=set(),ready_tasks=set(),engine={},outstanding={},mc_pool_slots={},mc_slots={},
+            native=SimpleNamespace(compute_epoch_quiescent=lambda:True),network=SimpleNamespace(drained=lambda:True),
+            unallocated={'root','dependent'},state={'root':{},'dependent':{}},predecessors={'root':set(),'dependent':{'root'}},
+            tasks={'root':SimpleNamespace(release_ps=500000000),'dependent':SimpleNamespace(release_ps=0)},
+            now=0,window_final_ps=None,spec=SimpleNamespace(noc_period_ps=1000,dram_period_ps=3760))
+        self.assertEqual(next_idle_boundary(e,40,1000000000),500000000)
+        e.requests={'pending':{}};self.assertIsNone(next_idle_boundary(e,40,1000000000));e.requests={}
+        e.state['root']['done']=True;self.assertIsNone(next_idle_boundary(e,40,1000000000))
     def test_no_metrics_from_partial_or_reordered_token_sequence(self):
         r=RequestLifecycle((ServingRequest('real/request',46,128,'sha'),))
         with self.assertRaises(ValueError):r.metrics()
