@@ -189,7 +189,8 @@ class NPUKernelModel:
             cycles=len(self.aux_programs[key])
             if key not in tasks or tasks[key].compute_cycles!=cycles:raise ValueError('Vector/transpose/append service cycles unpaid')
             from .npu_auxiliary import output_buffer_bytes
-            if tasks[key].scratch_bytes<output_buffer_bytes(work):raise ValueError('Vector output storage must be owned before production')
+            owned=sum(e.size_bytes for e in graph.data if e.producer==key)+tasks[key].scratch_bytes
+            if owned<output_buffer_bytes(work):raise ValueError('Vector output storage must be owned before production')
 
     def auxiliary_service(self,key):
         tick=self.aux_cursors[key];self.aux_cursors[key]+=1

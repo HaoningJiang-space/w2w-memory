@@ -57,6 +57,20 @@ class RealNPU(unittest.TestCase):
         self.assertEqual([r.phase for r in reduction],['ordered_k_load']+['ordered_k_add']*7+['ordered_k_final_store'])
         self.assertTrue(all(r.output_sram_bytes==0 for r in reduction[:-1]))
 
+    def test_full_batch_pack_uses_owned_outputs_without_duplicate_sram(self):
+        from w2w.system.builder import SystemBuilder
+        rows=tuple(RoutingObservation(f'request{i}','decode',46,0,'0',tuple(range(8)),'directed-capacity-fixture') for i in range(32))
+        m=compile_machine(from_recipe('configs/machine/v3-small.json','distributed'));p=reference_profile()
+        catalog=full_catalog(m,dict(hidden=4096,intermediate=1536,experts=128,topk=8),('0','1'),'up_local')
+        graph,kernels,meta=lower_batch(group('B32',rows),m,catalog,p,prefix='W32/')
+        builder=SystemBuilder(m).validate_graph(graph);pack=next(t for t in graph.tasks if t.id=='W32/e0/pack')
+        self.assertEqual(sum(e.size_bytes for e in graph.data if e.producer==pack.id),32*8192*24)
+        self.assertEqual(builder.footprint[pack.id],32*8192*25)
+        self.assertLess(builder.footprint[pack.id],8*1024**2-16*1024)
+        model=NPUKernelModel(p,kernels,auxiliary=meta['auxiliary']);model.validate(m,graph)
+        bad=replace(graph,tasks=tuple(replace(t,scratch_bytes=0) if t.id=='W32/t0/combine' else t for t in graph.tasks))
+        with self.assertRaises(ValueError):model.validate(m,bad)
+
     def test_bad_ports_or_unpaid_buffers_rejected(self):
         m=compile_machine(from_recipe('configs/machine/v3-small.json','distributed'))
         with self.assertRaises(ValueError):replace(reference_profile(),arrays=65).validate_cluster(m.stack.compute_clusters[0])

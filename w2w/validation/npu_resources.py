@@ -6,8 +6,9 @@ from bisect import bisect_right
 
 def audit_npu_result(result):
     npu=result['npu_execution'];p=npu['profile'];tasks={t['id']:t for t in result['graph']['tasks']}
-    objects={o['id']:o for o in result['graph']['objects']};incoming=Counter()
-    for e in result['graph']['data']:incoming[e['consumer']]+=e['size_bytes']
+    objects={o['id']:o for o in result['graph']['objects']};incoming=Counter();outgoing=Counter()
+    for e in result['graph']['data']:
+        incoming[e['consumer']]+=e['size_bytes'];outgoing[e['producer']]+=e['size_bytes']
     if p['rows']*p['columns']*p['arrays']!=16384:raise ValueError('Array peak changed original compute budget')
     intervals=defaultdict(list);cycles=defaultdict(list);seen={};macs=Counter();service=defaultdict(Counter)
     starts={e['task']:e['time_ps'] for e in result['events'] if e['kind']=='task_start'}
@@ -110,7 +111,7 @@ def audit_npu_result(result):
         if any(sum(v.get(f,0) for v in phases)!=work.get(f,0) for f in limits):raise ValueError('Vector phase work changed')
         for v in phases:
             count=max(v.get('cycles_floor',1),max(ceil(v.get(f,0)/limit) for f,limit in limits.items()))
-            if tasks[key]['scratch_bytes']<v.get('output_sram_bytes',0):raise ValueError('Vector output storage was not owned before production')
+            if tasks[key]['scratch_bytes']+outgoing[key]<v.get('output_sram_bytes',0):raise ValueError('Vector output storage was not owned before production')
             for tick in range(count):
                 row={f:min(max(0,v.get(f,0)-tick*limit),limit) for f,limit in limits.items()}
                 first=count-ceil(v.get('output_sram_bytes',0)/limits['output_sram_bytes'])

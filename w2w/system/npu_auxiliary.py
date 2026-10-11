@@ -8,6 +8,23 @@ def output_buffer_bytes(spec):
     return max((p.get('output_sram_bytes',0) for p in spec.get('phases',())),default=spec.get('output_sram_bytes',0))
 
 
+def reserve_auxiliary_outputs(tasks,edges,auxiliary,keys=None):
+    """Reserve temporaries beyond source output bytes already owned at admission.
+
+    SystemBuilder includes every outgoing DataEdge in the task footprint before
+    execution. Until task completion those source buffers are not externally
+    visible, so ordered vector phases can reuse them. Only the excess temporary
+    output requires new scratch; incoming buffers stay separately owned.
+    """
+    from collections import Counter
+    from dataclasses import replace
+    outgoing=Counter()
+    for edge in edges:outgoing[edge.producer]+=edge.size_bytes
+    chosen=set(auxiliary) if keys is None else set(keys)
+    return tuple(replace(t,scratch_bytes=t.scratch_bytes+max(0,output_buffer_bytes(auxiliary[t.id])-outgoing[t.id]))
+        if t.id in chosen else t for t in tasks)
+
+
 def phase(name,*,read=0,write=0,weights=0,ops=0,delivery=0,floor=1):
     return dict(name=name,activation_sram_bytes=read,output_sram_bytes=write,weight_sram_bytes=weights,
         vector_ops=ops,activation_delivery_bytes=delivery,cycles_floor=floor)

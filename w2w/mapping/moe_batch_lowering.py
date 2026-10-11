@@ -92,7 +92,7 @@ def lower_batch(batch,machine,catalog,npu_profile,*,prefix):
             data.append(DataEdge(name(f'route/t{token}/e{expert}'),done,dispatch,8))
     graph=ExecutionGraph(tuple(tasks),catalog['objects'],tuple(data),tuple(control))
     # Vector phases pay materialized copies, ordered partials and conversion.
-    from w2w.system.npu_auxiliary import phase,work,auxiliary_program,output_buffer_bytes
+    from w2w.system.npu_auxiliary import phase,work,auxiliary_program,reserve_auxiliary_outputs
     aux={};logical_ops={name(o.id):o for o in logical.operations};new_tasks=[]
     ins=Counter();outs=Counter()
     for edge in data:ins[edge.consumer]+=edge.size_bytes;outs[edge.producer]+=edge.size_bytes
@@ -119,8 +119,8 @@ def lower_batch(batch,machine,catalog,npu_profile,*,prefix):
         else:phases=[phase(op.kind if op else 'router-topk',read=incoming,write=outgoing,ops=op.vector_ops if op else topk_ops,
             floor=9*ceil(len(op.token_ids)*128/npu_profile.vector_ops_per_cycle) if op and op.kind=='silu_product' else 1)]
         aux[task.id]=work(phases);cycles=len(auxiliary_program(aux[task.id],npu_profile))
-        new_tasks.append(replace(task,compute_cycles=cycles,scratch_bytes=scratch+output_buffer_bytes(aux[task.id])))
-    graph=replace(graph,tasks=tuple(new_tasks))
+        new_tasks.append(replace(task,compute_cycles=cycles,scratch_bytes=scratch))
+    graph=replace(graph,tasks=reserve_auxiliary_outputs(new_tasks,data,aux))
     meta.update(batch_id=batch.id,layer_id=batch.layer_id,token_ids=[r.token_id for r in batch.observations],
         token_to_experts=[r.expert_ids for r in batch.observations],expert_token_counts={str(e):len(ts) for e,ts in batch.expert_to_tokens},
         expert_macs=3*batch.token_count*s['topk']*s['hidden']*s['intermediate'],router_macs=router.macs,

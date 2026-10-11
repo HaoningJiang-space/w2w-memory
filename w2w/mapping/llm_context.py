@@ -16,15 +16,16 @@ from .moe_batch_lowering import lower_batch
 def lower_context(batch,machine,catalog,npu_profile,kv_lengths,*,prefix):
     g,kernels,meta=lower_batch(batch,machine,catalog,npu_profile,prefix=prefix)
     tasks=list(g.tasks);data=list(g.data);control=list(g.control);aux=dict(meta['auxiliary']);append=[];reads=[];attention_groups=[]
+    existing_aux=set(aux)
     objects={o.id:o for o in catalog['objects']};p=catalog['llm_profile'];H=p['hidden'];D=p['head_dim']
     M=batch.token_count;layer=batch.layer_id;root=f'L{layer}/context/';origin=prefix+'context/'
     name=lambda x:origin+x
     def edge(tag,a,b,size):data.append(DataEdge(name(tag),a,b,size))
     def scalar(key,tile,read=0,write=0,ops=0,weights=0,accesses=(),scratch=0,phases=None):
-        from w2w.system.npu_auxiliary import phase,work,auxiliary_program,output_buffer_bytes
+        from w2w.system.npu_auxiliary import phase,work,auxiliary_program
         spec=work(phases or (phase('vector',read=read,write=write,ops=ops,weights=weights),))
         cycles=len(auxiliary_program(spec,npu_profile))
-        tasks.append(ComputeTask(key,tile,cycles,tuple(accesses),scratch+output_buffer_bytes(spec)));aux[key]=spec;return key
+        tasks.append(ComputeTask(key,tile,cycles,tuple(accesses),scratch));aux[key]=spec;return key
     def norm(kind,N,source):
         from w2w.system.npu_auxiliary import phase
         key=name(kind);obj=objects[root+kind];tile=catalog['context_placements'][obj.id]
@@ -121,4 +122,6 @@ def lower_context(batch,machine,catalog,npu_profile,kv_lengths,*,prefix):
             token_positions=[r.token_position for r in batch.observations],query_row_order='token-major then query-head within each KV group; mask position uses row//query-heads-per-KV',
             scope='Captured token identity; lengths are declared captured-row-count assumptions, no text/numerical values'),
         npu_kernels={key:asdict(value) for key,value in kernels.items()})
-    return ExecutionGraph(tuple(tasks),catalog['objects'],tuple(data),tuple(control)),kernels,meta
+    from w2w.system.npu_auxiliary import reserve_auxiliary_outputs
+    tasks=reserve_auxiliary_outputs(tasks,data,aux,set(aux)-existing_aux)
+    return ExecutionGraph(tasks,catalog['objects'],tuple(data),tuple(control)),kernels,meta

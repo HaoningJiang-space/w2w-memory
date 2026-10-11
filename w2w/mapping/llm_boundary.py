@@ -10,12 +10,13 @@ from w2w.system.npu_kernel import program
 def add_boundaries(graph,kernels,metadata,batches,catalog,machine,profile,cohort,*,index,stage,release_ps):
     from dataclasses import replace
     tasks=list(graph.tasks);data=list(graph.data);aux=metadata['auxiliary'];objects={o.id:o for o in graph.objects}
+    existing_aux=set(aux)
     p=catalog['llm_profile'];H=p['hidden'];V=p['vocabulary'];first=batches[0];last=batches[-1]
     def scalar(key,tile,read=0,write=0,ops=0,weights=0,accesses=(),scratch=0,phases=None):
-        from w2w.system.npu_auxiliary import phase,work,auxiliary_program,output_buffer_bytes
+        from w2w.system.npu_auxiliary import phase,work,auxiliary_program
         spec=work(phases or (phase('vector',read=read,write=write,ops=ops,weights=weights),))
         cycles=len(auxiliary_program(spec,profile));aux[key]=spec
-        tasks.append(ComputeTask(key,tile,cycles,tuple(accesses),scratch+output_buffer_bytes(spec),release_ps=release_ps));return key
+        tasks.append(ComputeTask(key,tile,cycles,tuple(accesses),scratch,release_ps=release_ps));return key
     embeddings=[]
     if catalog['embedding']:
         for t,row in enumerate(first.observations):
@@ -69,4 +70,6 @@ def add_boundaries(graph,kernels,metadata,batches,catalog,machine,profile,cohort
         export_task=export if not catalog['head'] or heads else None,
         npu_kernels={k:asdict(v) for k,v in kernels.items()},
         boundary_contract='Modeled embedding rows explicitly disclosed. Distributed full BF16 LM head, ordered max/index, paid SRAM/Native/cache/ports. No captured numerical output claim.')
-    return ExecutionGraph(tuple(tasks),graph.objects,tuple(data),graph.control),kernels,metadata
+    from w2w.system.npu_auxiliary import reserve_auxiliary_outputs
+    tasks=reserve_auxiliary_outputs(tasks,data,aux,set(aux)-existing_aux)
+    return ExecutionGraph(tasks,graph.objects,tuple(data),graph.control),kernels,metadata
