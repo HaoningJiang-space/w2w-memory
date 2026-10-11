@@ -174,8 +174,9 @@ class NPUKernelModel:
     def validate(self,spec,graph):
         for c in spec.stack.compute_clusters:self.profile.validate_cluster(c)
         tasks={t.id:t for t in graph.tasks}
-        objects={o.id:o for o in graph.objects};incoming=Counter()
-        for edge in graph.data:incoming[edge.consumer]+=edge.size_bytes
+        objects={o.id:o for o in graph.objects};incoming=Counter();outgoing=Counter()
+        for edge in graph.data:
+            incoming[edge.consumer]+=edge.size_bytes;outgoing[edge.producer]+=edge.size_bytes
         for key,k in self.kernels.items():
             if key not in tasks:raise ValueError('NPU kernel has no physical task')
             task=tasks[key];plan=self.plans[key]
@@ -189,7 +190,7 @@ class NPUKernelModel:
             cycles=len(self.aux_programs[key])
             if key not in tasks or tasks[key].compute_cycles!=cycles:raise ValueError('Vector/transpose/append service cycles unpaid')
             from .npu_auxiliary import output_buffer_bytes
-            owned=sum(e.size_bytes for e in graph.data if e.producer==key)+tasks[key].scratch_bytes
+            owned=outgoing[key]+tasks[key].scratch_bytes
             if owned<output_buffer_bytes(work):raise ValueError('Vector output storage must be owned before production')
 
     def auxiliary_service(self,key):
