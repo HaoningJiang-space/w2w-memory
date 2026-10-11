@@ -108,6 +108,9 @@ def audit_npu_result(result):
     for e in result['events']:
         if e['kind']=='compute_service' and e['task'] in aux:
             key=e['task'];tick=aux_ticks[key];aux_ticks[key]+=1
+            if (e['tile']!=tasks[key]['tile'] or e['time_ps']%periods[e['tile']]
+                    or not starts[key]<=e['time_ps']<finishes[key] or e['cycles']!=1):
+                raise ValueError('Vector service escaped its physical task/clock/grant')
             if tick>=len(expected_aux[key]):raise ValueError('Repeated vector phase grant')
             for field in limits:
                 expected=expected_aux[key][tick][field]
@@ -118,6 +121,8 @@ def audit_npu_result(result):
     grants=defaultdict(list)
     for e in result['events']:
         if e['kind'] in ('compute_service','stream_compute','npu_cycle'):grants[e['tile']].append(e)
+    for tile,es in grants.items():
+        if len({e['time_ps'] for e in es})!=len(es):raise ValueError('Repeated shared compute grant at one physical clock')
     for tile,windows in intervals.items():
         ordered=sorted(windows)
         if any(b[0]<a[1] for a,b in zip(ordered,ordered[1:])):raise ValueError('Physical array ownership duplicated')
