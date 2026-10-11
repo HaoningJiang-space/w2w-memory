@@ -36,6 +36,8 @@ class DomainOrganization(unittest.TestCase):
         self.assertEqual(p.local_star_one_way_wire_bit_um,p.removed_collection_wire_bit_um)
         with self.assertRaises(ValueError):p.compile()
         with self.assertRaises(ValueError):domain_compute_specification(m.stack,cache_bytes_per_cluster=184*1024**2+1)
+        for invalid in (0,-8,True):
+            with self.assertRaises(ValueError):domain_compute_specification(m.stack,cache_bytes_per_cluster=invalid)
 
     def test_complete_row_reduction_and_shared_scale_identity(self):
         m,l,w,d=self.inputs();p=domain_compute_specification(m.stack);c=domain_weight_catalog(l,m.stack,w,p)
@@ -56,6 +58,7 @@ class DomainOrganization(unittest.TestCase):
         self.assertEqual(b['whole_H_down_prefetch_buffer_per_tile'],65536)
         self.assertEqual(b['per_token_state']['down_accumulator_per_tile'],2048)
         with self.assertRaises(ValueError):domain_weight_catalog(l,m.stack,w[:-1],p)
+        with self.assertRaises(ValueError):domain_weight_catalog(l,m.stack,(*w,w[0]),p)
 
     def test_current_up_local_already_has_all_projection_weights_local(self):
         m,l,w,d=self.inputs();objects={o['id']:o for o in d['graph']['objects']}

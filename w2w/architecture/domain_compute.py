@@ -58,6 +58,8 @@ class DomainComputeSpecification:
 
 
 def domain_compute_specification(stack, *, cache_bytes_per_cluster=184*1024**2):
+    if type(cache_bytes_per_cluster) is not int or cache_bytes_per_cluster<1:
+        raise ValueError('The retained-cache proposal requires a positive integer data budget')
     if len(stack.compute_clusters)!=len(stack.bank_groups) or len(stack.gateways)!=len(stack.bank_groups):
         raise ValueError('This proposal requires the distributed one-cluster/eight-domain neighborhood reference')
     gateways={g.id:g for g in stack.gateways};domains={d.id:d for d in stack.dram_domains}

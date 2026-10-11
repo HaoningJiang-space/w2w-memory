@@ -26,7 +26,7 @@ def domain_weight_catalog(logical, stack, weights, specification):
     if h%128 or width%128:raise ValueError('Original quantization groups must remain 128x128')
     groups={g.id:g for g in stack.bank_groups};domains={d.id:d for d in stack.dram_domains}
     locations={w.tensor:w for w in weights};tile_by_domain={t.domain_id:t.id for t in specification.tiles}
-    if set(locations)!={name for name,_ in logical.weight_sizes}:
+    if len(locations)!=len(weights) or set(locations)!={name for name,_ in logical.weight_sizes}:
         raise ValueError('Placement must cover the complete expert catalog, never only evaluated experts')
     offsets=Counter();slices=[];matrices={}
     for name,size in logical.weight_sizes:
