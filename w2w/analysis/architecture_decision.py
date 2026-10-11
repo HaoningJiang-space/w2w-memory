@@ -1,4 +1,5 @@
 """Accepted mapping comparisons cannot by themselves accept a new architecture."""
+from math import isfinite
 from .energy_edp import threshold
 
 
@@ -20,6 +21,10 @@ def baseline_screen(cases):
             if any(by[B,policy][k]!=reference[k] for k in identity):raise ValueError('Comparisons changed trace identity or logical/kernel work')
         metrics={p:dict(completion_ps=by[B,p]['proof']['makespan_ps'],late_window_ps=by[B,p]['late_window_time_ps'],
             native_bytes=by[B,p]['proof']['native_bytes'],noc_cell_bit_mm=by[B,p]['activity_counts']['noc_cell_bit_mm']) for p in policies}
+        for metric in metrics.values():
+            if (any(type(v) not in (int,float) or not isfinite(v) or v<0 for v in metric.values())
+                    or not 0<metric['late_window_ps']<=metric['completion_ps']):
+                raise ValueError('Finite nonnegative work and a positive contained late window required')
         pareto=[p for p in policies if not any(all(metrics[q][k]<=v for k,v in metrics[p].items())
             and any(metrics[q][k]<v for k,v in metrics[p].items()) for q in policies if q!=p)]
         fastest=min(policies,key=lambda p:(metrics[p]['completion_ps'],metrics[p]['late_window_ps'],p))

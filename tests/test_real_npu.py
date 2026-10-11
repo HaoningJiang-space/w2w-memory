@@ -77,5 +77,22 @@ class RealNPU(unittest.TestCase):
         with self.assertRaises(ValueError):replace(reference_profile(),weight_read_bytes_per_cycle=32769).validate_cluster(m.stack.compute_clusters[0])
         with self.assertRaises(ValueError):program(1,128,4096,'FP8_E4M3FN',replace(reference_profile(),bank_port_bytes_per_cycle=16))
 
+    def test_explicit_k_mapping_preserves_coverage_scale_and_finite_state(self):
+        p=reference_profile();code,plan=program(4,1536,4096,'FP8_E4M3FN',p,k_partitions=2)
+        coverage={}
+        for wave in plan['waves']:
+            for tile in wave:
+                coverage.setdefault((tile['m'],tile['n']),[]).append((tile['k'],tile['k']+tile['K']))
+        self.assertTrue(coverage)
+        self.assertTrue(all(sorted(parts)==[(0,2048),(2048,4096)] for parts in coverage.values()))
+        self.assertEqual(sum(r.macs for r in code),4*1536*4096)
+        self.assertEqual(sum(r.scale_sram_bytes for r in code),4*12*32)
+        self.assertLessEqual(plan['scratch_bytes'],8*1024**2)
+        for args in ((4,1536,4096,3),(32,1536,4096,2),(1,128,4096,0)):
+            with self.assertRaises(ValueError):program(*args[:3],'FP8_E4M3FN',p,k_partitions=args[3])
+        # A single unsplit scale-tail is legal; empty BF16 word partitions are not.
+        self.assertEqual(sum(r.macs for r in program(1,17,20,'FP8_E4M3FN',p,k_partitions=1)[0]),340)
+        with self.assertRaises(ValueError):program(1,17,20,'BF16',p,k_partitions=3)
+
 
 if __name__=='__main__':unittest.main()
