@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "source_commit": "a69d29edb96a76220648cfd94f5c04ef17ac83e1",
+  "proof": {
+    "passed": true,
+    "windows": 2,
+    "tasks": 2064,
+    "native_bytes": 568466432,
+    "macs": 606076928,
+    "cache_stats": {
+      "compulsory_bytes": 568466432,
+      "misses": 1082,
+      "miss_bytes": 568466432,
+      "hits": 74,
+      "hit_bytes": 39855104
+    },
+    "makespan_ps": 2217674000,
+    "drained_ps": 2217714000,
+    "scope": "Each raw window re-audited; continuous cache/LRU/clock ownership and final metadata release closed."
+  },
+  "receipt_sha256": "d6d6c351d08c79e5406d880c1c6836e33212e1d3baee6068442bea3a3e85f6b3",
+  "scope": "Current independent auditor accepts earlier directed physical graphs. Their declared extra scratch remains charged; this qualification is not a current complete-request result or a claim of identical lowering."
+}

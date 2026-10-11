@@ -59,7 +59,10 @@ For partitioned K, the original complete dot product is formed before SiLU:
 the first partial is loaded into the already paid array accumulator registers,
 each later partial performs a separate addition in increasing K order, and the
 final output is stored only after the last addition. Vector output storage is
-reserved before execution; delayed output stores cannot borrow unowned SRAM.
+reserved before execution. Outgoing DataEdges already own source SRAM at task
+admission; ordered vector phases can reuse those not-yet-visible buffers.
+Only temporary output beyond that capacity adds scratch. Incoming buffers remain
+separately owned, and delayed stores cannot borrow unowned SRAM.
 The vector phase model is a conservative resource reservation model, not a
 silicon-calibrated vector ISA or cycle-accurate RTL pipeline.
 
@@ -178,25 +181,49 @@ has not beaten the strongest legal baseline.
 
 hn072 root: `/Projects/haoning/w2w-full-system-real-npu-20261011`.
 The latest executable
-campaign source is `c820e25` (`source-r20`), with unchanged execution semantics
-from qualified `source-r19@e4ae2b8`; sources r1–r20 remain immutable. Check the
-[complete campaign launch](../../artifacts/provenance/real_npu/campaign-launch-r20.json)
+campaign source is `a69d29e` (`source-r27`). Executable and read-only analysis
+snapshots are immutable detached Git worktrees. Check the
+[complete campaign launch](../../artifacts/provenance/real_npu/campaign-launch-r27.json)
 and campaign status
 rather than assuming a finished gate from this report.
 
-At the recorded launch, controller PID 823775 waits for `resources-r19`
-(PID 823535) and `context-r19` (PID 823537). Those two qualifications use the
-first two actual prefill tokens at full H/I in distinct layers 0/1, and are
-explicitly incomplete requests. The full study root is
-`campaign-r20/real-moe`; conditional full context is `campaign-r20/full-llm-B1`.
-The obsolete `campaign-r12` failed its prerequisite and launched no G3/G4 case.
+Controller PID 826834 launched G3 controller 826982 and first physical worker
+826983 (`B1-reference`). The full study root is `campaign-r27/real-moe`;
+conditional full context is `campaign-r27/full-llm-B1`. PIDs are historical
+launch evidence; verify current command identity before operating on them.
+The [recorded status](../../artifacts/provenance/real_npu/campaign-status-r27.json)
+has no completed G3 case yet. The obsolete `campaign-r12` failed its prerequisite
+without applications; `campaign-r20` was invalidated before application launch
+when compiler inspection found duplicate output storage charging.
+
+The ownership correction passes [27 directed regressions](../../artifacts/provenance/real_npu/regression-r25.json)
+and [24 real-route compiler views](../../artifacts/provenance/real_npu/mapping-preflight-r26.json).
+The latter covers each B and mapping's first actual prefill plus its largest
+actual decode expert M. Largest observed M in the B32 cohort is 27: Pack needs
+5,529,600 B, below the 8,379,816 B intrinsic non-cache budget. The synthetic
+maximum-M32 capacity guard needs 6,553,600 B. Counting the outgoing payload twice
+would instead require 12,845,056 B at M32 and incorrectly block admission.
+No tokens are removed and no SRAM/cache budget is enlarged. Intrinsic capacity
+is a necessary check; dynamic peak and progress still require complete execution.
+
+Both earlier real-token physical qualifications now have passed final receipts:
+[MoE](../../artifacts/provenance/real_npu/real-token-resource-r19.json) has two
+continuous windows, 2,064 tasks, 568,466,432 B Native traffic and 606,076,928 MACs;
+[Attention/KV](../../artifacts/provenance/real_npu/real-context-resource-r19.json)
+has 2,244 tasks, 711,179,264 B and 891,387,904 MACs. The additional 285,310,976
+MACs equal four full Q/K/V/O invocation sets plus grouped QK/AV for context lengths
+1 and 2 in both layers. Actual append/read events preserve contiguous KV history.
+These remain the first two actual prefill tokens, not complete requests.
+Their older declared extra scratch stays charged in the archived graphs; current
+readers independently re-audit those legal over-reserved graphs before reuse.
+They do not establish identical lowering or new application performance.
 
 - G1: full-corpus identity/grouping/demand checks accepted.
 - G2: shape/core, full-size physical microkernels and carry/equivalence accepted;
   banking/ports/dataflow remain explicit uncalibrated assumptions.
-- G3: awaiting corrected real-token resource qualification and complete campaign.
+- G3: complete registered physical campaign running; no accepted complete case yet.
 - G4: implemented and independently shape/numerically qualified; awaiting
-  physical context qualification and full 94-layer serving acceptance.
+  full 94-layer serving acceptance after complete B1 Up-local and current context readback.
 - G5: evidence-bound analysis implemented; final decision awaits completed runs.
 
 Two design limits prevent overstating the hardware conclusion: the NPU reference

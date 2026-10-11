@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "source_commit": "49a66c3e00ce50efa26adaac2ae606d1af3aa406",
+  "log_sha256": "b78586af03fcced60852f525dcc5ebf3e75ae890c12136886c9a68e5274b4354",
+  "content": "...........................\n----------------------------------------------------------------------\nRan 27 tests in 37.444s\n\nOK\n",
+  "scope": "27 directed regression checks including maximum full-B32 owned output storage; no captured-application performance claim"
+}

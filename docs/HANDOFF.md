@@ -422,16 +422,22 @@ FP8/BF16 cold-to-warm boundaries, 32 BF16/GQA shapes and mixed vector/array
 event equivalence pass. Source-r19 passes 26 directed hn072 regressions, actual
 mapped increasing-K numerical checks, final cumulative Native ID/pressure
 reconciliation, and the certified idle/fixed NPU epoch physical equivalence.
-Vector output storage is reserved before execution; ordered K partial additions
-are separately charged. The complete-weight OS and vector service models are
+Source-r25 additionally passes 27 regressions and source-r26 passes 24 actual-route
+compiler views. Outgoing DataEdge source buffers are already reserved before
+execution; vector temporaries reuse them and add only excess scratch, avoiding
+duplicate capacity charges. Ordered K partial additions are separately charged.
+The complete-weight OS and vector service models are
 declared conservative references, not calibrated silicon or optimal dataflows.
 
 Remote root is `/Projects/haoning/w2w-full-system-real-npu-20261011`.
-Corrected campaign source `c820e25` is frozen as `source-r20`; qualified
-execution source is `source-r19@e4ae2b8`. Controller `campaign-r20` PID 823775
-waits for `resources-r19` (PID 823535) and `context-r19` (PID 823537). Each exercises the
+Corrected campaign source `a69d29e` is frozen as `source-r27`; controller 826834
+launched G3 controller 826982 and first `B1-reference` worker 826983. Both
+`resources-r19` and `context-r19` now have passed final receipts. Each exercises the
 first two real prefill tokens at full H/I in true layers 0/1. They qualify
-resources only, not complete requests. Check receipts/process identity before
+resources only, not complete requests. Their older extra scratch remains charged
+in archived graphs; current readers re-audit them, without identical-lowering
+or application timing claims. `campaign-r20` was invalidated before application
+launch for duplicate source-output capacity charging. Check receipts/process identity before
 reuse. `resources-r10` failed final observation-ID reconciliation;
 `context-r11` exceeded a directed 5 ms budget; `campaign-r12` failed its
 prerequisite without launching applications. r16 resource/context runs were

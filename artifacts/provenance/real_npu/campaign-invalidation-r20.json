@@ -1,0 +1,15 @@
+{
+  "source_commit": "c820e2520a15dbd32ecda00adb7bc3bdbe7e0e91",
+  "state": "invalidated_before_application_launch",
+  "resource_qualification": false,
+  "context_qualification": false,
+  "G1": "accepted full corpus analysis",
+  "G2": "accepted shape/core/physical microkernels",
+  "G3": "awaiting resource gate",
+  "G4": "awaiting context and complete B1 Up-local",
+  "G5": "awaiting complete G3/G4 evidence",
+  "G4_error": null,
+  "G3_study": "/Projects/haoning/w2w-full-system-real-npu-20261011/campaign-r20/real-moe",
+  "processes": [],
+  "reason": "Compiler preflight found vector output storage was charged twice: once by source DataEdges and again in scratch. Preserve qualification evidence; no smaller batch, new SRAM or silent continuation."
+}

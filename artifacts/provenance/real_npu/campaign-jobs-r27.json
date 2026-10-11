@@ -1,0 +1,15 @@
+[
+  {
+    "name": "G3",
+    "pid": 826982,
+    "args": [
+      "-m",
+      "tools.run_real_moe_study",
+      "--root",
+      "/Projects/haoning/w2w-full-system-real-npu-20261011/campaign-r27/real-moe",
+      "--booksim-binary",
+      "/Projects/haoning/w2w-full-system-performance-placement-20261010/native-fast-r1/booksim/endpoint_booksim"
+    ],
+    "source_commit": "a69d29edb96a76220648cfd94f5c04ef17ac83e1"
+  }
+]

@@ -1,0 +1,20 @@
+{
+  "source_commit": "a69d29edb96a76220648cfd94f5c04ef17ac83e1",
+  "state": "running",
+  "resource_qualification": true,
+  "context_qualification": true,
+  "G1": "accepted full corpus analysis",
+  "G2": "accepted shape/core/physical microkernels",
+  "G3": "running",
+  "G4": "awaiting context and complete B1 Up-local",
+  "G5": "awaiting complete G3/G4 evidence",
+  "G4_error": null,
+  "G3_study": "/Projects/haoning/w2w-full-system-real-npu-20261011/campaign-r27/real-moe",
+  "processes": [
+    {
+      "name": "G3",
+      "pid": 826982,
+      "returncode": null
+    }
+  ]
+}
