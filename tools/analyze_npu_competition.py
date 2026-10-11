@@ -1,5 +1,5 @@
 """Read-only task/operand/service diagnosis from completed physical evidence."""
-import argparse,gzip,json
+import argparse
 from pathlib import Path
 from w2w.analysis.npu_competition import competition
 from w2w.analysis.memory_service_causality import explain_pool_window
@@ -10,10 +10,11 @@ from w2w.validation.npu_resources import audit_npu_result
 from w2w.workloads.moe_trace import file_sha
 from w2w.provenance import revision
 from w2w.common.io import write_json
+from w2w.common.event_archive import read_execution
 
 
 def analyze(path,windows=None):
-    result=json.load(gzip.open(path,'rt'));rows=[]
+    result=read_execution(path);rows=[]
     def visit(raw,row):
         ledger=competition(raw)
         projections=[v for k,v in ledger['tasks'].items() if k.endswith(('/gate','/up','/down'))]
