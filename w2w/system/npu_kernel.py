@@ -39,8 +39,21 @@ class NPUInstruction:
     bank_peak_activation_bytes: int = 0
 
 
-def array_tiles(M,N,K,p,weight_dtype='FP8_E4M3FN'):
+def array_tiles(M,N,K,p,weight_dtype='FP8_E4M3FN',k_partitions=None):
     spatial=ceil(M/p.rows)*ceil(N/p.columns)
+    if k_partitions is not None:
+        if type(k_partitions) is not int or k_partitions<1 or k_partitions>1 and M*N>p.macs_per_cycle:
+            raise ValueError('Explicit K mapping exceeds paid reduction registers')
+        if weight_dtype=='FP8_E4M3FN':
+            if K%k_partitions or K//k_partitions%128:raise ValueError('Explicit K cuts must preserve original FP8 scale groups')
+            cuts=[i*K//k_partitions for i in range(k_partitions+1)]
+        else:
+            words=ceil(K*2/p.word_bytes)
+            if k_partitions>words:raise ValueError('Explicit K mapping creates an empty word partition')
+            cuts=[min(K,(i*words//k_partitions)*(p.word_bytes//2)) for i in range(k_partitions)]+[K]
+        tiles=tuple(ArrayTile(m,n,a,min(p.rows,M-m),min(p.columns,N-n),b-a)
+            for m in range(0,M,p.rows) for n in range(0,N,p.columns) for a,b in zip(cuts,cuts[1:]))
+        return tuple(tiles[i:i+p.arrays] for i in range(0,len(tiles),p.arrays)),k_partitions
     # No sub-128 hidden groups: original FP8 scale references survive K sharding.
     if weight_dtype=='FP8_E4M3FN':
         candidates=[s for s in range(1,min(max(1,p.arrays//spatial),max(1,K//128))+1) if K%s==0 and K//s%128==0]
@@ -60,8 +73,8 @@ def _core_macs(tile,t):
 
 
 @lru_cache(maxsize=256)
-def program(M,N,K,weight_dtype,p):
-    waves,split=array_tiles(M,N,K,p,weight_dtype);instructions=[];bpp=1 if weight_dtype=='FP8_E4M3FN' else 2
+def program(M,N,K,weight_dtype,p,k_partitions=None):
+    waves,split=array_tiles(M,N,K,p,weight_dtype,k_partitions);instructions=[];bpp=1 if weight_dtype=='FP8_E4M3FN' else 2
     if bpp==1:
         scales=4*ceil(N/128)*ceil(K/128)
         if scales>p.weight_read_bytes_per_cycle:raise ValueError('Explicit scale-load tiling required')
