@@ -8,14 +8,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def save(fig, output, name):
-    for ext in ('svg','pdf','png'):
-        path=output/f'{name}.{ext}'
-        fig.savefig(path,dpi=180)
-        if ext=='svg':
-            path.write_text('\n'.join(line.rstrip() for line in path.read_text().splitlines())+'\n')
-
-
 def plot(receipt, output):
     r = json.loads(receipt.read_text())
     if not r['passed'] or not r['baseline_complete_physical_record_equal']:
@@ -47,7 +39,8 @@ def plot(receipt, output):
     ax.legend(loc='lower right',fontsize=8)
     ax.set_title('Real captured cold token: unchanged full graph, addresses and native bytes')
     fig.suptitle('Diagnostic interventions; increased resources and timing idealizations are explicitly recorded',fontsize=9)
-    save(fig,output,'cold-service-diagnostics')
+    for ext in ('svg','pdf','png'):
+        fig.savefig(output/f'cold-service-diagnostics.{ext}',dpi=180)
     plt.close(fig)
     phase_labels = ['MC → grouped admission','Grouped → first atom admission',
         'First → last atom admission','Last admission → array callback',
@@ -67,7 +60,8 @@ def plot(receipt, output):
     ax.set_title(f"e62/b8/gate: {diagnosis['mc_full_wall_ps']/1e6:.3f} µs full-pool wall time × {diagnosis['capacity']} finite slots")
     ax.legend(loc='upper center',bbox_to_anchor=(.5,-.3),ncol=2,fontsize=8)
     fig.suptitle('Ownership accounting; these percentages are not additive stalls or recoverable output latency',fontsize=9)
-    save(fig,output,'mc-ownership-phases')
+    for ext in ('svg','pdf','png'):
+        fig.savefig(output/f'mc-ownership-phases.{ext}',dpi=180)
     plt.close(fig)
 
 
