@@ -22,6 +22,7 @@ def audit_down_prefetch(result):
                 or tuple(row['fetch_predecessors'])!=tuple(sorted(pred[gate]|pred[up]))):
             raise ValueError('Fetch eligibility changed rather than separating the original S1 boundary')
     allocated={};started={};done={};live={};peak=Counter();early=[];reserved=Counter();freed=Counter()
+    acquired=Counter();released=Counter()
     for e in result['events']:
         key=e.get('task');at=e['time_ps'];kind=e['kind']
         if kind=='sram_change' and e['task']=='down-prefetch-state':
@@ -39,9 +40,11 @@ def audit_down_prefetch(result):
             tile=tasks[key]['tile']
             if key not in rows or allocated.get(key)!=at or tile in live:raise ValueError('Invalid/repeated prefetch owner')
             live[tile]=key;peak[tile]=max(peak[tile],1)
+            acquired[key]+=1
         elif kind=='down_prefetch_release':
             tile=tasks[key]['tile']
             if live.pop(tile,None)!=key or at!=result['tasks'][key]['start_ps']:raise ValueError('Prefetch state released before mathematical compute start')
+            released[key]+=1
         elif kind=='task_start':
             if any(p not in done for p in pred[key]):raise ValueError('Original mathematical dependency bypassed')
             started[key]=at
@@ -49,6 +52,8 @@ def audit_down_prefetch(result):
     if live or dict(peak)!=record['peak_waiting_by_cluster'] or dict(reserved)!=capacities or dict(freed)!=capacities:
         raise ValueError('Prefetch association/SRAM budget did not conserve and drain')
     if set(rows)-set(started):raise ValueError('Prefetched Down never computed')
+    if acquired!=Counter({k:1 for k in rows}) or released!=acquired:
+        raise ValueError('Missing/repeated Down ownership lifecycle')
     return dict(passed=True,down_tasks=len(rows),early_allocations=len(early),early_tasks=early,
         additional_metadata_bytes=sum(capacities.values()),same_graph_and_mathematical_start=True,
         contract='One waiting Down/cluster; two unchanged coupled fetch contexts; full SRAM storage, real native returns and original mathematical starts. Zero early allocations or negative speedup remain valid outcomes.')

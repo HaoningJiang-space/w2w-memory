@@ -58,6 +58,10 @@ class DownNative(unittest.TestCase):
                         proof=audit_down_prefetch(r);self.assertGreater(proof['early_allocations'],0)
                         bad=copy.deepcopy(r);bad['down_prefetch']['plan']['releases'][0]['fetch_predecessors']=[]
                         with self.assertRaises(ValueError):audit_down_prefetch(bad)
+                        owner=proof['early_tasks'][0]
+                        bad=dict(r,events=[e for e in r['events'] if not (e.get('task')==owner and
+                            e['kind'] in ('down_prefetch_acquire','down_prefetch_release'))])
+                        with self.assertRaises(ValueError):audit_down_prefetch(bad)
                     records.append((r['graph'],r['native']['completed_atoms']))
             finally:native.close()
         self.assertEqual(records[0],records[1])
