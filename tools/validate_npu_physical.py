@@ -38,9 +38,13 @@ def run(root,binary,mode):
     if mode=='boundary':cases=[(1,128,4096,16,'boundary')]
     if mode=='bf16-boundary':cases=[(1,128,4096,16,'bf16-boundary')]
     if mode=='equivalence':cases=[(1,1536,4096,16,'cycles'),(1,1536,4096,16,'epochs')]
+    if mode=='idle-boundary':cases=[(1,1536,4096,16,'ordinary'),(1,1536,4096,16,'idle-boundary')]
     reference=None
     for M,N,K,array,kind in cases:
         p=reference_profile(array);g,ks=graph(machine,M,N,K,p,kind,bf16=mode=='bf16-boundary')
+        if mode=='idle-boundary':
+            from dataclasses import replace
+            g=replace(g,tasks=(replace(g.tasks[0],release_ps=500000000),g.tasks[1]))
         cache=WeightCacheConfig(initial_resident=((g.tasks[-1].tile,'W'),)) if mode=='compute' else WeightCacheConfig()
         directory=root/f'A{array}-M{M}-{kind}';directory.mkdir();source=None
         auxiliary={}
@@ -60,7 +64,8 @@ def run(root,binary,mode):
             ready_router_ids=tuple(r.id for r in machine.routers),ready_slots=16),max_ps=2000000000,time_advance='boundaries',
             compute_contexts=2,fetch_contexts=2,read_issue_policy='round_robin',weight_cache=cache,
             operand_readiness='contiguous_prefix',activation_sram_read_bytes_per_cycle=machine.rx_write_bytes_per_cycle,
-            npu_model=NPUKernelModel(p,ks,evidence=kind if mode=='equivalence' else 'epochs',auxiliary=auxiliary),window_source=source)
+            npu_model=NPUKernelModel(p,ks,evidence=kind if mode=='equivalence' else 'epochs',auxiliary=auxiliary),window_source=source,
+            idle_release_boundaries=mode=='idle-boundary' and kind=='idle-boundary')
         finally:native.close()
         if source:
             from w2w.analysis.runtime_windows import audit_window_chain
@@ -71,7 +76,7 @@ def run(root,binary,mode):
             a=audit_vertical_result(r);audit_request_control(r);audit_npu_result(r)
             if (mode=='compute' and a['native_bytes']) or (mode=='stream' and a['native_bytes']!=N*K+4*N*K//16384):
                 raise ValueError('Initial-residency/Native byte contract changed')
-        if mode=='equivalence':
+        if mode in ('equivalence','idle-boundary'):
             with gzip.open(directory/'comparison-raw.json.gz','wt') as f:json.dump(r,f)
             # Names differ only to make immutable case paths distinct.
             text=json.dumps(r,sort_keys=True).replace(kind+'/', 'same/')
@@ -81,8 +86,12 @@ def run(root,binary,mode):
             if reference is not None and (config!=reference_config or topology!=reference_topology):
                 raise ValueError('BookSim topology or configuration differs beyond archive path')
             comparable['network']['identity'].pop('config_sha256')
-            comparable['events']=[e for e in comparable['events'] if e['kind'] not in ('npu_cycle','npu_epoch')]
-            comparable.pop('npu_execution');comparable.pop('input_sha256')
+            if mode=='equivalence':comparable['events']=[e for e in comparable['events'] if e['kind'] not in ('npu_cycle','npu_epoch')]
+            if mode=='equivalence':comparable.pop('npu_execution')
+            comparable.pop('input_sha256')
+            if mode=='idle-boundary':
+                comparable.pop('kernel_iterations');comparable.pop('idle_release_boundaries',None)
+                if kind=='idle-boundary' and not r['idle_release_boundaries']['intervals']:raise ValueError('Inactive release batching was not exercised')
             if reference is None:reference=comparable;reference_config=config;reference_topology=topology
             elif comparable!=reference:
                 write_json(root/'equivalence-differences.json',{k:dict(cycles=reference[k],epochs=comparable[k])
@@ -98,5 +107,5 @@ def run(root,binary,mode):
 
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--root',type=Path,required=True)
-    p.add_argument('--booksim-binary',type=Path,required=True);p.add_argument('--mode',choices=('compute','stream','boundary','bf16-boundary','equivalence'),required=True)
+    p.add_argument('--booksim-binary',type=Path,required=True);p.add_argument('--mode',choices=('compute','stream','boundary','bf16-boundary','equivalence','idle-boundary'),required=True)
     a=p.parse_args();run(a.root,a.booksim_binary,a.mode)

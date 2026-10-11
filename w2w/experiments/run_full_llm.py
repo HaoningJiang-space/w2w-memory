@@ -92,6 +92,8 @@ def prepare(root,corpus,config,B,gate_receipts):
     for receipt in gate_receipts:
         if json.loads(receipt.read_text()).get('passed') is not True:raise ValueError('Full LLM requires accepted NPU/context gates')
     if len(gate_receipts)<6:raise ValueError('Shape/compute/Native/carry/equivalence/context gates required')
+    if not any(json.loads(x.read_text()).get('mode')=='idle-boundary' for x in gate_receipts):
+        raise ValueError('Full deployed stages require a passed inactive-release Native/BookSim event equivalence receipt')
     root.mkdir(parents=True,exist_ok=False)
     for name in ('tickets','notices','stages'):(root/name).mkdir()
     with gzip.open(root/'cohort.json.gz','wt') as f:json.dump(cohort,f)
@@ -153,7 +155,7 @@ def stage_run(root,stage,binary):
     try:r=execute_system(machine,graph,native=native,max_ps=reg['max_ps'],time_advance='boundaries',compute_contexts=2,
         fetch_contexts=2,read_issue_policy='round_robin',weight_cache=WeightCacheConfig(),operand_readiness='contiguous_prefix',
         activation_sram_read_bytes_per_cycle=machine.rx_write_bytes_per_cycle,npu_model=NPUKernelModel(npu,kernels,auxiliary=metadata['auxiliary']),
-        window_source=source,network_factory=factory(binary=binary,directory=directory/'network',ready_router_ids=tuple(r.id for r in machine.routers),ready_slots=16))
+        window_source=source,idle_release_boundaries=True,network_factory=factory(binary=binary,directory=directory/'network',ready_router_ids=tuple(r.id for r in machine.routers),ready_slots=16))
     finally:native.close()
     with gzip.open(directory/'result.json.gz','wt') as f:json.dump(r,f)
     from w2w.validation.llm_context import audit_llm_stage

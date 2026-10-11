@@ -17,7 +17,7 @@ from w2w.system.builder import SystemBuilder
 
 class SystemExecution:
     def __init__(self, spec, graph, native=None, *, network_factory=None,
-                 activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count',fetch_contexts=0,read_issue_policy='ordered',compute_epoch=False,compute_epoch_evidence='full',interactive_compute=False,interactive_compute_evidence='full',causal_boundary=False,return_contexts=0,down_prefetch_plan=None,npu_model=None,window_source=None):
+                 activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count',fetch_contexts=0,read_issue_policy='ordered',compute_epoch=False,compute_epoch_evidence='full',interactive_compute=False,interactive_compute_evidence='full',causal_boundary=False,return_contexts=0,down_prefetch_plan=None,npu_model=None,window_source=None,idle_release_boundaries=False):
         if type(return_contexts) is not int or not 0<=return_contexts<=8 or return_contexts and (not fetch_contexts or weight_cache):
             raise ValueError('Split-phase gate requires finite issue contexts, 0..8 return entries, and cold operands')
         self.spec, self.graph = spec, graph
@@ -25,6 +25,9 @@ class SystemExecution:
         self.npu_model=npu_model
         self.window_source=window_source
         self.window_final_ps=None;self.window_external_drain=None
+        self.idle_release_boundaries=idle_release_boundaries;self.idle_boundary_intervals=[]
+        if idle_release_boundaries and (npu_model is None or compute_epoch or interactive_compute or causal_boundary):
+            raise ValueError('Idle release batching is an opt-in ordinary NPU boundary policy')
         if window_source is not None and (npu_model is None or down_prefetch_plan or return_contexts or compute_epoch or interactive_compute or causal_boundary):
             raise ValueError('Bounded real-MoE windows require ordinary finite NPU execution')
         if npu_model is not None:
@@ -616,6 +619,13 @@ class SystemExecution:
             if self.compute_epoch_resume is not None:
                 now,self.compute_epoch_resume=self.compute_epoch_resume,None
                 continue
+            if self.idle_release_boundaries:
+                from .idle_boundary import next_idle_boundary
+                following=next_idle_boundary(self,quantum,max_ps)
+                if following is not None:
+                    self.idle_boundary_intervals.append(dict(begin_ps=now,end_ps=following,
+                        contract='No externally observable work before the known release; existing Native/BookSim advance executes the full internal interval, including refresh.'))
+                    now=following;continue
             clock_periods=set(periods)
             if getattr(self.native,'internal_clock_service',False):
                 # The island owns array/frontend clocks; external descriptor
@@ -741,6 +751,8 @@ class SystemExecution:
                       physical=self.builder.physical_record(), events=self.events)
         if self.weight_cache:record['weight_cache']=self.weight_cache.record()
         if self.npu_model is not None:record['npu_execution']=self.npu_model.record()
+        if self.idle_release_boundaries:record['idle_release_boundaries']=dict(intervals=self.idle_boundary_intervals,
+            contract='Host wakeups only; Native refresh and NoC idle-state advancement still execute at the next known external release.')
         if self.down_prefetch_plan:
             record['down_prefetch']=dict(plan=asdict(self.down_prefetch_plan),peak_waiting_by_cluster=dict(self.prefetch_peak),
                 live_waiting=sum(self.prefetch_live.values()),

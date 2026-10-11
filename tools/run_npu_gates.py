@@ -22,6 +22,7 @@ def run(root,evidence,corpus,config,binary,resource,context,resource_pid,context
     base=[evidence/'npu-reference-r2.json',evidence/'compute-r4/receipt.json',evidence/'stream-r4/receipt.json',
         evidence/'boundary-r8/receipt.json',evidence/'bf16-boundary-r8/receipt.json',evidence/'equivalence-r10b/receipt.json']
     base.append(evidence/'gqa-reference-r10b.json')
+    base.append(evidence/'idle-boundary-r13/receipt.json')
     def ready(path,pid=None):
         if path.exists():
             if json.loads(path.read_text()).get('passed') is not True:raise ValueError(f'Failed prerequisite: {path}')

@@ -50,7 +50,7 @@ def run(root,corpus,binary,context):
     source=KVRuntimeWindows(root/'windows',gen,meta,catalog,(capture['request_id'],)) if context else RuntimeWindows(root/'windows',gen,meta)
     if context:source.lengths=state
     native=VerticalRWDL(machine,request_control=True,refresh=True,gateway_trace_bin_ps=1000000);begin=time.monotonic()
-    try:r=execute_system(machine,g,native=native,time_advance='boundaries',max_ps=5000000000,
+    try:r=execute_system(machine,g,native=native,time_advance='boundaries',max_ps=50000000000,
         compute_contexts=2,fetch_contexts=2,read_issue_policy='round_robin',weight_cache=WeightCacheConfig(),operand_readiness='contiguous_prefix',
         activation_sram_read_bytes_per_cycle=machine.rx_write_bytes_per_cycle,npu_model=NPUKernelModel(p,ks,auxiliary=meta['auxiliary']),window_source=source,
         network_factory=factory(binary=binary,directory=root/'network',ready_router_ids=tuple(r.id for r in machine.routers),ready_slots=16))
