@@ -10,6 +10,7 @@ from w2w.validation.request_control import audit_request_control
 from w2w.validation.down_prefetch import audit_down_prefetch
 from w2w.analysis.placement_pressure import summarize_pressure
 from w2w.analysis.co_placement import traffic_by_operand
+from w2w.analysis.ffn_stages import stages
 
 
 def file_identity(path):
@@ -86,6 +87,11 @@ def analyze(source,baseline):
         rows[case]=dict(c,independent_passed=True,pressure=pressure,traffic=traffic,down=down_timelines(r),
             sram_peak_bytes=r['sram_peak_bytes'],compute_busy_ps=r['compute_busy_ps'],
             context_occupancy_ps=r['engine_context_ps'],native_last_tail_ps=r['native']['native_last_tail_ps'])
+        stage=stages(r)
+        last_down=max(rows[case]['down']['tasks'],key=lambda k:r['tasks'][k]['finish_ps'])
+        prefix=last_down[:-4]
+        rows[case]['last_down_block']={k:stage['tasks'][k] for k in tasks_in_block(r['graph'],prefix)}
+        del stage
         if case=='up-local':
             from tools.check_simulator_equivalence import canonical
             old=json.load(gzip.open(baseline/'result.json.gz','rt'));audit_vertical_result(old);audit_request_control(old)
@@ -110,6 +116,10 @@ def analyze(source,baseline):
             'Native row statistics can change with request order; no ACT/PRE command trace equivalence claimed for the intervention.',
             'Valid negative performance is retained. This single spare-slot policy does not rule out all whole-matrix schedulers.',
             'NoC byte-distance and resource work are uncalibrated proxies, not measured energy/PPA.'])
+
+
+def tasks_in_block(graph,prefix):
+    return [t['id'] for t in graph['tasks'] if t['id'].rsplit('/',1)[0]+'/'==prefix]
 
 
 def main():
