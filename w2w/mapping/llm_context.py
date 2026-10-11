@@ -15,16 +15,16 @@ from .moe_batch_lowering import lower_batch
 
 def lower_context(batch,machine,catalog,npu_profile,kv_lengths,*,prefix):
     g,kernels,meta=lower_batch(batch,machine,catalog,npu_profile,prefix=prefix)
-    tasks=list(g.tasks);data=list(g.data);control=list(g.control);aux=dict(meta['auxiliary']);append=[];reads=[]
+    tasks=list(g.tasks);data=list(g.data);control=list(g.control);aux=dict(meta['auxiliary']);append=[];reads=[];attention_groups=[]
     objects={o.id:o for o in catalog['objects']};p=catalog['llm_profile'];H=p['hidden'];D=p['head_dim']
     M=batch.token_count;layer=batch.layer_id;root=f'L{layer}/context/';origin=prefix+'context/'
     name=lambda x:origin+x
     def edge(tag,a,b,size):data.append(DataEdge(name(tag),a,b,size))
     def scalar(key,tile,read=0,write=0,ops=0,weights=0,accesses=(),scratch=0,phases=None):
-        from w2w.system.npu_auxiliary import phase,work,auxiliary_program
+        from w2w.system.npu_auxiliary import phase,work,auxiliary_program,output_buffer_bytes
         spec=work(phases or (phase('vector',read=read,write=write,ops=ops,weights=weights),))
         cycles=len(auxiliary_program(spec,npu_profile))
-        tasks.append(ComputeTask(key,tile,cycles,tuple(accesses),scratch));aux[key]=spec;return key
+        tasks.append(ComputeTask(key,tile,cycles,tuple(accesses),scratch+output_buffer_bytes(spec)));aux[key]=spec;return key
     def norm(kind,N,source):
         from w2w.system.npu_auxiliary import phase
         key=name(kind);obj=objects[root+kind];tile=catalog['context_placements'][obj.id]
@@ -81,6 +81,10 @@ def lower_context(batch,machine,catalog,npu_profile,kv_lengths,*,prefix):
             # Sixteen query heads share one KV head. Flatten their independent
             # query rows into M, reusing one KV matrix on the existing arrays.
             base=f'{rid}/group{h}';R=P*group;packed=name(base+'/query_pack')
+            attention_groups.append(dict(request_id=rid,kv_head=h,source_token_indices=[i for i,r in rows],
+                query_head_range=(h*group,(h+1)*group),query_row_order=[(i,q) for i,r in rows for q in range(h*group,(h+1)*group)],
+                source_shape=(M,p['query_heads'],D),kv_length=length,causal_positions=positions,
+                query_pack_task=packed,output_task=name(base+'/bf16')))
             scalar(packed,tile,2*R*D,2*R*D,R*D);edge(base+'/query_rows',q,packed,2*R*D)
             qk=gemm(base+'/qk',length,D,packed,weight=f'KV/L{layer}/{rid}/K{h}',tile=tile,rows=R)
             edge(base+'/K',key_read,qk,2*length*D)
@@ -111,7 +115,7 @@ def lower_context(batch,machine,catalog,npu_profile,kv_lengths,*,prefix):
         finish=name(f't{t}/moe_residual');scalar(finish,'c0',4*H,2*H,H)
         edge(f'moe_output/{t}',prefix+f't{t}/combine',finish,2*H)
         edge(f'moe_skip/{t}',residual,finish,2*H);finishes.append(finish)
-    meta.update(finish_tasks=finishes,context_input=source,auxiliary=aux,kv_appends=append,kv_reads=reads,
+    meta.update(finish_tasks=finishes,context_input=source,auxiliary=aux,kv_appends=append,kv_reads=reads,attention_groups=attention_groups,
         causal_attention=dict(mode='Dense GQA reference grouping query heads that share KV into M; explicit causal mask, word padding and V transpose; no FlashAttention claim',
             query_heads=p['query_heads'],kv_heads=p['kv_heads'],head_dim=D,
             token_positions=[r.token_position for r in batch.observations],query_row_order='token-major then query-head within each KV group; mask position uses row//query-heads-per-KV',

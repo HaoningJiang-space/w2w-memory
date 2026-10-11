@@ -12,10 +12,10 @@ def add_boundaries(graph,kernels,metadata,batches,catalog,machine,profile,cohort
     tasks=list(graph.tasks);data=list(graph.data);aux=metadata['auxiliary'];objects={o.id:o for o in graph.objects}
     p=catalog['llm_profile'];H=p['hidden'];V=p['vocabulary'];first=batches[0];last=batches[-1]
     def scalar(key,tile,read=0,write=0,ops=0,weights=0,accesses=(),scratch=0,phases=None):
-        from w2w.system.npu_auxiliary import phase,work,auxiliary_program
+        from w2w.system.npu_auxiliary import phase,work,auxiliary_program,output_buffer_bytes
         spec=work(phases or (phase('vector',read=read,write=write,ops=ops,weights=weights),))
         cycles=len(auxiliary_program(spec,profile));aux[key]=spec
-        tasks.append(ComputeTask(key,tile,cycles,tuple(accesses),scratch,release_ps=release_ps));return key
+        tasks.append(ComputeTask(key,tile,cycles,tuple(accesses),scratch+output_buffer_bytes(spec),release_ps=release_ps));return key
     embeddings=[]
     if catalog['embedding']:
         for t,row in enumerate(first.observations):

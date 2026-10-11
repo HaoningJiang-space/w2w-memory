@@ -130,7 +130,7 @@ def stage_run(root,stage,binary):
     def producer():
         for index,batches in enumerate(paired_batches(cohort,catalog['layers'],reg['prefill_microbatch'])):
             incoming,hash_=await_ticket(root,stage,index);slot=acquire_slot(root)
-            tasks=[];data=[];control=[];kernels={};aux={};calls=[];appends=[];reads=[];previous=[];inputs=[]
+            tasks=[];data=[];control=[];kernels={};aux={};calls=[];appends=[];reads=[];groups=[];previous=[];inputs=[]
             for batch in batches:
                 prefix=f'W{index:04d}/L{batch.layer_id}/'
                 g,k,m=lower_context(batch,machine,catalog,npu,state,prefix=prefix);current=m['context_input'];inputs.append(current)
@@ -139,9 +139,10 @@ def stage_run(root,stage,binary):
                     for t,task in enumerate(previous):data.append(DataEdge(prefix+f'layer_activation/{t}',task,current,2*p.hidden))
                 tasks.extend(g.tasks);data.extend(g.data);control.extend(g.control);kernels.update(k);aux.update(m['auxiliary'])
                 appends.extend(m['kv_appends']);reads.extend(m['kv_reads']);previous=m['finish_tasks']
+                groups.extend(dict(g,layer=batch.layer_id) for g in m['attention_groups'])
                 call={key:m[key] for key in ('batch_id','layer_id','token_ids','token_to_experts','expert_token_counts','expert_macs','router_macs')}
                 call.update(phase=batch.observations[0].phase,decode_step=batch.observations[0].decode_step);calls.append(call)
-            meta=dict(index=index,calls=calls,context_inputs=inputs,finish_tasks=previous,auxiliary=aux,kv_appends=appends,kv_reads=reads,
+            meta=dict(index=index,calls=calls,context_inputs=inputs,finish_tasks=previous,auxiliary=aux,kv_appends=appends,kv_reads=reads,attention_groups=groups,
                 input_ticket_sha256=hash_,release_ps=incoming['committed_ps'])
             g=ExecutionGraph(tuple(tasks),catalog['objects'],tuple(data),tuple(control))
             g,k,meta=add_boundaries(g,kernels,meta,batches,catalog,machine,npu,cohort,index=index,stage=stage,release_ps=incoming['committed_ps'])

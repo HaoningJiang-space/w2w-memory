@@ -110,7 +110,12 @@ def audit_npu_result(result):
         if any(sum(v.get(f,0) for v in phases)!=work.get(f,0) for f in limits):raise ValueError('Vector phase work changed')
         for v in phases:
             count=max(v.get('cycles_floor',1),max(ceil(v.get(f,0)/limit) for f,limit in limits.items()))
-            for tick in range(count):code.append({f:min(max(0,v.get(f,0)-tick*limit),limit) for f,limit in limits.items()})
+            if tasks[key]['scratch_bytes']<v.get('output_sram_bytes',0):raise ValueError('Vector output storage was not owned before production')
+            for tick in range(count):
+                row={f:min(max(0,v.get(f,0)-tick*limit),limit) for f,limit in limits.items()}
+                first=count-ceil(v.get('output_sram_bytes',0)/limits['output_sram_bytes'])
+                row['output_sram_bytes']=min(max(0,v.get('output_sram_bytes',0)-max(0,tick-first)*limits['output_sram_bytes']),limits['output_sram_bytes']) if tick>=first else 0
+                code.append(row)
         expected_aux[key]=code
     for e in result['events']:
         if e['kind']=='compute_service' and e['task'] in aux:

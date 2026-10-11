@@ -17,10 +17,10 @@ def alive(pid):
     return path.exists() and path.read_text().split(') ',1)[1][0]!='Z'
 
 
-def run(root,evidence,corpus,config,binary,resource,context,resource_pid,context_pid,existing_moe_study=None,idle_gate=None,additional_gates=()):
+def run(root,evidence,corpus,config,binary,resource,context,resource_pid,context_pid,existing_moe_study=None,idle_gate=None,additional_gates=(),equivalence_gate=None):
     root.mkdir(parents=True,exist_ok=False);jobs={};logs=[];launched=[];g3=existing_moe_study or root/'real-moe';g4=root/'full-llm-B1';source=revision();g4_error=None
     base=[evidence/'npu-reference-r2.json',evidence/'compute-r4/receipt.json',evidence/'stream-r4/receipt.json',
-        evidence/'boundary-r8/receipt.json',evidence/'bf16-boundary-r8/receipt.json',evidence/'equivalence-r10b/receipt.json']
+        evidence/'boundary-r8/receipt.json',evidence/'bf16-boundary-r8/receipt.json',equivalence_gate or evidence/'equivalence-r10b/receipt.json']
     base.extend(additional_gates)
     serving_gates=[evidence/'gqa-reference-r10b.json',idle_gate or evidence/'idle-boundary-r13/receipt.json']
     def ready(path,pid=None):
@@ -91,5 +91,6 @@ if __name__=='__main__':
     for name in ('root','evidence','corpus','config','booksim-binary','resource','context'):p.add_argument('--'+name,type=Path,required=True)
     p.add_argument('--resource-pid',type=int,required=True);p.add_argument('--context-pid',type=int,required=True)
     p.add_argument('--existing-moe-study',type=Path);p.add_argument('--idle-gate',type=Path);p.add_argument('--additional-gates',type=Path,nargs='*',default=())
+    p.add_argument('--equivalence-gate',type=Path)
     a=p.parse_args()
-    run(a.root,a.evidence,a.corpus,a.config,a.booksim_binary,a.resource,a.context,a.resource_pid,a.context_pid,a.existing_moe_study,a.idle_gate,a.additional_gates)
+    run(a.root,a.evidence,a.corpus,a.config,a.booksim_binary,a.resource,a.context,a.resource_pid,a.context_pid,a.existing_moe_study,a.idle_gate,a.additional_gates,a.equivalence_gate)

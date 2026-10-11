@@ -624,7 +624,7 @@ class SystemExecution:
                 following=next_idle_boundary(self,quantum,max_ps)
                 if following is not None:
                     self.idle_boundary_intervals.append(dict(begin_ps=now,end_ps=following,
-                        contract='No externally observable work before the known release; existing Native/BookSim advance executes the full internal interval, including refresh.'))
+                        contract='Transport quiescent; no external output before the known release or fixed nonpreemptive array-epoch finish. Existing Native/BookSim advance executes the full internal interval, including refresh.'))
                     now=following;continue
             clock_periods=set(periods)
             if getattr(self.native,'internal_clock_service',False):

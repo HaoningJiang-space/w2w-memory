@@ -4,6 +4,10 @@ from math import ceil
 FIELDS=('activation_sram_bytes','output_sram_bytes','weight_sram_bytes','vector_ops','activation_delivery_bytes')
 
 
+def output_buffer_bytes(spec):
+    return max((p.get('output_sram_bytes',0) for p in spec.get('phases',())),default=spec.get('output_sram_bytes',0))
+
+
 def phase(name,*,read=0,write=0,weights=0,ops=0,delivery=0,floor=1):
     return dict(name=name,activation_sram_bytes=read,output_sram_bytes=write,weight_sram_bytes=weights,
         vector_ops=ops,activation_delivery_bytes=delivery,cycles_floor=floor)
@@ -32,5 +36,11 @@ def auxiliary_program(spec,profile):
         if type(floor) is not int or floor<1:raise ValueError('Explicit positive reduction latency required')
         if any(type(p.get(f,0)) is not int or p.get(f,0)<0 for f in FIELDS):raise ValueError('Finite phase service required')
         cycles=max(floor,max(ceil(p.get(f,0)/ports[f]) for f in FIELDS))
-        for tick in range(cycles):rows.append({f:min(max(0,p.get(f,0)-tick*ports[f]),ports[f]) for f in FIELDS})
+        for tick in range(cycles):
+            row={f:min(max(0,p.get(f,0)-tick*ports[f]),ports[f]) for f in FIELDS}
+            # Reserve stores at the end of a phase, after its arithmetic span.
+            # Full output storage is charged by lowering before this service.
+            first_store=cycles-ceil(p.get('output_sram_bytes',0)/ports['output_sram_bytes'])
+            row['output_sram_bytes']=min(max(0,p.get('output_sram_bytes',0)-max(0,tick-first_store)*ports['output_sram_bytes']),ports['output_sram_bytes']) if tick>=first_store else 0
+            rows.append(row)
     return tuple(rows)

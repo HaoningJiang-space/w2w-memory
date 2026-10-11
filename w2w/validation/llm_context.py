@@ -46,6 +46,10 @@ def audit_llm_stage(summary,root,cohort,catalog,registration):
                 if [x.token_position for x in observations]!=list(range(before,after)) or after>p['kv_tokens_per_request']:
                     raise ValueError('KV position/capacity mismatch or truncated history')
                 for h in range(p['kv_heads']):
+                    mapping=[x for x in m['attention_groups'] if (x['layer'],x['request_id'],x['kv_head'])==(batch.layer_id,rid,h)]
+                    indices=[i for i,x in enumerate(batch.observations) if x.request_id==rid];group=p['query_heads']//p['kv_heads']
+                    if len(mapping)!=1 or mapping[0]['query_row_order']!=[[i,q] for i in indices for q in range(h*group,(h+1)*group)]:
+                        raise ValueError('Query packing/concat mixes a request, token or head identity')
                     app=[x for x in append_events if (x['layer'],x['request_id'],x['head'])==(batch.layer_id,rid,h)]
                     reads=[x for x in read_events if (x['layer'],x['request_id'],x['head'])==(batch.layer_id,rid,h)]
                     if len(app)!=1 or (app[0]['before'],app[0]['after'],app[0]['bytes'])!=(before,after,4*len(observations)*p['head_dim']):

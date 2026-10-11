@@ -174,15 +174,22 @@ class NPUKernelModel:
     def validate(self,spec,graph):
         for c in spec.stack.compute_clusters:self.profile.validate_cluster(c)
         tasks={t.id:t for t in graph.tasks}
+        objects={o.id:o for o in graph.objects};incoming=Counter()
+        for edge in graph.data:incoming[edge.consumer]+=edge.size_bytes
         for key,k in self.kernels.items():
             if key not in tasks:raise ValueError('NPU kernel has no physical task')
             task=tasks[key];plan=self.plans[key]
+            if task.compute_cycles!=plan['cycles']:raise ValueError('GEMM task did not use the current complete array program')
+            expected=k.activation_storage_bytes+(k.weight_storage_bytes if k.weight_object not in objects else 0)
+            if incoming[key]!=expected:raise ValueError('GEMM lacks its actual input/virtual-weight shape and word padding')
             if task.scratch_bytes<plan['scratch_bytes']:raise ValueError('NPU buffers/partials are not charged to task SRAM')
             if task.stream and (task.stream.macs!=k.macs or task.stream.weight_data_bytes!=k.weight_bytes):
                 raise ValueError('GEMM shape differs from weight/work identity')
         for key,work in self.auxiliary.items():
             cycles=len(self.aux_programs[key])
             if key not in tasks or tasks[key].compute_cycles!=cycles:raise ValueError('Vector/transpose/append service cycles unpaid')
+            from .npu_auxiliary import output_buffer_bytes
+            if tasks[key].scratch_bytes<output_buffer_bytes(work):raise ValueError('Vector output storage must be owned before production')
 
     def auxiliary_service(self,key):
         tick=self.aux_cursors[key];self.aux_cursors[key]+=1
