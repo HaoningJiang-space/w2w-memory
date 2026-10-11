@@ -90,9 +90,16 @@ def audit_npu_result(result):
             activation_sram_bytes=input_words*p['word_bytes']+(4*M*N*split if split>1 else 0),
             output_sram_bytes=4*M*N*split+(4*M*N if split>1 else 0),
             vector_ops=(ceil(M/p['rows'])*N*K if bpp==1 else 0)+M*N*(split-1),
-            accumulator_register_bytes=8*M*N*K,
+            accumulator_register_bytes=8*M*N*K+(8*M*N*split if split>1 else 0),
             activation_delivery_bytes=2*M*K*ceil(N/p['columns']))
         if dict(service[key])!=expected or plan['service']!=expected:raise ValueError('Operand/partial service conservation differs')
+        if split>1:
+            expected_reduction=ceil(M*N*4/p['activation_read_bytes_per_cycle'])+(split-1)*max(
+                ceil(M*N*4/p['activation_read_bytes_per_cycle']),ceil(M*N/p['vector_ops_per_cycle']))+ceil(M*N*4/p['output_write_bytes_per_cycle'])
+            scale_cycles=ceil(expected['scale_sram_bytes']/p['weight_read_bytes_per_cycle'])
+            partial_cycles=sum(ceil(sum(t['M']*t['N']*4 for t in w)/p['output_write_bytes_per_cycle']) for w in plan['waves'])
+            if plan['cycles']!=core_cycles+plan['bank_stall_cycles']+scale_cycles+partial_cycles+expected_reduction:
+                raise ValueError('Ordered K additions or final output store did not pay their causal cycles')
         buffers=p['arrays']*(p['rows']*p['columns']*4+(p['rows']+p['columns'])*p['word_bytes']+32)+4*M*N*split
         if tasks[key]['scratch_bytes']<buffers:raise ValueError('Uncharged array register/word/partial state')
     aux=npu.get('auxiliary',{});done=defaultdict(Counter);aux_ticks=Counter();expected_aux={}

@@ -120,14 +120,27 @@ def program(M,N,K,weight_dtype,p):
             n=min(size,p.output_write_bytes_per_cycle,p.banks*p.bank_port_bytes_per_cycle)
             instructions.append(NPUInstruction('partial_store',wave_id,duration,output_sram_bytes=n));size-=n
     if split>1:
-        read=M*N*split*4;write=M*N*4;ops=M*N*(split-1)
-        while read or write or ops:
-            a=min(read,p.activation_read_bytes_per_cycle,p.banks*p.bank_port_bytes_per_cycle)
-            b=min(write,p.output_write_bytes_per_cycle,p.banks*p.bank_port_bytes_per_cycle)
-            v=min(ops,p.vector_ops_per_cycle)
-            instructions.append(NPUInstruction('ordered_k_reduce',len(waves),0,
-                activation_sram_bytes=a,output_sram_bytes=b,vector_ops=v))
-            read-=a;write-=b;ops-=v
+        # Reuse the now-free array accumulator registers: spare-array K
+        # partitioning guarantees M*N <= the available physical MAC cells.
+        # Every element observes increasing K order. A whole output is never
+        # stored before its final dependent addition, even if all work counts
+        # would fit a single aggregate bandwidth/ops grant.
+        if M*N>p.macs_per_cycle:raise ValueError('K-reduction registers exceed paid array accumulators')
+        for part in range(split):
+            remaining=M*N;tick=0
+            while remaining:
+                count=min(remaining,p.activation_read_bytes_per_cycle//4,p.banks*p.bank_port_bytes_per_cycle//4,
+                    p.vector_ops_per_cycle if part else remaining)
+                instructions.append(NPUInstruction('ordered_k_load' if not part else 'ordered_k_add',len(waves),tick,
+                    activation_sram_bytes=4*count,vector_ops=count if part else 0,
+                    accumulator_register_bytes=(8 if part else 4)*count))
+                remaining-=count;tick+=1
+        size=M*N*4;tick=0
+        while size:
+            count=min(size,p.output_write_bytes_per_cycle,p.banks*p.bank_port_bytes_per_cycle)
+            instructions.append(NPUInstruction('ordered_k_final_store',len(waves),tick,
+                output_sram_bytes=count,accumulator_register_bytes=count))
+            size-=count;tick+=1
     if sum(i.macs for i in instructions)!=M*N*K:raise ValueError('Array mapping changed mathematical MAC work')
     metadata=dict(M=M,N=N,K=K,weight_dtype=weight_dtype,k_partitions=split,
         waves=[[asdict(t) for t in wave] for wave in waves],cycles=len(instructions),

@@ -52,6 +52,10 @@ class RealNPU(unittest.TestCase):
         b=program(1,128,4096,'FP8_E4M3FN',reference_profile(32))[1]
         self.assertNotEqual(a['cycles'],b['cycles'])
         self.assertGreater(a['k_partitions'],1)
+        code=program(1,128,4096,'FP8_E4M3FN',reference_profile())[0]
+        reduction=[r for r in code if r.phase.startswith('ordered_k_')]
+        self.assertEqual([r.phase for r in reduction],['ordered_k_load']+['ordered_k_add']*7+['ordered_k_final_store'])
+        self.assertTrue(all(r.output_sram_bytes==0 for r in reduction[:-1]))
 
     def test_bad_ports_or_unpaid_buffers_rejected(self):
         m=compile_machine(from_recipe('configs/machine/v3-small.json','distributed'))
