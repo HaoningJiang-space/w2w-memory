@@ -9,6 +9,7 @@ Architecture V3 研究给分布式 Compute Wafer 增加垂直 DRAM 后的接入�
 - [Central / Distributed / External 基线](BASELINES.md)
 - [当前源码地图](CODE_STRUCTURE.md)
 - [交接与复现入口](HANDOFF.md)
+- [真实 cold Gate 的原生服务因果实验](reports/COLD_MEMORY_CAUSALITY_REPORT.md)
 - [研究范围](RESEARCH_SCOPE.md)
 
 历史报告、理论与旧实现说明保存在 `legacy/`；其中“当前”“下一步”只对相应历史
