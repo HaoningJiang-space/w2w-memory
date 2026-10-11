@@ -26,6 +26,11 @@ def audit_system_result(result):
     operand_meta_live=Counter();operand_meta_peak=Counter()
     fragment_bytes=result['spec']['memory_request_bytes'];ready_chunks={};prefix_bytes=Counter();operand_ranges={}
     resident={o['id']:o for o in graph['objects']}
+    def cache_key(task):
+        rule=tasks[task]['stream']
+        if rule:return rule['weight_object']
+        k=result.get('npu_execution',{}).get('kernels',{}).get(task,{})
+        return k['weight_object'] if k.get('cached_weights') else None
     service_cycles=Counter();contexts=result.get('compute_execution',{}).get('contexts_per_cluster',1)
     incoming={k:[] for k in tasks};control={k:[] for k in tasks}
     for edge in graph['data']:incoming[edge['consumer']].append(edge)
@@ -75,7 +80,7 @@ def audit_system_result(result):
         elif kind == 'data_deliver':
             data[event['edge']] += event['bytes']
         elif kind == 'read_issue':
-            if cache and tasks[event['task']]['stream'] and event['task'] not in cache_lookup_done:
+            if cache and cache_key(event['task']) is not None and event['task'] not in cache_lookup_done:
                 raise ValueError('Cache miss issued before finite tag lookup')
             if event['request'] in requests: raise ValueError('Repeated read issue')
             requests[event['request']] = event
@@ -100,8 +105,8 @@ def audit_system_result(result):
                 cache_stats['initial_bytes']+=event['bytes']
                 cache_seen.add(identity)
             elif kind=='cache_lookup':
-                key=event['task'];rule=tasks[key]['stream']
-                if key in cache_lookups or obj!=rule['weight_object']:raise ValueError('Invalid/repeated cache lookup')
+                key=event['task']
+                if key in cache_lookups or obj!=cache_key(key):raise ValueError('Invalid/repeated cache lookup')
                 cache_lookups[key]=identity;cache_pins[identity]+=1
                 cache_lookup_times[key]=event['available_ps'];lookup_live[tile]+=1
                 if lookup_live[tile]>cache['lookup_slots_per_cluster'] or event['available_ps']<=last_lookup_at[tile]:
@@ -122,7 +127,7 @@ def audit_system_result(result):
                     raise ValueError('Eviction removed filling/in-use/unowned data')
                 if carry:
                     victim=next((k for k in entries if not cache_pins[tile,k] and (tile,k) in cache_valid),None)
-                    incoming_obj=tasks[event['task']]['stream']['weight_object']
+                    incoming_obj=cache_key(event['task'])
                     need=cache_used[tile]+resident[incoming_obj]['size_bytes']>cache['data_bytes_per_cluster'] or len(entries)>=cache['entries_per_cluster']
                     if victim!=obj or not need:raise ValueError('Runtime eviction violates actual LRU/capacity need')
                 cache_used[tile]-=entries.pop(obj);cache_valid.remove(identity)
@@ -145,6 +150,12 @@ def audit_system_result(result):
                 raise ValueError('Cache operand availability is unowned')
             read[key]+=event['bytes'];stream_ready[key]+=event['weight_bytes'];stream_scale[key]+=event['scale_bytes']
             prefix_bytes[key]=rule['weight_data_bytes']
+        elif kind=='npu_cached_operands_ready':
+            key=event['task'];identity=cache_lookups.get(key)
+            if (key not in cache_lookup_done or identity not in cache_valid or event['object']!=cache_key(key)
+                    or not cache_pins[identity] or event['bytes']!=sum(r['size_bytes'] for r in tasks[key]['reads']) or read[key]):
+                raise ValueError('NPU cached BF16 operand availability is unowned or repeated')
+            read[key]+=event['bytes']
         elif kind == 'stream_operand_ready':
             task=tasks[event['task']];rule=task['stream']
             if event['object']!=rule['weight_object']:raise ValueError('Wrong streamed weight object')

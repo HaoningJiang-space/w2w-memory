@@ -169,7 +169,8 @@ class SystemExecution:
         self.state={t.id:dict(allocated=False,start_ps=None,finish_ps=None,read_bytes=0,issued_all=False,next_read=None,
             iterator=iter(words_for_task(t,graph,self.builder))) for t in graph.tasks}
         self.edges={e.id:dict(edge=e,sent=0,delivered=0) for e in graph.data};self.done_count=0
-        self.npu_model=NPUKernelModel(self.npu_model.profile,npu_kernels,evidence=self.npu_model.evidence)
+        self.npu_model=NPUKernelModel(self.npu_model.profile,npu_kernels,evidence=self.npu_model.evidence,
+            auxiliary=self.window_source.metadata.get('auxiliary',{}))
         self.npu_model.validate(self.spec,graph)
 
     def log(self, kind, **data):
@@ -239,8 +240,9 @@ class SystemExecution:
                 if stream is not None:
                     self.log('stream_operand_ready',task=req.task,request=key,object=req.object_id,
                         object_offset=req.object_offset,bytes=req.size_bytes)
-                    if self.weight_cache and state['read_bytes']==sum(r.size_bytes for r in self.tasks[req.task].reads):
-                        self.weight_cache.filled(req.requester,stream.weight_object,req.task)
+                cached=self._cache_key(self.tasks[req.task])
+                if self.weight_cache and cached is not None and self.state[req.task]['read_bytes']==sum(r.size_bytes for r in self.tasks[req.task].reads):
+                    self.weight_cache.filled(req.requester,cached,req.task)
                 if self.fetch_contexts and self.state[req.task]['read_bytes']==sum(r.size_bytes for r in self.tasks[req.task].reads):self._fetch_release(req.task)
                 del self.requests[key]
             else:
@@ -252,6 +254,11 @@ class SystemExecution:
         if task.stream is None or self.operand_readiness=='byte_count':return 0
         from w2w.system.operand_readiness import CommittedWeightPrefix
         return CommittedWeightPrefix(task.stream.weight_data_bytes,self.spec.memory_request_bytes).metadata_bytes
+
+    def _cache_key(self,task):
+        if task.stream is not None:return task.stream.weight_object
+        k=self.npu_model.kernels.get(task.id) if self.npu_model is not None else None
+        return k.weight_object if k is not None and k.cached_weights else None
 
     def _available_weights(self,key):
         state=self.state[key]
@@ -270,9 +277,10 @@ class SystemExecution:
             if not self.engine[tile]:del self.engine[tile]
             output = sum(self.edges[e]['edge'].size_bytes for e in self.outgoing[key])
             size=self.builder.footprint[key]+self._operand_state_bytes(task)
-            if self.weight_cache and task.stream:
+            cached=self._cache_key(task)
+            if self.weight_cache and cached is not None:
                 size-=sum(r.size_bytes for r in task.reads)
-                self.weight_cache.release(tile,task.stream.weight_object)
+                self.weight_cache.release(tile,cached)
             self._sram(tile, -(size-output), key)
             if key in self.operand_frontiers:
                 self.operand_metadata_live[tile]-=self.operand_frontiers.pop(key).metadata_bytes
@@ -301,18 +309,19 @@ class SystemExecution:
             elif any(not self.state[p].get('done') for p in predecessors):continue
             if task.reads and not self.fetch_scheduler.can_allocate(task.tile):continue
             size = self.builder.footprint[key]+self._operand_state_bytes(task)
-            cache=self.weight_cache if task.stream is not None else None
+            cached=self._cache_key(task)
+            cache=self.weight_cache if cached is not None else None
             if (self.weight_cache and task.reads and cache is None
-                    and not (self.npu_model is not None and key in self.npu_model.kernels)):
+                    and not (self.npu_model is not None and (key in self.npu_model.kernels or key in self.npu_model.auxiliary))):
                 raise ValueError('Cache primitive requires explicit whole-matrix streaming GEMM')
             if cache:size-=sum(r.size_bytes for r in task.reads)
             if self.sram[task.tile]+size > self.builder.tiles[task.tile].sram_bytes:
                 continue
             if cache:
                 total=sum(r.size_bytes for r in task.reads)
-                expected=self.objects[task.stream.weight_object].size_bytes
+                expected=self.objects[cached].size_bytes
                 if total!=expected:raise ValueError('Cache access must cover the whole matrix and scales')
-                hit=cache.acquire(task.tile,task.stream.weight_object,total,key,self.now,self.builder.tiles[task.tile].compute_period_ps)
+                hit=cache.acquire(task.tile,cached,total,key,self.now,self.builder.tiles[task.tile].compute_period_ps)
                 if hit is None:continue
                 state['cache_hit']=hit
                 self.cache_waiting[key]=cache.lookup_times[key]
@@ -397,10 +406,13 @@ class SystemExecution:
             self.log('cache_lookup_complete',task=key,tile=task.tile)
             if state['cache_hit']:
                 total=sum(r.size_bytes for r in task.reads)
-                state.update(read_bytes=total,stream_scale_delivered=stream.scale_bytes,stream_weight_delivered=stream.weight_data_bytes)
-                if self.operand_readiness=='contiguous_prefix':self.operand_frontiers[key].cached()
-                self.log('cache_operands_ready',task=key,tile=task.tile,object=stream.weight_object,
-                    bytes=total,weight_bytes=stream.weight_data_bytes,scale_bytes=stream.scale_bytes)
+                state['read_bytes']=total
+                if stream is not None:
+                    state.update(stream_scale_delivered=stream.scale_bytes,stream_weight_delivered=stream.weight_data_bytes)
+                    if self.operand_readiness=='contiguous_prefix':self.operand_frontiers[key].cached()
+                    self.log('cache_operands_ready',task=key,tile=task.tile,object=stream.weight_object,
+                        bytes=total,weight_bytes=stream.weight_data_bytes,scale_bytes=stream.scale_bytes)
+                else:self.log('npu_cached_operands_ready',task=key,tile=task.tile,object=self._cache_key(task),bytes=total)
                 self._fetch_release(key)
 
     def _memory_progress(self, network_boundary):
@@ -563,7 +575,8 @@ class SystemExecution:
                 continue
             if stream is None:
                 state['compute_remaining']-=1;self.busy_ps[tile]+=period
-                self.log('compute_service',task=key,tile=tile,cycles=1)
+                extra=self.npu_model.auxiliary_service(key) if self.npu_model is not None and key in self.npu_model.auxiliary else {}
+                self.log('compute_service',task=key,tile=tile,cycles=1,**extra)
                 if not state['compute_remaining']:state['finish_ps']=self.now+period
                 continue
             state['stream_tick']=self.now
@@ -663,6 +676,7 @@ class SystemExecution:
                         self.window_source.reset_observations(self)
                         self.install_window(*following);makespan=None
                         continue
+                    if hasattr(self.window_source,'finish'):self.window_source.finish(self)
                 if self.context_metadata_bytes:
                     for tile in self.builder.tiles:self._sram(tile,-self.context_metadata_bytes,'compute-context-state')
                 if self.fetch_metadata_bytes:

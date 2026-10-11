@@ -85,6 +85,18 @@ def audit_npu_result(result):
         if dict(service[key])!=expected or plan['service']!=expected:raise ValueError('Operand/partial service conservation differs')
         buffers=p['arrays']*(p['rows']*p['columns']*4+(p['rows']+p['columns'])*p['word_bytes']+32)+4*M*N*split
         if tasks[key]['scratch_bytes']<buffers:raise ValueError('Uncharged array register/word/partial state')
+    aux=npu.get('auxiliary',{});done=defaultdict(Counter);aux_ticks=Counter()
+    for e in result['events']:
+        if e['kind']=='compute_service' and e['task'] in aux:
+            limits=dict(weight_sram_bytes=p['weight_read_bytes_per_cycle'],activation_sram_bytes=p['activation_read_bytes_per_cycle'],
+                output_sram_bytes=p['output_write_bytes_per_cycle'],vector_ops=p['vector_ops_per_cycle'])
+            key=e['task'];tick=aux_ticks[key];aux_ticks[key]+=1
+            for field,limit in limits.items():
+                expected=min(max(0,aux[key][field]-tick*limit),limit)
+                if e.get(field)!=expected:raise ValueError('Vector/SRAM operation exceeded or omitted its actual grant')
+                done[key][field]+=e[field]
+    for key,work in aux.items():
+        if dict(done[key])!=work or aux_ticks[key]!=tasks[key]['compute_cycles']:raise ValueError('Vector/KV/transpose service not closed')
     grants=defaultdict(list)
     for e in result['events']:
         if e['kind'] in ('compute_service','stream_compute','npu_cycle'):grants[e['tile']].append(e)

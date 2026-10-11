@@ -143,10 +143,11 @@ def program(M,N,K,weight_dtype,p):
 
 
 class NPUKernelModel:
-    def __init__(self,profile,kernels,*,evidence='epochs'):
+    def __init__(self,profile,kernels,*,evidence='epochs',auxiliary=None):
         if evidence not in ('epochs','cycles'):raise ValueError('Explicit array evidence required')
         self.evidence=evidence
         self.profile=profile;self.kernels=dict(kernels);self.cursors=Counter();self.owners={}
+        self.auxiliary=dict(auxiliary or {});self.aux_cursors=Counter()
         self.plans={k:program(v.M,v.N,v.K,v.weight_dtype,profile)[1] for k,v in self.kernels.items()}
 
     def validate(self,spec,graph):
@@ -158,6 +159,20 @@ class NPUKernelModel:
             if task.scratch_bytes<plan['scratch_bytes']:raise ValueError('NPU buffers/partials are not charged to task SRAM')
             if task.stream and (task.stream.macs!=k.macs or task.stream.weight_data_bytes!=k.weight_bytes):
                 raise ValueError('GEMM shape differs from weight/work identity')
+        for key,work in self.auxiliary.items():
+            limits=self.aux_limits()
+            if set(work)!=set(limits) or any(type(v) is not int or v<0 for v in work.values()):raise ValueError('Explicit vector/SRAM service required')
+            cycles=max(1,max(ceil(work[f]/limit) for f,limit in limits.items()))
+            if key not in tasks or tasks[key].compute_cycles!=cycles:raise ValueError('Vector/transpose/append service cycles unpaid')
+
+    def aux_limits(self):
+        p=self.profile
+        return dict(activation_sram_bytes=p.activation_read_bytes_per_cycle,output_sram_bytes=p.output_write_bytes_per_cycle,
+            weight_sram_bytes=p.weight_read_bytes_per_cycle,vector_ops=p.vector_ops_per_cycle)
+
+    def auxiliary_service(self,key):
+        tick=self.aux_cursors[key];self.aux_cursors[key]+=1
+        return {f:min(max(0,n-tick*self.aux_limits()[f]),self.aux_limits()[f]) for f,n in self.auxiliary[key].items()}
 
     def ready(self,key,state,task):
         if key not in self.kernels:return True
@@ -199,6 +214,7 @@ class NPUKernelModel:
     def record(self):
         return dict(schema='w2w.shape-aware-npu.v1',profile=asdict(self.profile),
             kernels={k:asdict(v) for k,v in self.kernels.items()},plans=self.plans,
+            auxiliary=self.auxiliary,
             operand_policy='Complete scale/weight/input committed before array acquisition; no illegal partial SiLU.',
             scheduling='Two original compute contexts, one nonpreemptive shared array group per cluster. '
                 'Original Native/RX/fetch/cache behavior retained. All local buffers/partials paid in task scratch.',

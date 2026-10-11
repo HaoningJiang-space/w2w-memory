@@ -7,6 +7,7 @@ from w2w.workloads.moe_trace import file_sha
 from w2w.validation.vertical_access import audit_vertical_result
 from w2w.validation.request_control import audit_request_control
 from w2w.validation.npu_resources import audit_npu_result
+from w2w.common.event_archive import read_execution,canonical_sha
 
 
 def audit_window_chain(summary,root,*,visit=None):
@@ -16,7 +17,8 @@ def audit_window_chain(summary,root,*,visit=None):
     for index,row in enumerate(rows):
         path=Path(root)/row['file']
         if row['index']!=index or file_sha(path)!=row['sha256']:raise ValueError('Window identity/raw hash changed')
-        with gzip.open(path,'rt') as f:r=json.load(f)
+        r=read_execution(path)
+        if row.get('decoded_sha256') and canonical_sha(r)!=row['decoded_sha256']:raise ValueError('Complete decoded event identity changed')
         incoming,outgoing=r['runtime_carry_in'],r['runtime_carry_out']
         if digest(incoming)!=row['carry_in_sha256'] or digest(outgoing)!=row['carry_out_sha256']:
             raise ValueError('SRAM/cache/clock carry hash changed')
@@ -35,6 +37,7 @@ def audit_window_chain(summary,root,*,visit=None):
     sram=Counter(previous['sram'])
     expected={kind for kind,amount in (('compute-context-state',previous['context_metadata_bytes']),
         ('fetch-context-state',previous['fetch_metadata_bytes']),('weight-cache-partition',previous['cache_reserved_bytes'])) if amount}
+    if previous.get('persistent_sram'):expected.add('kv-residency')
     seen=set()
     for e in summary['cleanup_events']:
         if e['kind']!='sram_change' or e['task'] not in expected or e['time_ps']!=end or e['bytes']>=0:

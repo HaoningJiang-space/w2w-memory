@@ -20,13 +20,13 @@ from w2w.common.io import write_json
 from w2w.workloads.moe_trace import file_sha
 
 
-def graph(machine,M,N,K,p,tag):
+def graph(machine,M,N,K,p,tag,*,bf16=False):
     cluster=machine.stack.compute_clusters[0];memory=next(m for m in machine.memories if m.home_tile==cluster.router_id)
-    size=N*K;scales=(N//128)*(K//128)*4
+    size=N*K*(2 if bf16 else 1);scales=0 if bf16 else (N//128)*(K//128)*4
     w=ResidentObject('W',memory.id,0,size+scales)
-    key=tag+'/gemm';k=GemmKernel(key,M,N,K,w.id);_,plan=program(M,N,K,k.weight_dtype,p)
+    key=tag+'/gemm';k=GemmKernel(key,M,N,K,w.id,weight_dtype='BF16' if bf16 else 'FP8_E4M3FN',cached_weights=bf16);_,plan=program(M,N,K,k.weight_dtype,p)
     tasks=(ComputeTask(tag+'/input',cluster.id,1),ComputeTask(key,cluster.id,plan['cycles'],
-        (ReadAccess(w.id,0,w.size_bytes),),plan['scratch_bytes'],stream=StreamGemm(w.id,size,scales,k.macs,16384,32768)))
+        (ReadAccess(w.id,0,w.size_bytes),),plan['scratch_bytes'],stream=StreamGemm(w.id,size,scales,k.macs,16384,32768) if not bf16 else None))
     return ExecutionGraph(tasks,(w,),(DataEdge(tag+'/X',tasks[0].id,key,2*M*K),)),{key:k}
 
 
@@ -36,14 +36,15 @@ def run(root,binary,mode):
     cases=[(M,N,K,array,kind) for array in (16,32) for M in (1,2,4,8,16,32)
         for kind,N,K in (('gate',1536,4096),('up',1536,4096),('down',4096,1536))]
     if mode=='boundary':cases=[(1,128,4096,16,'boundary')]
+    if mode=='bf16-boundary':cases=[(1,128,4096,16,'bf16-boundary')]
     if mode=='equivalence':cases=[(1,1536,4096,16,'cycles'),(1,1536,4096,16,'epochs')]
     reference=None
     for M,N,K,array,kind in cases:
-        p=reference_profile(array);g,ks=graph(machine,M,N,K,p,kind)
+        p=reference_profile(array);g,ks=graph(machine,M,N,K,p,kind,bf16=mode=='bf16-boundary')
         cache=WeightCacheConfig(initial_resident=((g.tasks[-1].tile,'W'),)) if mode=='compute' else WeightCacheConfig()
         directory=root/f'A{array}-M{M}-{kind}';directory.mkdir();source=None
-        if mode=='boundary':
-            g2,k2=graph(machine,M,N,K,p,'warm')
+        if mode in ('boundary','bf16-boundary'):
+            g2,k2=graph(machine,M,N,K,p,'warm',bf16=mode=='bf16-boundary')
             meta=lambda keys:dict(npu_kernels={k:asdict(v) for k,v in keys.items()})
             source=RuntimeWindows(directory/'windows',iter(((g2,k2,meta(k2)),)),meta(ks))
         native=VerticalRWDL(machine,request_control=True,refresh=True,gateway_trace_bin_ps=1000000);start=time.monotonic()
@@ -56,7 +57,7 @@ def run(root,binary,mode):
         if source:
             from w2w.analysis.runtime_windows import audit_window_chain
             a=audit_window_chain(r,directory/'windows')
-            if a['native_bytes']!=524416 or len(source.rows)!=2 or source.rows[1]['native_bytes']!=0:
+            if a['native_bytes']!=(1048576 if mode=='bf16-boundary' else 524416) or len(source.rows)!=2 or source.rows[1]['native_bytes']!=0:
                 raise ValueError('Continuous boundary lost warm residency or mathematical work')
         else:
             a=audit_vertical_result(r);audit_request_control(r);audit_npu_result(r)
@@ -67,9 +68,14 @@ def run(root,binary,mode):
             # Names differ only to make immutable case paths distinct.
             text=json.dumps(r,sort_keys=True).replace(kind+'/', 'same/')
             comparable=json.loads(text)
+            config=(directory/'network'/'network.conf').read_text().replace(str((directory/'network').resolve()),'<ARCHIVE>')
+            topology=(directory/'network'/'network.anynet').read_bytes()
+            if reference is not None and (config!=reference_config or topology!=reference_topology):
+                raise ValueError('BookSim topology or configuration differs beyond archive path')
+            comparable['network']['identity'].pop('config_sha256')
             comparable['events']=[e for e in comparable['events'] if e['kind'] not in ('npu_cycle','npu_epoch')]
             comparable.pop('npu_execution');comparable.pop('input_sha256')
-            if reference is None:reference=comparable
+            if reference is None:reference=comparable;reference_config=config;reference_topology=topology
             elif comparable!=reference:
                 write_json(root/'equivalence-differences.json',{k:dict(cycles=reference[k],epochs=comparable[k])
                     for k in reference if reference[k]!=comparable[k]})
@@ -84,5 +90,5 @@ def run(root,binary,mode):
 
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--root',type=Path,required=True)
-    p.add_argument('--booksim-binary',type=Path,required=True);p.add_argument('--mode',choices=('compute','stream','boundary','equivalence'),required=True)
+    p.add_argument('--booksim-binary',type=Path,required=True);p.add_argument('--mode',choices=('compute','stream','boundary','bf16-boundary','equivalence'),required=True)
     a=p.parse_args();run(a.root,a.booksim_binary,a.mode)

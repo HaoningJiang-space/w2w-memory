@@ -11,6 +11,7 @@ import gzip,json,time,shutil
 from w2w.common.fingerprints import digest_read_v1 as digest
 from w2w.common.io import write_json
 from w2w.workloads.moe_trace import file_sha
+from w2w.common.event_archive import write_execution
 
 
 def ownership(e,*,initial=False):
@@ -19,10 +20,12 @@ def ownership(e,*,initial=False):
         ever_seen=sorted(c.ever_seen),used=dict(c.used),lookup_free=dict(c.lookup_free)) if c else None
     if initial and cache is not None:
         cache=dict(entries={t:[] for t in c.entries},ever_seen=[],used={},lookup_free={})
-    return dict(sram={} if initial else dict(e.sram),weight_cache=cache,
+    record=dict(sram={} if initial else dict(e.sram),weight_cache=cache,
         metadata_owned=not initial,fetch_metadata_bytes=e.fetch_metadata_bytes,
         context_metadata_bytes=e.context_metadata_bytes,cache_reserved_bytes=e.cache_reserved_bytes,
         physical_idle=True,clock_ps=e.now)
+    if hasattr(e.window_source,'persistent_record'):record.update(e.window_source.persistent_record(initial=initial))
+    return record
 
 
 class RuntimeWindows:
@@ -72,9 +75,9 @@ class RuntimeWindows:
         expected=sum(v['M']*v['N']*v['K'] for v in self.metadata['npu_kernels'].values())
         if n['macs']!=expected:raise ValueError('Runtime window mathematical work changed')
         path=self.root/f'window-{len(self.rows):04d}.json.gz'
-        with gzip.open(path,'wt',compresslevel=6) as f:json.dump(r,f)
+        decoded_sha=write_execution(path,r)
         row=dict(index=len(self.rows),file=path.name,sha256=file_sha(path),
-            begin_ps=self.begin,makespan_ps=makespan,drained_ps=e.now,tasks=len(e.tasks),
+            decoded_sha256=decoded_sha,begin_ps=self.begin,makespan_ps=makespan,drained_ps=e.now,tasks=len(e.tasks),
             carry_in_sha256=digest(self.carry),carry_out_sha256=digest(out),
             native_bytes=a['native_bytes'],cache_stats=cache['stats'] if cache else {},
             metadata={k:v for k,v in self.metadata.items() if k!='npu_kernels'},audit=a,control_audit=b,npu_audit=n,
