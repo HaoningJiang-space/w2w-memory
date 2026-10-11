@@ -15,9 +15,10 @@ def accepted(path):
     return value
 
 
-def render(evidence,output,*,study=None,serving=None,final=False):
-    output.mkdir(parents=True,exist_ok=False);d=accepted(evidence/'demand-r2.json');n=accepted(evidence/'npu-reference-r2.json')
-    sources={name:file_sha(evidence/name) for name in ('demand-r2.json','npu-reference-r2.json')}
+def render(evidence,output,*,study=None,serving=None,final=False,npu_reference=None):
+    output.mkdir(parents=True,exist_ok=False);reference=npu_reference or evidence/'npu-reference-r2.json'
+    d=accepted(evidence/'demand-r2.json');n=accepted(reference)
+    sources={'demand-r2.json':file_sha(evidence/'demand-r2.json'),'npu_reference':dict(path=str(reference),sha256=file_sha(reference))}
     batches=[int(x) for x in d['decode']];counts=[d['decode'][str(b)]['expert_token_counts'] for b in batches]
     fig,ax=plt.subplots(1,2,figsize=(10,3.5),constrained_layout=True)
     for statistic in ('p50','p90','p99','maximum'):ax[0].plot(batches,[c[statistic] for c in counts],marker='o',label=statistic)
@@ -83,4 +84,5 @@ def render(evidence,output,*,study=None,serving=None,final=False):
 
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--evidence',type=Path,required=True);p.add_argument('--output',type=Path,required=True)
-    p.add_argument('--study',type=Path);p.add_argument('--serving',type=Path);p.add_argument('--final',action='store_true');a=p.parse_args();render(a.evidence,a.output,study=a.study,serving=a.serving,final=a.final)
+    p.add_argument('--study',type=Path);p.add_argument('--serving',type=Path);p.add_argument('--final',action='store_true');p.add_argument('--npu-reference',type=Path)
+    a=p.parse_args();render(a.evidence,a.output,study=a.study,serving=a.serving,final=a.final,npu_reference=a.npu_reference)

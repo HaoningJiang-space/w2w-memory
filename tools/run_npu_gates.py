@@ -17,12 +17,12 @@ def alive(pid):
     return path.exists() and path.read_text().split(') ',1)[1][0]!='Z'
 
 
-def run(root,evidence,corpus,config,binary,resource,context,resource_pid,context_pid,existing_moe_study=None,idle_gate=None,additional_gates=(),equivalence_gate=None):
+def run(root,evidence,corpus,config,binary,resource,context,resource_pid,context_pid,existing_moe_study=None,idle_gate=None,additional_gates=(),equivalence_gate=None,kernel_gates=None,gqa_gate=None,npu_reference=None):
     root.mkdir(parents=True,exist_ok=False);jobs={};logs=[];launched=[];g3=existing_moe_study or root/'real-moe';g4=root/'full-llm-B1';source=revision();g4_error=None
-    base=[evidence/'npu-reference-r2.json',evidence/'compute-r4/receipt.json',evidence/'stream-r4/receipt.json',
+    base=list(kernel_gates) if kernel_gates else [evidence/'npu-reference-r2.json',evidence/'compute-r4/receipt.json',evidence/'stream-r4/receipt.json',
         evidence/'boundary-r8/receipt.json',evidence/'bf16-boundary-r8/receipt.json',equivalence_gate or evidence/'equivalence-r10b/receipt.json']
     base.extend(additional_gates)
-    serving_gates=[evidence/'gqa-reference-r10b.json',idle_gate or evidence/'idle-boundary-r13/receipt.json']
+    serving_gates=[gqa_gate or evidence/'gqa-reference-r10b.json',idle_gate or evidence/'idle-boundary-r13/receipt.json']
     def ready(path,pid=None):
         if path.exists():
             if json.loads(path.read_text()).get('passed') is not True:raise ValueError(f'Failed prerequisite: {path}')
@@ -71,8 +71,10 @@ def run(root,evidence,corpus,config,binary,resource,context,resource_pid,context
                 raise RuntimeError('External G3 controller stopped; accepted completed cases are preserved')
             if status['G3']=='complete' and g4_error:raise RuntimeError(g4_error)
             if status['G3']=='complete' and status['G4']=='complete' and 'G5' not in jobs:
-                launch('G5',['tools/analyze_npu_gates.py','--evidence',str(evidence),'--output',str(root/'final-analysis'),
-                    '--study',str(g3),'--serving',str(g4),'--final'])
+                args=['tools/analyze_npu_gates.py','--evidence',str(evidence),'--output',str(root/'final-analysis'),
+                    '--study',str(g3),'--serving',str(g4),'--final']
+                if npu_reference:args+=['--npu-reference',str(npu_reference)]
+                launch('G5',args)
             if 'G5' in jobs and jobs['G5'].poll()==0:
                 ready(root/'final-analysis/decision.json');status.update(state='complete',G5='complete evidence-based decision');write_json(root/'status.json',status);return
             time.sleep(10)
@@ -92,5 +94,7 @@ if __name__=='__main__':
     p.add_argument('--resource-pid',type=int,required=True);p.add_argument('--context-pid',type=int,required=True)
     p.add_argument('--existing-moe-study',type=Path);p.add_argument('--idle-gate',type=Path);p.add_argument('--additional-gates',type=Path,nargs='*',default=())
     p.add_argument('--equivalence-gate',type=Path)
+    p.add_argument('--kernel-gates',type=Path,nargs='+',help='Replace historical kernel prerequisites with explicit accepted receipts')
+    p.add_argument('--gqa-gate',type=Path);p.add_argument('--npu-reference',type=Path)
     a=p.parse_args()
-    run(a.root,a.evidence,a.corpus,a.config,a.booksim_binary,a.resource,a.context,a.resource_pid,a.context_pid,a.existing_moe_study,a.idle_gate,a.additional_gates,a.equivalence_gate)
+    run(a.root,a.evidence,a.corpus,a.config,a.booksim_binary,a.resource,a.context,a.resource_pid,a.context_pid,a.existing_moe_study,a.idle_gate,a.additional_gates,a.equivalence_gate,a.kernel_gates,a.gqa_gate,a.npu_reference)
