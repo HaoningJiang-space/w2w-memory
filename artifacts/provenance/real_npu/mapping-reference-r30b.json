@@ -1,0 +1,107 @@
+{
+  "passed": true,
+  "analysis_source": "779e96e7259dd0315c459cd4e348733b4a4134c6",
+  "prior_reference_sha256": "16cf03ea3f05824d20786133ce42db904b4e3dbd706b48a754e34612811e1faa",
+  "default_36_programs_unchanged": true,
+  "reference_commit": "f79d7bc39a80a21fc35bc667967b76a15b311f49",
+  "loaded_reference_file": "/Projects/haoning/w2w-full-system-real-npu-20261011/scalesim-reference/scalesim/compute/systolic_compute_os.py",
+  "loaded_reference_sha256": "e932ebf1848d5c4a05acd3b8dd68b3a5b2c55f19eeda3c1171506efa1aa9620c",
+  "wall_seconds": 77.38070754799992,
+  "scope": "Independent full-shape software mapping qualification: output-stationary arrays may partition K over multiple waves, with original scale identity, paid registers and ordered reduction. The frozen G3/G4 default programs are unchanged. These are kernel service cycles, not application speedups, optimal-mapper proof, calibrated SRAM macros or a new hardware result.",
+  "cases": [
+    {
+      "M": 1,
+      "N": 1536,
+      "K": 4096,
+      "default_cycles": 8255,
+      "candidate_cycles": 6241,
+      "candidate_array_cycles": 6234,
+      "relative_l2_error": 0.0,
+      "scratch_bytes": 145408,
+      "program_sha256": "7f60a4cd01da266531feefa296ad1fbe59555e6e303f0a7b02fe6450f799f8db",
+      "candidate_plan_sha256": "2b9cfb5dc8d212d948bda7100addaf44051b1865e8944dfc43976633710684a2",
+      "candidate_service": {
+        "weight_sram_bytes": 6291456,
+        "scale_sram_bytes": 1536,
+        "activation_sram_bytes": 36864,
+        "output_sram_bytes": 18432,
+        "vector_ops": 6292992,
+        "accumulator_register_bytes": 50356224,
+        "activation_delivery_bytes": 786432
+      }
+    },
+    {
+      "M": 4,
+      "N": 1536,
+      "K": 4096,
+      "default_cycles": 8255,
+      "candidate_cycles": 6242,
+      "candidate_array_cycles": 6234,
+      "relative_l2_error": 0.0,
+      "scratch_bytes": 182272,
+      "program_sha256": "c1d8efa4353a371a67d4754439fc1be5afe4025b5f3772ccbe9707e46904b1eb",
+      "candidate_plan_sha256": "3fddfd6e9e275d42be75ade3a938cc6e3a62ade41109097a3bfb158cfbadb63f",
+      "candidate_service": {
+        "weight_sram_bytes": 6291456,
+        "scale_sram_bytes": 1536,
+        "activation_sram_bytes": 147456,
+        "output_sram_bytes": 73728,
+        "vector_ops": 6297600,
+        "accumulator_register_bytes": 201424896,
+        "activation_delivery_bytes": 3145728
+      }
+    },
+    {
+      "M": 8,
+      "N": 1536,
+      "K": 4096,
+      "default_cycles": 8255,
+      "candidate_cycles": 6245,
+      "candidate_array_cycles": 6234,
+      "relative_l2_error": 0.0,
+      "scratch_bytes": 231424,
+      "program_sha256": "eda9ac0943985d56bbfd27cc8293d19edf159b3c97de2e4c38c07e354eacdc1d",
+      "candidate_plan_sha256": "1891266888c060c5a17e21a5d401bf903f813f34e727f59f74bdf13e8e49d984",
+      "candidate_service": {
+        "weight_sram_bytes": 6291456,
+        "scale_sram_bytes": 1536,
+        "activation_sram_bytes": 294912,
+        "output_sram_bytes": 147456,
+        "vector_ops": 6303744,
+        "accumulator_register_bytes": 402849792,
+        "activation_delivery_bytes": 6291456
+      }
+    }
+  ],
+  "remote_receipt_path": "/Projects/haoning/w2w-full-system-real-npu-20261011/mapping-reference-r30b.json",
+  "remote_receipt_sha256": "c653498085eaccbd28291f05b78ebd95ff5a6276055f1ea74abb04ab607381bb",
+  "launch": {
+    "pid": 830927,
+    "args": [
+      "/Projects/haoning/w2w/.venv/bin/python",
+      "-m",
+      "tools.validate_npu_mapping_reference",
+      "--reference-source",
+      "/Projects/haoning/w2w-full-system-real-npu-20261011/scalesim-reference",
+      "--prior-reference",
+      "/Projects/haoning/w2w-full-system-real-npu-20261011/npu-reference-r19.json",
+      "--output",
+      "/Projects/haoning/w2w-full-system-real-npu-20261011/mapping-reference-r30b.json"
+    ],
+    "reference_dependencies": "/Projects/haoning/w2w-full-system-real-npu-20261011/reference-deps",
+    "source_commit": "779e96e7259dd0315c459cd4e348733b4a4134c6"
+  },
+  "projection_plan_hash_contract": "Sorted-key compact JSON of the complete candidate plan; full plans retained in the remote hashed receipt",
+  "failed_prior_launches": [
+    {
+      "name": "mapping-reference-r28",
+      "reason": "Reference source absent from import path",
+      "accepted": false
+    },
+    {
+      "name": "mapping-reference-r30",
+      "reason": "Isolated reference dependency path absent; tqdm import failed",
+      "accepted": false
+    }
+  ]
+}

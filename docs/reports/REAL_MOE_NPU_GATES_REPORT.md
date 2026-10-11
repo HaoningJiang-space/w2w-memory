@@ -237,6 +237,46 @@ evidence that a new structure exceeds the strongest legal baseline.
 No background registration or directed qualification is labeled a completed
 application result. Failures are retained, not retried automatically.
 
+## Stronger software baseline and architecture acceptance
+
+The [multi-wave K mapping reference](../../artifacts/provenance/real_npu/mapping-reference-r30b.json)
+qualifies an optional mapping on the same 64×16×16 arrays, ports and SRAM. It
+does not change the default programs or the frozen `source-r27` campaign.
+All 36 prior full projection programs are rechecked against the explicitly
+loaded, pinned primary SCALE-Sim module, including array cycles and weight reads.
+The recorded module path and SHA256 prevent an unrelated installed copy from
+being used as the independent reference.
+
+| Full Gate shape | Default service cycles | Two K partitions: service cycles | Declared scratch |
+|---|---:|---:|---:|
+| M=1, N=1536, K=4096 | 8,255 | 6,241 | 145,408 B |
+| M=4, N=1536, K=4096 | 8,255 | 6,242 | 182,272 B |
+| M=8, N=1536, K=4096 | 8,255 | 6,245 | 231,424 B |
+
+Cuts preserve the original 128-wide FP8 scale boundaries. Partial outputs and
+ordered reduction retain finite, paid storage and service. Synthetic full-shape
+numerical checks pass; they are not captured Qwen tensor checks. These are
+standalone kernel service improvements, not application speedups, an optimal
+mapper or new hardware evidence. Earlier r28/r30 reference launches failed on
+import/dependency paths and remain unaccepted; the isolated corrected r30b
+launch passed without changing Native tools or shared environments.
+
+The G5 reader now distinguishes a completed twelve-case **mapping screen** from
+architecture acceptance. It checks identical trace/cohort/layer/kernel work,
+rejects missing, duplicate or incomplete cases, and ranks the observed
+latency/activity Pareto points. Ranking those unchanged-hardware mappings cannot
+alone establish a structural hardware contribution. Acceptance still needs a
+completed structural intervention, the strongest legal software baseline and
+explicit physical cost bounds. Missing evidence is not proof that new hardware
+has no value. [Eight directed regressions](../../artifacts/provenance/real_npu/regression-r31.json)
+cover mapping boundaries and this evidence contract; their reader fixtures are
+deliberately fictitious and are not application results.
+
+The running `source-r27` controller remains frozen with its older final-status
+writer. If it eventually prints G5 complete, re-read its results using the current
+architecture criteria before claiming goal completion. Its terminal label alone
+does not satisfy the structural/cost gate.
+
 ## Read-only competition diagnosis
 
 `tools/analyze_npu_competition.py` supports explicit array cycles and fixed

@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "returncode": 0,
+  "args": [
+    "/Projects/haoning/w2w/.venv/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_real_npu",
+    "tests.test_npu_architecture_decision"
+  ],
+  "source_commit": "4236cd81e8a58ce873e79c265bc2bbc908a8fc83",
+  "log_sha256": "7b9c949d013dcd64b9473c1f91713a25c6be07d531a3b6800d36473228d3f0e6",
+  "content": "........\n----------------------------------------------------------------------\nRan 8 tests in 11.350s\n\nOK\n",
+  "wall_seconds": 11.438993635587394,
+  "scope": "Directed mapping coverage and architecture-reader contract regressions; fixtures do not establish application performance"
+}

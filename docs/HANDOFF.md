@@ -459,6 +459,23 @@ two active physical/reader workers. G5 refuses final figures without complete
 accepted G3/G4. Keep the goal active until required readbacks and final decision
 finish; pending qualification/background jobs are not completed gates.
 
+Read-only follow-up `mapping-r30@779e96e` passed an independent stronger legal
+multi-wave K mapping reference (`mapping-reference-r30b.json`). Full Gate
+M=1/4/8, N1536, K4096 drops from 8255 to 6241/6242/6245 service cycles with
+two K partitions and paid scratch/reduction; all 36 default programs remain unchanged and
+are reread against the explicitly loaded pinned SCALE-Sim source. This is not
+an application speedup. r28/r30 failed import paths are preserved. New directed
+checks on `analysis-r31@4236cd8` pass eight tests. Compact receipts are under
+`artifacts/provenance/real_npu`; complete plans/logs stay on hn072.
+
+Current G5 analysis separates a completed mapping screen from architecture
+acceptance. The unchanged-hardware twelve-case comparison alone cannot satisfy
+the structural intervention / strongest software baseline / physical cost gate.
+The running source-r27 controller is immutable and still has its older G5 status
+writer: its eventual terminal label is not acceptance. Re-read completed results
+with the current criteria, preserve the campaign, and keep G5 incomplete while
+required evidence remains missing. Absence of evidence is not a negative proof.
+
 ## Limits (historical comparisons)
 
 No search/DSE, new fanout/endpoint RTL, partitioning rewrite, thermal/yield
