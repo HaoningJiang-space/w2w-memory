@@ -84,7 +84,12 @@ def run(root,evidence,corpus,config,binary,resource,context,resource_pid,context
                 if npu_reference:args+=['--npu-reference',str(npu_reference)]
                 launch('G5',args)
             if 'G5' in jobs and jobs['G5'].poll()==0:
-                ready(root/'final-analysis/decision.json');status.update(state='complete',G5='complete evidence-based decision');write_json(root/'status.json',status);return
+                path=root/'final-analysis/decision.json';ready(path);decision=json.loads(path.read_text())
+                if decision.get('architecture_gate_passed') is True:
+                    status.update(state='complete',G5='complete architecture acceptance')
+                else:
+                    status.update(state='baseline_screen_complete_architecture_unproven',G5='mapping screen complete; required structural/cost evidence unproven')
+                write_json(root/'status.json',status);return
             time.sleep(10)
     except Exception as error:
         write_json(root/'status.json',dict(state='failed',source_commit=source,reason=str(error),no_automatic_retry=True,launched=launched))

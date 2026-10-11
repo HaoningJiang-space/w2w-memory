@@ -50,6 +50,8 @@ def render(evidence,output,*,study=None,serving=None,final=False,npu_reference=N
     decision=dict(status='awaiting_complete_physical_studies',pending_cases=pending,
         new_hardware_justified=False,reason='Trace/shape evidence alone does not establish a new physical structure or calibrated cost advantage.')
     if len(cases)==12:
+        from w2w.analysis.architecture_decision import baseline_screen
+        screen=baseline_screen(cases)
         bs=(1,4,16,32);policies=('reference','phase_split','up_local');by={(c['B'],c['baseline']):c for c in cases}
         fig,ax=plt.subplots(1,2,figsize=(10,3.5),constrained_layout=True)
         terms=('fixed_gateway_assignment_ps','native_data_bus_ps','shared_compute_ps','executed_channel_data_lane_ps','receiver_write_ps')
@@ -73,12 +75,14 @@ def render(evidence,output,*,study=None,serving=None,final=False,npu_reference=N
         for policy in policies[1:]:ax.plot(bs,[sensitivity[str(b)][policy]['candidate_energy_ratio_limit'] for b in bs],marker='o',label=policy)
         ax.axhline(1,color='grey',linestyle='--');ax.set(xlabel='Batch size',ylabel='Maximum total energy ratio for improved EDP',title='Conditional threshold, no measured energy or area');ax.legend()
         fig.savefig(output/'fig5-hardware-opportunity.png',dpi=180);fig.savefig(output/'fig5-hardware-opportunity.pdf');plt.close(fig)
-        decision=dict(status='completed_baseline_screen',new_hardware_justified=False,edp_sensitivity=sensitivity,
+        decision=dict(status='completed_baseline_screen_architecture_unproven',new_hardware_justified=False,architecture_gate_passed=False,
+            mapping_screen=screen,edp_sensitivity=sensitivity,
             reason='These accepted runs compare legal mappings on unchanged hardware. They cannot prove a new structure outperforms the strongest baseline at equal physical cost. Retain this negative design decision until a calibrated costed intervention is accepted.',
             next_hardware_gate='Identify recoverable dependency latency on completed traces, compare a costed physical intervention with the fastest accepted mapping; exclude Oracle routes and array-model artifacts.')
     if serving and (serving/'serving-results.json').exists():
         full=accepted(serving/'serving-results.json');sources['full_serving']=file_sha(serving/'serving-results.json');decision['conditional_full_serving']=full['proof']
-    write_json(output/'decision.json',dict(passed=bool(final and len(cases)==12),completed_trace_analysis=True,completed_shape_reference=True,
+    write_json(output/'decision.json',dict(passed=bool(final and len(cases)==12),baseline_screen_passed=bool(final and len(cases)==12),
+        architecture_gate_passed=False,completed_trace_analysis=True,completed_shape_reference=True,
         sources=sources,decision=decision,limits=['OS model is conservative, not proof of optimal GEMV/WS mapping','Banking, local fanout and ports are declared, not silicon-calibrated','Routing capture lacks values, scores, vocabulary IDs and arrival times','No calibrated area, total energy, thermal or wafer-yield claim']))
 
 
