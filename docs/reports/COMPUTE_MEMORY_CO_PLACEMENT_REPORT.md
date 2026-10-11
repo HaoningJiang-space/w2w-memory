@@ -131,7 +131,7 @@ and BookSim progress semantics are unchanged. Data-lane byte·µm includes actua
 executed flit/padding/header activity; remote endpoint counts are logical
 committed payload. Neither is a joule measurement.
 
-## Registered finite-cache pair: running
+## Completed finite-cache pair
 
 Both 24-token/two-layer cells were frozen before cold performance was inspected.
 They start only after the independent cold correctness gate passes; latency is
@@ -146,15 +146,46 @@ objects retain their original cluster. Each cluster initially contains
 151,031,808 B / 288 entries, within 184 MiB / 512 cache limits. This is an
 explicit separately initialized warm condition, not free remote cache hits or
 a timed migration. Actual later hit, miss, reload, per-cluster working set and
-native service are allowed to differ and will be reported.
+native service are allowed to differ; the completed observations are below.
 
-Native workers are PIDs 589801 / 589802; the campaign controller is 589606.
-A separate analysis-only finisher at `04f2e70` is PID 591118. After both
-completions it independently audits the saved pair against the old `9160207`
-Phase-Split reference and writes `multilayer/independent-readback.json`,
-`completed-summary.json` and `COMPLETED_RESULTS.md` in the execution archive.
-It preserves zero reload and negative performance and never retries simulation.
-No completed multi-layer Co-Placement result is asserted here.
+Both native workers completed successfully. The independent `04f2e70` finisher
+audited source, addresses, cache lifecycle, contiguous operand readiness,
+shared compute/receive resources and full drain. Original-Up also reproduces the
+complete old `9160207` Phase-Split physical record. No simulation was retried.
+
+| Measured 24-token/two-layer interval | Phase-Split, original Up compute | Up-local |
+|---|---:|---:|
+| Completion (ms) | 10.979869 | **9.656156** |
+| Last 12 tokens (ms) | 4.862114 | **3.918970** |
+| NoC data-lane byte·µm | 14,449,467,443,200 | **4,023,542,323,200** |
+| Actual channel hop-flits | 8,390,324 | 2,124,744 |
+| Native/Gateway weight bytes | 2,271,770,112 | **2,017,952,768** |
+| Cache hits / misses | 9,492 / 4,332 | 9,976 / 3,848 |
+| Compulsory miss bytes | 1,623,591,936 | 1,623,591,936 |
+| Reload bytes | 648,178,176 | **394,360,832** |
+| Late-window reload bytes | 591,541,248 | 356,602,880 |
+| Largest cluster miss bytes | 199,802,496 | 138,445,824 |
+| Peak cache data per cluster | 192,460,672 | 192,460,672 |
+| Peak total SRAM per cluster | 194,588,696 | 194,588,696 |
+| Native execution wall-clock (s) | 3,863.870 | 3,148.298 |
+
+Completion improves **12.06%**, late-window duration **19.40%**, and lateral
+activity **72.15%**. Native bytes fall **11.17%**; reload falls **39.16%**.
+The entire native-byte difference is reload, not a smaller mathematical workload
+or fewer compulsory bytes. Each independently initialized consumer-local cache
+still obeys the same LRU, pinning, capacity and port contract. The derived proof
+retains all 16 cluster hit/miss/residency records and all 48 invocations.
+
+This warm result therefore combines consumer-local execution with changed cache
+residency/reuse. It must not be described as a same-DRAM-traffic communication
+speedup. The cold comparison retains equal native/domain/Gateway byte work and
+is the cleaner isolation of weight transport. Nor is initial placement a measured
+dynamic migration: preload energy/time remains outside both warm intervals.
+
+The original campaign's redundant readback was killed by SIGKILL after both
+workers finished; its log is retained. The separate finisher completed the
+independent readback and baseline equivalence check. This was an analysis-process
+failure, not a failed or selectively repeated hardware simulation.
 
 ## Research verdict and evidence
 
@@ -162,8 +193,11 @@ This first gate supports **preserving independent vertical service while avoidin
 large horizontal weight transfers on existing hardware**. It does not support
 a large further latency gain, a novel hardware claim, calibrated energy/EDP,
 optimal placement or broad Decode/Prefill generality. The transport reduction is
-the material result. Multi-layer cache behavior is the next required check before
-changing any physical hardware organization.
+the material cold result. The warm gate additionally shows lower reload under
+the registered consumer-local cache initialization. Read-only competition and
+conditional energy analysis are in
+[the continuation report](COMPUTE_MEMORY_COMPETITION_ENERGY_REPORT.md); those
+results determine whether any new physical hardware organization is justified.
 
 The registration contract is in
 [the protocol](COMPUTE_MEMORY_CO_PLACEMENT_PROTOCOL.md). Derived proofs, source/

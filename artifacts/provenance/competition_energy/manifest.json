@@ -1,0 +1,66 @@
+{
+  "cases": {
+    "cold__reference_compute": {
+      "raw": "/Projects/haoning/w2w-full-system-co-placement-20261010/cold/cases/reference_compute/result.json.gz",
+      "audit": "/Projects/haoning/w2w-full-system-co-placement-20261010/cold/independent-readback.json",
+      "audit_raw_key": "cases/reference_compute/result.json.gz",
+      "audit_case": "reference_compute"
+    },
+    "cold__up_local_compute": {
+      "raw": "/Projects/haoning/w2w-full-system-co-placement-20261010/cold/cases/up_local_compute/result.json.gz",
+      "audit": "/Projects/haoning/w2w-full-system-co-placement-20261010/cold/independent-readback.json",
+      "audit_raw_key": "cases/up_local_compute/result.json.gz",
+      "audit_case": "up_local_compute"
+    },
+    "multilayer__reference_compute": {
+      "raw": "/Projects/haoning/w2w-full-system-co-placement-20261010/multilayer/cases/reference_compute/result.json.gz",
+      "audit": "/Projects/haoning/w2w-full-system-co-placement-20261010/multilayer/independent-readback.json",
+      "audit_raw_key": "cases/reference_compute/result.json.gz",
+      "audit_case": "reference_compute"
+    },
+    "multilayer__up_local_compute": {
+      "raw": "/Projects/haoning/w2w-full-system-co-placement-20261010/multilayer/cases/up_local_compute/result.json.gz",
+      "audit": "/Projects/haoning/w2w-full-system-co-placement-20261010/multilayer/independent-readback.json",
+      "audit_raw_key": "cases/up_local_compute/result.json.gz",
+      "audit_case": "up_local_compute"
+    },
+    "cold__reference_weights": {
+      "raw": "/Projects/haoning/w2w-full-system-performance-placement-20261010/concurrent-service-r1/s1/cases/reference/result.json.gz",
+      "audit": "/Projects/haoning/w2w-full-system-co-placement-20261010/competition-source-r1/artifacts/provenance/static_placement/concurrent-s1-analysis.json",
+      "audit_raw_key": "cases/reference/result.json.gz",
+      "audit_case": "reference"
+    },
+    "multilayer__reference_weights": {
+      "raw": "/Projects/haoning/w2w-full-system-matrix-service-20261010/concurrent-hierarchy-r1/cases/reference/result.json.gz",
+      "audit": "/Projects/haoning/w2w-full-system-matrix-service-20261010/hierarchy-analysis-r1/placement-analysis.json",
+      "audit_raw_key": "cases/reference/result.json.gz",
+      "audit_case": "reference"
+    }
+  },
+  "comparisons": {
+    "cold__reference_compute_vs_up_local_compute": [
+      "cold__reference_compute",
+      "cold__up_local_compute"
+    ],
+    "cold__reference_weights_vs_up_local_compute": [
+      "cold__reference_weights",
+      "cold__up_local_compute"
+    ],
+    "cold__reference_weights_vs_reference_compute": [
+      "cold__reference_weights",
+      "cold__reference_compute"
+    ],
+    "multilayer__reference_compute_vs_up_local_compute": [
+      "multilayer__reference_compute",
+      "multilayer__up_local_compute"
+    ],
+    "multilayer__reference_weights_vs_up_local_compute": [
+      "multilayer__reference_weights",
+      "multilayer__up_local_compute"
+    ],
+    "multilayer__reference_weights_vs_reference_compute": [
+      "multilayer__reference_weights",
+      "multilayer__reference_compute"
+    ]
+  }
+}

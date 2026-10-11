@@ -66,9 +66,29 @@
       "archive": "/Projects/haoning/w2w-full-system-co-placement-20261010/logs/cold-final-readback.log",
       "sha256": "6dc4e9c0619ba65666dc427b422d694119983c15d825f9f6ae226c0cd392b427",
       "bytes": 147
+    },
+    "multilayer_analysis.json": {
+      "archive": "/Projects/haoning/w2w-full-system-co-placement-20261010/multilayer/independent-readback.json",
+      "sha256": "e6cd010559776e029ded3469979d1c3a74c7272b682b2669a7f8d059fd1211e0",
+      "bytes": 300901
+    },
+    "completed_summary.json": {
+      "archive": "/Projects/haoning/w2w-full-system-co-placement-20261010/completed-summary.json",
+      "sha256": "95840410a6fcea8af7b8af8e82fedcbdc2ad653a9cb4f782b450fe3941430f7b",
+      "bytes": 1162
+    },
+    "controller_final.log": {
+      "archive": "/Projects/haoning/w2w-full-system-co-placement-20261010/logs/controller-r1.log",
+      "sha256": "1a7bb132ae35ad5840ce76366cb345f6857d861f5776bc1f4ac82f8fb476ccd9",
+      "bytes": 20324
+    },
+    "finisher_final.log": {
+      "archive": "/Projects/haoning/w2w-full-system-co-placement-20261010/logs/final-readback-monitor.log",
+      "sha256": "65b62ac456de5bc1de277f63bb62588e57d3fa6f8fb393765ff226471fae0c29",
+      "bytes": 1032
     }
   },
   "cold_status": "complete and independently audited",
-  "multilayer_status": "registered and running; no completed performance conclusion",
-  "contract": "Raw captures/native builds stay outside Git; future independent-readback.json, completed-summary.json and COMPLETED_RESULTS.md are produced on the execution host."
+  "multilayer_status": "complete; both native workers exit 0 and independent readback passed",
+  "contract": "Frozen execution 02dab2a; independent warm reader 04f2e70. Initial consumer-local preload is before timing. Later cache/reload differences are observed, not forced. Raw captures and failed monitor log remain on hn072."
 }

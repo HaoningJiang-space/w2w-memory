@@ -116,6 +116,8 @@ All three cold cells complete and pass independent saved-result audit. The
 original-Up reference exactly reproduces the old complete Phase-Split physical
 record. Up-local takes **451.676 µs versus 456.627 µs**, while NoC data-lane
 activity decreases **87.78%**; matched nonlocal takes 517.708 µs. The fixed warm
-pair starts after correctness acceptance and remains running. See the
+pair started after correctness acceptance and has now completed. Its independent
+warm audit reports **10.979869 → 9.656156 ms**, **72.15% lower lateral activity**
+and **648.178 → 394.361 MB reload**; later traffic was never an equality gate. See the
 [result report](COMPUTE_MEMORY_CO_PLACEMENT_REPORT.md) for the matched tail
-timeline, transport/cost interpretation and explicit pending multi-layer state.
+timeline, transport/cost interpretation and completed multi-layer/cache evidence.

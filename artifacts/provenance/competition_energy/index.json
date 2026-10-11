@@ -1,0 +1,35 @@
+{
+  "schema": "w2w.competition-energy-index.v1",
+  "passed": true,
+  "analysis_source_commit": "0d8ab507b8c5d0a4c79c933bf37ec5ddea9d8ca0",
+  "files": {
+    "analysis.json": {
+      "archive": "/Projects/haoning/w2w-full-system-co-placement-20261010/competition-analysis-r2/analysis.json",
+      "sha256": "bd47f17c6a3d9f49ef18becba4bbd398da9c6a44a9f622d24910e3a39324116a",
+      "bytes": 391581
+    },
+    "tests.log": {
+      "archive": "/Projects/haoning/w2w-full-system-co-placement-20261010/logs/competition-tests-r2.log",
+      "sha256": "de33a86df3d5bc20a39c872fa75723d46d6bb10318f458f746b4e2c5e3a7a520",
+      "bytes": 632
+    },
+    "manifest.json": {
+      "archive": "/Projects/haoning/w2w-full-system-co-placement-20261010/competition-manifest-r1.json",
+      "sha256": "790864f771da435495463575f79e6e63996acc221f87c91214ec7d19d473a688",
+      "bytes": 3151
+    },
+    "energy_bounds.json": {
+      "archive": "/Projects/haoning/w2w-full-system-co-placement-20261010/energy-bounds-r1.json",
+      "sha256": "a8d4ee45b9339a096f21e6dc54d2c4a800a1f970b0ccbeddf8557f604d47ca3c",
+      "bytes": 14618
+    },
+    "energy_final_tests.log": {
+      "archive": "/Projects/haoning/w2w-full-system-co-placement-20261010/logs/energy-final-tests.log",
+      "sha256": "8b5583712f6df05e925179c0c14647560eacbba6ad69d094c4ef88b68bcdcb32",
+      "bytes": 667
+    }
+  },
+  "contract": "Six saved cold/warm raw records bound to completed independent audits; no simulation rerun. Activity-based conditional EDP, not calibrated PPA.",
+  "energy_analysis_source_commit": "5807da6",
+  "authoritative_energy_receipt": "energy_bounds.json"
+}

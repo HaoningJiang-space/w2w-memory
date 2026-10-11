@@ -1,0 +1,150 @@
+{"time_utc": "2026-10-10T17:01:45.447350+00:00", "mode": "cold", "status": {"reference_compute": null, "up_local_compute": null, "up_matched_nonlocal": null}}
+{"time_utc": "2026-10-10T17:02:15.477423+00:00", "mode": "cold", "status": {"reference_compute": null, "up_local_compute": null, "up_matched_nonlocal": null}}
+{"time_utc": "2026-10-10T17:02:45.507546+00:00", "mode": "cold", "status": {"reference_compute": null, "up_local_compute": null, "up_matched_nonlocal": null}}
+{"time_utc": "2026-10-10T17:03:15.537259+00:00", "mode": "cold", "status": {"reference_compute": null, "up_local_compute": null, "up_matched_nonlocal": null}}
+{"time_utc": "2026-10-10T17:03:45.567464+00:00", "mode": "cold", "status": {"reference_compute": null, "up_local_compute": null, "up_matched_nonlocal": null}}
+{"time_utc": "2026-10-10T17:04:15.591659+00:00", "mode": "cold", "status": {"reference_compute": null, "up_local_compute": null, "up_matched_nonlocal": null}}
+{"time_utc": "2026-10-10T17:04:45.621878+00:00", "mode": "cold", "status": {"reference_compute": null, "up_local_compute": null, "up_matched_nonlocal": null}}
+{"time_utc": "2026-10-10T17:05:15.652112+00:00", "mode": "cold", "status": {"reference_compute": null, "up_local_compute": null, "up_matched_nonlocal": null}}
+{"time_utc": "2026-10-10T17:05:45.659374+00:00", "mode": "cold", "status": {"reference_compute": null, "up_local_compute": 0, "up_matched_nonlocal": null}}
+{"time_utc": "2026-10-10T17:06:15.689657+00:00", "mode": "cold", "status": {"reference_compute": 0, "up_local_compute": 0, "up_matched_nonlocal": null}}
+{"mode": "cold", "independent_passed": true}
+{"time_utc": "2026-10-10T17:07:28.318720+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:07:58.348785+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:08:28.378884+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:08:58.408226+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:09:28.438398+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:09:58.468257+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:10:28.498470+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:10:58.528686+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:11:28.558904+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:11:58.589136+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:12:28.619348+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:12:58.649549+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:13:28.679762+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:13:58.709983+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:14:28.740197+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:14:58.770408+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:15:28.800613+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:15:58.830825+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:16:28.861038+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:16:58.891273+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:17:28.921525+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:17:58.927704+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:18:28.942327+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:18:58.972539+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:19:29.002755+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:19:59.032963+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:20:29.063185+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:20:59.093400+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:21:29.123610+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:21:59.137261+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:22:29.167477+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:22:59.197692+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:23:29.227922+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:23:59.258144+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:24:29.288405+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:24:59.318627+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:25:29.348844+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:25:59.379056+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:26:29.409282+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:26:59.439499+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:27:29.469720+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:27:59.499941+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:28:29.530158+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:28:59.534260+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:29:29.564478+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:29:59.594693+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:30:29.624901+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:30:59.655105+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:31:29.685333+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:31:59.715184+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:32:29.745403+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:32:59.775619+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:33:29.795307+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:33:59.825527+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:34:29.855737+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:34:59.862721+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:35:29.892934+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:35:59.907266+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:36:29.937475+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:36:59.967688+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:37:29.997894+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:38:00.013270+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:38:30.043483+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:39:00.073700+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:39:30.103910+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:40:00.134133+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:40:30.164353+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:41:00.194563+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:41:30.224768+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:42:00.254977+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:42:30.285197+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:43:00.315410+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:43:30.345636+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:44:00.375843+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:44:30.405975+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:45:00.433937+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:45:30.435286+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:46:00.442330+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:46:30.472550+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:47:00.502770+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:47:30.532981+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:48:00.563181+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:48:30.593392+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:49:00.623602+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:49:30.653814+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:50:00.684016+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:50:30.714225+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:51:00.742261+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:51:30.772471+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:52:00.802686+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:52:30.832897+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:53:00.863110+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:53:30.893334+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:54:00.923542+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:54:30.942333+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:55:00.971261+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:55:30.998319+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:56:01.003091+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:56:31.017063+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:57:01.047285+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:57:31.077491+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:58:01.107694+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:58:31.137903+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:59:01.168112+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T17:59:31.198327+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T18:00:01.228531+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": null}}
+{"time_utc": "2026-10-10T18:00:31.258732+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": 0}}
+{"time_utc": "2026-10-10T18:01:01.288966+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": 0}}
+{"time_utc": "2026-10-10T18:01:31.319174+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": 0}}
+{"time_utc": "2026-10-10T18:02:01.349396+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": 0}}
+{"time_utc": "2026-10-10T18:02:31.359267+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": 0}}
+{"time_utc": "2026-10-10T18:03:01.389477+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": 0}}
+{"time_utc": "2026-10-10T18:03:31.419678+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": 0}}
+{"time_utc": "2026-10-10T18:04:01.449886+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": 0}}
+{"time_utc": "2026-10-10T18:04:31.480093+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": 0}}
+{"time_utc": "2026-10-10T18:05:01.510310+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": 0}}
+{"time_utc": "2026-10-10T18:05:31.540517+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": 0}}
+{"time_utc": "2026-10-10T18:06:01.570717+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": 0}}
+{"time_utc": "2026-10-10T18:06:31.600922+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": 0}}
+{"time_utc": "2026-10-10T18:07:01.631144+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": 0}}
+{"time_utc": "2026-10-10T18:07:31.661363+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": 0}}
+{"time_utc": "2026-10-10T18:08:01.691596+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": 0}}
+{"time_utc": "2026-10-10T18:08:31.721824+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": 0}}
+{"time_utc": "2026-10-10T18:09:01.752049+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": 0}}
+{"time_utc": "2026-10-10T18:09:31.782263+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": 0}}
+{"time_utc": "2026-10-10T18:10:01.812472+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": 0}}
+{"time_utc": "2026-10-10T18:10:31.842683+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": 0}}
+{"time_utc": "2026-10-10T18:11:01.872902+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": 0}}
+{"time_utc": "2026-10-10T18:11:31.903136+00:00", "mode": "multilayer", "status": {"reference_compute": null, "up_local_compute": 0}}
+Traceback (most recent call last):
+  File "/Projects/haoning/w2w-full-system-co-placement-20261010/execution-r2/tools/monitor_co_placement.py", line 42, in <module>
+    if __name__=='__main__':main()
+  File "/Projects/haoning/w2w-full-system-co-placement-20261010/execution-r2/tools/monitor_co_placement.py", line 39, in main
+    campaign(a.root,a.booksim_binary,a.cold_baseline,a.warm_baseline)
+  File "/Projects/haoning/w2w-full-system-co-placement-20261010/execution-r2/tools/monitor_co_placement.py", line 30, in campaign
+    with (root/'logs'/f'{mode}-readback.log').open('xb') as f:subprocess.run(cmd,cwd=source,stdout=f,stderr=subprocess.STDOUT,check=True)
+  File "/usr/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/Projects/haoning/w2w/.venv/bin/python', '-m', 'w2w.analysis.co_placement', '--source', '/Projects/haoning/w2w-full-system-co-placement-20261010/multilayer', '--output', '/Projects/haoning/w2w-full-system-co-placement-20261010/multilayer/analysis.json', '--baseline', '/Projects/haoning/w2w-full-system-matrix-service-20261010/concurrent-hierarchy-r1/cases/phase-split']' died with <Signals.SIGKILL: 9>.

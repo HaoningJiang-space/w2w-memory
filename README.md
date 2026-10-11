@@ -77,6 +77,12 @@ its existing Gateway-local cluster. The cold result is **451.676 µs versus
 456.627 µs (1.08% reduction)**, with **87.78% lower NoC data-lane activity**.
 A matched per-cluster-work nonlocal control takes 517.708 µs. Real X/U copies,
 Native reads and shared resources are audited; no new hardware is claimed.
+The registered finite-cache pair has now completed: **10.979869 → 9.656156 ms**
+(12.06%), **72.15% less NoC data-lane activity**, and reload **648.178 →
+394.361 MB**. Its later cache traffic differs and is reported, rather than
+treated as a communication-only speedup. Consumer-local preload remains outside
+timing. [Competition and conditional EDP analysis](docs/reports/COMPUTE_MEMORY_COMPETITION_ENERGY_REPORT.md)
+use existing captures; no new execution policy or calibrated PPA is introduced.
 The separately registered 24-token finite-cache pair runs in the background
 with actual Up cache objects preloaded at their new consumers. Its performance
 is pending independent completion/readback.

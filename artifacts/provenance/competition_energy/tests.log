@@ -1,0 +1,15 @@
+test_ownership_half_open_global_clocks (test_competition_energy.CompetitionEnergy) ... ok
+test_ready_wait_requires_a_real_competing_grant (test_competition_energy.CompetitionEnergy) ... ok
+test_units_residual_and_edp_threshold (test_competition_energy.CompetitionEnergy) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.000s
+
+OK
+test_cached_operands_have_no_memory_wait (test_ffn_stages.StageEvents) ... ok
+test_prefix_hole_and_ungranted_ready_clock (test_ffn_stages.StageEvents) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.000s
+
+OK

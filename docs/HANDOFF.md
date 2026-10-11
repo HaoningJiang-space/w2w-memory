@@ -220,25 +220,54 @@ Earlier release of the final block is largely offset by slower Gate progress;
 activity reduction does not identify equivalent latency savings. Sixteen remote
 tests and three overlapping readback/mapping tests pass.
 
-The registered 24-token two-layer pair runs at the same `02dab2a` source under
-`/Projects/haoning/w2w-full-system-co-placement-20261010` on hn072. Worker PIDs
-589801 / 589802; controller 589606. Both preload the full same L0 catalog/global
+The registered 24-token two-layer pair completed at the same `02dab2a` source under
+`/Projects/haoning/w2w-full-system-co-placement-20261010` on hn072. Both native
+workers exit 0. Both preload the full same L0 catalog/global
 order and 2,416,508,928 B outside measurement. Up-local relocates 1,536 actual
 Up cache objects to their real consumers, without free remote hits or simulated
 migration. Each cluster initially has 151,031,808 B / 288 entries, within the
 same 184 MiB / 512-entry cache. Later miss/reload counts may differ; do not force
 traffic equality or reject negative results.
 
-The separate analysis-only finisher (PID 591118, `04f2e70`) watches completion
-and independently reconstructs warm traffic/readiness/resource evidence against
+The separate analysis-only finisher (`04f2e70`) completed
+independent warm traffic/readiness/resource evidence against
 the old `9160207` Phase-Split reference. It writes `multilayer/independent-readback.json`,
 `completed-summary.json` and `COMPLETED_RESULTS.md` in the archive; no native
-retry or performance selection. No Up-local multi-layer conclusion is complete
-yet. Next: inspect those files and both worker/controller logs, preserve failures,
-publish final cache/late-window and byte-distance evidence. Do not start new
-controllers, fragments, topology DSE or claim calibrated energy from this gate.
+retry or performance selection. Completion **10.979869 → 9.656156 ms (12.06%)**,
+late window **4.862114 → 3.918970 ms (19.40%)**, lateral byte-distance **72.15%**
+lower. Native bytes fall **11.17%** and reload **39.16%**; this is not a
+same-traffic-only speedup. The original controller's redundant postprocessing
+was SIGKILLed after both workers finished; the independent finisher succeeded.
+Retain both logs. Do not rerun simulation because that reader failed.
 Current registrations, source/native/raw hashes, preload and test receipts are
-in `artifacts/provenance/co_placement`; running worktrees remain immutable.
+in `artifacts/provenance/co_placement`; execution worktrees remain immutable.
+
+The read-only [competition/energy continuation](reports/COMPUTE_MEMORY_COMPETITION_ENERGY_REPORT.md)
+is implemented at `0d8ab50`. Six cold/warm Reference-weight, Phase-Split and
+Up-local captures pass raw-SHA-bound reconstruction; five targeted remote tests
+pass. The final Gate has **3.539 µs fetch-full wait, 38.773 µs missing-prefix
+context clocks, zero ready-grant or compute-context-full wait**. Its issue span
+is **38.737 µs**, intersecting a full unchanged MC pool for **38.504 µs**, with
+no full requester-outstanding window. These intersections overlap and are not
+removable stall savings. No compute scheduler/hardware change is justified.
+
+`energy_edp.py` exposes complete activity coefficients, optional SHA-bound
+command receipts, exact EDP thresholds and parameter-box extrema. All covered
+warm EDP coefficients favor Up-local under shared nonnegative coefficients;
+unknown residuals still prevent calibrated total energy/PPA claims. Full
+application ACT/PRE/REF traces/currents and PE-internal SRAM/clock activity are
+missing. Source catalog is `configs/analysis/energy_sources.json`; primary
+65nm/DSENT/HB references are not transplanted into modern wafer pJ values.
+Competition reader source: `competition-source-r2` / `0d8ab50`; outputs: `competition-analysis-r2`;
+logs: `logs/competition-tests-r2.log`, `logs/competition-analysis-r2.log` in the
+same own archive. Derived receipts are in `artifacts/provenance/competition_energy`.
+Final Energy/EDP reader is `energy-source-r1` / `5807da6`; `energy-bounds-r1.json`
+reuses the activity receipt by SHA and charges common physical power through
+drain while EDP uses output latency. No raw/native re-execution. Its final five
+targeted checks are in `logs/energy-final-tests.log`; `energy_bounds.json` is the
+authoritative sensitivity receipt. Public anchors do not establish calibrated
+pJ coefficients; ranges/residuals remain explicit.
+Keep Fetch Controller, Fragmentation, new mapping and topology changes deferred.
 
 ## Interactive compute finding
 
