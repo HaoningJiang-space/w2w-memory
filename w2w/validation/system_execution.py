@@ -12,7 +12,10 @@ def audit_system_result(result):
     edge_bytes = {e['id']: e['size_bytes'] for e in graph['data']}
     starts, finishes, packets, delivered, requests = {}, {}, {}, set(), {}
     stages = {kind: set() for kind in ('mc_accept', 'native_accept', 'native_ready', 'mc_release', 'read_deliver')}
-    sram, sram_peak, data, read, link_count, packet_flits = Counter(), Counter(), Counter(), Counter(), Counter(), Counter()
+    carry=result.get('runtime_carry_in');carry_out=result.get('runtime_carry_out')
+    if bool(carry)!=bool(carry_out):raise ValueError('Runtime carry requires both ownership boundaries')
+    sram=Counter(carry['sram']) if carry else Counter();sram_peak=Counter(sram)
+    data,read,link_count,packet_flits=Counter(),Counter(),Counter(),Counter()
     slots = set()
     last = -1
     stream_ready,stream_scale,stream_consumed,stream_macs,stream_ticks=Counter(),Counter(),Counter(),Counter(),set()
@@ -31,6 +34,16 @@ def audit_system_result(result):
     cache=result.get('weight_cache');cache_entries={t:{} for t in capacities}
     cache_valid=set();cache_pins=Counter();cache_lookups={};cache_used=Counter();cache_peak=Counter();cache_stats=Counter()
     cache_lookup_times={};cache_lookup_done=set();cache_seen=set();lookup_live=Counter();last_lookup_at=Counter()
+    if carry and cache:
+        prior=carry['weight_cache']
+        for tile,entries in prior['entries'].items():
+            for obj,size in entries:
+                if obj not in resident or resident[obj]['size_bytes']!=size:raise ValueError('Carried cache identity differs from physical catalog')
+                cache_entries[tile][obj]=size;cache_valid.add((tile,obj))
+        cache_used=Counter(prior['used']);cache_peak=Counter(cache_used)
+        if any(cache_used[t]!=sum(cache_entries[t].values()) for t in capacities):raise ValueError('Carried cache capacity differs')
+        cache_seen={tuple(v) for v in prior['ever_seen']};last_lookup_at=Counter(prior['lookup_free'])
+        if not cache_valid<=cache_seen:raise ValueError('Carried valid cache lacks prior residency provenance')
     for event in result['events']:
         at, kind = event['time_ps'], event['kind']
         if at < last: raise ValueError('Nonmonotonic event ledger')
@@ -98,6 +111,7 @@ def audit_system_result(result):
                 cache_seen.add(identity)
                 if event['hit']:
                     if identity not in cache_valid or entries[obj]!=event['bytes']:raise ValueError('Cache hit on missing/unfilled data')
+                    entries[obj]=entries.pop(obj)
                     cache_stats['hit_bytes']+=event['bytes']
                 else:
                     if obj in entries:raise ValueError('Duplicate cache fill reservation')
@@ -106,6 +120,11 @@ def audit_system_result(result):
             elif kind=='cache_evict':
                 if obj not in entries or cache_pins[identity] or identity not in cache_valid:
                     raise ValueError('Eviction removed filling/in-use/unowned data')
+                if carry:
+                    victim=next((k for k in entries if not cache_pins[tile,k] and (tile,k) in cache_valid),None)
+                    incoming_obj=tasks[event['task']]['stream']['weight_object']
+                    need=cache_used[tile]+resident[incoming_obj]['size_bytes']>cache['data_bytes_per_cluster'] or len(entries)>=cache['entries_per_cluster']
+                    if victim!=obj or not need:raise ValueError('Runtime eviction violates actual LRU/capacity need')
                 cache_used[tile]-=entries.pop(obj);cache_valid.remove(identity)
                 cache_stats['evictions']+=1;cache_stats['evicted_bytes']+=event['bytes']
             else:
@@ -235,7 +254,8 @@ def audit_system_result(result):
                 n=(rule['weight_data_bytes']+fragment_bytes-1)//fragment_bytes
                 operand_meta_live[event['tile']]-=(n+7)//8+8
             if key in cache_lookups:cache_pins[cache_lookups[key]]-=1
-    if (set(packets) != delivered or set(finishes) != set(tasks) or any(sram.values())
+    sram_done=dict(sram)==carry_out['sram'] if carry else not any(sram.values())
+    if (set(packets) != delivered or set(finishes) != set(tasks) or not sram_done
             or any(set(requests) != ids for ids in stages.values()) or dict(data) != edge_bytes):
         raise ValueError('Final byte/transaction/storage ledger did not drain')
     if readiness=='contiguous_prefix':
@@ -250,6 +270,13 @@ def audit_system_result(result):
         for key in ('hit_bytes','miss_bytes','evictions','evicted_bytes','reload_bytes','compulsory_bytes'):
             if cache_stats[key]!=cache['stats'].get(key,0):raise ValueError('Cache traffic/eviction counters differ')
         if cache_stats['initial_bytes']!=cache['initial_resident_bytes']:raise ValueError('Warm initial bytes were not accounted')
+        if carry:
+            end=carry_out['weight_cache']
+            if ({t:[[k,v] for k,v in entries.items()] for t,entries in cache_entries.items()}!=
+                    {t:[list(v) for v in values] for t,values in end['entries'].items()}
+                    or cache_seen!={tuple(v) for v in end['ever_seen']}
+                    or dict(last_lookup_at)!=end['lookup_free']):
+                raise ValueError('LRU/residency/lookup phase does not match the next physical carry')
     if network.get('event_level') == 'transaction':
         if (network['kind'] != 'native_boundary_booksim' or not network['drained']
                 or network['accepted_packets'] != len(packets)

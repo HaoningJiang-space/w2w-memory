@@ -17,12 +17,15 @@ from w2w.system.builder import SystemBuilder
 
 class SystemExecution:
     def __init__(self, spec, graph, native=None, *, network_factory=None,
-                 activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count',fetch_contexts=0,read_issue_policy='ordered',compute_epoch=False,compute_epoch_evidence='full',interactive_compute=False,interactive_compute_evidence='full',causal_boundary=False,return_contexts=0,down_prefetch_plan=None,npu_model=None):
+                 activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count',fetch_contexts=0,read_issue_policy='ordered',compute_epoch=False,compute_epoch_evidence='full',interactive_compute=False,interactive_compute_evidence='full',causal_boundary=False,return_contexts=0,down_prefetch_plan=None,npu_model=None,window_source=None):
         if type(return_contexts) is not int or not 0<=return_contexts<=8 or return_contexts and (not fetch_contexts or weight_cache):
             raise ValueError('Split-phase gate requires finite issue contexts, 0..8 return entries, and cold operands')
         self.spec, self.graph = spec, graph
         self.builder = SystemBuilder(spec).validate_graph(graph)
         self.npu_model=npu_model
+        self.window_source=window_source
+        if window_source is not None and (npu_model is None or down_prefetch_plan or return_contexts or compute_epoch or interactive_compute or causal_boundary):
+            raise ValueError('Bounded real-MoE windows require ordinary finite NPU execution')
         if npu_model is not None:
             if compute_epoch or interactive_compute or causal_boundary or down_prefetch_plan:
                 raise ValueError('Shape-aware array service requires ordinary certified clock boundaries')
@@ -143,6 +146,31 @@ class SystemExecution:
             for tile in self.builder.tiles:self._sram(tile,self.cache_reserved_bytes,'weight-cache-partition')
             objects={o.id:o for o in graph.objects}
             for tile,key in weight_cache.initial_resident:self.weight_cache.preload(tile,key,objects[key].size_bytes)
+        if self.window_source is not None:self.window_source.start(self)
+
+    def install_window(self,graph,npu_kernels):
+        """Replace ONLY drained task/observation state; physical clocks/cache persist."""
+        if (self.requests or self.memory_candidates or self.packet_info or self.engine or self.active_edges or any(self.outstanding.values())
+                or any(self.mc_pool_slots.values()) or not self.network.drained() or self.native.record()['pending']
+                or self.cache_waiting or any(self.operand_metadata_live.values())):
+            raise RuntimeError('A live physical window cannot be replaced')
+        from w2w.system.npu_kernel import NPUKernelModel
+        self.graph=graph;self.builder.validate_graph(graph)
+        self.tasks={t.id:t for t in graph.tasks};self.objects={o.id:o for o in graph.objects}
+        self.predecessors={t.id:set() for t in graph.tasks};self.followers={t.id:set() for t in graph.tasks}
+        self.incoming={t.id:[] for t in graph.tasks};self.outgoing={t.id:[] for t in graph.tasks}
+        for e in (*graph.control,*graph.data):
+            self.predecessors[e.consumer].add(e.producer);self.followers[e.producer].add(e.consumer)
+        for e in graph.data:self.incoming[e.consumer].append(e.id);self.outgoing[e.producer].append(e.id)
+        self.remaining_deps={k:set(v) for k,v in self.predecessors.items()}
+        self.alloc_candidates={k for k,v in self.remaining_deps.items() if not v}
+        self.prefetch_followers={k:set() for k in self.tasks}
+        self.task_order=sorted(self.tasks);self.unallocated=set(self.tasks);self.ready_tasks=set();self.reading=set()
+        self.state={t.id:dict(allocated=False,start_ps=None,finish_ps=None,read_bytes=0,issued_all=False,next_read=None,
+            iterator=iter(words_for_task(t,graph,self.builder))) for t in graph.tasks}
+        self.edges={e.id:dict(edge=e,sent=0,delivered=0) for e in graph.data};self.done_count=0
+        self.npu_model=NPUKernelModel(self.npu_model.profile,npu_kernels,evidence=self.npu_model.evidence)
+        self.npu_model.validate(self.spec,graph)
 
     def log(self, kind, **data):
         event=dict(time_ps=self.now,kind=kind,**data)
@@ -628,6 +656,13 @@ class SystemExecution:
             if self.done_count==len(self.tasks) and makespan is None:
                 makespan = self.now
             if makespan is not None and self.network.drained() and not self.native.record()['pending']:
+                if self.window_source is not None:
+                    self.window_source.checkpoint(self,makespan,quantum,time_advance)
+                    following=self.window_source.next_window(self.now)
+                    if following is not None:
+                        self.window_source.reset_observations(self)
+                        self.install_window(*following);makespan=None
+                        continue
                 if self.context_metadata_bytes:
                     for tile in self.builder.tiles:self._sram(tile,-self.context_metadata_bytes,'compute-context-state')
                 if self.fetch_metadata_bytes:
@@ -700,13 +735,16 @@ class SystemExecution:
             record['fetch_execution']['lifetime_policy']='issue_only'
             record['fetch_execution']['return_tracking']=self.fetch_scheduler.returns.record()
         record['input_sha256'] = sha256(json.dumps([record['spec'], record['graph']], sort_keys=True).encode()).hexdigest()
+        if self.window_source is not None:
+            record.update(schema='w2w.runtime-window-summary.v1',scope='bounded_window_summary',
+                runtime_windows=self.window_source.summary(),cleanup_events=record.pop('events'))
         return record
 
 
 def execute_system(spec, graph, *, native=None, network_factory=None, max_ps=10_000_000,
-                   time_advance='gcd',activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count',fetch_contexts=0,read_issue_policy='ordered',compute_epoch=False,compute_epoch_evidence='full',interactive_compute=False,interactive_compute_evidence='full',causal_boundary=False,return_contexts=0,down_prefetch_plan=None,npu_model=None):
+                   time_advance='gcd',activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count',fetch_contexts=0,read_issue_policy='ordered',compute_epoch=False,compute_epoch_evidence='full',interactive_compute=False,interactive_compute_evidence='full',causal_boundary=False,return_contexts=0,down_prefetch_plan=None,npu_model=None,window_source=None):
     execution = SystemExecution(spec, graph, native, network_factory=network_factory,
-                                activation_sram_read_bytes_per_cycle=activation_sram_read_bytes_per_cycle,compute_contexts=compute_contexts,weight_cache=weight_cache,event_observer=event_observer,operand_readiness=operand_readiness,fetch_contexts=fetch_contexts,read_issue_policy=read_issue_policy,compute_epoch=compute_epoch,compute_epoch_evidence=compute_epoch_evidence,interactive_compute=interactive_compute,interactive_compute_evidence=interactive_compute_evidence,causal_boundary=causal_boundary,return_contexts=return_contexts,down_prefetch_plan=down_prefetch_plan,npu_model=npu_model)
+                                activation_sram_read_bytes_per_cycle=activation_sram_read_bytes_per_cycle,compute_contexts=compute_contexts,weight_cache=weight_cache,event_observer=event_observer,operand_readiness=operand_readiness,fetch_contexts=fetch_contexts,read_issue_policy=read_issue_policy,compute_epoch=compute_epoch,compute_epoch_evidence=compute_epoch_evidence,interactive_compute=interactive_compute,interactive_compute_evidence=interactive_compute_evidence,causal_boundary=causal_boundary,return_contexts=return_contexts,down_prefetch_plan=down_prefetch_plan,npu_model=npu_model,window_source=window_source)
     try:
         return execution.run(max_ps,time_advance=time_advance)
     except BaseException:

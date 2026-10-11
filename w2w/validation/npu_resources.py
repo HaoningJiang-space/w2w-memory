@@ -85,15 +85,16 @@ def audit_npu_result(result):
         if dict(service[key])!=expected or plan['service']!=expected:raise ValueError('Operand/partial service conservation differs')
         buffers=p['arrays']*(p['rows']*p['columns']*4+(p['rows']+p['columns'])*p['word_bytes']+32)+4*M*N*split
         if tasks[key]['scratch_bytes']<buffers:raise ValueError('Uncharged array register/word/partial state')
+    grants=defaultdict(list)
+    for e in result['events']:
+        if e['kind'] in ('compute_service','stream_compute','npu_cycle'):grants[e['tile']].append(e)
     for tile,windows in intervals.items():
         ordered=sorted(windows)
         if any(b[0]<a[1] for a,b in zip(ordered,ordered[1:])):raise ValueError('Physical array ownership duplicated')
         for a,b,key in ordered:
             if not starts[key]<=a<b==finishes[key]:raise ValueError('Output released outside completed array interval')
         begin=[a for a,_,_ in ordered]
-        for e in result['events']:
-            if e['kind'] not in ('compute_service','stream_compute','npu_cycle'):continue
-            if e['tile']!=tile:continue
+        for e in grants[tile]:
             index=bisect_right(begin,e['time_ps'])-1
             if index>=0:
                 a,b,key=ordered[index]

@@ -36,7 +36,15 @@ def audit_fetch_execution(result):
     if any(live.values()) or any(outstanding.values()) or policy['live_contexts'] or dict(peak)!=policy['peak_contexts']:
         raise ValueError('Fetch state or requester lifecycle did not drain')
     for tile in (t['id'] for t in result['spec']['tiles']):
-        if funding[tile]!=[policy['metadata_bytes_per_cluster'],-policy['metadata_bytes_per_cluster']]:raise ValueError('Fetch state was not reserved inside existing SRAM')
+        carry=result.get('runtime_carry_in')
+        if carry:
+            expected=[] if carry['metadata_owned'] else [policy['metadata_bytes_per_cluster']]
+            end=result['runtime_carry_out']
+            if (not end['metadata_owned'] or end['fetch_metadata_bytes']!=policy['metadata_bytes_per_cluster']
+                    or end['sram'][tile]<end['fetch_metadata_bytes']+end['context_metadata_bytes']+end['cache_reserved_bytes']):
+                raise ValueError('Persistent fetch/cache metadata lost its SRAM ownership')
+        else:expected=[policy['metadata_bytes_per_cluster'],-policy['metadata_bytes_per_cluster']]
+        if funding[tile]!=expected:raise ValueError('Fetch state was not reserved inside existing SRAM')
     if dict(out_peak)!=result['outstanding_peak']:raise ValueError('Independent outstanding peak differs')
     if split:
         from .return_tracking import audit_return_tracking
