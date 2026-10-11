@@ -41,6 +41,7 @@ class CompetitionEnergy(unittest.TestCase):
         self.assertEqual(evaluate(a,c,common_power_w=1,residual_j=1)['energy_j'],3)
         self.assertEqual(evaluate(dict(a,drained_ps=2*10**12),c,common_power_w=1,residual_j=1)['energy_j'],4)
         with self.assertRaises(ValueError):evaluate(dict(a,drained_ps=1),c,common_power_w=1,residual_j=1)
+        with self.assertRaises(ValueError):threshold(a,dict(b,counts={'macs':-1,'noc_data_bit_mm':0}))
         self.assertEqual(threshold(a,b)['candidate_energy_ratio_limit'],2)
         self.assertEqual(threshold(a,b)['edp_difference_coefficient']['macs'],0)
         self.assertTrue(threshold(a,b)['modeled_nonnegative_coefficient_dominance'])

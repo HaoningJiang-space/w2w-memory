@@ -85,7 +85,16 @@ def validate_coefficients(coefficients, counts):
         raise ValueError('Use cell distance including sideband; data distance is diagnostic only')
 
 
+def validate_activity(record):
+    if any(type(v) not in (int,float) or not isfinite(v) or v<0 for v in record['counts'].values()):
+        raise ValueError('Finite nonnegative activity required')
+    t=record['makespan_ps'];d=record.get('drained_ps',t)
+    if any(type(v) not in (int,float) or not isfinite(v) for v in (t,d)) or t<=0 or d<t:
+        raise ValueError('Positive latency and non-earlier finite drain required')
+
+
 def evaluate(record, coefficients, *, common_power_w, residual_j):
+    validate_activity(record)
     validate_coefficients(coefficients, record['counts'])
     for x in (common_power_w, residual_j):
         if type(x) not in (int, float) or not isfinite(x) or x < 0:
@@ -104,6 +113,7 @@ def evaluate(record, coefficients, *, common_power_w, residual_j):
 
 def threshold(reference, candidate):
     """Linear EDP inequality; valid for every nonnegative coefficient vector."""
+    validate_activity(reference);validate_activity(candidate)
     if set(reference['counts']) != set(candidate['counts']):
         raise ValueError('Activity schemas differ')
     tr = reference['makespan_ps'] * 1e-12
