@@ -54,12 +54,14 @@ def context_catalog(machine,shape,layers,baseline,profile,*,embedding=False,head
             allocate(root+phase,N*K+4*ceil(N/128)*ceil(K/128),'c0')
         for kind,n in (('input_norm',profile.hidden),('post_norm',profile.hidden),('q_norm',profile.head_dim),('k_norm',profile.head_dim)):
             allocate(root+kind,2*n,'c0')
+        allocate(root+'rope_table',profile.kv_tokens_per_request*profile.head_dim*4,'c0')
     for kind,include in (('embedding',embedding),('lm_head',head)):
         if not include:continue
         for start in range(0,profile.vocabulary,4096):
             N=min(4096,profile.vocabulary-start)
             # Both are BF16 and untied, matching the pinned exclusion list.
             allocate(f'{kind}/{start}',2*N*profile.hidden,f'c{(start//4096)%len(machine.tiles)}')
+    if head:allocate('final_norm',2*profile.hidden,'c0')
     catalog.update(objects=tuple(objects),context_placements=placements,llm_profile=asdict(profile),embedding=embedding,head=head)
     return catalog
 
@@ -80,7 +82,9 @@ def deployment(machine,shape,profile,baseline='up_local'):
         inter_stage=dict(links=len(stages)-1,feedback_links=1,bytes_per_ns=profile.inter_stage_bytes_per_ns,
             latency_ps=profile.inter_stage_latency_ps,packet_bytes=profile.inter_stage_packet_bytes,
             direction='Point-to-point activation pipeline plus final token-feedback link; explicit finite source/destination ports.',
-            buffers_per_endpoint_bytes=2*32*profile.hidden*2,control_bytes_per_packet=16,
+            buffers_per_endpoint_bytes=2*32*profile.hidden*2,control_state_bytes_per_endpoint=2*64*16,
+            control_bytes_per_packet=16,cell_bytes=128,sideband_bits=64,
+            port_sharing='Existing 128 B/cycle SRAM fabric ports; transfer only after both previous local windows drain. Next local window waits for RX commit and own TX release; real c15 ingress/export NoC edges.',
             area_um2=None,energy_pj_per_byte=None,calibrated=False),
         kv=dict(location='Reserved portion of existing non-weight-cache SRAM',tokens_per_request=profile.kv_tokens_per_request,
             bytes_per_token_layer=2*profile.kv_heads*profile.head_dim*2,policy='BF16 append-only K/V, no DRAM writes inferred from the read-only Native backend; capacity rejection rather than cache shrink.'),

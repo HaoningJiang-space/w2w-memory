@@ -6,6 +6,8 @@ from bisect import bisect_right
 
 def audit_npu_result(result):
     npu=result['npu_execution'];p=npu['profile'];tasks={t['id']:t for t in result['graph']['tasks']}
+    objects={o['id']:o for o in result['graph']['objects']};incoming=Counter()
+    for e in result['graph']['data']:incoming[e['consumer']]+=e['size_bytes']
     if p['rows']*p['columns']*p['arrays']!=16384:raise ValueError('Array peak changed original compute budget')
     intervals=defaultdict(list);cycles=defaultdict(list);seen={};macs=Counter();service=defaultdict(Counter)
     starts={e['task']:e['time_ps'] for e in result['events'] if e['kind']=='task_start'}
@@ -50,6 +52,9 @@ def audit_npu_result(result):
         if seen.get(key)!=plan['cycles'] or plan['cycles']!=tasks[key]['compute_cycles'] or macs[key]!=M*N*K:
             raise ValueError('Actual shape/cycle/MAC work differs')
         bpp=1 if k['weight_dtype']=='FP8_E4M3FN' else 2
+        padded_input=M*ceil(K*2/32)*32
+        virtual=k['weight_object'] not in objects
+        if incoming[key]!=padded_input+(N*ceil(K*bpp/32)*32 if virtual else 0):raise ValueError('GEMM operand/word-padding storage differs from actual shape')
         segments=defaultdict(list);weight_words=0;input_words=0;tile_macs=0;core_cycles=0
         for wave in plan['waves']:
             if not 0<len(wave)<=p['arrays']:raise ValueError('Too many physical arrays in a wave')
@@ -59,12 +64,17 @@ def audit_npu_result(result):
                         or not 0<=t['m']<t['m']+t['M']<=M or not 0<=t['n']<t['n']+t['N']<=N):
                     raise ValueError('Illegal array tile dimensions')
                 segments[t['m'],t['n'],t['M'],t['N']].append((t['k'],t['k']+t['K']))
+                alignment=128 if bpp==1 else 16
+                if t['k']%alignment or t['k']+t['K']<K and (t['k']+t['K'])%alignment:
+                    raise ValueError('K partition breaks original FP8 scale/BF16 word contract')
                 tile_macs+=t['M']*t['N']*t['K']
                 weight_words+=t['N']*ceil(t['K']*bpp/p['word_bytes'])
                 for r in range(t['m'],t['m']+t['M']):
                     for word in range(t['k']*2//p['word_bytes'],ceil((t['k']+t['K'])*2/p['word_bytes'])):
                         inp[r,word]+=1
             input_words+=sum(ceil(v/p['input_broadcast_fanout']) for v in inp.values())
+        expected_tiles={(m,n,min(p['rows'],M-m),min(p['columns'],N-n)) for m in range(0,M,p['rows']) for n in range(0,N,p['columns'])}
+        if set(segments)!=expected_tiles:raise ValueError('Missing/overlapping output tile coverage')
         area=0
         for (m,n,a,b),ranges in segments.items():
             at=0
@@ -85,18 +95,26 @@ def audit_npu_result(result):
         if dict(service[key])!=expected or plan['service']!=expected:raise ValueError('Operand/partial service conservation differs')
         buffers=p['arrays']*(p['rows']*p['columns']*4+(p['rows']+p['columns'])*p['word_bytes']+32)+4*M*N*split
         if tasks[key]['scratch_bytes']<buffers:raise ValueError('Uncharged array register/word/partial state')
-    aux=npu.get('auxiliary',{});done=defaultdict(Counter);aux_ticks=Counter()
+    aux=npu.get('auxiliary',{});done=defaultdict(Counter);aux_ticks=Counter();expected_aux={}
+    limits=dict(weight_sram_bytes=p['weight_read_bytes_per_cycle'],activation_sram_bytes=p['activation_read_bytes_per_cycle'],
+        output_sram_bytes=p['output_write_bytes_per_cycle'],vector_ops=p['vector_ops_per_cycle'],activation_delivery_bytes=p['activation_read_bytes_per_cycle'])
+    for key,work in aux.items():
+        phases=work.get('phases') or (dict(work,cycles_floor=1),);code=[]
+        if any(sum(v.get(f,0) for v in phases)!=work.get(f,0) for f in limits):raise ValueError('Vector phase work changed')
+        for v in phases:
+            count=max(v.get('cycles_floor',1),max(ceil(v.get(f,0)/limit) for f,limit in limits.items()))
+            for tick in range(count):code.append({f:min(max(0,v.get(f,0)-tick*limit),limit) for f,limit in limits.items()})
+        expected_aux[key]=code
     for e in result['events']:
         if e['kind']=='compute_service' and e['task'] in aux:
-            limits=dict(weight_sram_bytes=p['weight_read_bytes_per_cycle'],activation_sram_bytes=p['activation_read_bytes_per_cycle'],
-                output_sram_bytes=p['output_write_bytes_per_cycle'],vector_ops=p['vector_ops_per_cycle'])
             key=e['task'];tick=aux_ticks[key];aux_ticks[key]+=1
-            for field,limit in limits.items():
-                expected=min(max(0,aux[key][field]-tick*limit),limit)
+            if tick>=len(expected_aux[key]):raise ValueError('Repeated vector phase grant')
+            for field in limits:
+                expected=expected_aux[key][tick][field]
                 if e.get(field)!=expected:raise ValueError('Vector/SRAM operation exceeded or omitted its actual grant')
                 done[key][field]+=e[field]
     for key,work in aux.items():
-        if dict(done[key])!=work or aux_ticks[key]!=tasks[key]['compute_cycles']:raise ValueError('Vector/KV/transpose service not closed')
+        if any(done[key][f]!=work.get(f,0) for f in limits) or aux_ticks[key]!=tasks[key]['compute_cycles'] or aux_ticks[key]!=len(expected_aux[key]):raise ValueError('Vector/KV/transpose service not closed')
     grants=defaultdict(list)
     for e in result['events']:
         if e['kind'] in ('compute_service','stream_compute','npu_cycle'):grants[e['tile']].append(e)

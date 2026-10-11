@@ -28,11 +28,15 @@ def audit_window_chain(summary,root,*,visit=None):
         if r['drained_ps']<r['makespan_ps'] or r['makespan_ps']<=end:raise ValueError('Nonmonotonic physical progress')
         if any(t['finish_ps'] is None or t['start_ps']<end for t in r['tasks'].values()):raise ValueError('Tasks escaped current causal window')
         a=audit_vertical_result(r);audit_request_control(r);n=audit_npu_result(r)
-        if a!=row['audit'] or n!=row['npu_audit']:raise ValueError('Independent archived audit mismatch')
+        if any(a.get(k)!=v for k,v in row['audit'].items()) or any(n.get(k)!=v for k,v in row['npu_audit'].items()):raise ValueError('Independent archived audit mismatch')
         native+=a['native_bytes'];tasks+=len(r['tasks']);macs+=n['macs'];cache.update(r.get('weight_cache',{}).get('stats',{}))
         if visit:visit(r,row)
         previous=outgoing;end=r['drained_ps']
-    if summary['drained_ps']!=end or chain['native_bytes']!=native or chain['total_completed_tasks']!=tasks:
+    fence=summary.get('runtime_external_drain') or dict(begin_ps=end,end_ps=end)
+    final=summary['drained_ps']
+    if fence['begin_ps']!=end or fence['end_ps']<end or final<fence['end_ps'] or final-fence['end_ps']>=summary['quantum_ps']:
+        raise ValueError('Final output ownership did not cover its explicit external boundary')
+    if chain['native_bytes']!=native or chain['total_completed_tasks']!=tasks:
         raise ValueError('Summary changed physical work/time')
     sram=Counter(previous['sram'])
     expected={kind for kind,amount in (('compute-context-state',previous['context_metadata_bytes']),
@@ -40,7 +44,7 @@ def audit_window_chain(summary,root,*,visit=None):
     if previous.get('persistent_sram'):expected.add('kv-residency')
     seen=set()
     for e in summary['cleanup_events']:
-        if e['kind']!='sram_change' or e['task'] not in expected or e['time_ps']!=end or e['bytes']>=0:
+        if e['kind']!='sram_change' or e['task'] not in expected or e['time_ps']!=final or e['bytes']>=0:
             raise ValueError('Unexplained work or allocation in final cleanup')
         key=(e['tile'],e['task'])
         if key in seen:raise ValueError('Repeated state release')
@@ -48,4 +52,4 @@ def audit_window_chain(summary,root,*,visit=None):
         if sram[e['tile']]<0:raise ValueError('Unowned final SRAM release')
     if any(sram.values()):raise ValueError('Runtime finished with live SRAM ownership')
     return dict(passed=True,windows=len(rows),tasks=tasks,native_bytes=native,macs=macs,cache_stats=dict(cache),
-        makespan_ps=summary['makespan_ps'],drained_ps=end,scope='Each raw window re-audited; continuous cache/LRU/clock ownership and final metadata release closed.')
+        makespan_ps=summary['makespan_ps'],drained_ps=final,scope='Each raw window re-audited; continuous cache/LRU/clock ownership and final metadata release closed.')

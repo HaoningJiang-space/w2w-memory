@@ -74,7 +74,7 @@ def lower_batch(batch,machine,catalog,npu_profile,*,prefix):
     kernels={name(k):GemmKernel(**dict(v,operation_id=name(k),weight_object=obj(v['weight_object']),scale_group=tuple(v['scale_group'])))
         for k,v in meta['npu_kernels'].items()}
     router_obj=f'L{batch.layer_id}/router';router_id=name('router_matmul');done=name('router_done')
-    tile=sorted(machine.stack.compute_clusters,key=lambda c:c.id)[0];router=GemmKernel(router_id,batch.token_count,s['experts'],s['hidden'],router_obj,weight_dtype='BF16')
+    tile=sorted(machine.stack.compute_clusters,key=lambda c:c.id)[0];router=GemmKernel(router_id,batch.token_count,s['experts'],s['hidden'],router_obj,weight_dtype='BF16',cached_weights=True)
     _,plan=program(router.M,router.N,router.K,router.weight_dtype,npu_profile)
     tasks.append(ComputeTask(router_id,tile.id,plan['cycles'],(ReadAccess(router_obj,0,router.weight_bytes),),plan['scratch_bytes']))
     topk_ops=batch.token_count*(s['experts']*ceil(log2(s['experts']))+6*s['experts'])
@@ -91,10 +91,40 @@ def lower_batch(batch,machine,catalog,npu_profile,*,prefix):
             dispatch=name(f't{token}/dispatch/e{expert}')
             data.append(DataEdge(name(f'route/t{token}/e{expert}'),done,dispatch,8))
     graph=ExecutionGraph(tuple(tasks),catalog['objects'],tuple(data),tuple(control))
+    # Vector phases pay materialized copies, ordered partials and conversion.
+    from w2w.system.npu_auxiliary import phase,work,auxiliary_program
+    aux={};logical_ops={name(o.id):o for o in logical.operations};new_tasks=[]
+    ins=Counter();outs=Counter()
+    for edge in data:ins[edge.consumer]+=edge.size_bytes;outs[edge.producer]+=edge.size_bytes
+    for task in graph.tasks:
+        if task.id in kernels:
+            new_tasks.append(task);continue
+        op=logical_ops.get(task.id);incoming=ins[task.id];outgoing=outs[task.id];scratch=task.scratch_bytes
+        if op and op.kind=='input':
+            phases=[phase('materialize-BF16-input',read=2*s['hidden'],write=outgoing,ops=s['hidden'])];scratch+=2*s['hidden']
+        elif op and op.kind=='partition_reduce':
+            count=len(op.token_ids)*s['hidden'];phases=[phase(f'ordered-partition-{i}',read=8*count,write=4*count,ops=count) for i in range(1,4)]
+            phases.append(phase('FP32-to-BF16',read=4*count,write=2*count,ops=count))
+        elif op and op.kind=='moe_combine':
+            H=s['hidden'];phases=[phase('zero-and-coefficient-broadcast',read=s['topk']*4,write=4*H,ops=H,delivery=npu_profile.arrays*32)]
+            phases.extend(phase(f'ordered-ranked-expert-{e}',read=6*H,write=4*H,ops=2*H) for e in batch.observations[op.token_ids[0]].expert_ids)
+            phases.append(phase('FP32-to-BF16',read=4*H,write=2*H,ops=H));scratch+=6*H+32+npu_profile.arrays*32
+        elif task.id==done:
+            B=batch.token_count;E=s['experts'];T=s['topk'];floor=1+ceil(log2(E))
+            phases=[phase('router-row-max',read=4*B*E,ops=B*E,floor=floor),
+                phase('router-exp-sum',read=4*B*E,write=4*B*E,ops=3*B*E,floor=floor),
+                phase('router-normalize',read=4*B*E,write=4*B*E,ops=2*B*E),
+                phase('ranked-topk',read=4*B*E,ops=B*E*ceil(log2(E)),floor=ceil(log2(E))),
+                phase('topk-renormalize-route',read=4*B*T,write=outgoing,ops=3*B*T,floor=1+ceil(log2(T)))]
+        else:phases=[phase(op.kind if op else 'router-topk',read=incoming,write=outgoing,ops=op.vector_ops if op else topk_ops)]
+        aux[task.id]=work(phases);cycles=len(auxiliary_program(aux[task.id],npu_profile))
+        new_tasks.append(replace(task,compute_cycles=cycles,scratch_bytes=scratch))
+    graph=replace(graph,tasks=tuple(new_tasks))
     meta.update(batch_id=batch.id,layer_id=batch.layer_id,token_ids=[r.token_id for r in batch.observations],
         token_to_experts=[r.expert_ids for r in batch.observations],expert_token_counts={str(e):len(ts) for e,ts in batch.expert_to_tokens},
         expert_macs=3*batch.token_count*s['topk']*s['hidden']*s['intermediate'],router_macs=router.macs,
-        router_vector_ops=topk_ops,router_visibility='Captured IDs become hardware-visible only after explicit modeled router matmul/top-k; no route lookahead.',
+        router_vector_ops=aux[done]['vector_ops'],router_visibility='Captured IDs become hardware-visible only after explicit modeled router matmul/top-k; no route lookahead.',
         scratch_policy='Conservative explicit pack/output copies, paid array/word/partial SRAM, no automatic cache shrink or uncharged broadcast storage.',
-        npu_kernels={k:asdict(v) for k,v in kernels.items()},finish_tasks=[name(f't{n}/combine') for n in range(batch.token_count)])
+        input_policy='BF16 MoE-window inputs are given at the boundary, values unavailable in routing capture; cloning and dispatch SRAM service are explicitly charged. Later layers receive actual predecessor edges.',
+        npu_kernels={k:asdict(v) for k,v in kernels.items()},auxiliary=aux,finish_tasks=[name(f't{n}/combine') for n in range(batch.token_count)])
     return graph,kernels,meta

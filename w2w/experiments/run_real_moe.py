@@ -45,7 +45,7 @@ def paired_batches(cohort,layers,prefill_microbatch):
 
 def physical_windows(cohort,machine,catalog,profile,layers,prefill_microbatch):
     for index,batches in enumerate(paired_batches(cohort,layers,prefill_microbatch)):
-        tasks=[];data=[];control=[];kernels={};calls=[];previous=[]
+        tasks=[];data=[];control=[];kernels={};aux={};calls=[];previous=[]
         for batch in batches:
             prefix=f'W{index:04d}/L{batch.layer_id}/'
             g,k,meta=lower_batch(batch,machine,catalog,profile,prefix=prefix)
@@ -56,10 +56,11 @@ def physical_windows(cohort,machine,catalog,profile,layers,prefill_microbatch):
                 for t,(producer,consumer) in enumerate(zip(previous,inputs)):
                     data.append(DataEdge(prefix+f'layer_activation/{t}',producer,consumer,catalog['shape']['hidden']*2))
             tasks.extend(g.tasks);data.extend(g.data);control.extend(g.control);kernels.update(k)
+            aux.update(meta['auxiliary'])
             calls.append({key:meta[key] for key in ('batch_id','layer_id','token_ids','token_to_experts','expert_token_counts',
                 'expert_macs','router_macs','router_vector_ops','finish_tasks','router_visibility','scratch_policy')})
             previous=meta['finish_tasks']
-        meta=dict(index=index,calls=calls,npu_kernels={k:asdict(v) for k,v in kernels.items()},
+        meta=dict(index=index,calls=calls,npu_kernels={k:asdict(v) for k,v in kernels.items()},auxiliary=aux,
             expert_macs=sum(c['expert_macs'] for c in calls),router_macs=sum(c['router_macs'] for c in calls))
         yield ExecutionGraph(tuple(tasks),catalog['objects'],tuple(data),tuple(control)),kernels,meta
 
@@ -91,7 +92,7 @@ def prepare(root,corpus,gate_receipts=()):
         scope='Complete captured prefill and all 128 decode steps for each registered cohort; two true adjacent layers, explicit modeled router/pack/scatter/combine and shape-aware OS NPU. Not full Transformer latency.',
         contract='All three legal mappings share the same NPU/compute/DRAM/HB/NoC/cache budgets. '
             'Only current two-layer batch window is instantiated. Native clocks/refresh/row state, BookSim/credits and LRU persist across windows. '
-            'No cache shrinking, fabricated router values/arrival times, token truncation or automatic retries. BF16 router weights are a declared uncached timing format.'))
+            'No cache shrinking, fabricated router values/arrival times, token truncation or automatic retries. BF16 router matrices share the ordinary finite whole-matrix LRU and tag/lookup budgets.'))
 
 
 def run(root,case,binary):
@@ -116,7 +117,7 @@ def run(root,case,binary):
     native=VerticalRWDL(machine,request_control=True,refresh=True,gateway_trace_bin_ps=1000000)
     try:
         r=execute_system(machine,graph,native=native,compute_contexts=2,fetch_contexts=2,read_issue_policy='round_robin',
-            operand_readiness='contiguous_prefix',weight_cache=WeightCacheConfig(),npu_model=NPUKernelModel(profile,kernels),
+            operand_readiness='contiguous_prefix',weight_cache=WeightCacheConfig(),npu_model=NPUKernelModel(profile,kernels,auxiliary=meta['auxiliary']),
             window_source=source,time_advance='boundaries',max_ps=reg['max_ps'],
             activation_sram_read_bytes_per_cycle=machine.rx_write_bytes_per_cycle,
             network_factory=factory(binary=binary,directory=directory/'network',

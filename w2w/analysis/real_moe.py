@@ -37,6 +37,8 @@ def analyze_case(root,case):
             if e['kind']=='read_issue':issues.setdefault(e['task'],e['time_ps'])
         for batch,meta in zip(batches,r['runtime_metadata']['calls']):
             prefix=f'W{row["index"]:04d}/L{batch.layer_id}/'
+            from w2w.validation.moe_runtime import audit_moe_call
+            audit_moe_call(r,batch,prefix)
             wanted=dict(batch_id=batch.id,layer_id=batch.layer_id,
                 token_ids=[list(x.token_id) for x in batch.observations],
                 token_to_experts=[list(x.expert_ids) for x in batch.observations],

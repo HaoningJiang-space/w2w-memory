@@ -44,7 +44,7 @@ def activity(result):
         elif e['kind'] == 'compute_service':
             vectors += e['cycles']
             if 'vector_ops' in e:
-                for field in ('activation_sram_bytes','output_sram_bytes','vector_ops'):local[field]+=e[field]
+                for field in ('activation_sram_bytes','output_sram_bytes','vector_ops','activation_delivery_bytes'):local[field]+=e.get(field,0)
                 weights+=e['weight_sram_bytes']
         elif e['kind'] == 'cache_lookup_complete':
             tag += 1

@@ -43,6 +43,14 @@ def run(root,binary,mode):
         p=reference_profile(array);g,ks=graph(machine,M,N,K,p,kind,bf16=mode=='bf16-boundary')
         cache=WeightCacheConfig(initial_resident=((g.tasks[-1].tile,'W'),)) if mode=='compute' else WeightCacheConfig()
         directory=root/f'A{array}-M{M}-{kind}';directory.mkdir();source=None
+        auxiliary={}
+        if mode=='equivalence':
+            from dataclasses import replace
+            from w2w.system.npu_auxiliary import phase,work,auxiliary_program
+            key=kind+'/norm';auxiliary[key]=work((phase('reduce',read=8192,ops=12288,floor=13),
+                phase('normalize',read=8192,write=8192,weights=8192,ops=16384)))
+            scalar=ComputeTask(key,g.tasks[-1].tile,len(auxiliary_program(auxiliary[key],p)),scratch_bytes=16384,release_ps=260000000)
+            g=replace(g,tasks=(*g.tasks,scalar))
         if mode in ('boundary','bf16-boundary'):
             g2,k2=graph(machine,M,N,K,p,'warm',bf16=mode=='bf16-boundary')
             meta=lambda keys:dict(npu_kernels={k:asdict(v) for k,v in keys.items()})
@@ -52,7 +60,7 @@ def run(root,binary,mode):
             ready_router_ids=tuple(r.id for r in machine.routers),ready_slots=16),max_ps=2000000000,time_advance='boundaries',
             compute_contexts=2,fetch_contexts=2,read_issue_policy='round_robin',weight_cache=cache,
             operand_readiness='contiguous_prefix',activation_sram_read_bytes_per_cycle=machine.rx_write_bytes_per_cycle,
-            npu_model=NPUKernelModel(p,ks,evidence=kind if mode=='equivalence' else 'epochs'),window_source=source)
+            npu_model=NPUKernelModel(p,ks,evidence=kind if mode=='equivalence' else 'epochs',auxiliary=auxiliary),window_source=source)
         finally:native.close()
         if source:
             from w2w.analysis.runtime_windows import audit_window_chain

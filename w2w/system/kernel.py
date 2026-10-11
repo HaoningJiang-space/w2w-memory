@@ -24,6 +24,7 @@ class SystemExecution:
         self.builder = SystemBuilder(spec).validate_graph(graph)
         self.npu_model=npu_model
         self.window_source=window_source
+        self.window_final_ps=None;self.window_external_drain=None
         if window_source is not None and (npu_model is None or down_prefetch_plan or return_contexts or compute_epoch or interactive_compute or causal_boundary):
             raise ValueError('Bounded real-MoE windows require ordinary finite NPU execution')
         if npu_model is not None:
@@ -625,6 +626,8 @@ class SystemExecution:
             while releases and releases[0] <= now:
                 releases.pop(0)
             if releases: candidates.append(releases[0])
+            if self.window_final_ps is not None and self.window_final_ps>now:
+                candidates.append(((self.window_final_ps+quantum-1)//quantum)*quantum)
             candidates.extend(self.state[k]['finish_ps'] for keys in self.engine.values() for k in keys
                               if self.state[k]['finish_ps'] is not None and self.state[k]['finish_ps'] > now)
             for component in (self.network,self.native):
@@ -670,12 +673,19 @@ class SystemExecution:
                 makespan = self.now
             if makespan is not None and self.network.drained() and not self.native.record()['pending']:
                 if self.window_source is not None:
-                    self.window_source.checkpoint(self,makespan,quantum,time_advance)
-                    following=self.window_source.next_window(self.now)
-                    if following is not None:
-                        self.window_source.reset_observations(self)
-                        self.install_window(*following);makespan=None
-                        continue
+                    if self.window_final_ps is None:
+                        self.window_source.checkpoint(self,makespan,quantum,time_advance)
+                        following=self.window_source.next_window(self.now)
+                        if following is not None:
+                            self.window_source.reset_observations(self)
+                            self.install_window(*following);makespan=None
+                            continue
+                        boundary=self.window_source.final_boundary(self.now) if hasattr(self.window_source,'final_boundary') else self.now
+                        if boundary<self.now:raise RuntimeError('External output release precedes local physical drain')
+                        self.window_final_ps=boundary
+                        self.window_external_drain=dict(begin_ps=self.now,end_ps=boundary,
+                            contract='No live local request/NoC/compute; persistent output state retained until paid external source transmission completes. Native clocks/refresh continue.')
+                    if self.now<self.window_final_ps:continue
                     if hasattr(self.window_source,'finish'):self.window_source.finish(self)
                 if self.context_metadata_bytes:
                     for tile in self.builder.tiles:self._sram(tile,-self.context_metadata_bytes,'compute-context-state')
@@ -751,7 +761,7 @@ class SystemExecution:
         record['input_sha256'] = sha256(json.dumps([record['spec'], record['graph']], sort_keys=True).encode()).hexdigest()
         if self.window_source is not None:
             record.update(schema='w2w.runtime-window-summary.v1',scope='bounded_window_summary',
-                runtime_windows=self.window_source.summary(),cleanup_events=record.pop('events'))
+                runtime_windows=self.window_source.summary(),runtime_external_drain=self.window_external_drain,cleanup_events=record.pop('events'))
         return record
 
 

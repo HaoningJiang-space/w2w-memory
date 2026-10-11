@@ -28,3 +28,9 @@ class GemmKernel:
 
     @property
     def weight_bytes(self):return self.N*self.K*(1 if self.weight_dtype=='FP8_E4M3FN' else 2)
+
+    @property
+    def activation_storage_bytes(self):return self.M*((2*self.K+31)//32)*32
+
+    @property
+    def weight_storage_bytes(self):return self.N*((self.K*(1 if self.weight_dtype=='FP8_E4M3FN' else 2)+31)//32)*32

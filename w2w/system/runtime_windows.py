@@ -80,7 +80,7 @@ class RuntimeWindows:
             decoded_sha256=decoded_sha,begin_ps=self.begin,makespan_ps=makespan,drained_ps=e.now,tasks=len(e.tasks),
             carry_in_sha256=digest(self.carry),carry_out_sha256=digest(out),
             native_bytes=a['native_bytes'],cache_stats=cache['stats'] if cache else {},
-            metadata={k:v for k,v in self.metadata.items() if k!='npu_kernels'},audit=a,control_audit=b,npu_audit=n,
+            metadata={k:v for k,v in self.metadata.items() if k not in ('npu_kernels','auxiliary')},audit=a,control_audit=b,npu_audit=n,
             wall_seconds=time.monotonic()-self.wall)
         self.rows.append(row);self.carry=out
         write_json(self.root/'progress.json',dict(completed_windows=len(self.rows),latest=row))

@@ -39,13 +39,19 @@ class NPUInstruction:
     bank_peak_activation_bytes: int = 0
 
 
-def array_tiles(M,N,K,p):
+def array_tiles(M,N,K,p,weight_dtype='FP8_E4M3FN'):
     spatial=ceil(M/p.rows)*ceil(N/p.columns)
     # No sub-128 hidden groups: original FP8 scale references survive K sharding.
-    candidates=[s for s in range(1,min(max(1,p.arrays//spatial),max(1,K//128))+1) if K%s==0 and K//s%128==0]
-    split=max(candidates,default=1)
-    tiles=tuple(ArrayTile(m,n,k,min(p.rows,M-m),min(p.columns,N-n),min(K//split,K-k))
-        for m in range(0,M,p.rows) for n in range(0,N,p.columns) for k in range(0,K,K//split))
+    if weight_dtype=='FP8_E4M3FN':
+        candidates=[s for s in range(1,min(max(1,p.arrays//spatial),max(1,K//128))+1) if K%s==0 and K//s%128==0]
+        split=max(candidates,default=1);cuts=[i*K//split for i in range(split+1)]
+    else:
+        # BF16 has no FP8 scale boundary. Unequal, word-aligned K pieces
+        # retain a final short word, with explicit SRAM padding in the IR.
+        words=ceil(K*2/p.word_bytes);split=min(max(1,p.arrays//spatial),words)
+        cuts=[min(K,(i*words//split)*(p.word_bytes//2)) for i in range(split)]+[K]
+    tiles=tuple(ArrayTile(m,n,a,min(p.rows,M-m),min(p.columns,N-n),b-a)
+        for m in range(0,M,p.rows) for n in range(0,N,p.columns) for a,b in zip(cuts,cuts[1:]))
     return tuple(tiles[i:i+p.arrays] for i in range(0,len(tiles),p.arrays)),split
 
 
@@ -55,7 +61,7 @@ def _core_macs(tile,t):
 
 @lru_cache(maxsize=256)
 def program(M,N,K,weight_dtype,p):
-    waves,split=array_tiles(M,N,K,p);instructions=[];bpp=1 if weight_dtype=='FP8_E4M3FN' else 2
+    waves,split=array_tiles(M,N,K,p,weight_dtype);instructions=[];bpp=1 if weight_dtype=='FP8_E4M3FN' else 2
     if bpp==1:
         scales=4*ceil(N/128)*ceil(K/128)
         if scales>p.weight_read_bytes_per_cycle:raise ValueError('Explicit scale-load tiling required')
@@ -148,6 +154,8 @@ class NPUKernelModel:
         self.evidence=evidence
         self.profile=profile;self.kernels=dict(kernels);self.cursors=Counter();self.owners={}
         self.auxiliary=dict(auxiliary or {});self.aux_cursors=Counter()
+        from .npu_auxiliary import auxiliary_program
+        self.aux_programs={k:auxiliary_program(v,profile) for k,v in self.auxiliary.items()}
         self.plans={k:program(v.M,v.N,v.K,v.weight_dtype,profile)[1] for k,v in self.kernels.items()}
 
     def validate(self,spec,graph):
@@ -160,19 +168,12 @@ class NPUKernelModel:
             if task.stream and (task.stream.macs!=k.macs or task.stream.weight_data_bytes!=k.weight_bytes):
                 raise ValueError('GEMM shape differs from weight/work identity')
         for key,work in self.auxiliary.items():
-            limits=self.aux_limits()
-            if set(work)!=set(limits) or any(type(v) is not int or v<0 for v in work.values()):raise ValueError('Explicit vector/SRAM service required')
-            cycles=max(1,max(ceil(work[f]/limit) for f,limit in limits.items()))
+            cycles=len(self.aux_programs[key])
             if key not in tasks or tasks[key].compute_cycles!=cycles:raise ValueError('Vector/transpose/append service cycles unpaid')
-
-    def aux_limits(self):
-        p=self.profile
-        return dict(activation_sram_bytes=p.activation_read_bytes_per_cycle,output_sram_bytes=p.output_write_bytes_per_cycle,
-            weight_sram_bytes=p.weight_read_bytes_per_cycle,vector_ops=p.vector_ops_per_cycle)
 
     def auxiliary_service(self,key):
         tick=self.aux_cursors[key];self.aux_cursors[key]+=1
-        return {f:min(max(0,n-tick*self.aux_limits()[f]),self.aux_limits()[f]) for f,n in self.auxiliary[key].items()}
+        return self.aux_programs[key][tick]
 
     def ready(self,key,state,task):
         if key not in self.kernels:return True

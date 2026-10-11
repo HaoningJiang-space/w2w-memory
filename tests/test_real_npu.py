@@ -28,7 +28,11 @@ class RealNPU(unittest.TestCase):
         self.assertTrue(any(e.producer=='W0/router_done' and '/dispatch/' in e.consumer for e in graph.data))
         self.assertTrue(any('/pack' in t.id for t in graph.tasks))
         self.assertTrue(any('/scatter' in t.id for t in graph.tasks))
-        NPUKernelModel(reference_profile(),kernels).validate(m,graph)
+        NPUKernelModel(reference_profile(),kernels,auxiliary=meta['auxiliary']).validate(m,graph)
+        combine=meta['auxiliary']['W0/t0/combine']
+        self.assertEqual([p['name'] for p in combine['phases'][1:-1]],[f'ordered-ranked-expert-{e}' for e in range(8)])
+        self.assertGreater(combine['activation_sram_bytes'],16*4096)
+        self.assertEqual(meta['auxiliary']['W0/e3/pack']['output_sram_bytes'],4*4096*2*24)
         with self.assertRaises(ValueError):full_catalog(m,shape,tuple(str(i) for i in range(94)),'up_local')
 
     def test_array_shape_and_partial_work_are_not_peak_division(self):
