@@ -13,6 +13,28 @@ from w2w.serving.requests import ServingRequest,RequestLifecycle
 from .moe_runtime import audit_moe_call
 
 
+def audit_stage_notice(notice,row,stage,input_ticket,input_sha,ack,notice_sha,previous_ack=None):
+    """Bind serving scheduling to an accepted physical window, not an estimate."""
+    meta=row['metadata'];call=meta['calls'][0]
+    expected=dict(stage=stage,index=row['index'],makespan_ps=row['makespan_ps'],drained_ps=row['drained_ps'],
+        window_sha256=row['sha256'],decoded_sha256=row['decoded_sha256'],
+        input_ticket_sha256=input_sha,release_ps=meta['release_ps'],heads=meta['heads'],
+        phase=call['phase'],decode_step=call['decode_step'],tokens=len(call['token_ids']))
+    if notice!=expected or meta['input_ticket_sha256']!=input_sha:
+        raise ValueError('Serving notice differs from its accepted physical window/input')
+    times=(notice['makespan_ps'],notice['drained_ps'],notice['release_ps'],input_ticket['committed_ps'],ack['source_release_ps'])
+    if any(type(t) is not int or t<0 for t in times):raise ValueError('Integer nonnegative physical boundaries required')
+    if (row['index']>0)!=(previous_ack is not None):raise ValueError('Missing/extra prior output ownership fence')
+    effective=input_ticket['committed_ps']
+    if previous_ack is not None:
+        previous=previous_ack['source_release_ps']
+        if type(previous) is not int or previous<0:raise ValueError('Invalid previous source release')
+        effective=max(effective,previous)
+    if (notice['release_ps']!=effective or not effective<notice['makespan_ps']<=notice['drained_ps']
+            or ack['source_release_ps']<notice['drained_ps'] or ack['producer_notice_sha256']!=notice_sha):
+        raise ValueError('Serving input/output ownership escaped physical completion')
+
+
 def audit_llm_stage(summary,root,cohort,catalog,registration):
     p=catalog['llm_profile'];expected=iter(paired_batches(cohort,catalog['layers'],registration['prefill_microbatch']))
     kv={};windows=0;assignments=0;attention_macs=0;heads=[];resident=digest([asdict(o) for o in catalog['objects']])
@@ -95,13 +117,27 @@ def audit_serving(root,registration,plan,metrics,events):
         if c.get('passed') is not True or c['source_commit']!=registration['source_commit'] or c['stage']!=stage:
             raise ValueError('Missing independent physical stage acceptance')
         if file_sha(path.parent/'result.json.gz')!=c['result_sha256']:raise ValueError('Accepted stage evidence changed')
+        summary=json.load(gzip.open(path.parent/'result.json.gz','rt'))
+        rows=summary['runtime_windows']['windows']
+        if (len(rows)!=registration['windows'] or summary['runtime_windows']['completed_windows']!=len(rows)
+                or c['proof']['chain']['windows']!=len(rows)
+                or c['proof']['chain']['makespan_ps']!=summary['makespan_ps']
+                or c['proof']['chain']['drained_ps']!=summary['drained_ps']):
+            raise ValueError('Physical stage completion does not bind its complete window chain')
         completions.append(dict(stage=stage,sha256=file_sha(path),proof=c['proof']))
+        prior_ack=None
         for i in range(registration['windows']):
             notice=root/'notices'/f's{stage:02d}-w{i:04d}.json';v=json.loads(notice.read_text());notices[stage,i]=v
             if (v['phase'],v['decode_step'],v['tokens'])!=(schedule[i]['phase'],schedule[i]['decode_step'],schedule[i]['tokens']):
                 raise ValueError('Serving pipeline lost a complete trace window')
             input_path=root/'tickets'/f's{stage:02d}-w{i:04d}.json'
             if file_sha(input_path)!=v['input_ticket_sha256']:raise ValueError('Stage did not execute its accepted input ticket')
+            row=rows[i]
+            if row['index']!=i or file_sha(path.parent/'windows'/row['file'])!=row['sha256']:
+                raise ValueError('Accepted physical window archive changed')
+            ack=json.loads((root/'notices'/f'ack-s{stage:02d}-w{i:04d}.json').read_text())
+            audit_stage_notice(v,row,stage,json.loads(input_path.read_text()),file_sha(input_path),ack,file_sha(notice),prior_ack)
+            prior_ack=ack
     links=PipelineLinks(LLMProfile(**registration['profile']));seen=set()
     for event in events:
         s,d,i=event['source'],event['destination'],event['window'];notice=notices[s,i]
@@ -117,13 +153,36 @@ def audit_serving(root,registration,plan,metrics,events):
         if any(event[k]!=v for k,v in actual.items()):raise ValueError('Wire/header/SRAM/port work or ordering changed')
         seen.add((s,i))
         ack=json.loads((root/'notices'/f'ack-s{s:02d}-w{i:04d}.json').read_text())
-        if ack['source_release_ps']<event['tx_end_ps']:raise ValueError('Output buffer released before transmission')
+        if ack['source_release_ps']!=max(notice['drained_ps'],event['tx_end_ps']):raise ValueError('Output ownership does not match completed transmission')
         if s<N-1:
             t=json.loads((root/'tickets'/f's{d:02d}-w{i:04d}.json').read_text())
-            if t['committed_ps']!=event['committed_ps']:raise ValueError('Stage input not charged to completed link')
+            source_path=root/'notices'/f's{s:02d}-w{i:04d}.json'
+            if (t['committed_ps']!=event['committed_ps'] or t['producer_notice_sha256']!=file_sha(source_path)
+                    or t['source']!=s or t['destination']!=d or t['payload_bytes']!=payload):
+                raise ValueError('Stage input not charged to its actual completed producer/link')
     required={(s,i) for s in range(N-1) for i in range(registration['windows'])}
     required|={(N-1,i) for i in range(registration['windows']) if notices[N-1,i]['heads']}
     if seen!=required:raise ValueError('Incomplete physical serving transfers')
+    transfers={(e['source'],e['window']):e for e in events}
+    prefill_count=sum(s['phase']=='prefill' for s in schedule)
+    for i in range(registration['windows']):
+        t=json.loads((root/'tickets'/f's00-w{i:04d}.json').read_text())
+        if i==0:
+            wanted=dict(committed_ps=0,kind='modeled_arrival',source=None,destination=0,payload_bytes=0)
+        elif i<prefill_count:
+            producer=root/'notices'/f's00-w{i-1:04d}.json'
+            wanted=dict(committed_ps=transfers[0,i-1]['tx_end_ps'],kind='local_prefill_KV_dependency',producer_notice_sha256=file_sha(producer))
+        else:
+            producer=root/'notices'/f's{N-1:02d}-w{i-1:04d}.json'
+            transfer=transfers.get((N-1,i-1))
+            if transfer is None or transfer['kind']!='token_feedback':raise ValueError('Next decode has no actual prior token feedback')
+            wanted=dict(committed_ps=transfer['committed_ps'],kind='autoregressive_feedback',source=N-1,destination=0,
+                producer_notice_sha256=file_sha(producer))
+        if t!=wanted:raise ValueError('Stage zero used an invented arrival or free future-token release')
+    for s,i in set(notices)-seen:
+        ack=json.loads((root/'notices'/f'ack-s{s:02d}-w{i:04d}.json').read_text())
+        if ack['source_release_ps']!=notices[s,i]['drained_ps']:
+            raise ValueError('Unexplained output ownership fence without a transmission')
     cohort=json.load(gzip.open(root/'cohort.json.gz','rt'));lifecycle=RequestLifecycle(tuple(ServingRequest(c['request_id'],
         c['coverage']['prefill_tokens'],c['coverage']['decode_tokens'],c['raw_sha256']) for c in cohort))
     for e in events:
