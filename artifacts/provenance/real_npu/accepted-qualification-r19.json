@@ -1,0 +1,4704 @@
+{
+  "schema": "w2w.real-npu-current-qualification.v1",
+  "passed": true,
+  "execution_source": "e4ae2b80c14ff8702a64dc63db71cce32ea3712f",
+  "campaign_source": "c820e2520a15dbd32ecda00adb7bc3bdbe7e0e91",
+  "full_projection_programs_unchanged_from_r2": true,
+  "original_receipts": {
+    "demand-r2.json": {
+      "path": "/Projects/haoning/w2w-full-system-real-npu-20261011/demand-r2.json",
+      "sha256": "d563be242db0af6499be034615c564765d30232a932d92071cc7048f3d7ee6bc",
+      "proof": {
+        "passed": true,
+        "source_commit": "2cb31dc4563fd25da10164eb12c8b8092fce3a93",
+        "wall_seconds": 37.42292738240212
+      }
+    },
+    "npu-reference-r19.json": {
+      "path": "/Projects/haoning/w2w-full-system-real-npu-20261011/npu-reference-r19.json",
+      "sha256": "16cf03ea3f05824d20786133ce42db904b4e3dbd706b48a754e34612811e1faa",
+      "proof": {
+        "passed": true,
+        "source_commit": "e4ae2b80c14ff8702a64dc63db71cce32ea3712f",
+        "reference_commit": "f79d7bc39a80a21fc35bc667967b76a15b311f49",
+        "reference_files": {
+          "scalesim/compute/systolic_compute_os.py": "e932ebf1848d5c4a05acd3b8dd68b3a5b2c55f19eeda3c1171506efa1aa9620c",
+          "scalesim/scale_config.py": "a021d5f752ec924b7aa9927eee07ad1641642ef7021394106218a245365135bc"
+        },
+        "scope": "All requested full H/I expert microkernel shapes. SCALE-Sim comparison covers array core cycles and weight reads, not WoW DRAM/NoC timing, local broadcast, banking, FP8 conversion or partial reduction; those are explicitly charged and audited separately.",
+        "numerical": [
+          {
+            "M": 1,
+            "relative_l2_error": 1.1805595789837753e-07,
+            "maximum_absolute_error": 4.656612873077393e-10,
+            "scope": "Finite deterministic synthetic E4M3FN/scales/BF16 values at full expert shape. Ordered K partials before SiLU; not numerical execution of captured Qwen weights."
+          },
+          {
+            "M": 4,
+            "relative_l2_error": 1.4029653527813934e-07,
+            "maximum_absolute_error": 5.820766091346741e-10,
+            "scope": "Finite deterministic synthetic E4M3FN/scales/BF16 values at full expert shape. Ordered K partials before SiLU; not numerical execution of captured Qwen weights."
+          },
+          {
+            "M": 32,
+            "relative_l2_error": 1.2758611944718723e-07,
+            "maximum_absolute_error": 6.402842700481415e-10,
+            "scope": "Finite deterministic synthetic E4M3FN/scales/BF16 values at full expert shape. Ordered K partials before SiLU; not numerical execution of captured Qwen weights."
+          }
+        ],
+        "wall_seconds": 76.35610356926918,
+        "kernels": [
+          {
+            "array_size": 16,
+            "phase": "gate",
+            "M": 1,
+            "logical_macs": 6291456,
+            "plan": {
+              "M": 1,
+              "N": 1536,
+              "K": 4096,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 8255,
+              "array_cycles": 8252,
+              "bank_stall_cycles": 0,
+              "macs": 6291456,
+              "scratch_bytes": 139264,
+              "mac_utilization": 0.04651726226529376,
+              "service": {
+                "weight_sram_bytes": 6291456,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 16384,
+                "output_sram_bytes": 6144,
+                "vector_ops": 6291456,
+                "accumulator_register_bytes": 50331648,
+                "activation_delivery_bytes": 786432
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "0f12d96c576f22eb96ce3218d77bb3546c05603e52c587c059bdda72e9dd5f67",
+              "peak_service": {
+                "macs": 1024,
+                "weight_sram_bytes": 2048,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 32,
+                "output_sram_bytes": 4096,
+                "vector_ops": 1024,
+                "activation_delivery_bytes": 128,
+                "bank_peak_weight_bytes": 256,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 8252,
+            "scalesim_element_weight_reads": 6291456
+          },
+          {
+            "array_size": 16,
+            "phase": "up",
+            "M": 1,
+            "logical_macs": 6291456,
+            "plan": {
+              "M": 1,
+              "N": 1536,
+              "K": 4096,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 8255,
+              "array_cycles": 8252,
+              "bank_stall_cycles": 0,
+              "macs": 6291456,
+              "scratch_bytes": 139264,
+              "mac_utilization": 0.04651726226529376,
+              "service": {
+                "weight_sram_bytes": 6291456,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 16384,
+                "output_sram_bytes": 6144,
+                "vector_ops": 6291456,
+                "accumulator_register_bytes": 50331648,
+                "activation_delivery_bytes": 786432
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "0f12d96c576f22eb96ce3218d77bb3546c05603e52c587c059bdda72e9dd5f67",
+              "peak_service": {
+                "macs": 1024,
+                "weight_sram_bytes": 2048,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 32,
+                "output_sram_bytes": 4096,
+                "vector_ops": 1024,
+                "activation_delivery_bytes": 128,
+                "bank_peak_weight_bytes": 256,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 8252,
+            "scalesim_element_weight_reads": 6291456
+          },
+          {
+            "array_size": 16,
+            "phase": "down",
+            "M": 1,
+            "logical_macs": 6291456,
+            "plan": {
+              "M": 1,
+              "N": 4096,
+              "K": 1536,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 6269,
+              "array_cycles": 6264,
+              "bank_stall_cycles": 0,
+              "macs": 6291456,
+              "scratch_bytes": 149504,
+              "mac_utilization": 0.06125378848301165,
+              "service": {
+                "weight_sram_bytes": 6291456,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 12288,
+                "output_sram_bytes": 16384,
+                "vector_ops": 6291456,
+                "accumulator_register_bytes": 50331648,
+                "activation_delivery_bytes": 786432
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "0842dbbd0b434b83f871c6a6355bf16564b0a36d4227fc986a28416c22e1af4c",
+              "peak_service": {
+                "macs": 1024,
+                "weight_sram_bytes": 2048,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 32,
+                "output_sram_bytes": 4096,
+                "vector_ops": 1024,
+                "activation_delivery_bytes": 128,
+                "bank_peak_weight_bytes": 256,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 6264,
+            "scalesim_element_weight_reads": 6291456
+          },
+          {
+            "array_size": 16,
+            "phase": "gate",
+            "M": 2,
+            "logical_macs": 12582912,
+            "plan": {
+              "M": 2,
+              "N": 1536,
+              "K": 4096,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 8255,
+              "array_cycles": 8252,
+              "bank_stall_cycles": 0,
+              "macs": 12582912,
+              "scratch_bytes": 145408,
+              "mac_utilization": 0.09303452453058753,
+              "service": {
+                "weight_sram_bytes": 6291456,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 32768,
+                "output_sram_bytes": 12288,
+                "vector_ops": 6291456,
+                "accumulator_register_bytes": 100663296,
+                "activation_delivery_bytes": 1572864
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "6ec64b9d98b90e382aeaaf6c6028fac0f3a380852889402ebd633d5c0cf64baf",
+              "peak_service": {
+                "macs": 2048,
+                "weight_sram_bytes": 2048,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 32,
+                "output_sram_bytes": 8192,
+                "vector_ops": 1024,
+                "activation_delivery_bytes": 256,
+                "bank_peak_weight_bytes": 256,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 8252,
+            "scalesim_element_weight_reads": 6291456
+          },
+          {
+            "array_size": 16,
+            "phase": "up",
+            "M": 2,
+            "logical_macs": 12582912,
+            "plan": {
+              "M": 2,
+              "N": 1536,
+              "K": 4096,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 8255,
+              "array_cycles": 8252,
+              "bank_stall_cycles": 0,
+              "macs": 12582912,
+              "scratch_bytes": 145408,
+              "mac_utilization": 0.09303452453058753,
+              "service": {
+                "weight_sram_bytes": 6291456,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 32768,
+                "output_sram_bytes": 12288,
+                "vector_ops": 6291456,
+                "accumulator_register_bytes": 100663296,
+                "activation_delivery_bytes": 1572864
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "6ec64b9d98b90e382aeaaf6c6028fac0f3a380852889402ebd633d5c0cf64baf",
+              "peak_service": {
+                "macs": 2048,
+                "weight_sram_bytes": 2048,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 32,
+                "output_sram_bytes": 8192,
+                "vector_ops": 1024,
+                "activation_delivery_bytes": 256,
+                "bank_peak_weight_bytes": 256,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 8252,
+            "scalesim_element_weight_reads": 6291456
+          },
+          {
+            "array_size": 16,
+            "phase": "down",
+            "M": 2,
+            "logical_macs": 12582912,
+            "plan": {
+              "M": 2,
+              "N": 4096,
+              "K": 1536,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 6269,
+              "array_cycles": 6264,
+              "bank_stall_cycles": 0,
+              "macs": 12582912,
+              "scratch_bytes": 165888,
+              "mac_utilization": 0.1225075769660233,
+              "service": {
+                "weight_sram_bytes": 6291456,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 24576,
+                "output_sram_bytes": 32768,
+                "vector_ops": 6291456,
+                "accumulator_register_bytes": 100663296,
+                "activation_delivery_bytes": 1572864
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "f8ccd0c089941c2864d1e67bbcb66e156035e07a913a2afe5017062970704a94",
+              "peak_service": {
+                "macs": 2048,
+                "weight_sram_bytes": 2048,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 32,
+                "output_sram_bytes": 8192,
+                "vector_ops": 1024,
+                "activation_delivery_bytes": 256,
+                "bank_peak_weight_bytes": 256,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 6264,
+            "scalesim_element_weight_reads": 6291456
+          },
+          {
+            "array_size": 16,
+            "phase": "gate",
+            "M": 4,
+            "logical_macs": 25165824,
+            "plan": {
+              "M": 4,
+              "N": 1536,
+              "K": 4096,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 8255,
+              "array_cycles": 8252,
+              "bank_stall_cycles": 0,
+              "macs": 25165824,
+              "scratch_bytes": 157696,
+              "mac_utilization": 0.18606904906117505,
+              "service": {
+                "weight_sram_bytes": 6291456,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 65536,
+                "output_sram_bytes": 24576,
+                "vector_ops": 6291456,
+                "accumulator_register_bytes": 201326592,
+                "activation_delivery_bytes": 3145728
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "6707e891cde13a89a79478a689eee29408ea3731147df942448efba86c1913f6",
+              "peak_service": {
+                "macs": 4096,
+                "weight_sram_bytes": 2048,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 32,
+                "output_sram_bytes": 16384,
+                "vector_ops": 1024,
+                "activation_delivery_bytes": 512,
+                "bank_peak_weight_bytes": 256,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 8252,
+            "scalesim_element_weight_reads": 6291456
+          },
+          {
+            "array_size": 16,
+            "phase": "up",
+            "M": 4,
+            "logical_macs": 25165824,
+            "plan": {
+              "M": 4,
+              "N": 1536,
+              "K": 4096,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 8255,
+              "array_cycles": 8252,
+              "bank_stall_cycles": 0,
+              "macs": 25165824,
+              "scratch_bytes": 157696,
+              "mac_utilization": 0.18606904906117505,
+              "service": {
+                "weight_sram_bytes": 6291456,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 65536,
+                "output_sram_bytes": 24576,
+                "vector_ops": 6291456,
+                "accumulator_register_bytes": 201326592,
+                "activation_delivery_bytes": 3145728
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "6707e891cde13a89a79478a689eee29408ea3731147df942448efba86c1913f6",
+              "peak_service": {
+                "macs": 4096,
+                "weight_sram_bytes": 2048,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 32,
+                "output_sram_bytes": 16384,
+                "vector_ops": 1024,
+                "activation_delivery_bytes": 512,
+                "bank_peak_weight_bytes": 256,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 8252,
+            "scalesim_element_weight_reads": 6291456
+          },
+          {
+            "array_size": 16,
+            "phase": "down",
+            "M": 4,
+            "logical_macs": 25165824,
+            "plan": {
+              "M": 4,
+              "N": 4096,
+              "K": 1536,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 6269,
+              "array_cycles": 6264,
+              "bank_stall_cycles": 0,
+              "macs": 25165824,
+              "scratch_bytes": 198656,
+              "mac_utilization": 0.2450151539320466,
+              "service": {
+                "weight_sram_bytes": 6291456,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 49152,
+                "output_sram_bytes": 65536,
+                "vector_ops": 6291456,
+                "accumulator_register_bytes": 201326592,
+                "activation_delivery_bytes": 3145728
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "c665bcd6a06fc2a52a466ed34a26a2ff54a4fece78e12f6c3e4eb43342fab8ba",
+              "peak_service": {
+                "macs": 4096,
+                "weight_sram_bytes": 2048,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 32,
+                "output_sram_bytes": 16384,
+                "vector_ops": 1024,
+                "activation_delivery_bytes": 512,
+                "bank_peak_weight_bytes": 256,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 6264,
+            "scalesim_element_weight_reads": 6291456
+          },
+          {
+            "array_size": 16,
+            "phase": "gate",
+            "M": 8,
+            "logical_macs": 50331648,
+            "plan": {
+              "M": 8,
+              "N": 1536,
+              "K": 4096,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 8255,
+              "array_cycles": 8252,
+              "bank_stall_cycles": 0,
+              "macs": 50331648,
+              "scratch_bytes": 182272,
+              "mac_utilization": 0.3721380981223501,
+              "service": {
+                "weight_sram_bytes": 6291456,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 131072,
+                "output_sram_bytes": 49152,
+                "vector_ops": 6291456,
+                "accumulator_register_bytes": 402653184,
+                "activation_delivery_bytes": 6291456
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "e55a941d182515961e39ad59702c827b49c23d54b2c7a7e6e4944af446c209fb",
+              "peak_service": {
+                "macs": 8192,
+                "weight_sram_bytes": 2048,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 32,
+                "output_sram_bytes": 32768,
+                "vector_ops": 1024,
+                "activation_delivery_bytes": 1024,
+                "bank_peak_weight_bytes": 256,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 8252,
+            "scalesim_element_weight_reads": 6291456
+          },
+          {
+            "array_size": 16,
+            "phase": "up",
+            "M": 8,
+            "logical_macs": 50331648,
+            "plan": {
+              "M": 8,
+              "N": 1536,
+              "K": 4096,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 8255,
+              "array_cycles": 8252,
+              "bank_stall_cycles": 0,
+              "macs": 50331648,
+              "scratch_bytes": 182272,
+              "mac_utilization": 0.3721380981223501,
+              "service": {
+                "weight_sram_bytes": 6291456,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 131072,
+                "output_sram_bytes": 49152,
+                "vector_ops": 6291456,
+                "accumulator_register_bytes": 402653184,
+                "activation_delivery_bytes": 6291456
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "e55a941d182515961e39ad59702c827b49c23d54b2c7a7e6e4944af446c209fb",
+              "peak_service": {
+                "macs": 8192,
+                "weight_sram_bytes": 2048,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 32,
+                "output_sram_bytes": 32768,
+                "vector_ops": 1024,
+                "activation_delivery_bytes": 1024,
+                "bank_peak_weight_bytes": 256,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 8252,
+            "scalesim_element_weight_reads": 6291456
+          },
+          {
+            "array_size": 16,
+            "phase": "down",
+            "M": 8,
+            "logical_macs": 50331648,
+            "plan": {
+              "M": 8,
+              "N": 4096,
+              "K": 1536,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 6269,
+              "array_cycles": 6264,
+              "bank_stall_cycles": 0,
+              "macs": 50331648,
+              "scratch_bytes": 264192,
+              "mac_utilization": 0.4900303078640932,
+              "service": {
+                "weight_sram_bytes": 6291456,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 98304,
+                "output_sram_bytes": 131072,
+                "vector_ops": 6291456,
+                "accumulator_register_bytes": 402653184,
+                "activation_delivery_bytes": 6291456
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "9b29c449dfeb64faf7311a90ee16500b68526369c0e7ea5b39648c4700313843",
+              "peak_service": {
+                "macs": 8192,
+                "weight_sram_bytes": 2048,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 32,
+                "output_sram_bytes": 32768,
+                "vector_ops": 1024,
+                "activation_delivery_bytes": 1024,
+                "bank_peak_weight_bytes": 256,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 6264,
+            "scalesim_element_weight_reads": 6291456
+          },
+          {
+            "array_size": 16,
+            "phase": "gate",
+            "M": 16,
+            "logical_macs": 100663296,
+            "plan": {
+              "M": 16,
+              "N": 1536,
+              "K": 4096,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 8256,
+              "array_cycles": 8252,
+              "bank_stall_cycles": 0,
+              "macs": 100663296,
+              "scratch_bytes": 231424,
+              "mac_utilization": 0.7441860465116279,
+              "service": {
+                "weight_sram_bytes": 6291456,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 262144,
+                "output_sram_bytes": 98304,
+                "vector_ops": 6291456,
+                "accumulator_register_bytes": 805306368,
+                "activation_delivery_bytes": 12582912
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "934fd1f92a6248442f51bccd9272175e5a3d467237e7548aba9833ad935970bf",
+              "peak_service": {
+                "macs": 16384,
+                "weight_sram_bytes": 2048,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 32,
+                "output_sram_bytes": 32768,
+                "vector_ops": 1024,
+                "activation_delivery_bytes": 2048,
+                "bank_peak_weight_bytes": 256,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 8252,
+            "scalesim_element_weight_reads": 6291456
+          },
+          {
+            "array_size": 16,
+            "phase": "up",
+            "M": 16,
+            "logical_macs": 100663296,
+            "plan": {
+              "M": 16,
+              "N": 1536,
+              "K": 4096,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 8256,
+              "array_cycles": 8252,
+              "bank_stall_cycles": 0,
+              "macs": 100663296,
+              "scratch_bytes": 231424,
+              "mac_utilization": 0.7441860465116279,
+              "service": {
+                "weight_sram_bytes": 6291456,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 262144,
+                "output_sram_bytes": 98304,
+                "vector_ops": 6291456,
+                "accumulator_register_bytes": 805306368,
+                "activation_delivery_bytes": 12582912
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "934fd1f92a6248442f51bccd9272175e5a3d467237e7548aba9833ad935970bf",
+              "peak_service": {
+                "macs": 16384,
+                "weight_sram_bytes": 2048,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 32,
+                "output_sram_bytes": 32768,
+                "vector_ops": 1024,
+                "activation_delivery_bytes": 2048,
+                "bank_peak_weight_bytes": 256,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 8252,
+            "scalesim_element_weight_reads": 6291456
+          },
+          {
+            "array_size": 16,
+            "phase": "down",
+            "M": 16,
+            "logical_macs": 100663296,
+            "plan": {
+              "M": 16,
+              "N": 4096,
+              "K": 1536,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 6273,
+              "array_cycles": 6264,
+              "bank_stall_cycles": 0,
+              "macs": 100663296,
+              "scratch_bytes": 395264,
+              "mac_utilization": 0.9794356767097083,
+              "service": {
+                "weight_sram_bytes": 6291456,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 196608,
+                "output_sram_bytes": 262144,
+                "vector_ops": 6291456,
+                "accumulator_register_bytes": 805306368,
+                "activation_delivery_bytes": 12582912
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "b3d694a05f5b8df0a1da80ebd89f8b7532ceb65d5817f86a0c6eaf1821d7b7c8",
+              "peak_service": {
+                "macs": 16384,
+                "weight_sram_bytes": 2048,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 32,
+                "output_sram_bytes": 32768,
+                "vector_ops": 1024,
+                "activation_delivery_bytes": 2048,
+                "bank_peak_weight_bytes": 256,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 6264,
+            "scalesim_element_weight_reads": 6291456
+          },
+          {
+            "array_size": 16,
+            "phase": "gate",
+            "M": 32,
+            "logical_macs": 201326592,
+            "plan": {
+              "M": 32,
+              "N": 1536,
+              "K": 4096,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 12385,
+              "array_cycles": 12378,
+              "bank_stall_cycles": 0,
+              "macs": 201326592,
+              "scratch_bytes": 329728,
+              "mac_utilization": 0.9921679450948728,
+              "service": {
+                "weight_sram_bytes": 12582912,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 524288,
+                "output_sram_bytes": 196608,
+                "vector_ops": 12582912,
+                "accumulator_register_bytes": 1610612736,
+                "activation_delivery_bytes": 25165824
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "2bdce666d4d41e0b062ef45370efda8f8d0bc7625fcca34e654162c3be62e034",
+              "peak_service": {
+                "macs": 16384,
+                "weight_sram_bytes": 2048,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 64,
+                "output_sram_bytes": 32768,
+                "vector_ops": 1024,
+                "activation_delivery_bytes": 2048,
+                "bank_peak_weight_bytes": 256,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 12378,
+            "scalesim_element_weight_reads": 12582912
+          },
+          {
+            "array_size": 16,
+            "phase": "up",
+            "M": 32,
+            "logical_macs": 201326592,
+            "plan": {
+              "M": 32,
+              "N": 1536,
+              "K": 4096,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 12385,
+              "array_cycles": 12378,
+              "bank_stall_cycles": 0,
+              "macs": 201326592,
+              "scratch_bytes": 329728,
+              "mac_utilization": 0.9921679450948728,
+              "service": {
+                "weight_sram_bytes": 12582912,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 524288,
+                "output_sram_bytes": 196608,
+                "vector_ops": 12582912,
+                "accumulator_register_bytes": 1610612736,
+                "activation_delivery_bytes": 25165824
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "2bdce666d4d41e0b062ef45370efda8f8d0bc7625fcca34e654162c3be62e034",
+              "peak_service": {
+                "macs": 16384,
+                "weight_sram_bytes": 2048,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 64,
+                "output_sram_bytes": 32768,
+                "vector_ops": 1024,
+                "activation_delivery_bytes": 2048,
+                "bank_peak_weight_bytes": 256,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 12378,
+            "scalesim_element_weight_reads": 12582912
+          },
+          {
+            "array_size": 16,
+            "phase": "down",
+            "M": 32,
+            "logical_macs": 201326592,
+            "plan": {
+              "M": 32,
+              "N": 4096,
+              "K": 1536,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 12545,
+              "array_cycles": 12528,
+              "bank_stall_cycles": 0,
+              "macs": 201326592,
+              "scratch_bytes": 657408,
+              "mac_utilization": 0.9795137504982064,
+              "service": {
+                "weight_sram_bytes": 12582912,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 393216,
+                "output_sram_bytes": 524288,
+                "vector_ops": 12582912,
+                "accumulator_register_bytes": 1610612736,
+                "activation_delivery_bytes": 25165824
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "b5c032236781815c3c4b8dee748077409cfc2404cd24bf2dde4113a4356a0fc5",
+              "peak_service": {
+                "macs": 16384,
+                "weight_sram_bytes": 2048,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 32,
+                "output_sram_bytes": 32768,
+                "vector_ops": 1024,
+                "activation_delivery_bytes": 2048,
+                "bank_peak_weight_bytes": 256,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 12528,
+            "scalesim_element_weight_reads": 12582912
+          },
+          {
+            "array_size": 32,
+            "phase": "gate",
+            "M": 1,
+            "logical_macs": 6291456,
+            "plan": {
+              "M": 1,
+              "N": 1536,
+              "K": 4096,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 12478,
+              "array_cycles": 12474,
+              "bank_stall_cycles": 0,
+              "macs": 6291456,
+              "scratch_bytes": 104960,
+              "mac_utilization": 0.03077416252604584,
+              "service": {
+                "weight_sram_bytes": 6291456,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 24576,
+                "output_sram_bytes": 6144,
+                "vector_ops": 6291456,
+                "accumulator_register_bytes": 50331648,
+                "activation_delivery_bytes": 393216
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "1d655cfe2a3824b90d25d6193b1a52b454360dbce465275e6ff304cd0031c1a0",
+              "peak_service": {
+                "macs": 512,
+                "weight_sram_bytes": 512,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 32,
+                "output_sram_bytes": 2048,
+                "vector_ops": 512,
+                "activation_delivery_bytes": 32,
+                "bank_peak_weight_bytes": 128,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 12474,
+            "scalesim_element_weight_reads": 6291456
+          },
+          {
+            "array_size": 32,
+            "phase": "up",
+            "M": 1,
+            "logical_macs": 6291456,
+            "plan": {
+              "M": 1,
+              "N": 1536,
+              "K": 4096,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 12478,
+              "array_cycles": 12474,
+              "bank_stall_cycles": 0,
+              "macs": 6291456,
+              "scratch_bytes": 104960,
+              "mac_utilization": 0.03077416252604584,
+              "service": {
+                "weight_sram_bytes": 6291456,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 24576,
+                "output_sram_bytes": 6144,
+                "vector_ops": 6291456,
+                "accumulator_register_bytes": 50331648,
+                "activation_delivery_bytes": 393216
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "1d655cfe2a3824b90d25d6193b1a52b454360dbce465275e6ff304cd0031c1a0",
+              "peak_service": {
+                "macs": 512,
+                "weight_sram_bytes": 512,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 32,
+                "output_sram_bytes": 2048,
+                "vector_ops": 512,
+                "activation_delivery_bytes": 32,
+                "bank_peak_weight_bytes": 128,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 12474,
+            "scalesim_element_weight_reads": 6291456
+          },
+          {
+            "array_size": 32,
+            "phase": "down",
+            "M": 1,
+            "logical_macs": 6291456,
+            "plan": {
+              "M": 1,
+              "N": 4096,
+              "K": 1536,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 12793,
+              "array_cycles": 12784,
+              "bank_stall_cycles": 0,
+              "macs": 6291456,
+              "scratch_bytes": 115200,
+              "mac_utilization": 0.03001641522707731,
+              "service": {
+                "weight_sram_bytes": 6291456,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 24576,
+                "output_sram_bytes": 16384,
+                "vector_ops": 6291456,
+                "accumulator_register_bytes": 50331648,
+                "activation_delivery_bytes": 393216
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "7c1f4459225d1c63ef4eed316ec8b03466cd51ca900139a88624476330824403",
+              "peak_service": {
+                "macs": 512,
+                "weight_sram_bytes": 512,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 32,
+                "output_sram_bytes": 2048,
+                "vector_ops": 512,
+                "activation_delivery_bytes": 32,
+                "bank_peak_weight_bytes": 128,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 12784,
+            "scalesim_element_weight_reads": 6291456
+          },
+          {
+            "array_size": 32,
+            "phase": "gate",
+            "M": 2,
+            "logical_macs": 12582912,
+            "plan": {
+              "M": 2,
+              "N": 1536,
+              "K": 4096,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 12478,
+              "array_cycles": 12474,
+              "bank_stall_cycles": 0,
+              "macs": 12582912,
+              "scratch_bytes": 111104,
+              "mac_utilization": 0.06154832505209168,
+              "service": {
+                "weight_sram_bytes": 6291456,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 49152,
+                "output_sram_bytes": 12288,
+                "vector_ops": 6291456,
+                "accumulator_register_bytes": 100663296,
+                "activation_delivery_bytes": 786432
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "a4f12349cde050bba4f1c18fa526d85174a38f9c2e89e0b248baad8d06b87e68",
+              "peak_service": {
+                "macs": 1024,
+                "weight_sram_bytes": 512,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 32,
+                "output_sram_bytes": 4096,
+                "vector_ops": 512,
+                "activation_delivery_bytes": 64,
+                "bank_peak_weight_bytes": 128,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 12474,
+            "scalesim_element_weight_reads": 6291456
+          },
+          {
+            "array_size": 32,
+            "phase": "up",
+            "M": 2,
+            "logical_macs": 12582912,
+            "plan": {
+              "M": 2,
+              "N": 1536,
+              "K": 4096,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 12478,
+              "array_cycles": 12474,
+              "bank_stall_cycles": 0,
+              "macs": 12582912,
+              "scratch_bytes": 111104,
+              "mac_utilization": 0.06154832505209168,
+              "service": {
+                "weight_sram_bytes": 6291456,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 49152,
+                "output_sram_bytes": 12288,
+                "vector_ops": 6291456,
+                "accumulator_register_bytes": 100663296,
+                "activation_delivery_bytes": 786432
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "a4f12349cde050bba4f1c18fa526d85174a38f9c2e89e0b248baad8d06b87e68",
+              "peak_service": {
+                "macs": 1024,
+                "weight_sram_bytes": 512,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 32,
+                "output_sram_bytes": 4096,
+                "vector_ops": 512,
+                "activation_delivery_bytes": 64,
+                "bank_peak_weight_bytes": 128,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 12474,
+            "scalesim_element_weight_reads": 6291456
+          },
+          {
+            "array_size": 32,
+            "phase": "down",
+            "M": 2,
+            "logical_macs": 12582912,
+            "plan": {
+              "M": 2,
+              "N": 4096,
+              "K": 1536,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 12793,
+              "array_cycles": 12784,
+              "bank_stall_cycles": 0,
+              "macs": 12582912,
+              "scratch_bytes": 131584,
+              "mac_utilization": 0.06003283045415462,
+              "service": {
+                "weight_sram_bytes": 6291456,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 49152,
+                "output_sram_bytes": 32768,
+                "vector_ops": 6291456,
+                "accumulator_register_bytes": 100663296,
+                "activation_delivery_bytes": 786432
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "e0d833f1276a24f8aa73309a250978b42ac581dcec5590d7fa70dfb1f89b6a0f",
+              "peak_service": {
+                "macs": 1024,
+                "weight_sram_bytes": 512,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 32,
+                "output_sram_bytes": 4096,
+                "vector_ops": 512,
+                "activation_delivery_bytes": 64,
+                "bank_peak_weight_bytes": 128,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 12784,
+            "scalesim_element_weight_reads": 6291456
+          },
+          {
+            "array_size": 32,
+            "phase": "gate",
+            "M": 4,
+            "logical_macs": 25165824,
+            "plan": {
+              "M": 4,
+              "N": 1536,
+              "K": 4096,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 12478,
+              "array_cycles": 12474,
+              "bank_stall_cycles": 0,
+              "macs": 25165824,
+              "scratch_bytes": 123392,
+              "mac_utilization": 0.12309665010418336,
+              "service": {
+                "weight_sram_bytes": 6291456,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 98304,
+                "output_sram_bytes": 24576,
+                "vector_ops": 6291456,
+                "accumulator_register_bytes": 201326592,
+                "activation_delivery_bytes": 1572864
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "dcba26546f8f2e9bc694134264c635c74af185ef39af66149cddee53821af008",
+              "peak_service": {
+                "macs": 2048,
+                "weight_sram_bytes": 512,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 32,
+                "output_sram_bytes": 8192,
+                "vector_ops": 512,
+                "activation_delivery_bytes": 128,
+                "bank_peak_weight_bytes": 128,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 12474,
+            "scalesim_element_weight_reads": 6291456
+          },
+          {
+            "array_size": 32,
+            "phase": "up",
+            "M": 4,
+            "logical_macs": 25165824,
+            "plan": {
+              "M": 4,
+              "N": 1536,
+              "K": 4096,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 12478,
+              "array_cycles": 12474,
+              "bank_stall_cycles": 0,
+              "macs": 25165824,
+              "scratch_bytes": 123392,
+              "mac_utilization": 0.12309665010418336,
+              "service": {
+                "weight_sram_bytes": 6291456,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 98304,
+                "output_sram_bytes": 24576,
+                "vector_ops": 6291456,
+                "accumulator_register_bytes": 201326592,
+                "activation_delivery_bytes": 1572864
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "dcba26546f8f2e9bc694134264c635c74af185ef39af66149cddee53821af008",
+              "peak_service": {
+                "macs": 2048,
+                "weight_sram_bytes": 512,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 32,
+                "output_sram_bytes": 8192,
+                "vector_ops": 512,
+                "activation_delivery_bytes": 128,
+                "bank_peak_weight_bytes": 128,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 12474,
+            "scalesim_element_weight_reads": 6291456
+          },
+          {
+            "array_size": 32,
+            "phase": "down",
+            "M": 4,
+            "logical_macs": 25165824,
+            "plan": {
+              "M": 4,
+              "N": 4096,
+              "K": 1536,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 12793,
+              "array_cycles": 12784,
+              "bank_stall_cycles": 0,
+              "macs": 25165824,
+              "scratch_bytes": 164352,
+              "mac_utilization": 0.12006566090830924,
+              "service": {
+                "weight_sram_bytes": 6291456,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 98304,
+                "output_sram_bytes": 65536,
+                "vector_ops": 6291456,
+                "accumulator_register_bytes": 201326592,
+                "activation_delivery_bytes": 1572864
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "86df8594b9726c493ccc14bb4f94102cb28f47863b1e5726b7a8ff03cef16d24",
+              "peak_service": {
+                "macs": 2048,
+                "weight_sram_bytes": 512,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 32,
+                "output_sram_bytes": 8192,
+                "vector_ops": 512,
+                "activation_delivery_bytes": 128,
+                "bank_peak_weight_bytes": 128,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 12784,
+            "scalesim_element_weight_reads": 6291456
+          },
+          {
+            "array_size": 32,
+            "phase": "gate",
+            "M": 8,
+            "logical_macs": 50331648,
+            "plan": {
+              "M": 8,
+              "N": 1536,
+              "K": 4096,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 12478,
+              "array_cycles": 12474,
+              "bank_stall_cycles": 0,
+              "macs": 50331648,
+              "scratch_bytes": 147968,
+              "mac_utilization": 0.24619330020836672,
+              "service": {
+                "weight_sram_bytes": 6291456,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 196608,
+                "output_sram_bytes": 49152,
+                "vector_ops": 6291456,
+                "accumulator_register_bytes": 402653184,
+                "activation_delivery_bytes": 3145728
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "57cada3bc09e80b17897d781eb88875ae147d3e42eb9fa9cd38db90834799a10",
+              "peak_service": {
+                "macs": 4096,
+                "weight_sram_bytes": 512,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 32,
+                "output_sram_bytes": 16384,
+                "vector_ops": 512,
+                "activation_delivery_bytes": 256,
+                "bank_peak_weight_bytes": 128,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 12474,
+            "scalesim_element_weight_reads": 6291456
+          },
+          {
+            "array_size": 32,
+            "phase": "up",
+            "M": 8,
+            "logical_macs": 50331648,
+            "plan": {
+              "M": 8,
+              "N": 1536,
+              "K": 4096,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 12478,
+              "array_cycles": 12474,
+              "bank_stall_cycles": 0,
+              "macs": 50331648,
+              "scratch_bytes": 147968,
+              "mac_utilization": 0.24619330020836672,
+              "service": {
+                "weight_sram_bytes": 6291456,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 196608,
+                "output_sram_bytes": 49152,
+                "vector_ops": 6291456,
+                "accumulator_register_bytes": 402653184,
+                "activation_delivery_bytes": 3145728
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "57cada3bc09e80b17897d781eb88875ae147d3e42eb9fa9cd38db90834799a10",
+              "peak_service": {
+                "macs": 4096,
+                "weight_sram_bytes": 512,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 32,
+                "output_sram_bytes": 16384,
+                "vector_ops": 512,
+                "activation_delivery_bytes": 256,
+                "bank_peak_weight_bytes": 128,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 12474,
+            "scalesim_element_weight_reads": 6291456
+          },
+          {
+            "array_size": 32,
+            "phase": "down",
+            "M": 8,
+            "logical_macs": 50331648,
+            "plan": {
+              "M": 8,
+              "N": 4096,
+              "K": 1536,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 12793,
+              "array_cycles": 12784,
+              "bank_stall_cycles": 0,
+              "macs": 50331648,
+              "scratch_bytes": 229888,
+              "mac_utilization": 0.24013132181661848,
+              "service": {
+                "weight_sram_bytes": 6291456,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 196608,
+                "output_sram_bytes": 131072,
+                "vector_ops": 6291456,
+                "accumulator_register_bytes": 402653184,
+                "activation_delivery_bytes": 3145728
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "85d7c3f4649d9867e0f95df6de290c8d9cc2075b25bf61587a937623b72f2c71",
+              "peak_service": {
+                "macs": 4096,
+                "weight_sram_bytes": 512,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 32,
+                "output_sram_bytes": 16384,
+                "vector_ops": 512,
+                "activation_delivery_bytes": 256,
+                "bank_peak_weight_bytes": 128,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 12784,
+            "scalesim_element_weight_reads": 6291456
+          },
+          {
+            "array_size": 32,
+            "phase": "gate",
+            "M": 16,
+            "logical_macs": 100663296,
+            "plan": {
+              "M": 16,
+              "N": 1536,
+              "K": 4096,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 12478,
+              "array_cycles": 12474,
+              "bank_stall_cycles": 0,
+              "macs": 100663296,
+              "scratch_bytes": 197120,
+              "mac_utilization": 0.49238660041673343,
+              "service": {
+                "weight_sram_bytes": 6291456,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 393216,
+                "output_sram_bytes": 98304,
+                "vector_ops": 6291456,
+                "accumulator_register_bytes": 805306368,
+                "activation_delivery_bytes": 6291456
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "4d55b66a26348f3f90eba12dd59727ed8c68e1e1a87fa50d26b57f6bc59541d8",
+              "peak_service": {
+                "macs": 8192,
+                "weight_sram_bytes": 512,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 32,
+                "output_sram_bytes": 32768,
+                "vector_ops": 512,
+                "activation_delivery_bytes": 512,
+                "bank_peak_weight_bytes": 128,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 12474,
+            "scalesim_element_weight_reads": 6291456
+          },
+          {
+            "array_size": 32,
+            "phase": "up",
+            "M": 16,
+            "logical_macs": 100663296,
+            "plan": {
+              "M": 16,
+              "N": 1536,
+              "K": 4096,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 12478,
+              "array_cycles": 12474,
+              "bank_stall_cycles": 0,
+              "macs": 100663296,
+              "scratch_bytes": 197120,
+              "mac_utilization": 0.49238660041673343,
+              "service": {
+                "weight_sram_bytes": 6291456,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 393216,
+                "output_sram_bytes": 98304,
+                "vector_ops": 6291456,
+                "accumulator_register_bytes": 805306368,
+                "activation_delivery_bytes": 6291456
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "4d55b66a26348f3f90eba12dd59727ed8c68e1e1a87fa50d26b57f6bc59541d8",
+              "peak_service": {
+                "macs": 8192,
+                "weight_sram_bytes": 512,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 32,
+                "output_sram_bytes": 32768,
+                "vector_ops": 512,
+                "activation_delivery_bytes": 512,
+                "bank_peak_weight_bytes": 128,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 12474,
+            "scalesim_element_weight_reads": 6291456
+          },
+          {
+            "array_size": 32,
+            "phase": "down",
+            "M": 16,
+            "logical_macs": 100663296,
+            "plan": {
+              "M": 16,
+              "N": 4096,
+              "K": 1536,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 12793,
+              "array_cycles": 12784,
+              "bank_stall_cycles": 0,
+              "macs": 100663296,
+              "scratch_bytes": 360960,
+              "mac_utilization": 0.48026264363323695,
+              "service": {
+                "weight_sram_bytes": 6291456,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 393216,
+                "output_sram_bytes": 262144,
+                "vector_ops": 6291456,
+                "accumulator_register_bytes": 805306368,
+                "activation_delivery_bytes": 6291456
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "a18bdf906079c46bb2440c9051caf145d035a6e9a77d2993acbf65f9e3b122c8",
+              "peak_service": {
+                "macs": 8192,
+                "weight_sram_bytes": 512,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 32,
+                "output_sram_bytes": 32768,
+                "vector_ops": 512,
+                "activation_delivery_bytes": 512,
+                "bank_peak_weight_bytes": 128,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 12784,
+            "scalesim_element_weight_reads": 6291456
+          },
+          {
+            "array_size": 32,
+            "phase": "gate",
+            "M": 32,
+            "logical_macs": 201326592,
+            "plan": {
+              "M": 32,
+              "N": 1536,
+              "K": 4096,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 12481,
+              "array_cycles": 12474,
+              "bank_stall_cycles": 0,
+              "macs": 201326592,
+              "scratch_bytes": 295424,
+              "mac_utilization": 0.9845364954731192,
+              "service": {
+                "weight_sram_bytes": 6291456,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 786432,
+                "output_sram_bytes": 196608,
+                "vector_ops": 6291456,
+                "accumulator_register_bytes": 1610612736,
+                "activation_delivery_bytes": 12582912
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "01f78ec377736b2796fa663a4bf73cbf24dc41a38d8940b84df318dde61c5510",
+              "peak_service": {
+                "macs": 16384,
+                "weight_sram_bytes": 512,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 64,
+                "output_sram_bytes": 32768,
+                "vector_ops": 512,
+                "activation_delivery_bytes": 1024,
+                "bank_peak_weight_bytes": 128,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 12474,
+            "scalesim_element_weight_reads": 6291456
+          },
+          {
+            "array_size": 32,
+            "phase": "up",
+            "M": 32,
+            "logical_macs": 201326592,
+            "plan": {
+              "M": 32,
+              "N": 1536,
+              "K": 4096,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 12481,
+              "array_cycles": 12474,
+              "bank_stall_cycles": 0,
+              "macs": 201326592,
+              "scratch_bytes": 295424,
+              "mac_utilization": 0.9845364954731192,
+              "service": {
+                "weight_sram_bytes": 6291456,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 786432,
+                "output_sram_bytes": 196608,
+                "vector_ops": 6291456,
+                "accumulator_register_bytes": 1610612736,
+                "activation_delivery_bytes": 12582912
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "01f78ec377736b2796fa663a4bf73cbf24dc41a38d8940b84df318dde61c5510",
+              "peak_service": {
+                "macs": 16384,
+                "weight_sram_bytes": 512,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 64,
+                "output_sram_bytes": 32768,
+                "vector_ops": 512,
+                "activation_delivery_bytes": 1024,
+                "bank_peak_weight_bytes": 128,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 12474,
+            "scalesim_element_weight_reads": 6291456
+          },
+          {
+            "array_size": 32,
+            "phase": "down",
+            "M": 32,
+            "logical_macs": 201326592,
+            "plan": {
+              "M": 32,
+              "N": 4096,
+              "K": 1536,
+              "weight_dtype": "FP8_E4M3FN",
+              "k_partitions": 1,
+              "cycles": 12801,
+              "array_cycles": 12784,
+              "bank_stall_cycles": 0,
+              "macs": 201326592,
+              "scratch_bytes": 623104,
+              "mac_utilization": 0.9599250058589173,
+              "service": {
+                "weight_sram_bytes": 6291456,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 786432,
+                "output_sram_bytes": 524288,
+                "vector_ops": 6291456,
+                "accumulator_register_bytes": 1610612736,
+                "activation_delivery_bytes": 12582912
+              },
+              "dataflow": "Output-stationary M/N tiling with bounded arrays; spare arrays may partition K. All K partials reduce in increasing K order before logical output. One nonpreemptive array group per cluster, bounded input broadcast and per-array 32 B word buffers. Bank layouts are declared assumptions, not calibrated SRAM macros.",
+              "program_sha256": "16df57f9e1025ac5957a1f9c4512d39585ad47aea18497d53cc8cd8d9c90191e",
+              "peak_service": {
+                "macs": 16384,
+                "weight_sram_bytes": 512,
+                "scale_sram_bytes": 1536,
+                "activation_sram_bytes": 64,
+                "output_sram_bytes": 32768,
+                "vector_ops": 512,
+                "activation_delivery_bytes": 1024,
+                "bank_peak_weight_bytes": 128,
+                "bank_peak_activation_bytes": 32
+              }
+            },
+            "scalesim_array_cycles": 12784,
+            "scalesim_element_weight_reads": 6291456
+          }
+        ]
+      }
+    },
+    "gqa-reference-r19.json": {
+      "path": "/Projects/haoning/w2w-full-system-real-npu-20261011/gqa-reference-r19.json",
+      "sha256": "d9d7066c0e5e372f604d643df4276e7e4c903715044111a075568ddf3d2954a9",
+      "proof": {
+        "passed": true,
+        "source_commit": "e4ae2b80c14ff8702a64dc63db71cce32ea3712f",
+        "reference_commit": "f79d7bc39a80a21fc35bc667967b76a15b311f49",
+        "scope": "Independent BF16/GQA shape and array-core reference, not Native timing or silicon/port calibration.",
+        "numerical": [
+          {
+            "length": 1,
+            "prefill_rows": 1,
+            "query_heads": 64,
+            "kv_heads": 4,
+            "head_dim": 128,
+            "maximum_absolute_error": 0.0,
+            "scope": "Synthetic BF16 inputs, independent per-head vs actual array tiles and increasing-K partial reductions in grouped causal GQA; not captured tensors or full Qwen numerical inference."
+          },
+          {
+            "length": 2,
+            "prefill_rows": 2,
+            "query_heads": 64,
+            "kv_heads": 4,
+            "head_dim": 128,
+            "maximum_absolute_error": 0.0,
+            "scope": "Synthetic BF16 inputs, independent per-head vs actual array tiles and increasing-K partial reductions in grouped causal GQA; not captured tensors or full Qwen numerical inference."
+          },
+          {
+            "length": 46,
+            "prefill_rows": 3,
+            "query_heads": 64,
+            "kv_heads": 4,
+            "head_dim": 128,
+            "maximum_absolute_error": 0.0001220703125,
+            "scope": "Synthetic BF16 inputs, independent per-head vs actual array tiles and increasing-K partial reductions in grouped causal GQA; not captured tensors or full Qwen numerical inference."
+          },
+          {
+            "length": 174,
+            "prefill_rows": 3,
+            "query_heads": 64,
+            "kv_heads": 4,
+            "head_dim": 128,
+            "maximum_absolute_error": 0.0,
+            "scope": "Synthetic BF16 inputs, independent per-head vs actual array tiles and increasing-K partial reductions in grouped causal GQA; not captured tensors or full Qwen numerical inference."
+          }
+        ],
+        "wall_seconds": 2.01747789978981,
+        "rows": [
+          {
+            "M": 1,
+            "N": 1,
+            "K": 128,
+            "kind": "qk",
+            "array_core_cycles": 46,
+            "weight_elements": 128
+          },
+          {
+            "M": 1,
+            "N": 128,
+            "K": 1,
+            "kind": "pv",
+            "array_core_cycles": 31,
+            "weight_elements": 128
+          },
+          {
+            "M": 1,
+            "N": 2,
+            "K": 128,
+            "kind": "qk",
+            "array_core_cycles": 46,
+            "weight_elements": 256
+          },
+          {
+            "M": 1,
+            "N": 128,
+            "K": 2,
+            "kind": "pv",
+            "array_core_cycles": 32,
+            "weight_elements": 256
+          },
+          {
+            "M": 1,
+            "N": 46,
+            "K": 128,
+            "kind": "qk",
+            "array_core_cycles": 46,
+            "weight_elements": 5888
+          },
+          {
+            "M": 1,
+            "N": 128,
+            "K": 46,
+            "kind": "pv",
+            "array_core_cycles": 46,
+            "weight_elements": 5888
+          },
+          {
+            "M": 1,
+            "N": 174,
+            "K": 128,
+            "kind": "qk",
+            "array_core_cycles": 62,
+            "weight_elements": 22272
+          },
+          {
+            "M": 1,
+            "N": 128,
+            "K": 174,
+            "kind": "pv",
+            "array_core_cycles": 62,
+            "weight_elements": 22272
+          },
+          {
+            "M": 16,
+            "N": 1,
+            "K": 128,
+            "kind": "qk",
+            "array_core_cycles": 46,
+            "weight_elements": 128
+          },
+          {
+            "M": 16,
+            "N": 128,
+            "K": 1,
+            "kind": "pv",
+            "array_core_cycles": 31,
+            "weight_elements": 128
+          },
+          {
+            "M": 16,
+            "N": 2,
+            "K": 128,
+            "kind": "qk",
+            "array_core_cycles": 46,
+            "weight_elements": 256
+          },
+          {
+            "M": 16,
+            "N": 128,
+            "K": 2,
+            "kind": "pv",
+            "array_core_cycles": 32,
+            "weight_elements": 256
+          },
+          {
+            "M": 16,
+            "N": 46,
+            "K": 128,
+            "kind": "qk",
+            "array_core_cycles": 46,
+            "weight_elements": 5888
+          },
+          {
+            "M": 16,
+            "N": 128,
+            "K": 46,
+            "kind": "pv",
+            "array_core_cycles": 46,
+            "weight_elements": 5888
+          },
+          {
+            "M": 16,
+            "N": 174,
+            "K": 128,
+            "kind": "qk",
+            "array_core_cycles": 62,
+            "weight_elements": 22272
+          },
+          {
+            "M": 16,
+            "N": 128,
+            "K": 174,
+            "kind": "pv",
+            "array_core_cycles": 62,
+            "weight_elements": 22272
+          },
+          {
+            "M": 32,
+            "N": 1,
+            "K": 128,
+            "kind": "qk",
+            "array_core_cycles": 46,
+            "weight_elements": 256
+          },
+          {
+            "M": 32,
+            "N": 128,
+            "K": 1,
+            "kind": "pv",
+            "array_core_cycles": 31,
+            "weight_elements": 256
+          },
+          {
+            "M": 32,
+            "N": 2,
+            "K": 128,
+            "kind": "qk",
+            "array_core_cycles": 46,
+            "weight_elements": 512
+          },
+          {
+            "M": 32,
+            "N": 128,
+            "K": 2,
+            "kind": "pv",
+            "array_core_cycles": 32,
+            "weight_elements": 512
+          },
+          {
+            "M": 32,
+            "N": 46,
+            "K": 128,
+            "kind": "qk",
+            "array_core_cycles": 46,
+            "weight_elements": 11776
+          },
+          {
+            "M": 32,
+            "N": 128,
+            "K": 46,
+            "kind": "pv",
+            "array_core_cycles": 46,
+            "weight_elements": 11776
+          },
+          {
+            "M": 32,
+            "N": 174,
+            "K": 128,
+            "kind": "qk",
+            "array_core_cycles": 94,
+            "weight_elements": 44544
+          },
+          {
+            "M": 32,
+            "N": 128,
+            "K": 174,
+            "kind": "pv",
+            "array_core_cycles": 78,
+            "weight_elements": 44544
+          },
+          {
+            "M": 512,
+            "N": 1,
+            "K": 128,
+            "kind": "qk",
+            "array_core_cycles": 94,
+            "weight_elements": 4096
+          },
+          {
+            "M": 512,
+            "N": 128,
+            "K": 1,
+            "kind": "pv",
+            "array_core_cycles": 124,
+            "weight_elements": 4096
+          },
+          {
+            "M": 512,
+            "N": 2,
+            "K": 128,
+            "kind": "qk",
+            "array_core_cycles": 94,
+            "weight_elements": 8192
+          },
+          {
+            "M": 512,
+            "N": 128,
+            "K": 2,
+            "kind": "pv",
+            "array_core_cycles": 128,
+            "weight_elements": 8192
+          },
+          {
+            "M": 512,
+            "N": 46,
+            "K": 128,
+            "kind": "qk",
+            "array_core_cycles": 316,
+            "weight_elements": 188416
+          },
+          {
+            "M": 512,
+            "N": 128,
+            "K": 46,
+            "kind": "pv",
+            "array_core_cycles": 304,
+            "weight_elements": 188416
+          },
+          {
+            "M": 512,
+            "N": 174,
+            "K": 128,
+            "kind": "qk",
+            "array_core_cycles": 948,
+            "weight_elements": 712704
+          },
+          {
+            "M": 512,
+            "N": 128,
+            "K": 174,
+            "kind": "pv",
+            "array_core_cycles": 816,
+            "weight_elements": 712704
+          }
+        ]
+      }
+    },
+    "compute-r4/receipt.json": {
+      "path": "/Projects/haoning/w2w-full-system-real-npu-20261011/compute-r4/receipt.json",
+      "sha256": "ef3c0cbe293f434aed4688c712fa1c8de0b0b5c6ab5013b4e33403a1dea631a8",
+      "proof": {
+        "passed": true,
+        "mode": "compute",
+        "scope": "Full Qwen3 projection shapes, standalone physical microkernels; not trace-level application evidence. Boundary case checks continuous native/cache state.",
+        "rows": [
+          {
+            "M": 1,
+            "N": 1536,
+            "K": 4096,
+            "array": 16,
+            "kind": "gate",
+            "mode": "compute",
+            "makespan_ps": 8321000,
+            "wall_seconds": 0.7267052568495274,
+            "audit": {
+              "passed": true,
+              "packets": 2,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 8192,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M1-gate/result.json.gz",
+            "sha256": "16703c04d07deddb818356bed73ae9f27ab2fc7b8b762ea8f20dc8de3effd77d"
+          },
+          {
+            "M": 1,
+            "N": 1536,
+            "K": 4096,
+            "array": 16,
+            "kind": "up",
+            "mode": "compute",
+            "makespan_ps": 8321000,
+            "wall_seconds": 0.709713714197278,
+            "audit": {
+              "passed": true,
+              "packets": 2,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 8192,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M1-up/result.json.gz",
+            "sha256": "850ab599c03accc0ce318fcae8aa7913fa7afe67a44cad9ba154feb6ed86f8af"
+          },
+          {
+            "M": 1,
+            "N": 4096,
+            "K": 1536,
+            "array": 16,
+            "kind": "down",
+            "mode": "compute",
+            "makespan_ps": 6295000,
+            "wall_seconds": 0.6525150639936328,
+            "audit": {
+              "passed": true,
+              "packets": 1,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 3072,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M1-down/result.json.gz",
+            "sha256": "83b3521f2223454bd02645b4b9ba0acc61539d0b622a65def5df1233b136501b"
+          },
+          {
+            "M": 2,
+            "N": 1536,
+            "K": 4096,
+            "array": 16,
+            "kind": "gate",
+            "mode": "compute",
+            "makespan_ps": 8385000,
+            "wall_seconds": 0.40081065986305475,
+            "audit": {
+              "passed": true,
+              "packets": 4,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 16384,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M2-gate/result.json.gz",
+            "sha256": "4f06995d9a8ebaa3a2e9197a521a0792fa1051772b7353d06f51ae771cf7fb8d"
+          },
+          {
+            "M": 2,
+            "N": 1536,
+            "K": 4096,
+            "array": 16,
+            "kind": "up",
+            "mode": "compute",
+            "makespan_ps": 8385000,
+            "wall_seconds": 0.678870027884841,
+            "audit": {
+              "passed": true,
+              "packets": 4,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 16384,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M2-up/result.json.gz",
+            "sha256": "4853d5d017ef91f76ef8cb223016e733ed5c034af27e3ba6af1033184cb21c13"
+          },
+          {
+            "M": 2,
+            "N": 4096,
+            "K": 1536,
+            "array": 16,
+            "kind": "down",
+            "mode": "compute",
+            "makespan_ps": 6319000,
+            "wall_seconds": 0.4220885606482625,
+            "audit": {
+              "passed": true,
+              "packets": 2,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 6144,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M2-down/result.json.gz",
+            "sha256": "a9360e0048ac3c79228741818d16b29dab82d7d7aee2eea7bf65fad870cd58f0"
+          },
+          {
+            "M": 4,
+            "N": 1536,
+            "K": 4096,
+            "array": 16,
+            "kind": "gate",
+            "mode": "compute",
+            "makespan_ps": 8513000,
+            "wall_seconds": 0.41875449381768703,
+            "audit": {
+              "passed": true,
+              "packets": 8,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 32768,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M4-gate/result.json.gz",
+            "sha256": "9a53fbf757dc174c3a67f5bda71488987504a0254a606e4a6dd271dfb78db7c3"
+          },
+          {
+            "M": 4,
+            "N": 1536,
+            "K": 4096,
+            "array": 16,
+            "kind": "up",
+            "mode": "compute",
+            "makespan_ps": 8513000,
+            "wall_seconds": 0.4266686839982867,
+            "audit": {
+              "passed": true,
+              "packets": 8,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 32768,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M4-up/result.json.gz",
+            "sha256": "711497651e537760b4a98b96c02537a83427e838a0afa542c8e5563f7e22ada3"
+          },
+          {
+            "M": 4,
+            "N": 4096,
+            "K": 1536,
+            "array": 16,
+            "kind": "down",
+            "mode": "compute",
+            "makespan_ps": 6367000,
+            "wall_seconds": 0.6347978450357914,
+            "audit": {
+              "passed": true,
+              "packets": 3,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 12288,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M4-down/result.json.gz",
+            "sha256": "699526bc0e8bc25bf4c3f96f21cbd5468ff76ed6dccc5d84640b2b333c64bfae"
+          },
+          {
+            "M": 8,
+            "N": 1536,
+            "K": 4096,
+            "array": 16,
+            "kind": "gate",
+            "mode": "compute",
+            "makespan_ps": 8769000,
+            "wall_seconds": 0.8387008104473352,
+            "audit": {
+              "passed": true,
+              "packets": 16,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 65536,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M8-gate/result.json.gz",
+            "sha256": "cf9acee96fd133016726471a59270c1af14753bab9bceca0112a54604c054303"
+          },
+          {
+            "M": 8,
+            "N": 1536,
+            "K": 4096,
+            "array": 16,
+            "kind": "up",
+            "mode": "compute",
+            "makespan_ps": 8769000,
+            "wall_seconds": 0.8488708538934588,
+            "audit": {
+              "passed": true,
+              "packets": 16,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 65536,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M8-up/result.json.gz",
+            "sha256": "afe10b18bfe6d80aa556f891af01344854079e961035f2a29e498e682bd49895"
+          },
+          {
+            "M": 8,
+            "N": 4096,
+            "K": 1536,
+            "array": 16,
+            "kind": "down",
+            "mode": "compute",
+            "makespan_ps": 6463000,
+            "wall_seconds": 0.628758829087019,
+            "audit": {
+              "passed": true,
+              "packets": 6,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 24576,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M8-down/result.json.gz",
+            "sha256": "8b27b3f59347e3d40c7a1ec856e1914ee04313d1fe0902e74ca6c265707d42af"
+          },
+          {
+            "M": 16,
+            "N": 1536,
+            "K": 4096,
+            "array": 16,
+            "kind": "gate",
+            "mode": "compute",
+            "makespan_ps": 9282000,
+            "wall_seconds": 0.9796414952725172,
+            "audit": {
+              "passed": true,
+              "packets": 32,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 131072,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M16-gate/result.json.gz",
+            "sha256": "1ac6de36774e7ccbf01570fda40d04bc75ecc662b7085886df2fb67dd242121d"
+          },
+          {
+            "M": 16,
+            "N": 1536,
+            "K": 4096,
+            "array": 16,
+            "kind": "up",
+            "mode": "compute",
+            "makespan_ps": 9282000,
+            "wall_seconds": 0.8484233003109694,
+            "audit": {
+              "passed": true,
+              "packets": 32,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 131072,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M16-up/result.json.gz",
+            "sha256": "ebbf7c3ff59993e15777f61c9813f618c68d329ba85525f197dd5aee7880239a"
+          },
+          {
+            "M": 16,
+            "N": 4096,
+            "K": 1536,
+            "array": 16,
+            "kind": "down",
+            "mode": "compute",
+            "makespan_ps": 6659000,
+            "wall_seconds": 0.4844676861539483,
+            "audit": {
+              "passed": true,
+              "packets": 12,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 49152,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M16-down/result.json.gz",
+            "sha256": "0afacd34ad1f833dd2029ab187e17b24030108862d4243137436820256c88fbc"
+          },
+          {
+            "M": 32,
+            "N": 1536,
+            "K": 4096,
+            "array": 16,
+            "kind": "gate",
+            "mode": "compute",
+            "makespan_ps": 14435000,
+            "wall_seconds": 0.7184912338852882,
+            "audit": {
+              "passed": true,
+              "packets": 64,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 262144,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M32-gate/result.json.gz",
+            "sha256": "12424ff1073ce7e0da262762f73b8ab4da1046bac956532350a0e7b1569364fd"
+          },
+          {
+            "M": 32,
+            "N": 1536,
+            "K": 4096,
+            "array": 16,
+            "kind": "up",
+            "mode": "compute",
+            "makespan_ps": 14435000,
+            "wall_seconds": 0.736356413923204,
+            "audit": {
+              "passed": true,
+              "packets": 64,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 262144,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M32-up/result.json.gz",
+            "sha256": "29a0dd257976f947dd7cc67bddaa4f3e51ecbb17e70fe0e21c697357fef19d22"
+          },
+          {
+            "M": 32,
+            "N": 4096,
+            "K": 1536,
+            "array": 16,
+            "kind": "down",
+            "mode": "compute",
+            "makespan_ps": 13315000,
+            "wall_seconds": 1.0121637908741832,
+            "audit": {
+              "passed": true,
+              "packets": 24,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 98304,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M32-down/result.json.gz",
+            "sha256": "0fbdd0157adcb8f8b8b68e87829a2a94680fd3f013141f516d4ad0d82d48390f"
+          },
+          {
+            "M": 1,
+            "N": 1536,
+            "K": 4096,
+            "array": 32,
+            "kind": "gate",
+            "mode": "compute",
+            "makespan_ps": 12544000,
+            "wall_seconds": 0.49514154996722937,
+            "audit": {
+              "passed": true,
+              "packets": 2,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 8192,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M1-gate/result.json.gz",
+            "sha256": "3ac997050f88945d67eaafd9d9e3ebdf5de34222d58d0280b41f351503bf81e1"
+          },
+          {
+            "M": 1,
+            "N": 1536,
+            "K": 4096,
+            "array": 32,
+            "kind": "up",
+            "mode": "compute",
+            "makespan_ps": 12544000,
+            "wall_seconds": 0.490217849612236,
+            "audit": {
+              "passed": true,
+              "packets": 2,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 8192,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M1-up/result.json.gz",
+            "sha256": "cece82c3ca7e74932a7717230c21766ab6c2c6940697cbf12272ef408b4d25ee"
+          },
+          {
+            "M": 1,
+            "N": 4096,
+            "K": 1536,
+            "array": 32,
+            "kind": "down",
+            "mode": "compute",
+            "makespan_ps": 12819000,
+            "wall_seconds": 0.49627004098147154,
+            "audit": {
+              "passed": true,
+              "packets": 1,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 3072,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M1-down/result.json.gz",
+            "sha256": "e82e633734103c7aaf6aa942c4ae6a7b3be1af64080d01e2e1fd401d8a3a8809"
+          },
+          {
+            "M": 2,
+            "N": 1536,
+            "K": 4096,
+            "array": 32,
+            "kind": "gate",
+            "mode": "compute",
+            "makespan_ps": 12608000,
+            "wall_seconds": 0.5019006785005331,
+            "audit": {
+              "passed": true,
+              "packets": 4,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 16384,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M2-gate/result.json.gz",
+            "sha256": "b4830a749a9c8781bb0f01c2e61acf8efd6b2194c92aebffebee1f5c36f0d959"
+          },
+          {
+            "M": 2,
+            "N": 1536,
+            "K": 4096,
+            "array": 32,
+            "kind": "up",
+            "mode": "compute",
+            "makespan_ps": 12608000,
+            "wall_seconds": 0.5203316872939467,
+            "audit": {
+              "passed": true,
+              "packets": 4,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 16384,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M2-up/result.json.gz",
+            "sha256": "948de5ebe9afcb6851d16695cb1577f546979b707818928bcc1648f8fe7ffb68"
+          },
+          {
+            "M": 2,
+            "N": 4096,
+            "K": 1536,
+            "array": 32,
+            "kind": "down",
+            "mode": "compute",
+            "makespan_ps": 12843000,
+            "wall_seconds": 0.9761760393157601,
+            "audit": {
+              "passed": true,
+              "packets": 2,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 6144,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M2-down/result.json.gz",
+            "sha256": "1e4fd61616983f8e31e11b736be8f24a4d904bf28ae58d5455a9fe22964980f3"
+          },
+          {
+            "M": 4,
+            "N": 1536,
+            "K": 4096,
+            "array": 32,
+            "kind": "gate",
+            "mode": "compute",
+            "makespan_ps": 12736000,
+            "wall_seconds": 1.0105359451845288,
+            "audit": {
+              "passed": true,
+              "packets": 8,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 32768,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M4-gate/result.json.gz",
+            "sha256": "15de9ad62c6298acf129be29052c448daa74371c6e540454146364a72ab0a755"
+          },
+          {
+            "M": 4,
+            "N": 1536,
+            "K": 4096,
+            "array": 32,
+            "kind": "up",
+            "mode": "compute",
+            "makespan_ps": 12736000,
+            "wall_seconds": 0.9497092282399535,
+            "audit": {
+              "passed": true,
+              "packets": 8,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 32768,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M4-up/result.json.gz",
+            "sha256": "cb68dcd9a8cfa74cf1bc09c55095634b9a3c69edb579848e81605e434ea67fce"
+          },
+          {
+            "M": 4,
+            "N": 4096,
+            "K": 1536,
+            "array": 32,
+            "kind": "down",
+            "mode": "compute",
+            "makespan_ps": 12891000,
+            "wall_seconds": 0.5020747827365994,
+            "audit": {
+              "passed": true,
+              "packets": 3,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 12288,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M4-down/result.json.gz",
+            "sha256": "9fe858edf26b0131facbaedf0b424741e4afc9be8240366247b76c1871afad6c"
+          },
+          {
+            "M": 8,
+            "N": 1536,
+            "K": 4096,
+            "array": 32,
+            "kind": "gate",
+            "mode": "compute",
+            "makespan_ps": 12992000,
+            "wall_seconds": 0.525240539573133,
+            "audit": {
+              "passed": true,
+              "packets": 16,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 65536,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M8-gate/result.json.gz",
+            "sha256": "d9413d470ad09e00d25800d124c69af9b4585d7b1a17c7384f5070180c6bc6ce"
+          },
+          {
+            "M": 8,
+            "N": 1536,
+            "K": 4096,
+            "array": 32,
+            "kind": "up",
+            "mode": "compute",
+            "makespan_ps": 12992000,
+            "wall_seconds": 0.5434269336983562,
+            "audit": {
+              "passed": true,
+              "packets": 16,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 65536,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M8-up/result.json.gz",
+            "sha256": "442e201cf92ef390b9182a5ca307e8544a5c1b12d29b52e6407253cf8080177b"
+          },
+          {
+            "M": 8,
+            "N": 4096,
+            "K": 1536,
+            "array": 32,
+            "kind": "down",
+            "mode": "compute",
+            "makespan_ps": 12987000,
+            "wall_seconds": 0.5242568552494049,
+            "audit": {
+              "passed": true,
+              "packets": 6,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 24576,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M8-down/result.json.gz",
+            "sha256": "a8096c22b6c6e70c15789eea14b7be5d539e1c03e6774ee53bd3f48755b2087e"
+          },
+          {
+            "M": 16,
+            "N": 1536,
+            "K": 4096,
+            "array": 32,
+            "kind": "gate",
+            "mode": "compute",
+            "makespan_ps": 13504000,
+            "wall_seconds": 0.6865051854401827,
+            "audit": {
+              "passed": true,
+              "packets": 32,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 131072,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M16-gate/result.json.gz",
+            "sha256": "15dcc4c716c2c4debb6c0a0922bde2e2c979e15567f74cc397894c3a6398e16f"
+          },
+          {
+            "M": 16,
+            "N": 1536,
+            "K": 4096,
+            "array": 32,
+            "kind": "up",
+            "mode": "compute",
+            "makespan_ps": 13504000,
+            "wall_seconds": 0.6426364472135901,
+            "audit": {
+              "passed": true,
+              "packets": 32,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 131072,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M16-up/result.json.gz",
+            "sha256": "9238450321fb449c612c70afa1ff75110a33a7754c822ab5b3e4dc568d56ab2a"
+          },
+          {
+            "M": 16,
+            "N": 4096,
+            "K": 1536,
+            "array": 32,
+            "kind": "down",
+            "mode": "compute",
+            "makespan_ps": 13179000,
+            "wall_seconds": 0.5456515401601791,
+            "audit": {
+              "passed": true,
+              "packets": 12,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 49152,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M16-down/result.json.gz",
+            "sha256": "816664d685c9b723a5261dea259784c7f97439ffeb586626bf3ef5538dfd7deb"
+          },
+          {
+            "M": 32,
+            "N": 1536,
+            "K": 4096,
+            "array": 32,
+            "kind": "gate",
+            "mode": "compute",
+            "makespan_ps": 14531000,
+            "wall_seconds": 0.6767435176298022,
+            "audit": {
+              "passed": true,
+              "packets": 64,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 262144,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M32-gate/result.json.gz",
+            "sha256": "ad87abf8ea875696341c1e041654430b1e4e1b245ee8f5646d0f3d59f08b84a6"
+          },
+          {
+            "M": 32,
+            "N": 1536,
+            "K": 4096,
+            "array": 32,
+            "kind": "up",
+            "mode": "compute",
+            "makespan_ps": 14531000,
+            "wall_seconds": 0.6680025476962328,
+            "audit": {
+              "passed": true,
+              "packets": 64,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 262144,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M32-up/result.json.gz",
+            "sha256": "509fc1e01803c5a87cf2a59050ad5d82d35d74c53c5ddedb969131ee125f280b"
+          },
+          {
+            "M": 32,
+            "N": 4096,
+            "K": 1536,
+            "array": 32,
+            "kind": "down",
+            "mode": "compute",
+            "makespan_ps": 13571000,
+            "wall_seconds": 0.6727080876007676,
+            "audit": {
+              "passed": true,
+              "packets": 24,
+              "read_descriptors": 0,
+              "read_words": 0,
+              "data_bytes": 98304,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 0,
+              "gateway_bytes": 0,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M32-down/result.json.gz",
+            "sha256": "e002a758fe410fb7ab890f4308b4825c065578cd315e5bc44780e94108f7336a"
+          }
+        ]
+      }
+    },
+    "stream-r4/receipt.json": {
+      "path": "/Projects/haoning/w2w-full-system-real-npu-20261011/stream-r4/receipt.json",
+      "sha256": "4ab8a91c460a213eb062421ef923fcdefb32ddb21d6856b71908ae6811622499",
+      "proof": {
+        "passed": true,
+        "mode": "stream",
+        "scope": "Full Qwen3 projection shapes, standalone physical microkernels; not trace-level application evidence. Boundary case checks continuous native/cache state.",
+        "rows": [
+          {
+            "M": 1,
+            "N": 1536,
+            "K": 4096,
+            "array": 16,
+            "kind": "gate",
+            "mode": "stream",
+            "makespan_ps": 264333000,
+            "wall_seconds": 36.11059444025159,
+            "audit": {
+              "passed": true,
+              "packets": 3076,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 8192,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M1-gate/result.json.gz",
+            "sha256": "5189f49bf1c46d0e2915a1007ef02f6b60376bc6435393c5ff44861edf92a405"
+          },
+          {
+            "M": 1,
+            "N": 1536,
+            "K": 4096,
+            "array": 16,
+            "kind": "up",
+            "mode": "stream",
+            "makespan_ps": 264333000,
+            "wall_seconds": 39.25430942233652,
+            "audit": {
+              "passed": true,
+              "packets": 3076,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 8192,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M1-up/result.json.gz",
+            "sha256": "c170ce0c4aba6b945fff92e3428dff6b5cebddbb5311807629246ea6dda59b35"
+          },
+          {
+            "M": 1,
+            "N": 4096,
+            "K": 1536,
+            "array": 16,
+            "kind": "down",
+            "mode": "stream",
+            "makespan_ps": 262347000,
+            "wall_seconds": 33.375449172221124,
+            "audit": {
+              "passed": true,
+              "packets": 3075,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 3072,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M1-down/result.json.gz",
+            "sha256": "ad9d571013d68fe5ba87142480dc45a697356806bee7daae54212421ea7a31c0"
+          },
+          {
+            "M": 2,
+            "N": 1536,
+            "K": 4096,
+            "array": 16,
+            "kind": "gate",
+            "mode": "stream",
+            "makespan_ps": 264333000,
+            "wall_seconds": 20.8296609967947,
+            "audit": {
+              "passed": true,
+              "packets": 3078,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 16384,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M2-gate/result.json.gz",
+            "sha256": "adae423bd3b6a546ddf582e08d19417f54829a712ab76655122b9a3069c8c597"
+          },
+          {
+            "M": 2,
+            "N": 1536,
+            "K": 4096,
+            "array": 16,
+            "kind": "up",
+            "mode": "stream",
+            "makespan_ps": 264333000,
+            "wall_seconds": 20.75909050833434,
+            "audit": {
+              "passed": true,
+              "packets": 3078,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 16384,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M2-up/result.json.gz",
+            "sha256": "6185914ea2702b58393753143e652f38ab9afc63d19593dce0673ed6a748098b"
+          },
+          {
+            "M": 2,
+            "N": 4096,
+            "K": 1536,
+            "array": 16,
+            "kind": "down",
+            "mode": "stream",
+            "makespan_ps": 262347000,
+            "wall_seconds": 19.74350491259247,
+            "audit": {
+              "passed": true,
+              "packets": 3076,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 6144,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M2-down/result.json.gz",
+            "sha256": "63f2516d40c361252aa74d069a7b53660c3a549a3e8d5fa341c3d106ace7510b"
+          },
+          {
+            "M": 4,
+            "N": 1536,
+            "K": 4096,
+            "array": 16,
+            "kind": "gate",
+            "mode": "stream",
+            "makespan_ps": 264333000,
+            "wall_seconds": 25.80743440054357,
+            "audit": {
+              "passed": true,
+              "packets": 3082,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 32768,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M4-gate/result.json.gz",
+            "sha256": "c2ee8435461af8e55bc9905f8129481957d10e2e4df83cbeb7a38c825d0fee22"
+          },
+          {
+            "M": 4,
+            "N": 1536,
+            "K": 4096,
+            "array": 16,
+            "kind": "up",
+            "mode": "stream",
+            "makespan_ps": 264333000,
+            "wall_seconds": 22.66583394818008,
+            "audit": {
+              "passed": true,
+              "packets": 3082,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 32768,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M4-up/result.json.gz",
+            "sha256": "8a6618029ec2cecd1d19b93110a2edd44a314c87336e9a7b5d4a2148e49f89a7"
+          },
+          {
+            "M": 4,
+            "N": 4096,
+            "K": 1536,
+            "array": 16,
+            "kind": "down",
+            "mode": "stream",
+            "makespan_ps": 262347000,
+            "wall_seconds": 19.538412699475884,
+            "audit": {
+              "passed": true,
+              "packets": 3077,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 12288,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M4-down/result.json.gz",
+            "sha256": "14162b95fc7a0817bd830e8cc1a2a9ebc0c1664ea2005871d4038b0a4e494443"
+          },
+          {
+            "M": 8,
+            "N": 1536,
+            "K": 4096,
+            "array": 16,
+            "kind": "gate",
+            "mode": "stream",
+            "makespan_ps": 264333000,
+            "wall_seconds": 19.184703785926104,
+            "audit": {
+              "passed": true,
+              "packets": 3090,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 65536,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M8-gate/result.json.gz",
+            "sha256": "54ef4c10e48c526117c0b4021d685cba47a661ffc48077f43141e9eacf9798c6"
+          },
+          {
+            "M": 8,
+            "N": 1536,
+            "K": 4096,
+            "array": 16,
+            "kind": "up",
+            "mode": "stream",
+            "makespan_ps": 264333000,
+            "wall_seconds": 21.462165193632245,
+            "audit": {
+              "passed": true,
+              "packets": 3090,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 65536,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M8-up/result.json.gz",
+            "sha256": "2687a26ccea24ec4d9cc3e6d171ff1465b6c4a6412c1eda89ab5f5fef7ff7c9e"
+          },
+          {
+            "M": 8,
+            "N": 4096,
+            "K": 1536,
+            "array": 16,
+            "kind": "down",
+            "mode": "stream",
+            "makespan_ps": 262347000,
+            "wall_seconds": 19.04875018633902,
+            "audit": {
+              "passed": true,
+              "packets": 3080,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 24576,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M8-down/result.json.gz",
+            "sha256": "1e31402a271668db9f7a93c1cebea489352272dc62eedc5afddd54d52c9d05eb"
+          },
+          {
+            "M": 16,
+            "N": 1536,
+            "K": 4096,
+            "array": 16,
+            "kind": "gate",
+            "mode": "stream",
+            "makespan_ps": 264334000,
+            "wall_seconds": 17.990994275547564,
+            "audit": {
+              "passed": true,
+              "packets": 3106,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 131072,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M16-gate/result.json.gz",
+            "sha256": "e38ec50955dd28050f351fbc9a5d574875d6c900cdd0678ab198e1d0af1e2b5f"
+          },
+          {
+            "M": 16,
+            "N": 1536,
+            "K": 4096,
+            "array": 16,
+            "kind": "up",
+            "mode": "stream",
+            "makespan_ps": 264334000,
+            "wall_seconds": 18.128384276293218,
+            "audit": {
+              "passed": true,
+              "packets": 3106,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 131072,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M16-up/result.json.gz",
+            "sha256": "75a5539f1623ca37581e0a4affacb2930a45bc81b123eae23789f56d7570b2c5"
+          },
+          {
+            "M": 16,
+            "N": 4096,
+            "K": 1536,
+            "array": 16,
+            "kind": "down",
+            "mode": "stream",
+            "makespan_ps": 262351000,
+            "wall_seconds": 17.957709345966578,
+            "audit": {
+              "passed": true,
+              "packets": 3086,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 49152,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M16-down/result.json.gz",
+            "sha256": "2273a60a49c34af4b304e81173a37ab78627be81dda0d897adf9a4ef1340117f"
+          },
+          {
+            "M": 32,
+            "N": 1536,
+            "K": 4096,
+            "array": 16,
+            "kind": "gate",
+            "mode": "stream",
+            "makespan_ps": 268463000,
+            "wall_seconds": 37.066185978241265,
+            "audit": {
+              "passed": true,
+              "packets": 3138,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 262144,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M32-gate/result.json.gz",
+            "sha256": "356e44334e51654d0f625337c40f9dff570b9aa7bb0a56dee6c5020bf0be2470"
+          },
+          {
+            "M": 32,
+            "N": 1536,
+            "K": 4096,
+            "array": 16,
+            "kind": "up",
+            "mode": "stream",
+            "makespan_ps": 268463000,
+            "wall_seconds": 30.90037656482309,
+            "audit": {
+              "passed": true,
+              "packets": 3138,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 262144,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M32-up/result.json.gz",
+            "sha256": "bc29d2bf8f34cfb270b1e947f7a6de6dfc71028dd245e424e532cd873574e156"
+          },
+          {
+            "M": 32,
+            "N": 4096,
+            "K": 1536,
+            "array": 16,
+            "kind": "down",
+            "mode": "stream",
+            "makespan_ps": 268623000,
+            "wall_seconds": 19.353606493212283,
+            "audit": {
+              "passed": true,
+              "packets": 3098,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 98304,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M32-down/result.json.gz",
+            "sha256": "c775821ed04383a92cb764fc3729d11fad9cd25860eb37c4e95d818a1244d442"
+          },
+          {
+            "M": 1,
+            "N": 1536,
+            "K": 4096,
+            "array": 32,
+            "kind": "gate",
+            "mode": "stream",
+            "makespan_ps": 268556000,
+            "wall_seconds": 18.366650194860995,
+            "audit": {
+              "passed": true,
+              "packets": 3076,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 8192,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M1-gate/result.json.gz",
+            "sha256": "1a2cae946486d370829fc625a09082b01a291a4b81dfb90d7703650a8cc8626c"
+          },
+          {
+            "M": 1,
+            "N": 1536,
+            "K": 4096,
+            "array": 32,
+            "kind": "up",
+            "mode": "stream",
+            "makespan_ps": 268556000,
+            "wall_seconds": 17.730231707915664,
+            "audit": {
+              "passed": true,
+              "packets": 3076,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 8192,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M1-up/result.json.gz",
+            "sha256": "94a7a871a8616700b5779d2bc8f3a70fefdefccef3b008ebe8fb6aa949f06e28"
+          },
+          {
+            "M": 1,
+            "N": 4096,
+            "K": 1536,
+            "array": 32,
+            "kind": "down",
+            "mode": "stream",
+            "makespan_ps": 268871000,
+            "wall_seconds": 17.30163189675659,
+            "audit": {
+              "passed": true,
+              "packets": 3075,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 3072,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M1-down/result.json.gz",
+            "sha256": "0c40032114ceab3316b5289bc63e95f6db17d309e57e82deb978060587faf568"
+          },
+          {
+            "M": 2,
+            "N": 1536,
+            "K": 4096,
+            "array": 32,
+            "kind": "gate",
+            "mode": "stream",
+            "makespan_ps": 268556000,
+            "wall_seconds": 17.332947394810617,
+            "audit": {
+              "passed": true,
+              "packets": 3078,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 16384,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M2-gate/result.json.gz",
+            "sha256": "975a5b796f6bf67ee1a628d10cc67bb0596fcc3adfe50a88d084950c494e69d9"
+          },
+          {
+            "M": 2,
+            "N": 1536,
+            "K": 4096,
+            "array": 32,
+            "kind": "up",
+            "mode": "stream",
+            "makespan_ps": 268556000,
+            "wall_seconds": 17.129373251460493,
+            "audit": {
+              "passed": true,
+              "packets": 3078,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 16384,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M2-up/result.json.gz",
+            "sha256": "711f4a1b46d396672563e12b6daba21ecfab0b4294b8dc7a4c97ec7d4cc60373"
+          },
+          {
+            "M": 2,
+            "N": 4096,
+            "K": 1536,
+            "array": 32,
+            "kind": "down",
+            "mode": "stream",
+            "makespan_ps": 268871000,
+            "wall_seconds": 17.175049282610416,
+            "audit": {
+              "passed": true,
+              "packets": 3076,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 6144,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M2-down/result.json.gz",
+            "sha256": "7d82d7992cdcfb871ebb212117cbc5393b27df111df3f8eb23314e40afa2b4be"
+          },
+          {
+            "M": 4,
+            "N": 1536,
+            "K": 4096,
+            "array": 32,
+            "kind": "gate",
+            "mode": "stream",
+            "makespan_ps": 268556000,
+            "wall_seconds": 17.170375899411738,
+            "audit": {
+              "passed": true,
+              "packets": 3082,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 32768,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M4-gate/result.json.gz",
+            "sha256": "f40ca7b37781f2c5aa6dad1c4c74f07f99cfc1657cd8012466d2984e0f9aa3b6"
+          },
+          {
+            "M": 4,
+            "N": 1536,
+            "K": 4096,
+            "array": 32,
+            "kind": "up",
+            "mode": "stream",
+            "makespan_ps": 268556000,
+            "wall_seconds": 17.4028075132519,
+            "audit": {
+              "passed": true,
+              "packets": 3082,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 32768,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M4-up/result.json.gz",
+            "sha256": "cf678c11374f41550ecd8cd2457af1da7ae66a7ce5ab747027a982b3d78d9eae"
+          },
+          {
+            "M": 4,
+            "N": 4096,
+            "K": 1536,
+            "array": 32,
+            "kind": "down",
+            "mode": "stream",
+            "makespan_ps": 268871000,
+            "wall_seconds": 17.530353189446032,
+            "audit": {
+              "passed": true,
+              "packets": 3077,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 12288,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M4-down/result.json.gz",
+            "sha256": "8bbdb294d7d090705099445bf7f70e8bba81f1fef5c47ee28ed7abae2f578222"
+          },
+          {
+            "M": 8,
+            "N": 1536,
+            "K": 4096,
+            "array": 32,
+            "kind": "gate",
+            "mode": "stream",
+            "makespan_ps": 268556000,
+            "wall_seconds": 16.31376729067415,
+            "audit": {
+              "passed": true,
+              "packets": 3090,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 65536,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M8-gate/result.json.gz",
+            "sha256": "b6cf2d33dcd8d68259ffb2b3ba8de1566299bd4615b262592bb79bca99d29a0e"
+          },
+          {
+            "M": 8,
+            "N": 1536,
+            "K": 4096,
+            "array": 32,
+            "kind": "up",
+            "mode": "stream",
+            "makespan_ps": 268556000,
+            "wall_seconds": 16.477404734119773,
+            "audit": {
+              "passed": true,
+              "packets": 3090,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 65536,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M8-up/result.json.gz",
+            "sha256": "5afa89e34a16c6a49bc5fc7ef98c690858f7503f1d2ff08316a311f8a33816b4"
+          },
+          {
+            "M": 8,
+            "N": 4096,
+            "K": 1536,
+            "array": 32,
+            "kind": "down",
+            "mode": "stream",
+            "makespan_ps": 268871000,
+            "wall_seconds": 16.418503205291927,
+            "audit": {
+              "passed": true,
+              "packets": 3080,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 24576,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M8-down/result.json.gz",
+            "sha256": "bc075f6154f20f8a317d3e86bbeb4c22b2fc9d0c8868398b8620b29b1c310aa2"
+          },
+          {
+            "M": 16,
+            "N": 1536,
+            "K": 4096,
+            "array": 32,
+            "kind": "gate",
+            "mode": "stream",
+            "makespan_ps": 268556000,
+            "wall_seconds": 16.48020234424621,
+            "audit": {
+              "passed": true,
+              "packets": 3106,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 131072,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M16-gate/result.json.gz",
+            "sha256": "c0eaf51c2df1ec26b7875d7225785d92520c84d5afc810360818ec8dbd9713b0"
+          },
+          {
+            "M": 16,
+            "N": 1536,
+            "K": 4096,
+            "array": 32,
+            "kind": "up",
+            "mode": "stream",
+            "makespan_ps": 268556000,
+            "wall_seconds": 16.764439295977354,
+            "audit": {
+              "passed": true,
+              "packets": 3106,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 131072,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M16-up/result.json.gz",
+            "sha256": "c762e32339d349cf425559da5455d269a82a5ee7bfd32f4234bc007c65944526"
+          },
+          {
+            "M": 16,
+            "N": 4096,
+            "K": 1536,
+            "array": 32,
+            "kind": "down",
+            "mode": "stream",
+            "makespan_ps": 268871000,
+            "wall_seconds": 15.414290877990425,
+            "audit": {
+              "passed": true,
+              "packets": 3086,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 49152,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M16-down/result.json.gz",
+            "sha256": "f6423d609851146b1bb7a665b0d3acab12460d61309b06669989e6d272aa9d55"
+          },
+          {
+            "M": 32,
+            "N": 1536,
+            "K": 4096,
+            "array": 32,
+            "kind": "gate",
+            "mode": "stream",
+            "makespan_ps": 268559000,
+            "wall_seconds": 15.192595923319459,
+            "audit": {
+              "passed": true,
+              "packets": 3138,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 262144,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M32-gate/result.json.gz",
+            "sha256": "81dc6b76326a8ebb04a794a122d4f66ec14e9f070e623d7ab65d7120958e5137"
+          },
+          {
+            "M": 32,
+            "N": 1536,
+            "K": 4096,
+            "array": 32,
+            "kind": "up",
+            "mode": "stream",
+            "makespan_ps": 268559000,
+            "wall_seconds": 15.129049639217556,
+            "audit": {
+              "passed": true,
+              "packets": 3138,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 262144,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M32-up/result.json.gz",
+            "sha256": "0e69c032a548958c4accea49465836a9c774d3a2149a648668d52516b65ae243"
+          },
+          {
+            "M": 32,
+            "N": 4096,
+            "K": 1536,
+            "array": 32,
+            "kind": "down",
+            "mode": "stream",
+            "makespan_ps": 268879000,
+            "wall_seconds": 15.08190850354731,
+            "audit": {
+              "passed": true,
+              "packets": 3098,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 98304,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A32-M32-down/result.json.gz",
+            "sha256": "6a298bc073ee8f4ddb1f4b14bd55fa8a11cc4bff02fc9b783691d1253987749f"
+          }
+        ]
+      }
+    },
+    "remote-boundary-r19/receipt.json": {
+      "path": "/Projects/haoning/w2w-full-system-real-npu-20261011/remote-boundary-r19/receipt.json",
+      "sha256": "ca9897f5d71058817e1b3f6c6fceb88cc47fd8fd7b074f2bbb74e91874fa8feb",
+      "proof": {
+        "passed": true,
+        "mode": "remote-boundary",
+        "scope": "Full Qwen3 projection shapes, standalone physical microkernels; not trace-level application evidence. Boundary case checks continuous native/cache state.",
+        "rows": [
+          {
+            "M": 1,
+            "N": 128,
+            "K": 4096,
+            "array": 16,
+            "kind": "remote-boundary",
+            "mode": "remote-boundary",
+            "makespan_ps": 23081000,
+            "wall_seconds": 4.554258542135358,
+            "audit": {
+              "passed": true,
+              "windows": 2,
+              "tasks": 4,
+              "native_bytes": 524416,
+              "macs": 1048576,
+              "cache_stats": {
+                "compulsory_bytes": 524416,
+                "misses": 1,
+                "miss_bytes": 524416,
+                "hits": 1,
+                "hit_bytes": 524416
+              },
+              "makespan_ps": 23081000,
+              "drained_ps": 23081000,
+              "scope": "Each raw window re-audited; continuous cache/LRU/clock ownership and final metadata release closed."
+            },
+            "file": "A16-M1-remote-boundary/result.json.gz",
+            "sha256": "798940b2d01b4298b0cc1ae99197b2bec7011e1f9c110c68e313fc0d5aff8c32"
+          }
+        ]
+      }
+    },
+    "bf16-boundary-r19/receipt.json": {
+      "path": "/Projects/haoning/w2w-full-system-real-npu-20261011/bf16-boundary-r19/receipt.json",
+      "sha256": "b779eac731e30ed0bbc6988661b17764629c7594955cefc9ac724af7202ba972",
+      "proof": {
+        "passed": true,
+        "mode": "bf16-boundary",
+        "scope": "Full Qwen3 projection shapes, standalone physical microkernels; not trace-level application evidence. Boundary case checks continuous native/cache state.",
+        "rows": [
+          {
+            "M": 1,
+            "N": 128,
+            "K": 4096,
+            "array": 16,
+            "kind": "bf16-boundary",
+            "mode": "bf16-boundary",
+            "makespan_ps": 43891000,
+            "wall_seconds": 4.0801210245117545,
+            "audit": {
+              "passed": true,
+              "windows": 2,
+              "tasks": 4,
+              "native_bytes": 1048576,
+              "macs": 1048576,
+              "cache_stats": {
+                "compulsory_bytes": 1048576,
+                "misses": 1,
+                "miss_bytes": 1048576,
+                "hits": 1,
+                "hit_bytes": 1048576
+              },
+              "makespan_ps": 43891000,
+              "drained_ps": 43891000,
+              "scope": "Each raw window re-audited; continuous cache/LRU/clock ownership and final metadata release closed."
+            },
+            "file": "A16-M1-bf16-boundary/result.json.gz",
+            "sha256": "f37c95f0efc7d35e0e3c75b6350c8ab36b785297df096b1cebe3949ca24e1cb2"
+          }
+        ]
+      }
+    },
+    "equivalence-r19/receipt.json": {
+      "path": "/Projects/haoning/w2w-full-system-real-npu-20261011/equivalence-r19/receipt.json",
+      "sha256": "3eb074410a0f28b97279109ac995dd225511621b056d6235e0b6c1932756a004",
+      "proof": {
+        "passed": true,
+        "mode": "equivalence",
+        "scope": "Full Qwen3 projection shapes, standalone physical microkernels; not trace-level application evidence. Boundary case checks continuous native/cache state.",
+        "rows": [
+          {
+            "M": 1,
+            "N": 1536,
+            "K": 4096,
+            "array": 16,
+            "kind": "cycles",
+            "mode": "equivalence",
+            "makespan_ps": 264350000,
+            "wall_seconds": 17.00962952338159,
+            "audit": {
+              "passed": true,
+              "packets": 3076,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 8192,
+              "physical_link_flits": 0,
+              "tasks": 3,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M1-cycles/result.json.gz",
+            "sha256": "e153b4a60a7cf9e319ae32ec1561e2c658a5c00a8de63419937dc18aaf16e45e"
+          },
+          {
+            "M": 1,
+            "N": 1536,
+            "K": 4096,
+            "array": 16,
+            "kind": "epochs",
+            "mode": "equivalence",
+            "makespan_ps": 264350000,
+            "wall_seconds": 16.721954440698028,
+            "audit": {
+              "passed": true,
+              "packets": 3076,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 8192,
+              "physical_link_flits": 0,
+              "tasks": 3,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M1-epochs/result.json.gz",
+            "sha256": "a60358a516e212c1854528c1c7a897d590576a49f81ca97892419b907628f1cb"
+          }
+        ]
+      }
+    },
+    "idle-boundary-r19/receipt.json": {
+      "path": "/Projects/haoning/w2w-full-system-real-npu-20261011/idle-boundary-r19/receipt.json",
+      "sha256": "5899ece0b196b43bf110cabfb75b44de867b9afcc59c0248ce84ed5d512fef9e",
+      "proof": {
+        "passed": true,
+        "mode": "idle-boundary",
+        "scope": "Full Qwen3 projection shapes, standalone physical microkernels; not trace-level application evidence. Boundary case checks continuous native/cache state.",
+        "rows": [
+          {
+            "M": 1,
+            "N": 1536,
+            "K": 4096,
+            "array": 16,
+            "kind": "ordinary",
+            "mode": "idle-boundary",
+            "makespan_ps": 764355000,
+            "wall_seconds": 25.32883938215673,
+            "audit": {
+              "passed": true,
+              "packets": 3076,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 8192,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M1-ordinary/result.json.gz",
+            "sha256": "e4a6862659c6d42f768c497f5bd16c076f5d121d47593809d6235661d3ca1515"
+          },
+          {
+            "M": 1,
+            "N": 1536,
+            "K": 4096,
+            "array": 16,
+            "kind": "idle-boundary",
+            "mode": "idle-boundary",
+            "makespan_ps": 764355000,
+            "wall_seconds": 16.975094580091536,
+            "audit": {
+              "passed": true,
+              "packets": 3076,
+              "read_descriptors": 1537,
+              "read_words": 196656,
+              "data_bytes": 8192,
+              "physical_link_flits": 0,
+              "tasks": 2,
+              "finite_fetch": {
+                "passed": true,
+                "contexts_per_cluster": 2,
+                "peak_contexts": {
+                  "c0": 1
+                },
+                "metadata_bytes_per_cluster": 136,
+                "issue_and_outstanding_shared": true
+              },
+              "physical_domains": 128,
+              "native_bytes": 6292992,
+              "gateway_bytes": 6292992,
+              "physical_collection_charged": true,
+              "native_and_gateway_reservations_drained": true
+            },
+            "file": "A16-M1-idle-boundary/result.json.gz",
+            "sha256": "98d03ffd7eb2ee68ffd97cf622d00df9dd4eb11395429deb1626ffb47ee908d9"
+          }
+        ]
+      }
+    }
+  },
+  "regression": {
+    "path": "/Projects/haoning/w2w-full-system-real-npu-20261011/regression-r19.log",
+    "sha256": "62e790286193cb7cde6a95a849af618cea2d41f65bb3c44ad5d309f5586211e9",
+    "content": "..........................\n----------------------------------------------------------------------\nRan 26 tests in 35.561s\n\nOK\n"
+  },
+  "limits": [
+    "Directed physical microkernels are qualifications, not completed captured-request G3/G4 results.",
+    "Complete-weight OS is a conservative declared reference, not optimal GEMV/WS mapping or calibrated silicon.",
+    "Only data/shape provenance is real; missing values, vocabulary IDs and arrival times remain modeled."
+  ]
+}

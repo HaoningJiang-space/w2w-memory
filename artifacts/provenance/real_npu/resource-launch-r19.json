@@ -1,0 +1,33 @@
+[
+  {
+    "label": "resources-r19",
+    "pid": 823535,
+    "source_commit": "e4ae2b80c14ff8702a64dc63db71cce32ea3712f",
+    "args": [
+      "/Projects/haoning/w2w/.venv/bin/python",
+      "tools/validate_real_npu_resources.py",
+      "--root",
+      "/Projects/haoning/w2w-full-system-real-npu-20261011/resources-r19",
+      "--corpus",
+      "/Projects/haoning/w2w-full-system-vertical-delivery-20261011/complete-corpus-r1",
+      "--booksim-binary",
+      "/Projects/haoning/w2w-full-system-performance-placement-20261010/native-fast-r1/booksim/endpoint_booksim"
+    ]
+  },
+  {
+    "label": "context-r19",
+    "pid": 823537,
+    "source_commit": "e4ae2b80c14ff8702a64dc63db71cce32ea3712f",
+    "args": [
+      "/Projects/haoning/w2w/.venv/bin/python",
+      "tools/validate_real_npu_resources.py",
+      "--root",
+      "/Projects/haoning/w2w-full-system-real-npu-20261011/context-r19",
+      "--corpus",
+      "/Projects/haoning/w2w-full-system-vertical-delivery-20261011/complete-corpus-r1",
+      "--booksim-binary",
+      "/Projects/haoning/w2w-full-system-performance-placement-20261010/native-fast-r1/booksim/endpoint_booksim",
+      "--context"
+    ]
+  }
+]

@@ -1,0 +1,34 @@
+{
+  "pid": 819405,
+  "source_commit": "ef16dcd",
+  "args": [
+    "/Projects/haoning/w2w/.venv/bin/python",
+    "-m",
+    "tools.run_npu_gates",
+    "--root",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/campaign-r12",
+    "--evidence",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011",
+    "--corpus",
+    "/Projects/haoning/w2w-full-system-vertical-delivery-20261011/complete-corpus-r1",
+    "--config",
+    "/Projects/haoning/w2w-full-system-vertical-delivery-20261011/model-config.json",
+    "--booksim-binary",
+    "/Projects/haoning/w2w-full-system-performance-placement-20261010/native-fast-r1/booksim/endpoint_booksim",
+    "--resource",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/resources-r10/receipt.json",
+    "--context",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/context-r11/receipt.json",
+    "--resource-pid",
+    "816371",
+    "--context-pid",
+    "818166"
+  ],
+  "qualification_pids": [
+    816371,
+    818166
+  ],
+  "regression_log": "/Projects/haoning/w2w-full-system-real-npu-20261011/regression-r12.log",
+  "tests": 25,
+  "no_automatic_retry": true
+}

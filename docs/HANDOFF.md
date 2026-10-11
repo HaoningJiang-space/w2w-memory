@@ -409,7 +409,51 @@ failed directory/log and the complete-corpus frozen image; do not reset worktree
 Complete 94-layer expert weights alone require 211.552 GiB, exceeding 8 GiB;
 reject unsupported full-model execution rather than shrinking/reusing weights.
 
-## Limits
+## Real MoE / executable NPU G1–G5 continuation
+
+See [REAL_MOE_NPU_GATES_REPORT](reports/REAL_MOE_NPU_GATES_REPORT.md) and
+`artifacts/provenance/real_npu/accepted-qualification-r19.json` (historical
+foundation-r11 is retained). User requests
+complete real traces and G1–G5; do not substitute FFN smoke or treat launch as
+acceptance. All 256 captures/94 layers are analyzed; actual expert M/ranks,
+modeled Router visibility, pack/scatter/combine and finite shape-aware OS NPU
+are implemented. Independent 36-shape SCALE-Sim/full-size physical gates,
+FP8/BF16 cold-to-warm boundaries, 32 BF16/GQA shapes and mixed vector/array
+event equivalence pass. Source-r19 passes 26 directed hn072 regressions, actual
+mapped increasing-K numerical checks, final cumulative Native ID/pressure
+reconciliation, and the certified idle/fixed NPU epoch physical equivalence.
+Vector output storage is reserved before execution; ordered K partial additions
+are separately charged. The complete-weight OS and vector service models are
+declared conservative references, not calibrated silicon or optimal dataflows.
+
+Remote root is `/Projects/haoning/w2w-full-system-real-npu-20261011`.
+Corrected campaign source `c820e25` is frozen as `source-r20`; qualified
+execution source is `source-r19@e4ae2b8`. Controller `campaign-r20` PID 823775
+waits for `resources-r19` (PID 823535) and `context-r19` (PID 823537). Each exercises the
+first two real prefill tokens at full H/I in true layers 0/1. They qualify
+resources only, not complete requests. Check receipts/process identity before
+reuse. `resources-r10` failed final observation-ID reconciliation;
+`context-r11` exceeded a directed 5 ms budget; `campaign-r12` failed its
+prerequisite without launching applications. r16 resource/context runs were
+invalidated for K-reduction/vector storage corrections. Keep all evidence;
+none of those is accepted application timing. `study-r8@2c83290` was invalidated before its first completed window:
+legacy vector service had omitted SRAM/partial/conversion work. Preserve its
+invalidation/prior status and all failed launch logs. Original frozen
+`full-request-r2@a708d50` is untouched; it uses the older aggregate model.
+
+`tools/run_npu_gates.py` requires accepted receipts and current readback before
+launching all complete B1/4/16/32 × three-mapping G3 cases. Full original prefill
+plus 128 decode steps run with real distinct layers and continuous physical
+Native/NoC/LRU state; lossless window archives retain complete events. It later
+launches conditional 94-layer G4 only after complete B1 Up-local acceptance.
+G4 explicitly provisions 47 four-reticle V3 stack copies, true GQA/KV, modeled
+missing inputs/arrivals, finite paid links and request lifecycle. No unsupported
+single-stack full-model capacity or real numerical text claim. It has at most
+two active physical/reader workers. G5 refuses final figures without complete
+accepted G3/G4. Keep the goal active until required readbacks and final decision
+finish; pending qualification/background jobs are not completed gates.
+
+## Limits (historical comparisons)
 
 No search/DSE, new fanout/endpoint RTL, partitioning rewrite, thermal/yield
 project or additional hardware is required by the completed comparison.
