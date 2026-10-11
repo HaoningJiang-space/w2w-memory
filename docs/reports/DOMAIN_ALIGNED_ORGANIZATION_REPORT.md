@@ -23,6 +23,29 @@ movement is explicitly charged. Thus moving all three full matrices to local
 compute is not an additional intervention. The missing controlled capability
 is Down **fetch** before H, while Down **compute** still waits for H.
 
+```mermaid
+flowchart TB
+  subgraph memory[Memory wafer: representative two of eight independent domains]
+    D0[Domain 0]
+    D1[Domain 1]
+  end
+  subgraph logic[Logic wafer: proposed charged local service neighborhood]
+    T0[512 PE tile / SRAM / FIFO]
+    T1[512 PE tile / SRAM / FIFO]
+    L[Local activation and output fabric]
+    R[Existing global fabric attachment]
+  end
+  D0 -->|128 data + 8 control signals| T0
+  D1 -->|128 data + 8 control signals| T1
+  T0 <--> L
+  T1 <--> L
+  L <--> R
+```
+
+Local links, routers/CDC and independent associations in this diagram are
+design obligations. The diagram does not create free multicast or an
+executable attachment for the existing sixteen-router compiler.
+
 ## Mathematical partition and exact scale ownership
 
 For a 128-element intermediate block and hidden width 4,096:
@@ -106,6 +129,9 @@ signals per landing, at the declared 1 ns control clock. A 128-bit command
 then serializes in **32 ns**, a 64-bit ACK in **16 ns**, before propagation,
 CDC and queueing. The existing native frontend accepts only the original
 32+32-bit Gateway protocol; it deliberately cannot execute this proposal.
+These are range-descriptor costs, not one command per 16 B data atom. The
+candidate must declare its one-domain descriptor coverage and credit lifetime;
+conserving entry counts does not prove it can sustain the payload bound.
 
 At the existing candidate 4 µm landing grid, equal signal counts occupy
 278,784 → **294,912 µm²** after rectangular packing, a **5.79% increase**.
@@ -125,6 +151,10 @@ The combined native interfaces supply at most 544.681 B/ns versus the current
 by only **6.38%** (about 6% lower ideal payload time). The candidate's cold total
 work bound is 277.30752 µs; its most loaded domain bound is 323.8488 µs. Neither
 is a simulated completion time or an achievable performance target.
+For the same Phase-Split catalog, the current most-loaded Gateway payload bound
+is 344.148 µs: only 20.2992 µs separates these two resource-work bounds. Larger
+gains would require a demonstrated change in feedback, exposed dependence,
+storage work or delivery cost, not merely removal of the output cap.
 
 Activation delivery also changes. Without reuse or multicast-edge accounting,
 eight copies of X and H increase local sink bytes eightfold. A true multicast
@@ -140,6 +170,15 @@ resident matrices. More local caches do not pool capacity. Unequal scales,
 padding, asynchronous access and local replacement can make fragmentation
 worse. The previous Up-local reload reduction consequently does not predict
 a reload reduction for this candidate.
+
+Cache tags are another structural cost. The current cache has 512 entries with
+128-bit metadata per cluster. Dividing that count equally gives only **64 slice
+entries/domain**, limiting a 64 KiB-slice cache to roughly **4 MiB**, even though
+23 MiB of data storage was declared. Giving each tile 512 independent entries
+instead increases tag storage eightfold, from 8 KiB to 64 KiB/neighborhood,
+before extra ports/pin/LRU control. A shared matrix directory with paid slice
+validity and local allocation state is an alternative, but changes ownership
+and replacement semantics. Neither alternative is implemented or assumed free.
 
 A direct path can avoid the **first-use SRAM weight read** for a cache miss,
 provided a finite FIFO feeds the PE and can backpressure DRAM safely. Weights
@@ -168,15 +207,64 @@ cluster are explicitly reserved and drained. All original mathematical start
 dependencies remain in the graph. Cache execution is rejected for this foil.
 
 The six directed tests on hn072 pass, including real native prefetch before H,
-unchanged logical work and bounded outstanding/fetch resources. Complete cold
-results are pending readback and independent analysis. A rerun of the default
-case must equal every frozen Up-local physical record/event, not merely its
-451.676 µs makespan. Negative prefetch performance is valid evidence and will
-not trigger a retry or acceptance failure.
+unchanged logical work and bounded outstanding/fetch resources. Both full cold
+runs and independent readback pass:
+
+| Observed result | Up-local | Up-local + bounded Down prefetch |
+|---|---:|---:|
+| Layer completion | 451.676 µs | 452.303 µs |
+| Native weight bytes | 151,031,808 | Same |
+| NoC data-lane byte·µm | 97,132,108,800 | Same |
+| Down tasks admitted before mathematical readiness | 0 | 28 of 96 |
+| Bytes committed before mathematical readiness | 0 | 4,179,456 |
+| Peak cluster SRAM | 2,891,152 B | 2,891,160 B |
+
+Down prefetch is **0.1388% slower**, and remains an accepted negative result.
+Every task's issued address/byte multiset, actual arithmetic and physical
+domain/Gateway service work is unchanged. Native command ordering may change;
+this intervention does not claim ACT/PRE trace equivalence. The default rerun
+equals the full frozen `02dab2a` Up-local physical record/events, not just its
+makespan. Shared native binary hashes and all raw/input SHA-256 identities are
+in `artifacts/provenance/domain_organization/analysis.json`.
+
+The matched final `e62/b2/down` explains the result more directly than average
+utilization. With prefetch, all its weights commit at 449.544 µs, before its
+mathematical release at 449.674 µs. Its release-to-completion interval drops
+from **21.822 µs to 0.036 µs**. But its mathematical release moves later from
+427.261 µs to 449.674 µs, a **22.413 µs delay**. Its completion therefore moves
+449.083 → 449.710 µs, exactly the **0.627 µs** increase in layer time; the
+remaining output tail is 2.593 µs on both. This is a matched dependency timeline,
+not an additive decomposition of all resource stalls.
+
+The whole-matrix counterexample demonstrates that genuine early Down data can
+coexist with no end-to-end benefit. Gate and Down still share their physical
+service resource. Removing Down's exposed read interval can delay the H that
+Down must consume. It does not prove that every possible prefetch policy fails,
+or that the unexecuted domain architecture will succeed.
 
 This spare-slot policy is a controlled, finite whole-matrix counterexample,
 not a proof of the best possible whole-matrix scheduler. The twelve prior
 fetch-state and completed multi-layer records stay frozen.
+
+Execution source is `8d531a9`; the initial independent reader is `ee2c481`.
+The phase-milestone continuation reads the same captures at `0c8f9e0`; final
+readback at `2f1e4c1` additionally requires every Down ownership lifecycle and
+passes its two directed validator/native tests. Specification-only negatives
+and complete default proposal/catalog identity are rechecked at `53b66a7`.
+These checks do not rerun the full application. Raw records and full catalog stay under
+`/Projects/haoning/w2w-full-system-domain-organization-20261011` on hn072.
+Parallel execution wall times are retained as host observations, not a
+simulator speedup experiment. Reproduce the two frozen cases and reader with:
+
+```sh
+python -m w2w.experiments.run_domain_organization --prepare --output /absolute/new/study
+python -m w2w.experiments.run_domain_organization --case up-local --output /absolute/new/study --booksim-binary "$W2W_BOOKSIM_BINARY"
+python -m w2w.experiments.run_domain_organization --case up-local-down-prefetch --output /absolute/new/study --booksim-binary "$W2W_BOOKSIM_BINARY"
+python -m w2w.analysis.domain_organization_foil --source /absolute/new/study --baseline /absolute/frozen/up-local --output /absolute/new/analysis.json
+```
+
+Use the registered execution revision for preparation/execution and the
+registered native environment; the analysis revision is separate.
 
 ## Decision before a new physical runtime
 

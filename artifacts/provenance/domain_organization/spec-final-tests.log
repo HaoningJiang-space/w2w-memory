@@ -1,0 +1,9 @@
+test_complete_row_reduction_and_shared_scale_identity (test_domain_organization.DomainOrganization) ... ok
+test_current_up_local_already_has_all_projection_weights_local (test_domain_organization.DomainOrganization) ... ok
+test_fp8_original_scales_and_bf16_row_math (test_domain_organization.DomainOrganization) ... ok
+test_resources_and_control_serialization_are_not_free (test_domain_organization.DomainOrganization) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 4.280s
+
+OK

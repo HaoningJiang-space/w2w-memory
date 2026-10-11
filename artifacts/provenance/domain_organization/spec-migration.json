@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "source": "53b66a7",
+  "baseline_source": "8d531a9f374a0cc3dcaaa0fbed49c13f32904539",
+  "proposal_and_full_catalog_equal": true,
+  "catalog_sha256": "ce429a56501c7287e1286fd0ba03c2d6d1ac8ad22a6135de399954935fc7ad4c"
+}

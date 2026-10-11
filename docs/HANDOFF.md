@@ -349,8 +349,21 @@ spare coupled fetch slot. Original compute edges, full SRAM storage, real
 Native/NoC returns, two shared contexts/slots, and refresh/control stay intact;
 8 B/cluster association is paid. The policy is cold-only, not a new cache run.
 Default complete physical records must equal frozen `02dab2a` Up-local, and
-the intervention must preserve native address/byte/resource work. Pending
-independent readback; do not infer 128-tile performance or PPA from its bounds.
+the intervention must preserve native address/byte/resource work. Both full
+cold runs and initial independent readback pass: **451.676 → 452.303 µs**,
+a retained 0.1388% regression. Default equals the complete old Up-local physical
+record; native bytes and NoC byte-distance stay identical. Twenty-eight Down
+tasks start fetch before H, with 4,179,456 B committed early. Final Down's
+release-to-completion interval shrinks 21.822 → 0.036 µs, but H release becomes
+22.413 µs later, leaving layer completion 0.627 µs later. The same-capture
+stage reader at `0c8f9e0` and final lifecycle reader at `2f1e4c1` pass. Its two
+directed tests are rechecked. Four specification tests at `53b66a7` also pass,
+and the complete default proposal/full-catalog digest matches the frozen image;
+no additional full-size native execution.
+Do not infer 128-tile performance or PPA from its bounds. In particular, equal
+tag counts give 64 slice entries/domain, roughly 4 MiB effective capacity;
+512 independent tags/tile would increase metadata eightfold. Resolve shared
+directory/validity semantics before any cache timing claim.
 Raw catalog, captures and worktrees stay outside Git; compact registration,
 proposal and launch/test receipts are in `artifacts/provenance/domain_organization`.
 No automatic retries or performance-based rejection.

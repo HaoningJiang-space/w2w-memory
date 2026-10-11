@@ -1,0 +1,7 @@
+test_prefetch_real_returns_before_H_without_early_math_or_extra_slots (test_down_prefetch.DownNative) ... ok
+test_fetch_plan_preserves_math_and_previous_block_release (test_down_prefetch.DownPlan) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 12.967s
+
+OK

@@ -1,0 +1,102 @@
+{
+  "schema": "w2w.domain-organization-archive.v1",
+  "passed": true,
+  "remote_root": "/Projects/haoning/w2w-full-system-domain-organization-20261011",
+  "worktrees": {
+    "source-r1": {
+      "revision": "8d531a9f374a0cc3dcaaa0fbed49c13f32904539",
+      "clean": true
+    },
+    "final-reader": {
+      "revision": "2f1e4c1556836a536b9753226a649592d73637f9",
+      "clean": true
+    },
+    "spec-final": {
+      "revision": "53b66a7a38b9e48f015e733decb1bf99af30ebdf",
+      "clean": true
+    }
+  },
+  "files": {
+    "launch.json": {
+      "bytes": 1079,
+      "sha256": "375449436863d0375549f419ee17621e490673157aeb66619759a79821dafa58"
+    },
+    "tests-r1.log": {
+      "bytes": 729,
+      "sha256": "c348f8707b1c85513fab7730f8e569c505e55ccd40190cedc12c779ba9cc50b2"
+    },
+    "tests-final.log": {
+      "bytes": 303,
+      "sha256": "676995261ae2e00adada9de79d81755aa55dfcf8d1eda534513c747620c87ab5"
+    },
+    "tests-final-exit.json": {
+      "bytes": 75,
+      "sha256": "7edde98e9ebb9db82593c82ac677e22d0168447cc0393ed0ceeb8cc3ab9e3521"
+    },
+    "spec-final-tests.log": {
+      "bytes": 524,
+      "sha256": "a36fe73ee7807eb24e233ae2bfcb97a83fdce782fc3ac83f2476bd105b29d219"
+    },
+    "spec-final-exit.json": {
+      "bytes": 37,
+      "sha256": "c93952a7279d1aabf1ba06e81b2df2643108c2a30793a688128ae549f2a29a62"
+    },
+    "spec-migration.json": {
+      "bytes": 239,
+      "sha256": "f789325bbef1ac6980ebc86e33fcc205ac346fbf0e1fe513520250183997528e"
+    },
+    "analysis-final.json": {
+      "bytes": 284636,
+      "sha256": "7cb0bef1f46289a4ab17d5ade111156ff0a02992e5cf09f8430c18ba8433dd8c"
+    },
+    "analysis-final-exit.json": {
+      "bytes": 75,
+      "sha256": "0ce78f12e5e25934b76bfa095dfb74b0b79f35d12949e72f33f1bb773a9f1b99"
+    },
+    "cold-r1/registration.json": {
+      "bytes": 793,
+      "sha256": "030da98dce9ce3fb5848f0b24b7f1bf7e198fc51b0d1dedebbb53405202f6251"
+    },
+    "cold-r1/proposal.json": {
+      "bytes": 122565,
+      "sha256": "1af35d4719f91c7cdcc611dea0692c494926e378e57ebcecd06d7da2cefe48a4"
+    },
+    "cold-r1/domain-catalog.json.gz": {
+      "bytes": 751202,
+      "sha256": "9b94840e048fc3aa262d91a21f06f3c6a0560a391bf9fbfbe66a038579e77b9a"
+    },
+    "cold-r1/cases/up-local/completion.json": {
+      "bytes": 1493,
+      "sha256": "12017b8f46ff64221dd9c8a440daa2d7eeff72583791ed909afb2329beb27ab7"
+    },
+    "cold-r1/cases/up-local/result.json.gz": {
+      "bytes": 22018467,
+      "sha256": "49c5383e41b7f4376bebd321d6ca6eaa6aebaa00f61fcd0bccd7a429684e0689"
+    },
+    "cold-r1/inputs/up-local.json.gz": {
+      "bytes": 123341,
+      "sha256": "f74c28328e83c28ca2d927fbec93065c39d7a02ac51fb91278d2ca7c3824e6c7"
+    },
+    "up-local-exit.json": {
+      "bytes": 86,
+      "sha256": "ce1b90b3ce01d0e1eecd389118e729401ee0921df2c63fc9233b6712d57e8ced"
+    },
+    "cold-r1/cases/up-local-down-prefetch/completion.json": {
+      "bytes": 2504,
+      "sha256": "0706138a09156232b388670fba7240aea216f29b788b19e7ea23ba6a08682af4"
+    },
+    "cold-r1/cases/up-local-down-prefetch/result.json.gz": {
+      "bytes": 21847927,
+      "sha256": "67c202ce891799ed4627ac7c6633ad18dc0ac66dfed6a1a06f53addf05c9710d"
+    },
+    "cold-r1/inputs/up-local-down-prefetch.json.gz": {
+      "bytes": 124633,
+      "sha256": "b76aad4962d97a66ca2a3311a2bff9243c9c5e365b05880c7297bc8cb3f67297"
+    },
+    "up-local-down-prefetch-exit.json": {
+      "bytes": 84,
+      "sha256": "adcdb8a91480aec0ce28742e8cf70f22f5a53016873456844712de6792a35ba6"
+    }
+  },
+  "contract": "Raw/native objects remain external. Two full cold runs only, negative result retained; readers and validator rechecks do not rerun the full application. Domain specification refuses runtime compilation."
+}

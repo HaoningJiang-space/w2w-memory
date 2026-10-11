@@ -90,7 +90,9 @@ full-catalog output-row layout retaining original FP8 scales. It is an explicit
 non-executable proposal: equal row partition does not automatically pipeline H,
 and proportional cache subdivision does not automatically reduce reload. Before
 new physical execution, a cold existing-machine foil tests bounded Down fetch
-before H with unchanged mathematical compute dependencies. A matched-resolution
+before H with unchanged mathematical compute dependencies. It passes audit but
+slightly regresses **451.676 → 452.303 µs**: early Down data does not imply early H
+or earlier final output. A matched-resolution
 baseline and finite local fabric/control/cache contracts are required to isolate
 a genuine direct-delivery advantage from simulator aggregation effects.
 
