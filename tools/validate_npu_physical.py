@@ -63,13 +63,17 @@ def run(root,binary,mode):
             if (mode=='compute' and a['native_bytes']) or (mode=='stream' and a['native_bytes']!=N*K+4*N*K//16384):
                 raise ValueError('Initial-residency/Native byte contract changed')
         if mode=='equivalence':
+            with gzip.open(directory/'comparison-raw.json.gz','wt') as f:json.dump(r,f)
             # Names differ only to make immutable case paths distinct.
             text=json.dumps(r,sort_keys=True).replace(kind+'/', 'same/')
             comparable=json.loads(text)
             comparable['events']=[e for e in comparable['events'] if e['kind'] not in ('npu_cycle','npu_epoch')]
             comparable.pop('npu_execution');comparable.pop('input_sha256')
             if reference is None:reference=comparable
-            elif comparable!=reference:raise ValueError('Compact array program changed a physical event/resource/integer-ps result')
+            elif comparable!=reference:
+                write_json(root/'equivalence-differences.json',{k:dict(cycles=reference[k],epochs=comparable[k])
+                    for k in reference if reference[k]!=comparable[k]})
+                raise ValueError('Compact array program changed a physical event/resource/integer-ps result')
         path=directory/'result.json.gz'
         with gzip.open(path,'wt') as f:json.dump(r,f)
         rows.append(dict(M=M,N=N,K=K,array=array,kind=kind,mode=mode,makespan_ps=r['makespan_ps'],
