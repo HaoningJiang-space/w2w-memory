@@ -86,9 +86,10 @@ def acquire_slot(root):
         time.sleep(1)
 
 
-def prepare(root,corpus,config,B,gate_receipts):
+def prepare(root,corpus,config,B,gate_receipts,context_projection_policy='whole_matrix_local'):
     captures=tuple(load_corpus(corpus));cohort=select_cohort(captures,B);p=LLMProfile.from_config(json.loads(config.read_text()))
-    machine=compile_machine(from_recipe('configs/machine/v3-small.json','distributed'));plan=deployment(machine,cohort[0]['shape'],p)
+    machine=compile_machine(from_recipe('configs/machine/v3-small.json','distributed'));plan=deployment(machine,cohort[0]['shape'],p,
+        context_projection_policy=context_projection_policy)
     for receipt in gate_receipts:
         if json.loads(receipt.read_text()).get('passed') is not True:raise ValueError('Full LLM requires accepted NPU/context gates')
     if len(gate_receipts)<6:raise ValueError('Shape/compute/Native/carry/equivalence/context gates required')
@@ -105,7 +106,7 @@ def prepare(root,corpus,config,B,gate_receipts):
         cohort_sha256=file_sha(root/'cohort.json.gz'),model_config_sha256=file_sha(config),deployment_sha256=file_sha(root/'deployment.json'),
         gate_receipts=[dict(path=str(x.resolve()),sha256=file_sha(x)) for x in gate_receipts],schedule=schedule,
         windows=len(schedule),profile=asdict(p),machine_sha256=digest(asdict(machine)),shape=cohort[0]['shape'],
-        npu_profile=asdict(reference_profile()),baseline='up_local',prefill_microbatch=32,max_ps=100000000000000,
+        npu_profile=asdict(reference_profile()),baseline='up_local',context_projection_policy=context_projection_policy,prefill_microbatch=32,max_ps=100000000000000,
         embedding_address_policy='Modeled SHA256(request_id,phase,token_position,decode_step) modulo vocabulary; never presented as captured token IDs.',
         arrivals='Modeled simultaneous admission at zero; prompt lengths use captured prefill row count as a declared assumption.',
         request_completion='Captured prefill plus all 128 decode steps over all 94 real layers, not EOS/text validation.',
@@ -124,13 +125,13 @@ def stage_run(root,stage,binary):
     cohort=tuple(json.load(gzip.open(root/'cohort.json.gz','rt')));p=LLMProfile(**reg['profile'])
     machine=compile_machine(from_recipe('configs/machine/v3-small.json','distributed'));npu=reference_profile();description=plan['stages'][stage]
     catalog=context_catalog(machine,reg['shape'],tuple(description['layers']),reg['baseline'],p,
-        embedding=description['embedding'],head=description['lm_head'])
+        embedding=description['embedding'],head=description['lm_head'],context_projection_policy=reg.get('context_projection_policy','whole_matrix_local'))
     if digest([asdict(o) for o in catalog['objects']])!=description['catalog_sha256']:raise ValueError('Resident full model catalog changed')
     directory=root/'stages'/f's{stage:02d}';directory.mkdir(exist_ok=False);holder={};state={}
     def producer():
         for index,batches in enumerate(paired_batches(cohort,catalog['layers'],reg['prefill_microbatch'])):
             incoming,hash_=await_ticket(root,stage,index);slot=acquire_slot(root)
-            tasks=[];data=[];control=[];kernels={};aux={};calls=[];appends=[];reads=[];groups=[];previous=[];inputs=[]
+            tasks=[];data=[];control=[];kernels={};aux={};calls=[];appends=[];reads=[];groups=[];previous=[];inputs=[];assemblies=[]
             for batch in batches:
                 prefix=f'W{index:04d}/L{batch.layer_id}/'
                 g,k,m=lower_context(batch,machine,catalog,npu,state,prefix=prefix);current=m['context_input'];inputs.append(current)
@@ -140,10 +141,12 @@ def stage_run(root,stage,binary):
                 tasks.extend(g.tasks);data.extend(g.data);control.extend(g.control);kernels.update(k);aux.update(m['auxiliary'])
                 appends.extend(m['kv_appends']);reads.extend(m['kv_reads']);previous=m['finish_tasks']
                 groups.extend(dict(g,layer=batch.layer_id) for g in m['attention_groups'])
+                assemblies.extend(m.get('projection_assemblies',()))
                 call={key:m[key] for key in ('batch_id','layer_id','token_ids','token_to_experts','expert_token_counts','expert_macs','router_macs')}
                 call.update(phase=batch.observations[0].phase,decode_step=batch.observations[0].decode_step);calls.append(call)
             meta=dict(index=index,calls=calls,context_inputs=inputs,finish_tasks=previous,auxiliary=aux,kv_appends=appends,kv_reads=reads,attention_groups=groups,
                 input_ticket_sha256=hash_,release_ps=incoming['committed_ps'])
+            if assemblies:meta['projection_assemblies']=assemblies
             g=ExecutionGraph(tuple(tasks),catalog['objects'],tuple(data),tuple(control))
             g,k,meta=add_boundaries(g,kernels,meta,batches,catalog,machine,npu,cohort,index=index,stage=stage,release_ps=incoming['committed_ps'])
             if 'source' in holder:holder['source'].slot=slot
@@ -238,7 +241,8 @@ if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--root',type=Path,required=True)
     mode=p.add_mutually_exclusive_group(required=True);mode.add_argument('--prepare',action='store_true');mode.add_argument('--stage',type=int);mode.add_argument('--coordinate',action='store_true')
     p.add_argument('--corpus',type=Path);p.add_argument('--config',type=Path);p.add_argument('--B',type=int,default=1)
-    p.add_argument('--gate-receipts',type=Path,nargs='*',default=());p.add_argument('--booksim-binary',type=Path);a=p.parse_args()
-    if a.prepare:prepare(a.root,a.corpus,a.config,a.B,a.gate_receipts)
+    p.add_argument('--gate-receipts',type=Path,nargs='*',default=());p.add_argument('--booksim-binary',type=Path)
+    p.add_argument('--context-projection-policy',choices=('whole_matrix_local','output_sharded'),default='whole_matrix_local');a=p.parse_args()
+    if a.prepare:prepare(a.root,a.corpus,a.config,a.B,a.gate_receipts,a.context_projection_policy)
     elif a.coordinate:coordinate(a.root,a.booksim_binary)
     else:stage_run(a.root,a.stage,a.booksim_binary)

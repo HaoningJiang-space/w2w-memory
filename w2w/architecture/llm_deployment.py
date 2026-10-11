@@ -35,7 +35,8 @@ class LLMProfile:
         return p
 
 
-def context_catalog(machine,shape,layers,baseline,profile,*,embedding=False,head=False):
+def context_catalog(machine,shape,layers,baseline,profile,*,embedding=False,head=False,context_projection_policy='whole_matrix_local'):
+    if context_projection_policy not in ('whole_matrix_local','output_sharded'):raise ValueError('Explicit legal context projection mapping required')
     catalog=full_catalog(machine,shape,layers,baseline);objects=list(catalog['objects']);used=Counter()
     for o in objects:used[o.memory]=max(used[o.memory],o.offset_bytes+o.size_bytes)
     memories={m.id:m for m in machine.memories};tiles={t.router_id:t.id for t in machine.tiles};placements={}
@@ -46,12 +47,22 @@ def context_catalog(machine,shape,layers,baseline,profile,*,embedding=False,head
         if memory is None:raise ValueError('Full independent context/embedding/head catalog exceeds physical per-domain capacity')
         objects.append(ResidentObject(key,memory,used[memory],size,storage_id=key));used[memory]+=size
         placements[key]=tiles[memories[memory].home_tile]
-    for layer in layers:
+    projection_shards={}
+    for local_layer,layer in enumerate(layers):
         root=f'L{layer}/context/'
         for phase,N,K in (('q',profile.query_heads*profile.head_dim,profile.hidden),
                 ('k',profile.kv_heads*profile.head_dim,profile.hidden),('v',profile.kv_heads*profile.head_dim,profile.hidden),
                 ('o',profile.hidden,profile.query_heads*profile.head_dim)):
-            allocate(root+phase,N*K+4*ceil(N/128)*ceil(K/128),'c0')
+            if context_projection_policy=='whole_matrix_local':
+                allocate(root+phase,N*K+4*ceil(N/128)*ceil(K/128),'c0')
+            else:
+                from w2w.mapping.context_projections import output_rows
+                rows=output_rows(phase,N,K,machine,local_layer,profile.kv_heads)
+                for row in rows:
+                    key=root+phase+f'/rows{row["row_begin"]:05d}'
+                    allocate(key,row['N']*K+4*(row['N']//128)*ceil(K/128),row['preferred_cluster'])
+                    row['weight_object']=key
+                projection_shards[root+phase]=rows
         for kind,n in (('input_norm',profile.hidden),('post_norm',profile.hidden),('q_norm',profile.head_dim),('k_norm',profile.head_dim)):
             allocate(root+kind,2*n,'c0')
         allocate(root+'rope_table',profile.kv_tokens_per_request*profile.head_dim*4,'c0')
@@ -63,14 +74,16 @@ def context_catalog(machine,shape,layers,baseline,profile,*,embedding=False,head
             allocate(f'{kind}/{start}',2*N*profile.hidden,f'c{(start//4096)%len(machine.tiles)}')
     if head:allocate('final_norm',2*profile.hidden,'c0')
     catalog.update(objects=tuple(objects),context_placements=placements,llm_profile=asdict(profile),embedding=embedding,head=head)
+    if projection_shards:catalog.update(context_projection_policy=context_projection_policy,context_projection_shards=projection_shards)
     return catalog
 
 
-def deployment(machine,shape,profile,baseline='up_local'):
+def deployment(machine,shape,profile,baseline='up_local',context_projection_policy='whole_matrix_local'):
     stages=[]
     for index,start in enumerate(range(0,profile.layers,2)):
         layers=tuple(str(i) for i in range(start,min(start+2,profile.layers)))
-        catalog=context_catalog(machine,shape,layers,baseline,profile,embedding=index==0,head=start+2>=profile.layers)
+        catalog=context_catalog(machine,shape,layers,baseline,profile,embedding=index==0,head=start+2>=profile.layers,
+            context_projection_policy=context_projection_policy)
         stages.append(dict(stage=index,layers=layers,resident_bytes=sum(o.size_bytes for o in catalog['objects']),
             catalog_sha256=digest([asdict(o) for o in catalog['objects']]),objects=len(catalog['objects']),
             embedding=catalog['embedding'],lm_head=catalog['head']))

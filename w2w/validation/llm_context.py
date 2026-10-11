@@ -37,9 +37,9 @@ def audit_stage_notice(notice,row,stage,input_ticket,input_sha,ack,notice_sha,pr
 
 def audit_llm_stage(summary,root,cohort,catalog,registration):
     p=catalog['llm_profile'];expected=iter(paired_batches(cohort,catalog['layers'],registration['prefill_microbatch']))
-    kv={};windows=0;assignments=0;attention_macs=0;heads=[];resident=digest([asdict(o) for o in catalog['objects']])
+    kv={};windows=0;assignments=0;attention_macs=0;projection_macs=0;heads=[];resident=digest([asdict(o) for o in catalog['objects']])
     def visit(r,row):
-        nonlocal windows,assignments,attention_macs
+        nonlocal windows,assignments,attention_macs,projection_macs
         batches=next(expected,None);m=r['runtime_metadata'];windows+=1
         if batches is None or len(batches)!=len(m['calls']):raise ValueError('Missing/extra true context layer window')
         if digest(r['graph']['objects'])!=resident or digest(r['spec'])!=registration['machine_sha256']:
@@ -58,6 +58,8 @@ def audit_llm_stage(summary,root,cohort,catalog,registration):
                 expert_token_counts={str(e):len(ts) for e,ts in batch.expert_to_tokens})
             if any(call[k]!=v for k,v in wanted.items()):raise ValueError('Real request/token/layer/rank changed')
             proof=audit_moe_call(r,batch,prefix);assignments+=proof['token_expert_assignments']
+            from .context_projections import audit_projection_call
+            projection_macs+=audit_projection_call(r,batch,catalog,prefix)['projection_macs']
             router_done=ends[prefix+'router_done']
             if any(e['time_ps']<router_done for e in r['events'] if e['kind']=='read_issue' and e['task'].startswith(prefix+'e')):
                 raise ValueError('Future captured selection exposed before Router completion')
@@ -102,7 +104,7 @@ def audit_llm_stage(summary,root,cohort,catalog,registration):
     if catalog['head'] and Counter(h['request_id'] for h in heads)!=Counter({c['request_id']:129 for c in cohort}):
         raise ValueError('Full LM head omitted captured token completions')
     if not catalog['head'] and heads:raise ValueError('Nonfinal stage generated tokens')
-    return dict(passed=True,chain=chain,layers=catalog['layers'],assignments=assignments,attention_macs=attention_macs,
+    return dict(passed=True,chain=chain,layers=catalog['layers'],assignments=assignments,attention_macs=attention_macs,projection_macs=projection_macs,
         complete_kv_histories=len(kv),head_completions=len(heads),scope=registration['scope'])
 
 

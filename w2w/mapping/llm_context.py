@@ -16,7 +16,7 @@ from .moe_batch_lowering import lower_batch
 def lower_context(batch,machine,catalog,npu_profile,kv_lengths,*,prefix):
     g,kernels,meta=lower_batch(batch,machine,catalog,npu_profile,prefix=prefix)
     tasks=list(g.tasks);data=list(g.data);control=list(g.control);aux=dict(meta['auxiliary']);append=[];reads=[];attention_groups=[]
-    existing_aux=set(aux)
+    existing_aux=set(aux);projection_assemblies=[]
     objects={o.id:o for o in catalog['objects']};p=catalog['llm_profile'];H=p['hidden'];D=p['head_dim']
     M=batch.token_count;layer=batch.layer_id;root=f'L{layer}/context/';origin=prefix+'context/'
     name=lambda x:origin+x
@@ -41,9 +41,15 @@ def lower_context(batch,machine,catalog,npu_profile,kv_lengths,*,prefix):
         stream=StreamGemm(weight,N*K,objects[weight].size_bytes-N*K,k.macs,16384,32768) if accesses else None
         tasks.append(ComputeTask(key,tile,plan['cycles'],accesses,plan['scratch_bytes'],stream=stream));kernels[key]=k
         edge(kind+'/activation',source,key,k.activation_storage_bytes);return key
+    def project(kind,N,K,source):
+        if not catalog.get('context_projection_shards'):return gemm(kind,N,K,source)
+        from .context_projections import lower_projection
+        tile=next(t.tile for t in tasks if t.id==source)
+        key,assembly=lower_projection(kind,N,K,source,tile,catalog,M,name,scalar,gemm,edge,layer)
+        projection_assemblies.append(assembly);return key
     source=name('input');scalar(source,'c0',2*M*H,4*M*H,M*H,scratch=2*M*H)
     norm0=norm('input_norm',H,source)
-    q=gemm('q',p['query_heads']*D,H,norm0);k=gemm('k',p['kv_heads']*D,H,norm0);v=gemm('v',p['kv_heads']*D,H,norm0)
+    q=project('q',p['query_heads']*D,H,norm0);k=project('k',p['kv_heads']*D,H,norm0);v=project('v',p['kv_heads']*D,H,norm0)
     def convert(kind,N,source,normalize=False):
         from w2w.system.npu_auxiliary import phase
         key=name(kind);tile=next(t.tile for t in tasks if t.id==source);gamma=objects[root+kind.split('/')[0]] if normalize else None
@@ -103,7 +109,7 @@ def lower_context(batch,machine,catalog,npu_profile,kv_lengths,*,prefix):
             edge(base+'/output',pv,out,4*R*D);gathered.append((out,2*R*D))
     concat=name('head_concat');scalar(concat,'c0',2*M*p['query_heads']*D,2*M*p['query_heads']*D,M*p['query_heads']*D)
     for i,(a,size) in enumerate(gathered):edge(f'head_concat/{i}',a,concat,size)
-    o=gemm('o',H,p['query_heads']*D,concat)
+    o=project('o',H,p['query_heads']*D,concat)
     from w2w.system.npu_auxiliary import phase
     residual=name('attention_residual');scalar(residual,'c0',scratch=2*M*H,phases=(
         phase('attention-O-to-BF16',read=4*M*H,write=2*M*H,ops=M*H),
@@ -122,6 +128,7 @@ def lower_context(batch,machine,catalog,npu_profile,kv_lengths,*,prefix):
             token_positions=[r.token_position for r in batch.observations],query_row_order='token-major then query-head within each KV group; mask position uses row//query-heads-per-KV',
             scope='Captured token identity; lengths are declared captured-row-count assumptions, no text/numerical values'),
         npu_kernels={key:asdict(value) for key,value in kernels.items()})
+    if projection_assemblies:meta['projection_assemblies']=projection_assemblies
     from w2w.system.npu_auxiliary import reserve_auxiliary_outputs
     tasks=reserve_auxiliary_outputs(tasks,data,aux,set(aux)-existing_aux)
     return ExecutionGraph(tasks,catalog['objects'],tuple(data),tuple(control)),kernels,meta
