@@ -1,5 +1,5 @@
 """Qualify a stronger legal mapping; never relabel frozen application results."""
-import argparse,json,subprocess,time
+import argparse,json,subprocess,time,sys
 from pathlib import Path
 import numpy as np
 from tools.validate_npu_reference import reference,bf16
@@ -13,6 +13,12 @@ from w2w.provenance import revision
 
 def run(source,prior):
     begin=time.monotonic();p=reference_profile();rows=[]
+    pin=subprocess.check_output(['git','-C',str(source),'rev-parse','HEAD'],text=True).strip()
+    if pin!='f79d7bc39a80a21fc35bc667967b76a15b311f49':raise ValueError('Pinned primary SCALE-Sim source required')
+    sys.path.insert(0,str(source.resolve()))
+    import scalesim.compute.systolic_compute_os as upstream
+    if Path(upstream.__file__).resolve()!=(source/'scalesim/compute/systolic_compute_os.py').resolve():
+        raise ValueError('Loaded reference differs from the recorded source')
     baseline=json.loads(prior.read_text())
     if baseline.get('passed') is not True:raise ValueError('Accepted prior full-shape reference required')
     for row in baseline['kernels']:
@@ -39,7 +45,8 @@ def run(source,prior):
         rows.append(dict(M=M,N=1536,K=4096,default_cycles=old['cycles'],candidate_cycles=plan['cycles'],candidate_array_cycles=count,
             relative_l2_error=error,scratch_bytes=plan['scratch_bytes'],program_sha256=plan['program_sha256'],candidate_plan=plan))
     return dict(passed=True,analysis_source=revision(),prior_reference_sha256=file_sha(prior),default_36_programs_unchanged=True,
-        reference_commit=subprocess.check_output(['git','-C',str(source),'rev-parse','HEAD'],text=True).strip(),cases=rows,wall_seconds=time.monotonic()-begin,
+        reference_commit=pin,loaded_reference_file=str(Path(upstream.__file__).resolve()),loaded_reference_sha256=file_sha(Path(upstream.__file__)),
+        cases=rows,wall_seconds=time.monotonic()-begin,
         scope='Independent full-shape software mapping qualification: output-stationary arrays may partition K over multiple waves, with original scale identity, paid registers and ordered reduction. The frozen G3/G4 default programs are unchanged. These are kernel service cycles, not application speedups, optimal-mapper proof, calibrated SRAM macros or a new hardware result.')
 
 

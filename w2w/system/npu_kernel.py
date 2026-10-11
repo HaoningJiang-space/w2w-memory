@@ -45,7 +45,7 @@ def array_tiles(M,N,K,p,weight_dtype='FP8_E4M3FN',k_partitions=None):
         if type(k_partitions) is not int or k_partitions<1 or k_partitions>1 and M*N>p.macs_per_cycle:
             raise ValueError('Explicit K mapping exceeds paid reduction registers')
         if weight_dtype=='FP8_E4M3FN':
-            if K%k_partitions or K//k_partitions%128:raise ValueError('Explicit K cuts must preserve original FP8 scale groups')
+            if k_partitions>1 and (K%k_partitions or K//k_partitions%128):raise ValueError('Explicit K cuts must preserve original FP8 scale groups')
             cuts=[i*K//k_partitions for i in range(k_partitions+1)]
         else:
             words=ceil(K*2/p.word_bytes)
