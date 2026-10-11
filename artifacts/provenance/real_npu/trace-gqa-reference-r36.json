@@ -1,0 +1,151 @@
+{
+  "passed": true,
+  "source_commit": "abf28d617ede430654cf7bbec0e420b6d65a13ef",
+  "reference_commit": "f79d7bc39a80a21fc35bc667967b76a15b311f49",
+  "loaded_reference_path": "/Projects/haoning/w2w-full-system-real-npu-20261011/scalesim-reference/scalesim/compute/systolic_compute_os.py",
+  "loaded_reference_sha256": "e932ebf1848d5c4a05acd3b8dd68b3a5b2c55f19eeda3c1171506efa1aa9620c",
+  "cohort_sha256": "5427ac971c809630a327a8f2982aaa0701d682e704ac6927ed7bdabfa6b5d7c4",
+  "registration_sha256": "a0cb3d6a50d66c549a55d12ea8932999750b274a1ad33e8376b42cf7e18f275e",
+  "model_config_sha256": "702c46d431bb984db9035a1225186bbfdb52c0d19c82104df4a37cd005e0369e",
+  "request_ids": [
+    "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/59.json"
+  ],
+  "original_request_hashes": {
+    "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/59.json": "500f15d6e4f628f7a7fc86379d51821ecfa14c041adbe142eec1a5dcd06bb0da"
+  },
+  "complete_captured_horizon": true,
+  "kv_final_lengths": {
+    "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/59.json": 174
+  },
+  "wall_seconds": 5.8143321108073,
+  "scope": "Every distinct causal GQA shape from the complete registered captured cohort is compared with pinned array schedules and independent per-head NumPy math. Numerical values remain synthetic: this is not complete Native serving, captured Qwen tensor inference, optimal mapping or calibrated PPA. Frozen application programs are unchanged.",
+  "full_receipt_path": "/Projects/haoning/w2w-full-system-real-npu-20261011/trace-gqa-reference-r36.json",
+  "full_receipt_sha256": "ed17fa73ecdeb383393064da4036dbb372e4bb13fe05f5e95900924360155325",
+  "trace_window_count": 130,
+  "distinct_shape_count": 130,
+  "maximum_absolute_error": 6.103515625e-05,
+  "prefill_cases": [
+    {
+      "query_tokens": 14,
+      "kv_length": 46,
+      "occurrences": 1,
+      "kernels": [
+        {
+          "kind": "qk",
+          "M": 224,
+          "N": 46,
+          "K": 128,
+          "array_cycles": 158,
+          "service_cycles": 288,
+          "modeled_bank_stall_cycles": 128,
+          "modeled_service": {
+            "weight_sram_bytes": 164864,
+            "scale_sram_bytes": 0,
+            "activation_sram_bytes": 57344,
+            "output_sram_bytes": 41216,
+            "vector_ops": 0,
+            "accumulator_register_bytes": 10551296,
+            "activation_delivery_bytes": 172032
+          },
+          "scratch_bytes": 174336,
+          "weight_elements": 82432,
+          "program_sha256": "ebd65214bce22ca91c28ff86f2ee9ed063c74c7eed41de623f4c48b491e47adc"
+        },
+        {
+          "kind": "pv",
+          "M": 224,
+          "N": 128,
+          "K": 46,
+          "array_cycles": 152,
+          "service_cycles": 156,
+          "modeled_bank_stall_cycles": 0,
+          "modeled_service": {
+            "weight_sram_bytes": 172032,
+            "scale_sram_bytes": 0,
+            "activation_sram_bytes": 21504,
+            "output_sram_bytes": 114688,
+            "vector_ops": 0,
+            "accumulator_register_bytes": 10551296,
+            "activation_delivery_bytes": 164864
+          },
+          "scratch_bytes": 247808,
+          "weight_elements": 82432,
+          "program_sha256": "75e40ad2f91ed02451ec70485b26f81bdab2c5d0bf5cf1e8fc378f91812ffb85"
+        }
+      ],
+      "numerical": {
+        "length": 46,
+        "prefill_rows": 14,
+        "query_heads": 64,
+        "kv_heads": 4,
+        "head_dim": 128,
+        "maximum_absolute_error": 3.0517578125e-05,
+        "scope": "Synthetic BF16 inputs, independent per-head vs actual array tiles and increasing-K partial reductions in grouped causal GQA; not captured tensors or full Qwen numerical inference."
+      }
+    },
+    {
+      "query_tokens": 32,
+      "kv_length": 32,
+      "occurrences": 1,
+      "kernels": [
+        {
+          "kind": "qk",
+          "M": 512,
+          "N": 32,
+          "K": 128,
+          "array_cycles": 158,
+          "service_cycles": 544,
+          "modeled_bank_stall_cycles": 384,
+          "modeled_service": {
+            "weight_sram_bytes": 262144,
+            "scale_sram_bytes": 0,
+            "activation_sram_bytes": 131072,
+            "output_sram_bytes": 65536,
+            "vector_ops": 0,
+            "accumulator_register_bytes": 16777216,
+            "activation_delivery_bytes": 262144
+          },
+          "scratch_bytes": 198656,
+          "weight_elements": 131072,
+          "program_sha256": "36bc4dea93d6553173ceafee3437c23881ad468197729c02a854e1f2624b1430"
+        },
+        {
+          "kind": "pv",
+          "M": 512,
+          "N": 128,
+          "K": 32,
+          "array_cycles": 248,
+          "service_cycles": 256,
+          "modeled_bank_stall_cycles": 0,
+          "modeled_service": {
+            "weight_sram_bytes": 262144,
+            "scale_sram_bytes": 0,
+            "activation_sram_bytes": 32768,
+            "output_sram_bytes": 262144,
+            "vector_ops": 0,
+            "accumulator_register_bytes": 16777216,
+            "activation_delivery_bytes": 262144
+          },
+          "scratch_bytes": 395264,
+          "weight_elements": 131072,
+          "program_sha256": "59d522372090148dd58e6eeb5fd4ed1d7d22222c5e9e3395877cfcbe9f76b77b"
+        }
+      ],
+      "numerical": {
+        "length": 32,
+        "prefill_rows": 32,
+        "query_heads": 64,
+        "kv_heads": 4,
+        "head_dim": 128,
+        "maximum_absolute_error": 0.0,
+        "scope": "Synthetic BF16 inputs, independent per-head vs actual array tiles and increasing-K partial reductions in grouped causal GQA; not captured tensors or full Qwen numerical inference."
+      }
+    }
+  ],
+  "decode_rows": 128,
+  "decode_kv_range": [
+    47,
+    174
+  ],
+  "all_130_numerical_and_original_array_fields_match_r35": true
+}

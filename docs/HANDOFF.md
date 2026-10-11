@@ -490,6 +490,18 @@ launch receipt is archived in Git. Current final analysis requires a passed
 serving readback bound to all four source receipts, and cannot treat the old
 controller's G5 completion label as architecture acceptance.
 
+`analysis-r36@abf28d6` additionally passes a complete trace-bound GQA reference,
+`trace-gqa-reference-r36.json`: exact registered B1 cohort/model config,
+32-token prefill plus 14-token tail and all 128 decode KV lengths 47..174.
+All 130 distinct shapes match pinned SCALE-Sim array cores and independent
+per-head synthetic BF16 attention, max absolute error 0.00006103515625.
+Grouped prefill M is 512/224; recorded bank stalls remain declared model costs,
+not calibrated SRAM or actual completed-serving waits. Compact proof is in Git,
+full 130-shape/window tables remain hashed on hn072. No frozen physics or
+default NPU program changes, no numerical captured-Qwen claim and no G4/G5
+completion promotion. Both r35 and r36 references are accepted, with r36 also
+checking full model dimension identity and separating bank service from core.
+
 ## Limits (historical comparisons)
 
 No search/DSE, new fanout/endpoint RTL, partitioning rewrite, thermal/yield

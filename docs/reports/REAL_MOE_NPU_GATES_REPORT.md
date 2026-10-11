@@ -305,6 +305,33 @@ Incomplete status-file writes during a live poll are observations to recheck,
 not terminal failures. Its own final status still distinguishes mapping-screen
 completion from unproven architecture acceptance.
 
+## Complete captured GQA shape horizon
+
+[The trace-bound GQA reference](../../artifacts/provenance/real_npu/trace-gqa-reference-r36.json)
+uses the exact registered B1 cohort/config hashes and the original request
+hash. Its 46 prefill tokens produce a 32-token window and a 14-token tail;
+all 128 decode steps then extend KV from length 47 through 174. All 130 distinct
+query/KV shapes are checked against the explicitly loaded pinned SCALE-Sim
+module and separate per-head NumPy attention. The largest grouped query M is
+512, and the tail M is 224 (16 query heads per KV head). No query token or
+history position is omitted. Synthetic BF16 values have maximum absolute
+error 0.00006103515625; the capture still supplies no numerical tensor values.
+
+| Actual prefill query rows | KV length | Kernel | Array-core cycles | Modeled bank stalls | Total service cycles |
+|---:|---:|---|---:|---:|---:|
+| 32 | 32 | QK | 158 | 384 | 544 |
+| 32 | 32 | AV | 248 | 0 | 256 |
+| 14 | 46 | QK | 158 | 128 | 288 |
+| 14 | 46 | AV | 152 | 0 | 156 |
+
+Array-core comparisons do not calibrate the declared SRAM banks. The separate
+bank/service columns expose the modeled cost of operand delivery; they are not
+measured stalls in a completed 94-layer request. Original smaller numerical
+cases remain valid, but they alone did not exercise the complete 32/14-token
+prefill grouping. The renewed reference changes no frozen application program,
+Native timing, routing or physical resource budget. It qualifies the computation
+interface for the full captured horizon, not G4 serving latency or G5 hardware.
+
 ## Read-only competition diagnosis
 
 `tools/analyze_npu_competition.py` supports explicit array cycles and fixed
