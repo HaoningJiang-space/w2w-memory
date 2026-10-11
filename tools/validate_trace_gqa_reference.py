@@ -20,6 +20,8 @@ def run(source,cohort_path,registration_path,config,output):
     if file_sha(cohort_path)!=registered['sha256'] or [c['request_id'] for c in cohort]!=registered['request_ids']:
         raise ValueError('Original registered captured cohort required')
     p=LLMProfile.from_config(json.loads(config.read_text()))
+    if any(getattr(p,k)!=reg['shape'][k] for k in ('hidden','intermediate','experts','topk','layers')) or any(c['shape']!=reg['shape'] for c in cohort):
+        raise ValueError('GQA model config differs from the registered captured model')
     if (p.query_heads,p.kv_heads,p.head_dim)!=(64,4,128):raise ValueError('Reference implements the declared Qwen GQA dimensions')
     pin=subprocess.check_output(['git','-C',str(source),'rev-parse','HEAD'],text=True).strip()
     if pin!='f79d7bc39a80a21fc35bc667967b76a15b311f49':raise ValueError('Pinned independent primary reference required')
@@ -50,6 +52,7 @@ def run(source,cohort_path,registration_path,config,output):
             if cycles!=plan['array_cycles'] or elements!=sum(t['N']*t['K'] for wave in plan['waves'] for t in wave):
                 raise ValueError('Actual trace GQA array mapping differs from independent primary schedules')
             kernels.append(dict(kind=kind,M=M,N=N,K=K,array_cycles=cycles,service_cycles=plan['cycles'],
+                modeled_bank_stall_cycles=plan['bank_stall_cycles'],modeled_service=plan['service'],
                 scratch_bytes=plan['scratch_bytes'],weight_elements=elements,program_sha256=plan['program_sha256']))
         rows.append(dict(query_tokens=P,kv_length=length,occurrences=count,kernels=kernels,numerical=numerical(length,P)))
     write_json(output,dict(passed=True,source_commit=revision(),reference_commit=pin,loaded_reference_path=str(Path(upstream.__file__).resolve()),
