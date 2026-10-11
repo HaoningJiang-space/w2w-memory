@@ -48,6 +48,13 @@ class Occupancy:
             n += clocks(max(a, begin), min(b, end), period)
         return n
 
+    def blocked_time(self, begin, end):
+        n=0
+        for a,b in self.full[bisect_left(self.ends,begin):]:
+            if a>=end:break
+            n+=max(0,min(b,end)-max(a,begin))
+        return n
+
 
 def competition(result):
     if result.get('compute_epoch') or result.get('interactive_compute'):
@@ -86,7 +93,7 @@ def competition(result):
         period = periods[tile]
         start_ready = max(m['allocate'], m.get('input_ready', 0), m.get('scale_ready', 0), m['dependency_ready'])
         ctx_wait = contexts[tile].blocked_clocks(start_ready, m['start'], period)
-        fetch_wait = fetches[tile].blocked_clocks(m['dependency_ready'], m['allocate'], period) if tasks[key]['reads'] else 0
+        fetch_wait = fetches[tile].blocked_time(m['dependency_ready'], m['allocate']) if tasks[key]['reads'] else 0
         # Count grants to OTHER tasks while this started context is service-ready.
         # ff_n_stages partitions those opportunities exactly; subtract ungranted
         # cluster clocks from them. An idle cluster cannot block a ready context
@@ -106,8 +113,8 @@ def competition(result):
         row.update(start_eligible_ps=start_ready,
             compute_context_full_before_start_ps=ctx_wait * period,
             pre_start_other_or_alignment_ps=row['start_after_required_inputs_ps'] - ctx_wait * period,
-            fetch_full_before_admit_ps=fetch_wait * period,
-            fetch_admission_other_or_alignment_ps=row['dependency_to_allocate_ps'] - fetch_wait * period,
+            fetch_full_before_admit_ps=fetch_wait,
+            fetch_admission_other_or_alignment_ps=row['dependency_to_allocate_ps'] - fetch_wait,
             shared_grant_wait_ps=shared_wait * period,
             cluster_idle_clocks_during_context=idle)
         if min(row['pre_start_other_or_alignment_ps'], row['fetch_admission_other_or_alignment_ps']) < 0:

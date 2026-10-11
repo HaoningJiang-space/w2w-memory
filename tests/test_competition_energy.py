@@ -10,6 +10,7 @@ class CompetitionEnergy(unittest.TestCase):
         self.assertEqual(x.area,5000)
         self.assertEqual(x.blocked_clocks(501,2500,1000),2)
         self.assertEqual(x.blocked_clocks(2500,3000,1000),0)
+        self.assertEqual(x.blocked_time(750,1250),500)
         self.assertEqual(clocks(501,3000,1000),2)
         with self.assertRaises(ValueError):Occupancy([(0,'a',True),(0,'b',True)],1)
         with self.assertRaises(ValueError):Occupancy([(0,'a',True)],1)
