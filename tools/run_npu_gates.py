@@ -52,13 +52,21 @@ def run(root,evidence,corpus,config,binary,resource,context,resource_pid,context
                 from w2w.analysis.service_bounds import service_bounds
                 r=json.load(gzip.open(resource.parent/'result.json.gz','rt'))
                 proof=audit_window_chain(r,resource.parent/'windows',visit=lambda raw,row:service_bounds(raw))
-                write_json(root/'resource-readback.json',dict(passed=True,source_commit=source,proof=proof,receipt_sha256=file_sha(resource)))
+                write_json(root/'resource-readback.json',dict(passed=True,source_commit=source,proof=proof,receipt_sha256=file_sha(resource),
+                    scope='Current independent auditor accepts earlier directed physical graphs. Their declared extra scratch remains charged; this qualification is not a current complete-request result or a claim of identical lowering.'))
                 prepare_moe(g3,corpus,[*base,resource,root/'resource-readback.json'])
                 launch('G3',['-m','tools.run_real_moe_study','--root',str(g3),'--booksim-binary',str(binary)])
             prerequisite=g3/'cases/B1-up_local/analysis.json'
             if context_ready and prerequisite.exists() and all(ready(path) for path in serving_gates) and 'G4' not in jobs and g4_error is None:
                 ready(prerequisite);ready(context)
-                prepare_llm(g4,corpus,config,1,[*base,*serving_gates,resource,context,prerequisite])
+                import gzip
+                from w2w.analysis.runtime_windows import audit_window_chain
+                from w2w.analysis.service_bounds import service_bounds
+                context_result=json.load(gzip.open(context.parent/'result.json.gz','rt'))
+                context_proof=audit_window_chain(context_result,context.parent/'windows',visit=lambda raw,row:service_bounds(raw))
+                write_json(root/'context-readback.json',dict(passed=True,source_commit=source,proof=context_proof,receipt_sha256=file_sha(context),
+                    scope='Current resource/port/ownership reader checks both older directed KV/context windows, including their declared over-reserved scratch. Not full-model acceptance or identical-lowering evidence.'))
+                prepare_llm(g4,corpus,config,1,[*base,*serving_gates,resource,context,root/'context-readback.json',prerequisite])
                 launch('G4',['-m','w2w.experiments.run_full_llm','--root',str(g4),'--coordinate','--booksim-binary',str(binary)])
             status=dict(source_commit=source,state='running',resource_qualification=resource_ready,context_qualification=context_ready,
                 G1='accepted full corpus analysis',G2='accepted shape/core/physical microkernels',
