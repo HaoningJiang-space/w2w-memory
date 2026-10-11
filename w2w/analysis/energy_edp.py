@@ -92,7 +92,9 @@ def evaluate(record, coefficients, *, common_power_w, residual_j):
             raise ValueError('Explicit nonnegative finite power/residual required')
     terms = {k: record['counts'][k] * v * 1e-12 for k, v in coefficients.items()}
     duration = record['makespan_ps'] * 1e-12
-    terms.update(common_physical_power=common_power_w * duration,unmeasured_residual=residual_j)
+    horizon = record.get('drained_ps',record['makespan_ps']) * 1e-12
+    if horizon < duration:raise ValueError('Activity horizon precedes output completion')
+    terms.update(common_physical_power=common_power_w * horizon,unmeasured_residual=residual_j)
     energy = sum(terms.values())
     if energy <= 0:
         raise ValueError('Nonzero energy model required')
@@ -108,17 +110,21 @@ def threshold(reference, candidate):
     tc = candidate['makespan_ps'] * 1e-12
     if min(tr, tc) <= 0:
         raise ValueError('Positive duration required')
+    dr=reference.get('drained_ps',reference['makespan_ps'])*1e-12
+    dc=candidate.get('drained_ps',candidate['makespan_ps'])*1e-12
+    if dr<tr or dc<tc:raise ValueError('Activity horizon precedes output completion')
     return dict(candidate_to_reference_time=tc/tr,
         candidate_energy_ratio_limit=tr/tc,
         activity_ratio={k:candidate['counts'][k]/v if v else None for k,v in reference['counts'].items()},
         edp_difference_coefficient={k:1e-12*(candidate['counts'][k]*tc-reference['counts'][k]*tr)
             for k in reference['counts']},
-        common_power_edp_coefficient=tc*tc-tr*tr,
+        common_power_edp_coefficient=dc*tc-dr*tr,
         residual_inequality='residual_candidate*Tc - residual_reference*Tr < '
-            '-sum(activity_edp_coefficient*energy_pJ_per_unit) - common_power_W*(Tc^2-Tr^2)',
+            '-sum(activity_edp_coefficient*energy_pJ_per_unit) - common_power_W*(Dc*Tc-Dr*Tr)',
         modeled_nonnegative_coefficient_dominance=all(candidate['counts'][k]*tc <= v*tr for k,v in reference['counts'].items()),
         contract='Dominance applies to covered activities and common coefficients only. '
             'It is not a bound on unmeasured residuals or calibrated total energy. '
+            'Common physical power covers the entire drained capture horizon D; EDP latency uses output makespan T. '
             'Preload is excluded on both sides; no dynamic migration or free initial load claim.')
 
 
