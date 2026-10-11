@@ -1,0 +1,20 @@
+{
+  "pid": 832174,
+  "args": [
+    "/Projects/haoning/w2w/.venv/bin/python",
+    "-m",
+    "tools.watch_npu_gate_readback",
+    "--campaign",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/campaign-r27",
+    "--controller-pid",
+    "826834",
+    "--evidence",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011",
+    "--npu-reference",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/npu-reference-r19.json",
+    "--output",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/postrun-readback-r34"
+  ],
+  "source_commit": "d1d43f3fac222dd1649a79749dfc3190bddebb06",
+  "scope": "Read-only observation and future completed-evidence audit; no application restart or mutation"
+}

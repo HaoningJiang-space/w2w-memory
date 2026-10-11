@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "returncode": 0,
+  "args": [
+    "/Projects/haoning/w2w/.venv/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_serving_lifecycle",
+    "tests.test_llm_context"
+  ],
+  "source_commit": "27e8f2e39320dcb296de98a5464d3552222fe1b9",
+  "log_sha256": "3d6de20b4352d90b7cf1652268378858cb6c44f7136ed0f319f382b07e82c003",
+  "content": ".......\n----------------------------------------------------------------------\nRan 7 tests in 22.612s\n\nOK\n",
+  "wall_seconds": 22.711088970303535,
+  "scope": "Directed complete-serving notice/lifecycle and context regressions; fixtures do not establish captured application performance"
+}

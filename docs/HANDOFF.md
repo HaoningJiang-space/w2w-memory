@@ -476,6 +476,20 @@ writer: its eventual terminal label is not acceptance. Re-read completed results
 with the current criteria, preserve the campaign, and keep G5 incomplete while
 required evidence remains missing. Absence of evidence is not a negative proof.
 
+Current full-serving reader binds stage notices to accepted physical windows,
+raw/decoded hashes, effective input release, prior output fence, actual layers,
+complete route work/KV histories and paid autoregressive feedback. hn072
+`analysis-r33@27e8f2e` passes seven directed context/lifecycle regressions;
+`regression-r33.json` records them. No complete serving performance is claimed.
+Separate immutable `analysis-r34@d1d43f3` launched read-only observer PID 832174,
+output `postrun-readback-r34`, watching the exact live campaign controller
+826834. It will run current G4 readback and final G3/G4 figures once all complete
+evidence exists, without mutating/restarting the campaign. Verify its PID,
+`postrun-readback-r34/status.json` and `postrun-readback-launch-r34.log`;
+launch receipt is archived in Git. Current final analysis requires a passed
+serving readback bound to all four source receipts, and cannot treat the old
+controller's G5 completion label as architecture acceptance.
+
 ## Limits (historical comparisons)
 
 No search/DSE, new fanout/endpoint RTL, partitioning rewrite, thermal/yield

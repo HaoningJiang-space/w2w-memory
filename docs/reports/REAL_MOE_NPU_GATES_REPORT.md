@@ -277,6 +277,34 @@ writer. If it eventually prints G5 complete, re-read its results using the curre
 architecture criteria before claiming goal completion. Its terminal label alone
 does not satisfy the structural/cost gate.
 
+## Full-serving completion binding
+
+The current G4 reader also checks the serving chain across physical stages.
+Every notice must match the corresponding accepted raw-window SHA256, decoded
+identity, makespan/drain, captured token IDs, heads and effective input release.
+The effective release includes both the paid input ticket and the previous
+output buffer's transmission fence. Accepted stage proofs must cover their own
+actual layers, the complete cohort assignments, all KV histories and the full
+output horizon. All retained raw-window hashes and prerequisite receipts are
+checked again. Stage-zero prompt releases and later autoregressive releases
+must refer to the actual preceding transfer/feedback; an invented future-token
+ticket is rejected.
+
+[Seven directed context/lifecycle regressions](../../artifacts/provenance/real_npu/regression-r33.json)
+pass on hn072. They reject invalid phases, negative/out-of-horizon decode steps,
+early output release and mismatched notices. This verifies the reader contract,
+not complete 94-layer execution.
+
+A [separate read-only observer](../../artifacts/provenance/real_npu/postrun-readback-launch-r34.json)
+is frozen at `analysis-r34@d1d43f3`, PID 832174, under
+`postrun-readback-r34`. It verifies the specific live campaign controller 826834,
+waits for complete G4 acceptance, runs the current full-serving readback, and
+generates final figures only after all twelve complete G3 cases are accepted.
+It changes no physical job or frozen source and never retries an experiment.
+Incomplete status-file writes during a live poll are observations to recheck,
+not terminal failures. Its own final status still distinguishes mapping-screen
+completion from unproven architecture acceptance.
+
 ## Read-only competition diagnosis
 
 `tools/analyze_npu_competition.py` supports explicit array cycles and fixed
