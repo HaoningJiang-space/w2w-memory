@@ -274,7 +274,9 @@ class SystemExecution:
             if task.reads and not self.fetch_scheduler.can_allocate(task.tile):continue
             size = self.builder.footprint[key]+self._operand_state_bytes(task)
             cache=self.weight_cache if task.stream is not None else None
-            if self.weight_cache and task.reads and cache is None:raise ValueError('Cache primitive requires explicit whole-matrix streaming GEMM')
+            if (self.weight_cache and task.reads and cache is None
+                    and not (self.npu_model is not None and key in self.npu_model.kernels)):
+                raise ValueError('Cache primitive requires explicit whole-matrix streaming GEMM')
             if cache:size-=sum(r.size_bytes for r in task.reads)
             if self.sram[task.tile]+size > self.builder.tiles[task.tile].sram_bytes:
                 continue
