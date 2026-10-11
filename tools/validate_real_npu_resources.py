@@ -25,14 +25,15 @@ from w2w.workloads.moe_trace import file_sha
 from w2w.provenance import revision
 
 
-def run(root,corpus,binary,context):
+def run(root,corpus,binary,context,context_projection_policy='whole_matrix_local'):
     root.mkdir(parents=True,exist_ok=False);capture=next(iter(load_corpus(corpus)))
     machine=compile_machine(from_recipe('configs/machine/v3-small.json','distributed'));p=reference_profile();layers=('0','1')
-    catalog=context_catalog(machine,capture['shape'],layers,'up_local',LLMProfile()) if context else full_catalog(machine,capture['shape'],layers,'up_local')
+    if not context and context_projection_policy!='whole_matrix_local':raise ValueError('Context mapping requires context execution')
+    catalog=context_catalog(machine,capture['shape'],layers,'up_local',LLMProfile(),context_projection_policy=context_projection_policy) if context else full_catalog(machine,capture['shape'],layers,'up_local')
     state={};expected={}
     def producer():
         for index in range(2):
-            tasks=[];data=[];control=[];kernels={};aux={};calls=[];append=[];reads=[];previous=[]
+            tasks=[];data=[];control=[];kernels={};aux={};calls=[];append=[];reads=[];previous=[];assemblies=[]
             for layer in layers:
                 b=group(f'qualification/{index}/L{layer}',(observations(capture,'prefill',layer)[index],))
                 prefix=f'W{index:04d}/L{layer}/';expected[index,layer]=b
@@ -43,8 +44,10 @@ def run(root,corpus,binary,context):
                     control.append(ControlEdge(key,current));data.append(DataEdge(prefix+f'layer_activation/{t}',key,current,8192))
                 tasks.extend(g.tasks);data.extend(g.data);control.extend(g.control);kernels.update(k);aux.update(m['auxiliary']);calls.append(m)
                 append.extend(m.get('kv_appends',()));reads.extend(m.get('kv_reads',()));previous=m['finish_tasks']
+                assemblies.extend(m.get('projection_assemblies',()))
             meta=dict(index=index,calls=calls,npu_kernels={k:asdict(v) for k,v in kernels.items()},auxiliary=aux,
                 kv_appends=append,kv_reads=reads,finish_tasks=previous,heads=[])
+            if assemblies:meta['projection_assemblies']=assemblies
             yield ExecutionGraph(tuple(tasks),catalog['objects'],tuple(data),tuple(control)),kernels,meta
     gen=producer();g,ks,meta=next(gen)
     source=KVRuntimeWindows(root/'windows',gen,meta,catalog,(capture['request_id'],)) if context else RuntimeWindows(root/'windows',gen,meta)
@@ -59,6 +62,8 @@ def run(root,corpus,binary,context):
     def visit(raw,row):
         for layer in layers:math.append(audit_moe_call(raw,expected[row['index'],layer],f'W{row["index"]:04d}/L{layer}/'))
         if context:
+            from w2w.validation.context_projections import audit_projection_call
+            for layer in layers:audit_projection_call(raw,expected[row['index'],layer],catalog,f'W{row["index"]:04d}/L{layer}/')
             app=[e for e in raw['events'] if e['kind']=='kv_append'];reads=[e for e in raw['events'] if e['kind']=='kv_read']
             if len(app)!=8 or len(reads)!=16 or any((e['before'],e['after'])!=(row['index'],row['index']+1) for e in app):
                 raise ValueError('Actual consecutive tokens did not own contiguous KV history')
@@ -68,12 +73,13 @@ def run(root,corpus,binary,context):
                 if read['length']!=row['index']+1 or read['time_ps']<finish[owned['task']]:raise ValueError('Future KV exposure')
     proof=audit_window_chain(r,root/'windows',visit=visit)
     with gzip.open(root/'result.json.gz','wt') as f:json.dump(r,f)
-    write_json(root/'receipt.json',dict(passed=True,source_commit=revision(),context=context,proof=proof,math=math,
+    write_json(root/'receipt.json',dict(passed=True,source_commit=revision(),context=context,context_projection_policy=context_projection_policy,proof=proof,math=math,
         request_id=capture['request_id'],raw_sha256=capture['raw_sha256'],result_sha256=file_sha(root/'result.json.gz'),wall_seconds=time.monotonic()-begin,
         scope='Directed resource qualification of the first two actual prefill tokens, full H/I and two true layers; deliberately incomplete request, not G3/G4 research performance. Complete registrations must execute all captured tokens.'))
 
 
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--root',type=Path,required=True);p.add_argument('--corpus',type=Path,required=True)
-    p.add_argument('--booksim-binary',type=Path,required=True);p.add_argument('--context',action='store_true');a=p.parse_args()
-    run(a.root,a.corpus,a.booksim_binary,a.context)
+    p.add_argument('--booksim-binary',type=Path,required=True);p.add_argument('--context',action='store_true')
+    p.add_argument('--context-projection-policy',choices=('whole_matrix_local','output_sharded'),default='whole_matrix_local');a=p.parse_args()
+    run(a.root,a.corpus,a.booksim_binary,a.context,a.context_projection_policy)
