@@ -62,7 +62,7 @@ def audit_llm_stage(summary,root,cohort,catalog,registration):
                         attention_macs+=shape[0]*shape[1]*shape[2]
                     soft=prefix+f'context/{rid}/group{h}/causal_softmax'
                     phases=r['npu_execution']['auxiliary'][soft]['phases']
-                    if [x['name'] for x in phases]!=['causal-mask-max','shift-exp-sum','normalize-BF16-zero-padding']:
+                    if [x['name'] for x in phases]!=['scale-and-causal-mask','causal-mask-max','shift-exp-sum','normalize-BF16-zero-padding']:
                         raise ValueError('Attention lacks ordered causal softmax/conversion')
                 kv[batch.layer_id,rid]=after
         heads.extend(m['heads'])

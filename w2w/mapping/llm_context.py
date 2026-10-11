@@ -87,6 +87,7 @@ def lower_context(batch,machine,catalog,npu_profile,kv_lengths,*,prefix):
             from w2w.system.npu_auxiliary import phase
             softmax=name(base+'/causal_softmax');padded=R*ceil(length*2/32)*32
             scalar(softmax,tile,scratch=4*R*length,phases=(
+                phase('scale-and-causal-mask',read=4*R*length,write=4*R*length,ops=2*R*length),
                 phase('causal-mask-max',read=4*R*length,ops=R*length,floor=1+ceil(log2(length))),
                 phase('shift-exp-sum',read=4*R*length,write=4*R*length,ops=4*R*length,floor=1+ceil(log2(length))),
                 phase('normalize-BF16-zero-padding',read=4*R*length,write=padded,ops=4*R*length+(padded//2-R*length))))
