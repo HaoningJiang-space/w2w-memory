@@ -111,11 +111,22 @@ def audit_serving(root,registration,plan,metrics,events):
     layers=[x for s in plan['stages'] for x in s['layers']]
     if layers!=[str(x) for x in range(94)] or N!=47:raise ValueError('Full model aliases or omits a true layer')
     if file_sha(root/'deployment.json')!=registration['deployment_sha256']:raise ValueError('Deployment changed')
+    if file_sha(root/'cohort.json.gz')!=registration['cohort_sha256']:raise ValueError('Full serving captured cohort changed')
+    cohort=json.load(gzip.open(root/'cohort.json.gz','rt'))
+    assignments=sum(c['coverage']['prefill_tokens']+c['coverage']['decode_tokens'] for c in cohort)*registration['shape']['topk']
+    for receipt in registration['gate_receipts']:
+        if file_sha(receipt['path'])!=receipt['sha256'] or json.loads(Path(receipt['path']).read_text()).get('passed') is not True:
+            raise ValueError('Accepted serving prerequisite changed')
     notices={};completions=[]
     for stage in range(N):
         path=root/'stages'/f's{stage:02d}'/'completion.json';c=json.loads(path.read_text())
         if c.get('passed') is not True or c['source_commit']!=registration['source_commit'] or c['stage']!=stage:
             raise ValueError('Missing independent physical stage acceptance')
+        if (c['proof']['layers']!=plan['stages'][stage]['layers']
+                or c['proof']['assignments']!=assignments*len(plan['stages'][stage]['layers'])
+                or c['proof']['complete_kv_histories']!=len(cohort)*len(plan['stages'][stage]['layers'])
+                or c['proof']['head_completions']!=(sum(1+x['coverage']['decode_tokens'] for x in cohort) if stage==N-1 else 0)):
+            raise ValueError('Physical stage accepted different layers, route work, KV histories or output horizon')
         if file_sha(path.parent/'result.json.gz')!=c['result_sha256']:raise ValueError('Accepted stage evidence changed')
         summary=json.load(gzip.open(path.parent/'result.json.gz','rt'))
         rows=summary['runtime_windows']['windows']
@@ -183,7 +194,7 @@ def audit_serving(root,registration,plan,metrics,events):
         ack=json.loads((root/'notices'/f'ack-s{s:02d}-w{i:04d}.json').read_text())
         if ack['source_release_ps']!=notices[s,i]['drained_ps']:
             raise ValueError('Unexplained output ownership fence without a transmission')
-    cohort=json.load(gzip.open(root/'cohort.json.gz','rt'));lifecycle=RequestLifecycle(tuple(ServingRequest(c['request_id'],
+    lifecycle=RequestLifecycle(tuple(ServingRequest(c['request_id'],
         c['coverage']['prefill_tokens'],c['coverage']['decode_tokens'],c['raw_sha256']) for c in cohort))
     for e in events:
         if e['kind']=='token_feedback':
