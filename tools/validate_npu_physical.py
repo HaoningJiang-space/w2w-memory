@@ -21,7 +21,7 @@ from w2w.workloads.moe_trace import file_sha
 
 
 def graph(machine,M,N,K,p,tag):
-    cluster=machine.stack.compute_clusters[0];memory=next(m for m in machine.memories if m.home_tile==cluster.id)
+    cluster=machine.stack.compute_clusters[0];memory=next(m for m in machine.memories if m.home_tile==cluster.router_id)
     size=N*K;scales=(N//128)*(K//128)*4
     w=ResidentObject('W',memory.id,0,size+scales)
     key=tag+'/gemm';k=GemmKernel(key,M,N,K,w.id);_,plan=program(M,N,K,k.weight_dtype,p)
