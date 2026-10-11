@@ -78,7 +78,15 @@ class CapturedMoETrace(unittest.TestCase):
             (root/'config.json').write_text(json.dumps(config))
             (root/'source.json').write_text(json.dumps(dict(model='fixture/model',revision='fixture',sha256=file_sha(root/'config.json'))))
             out=root/'out';receipt=import_corpus(root/'manifest.json',root/'config.json',root/'source.json',out)
-            self.assertTrue(verify_corpus(root/'manifest.json',out)['compared_every_raw_selection'])
+            audit=verify_corpus(root/'manifest.json',out)
+            self.assertTrue(audit['compared_every_raw_selection'])
+            (out/'coverage-audit.json').write_text(json.dumps(audit))
+            from w2w.experiments.run_captured_moe import prepare
+            prepare(root/'study',out,0,('0','1'))
+            reg=json.loads((root/'study/registration.json').read_text())
+            self.assertEqual((reg['prefill_tokens'],reg['decode_tokens'],reg['execution_omitted_tokens']),(2,2,0))
+            self.assertEqual(reg['selected_expert_catalog_bytes'],2*2416508928)
+            self.assertEqual(len(reg['cases']),2)
             target=out/receipt['requests'][0]['path'];r=json.load(gzip.open(target,'rt'))
             r['decode']['1']=r['decode']['0']
             with gzip.open(target,'wt') as f:json.dump(r,f)

@@ -49,7 +49,7 @@ def prepare(root,corpus,index,layer_keys):
         _,_,_,data=inputs(capture,case,layer_keys)
         with gzip.open(root/'inputs'/f'{case}.json.gz','wt') as f:json.dump(data,f)
         rows[case]=dict(input_sha256=digest(data),graph_sha256=digest(data['graph']),tasks=len(data['graph']['tasks']))
-        identity=[(t['id'],t['cycles'],t['reads'],t['scratch_bytes'],t['stream']) for t in data['graph']['tasks']]
+        identity=[(t['id'],t['compute_cycles'],t['reads'],t['scratch_bytes'],t['stream']) for t in data['graph']['tasks']]
         common=(data['machine'],data['resources'],data['cache'],data['graph']['objects'],data['graph']['data'],
             data['graph']['control'],identity)
         if previous is not None and previous!=common:raise ValueError('Comparison changed math, addresses, dependencies or resources')
