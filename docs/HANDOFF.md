@@ -409,43 +409,6 @@ failed directory/log and the complete-corpus frozen image; do not reset worktree
 Complete 94-layer expert weights alone require 211.552 GiB, exceeding 8 GiB;
 reject unsupported full-model execution rather than shrinking/reusing weights.
 
-## Cold memory-service causality gate
-
-The [cold causal report](reports/COLD_MEMORY_CAUSALITY_REPORT.md) now completes
-seven full-size Native runs at `565f148`, with independent saved-result reader
-`0e5a8d4`. These execute the published eight-expert cold FFN, authenticated to
-original capture `abstract_algebra/98.json`, layer 0, zero-based decode step 16.
-No smaller shape, missing task or synthetic routing. This is one real token,
-not the pending full-phase captured request described above.
-
-Baseline / MC16 / optimistic native gaps / collection minimum / Gateway output
-relaxed / native round-robin / return-capacity relaxed take **451.676 / 451.852 /
-347.129 / 451.611 / 451.676 / 1533.412 / 451.676 µs**. All independent audits
-pass, same actual requests/domain atoms/Gateway bytes/MACs. Baseline matches the
-entire old `02dab2a` physical record. MC16 increases staging and control credits;
-minimum gaps and collection overrides are diagnostics, not physical hardware.
-Gateway relief retains actual BookSim/RX. No ideal-NoC result is claimed.
-
-Original `e62/b8/gate` has 93.9542% of full-window slot ownership before the last
-atom's native admission, zero payload-to-MC-release slot-time and zero native
-return-reservation stalls. Native-gap relief recovers 104.547 µs of full-FFN
-time, but the fixed Gate context shrinks only 9.482 µs; upstream progression
-dominates its earlier finish. Native-gap relief introduces 405,788 reservation
-stall attempts: future faster service must reconsider return/output resources.
-The fixed-placement busiest Gateway's payload bound is 344.148 µs, stronger
-than the 294.984 µs aggregate bound.
-
-Prioritize calibrated native array/refresh service and separate row/CAS versus
-refresh ablations before adding controller state or endpoint hardware. These
-results do not establish a feasible 256×32 MiB device or eliminate all better
-software/layout baselines. Keep full-request-r2 running independently.
-Raw data/worktrees are immutable in hn072
-`/Projects/haoning/w2w-full-system-memory-causality-20261011/cold-gate-sol-r1`;
-compact raw hashes, registrations, launch/test/readback receipts and figures are
-in `artifacts/provenance/cold_memory_causality` and
-`artifacts/figures/cold_memory_causality`. All seven workers and the finisher
-complete successfully; no application retries or performance rejection.
-
 ## Limits
 
 No search/DSE, new fanout/endpoint RTL, partitioning rewrite, thermal/yield

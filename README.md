@@ -111,18 +111,6 @@ finite cache. Its result is pending. Complete capture coverage does not imply
 94-layer/full-Transformer execution; those expert weights exceed the current
 8 GiB physical DRAM, and router values/attention events are not captured.
 
-The [cold memory-service causal gate](docs/reports/COLD_MEMORY_CAUSALITY_REPORT.md)
-executes seven full-size FFNs bound to an original real captured token. Its
-baseline exactly reproduces the complete old Up-local physical record.
-MC/staging doubling gives **451.852 µs**, Gateway-output and return-capacity
-relaxation both **451.676 µs**, and minimum data-collection propagation
-**451.611 µs**. Optimistic native row/CAS/refresh gaps give **347.129 µs**
-(23.15% reduction); this remains an uncalibrated diagnostic, not new hardware.
-An equal-resource native round-robin foil regresses to **1533.412 µs**.
-Current fixed placement has a **344.148 µs** busiest-Gateway payload bound.
-All seven saved-result audits pass with the same native bytes/addresses and
-arithmetic. These one-token findings do not complete the pending real request.
-
 Builds, tests and execution run in isolated directories on `hn072`; edit source
 locally and synchronize committed revisions through Git. No sibling simulator
 checkout is needed. From the repository root on the execution host:
