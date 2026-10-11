@@ -16,25 +16,31 @@ def output_rows(kind,N,K,machine,local_layer,kv_heads):
 
 
 def lower_projection(kind,N,K,source,source_tile,catalog,M,name,scalar,gemm,edge,layer):
+    from w2w.system.npu_auxiliary import phase
     root=f'L{layer}/context/{kind}';shards=catalog['context_projection_shards'][root]
     inputs=2*M*K;groups=[shards[i:i+4] for i in range(0,len(shards),4)];copies=[]
+    def fanout(key,tile,count):
+        scalar(key,tile,scratch=32*count,phases=(phase('copy-association-init',write=32*count,ops=count),
+            phase('materialized-BF16-fanout',read=inputs+32*count,write=count*inputs,ops=count*(M*K+1))))
     groups_source=source
     if len(groups)>1:
         groups_source=name(kind+'/input/root')
-        scalar(groups_source,source_tile,inputs,len(groups)*inputs,len(groups)*M*K,scratch=32*len(groups))
+        fanout(groups_source,source_tile,len(groups))
         edge(kind+'/input/root_source',source,groups_source,inputs)
         copies.append(dict(task=groups_source,source=source,outputs=len(groups),input_bytes=inputs))
     outputs=[]
     for group_index,group in enumerate(groups):
         key=name(kind+f'/input/group{group_index}');tile=catalog['context_placements'][group[0]['weight_object']]
-        scalar(key,tile,inputs,len(group)*inputs,len(group)*M*K,scratch=32*len(group))
+        fanout(key,tile,len(group))
         edge(kind+f'/input/group{group_index}',groups_source,key,inputs)
         copies.append(dict(task=key,source=groups_source,outputs=len(group),input_bytes=inputs))
         for shard in group:
             tag=kind+f'/rows{shard["row_begin"]:05d}'
             task=gemm(tag,shard['N'],K,key,weight=shard['weight_object'])
             outputs.append(dict(shard,task=task))
-    joined=name(kind);scalar(joined,source_tile,4*M*N,4*M*N,M*N,scratch=32*len(shards))
+    joined=name(kind);scalar(joined,source_tile,scratch=32*len(shards),phases=(
+        phase('row-map-init',write=32*len(shards),ops=len(shards)),
+        phase('FP32-output-channel-gather',read=4*M*N+32*len(shards),write=4*M*N,ops=M*N+len(shards))))
     for output in outputs:
         edge(kind+f'/gather/{output["row_begin"]:05d}',output['task'],joined,4*M*output['N'])
     return joined,dict(task=joined,kind=kind,M=M,N=N,K=K,shards=outputs,input_copies=copies,

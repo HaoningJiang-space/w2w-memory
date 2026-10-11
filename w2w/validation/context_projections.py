@@ -30,13 +30,14 @@ def audit_projection_call(result,batch,catalog,prefix):
                     raise ValueError('Row gather did not transport the full shard')
             if at!=N:raise ValueError('Projection lost output channels')
             gather=aux[key]
-            if (gather['activation_sram_bytes'],gather['output_sram_bytes'],gather['vector_ops'])!=(4*M*N,4*M*N,M*N) or tasks[key]['scratch_bytes']<32*len(pieces):
+            descriptors=32*len(pieces)
+            if (gather['activation_sram_bytes'],gather['output_sram_bytes'],gather['vector_ops'])!=(4*M*N+descriptors,4*M*N+descriptors,M*N+2*len(pieces)) or tasks[key]['scratch_bytes']<descriptors:
                 raise ValueError('FP32 row-strided gather or bounded association state unpaid')
             for copy in assembly['input_copies']:
                 work=aux[copy['task']];src=incoming[copy['task']];dst=outgoing[copy['task']];c=copy['outputs'];size=2*M*K
                 if (not 1<=c<=4 or copy['input_bytes']!=size or len(src)!=1 or src[0]['producer']!=copy['source']
                         or src[0]['size_bytes']!=size or len(dst)!=c or any(e['size_bytes']!=size for e in dst)
-                        or (work['activation_sram_bytes'],work['output_sram_bytes'],work['vector_ops'])!=(size,c*size,c*M*K)
+                        or (work['activation_sram_bytes'],work['output_sram_bytes'],work['vector_ops'])!=(size+32*c,c*size+32*c,c*(M*K+2))
                         or tasks[copy['task']]['scratch_bytes']<32*c):raise ValueError('Input tree copied or broadcast data without storage/service')
         else:pieces=[dict(task=key,weight_object=root,N=N)]
         for part in pieces:
