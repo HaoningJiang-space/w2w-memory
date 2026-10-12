@@ -79,6 +79,12 @@ A host-only admission candidate index may be used equally in these runs only
 after exact decoded Native/NoC/SRAM/cache/array event and carry-state equivalence
 on cold-to-warm finite-context fixtures; it changes no simulated resource.
 
+## Historical evidence and superseded scheduling
+
+The current accepted results and live P3 queue are recorded above. Older
+launch/progress descriptions below preserve the original evidence; their
+pending statuses are historical and do not override the accepted receipts.
+
 Latest user steering overrides the historical broad campaign scheduling below.
 Complete B1 Reference/Phase-Split, the already launched output-sharded legality
 qualification, separate Prefill/Decode event mechanisms and independent audits.
@@ -143,21 +149,22 @@ outside Git. Host-memory projection changes only read-only analysis.
 hn072 root: `/Projects/haoning/w2w-full-system-real-npu-20261011`.
 `scope-freeze-B1-r45.json` records SIGSTOP of future-launch controllers 826834 /
 826982 and broad readback watcher 832174; verify exact PID identity before any
-signal. The existing physical Phase-Split worker 888240 continues unchanged at
+signal. The original physical Phase-Split worker 888240 completed unchanged at
 `source-r27@a69d29e`. Do not resume the broad queue merely because a child ends.
 The older controller status is historical and is not authoritative for this
-new scope. Up-local, batched cases and G4/G5 are held.
+new scope. Original campaign Up-local/batched jobs and G4/G5 stay held; the
+separately authorized P3 placement/policy queue above is running.
 
-Read-only scoped finisher PID 898515 is immutable at `analysis-r51@eaab048`,
-output `B1-g3-finisher-r51`, log `finisher-r51.log`. Its launch receipt is
-`B1-g3-finisher-launch-r51.json`. It waits for the exact Phase-Split worker,
-independently audits all windows, produces phase/per-step signed comparisons,
-separates both-zero / both-read / mixed observed Native classes, and retains
+The completed read-only scoped finisher PID 898515 is immutable at
+`analysis-r51@eaab048`, output `B1-g3-finisher-r51`, log `finisher-r51.log`. Its launch receipt is
+`B1-g3-finisher-launch-r51.json`. It waited for the exact Phase-Split worker,
+independently audited all windows, produced phase/per-step signed comparisons,
+separated both-zero / both-read / mixed observed Native classes, and retained
 negative results. No physical retry or later gate launch. Only its passed final
 receipt accepts scoped B1 G3.1–G3.5; the original twelve-case campaign remains
-separately incomplete. At the latest recorded check, Reference mechanisms,
-shard legality and physical shape readbacks are ready; Phase-Split and paired
-G3.4/G3.5 remain pending. Preserve all old readers and partial outputs; r49/r50
+separately incomplete. Its final accepted receipt is archived as
+`artifacts/provenance/real_npu/B1-g3-complete-r51.json`. Preserve all old readers
+and partial outputs; r49/r50
 finisher supersessions affect only this turn's own read-only processes.
 
 Source55 read-only fabric probe at `analysis-r55@87ccbe6` preserves actual
@@ -175,9 +182,9 @@ the remaining delivery interval is an overlap envelope, not predicted savings.
 `execution-fabric-readback-r55.json` also records a **provisional** first
 Phase-Split Prefill window: 10.899564 ms versus Reference 9.713503 ms,
 signed benefit −1.186061 ms, equal 3,192,644,096 B Native. Same actual routes /
-profile / matrix work and local Native/request/NPU audits pass. This is not
-full-case/carry-chain or paired acceptance. Remaining windows and the exact
-existing finisher continue; preserve this negative observation.
+profile / matrix work and local Native/request/NPU audits pass. This was not
+full-case/carry-chain or paired acceptance at the time of that readback. The
+completed r51 audit now closes both cases; preserve this negative observation.
 
 The report's P2 contract distinguishes coordinate/scale/input readiness from
 byte-prefix readiness, counts extra owners/FIFOs/return associations against
@@ -191,7 +198,8 @@ Latest user steering prioritizes physical PE dimension assignment over coarse
 expert ownership. P2-A proposes four-row K folding for actual M1/N128/K4096
 Gate/Up (retain eight array-level K partitions, form 32 original-scale-aligned
 K128 partials), and four-row N folding for actual M1/N4096/K128 Down. These
-are candidate geometries, not implemented programs or cycle predictions.
+were candidate geometries at that readback. The qualified paid implementations
+and resident physical results are now recorded in the current section above.
 Resident comparisons must include current OS and the strongest qualified legal
 OS K-partition mapping for the actual lowered shape. The prior full-projection
 multi-wave qualification does not automatically qualify these smaller kernels.

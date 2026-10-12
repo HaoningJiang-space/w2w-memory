@@ -200,8 +200,24 @@ receipts and the final ordered receipt pass.
 [The progress snapshot](../../artifacts/provenance/real_npu/ordered-progress-r67.json)
 records two completed windows per running B4 placement, with no complete case
 acceptance yet. The first conditional cold window is 3.179620 ms Reference
-versus 3.692907 ms Phase-Split (**16.14% regression**). This local result is
-retained and does not predict the full episode or later batches. The final
+versus 3.692907 ms Phase-Split (**16.14% regression**). The second window is
+2.708352 versus 2.696432 ms, a signed 11.920 µs improvement. These local results
+are retained and do not predict the full episode or later batches.
+
+[The first-two-window event observation](../../artifacts/provenance/real_npu/B4-first-two-window-observation-r67.json)
+binds the saved files and separates supply, transport and witnessed readiness.
+Both placements read exactly 1,021,561,856 B in window 0 and 717,401,088 B in
+window 1, without reload, and perform identical MAC/array work. In window 0,
+the busiest-Gateway payload bound falls from 2.359872 to 2.064888 ms, while
+NoC data-distance activity grows from 7.373803648e11 to 5.4332549248e12 B·µm
+(7.37×). Witnessed eligibility→admission grows 0.667300 ms and
+admission→operand falls 0.153724 ms; the complete signed witness closes the
+0.513287 ms regression. Window 1 has a smaller Gateway bound and 5.45× NoC
+activity but a small net improvement. Thus distributed supply does not imply
+earlier completion. These are observed resource/witness changes, not exclusive
+causal attribution; the three-window case/carry acceptance remains pending.
+
+The final
 read-only r67 finisher additionally checks actual router visibility before any
 selected-expert admission, cache lookup, Native issue or compute start.
 [Completed selected windows pass that guard](../../artifacts/provenance/real_npu/B4-selected-route-visibility-r67.json);
@@ -368,7 +384,7 @@ completion does not demonstrate streamed compute overlap. The resident shape
 efficiency and captured-window latency answer different questions, and neither
 proves an optimal mapper or new hardware requirement.
 
-### Accepted sharded legality and remaining paired gate
+### Accepted sharded legality and completed B1 finisher
 
 [The completed qualification](../../artifacts/provenance/real_npu/context-output-sharded-complete-r40.json)
 and [independent full-window readback](../../artifacts/provenance/real_npu/context-output-sharded-readback-r46.json)
@@ -387,21 +403,25 @@ it is not used to claim speedup. This gate qualifies legality, not complete
 serving performance.
 
 The [scoped read-only finisher](../../artifacts/provenance/real_npu/B1-g3-finisher-launch-r51.json)
-at `analysis-r51@eaab048` waits for the existing Phase-Split worker to finish,
-independently audits all its physical windows, reconstructs the same event
-mechanisms, and writes signed Prefill/Decode and per-step comparisons. It keeps
+at `analysis-r51@eaab048` waited for the original Phase-Split worker to finish,
+independently audited all its physical windows, reconstructed the same event
+mechanisms, and wrote signed Prefill/Decode and per-step comparisons. It keeps
 both-zero-Native, both-with-Native and mixed observed cache classes separate;
 negative benefits and changed hit/miss behavior are retained. It starts no
 physical jobs and has no automatic retry or G4/G5 promotion. Its authoritative
-remote output is `B1-g3-finisher-r51`; only its passed final receipt can close
-the current B1 G3.1–G3.5 scope. The original twelve-case campaign remains
+remote output is `B1-g3-finisher-r51`; its passed final receipt above now closes
+the B1 G3.1–G3.5 scope. The original twelve-case campaign remains
 separately incomplete. The latest P0–P3 continuation below supersedes the
 earlier direct jump to Batched B4/16/32 after B1.
 [The recorded progress snapshot](../../artifacts/provenance/real_npu/progress-r51.json)
-binds the current accepted readbacks, held controller identities and the
-specific live worker/finisher. It is a snapshot, not final Phase-Split acceptance.
+binds the readbacks and worker/finisher identities at that historical checkpoint.
+Its then-pending status is superseded by the final B1 receipt above.
 
 ## Execution-fabric hypothesis and continuation order
+
+This section preserves the motivation and registered order before P0 completion.
+The accepted P1/P2 results above implement the scoped row/streaming components;
+they do not establish a complete elastic fabric or a whole-workload benefit.
 
 The next research question is how delivered weights are consumed and how
 physical compute resources are assigned under actual expert M and residency.
@@ -411,9 +431,9 @@ Little's Law requires the stated averaging/stability conditions. These finite
 Prefill observations alone do not certify steady state or a recoverable
 throughput gain from more contexts.
 
-The proposed elastic compute–memory execution fabric remains a hypothesis,
-not an implemented architecture or accepted speedup. Current physical execution
-is unchanged, and no additional Native experiments are inserted before P0.
+The proposed combined elastic compute–memory execution fabric remains a
+hypothesis. The original B1 execution is unchanged; isolated P2 Native
+comparisons were launched only after P0/P1 acceptance.
 
 | Priority | Work | Acceptance boundary |
 |---|---|---|
@@ -602,9 +622,9 @@ ports, conversion, vector work and dependencies and is not a feasible prediction
 This distinction prevents either bound from becoming an assumed architecture
 speedup.
 
-### Provisional Phase-Split progress
+### Historical provisional Phase-Split progress
 
-The first 32-token Prefill window is now saved and passes its local
+At the r55 readback, the first 32-token Prefill window was saved and passed its local
 Native/request/NPU audits. The readback verifies the same ranked routes,
 machine/profile, array work and registered catalog. Reference is **9.713503 ms**;
 Phase-Split is **10.899564 ms**, a signed benefit of **−1.186061 ms**.
@@ -613,10 +633,10 @@ not complete Prefill/Decode or final independently accepted paired performance.
 The earlier first-window snapshot remains authoritative for that local result.
 [The later progress snapshot](../../artifacts/provenance/real_npu/progress-r57.json)
 records **21/130** saved windows: both Prefill windows and Decode steps 0–18.
-The second Prefill and these Decode archives have not yet received the final
-independent paired/carry-chain readback. Whole-case completion and the scoped
-finisher receipt remain absent; do not extrapolate the first-window degradation
-to complete Prefill or Decode. Physical source and scheduling freeze are unchanged.
+At that r57 snapshot, the second Prefill and Decode archives had not yet received
+the independent paired/carry-chain readback. The completed r51 finisher now
+accepts all 130 windows per placement. Retain the first-window regression
+alongside the aggregate Prefill and Decode improvements reported above.
 
 ## Frozen workload and completed foundation
 
@@ -836,8 +856,9 @@ They do not establish identical lowering or new application performance.
 - G1: full-corpus identity/grouping/demand checks accepted.
 - G2: shape/core, full-size physical microkernels and carry/equivalence accepted;
   banking/ports/dataflow remain explicit uncalibrated assumptions.
-- G3: B1 Reference and sharded legality accepted; Phase-Split and paired
-  acceptance pending. Other registered cases are deferred by the current scope.
+- G3: complete B1 Reference/Phase-Split, sharded legality and paired physical /
+  carry-chain audits accepted. The new conditional B4/16/32 P3 study remains
+  pending; original broad-campaign cases stay deferred.
 - G4: implemented and independently shape/numerically qualified; awaiting
   full 94-layer serving acceptance. Current work defers this broader gate.
 - G5: evidence-bound analysis implemented; final decision awaits completed runs.
