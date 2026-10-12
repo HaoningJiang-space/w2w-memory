@@ -1,0 +1,660 @@
+{
+  "passed": true,
+  "analysis_source": "e464f2b5865eaa246f0d54d15d431f5972117980",
+  "mechanism_sha256": "89995d592a0d98e5ec365a92095f6d0d6b784f23fc40eea38c09b768c2816d73",
+  "matrix_macs_per_step": [
+    303038464
+  ],
+  "array_cycles_per_step": [
+    335760
+  ],
+  "matrix_access_hit_fraction": 0.9053579152249135,
+  "reload_native_fraction": 0.8200514138817481,
+  "maximum_cluster_shared_service_range_ps": [
+    22238000,
+    47343000
+  ],
+  "steps": [
+    {
+      "step": 0,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 36827000
+    },
+    {
+      "step": 1,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 36825000
+    },
+    {
+      "step": 2,
+      "native_bytes": 23074304,
+      "peak_cluster_shared_service_ps": 31589000
+    },
+    {
+      "step": 3,
+      "native_bytes": 94394880,
+      "peak_cluster_shared_service_ps": 22274000
+    },
+    {
+      "step": 4,
+      "native_bytes": 18878976,
+      "peak_cluster_shared_service_ps": 22238000
+    },
+    {
+      "step": 5,
+      "native_bytes": 18878976,
+      "peak_cluster_shared_service_ps": 31567000
+    },
+    {
+      "step": 6,
+      "native_bytes": 75515904,
+      "peak_cluster_shared_service_ps": 26331000
+    },
+    {
+      "step": 7,
+      "native_bytes": 37757952,
+      "peak_cluster_shared_service_ps": 31568000
+    },
+    {
+      "step": 8,
+      "native_bytes": 56636928,
+      "peak_cluster_shared_service_ps": 26328000
+    },
+    {
+      "step": 9,
+      "native_bytes": 4195328,
+      "peak_cluster_shared_service_ps": 36827000
+    },
+    {
+      "step": 10,
+      "native_bytes": 75515904,
+      "peak_cluster_shared_service_ps": 26318000
+    },
+    {
+      "step": 11,
+      "native_bytes": 18878976,
+      "peak_cluster_shared_service_ps": 27509000
+    },
+    {
+      "step": 12,
+      "native_bytes": 4719744,
+      "peak_cluster_shared_service_ps": 32804000
+    },
+    {
+      "step": 13,
+      "native_bytes": 37757952,
+      "peak_cluster_shared_service_ps": 26328000
+    },
+    {
+      "step": 14,
+      "native_bytes": 3146496,
+      "peak_cluster_shared_service_ps": 26318000
+    },
+    {
+      "step": 15,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 32780000
+    },
+    {
+      "step": 16,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 36827000
+    },
+    {
+      "step": 17,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 22274000
+    },
+    {
+      "step": 18,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 27509000
+    },
+    {
+      "step": 19,
+      "native_bytes": 37757952,
+      "peak_cluster_shared_service_ps": 31565000
+    },
+    {
+      "step": 20,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 26328000
+    },
+    {
+      "step": 21,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 26318000
+    },
+    {
+      "step": 22,
+      "native_bytes": 18878976,
+      "peak_cluster_shared_service_ps": 32780000
+    },
+    {
+      "step": 23,
+      "native_bytes": 18878976,
+      "peak_cluster_shared_service_ps": 26318000
+    },
+    {
+      "step": 24,
+      "native_bytes": 94394880,
+      "peak_cluster_shared_service_ps": 42096000
+    },
+    {
+      "step": 25,
+      "native_bytes": 115371520,
+      "peak_cluster_shared_service_ps": 32768000
+    },
+    {
+      "step": 26,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 27497000
+    },
+    {
+      "step": 27,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 27533000
+    },
+    {
+      "step": 28,
+      "native_bytes": 37757952,
+      "peak_cluster_shared_service_ps": 26309000
+    },
+    {
+      "step": 29,
+      "native_bytes": 18878976,
+      "peak_cluster_shared_service_ps": 26308000
+    },
+    {
+      "step": 30,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 36837000
+    },
+    {
+      "step": 31,
+      "native_bytes": 37757952,
+      "peak_cluster_shared_service_ps": 31568000
+    },
+    {
+      "step": 32,
+      "native_bytes": 5768576,
+      "peak_cluster_shared_service_ps": 32756000
+    },
+    {
+      "step": 33,
+      "native_bytes": 18878976,
+      "peak_cluster_shared_service_ps": 26307000
+    },
+    {
+      "step": 34,
+      "native_bytes": 18878976,
+      "peak_cluster_shared_service_ps": 26328000
+    },
+    {
+      "step": 35,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 26308000
+    },
+    {
+      "step": 36,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 32780000
+    },
+    {
+      "step": 37,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 26318000
+    },
+    {
+      "step": 38,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 42096000
+    },
+    {
+      "step": 39,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 32768000
+    },
+    {
+      "step": 40,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 27497000
+    },
+    {
+      "step": 41,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 26307000
+    },
+    {
+      "step": 42,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 31567000
+    },
+    {
+      "step": 43,
+      "native_bytes": 18878976,
+      "peak_cluster_shared_service_ps": 26308000
+    },
+    {
+      "step": 44,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 42085000
+    },
+    {
+      "step": 45,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 31568000
+    },
+    {
+      "step": 46,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 32756000
+    },
+    {
+      "step": 47,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 27533000
+    },
+    {
+      "step": 48,
+      "native_bytes": 94394880,
+      "peak_cluster_shared_service_ps": 31569000
+    },
+    {
+      "step": 49,
+      "native_bytes": 37757952,
+      "peak_cluster_shared_service_ps": 31567000
+    },
+    {
+      "step": 50,
+      "native_bytes": 21501056,
+      "peak_cluster_shared_service_ps": 31578000
+    },
+    {
+      "step": 51,
+      "native_bytes": 37757952,
+      "peak_cluster_shared_service_ps": 26319000
+    },
+    {
+      "step": 52,
+      "native_bytes": 18878976,
+      "peak_cluster_shared_service_ps": 36825000
+    },
+    {
+      "step": 53,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 22274000
+    },
+    {
+      "step": 54,
+      "native_bytes": 18878976,
+      "peak_cluster_shared_service_ps": 26318000
+    },
+    {
+      "step": 55,
+      "native_bytes": 94394880,
+      "peak_cluster_shared_service_ps": 36825000
+    },
+    {
+      "step": 56,
+      "native_bytes": 37757952,
+      "peak_cluster_shared_service_ps": 26319000
+    },
+    {
+      "step": 57,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 42096000
+    },
+    {
+      "step": 58,
+      "native_bytes": 18878976,
+      "peak_cluster_shared_service_ps": 27509000
+    },
+    {
+      "step": 59,
+      "native_bytes": 37757952,
+      "peak_cluster_shared_service_ps": 26319000
+    },
+    {
+      "step": 60,
+      "native_bytes": 84955392,
+      "peak_cluster_shared_service_ps": 36850000
+    },
+    {
+      "step": 61,
+      "native_bytes": 56636928,
+      "peak_cluster_shared_service_ps": 31578000
+    },
+    {
+      "step": 62,
+      "native_bytes": 94394880,
+      "peak_cluster_shared_service_ps": 32780000
+    },
+    {
+      "step": 63,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 36836000
+    },
+    {
+      "step": 64,
+      "native_bytes": 37757952,
+      "peak_cluster_shared_service_ps": 32756000
+    },
+    {
+      "step": 65,
+      "native_bytes": 94394880,
+      "peak_cluster_shared_service_ps": 26329000
+    },
+    {
+      "step": 66,
+      "native_bytes": 113273856,
+      "peak_cluster_shared_service_ps": 26329000
+    },
+    {
+      "step": 67,
+      "native_bytes": 75515904,
+      "peak_cluster_shared_service_ps": 42084000
+    },
+    {
+      "step": 68,
+      "native_bytes": 18878976,
+      "peak_cluster_shared_service_ps": 31578000
+    },
+    {
+      "step": 69,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 32780000
+    },
+    {
+      "step": 70,
+      "native_bytes": 37757952,
+      "peak_cluster_shared_service_ps": 31578000
+    },
+    {
+      "step": 71,
+      "native_bytes": 18878976,
+      "peak_cluster_shared_service_ps": 31577000
+    },
+    {
+      "step": 72,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 31577000
+    },
+    {
+      "step": 73,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 26329000
+    },
+    {
+      "step": 74,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 36836000
+    },
+    {
+      "step": 75,
+      "native_bytes": 18878976,
+      "peak_cluster_shared_service_ps": 32756000
+    },
+    {
+      "step": 76,
+      "native_bytes": 37757952,
+      "peak_cluster_shared_service_ps": 26307000
+    },
+    {
+      "step": 77,
+      "native_bytes": 94394880,
+      "peak_cluster_shared_service_ps": 31567000
+    },
+    {
+      "step": 78,
+      "native_bytes": 113273856,
+      "peak_cluster_shared_service_ps": 26329000
+    },
+    {
+      "step": 79,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 47343000
+    },
+    {
+      "step": 80,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 31577000
+    },
+    {
+      "step": 81,
+      "native_bytes": 113273856,
+      "peak_cluster_shared_service_ps": 27521000
+    },
+    {
+      "step": 82,
+      "native_bytes": 75515904,
+      "peak_cluster_shared_service_ps": 47343000
+    },
+    {
+      "step": 83,
+      "native_bytes": 37757952,
+      "peak_cluster_shared_service_ps": 26328000
+    },
+    {
+      "step": 84,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 32756000
+    },
+    {
+      "step": 85,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 26307000
+    },
+    {
+      "step": 86,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 31577000
+    },
+    {
+      "step": 87,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 47343000
+    },
+    {
+      "step": 88,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 36836000
+    },
+    {
+      "step": 89,
+      "native_bytes": 113273856,
+      "peak_cluster_shared_service_ps": 26317000
+    },
+    {
+      "step": 90,
+      "native_bytes": 35660288,
+      "peak_cluster_shared_service_ps": 31567000
+    },
+    {
+      "step": 91,
+      "native_bytes": 18878976,
+      "peak_cluster_shared_service_ps": 26318000
+    },
+    {
+      "step": 92,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 32768000
+    },
+    {
+      "step": 93,
+      "native_bytes": 117469184,
+      "peak_cluster_shared_service_ps": 36826000
+    },
+    {
+      "step": 94,
+      "native_bytes": 75515904,
+      "peak_cluster_shared_service_ps": 38051000
+    },
+    {
+      "step": 95,
+      "native_bytes": 75515904,
+      "peak_cluster_shared_service_ps": 31565000
+    },
+    {
+      "step": 96,
+      "native_bytes": 75515904,
+      "peak_cluster_shared_service_ps": 27509000
+    },
+    {
+      "step": 97,
+      "native_bytes": 56636928,
+      "peak_cluster_shared_service_ps": 31567000
+    },
+    {
+      "step": 98,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 27509000
+    },
+    {
+      "step": 99,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 26307000
+    },
+    {
+      "step": 100,
+      "native_bytes": 56636928,
+      "peak_cluster_shared_service_ps": 31567000
+    },
+    {
+      "step": 101,
+      "native_bytes": 46673024,
+      "peak_cluster_shared_service_ps": 36825000
+    },
+    {
+      "step": 102,
+      "native_bytes": 18878976,
+      "peak_cluster_shared_service_ps": 31577000
+    },
+    {
+      "step": 103,
+      "native_bytes": 75515904,
+      "peak_cluster_shared_service_ps": 26319000
+    },
+    {
+      "step": 104,
+      "native_bytes": 18878976,
+      "peak_cluster_shared_service_ps": 36849000
+    },
+    {
+      "step": 105,
+      "native_bytes": 94394880,
+      "peak_cluster_shared_service_ps": 26309000
+    },
+    {
+      "step": 106,
+      "native_bytes": 18878976,
+      "peak_cluster_shared_service_ps": 26319000
+    },
+    {
+      "step": 107,
+      "native_bytes": 75515904,
+      "peak_cluster_shared_service_ps": 31578000
+    },
+    {
+      "step": 108,
+      "native_bytes": 37757952,
+      "peak_cluster_shared_service_ps": 27497000
+    },
+    {
+      "step": 109,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 26307000
+    },
+    {
+      "step": 110,
+      "native_bytes": 37757952,
+      "peak_cluster_shared_service_ps": 31577000
+    },
+    {
+      "step": 111,
+      "native_bytes": 18878976,
+      "peak_cluster_shared_service_ps": 42084000
+    },
+    {
+      "step": 112,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 31578000
+    },
+    {
+      "step": 113,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 32780000
+    },
+    {
+      "step": 114,
+      "native_bytes": 18878976,
+      "peak_cluster_shared_service_ps": 36837000
+    },
+    {
+      "step": 115,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 32756000
+    },
+    {
+      "step": 116,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 26307000
+    },
+    {
+      "step": 117,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 32792000
+    },
+    {
+      "step": 118,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 26329000
+    },
+    {
+      "step": 119,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 42084000
+    },
+    {
+      "step": 120,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 31578000
+    },
+    {
+      "step": 121,
+      "native_bytes": 37757952,
+      "peak_cluster_shared_service_ps": 27521000
+    },
+    {
+      "step": 122,
+      "native_bytes": 18878976,
+      "peak_cluster_shared_service_ps": 47343000
+    },
+    {
+      "step": 123,
+      "native_bytes": 18878976,
+      "peak_cluster_shared_service_ps": 31578000
+    },
+    {
+      "step": 124,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 31567000
+    },
+    {
+      "step": 125,
+      "native_bytes": 37757952,
+      "peak_cluster_shared_service_ps": 31576000
+    },
+    {
+      "step": 126,
+      "native_bytes": 0,
+      "peak_cluster_shared_service_ps": 32756000
+    },
+    {
+      "step": 127,
+      "native_bytes": 18878976,
+      "peak_cluster_shared_service_ps": 31567000
+    }
+  ],
+  "scope": "Arithmetic total is fixed across all B1 decode steps, while busiest-cluster array/vector service can vary with selected expert identity and placement. Aggregate fixed work is not a controlled per-cluster schedule or isolated cache intervention."
+}

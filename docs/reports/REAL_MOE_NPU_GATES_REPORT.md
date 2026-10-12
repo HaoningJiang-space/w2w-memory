@@ -85,6 +85,36 @@ The full compute-context intersection is 1.491168 ms inside Decode's
 operand-ready→start interval. These intersections are subsets of the chain
 intervals, not additional stalls to add to completion.
 
+The [selected Prefill supply readback](../../artifacts/provenance/real_npu/prefill-fetch-readback-r52.json)
+now inspects the two longest admission spans in each original Prefill window.
+All four span 3.372–4.522 ms, with both fetch slots owned throughout.
+Their corresponding eight-entry MC pool is full for **99.371–99.377%** of
+the span. Gateway payload service is **76.77–76.83%** of its declared byte
+budget, and the Gateway has nonzero output for **80.89–81.06%** of the span.
+The 1-µs bins have explicit boundary-bin bounds; partial bins are never assumed
+to serve at a uniform rate. Descriptor lifetimes retain their physical pool
+identity and conserve slot area. [Three remote reader tests](../../artifacts/provenance/real_npu/regression-r53.json)
+check same-timestamp release/acquisition, wrong-interface rejection and the
+partial-bin bounds.
+
+This strengthens the downstream-pressure diagnosis for these selected spans:
+the MC pool is already carrying descriptors for almost the entire fetch-full
+interval. It does not identify which Native/control/return stage accounts for
+the residual Gateway bandwidth, prove idle usable Native domains, or establish
+what another fetch slot would change. No Native replay or controller change
+is performed. The original Phase-Split worker and read-only finisher continue.
+
+The code also has an explicit conservative admission policy: a task with
+matrix reads checks finite fetch capacity **before** its cache lookup.
+Consequently a cache-hit task can wait behind occupied fetch slots; its own
+slot releases after the paid lookup, without a Native read. A miss holds the
+coupled slot through final destination read delivery/cache fill, rather than
+only through descriptor issue or the raw DRAM callback. The array reference
+then requires complete weight and activation operands before acquisition.
+These are current executable-model choices, not failed resource conservation.
+Treating the two slots as exclusively miss-only hardware would misdescribe this
+baseline. This analysis does not modify the frozen policy.
+
 ![Actual Decode event mechanisms](figures/real_npu/B1-reference-mechanism-r51.png)
 
 The slowest Decode step is original step 25: **811.879 µs**, 115,371,520 B
@@ -97,6 +127,17 @@ interval cannot be labeled DRAM latency. Step 2 pays 23,074,304 B Native reads
 and finishes in 232.325 µs; its late cold Up projections have observed Native
 supply-ready boundaries. The earlier complete raw step-0/step-2 resource
 audits remain available below.
+
+[The fixed-work Decode readback](../../artifacts/provenance/real_npu/B1-decode-fixed-work-r52.json)
+confirms all 128 steps have **303,038,464 matrix MACs and 335,760 array-service
+cycles**, while completion ranges from 39.393 to 811.879 µs (20.6×).
+Matrix access hit rate is 90.536%, and reload accounts for 82.005% of Native
+bytes. Equal aggregate arithmetic does not imply equal cluster load: the
+busiest cluster's observed shared array/vector service ranges from **22.238
+to 47.343 µs** with the selected expert identities. Cache residency, physical
+supply, activation routes and cluster contention therefore remain jointly
+relevant; this is not an isolated cache intervention or a claim that all latency
+variation is caused by misses.
 
 The mechanism reader checks the complete original archive byte SHA against
 its accepted full physical audit, then projects only task/operand/service

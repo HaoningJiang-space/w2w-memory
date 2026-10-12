@@ -1,0 +1,113 @@
+{
+  "passed": true,
+  "analysis_source": "e464f2b5865eaa246f0d54d15d431f5972117980",
+  "sources": {
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/B1-reference-mechanism-r51/mechanism.json": "89995d592a0d98e5ec365a92095f6d0d6b784f23fc40eea38c09b768c2816d73",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/campaign-r27/real-moe/cases/B1-reference/windows/window-0000.json.gz": "2f3a1e31f0935be993a7ccba2d5ae11f197c424e3f14c0d4129a057d65b2eca8",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/B1-reference-mechanism-r51/window-0000.json.gz": "fcab8ced6e6f7a0d8ac2485d5615d87525a723b5922de3c2294baf18878d3bd4",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/campaign-r27/real-moe/cases/B1-reference/windows/window-0001.json.gz": "d1b112befc47cfbc7e70fef7ef15926d883bbfd80903afd9002c34176e3ba8ec",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/B1-reference-mechanism-r51/window-0001.json.gz": "d56f5fb4de63a083385a9a682c79ff78268533d8497b3839dac0192bb514ec26"
+  },
+  "windows": [
+    {
+      "index": 0,
+      "targets": [
+        {
+          "task": "W0000/L0/e99/b9/up",
+          "tile": "c8",
+          "eligible_ps": 49533000,
+          "admitted_ps": 4571180000,
+          "admission_ps": 4521647000,
+          "fetch_full_ps": 4521647000,
+          "pool": "pool2_0",
+          "gateway": "g2_0",
+          "mc_pool_full_ps": 4493481000,
+          "mc_pool_capacity": 8,
+          "gateway_service": {
+            "payload_bytes_lower": 111075120,
+            "payload_bytes_upper": 111125680,
+            "busy_fraction_lower": 0.8096231306866724,
+            "busy_fraction_upper": 0.8099869361761323,
+            "payload_capacity_fraction_lower": 0.7676622036173987,
+            "payload_capacity_fraction_upper": 0.7680116338139621,
+            "bin_ps": 1000000,
+            "scope": "Whole contained bins plus conservative boundary-bin bounds; no uniform-rate interpolation or inference of unused Native-domain opportunity."
+          }
+        },
+        {
+          "task": "W0000/L1/e95/b0/up",
+          "tile": "c15",
+          "eligible_ps": 4911818000,
+          "admitted_ps": 9427015000,
+          "admission_ps": 4515197000,
+          "fetch_full_ps": 4515197000,
+          "pool": "pool3_3",
+          "gateway": "g3_3",
+          "mc_pool_full_ps": 4486934000,
+          "mc_pool_capacity": 8,
+          "gateway_service": {
+            "payload_bytes_lower": 110940224,
+            "payload_bytes_upper": 110984320,
+            "busy_fraction_lower": 0.8088745629481947,
+            "busy_fraction_upper": 0.8092067743666556,
+            "payload_capacity_fraction_lower": 0.767825191237503,
+            "payload_capacity_fraction_upper": 0.7681303827939291,
+            "bin_ps": 1000000,
+            "scope": "Whole contained bins plus conservative boundary-bin bounds; no uniform-rate interpolation or inference of unused Native-domain opportunity."
+          }
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "targets": [
+        {
+          "task": "W0001/L1/e78/b6/up",
+          "tile": "c5",
+          "eligible_ps": 13424890000,
+          "admitted_ps": 17000032000,
+          "admission_ps": 3575142000,
+          "fetch_full_ps": 3575142000,
+          "pool": "pool0_3",
+          "gateway": "g0_3",
+          "mc_pool_full_ps": 3552861000,
+          "mc_pool_capacity": 8,
+          "gateway_service": {
+            "payload_bytes_lower": 87849472,
+            "payload_bytes_upper": 87890464,
+            "busy_fraction_lower": 0.8102581659693517,
+            "busy_fraction_upper": 0.8106461225875783,
+            "payload_capacity_fraction_lower": 0.7678844644492443,
+            "payload_capacity_fraction_upper": 0.768242771895494,
+            "bin_ps": 1000000,
+            "scope": "Whole contained bins plus conservative boundary-bin bounds; no uniform-rate interpolation or inference of unused Native-domain opportunity."
+          }
+        },
+        {
+          "task": "W0001/L0/e93/b6/up",
+          "tile": "c15",
+          "eligible_ps": 9758813000,
+          "admitted_ps": 13131038000,
+          "admission_ps": 3372225000,
+          "fetch_full_ps": 3372225000,
+          "pool": "pool3_3",
+          "gateway": "g3_3",
+          "mc_pool_full_ps": 3351026000,
+          "mc_pool_capacity": 8,
+          "gateway_service": {
+            "payload_bytes_lower": 82857440,
+            "payload_bytes_upper": 82881776,
+            "busy_fraction_lower": 0.8100930394620762,
+            "busy_fraction_upper": 0.8103424297014582,
+            "payload_capacity_fraction_lower": 0.7678298452801934,
+            "payload_capacity_fraction_upper": 0.7680553640400626,
+            "bin_ps": 1000000,
+            "scope": "Whole contained bins plus conservative boundary-bin bounds; no uniform-rate interpolation or inference of unused Native-domain opportunity."
+          }
+        }
+      ]
+    }
+  ],
+  "wall_seconds": 6.671299192123115,
+  "scope": "Read-only selected long admission spans from two original complete Prefill archives, bound to prior full physical audits. MC wall-time occupancy uses positive descriptor half-open lifetimes; original micro-order and full Native-domain/control audits remain authoritative. Gateway service has explicit 1-us boundary-bin bounds. This is not whole-phase causal attribution, a new physical audit, proof of available bandwidth or an intervention/speedup claim."
+}

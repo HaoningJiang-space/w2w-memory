@@ -31,6 +31,24 @@ Zero-Native step 0 contains actual packed-X readiness and context contention;
 its operand interval is not DRAM latency. These are observed intersections,
 not additive stalls, exclusive causes or counterfactual controller benefits.
 
+Source52 read-only inspection now checks the four longest Prefill admission
+spans (two per original window): their eight-entry MC pools are full for
+99.371–99.377% of the span; Gateway payload service is 76.77–76.83% of the byte
+budget, with explicit 1-µs boundary-bin bounds. This is selected downstream
+pressure evidence, not idle Native-domain opportunity or a new intervention.
+All 128 Decode steps have 303,038,464 matrix MACs / 335,760 array cycles, but
+the busiest cluster's shared array/vector work ranges 22.238–47.343 µs.
+Do not treat equal aggregate work as fixed per-cluster contention or attribute
+all latency variation solely to misses. Receipts `prefill-fetch-readback-r52.json`
+and `B1-decode-fixed-work-r52.json` retain the observed quantities; source53
+passes three half-open ownership/bin-bound reader tests. No physical replay.
+
+Current fetch contexts are finite matrix-admission contexts: the capacity
+check precedes cache lookup, hits release after lookup, and misses hold a slot
+through complete destination read delivery. Complete-operand OS is another
+declared baseline choice. These can limit performance without implying a
+resource-conservation bug; keep frozen behavior until the paired gate closes.
+
 The source40 output-sharded Native qualification and source46 independent
 full-window readback both pass: first two actual Prefill tokens, true layers
 0/1, 2,452 tasks, 711,179,264 B Native, 891,387,904 MACs, **2.688093 ms**.

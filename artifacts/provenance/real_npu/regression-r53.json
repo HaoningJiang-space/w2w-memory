@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "source_commit": "b23ba5ac9a2ca530ab566abc1e09a5df489468c6",
+  "args": [
+    "/Projects/haoning/w2w/.venv/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_prefill_fetch_readback"
+  ],
+  "log_sha256": "33060fd73862c5e1af97335504d5b45211fce6d229657f556d8deceeadc52ce4",
+  "content": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.000s\n\nOK\n"
+}
