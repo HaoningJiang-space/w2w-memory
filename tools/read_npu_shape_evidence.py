@@ -12,6 +12,25 @@ from w2w.provenance import revision
 from w2w.common.io import write_json
 
 
+def plot_rows(rows,path):
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    fig,axes=plt.subplots(1,3,figsize=(12,3.7),constrained_layout=True)
+    for a in (16,32):
+        for kind in ('gate','down'):
+            selected=[r for r in rows if r['array_size']==a and r['kind']==kind and r['mode']=='compute']
+            cold_rows=[r for r in rows if r['array_size']==a and r['kind']==kind and r['mode']=='stream']
+            label=f'{a}×{a}, {kind}';x=[r['M'] for r in selected]
+            axes[0].plot(x,[r['observed_array_cycles'] for r in selected],marker='o',label=label)
+            axes[1].plot(x,[100*r['array_service_efficiency'] for r in selected],marker='o')
+            axes[2].plot(x,[r['physical_completion_ps']/1e6 for r in cold_rows],marker='o')
+    axes[0].set(xlabel='Actual M',ylabel='Observed array service cycles',title='Resident full-shape physical kernels');axes[0].legend(fontsize=7)
+    axes[1].set(xlabel='Actual M',ylabel='Useful MAC / reserved peak (%)',title='Execution-model efficiency')
+    axes[2].set(xlabel='Actual M',ylabel='Cold physical completion (µs)',title='Cold Native + OS execution')
+    fig.savefig(path,dpi=180);plt.close(fig)
+
+
 def run(resident,cold,reference,output):
     begin=time.monotonic();prior=json.loads(reference.read_text())
     if prior.get('passed') is not True:raise ValueError('Accepted independent shape reference required')
@@ -51,22 +70,7 @@ def run(resident,cold,reference,output):
                 actual_service=plan['service'],paid_task_scratch_bytes=task['scratch_bytes'],sram_peak_bytes=raw['sram_peak_bytes'],
                 native_bytes=native,program_sha256=plan['program_sha256'],physical_result_sha256=row['sha256'],
                 event_mode='epochs' if epochs else 'cycles',proof=proof))
-    import matplotlib
-    matplotlib.use('Agg')
-    import matplotlib.pyplot as plt
-    fig,axes=plt.subplots(1,3,figsize=(12,3.7),constrained_layout=True)
-    for a in (16,32):
-        for kind in ('gate','down'):
-            selected=[r for r in rows if r['array_size']==a and r['kind']==kind and r['mode']=='compute']
-            cold_rows=[r for r in rows if r['array_size']==a and r['kind']==kind and r['mode']=='stream']
-            label=f'{a}×{a}, {kind}';x=[r['M'] for r in selected]
-            axes[0].plot(x,[r['observed_array_cycles'] for r in selected],marker='o',label=label)
-            axes[1].plot(x,[100*r['array_service_efficiency'] for r in selected],marker='o')
-            axes[2].plot(x,[r['physical_completion_ps']/1e6 for r in cold_rows],marker='o')
-    axes[0].set(xlabel='Actual M',ylabel='Observed array service cycles',title='Resident full-shape physical kernels');axes[0].legend(fontsize=7)
-    axes[1].set(xlabel='Actual M',ylabel='Useful MAC / reserved peak (%)',title='Execution-model efficiency')
-    axes[2].set(xlabel='Actual M',ylabel='Cold physical completion (µs)',title='Cold Native + OS execution')
-    fig.savefig(output/'physical-shapes.png',dpi=180);plt.close(fig)
+    plot_rows(rows,output/'physical-shapes.png')
     value=dict(passed=True,analysis_source=revision(),sources=sources,cases=rows,physical_cases=72,
         array_organizations=[dict(rows=a,columns=a,arrays=16384//(a*a),macs_per_cycle=16384,sram_bytes_per_cluster=192*1024**2,cache_bytes_per_cluster=184*1024**2) for a in (16,32)],
         reference_commit=prior['reference_commit'],figure_sha256=file_sha(output/'physical-shapes.png'),wall_seconds=time.monotonic()-begin,
