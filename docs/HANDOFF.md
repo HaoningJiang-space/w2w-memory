@@ -531,7 +531,7 @@ finite copy trees and descriptor phase order. `projection-preflight-r40.json`
 also passes eight actual B1 views per policy and nine pinned array-core shapes;
 default graph/kernel/metadata/catalog hashes match `abf28d6` exactly.
 Candidate intrinsic SRAM headroom is at least 5,627,048 B. One separate Native
-qualification is launched at source-r40, PID 889899, under
+qualification is launched at `analysis-r40@5f38270`, PID 889899, under
 `context-output-sharded-r40`; verify PID, receipt and retained log before
 acceptance. Launch is not an application result or a full-serving comparison.
 
@@ -542,6 +542,10 @@ even when every displayed tail projection is cached. Step 2 finds
 `L0/e1/b11/down`: 17.843 µs issue span with 17.729 µs full-MC intersection.
 It does not turn those overlapping observations into removable stalls.
 Both r41 and corrected r42 receipts remain in `artifacts/provenance/real_npu`.
+`progress-r43.json` binds the latest read-only process/status snapshot: B1
+Reference is accepted, Phase-Split and the optional Native qualification are
+running, and the r34 final readback observer remains alive. Recheck live state;
+the snapshot is not acceptance of any pending case.
 
 ## Limits (historical comparisons)
 
