@@ -197,6 +197,21 @@ These are conditional episodes, not original post-Prefill state, all 128 Decode
 steps, or complete serving. P3 remains pending until all 15 independent case
 receipts and the final ordered receipt pass.
 
+[The registered trace-demand readback](../../artifacts/provenance/real_npu/P3-registered-demand-r67.json)
+checks the original cohort hashes, 8B assignments per layer call and the 36
+projection-block kernels per expert group against compiler preflight. Across
+the six calls (three steps × two layers), actual group occupancy is:
+
+| Real B | Expert groups | Mean M | P50 / P99 / max M | Groups with M≤4 / M≤8 |
+|---|---:|---:|---:|---:|
+| 4 | 169 | 1.136 | 1 / 3 / 3 | 100% / 100% |
+| 16 | 349 | 2.201 | 2 / 9 / 13 | 95.70% / 98.85% |
+| 32 | 437 | 3.515 | 3 / 17 / 27 | 72.77% / 94.74% |
+
+These are demand statistics for this registered horizon, not full-corpus
+averages or physical P3 acceptance. They include the larger-M cases where
+adaptive row mapping falls back to the strongest OS.
+
 [The progress snapshot](../../artifacts/provenance/real_npu/ordered-progress-r67.json)
 records two completed windows per running B4 placement, with no complete case
 acceptance yet. The first conditional cold window is 3.179620 ms Reference

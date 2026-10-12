@@ -1,0 +1,361 @@
+{
+  "passed": true,
+  "analysis_source": "1418af589bf7168b30c9e613f4f74cc5c5a6ac78",
+  "registration_sha256": "83a62b927b2d95a33830a77460a65f4deebdf4d30d895af77a588663b575082e",
+  "preflight_sha256": "622450e3240cb526f48f97ded32b2f6b9dd675d3ecadd260dbc1a04747a55972",
+  "rows": [
+    {
+      "B": 4,
+      "cohort_sha256": "fb8c52169bac24777e25ee0ef4a7f8cd0c24f44d2eb552ffb29e9eed1c973aaf",
+      "active_expert_groups": 169,
+      "token_expert_assignments": 192,
+      "M": {
+        "count": 169,
+        "minimum": 1,
+        "mean": 1.136094674556213,
+        "p50": 1,
+        "p90": 2,
+        "p99": 3,
+        "maximum": 3
+      },
+      "M_le_4_fraction": 1.0,
+      "M_le_8_fraction": 1.0,
+      "histogram": {
+        "1": 148,
+        "2": 19,
+        "3": 2
+      },
+      "calls": [
+        {
+          "step": 0,
+          "layer": "0",
+          "distinct_experts": 30,
+          "assignments": 32,
+          "histogram": {
+            "1": 28,
+            "2": 2
+          }
+        },
+        {
+          "step": 0,
+          "layer": "1",
+          "distinct_experts": 24,
+          "assignments": 32,
+          "histogram": {
+            "2": 4,
+            "1": 18,
+            "3": 2
+          }
+        },
+        {
+          "step": 1,
+          "layer": "0",
+          "distinct_experts": 26,
+          "assignments": 32,
+          "histogram": {
+            "1": 20,
+            "2": 6
+          }
+        },
+        {
+          "step": 1,
+          "layer": "1",
+          "distinct_experts": 26,
+          "assignments": 32,
+          "histogram": {
+            "1": 20,
+            "2": 6
+          }
+        },
+        {
+          "step": 2,
+          "layer": "0",
+          "distinct_experts": 31,
+          "assignments": 32,
+          "histogram": {
+            "1": 30,
+            "2": 1
+          }
+        },
+        {
+          "step": 2,
+          "layer": "1",
+          "distinct_experts": 32,
+          "assignments": 32,
+          "histogram": {
+            "1": 32
+          }
+        }
+      ]
+    },
+    {
+      "B": 16,
+      "cohort_sha256": "08f6b9abdfac51ea72c22da171c80f9228e191b842f8dfefcfc01d665bd780d9",
+      "active_expert_groups": 349,
+      "token_expert_assignments": 768,
+      "M": {
+        "count": 349,
+        "minimum": 1,
+        "mean": 2.200573065902579,
+        "p50": 2,
+        "p90": 4,
+        "p99": 9,
+        "maximum": 13
+      },
+      "M_le_4_fraction": 0.9570200573065902,
+      "M_le_8_fraction": 0.9885386819484241,
+      "histogram": {
+        "1": 146,
+        "2": 82,
+        "3": 71,
+        "4": 35,
+        "5": 7,
+        "6": 3,
+        "8": 1,
+        "9": 1,
+        "10": 1,
+        "12": 1,
+        "13": 1
+      },
+      "calls": [
+        {
+          "step": 0,
+          "layer": "0",
+          "distinct_experts": 60,
+          "assignments": 128,
+          "histogram": {
+            "2": 7,
+            "1": 30,
+            "3": 13,
+            "4": 7,
+            "6": 2,
+            "5": 1
+          }
+        },
+        {
+          "step": 0,
+          "layer": "1",
+          "distinct_experts": 42,
+          "assignments": 128,
+          "histogram": {
+            "2": 14,
+            "4": 3,
+            "10": 1,
+            "3": 3,
+            "5": 3,
+            "1": 14,
+            "9": 1,
+            "6": 1,
+            "12": 1,
+            "13": 1
+          }
+        },
+        {
+          "step": 1,
+          "layer": "0",
+          "distinct_experts": 64,
+          "assignments": 128,
+          "histogram": {
+            "1": 25,
+            "2": 20,
+            "4": 4,
+            "3": 14,
+            "5": 1
+          }
+        },
+        {
+          "step": 1,
+          "layer": "1",
+          "distinct_experts": 59,
+          "assignments": 128,
+          "histogram": {
+            "2": 15,
+            "1": 23,
+            "3": 14,
+            "4": 5,
+            "8": 1,
+            "5": 1
+          }
+        },
+        {
+          "step": 2,
+          "layer": "0",
+          "distinct_experts": 60,
+          "assignments": 128,
+          "histogram": {
+            "1": 25,
+            "2": 12,
+            "4": 8,
+            "3": 14,
+            "5": 1
+          }
+        },
+        {
+          "step": 2,
+          "layer": "1",
+          "distinct_experts": 64,
+          "assignments": 128,
+          "histogram": {
+            "1": 29,
+            "4": 8,
+            "3": 13,
+            "2": 14
+          }
+        }
+      ]
+    },
+    {
+      "B": 32,
+      "cohort_sha256": "e1561869275f05b9992673482e8503cbe8cd530d1c652fa0d5bdccd52bf2425c",
+      "active_expert_groups": 437,
+      "token_expert_assignments": 1536,
+      "M": {
+        "count": 437,
+        "minimum": 1,
+        "mean": 3.51487414187643,
+        "p50": 3,
+        "p90": 7,
+        "p99": 17,
+        "maximum": 27
+      },
+      "M_le_4_fraction": 0.7276887871853547,
+      "M_le_8_fraction": 0.9473684210526315,
+      "histogram": {
+        "1": 138,
+        "2": 66,
+        "3": 61,
+        "4": 53,
+        "5": 34,
+        "6": 34,
+        "7": 19,
+        "8": 9,
+        "9": 4,
+        "10": 7,
+        "11": 4,
+        "12": 3,
+        "17": 2,
+        "20": 1,
+        "25": 1,
+        "27": 1
+      },
+      "calls": [
+        {
+          "step": 0,
+          "layer": "0",
+          "distinct_experts": 64,
+          "assignments": 256,
+          "histogram": {
+            "3": 9,
+            "1": 21,
+            "6": 5,
+            "8": 5,
+            "2": 6,
+            "4": 5,
+            "7": 6,
+            "12": 2,
+            "5": 2,
+            "11": 1,
+            "9": 1,
+            "10": 1
+          }
+        },
+        {
+          "step": 0,
+          "layer": "1",
+          "distinct_experts": 50,
+          "assignments": 256,
+          "histogram": {
+            "3": 6,
+            "7": 4,
+            "10": 1,
+            "4": 4,
+            "20": 1,
+            "6": 3,
+            "1": 14,
+            "2": 9,
+            "8": 1,
+            "9": 1,
+            "5": 1,
+            "17": 1,
+            "11": 1,
+            "25": 1,
+            "27": 1,
+            "12": 1
+          }
+        },
+        {
+          "step": 1,
+          "layer": "0",
+          "distinct_experts": 82,
+          "assignments": 256,
+          "histogram": {
+            "1": 26,
+            "2": 11,
+            "3": 16,
+            "4": 10,
+            "6": 4,
+            "10": 2,
+            "5": 9,
+            "9": 1,
+            "7": 2,
+            "8": 1
+          }
+        },
+        {
+          "step": 1,
+          "layer": "1",
+          "distinct_experts": 77,
+          "assignments": 256,
+          "histogram": {
+            "4": 12,
+            "1": 25,
+            "2": 13,
+            "6": 6,
+            "10": 2,
+            "5": 7,
+            "3": 8,
+            "7": 2,
+            "17": 1,
+            "11": 1
+          }
+        },
+        {
+          "step": 2,
+          "layer": "0",
+          "distinct_experts": 81,
+          "assignments": 256,
+          "histogram": {
+            "1": 23,
+            "4": 11,
+            "5": 9,
+            "2": 17,
+            "7": 4,
+            "6": 7,
+            "3": 8,
+            "8": 2
+          }
+        },
+        {
+          "step": 2,
+          "layer": "1",
+          "distinct_experts": 83,
+          "assignments": 256,
+          "histogram": {
+            "1": 29,
+            "4": 11,
+            "2": 10,
+            "5": 6,
+            "6": 9,
+            "3": 14,
+            "9": 1,
+            "11": 1,
+            "10": 1,
+            "7": 1
+          }
+        }
+      ]
+    }
+  ],
+  "physical_execution_accepted": false,
+  "scope": "Trace-demand readback only: every token in registered Decode steps 0/1/2 and true layers 0/1. Exact ranked-route grouping at original cohort SHA; 8B assignments per call and 36 projection-block kernels per group match compiler preflight. No claim that the P3 physical cases are complete."
+}
