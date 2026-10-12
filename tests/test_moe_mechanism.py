@@ -1,6 +1,6 @@
 """Completion-witness and paired-case negatives; no hardware performance fixtures."""
 import copy,unittest
-from w2w.analysis.moe_mechanism import completion_chain,compare_cases,INTERVALS
+from w2w.analysis.moe_mechanism import completion_chain,compare_cases,INTERVALS,read_mechanism_input,EVENTS
 
 
 def chain_fixture():
@@ -14,6 +14,23 @@ def chain_fixture():
 
 
 class MechanismReader(unittest.TestCase):
+    def test_task_projection_preserves_full_decoded_order_and_rejects_changed_source(self):
+        import gzip,json,tempfile
+        from pathlib import Path
+        from w2w.common.event_archive import encode
+        from w2w.workloads.moe_trace import file_sha
+        raw=dict(events=[dict(kind='unneeded_native_observer',time_ps=1,value='retain in original'),
+            dict(kind='task_allocate',time_ps=1,task='a'),dict(kind='data_deliver',time_ps=2,edge='X',bytes=32),
+            dict(kind='unneeded_native_observer',time_ps=2,value=False),dict(kind='task_allocate',time_ps=2,task='b',optional=True),
+            dict(kind='task_finish',time_ps=3,task='a')],identity='fixture only')
+        with tempfile.TemporaryDirectory() as directory:
+            path=Path(directory)/'fixture.json.gz'
+            with gzip.open(path,'wt') as f:json.dump(encode(raw),f)
+            projected=read_mechanism_input(path,file_sha(path))
+            self.assertEqual(projected['events'],[e for e in raw['events'] if e['kind'] in EVENTS])
+            self.assertEqual(projected['analysis_event_projection']['original_events'],6)
+            with self.assertRaises(ValueError):read_mechanism_input(path,'changed-source')
+
     def test_latest_dependency_reconstructs_time_without_summing_parallel_tasks(self):
         g,l=chain_fixture();p=completion_chain(g,l,0,20)
         self.assertEqual([r['task'] for r in p['tasks']],['late','join'])

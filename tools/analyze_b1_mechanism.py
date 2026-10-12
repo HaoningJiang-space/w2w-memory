@@ -2,8 +2,7 @@
 import argparse,csv,gzip,json,time
 from pathlib import Path
 
-from w2w.analysis.moe_mechanism import window_mechanism,phase_summary
-from w2w.common.event_archive import read_execution
+from w2w.analysis.moe_mechanism import window_mechanism,phase_summary,read_mechanism_input
 from w2w.common.fingerprints import digest_read_v1 as digest
 from w2w.common.io import write_json
 from w2w.provenance import revision
@@ -26,7 +25,9 @@ def run(study,case,output,accepted_analysis=None):
     for index,row in enumerate(windows):
         source=directory/'windows'/row['file']
         if row['index']!=index or file_sha(source)!=row['sha256']:raise ValueError('Original complete event archive changed')
-        raw=read_execution(source)
+        raw=read_mechanism_input(source,row['sha256'])
+        if raw.get('analysis_event_projection',{}).get('original_decoded_sha256',row['decoded_sha256'])!=row['decoded_sha256']:
+            raise ValueError('Prior full decoded archive identity changed')
         if (digest(raw['spec'])!=reg['machine_sha256'] or digest(raw['graph']['objects'])!=choice['catalog_sha256']
                 or raw['npu_execution']['profile']!=reg['npu_profile']
                 or raw['weight_cache']['data_bytes_per_cluster']!=reg['cache']['data_bytes_per_cluster']
@@ -56,7 +57,7 @@ def run(study,case,output,accepted_analysis=None):
         npu_profile=reg['npu_profile'],cache_budget=reg['cache'],sources={str(p):file_sha(p) for p in (analysis,directory/'completion.json',path,cohort,study/'registration.json')},
         accepted_resource_proof=a['proof'],phases=phases,windows=rows,inter_window_drain_ps=inter,
         makespan_ps=summary['makespan_ps'],drained_ps=summary['drained_ps'],wall_seconds=time.monotonic()-begin,
-        scope='Every complete original B1 window decoded and hash-bound to prior full physical/request/resource audit. This independent mechanism reader closes actual task/operand/grant/context ledgers, observed array service, continuous carry and one nonoverlapping completion witness per window. It reuses the accepted Native resource audit rather than repeating or relabeling it. No exclusive bottleneck, recoverable-stall, silicon, complete Transformer or architecture-speedup claim.')
+        scope='Every complete original B1 archive is byte-hash-bound to its prior full decoded physical/request/resource audit; only task/operand/service events are projected for this independent mechanism analysis. Actual task/context/grant ledgers, observed array service, continuous carry and one nonoverlapping completion witness per window close. Complete Native/NoC event archives and their accepted full audits are retained; this analysis projection is not a new complete canonical/resource audit. No exclusive bottleneck, recoverable-stall, silicon, complete Transformer or architecture-speedup claim.')
     write_json(output/'mechanism.json',proof)
     fields=('index','phase','decode_step','duration_ps','native_bytes','maximum_gateway_bytes','maximum_gateway_share',
         'array_service_cycles','array_service_efficiency','expert_array_service_efficiency','cache_misses','cache_hits','cache_reload_bytes',

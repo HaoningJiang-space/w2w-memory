@@ -65,7 +65,7 @@ def run(resident,cold,reference,output):
             axes[2].plot(x,[r['physical_completion_ps']/1e6 for r in cold_rows],marker='o')
     axes[0].set(xlabel='Actual M',ylabel='Observed array service cycles',title='Resident full-shape physical kernels');axes[0].legend(fontsize=7)
     axes[1].set(xlabel='Actual M',ylabel='Useful MAC / reserved peak (%)',title='Execution-model efficiency')
-    axes[2].set(xlabel='Actual M',ylabel='Cold physical completion (µs)',title='Native delivery then complete-operand OS')
+    axes[2].set(xlabel='Actual M',ylabel='Cold physical completion (µs)',title='Cold Native + OS execution')
     fig.savefig(output/'physical-shapes.png',dpi=180);plt.close(fig)
     value=dict(passed=True,analysis_source=revision(),sources=sources,cases=rows,physical_cases=72,
         array_organizations=[dict(rows=a,columns=a,arrays=16384//(a*a),macs_per_cycle=16384,sram_bytes_per_cluster=192*1024**2,cache_bytes_per_cluster=184*1024**2) for a in (16,32)],

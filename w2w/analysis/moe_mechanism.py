@@ -11,6 +11,60 @@ from .npu_competition import competition
 
 INTERVALS=('eligible_to_admit_ps','admit_to_operands_ps','operands_to_start_ps',
     'start_to_first_grant_ps','first_grant_to_finish_ps')
+EVENTS={'task_allocate','task_start','task_finish','data_deliver','read_issue','read_deliver',
+    'cache_operands_ready','npu_cached_operands_ready','fetch_context_acquire','fetch_context_release',
+    'npu_epoch','npu_cycle','compute_service'}
+
+
+def read_mechanism_input(path,expected_sha256):
+    """Project task events from a complete hash-bound, previously audited file.
+
+    The original byte SHA binds every event, including unprojected NoC/Native
+    events. This is an analysis projection, not a replacement physical archive
+    or another full decoded-canonical audit. Keep original event order.
+    """
+    import base64,gzip,json
+    from w2w.common.event_archive import _read_integers
+    from w2w.workloads.moe_trace import file_sha
+    if file_sha(path)!=expected_sha256:raise ValueError('Complete original archive hash changed')
+    stored=json.load(gzip.open(path,'rt'))
+    if 'events_codec' not in stored:
+        stored['events']=[e for e in stored['events'] if e['kind'] in EVENTS]
+        return stored
+    codec=stored['events_codec']
+    if codec['schema']!='w2w.lossless-event-columns.v1':raise ValueError('Unknown complete archive format')
+    groups={}
+    for i,column in enumerate(codec['columns']):
+        if column['kind'] not in EVENTS:continue
+        rows=[dict(kind=column['kind']) for _ in range(column['count'])]
+        for field,values in column['fields'].items():
+            n=values['count'];present=_read_integers(values['present'],n) if 'present' in values else range(len(rows))
+            if values['encoding'] in ('delta-integers','strings'):
+                data=_read_integers(values['values'],n)
+                if values['encoding']=='strings':data=[codec['strings'][v] for v in data]
+            elif values['encoding']=='json':data=values['values']
+            else:raise ValueError('Unknown projected field encoding')
+            if len(present)!=len(data):raise ValueError('Projected event fields lost alignment')
+            for at,value in zip(present,data):rows[at][field]=value
+        groups[i]=rows
+    # Streaming order IDs avoid a host-memory expansion proportional to all
+    # unneeded link/descriptor observer events in large prefill windows.
+    events=[];cursor=Counter();count=0;n=shift=last=0
+    for byte in base64.b64decode(codec['order'],validate=True):
+        n|=(byte&127)<<shift
+        if byte&128:shift+=7;continue
+        last+=n//2 if n%2==0 else -(n//2)-1;n=shift=0;count+=1
+        if not 0<=last<len(codec['columns']):raise ValueError('Invalid original event order')
+        if last in groups:
+            if cursor[last]>=len(groups[last]):raise ValueError('Projected event repeated')
+            events.append(groups[last][cursor[last]]);cursor[last]+=1
+    if shift or count!=codec['count'] or any(cursor[i]!=len(rows) for i,rows in groups.items()):
+        raise ValueError('Original or projected event order incomplete')
+    raw={k:v for k,v in stored.items() if k!='events_codec'};raw['events']=events
+    raw['analysis_event_projection']=dict(complete_archive_sha256=expected_sha256,
+        original_decoded_sha256=codec['decoded_sha256'],original_events=codec['count'],projected_events=len(events),
+        scope='Task/operand/service event projection for analysis; prior complete physical/resource audit remains authoritative.')
+    return raw
 
 
 def distribution(values):
@@ -107,10 +161,11 @@ def phase_summary(rows):
         selected=[r for r in rows if r['phase']==phase]
         if not selected:raise ValueError('Both captured phases required')
         cache=Counter();service=Counter();intervals=Counter();gateways=Counter();counts=[];active=[]
-        macs=cycles=expert_macs=expert_cycles=0
+        macs=cycles=expert_macs=expert_cycles=initial_release=0
         for r in selected:
             cache.update(r['cache_stats']);service.update(r['array_service']);gateways.update(r['gateway_bytes'])
             intervals.update(r['completion_witness']['interval_totals_ps'])
+            initial_release+=r['completion_witness']['initial_release_ps']
             counts.extend(r['expert_token_counts']);active.extend(len(g['expert_token_counts']) for g in r['groups'])
             macs+=r['array_macs'];cycles+=r['array_service_cycles'];expert_macs+=r['expert_array_macs'];expert_cycles+=r['expert_array_service_cycles']
         peak=16384
@@ -120,7 +175,7 @@ def phase_summary(rows):
             tokens_per_active_expert=distribution(counts),cache_stats=dict(cache),native_bytes=sum(r['native_bytes'] for r in selected),
             gateway_bytes=dict(gateways),array_macs=macs,array_service_cycles=cycles,array_service=dict(service),
             array_service_efficiency=macs/(peak*cycles),expert_array_service_efficiency=expert_macs/(peak*expert_cycles),
-            witnessed_interval_totals_ps=dict(intervals),
+            witnessed_interval_totals_ps=dict(intervals),witnessed_initial_release_ps=initial_release,
             scope='Phases reported separately; expert distribution samples actual groups in bounded layer/microbatch invocations. Array efficiency uses observed reserved array cycles, not whole-machine duty or silicon utilization. Witnessed intervals partition completion chains, not all parallel task waits.')
     return output
 
