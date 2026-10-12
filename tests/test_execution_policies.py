@@ -34,7 +34,7 @@ def queued_fixture(streaming):
             events.extend(dict(kind='npu_cycle',time_ps=(cursor+i)*1000,task=key,tile=tile,program_cycle=i,**asdict(row)) for i,row in enumerate(code))
         else:
             events.append(dict(kind='npu_epoch',time_ps=cursor*1000,task=key,tile=tile,end_ps=(cursor+plan['cycles'])*1000,
-                cycles=plan['cycles'],program_sha256=plan['program_sha256'],macs=plan['macs'],service=plan['service'],peak_service=plan['peak_service']))
+                cycles=plan['cycles'],program_sha256=plan['program_sha256'],macs=plan['macs'],service=plan['service'],peak_service=plan['peak_service'],source_scale_bytes=plan['source_scale_bytes']))
         cursor+=plan['cycles'];events.append(dict(kind='task_finish',time_ps=cursor*1000,task=key,tile=tile))
     return dict(spec=asdict(machine),graph=asdict(g),events=sorted(events,key=lambda e:e['time_ps']),
         operand_readiness=dict(policy='contiguous_prefix'),npu_execution=model.record())
@@ -49,6 +49,14 @@ class ExecutionPolicies(unittest.TestCase):
             bad['events'].append(dict(kind='compute_service',time_ps=0,task='k0/input',tile=tile,cycles=1))
             bad['events'].sort(key=lambda e:e['time_ps'])
             with self.assertRaises(ValueError):audit_npu_result(bad)
+
+    def test_internal_scale_routing_does_not_duplicate_source_payload(self):
+        result=queued_fixture(False)
+        epoch=next(e for e in result['events'] if e['kind']=='npu_epoch')
+        self.assertGreater(epoch['service']['scale_sram_bytes'],epoch['source_scale_bytes'])
+        self.assertEqual(epoch['source_scale_bytes'],128)
+        epoch['source_scale_bytes']=epoch['service']['scale_sram_bytes']
+        with self.assertRaises(ValueError):audit_npu_result(result)
 
 
 if __name__=='__main__':unittest.main()

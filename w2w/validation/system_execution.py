@@ -6,6 +6,13 @@ def audit_system_result(result):
     if result['schema'] not in ('w2w.system-execution.v2','w2w.system-execution.v3'):
         raise ValueError('Incompatible result scope')
     spec, graph = result['spec'], result['graph']
+    policy=result.get('npu_execution',{}).get('execution_policy')
+    if policy in ('row_mapping_v1','operand_streaming_v1'):
+        # New internal scale routing and partial-operand consumption require
+        # their full independent coordinate/port/owner proof before the source
+        # ledger can distinguish them from the unchanged Reference contract.
+        from .npu_resources import audit_npu_result
+        audit_npu_result(result)
     links = {l['id']: l for l in spec['links']}
     tasks = {t['id']: t for t in graph['tasks']}
     capacities = {t['id']: t['sram_bytes'] for t in spec['tiles']}
@@ -188,11 +195,13 @@ def audit_system_result(result):
             npu=result.get('npu_execution',{})
             if key not in npu.get('kernels',{}) or key not in starts or key in finishes or tick in stream_ticks:
                 raise ValueError('Unregistered or duplicated shape-aware array service')
-            if read[key]!=sum(r['size_bytes'] for r in tasks[key]['reads']):
+            coordinate_stream=(policy=='operand_streaming_v1' and 'streaming' in npu['plans'][key])
+            if not coordinate_stream and read[key]!=sum(r['size_bytes'] for r in tasks[key]['reads']):
                 raise ValueError('Reference array acquired before all physical operands committed')
             stream_ticks.add(tick);last_compute[key]=at
             if rule:
-                stream_macs[key]+=event['macs'];scale_consumed[key]+=event['scale_sram_bytes']
+                scale_bytes=event['source_scale_bytes'] if 'row_mapping' in npu['plans'][key] else event['scale_sram_bytes']
+                stream_macs[key]+=event['macs'];scale_consumed[key]+=scale_bytes
                 if event['program_cycle']==npu['plans'][key]['cycles']-1:
                     stream_consumed[key]+=rule['weight_data_bytes']
             else:service_cycles[key]+=1
@@ -206,7 +215,7 @@ def audit_system_result(result):
             last_compute[key]=event['end_ps']-period
             if rule:
                 stream_macs[key]+=event['macs'];stream_consumed[key]+=rule['weight_data_bytes']
-                scale_consumed[key]+=event['service']['scale_sram_bytes']
+                scale_consumed[key]+=event['source_scale_bytes'] if 'row_mapping' in npu['plans'][key] else event['service']['scale_sram_bytes']
             else:service_cycles[key]+=event['cycles']
         elif kind == 'stream_compute':
             key=event['task'];rule=tasks[key]['stream']

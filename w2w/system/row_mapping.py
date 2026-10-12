@@ -144,7 +144,7 @@ def folded_program(M,N,K,dtype,p,fold):
     word_buffers=p.arrays*(p.rows+p.columns*fold)*p.word_bytes
     context=p.arrays*(p.rows*p.columns*4+32)+word_buffers+configuration_bytes+scale_register_bytes
     plan=dict(M=M,N=N,K=K,weight_dtype=dtype,k_partitions=split,waves=[list(w) for w in waves],
-        cycles=len(code),array_cycles=sum(i.phase=='array' for i in code),bank_stall_cycles=sum(i.bank_stall for i in code),
+        cycles=len(code),array_cycles=sum(i.phase=='array' for i in code),bank_stall_cycles=sum(i.bank_stall for i in code),source_scale_bytes=scales,
         macs=M*N*K,scratch_bytes=context+M*N*split*4,mac_utilization=M*N*K/(p.macs_per_cycle*len(code)),
         service={f:sum(getattr(i,f) for i in code) for f in fields},program_sha256=digest([asdict(i) for i in code]),
         peak_service={f:max(getattr(i,f) for i in code) for f in ('macs','weight_sram_bytes','scale_sram_bytes',

@@ -243,11 +243,13 @@ class NPUKernelModel:
             state=execution.state[key];state['finish_ps']=execution.now+p.period_ps*len(instructions)
             if task.stream:state.update(stream_consumed=task.stream.weight_data_bytes,stream_scale_consumed=True)
             execution.log('npu_epoch',task=key,tile=task.tile,end_ps=state['finish_ps'],cycles=len(instructions),
-                program_sha256=plan['program_sha256'],macs=k.macs,service=plan['service'],peak_service=plan['peak_service'])
+                program_sha256=plan['program_sha256'],macs=k.macs,service=plan['service'],peak_service=plan['peak_service'],
+                **(dict(source_scale_bytes=plan['source_scale_bytes']) if 'row_mapping' in plan else {}))
             return
         row=instructions[cursor];self.cursors[key]+=1
         execution.busy_ps[task.tile]+=p.period_ps
-        execution.log('npu_cycle',task=key,tile=task.tile,program_cycle=cursor,**asdict(row))
+        execution.log('npu_cycle',task=key,tile=task.tile,program_cycle=cursor,**asdict(row),
+            **(dict(source_scale_bytes=row.scale_sram_bytes if row.phase=='scale_load' else 0) if 'row_mapping' in self.plans[key] else {}))
         if self.cursors[key]==len(instructions):
             state=execution.state[key]
             if task.stream:state.update(stream_consumed=task.stream.weight_data_bytes,stream_scale_consumed=True)

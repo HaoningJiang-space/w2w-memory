@@ -5,6 +5,7 @@ from math import ceil
 
 def row_work(kernel,plan,p):
     M,N,K=(kernel[f] for f in ('M','N','K'));row=plan['row_mapping']
+    if plan.get('source_scale_bytes')!=4*ceil(N/128)*ceil(K/128):raise ValueError('Original source scale identity changed')
     fold=row['groups'];height=row['rows_per_group'];split=plan['k_partitions']
     if (p['rows'],p['columns'],p['arrays'])!=(16,16,64) or fold not in (2,4) or height*fold!=16:
         raise ValueError('Folded physical geometry changed')
@@ -95,6 +96,7 @@ def audit_row_result(result,reference_audit):
             e=es[0]
             if len(es)!=1 or e['program_sha256']!=plan['program_sha256'] or e['service']!=work or e['cycles']!=plan['cycles'] or e['macs']!=plan['macs']:
                 raise ValueError('Folded epoch does not execute its complete program')
+            if e.get('source_scale_bytes')!=plan['source_scale_bytes']:raise ValueError('Folded epoch repeated or omitted original source scales')
             if e['end_ps']-e['time_ps']!=plan['cycles']*p['period_ps']:raise ValueError('Folded epoch timing changed')
             peaks(e['peak_service']);end=e['end_ps']
         else:
@@ -102,6 +104,9 @@ def audit_row_result(result,reference_audit):
                 raise ValueError('Folded cycles skipped/repeated mathematical work')
             if any(b['time_ps']-a['time_ps']!=p['period_ps'] for a,b in zip(es,es[1:])):raise ValueError('Nonpreemptive folded registers interrupted')
             for e in es:peaks(e)
+            if (es[0]['phase']!='scale_load' or sum(e.get('source_scale_bytes',-1) for e in es)!=plan['source_scale_bytes']
+                    or any(e.get('source_scale_bytes')!=(e['scale_sram_bytes'] if e['phase']=='scale_load' else 0) for e in es)):
+                raise ValueError('Original scales and internal routing reads were conflated')
             if {f:sum(e[f] for e in es) for f in work}!=work:raise ValueError('Observed folded service differs')
             end=es[-1]['time_ps']+p['period_ps']
         if not starts[key]<=es[0]['time_ps']<end==finishes[key] or any(e['tile']!=task['tile'] or e['time_ps']%p['period_ps'] for e in es):

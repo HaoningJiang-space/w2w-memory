@@ -51,13 +51,13 @@ def run(output,p2a_receipt,binary):
                     compute_contexts=2,fetch_contexts=2,read_issue_policy='round_robin',weight_cache=WeightCacheConfig(),
                     operand_readiness='contiguous_prefix',activation_sram_read_bytes_per_cycle=machine.rx_write_bytes_per_cycle,npu_model=model)
             finally:native.close()
+            path=directory/'result.json.gz'
+            with gzip.open(path,'wt') as f:json.dump(result,f)
             physical=audit_vertical_result(result);audit_request_control(result)
             npu=audit_npu_result(result) if model else None
             if physical['native_bytes']!=N*K+4*N*K//16384:raise ValueError('Streaming omitted original data/scales')
             key=next(iter(kernels));state=result['tasks'][key]
             weight_ready=max(e['time_ps'] for e in result['events'] if e['kind']=='read_deliver' and e['task']==key)
-            path=directory/'result.json.gz'
-            with gzip.open(path,'wt') as f:json.dump(result,f)
             rows.append(dict(kind=kind,policy=policy,makespan_ps=result['makespan_ps'],kernel_start_ps=state['start_ps'],
                 complete_weight_ready_ps=weight_ready,early_start_ps=max(0,weight_ready-state['start_ps']),
                 operand_wait_cycles=npu.get('operand_wait_cycles',0) if npu else None,physical_audit=physical,npu_audit=npu,
@@ -77,11 +77,11 @@ def run(output,p2a_receipt,binary):
             compute_contexts=2,fetch_contexts=2,read_issue_policy='round_robin',weight_cache=WeightCacheConfig(),operand_readiness='contiguous_prefix',
             activation_sram_read_bytes_per_cycle=machine.rx_write_bytes_per_cycle,npu_model=model,window_source=windows)
     finally:native.close()
+    with gzip.open(directory/'result.json.gz','wt') as f:json.dump(result,f)
     from w2w.analysis.runtime_windows import audit_window_chain
     boundary=audit_window_chain(result,directory/'windows')
     if boundary['windows']!=2 or windows.rows[1]['native_bytes'] or result['npu_execution']['execution_policy']!='operand_streaming_v1':
         raise ValueError('Streaming policy or warm cache lost at the physical boundary')
-    with gzip.open(directory/'result.json.gz','wt') as f:json.dump(result,f)
     from tools.validate_admission_index import qualify
     host_index=qualify(output/'host-index',machine,p,binary)
     comparisons=[]

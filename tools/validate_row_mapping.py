@@ -93,10 +93,10 @@ def run(output,reference_source,p1_receipt,binary):
                     compute_contexts=2,fetch_contexts=2,read_issue_policy='round_robin',weight_cache=cache,
                     operand_readiness='contiguous_prefix',activation_sram_read_bytes_per_cycle=machine.rx_write_bytes_per_cycle,npu_model=model)
             finally:native.close()
-            physical=audit_vertical_result(result);audit_request_control(result);npu=audit_npu_result(result)
-            if physical['native_bytes']:raise ValueError('Resident fixture performed Native weight reads')
             path=directory/'result.json.gz'
             with gzip.open(path,'wt') as f:json.dump(result,f)
+            physical=audit_vertical_result(result);audit_request_control(result);npu=audit_npu_result(result)
+            if physical['native_bytes']:raise ValueError('Resident fixture performed Native weight reads')
             key=next(iter(kernels));plan=model.plans[key];task=result['tasks'][key]
             native_rows.append(dict(kind=kind,M=1,N=N,K=K,policy=policy,makespan_ps=result['makespan_ps'],
                 kernel_context_ps=task['finish_ps']-task['start_ps'],service_cycles=plan['cycles'],scratch_bytes=plan['scratch_bytes'],
