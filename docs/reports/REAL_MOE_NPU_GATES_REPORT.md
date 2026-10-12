@@ -234,8 +234,9 @@ is unchanged, and no additional Native experiments are inserted before P0.
 | Priority | Work | Acceptance boundary |
 |---|---|---|
 | P0 | Finish complete B1 Reference / Phase-Split pair | Current finisher closes all captured windows, signed phase/step differences, cache traffic and physical/carry audits |
-| P1 | Diagnose hit admission and miss issue/return lifetimes from saved events | Separate source pressure and bounded state ownership; record existing stronger policies and their paid costs |
-| P2 | Two small same-budget structure comparisons after P0 | Legal streaming readiness and actual compute partitioning must beat the strongest qualified execution baseline with all state/ports/buffers charged |
+| P1 | Diagnose hit admission, miss issue/return and service capacity from saved events | Separate source pressure and bounded state ownership; distinguish usable service opportunity from nominal idle capacity |
+| P2-A | Resident M=1: OS versus legal intra-array K/N row mapping, after P0 | Actual lowered kernels must finish sooner than the strongest qualified legal OS mapping after supply, conversion, banking, partials and reductions are paid |
+| P2-B | Cold M=1: current block pipeline versus fine-grained operand streaming, after P0 | Qualify coordinate readiness and actual ownership changes; retain twelve-block/scale-first and StreamGemm comparisons |
 | P3 | Real B4/16/32 demand and execution | Verify whether any advantage survives changing expert M distributions and cache residency; no G4/G5 promotion |
 
 ### Actual B1 mapping changes the spatial-sharing premise
@@ -281,7 +282,63 @@ FP8 conversion, task/accumulator identity and shared bank/port arbitration.
 Neither more compute contexts nor low aggregate MAC efficiency alone proves
 spatial multiplexing will recover the missing capacity.
 
-### Streaming must improve on the current block and scale contracts
+### P2-A now prioritizes intra-array dimension mapping
+
+The latest user direction makes **same-expert row remapping** the first
+candidate. It follows the actual M=1 shape rather than inferring free arrays
+from low MAC efficiency. Cross-expert sharing remains a later question.
+The existing OS program and frozen physical campaign are unchanged.
+
+| Actual lowered kernel | First candidate geometry | Required mechanism |
+|---|---|---|
+| Gate/Up: M1/N128/K4096 | Keep eight array-level K partitions; split each K512 tile into four K128 row partials | Independent row weight/input steering, original 128-element scale groups, paid intra/inter-array FP32 reduction |
+| Down: M1/N4096/K128 | Use four rows for four distinct N16 tiles per array; cover 4096 outputs in one geometric wave | Independent row weight streams, paid input distribution and output identity/store service |
+| Larger expert M | Retain ordinary OS as a mapping candidate | Choose by complete legal service cost; no predetermined M threshold |
+
+These geometries preserve MAC work. They do **not** establish a 4× speedup,
+an executable folding mode or support in the present OS interconnect.
+For Gate/Up, four intra-array K segments times eight existing K partitions
+produce 32 partials per output. Preserving original scale groups does not
+preserve FP32 association: adding four partial sums differs from sequentially
+accumulating the original K512 dot product. Either preserve the reference
+association or qualify a changed numerical contract with independent synthetic
+FP8/scaled-weight and BF16-input comparisons and declared error limits.
+Captured numerical Qwen tensors remain unavailable.
+
+[A read-only resource screen](../../artifacts/provenance/real_npu/row-mapping-budget-r57.json)
+binds the frozen profile, registration and existing word/bank model. For a
+four-row independent feed:
+
+| Conditional obligation | Quantity | Meaning |
+|---|---:|---|
+| Useful FP8 weight consumption | 64×4×16 = 4,096 B/cycle | Below the 32,768 B/cycle aggregate port; useful bytes are not peak SRAM-word demand |
+| Independent FP8 conversion | 4,096 conversions/cycle | Entire declared shared vector budget during a full feed; reductions and other vector work still need grants |
+| Aligned refill at one bank with current layout | 8×4×32 = 1,024 B | At least four services at 256 B/bank/cycle; a candidate may stagger refills or change a paid layout |
+| Gate/Up partial storage if all 32 partials spill | 32×128×4 = 16,384 B | Reference eight-part storage is 4,096 B; local reduction may avoid this spill but needs explicit service |
+| Example Gate/Up word buffering | 64×(4×16+4)×32 = 139,264 B | One word per independent weight column and X row; current reserved word buffers total 65,536 B |
+
+The bank example assumes aligned per-row refills and the declared
+`bank=(n+c)%128` layout. Its four-service bound is per refill, **not four
+cycles added at every MAC tick or a candidate kernel completion prediction**.
+Scheduling, word reuse and layout can change overlap and conflicts. The current
+input fanout is specified in array receivers; additional independent row
+destinations require explicit routing/grants. Existing aggregate SRAM space
+does not supply unmodeled row injection wires or bandwidth. New buffers and
+control consume the unchanged 8 MiB non-cache budget alongside existing tasks;
+the 184 MiB cache cannot silently shrink.
+
+The resident acceptance workload is the actual Gate/Up M1/N128/K4096 and Down
+M1/N4096/K128, not only the standalone full N1536/K4096 or N4096/K1536
+projections. Compare against current OS and a qualified search of legal OS
+K partitions/waves for those exact shapes. The existing full-projection
+multi-wave qualification is a reference method, not evidence of the best
+lowered-kernel mapping. Report final-output latency, MAC work, useful and
+word-granularity traffic, conversion, bank stalls, live buffers and reduction
+service. Any folding reference must encode its changed row injection and
+reduction paths; an ordinary SCALE-Sim OS reference cannot validate them by
+renaming dimensions.
+
+### P2-B must improve on the current block and scale contracts
 
 Current computation is already split into 12 intermediate-width-128 FFN blocks,
 with explicit SiLU, Down partials and ordered accumulation. The complete-operand
@@ -298,6 +355,21 @@ exposes a possible overlap interval; an individual current kernel has merely
 0.553–0.637 µs array service. Those spans are not predicted streaming savings
 and must not be summed across parallel tasks.
 
+For an isolated kernel with unchanged supply duration T_W and compute work T_C,
+ideal pure overlap changes T_W+T_C into max(T_W,T_C), so its saving is bounded
+by min(T_W,T_C). Thus this explanation alone offers at most the current
+0.553–0.637 µs compute service, not a 38.889 µs saving. This idealized comparison
+assumes legal readiness, free overlap opportunity and unchanged work; it is
+not a system bound when scheduling, traffic or ownership changes.
+
+Any larger system benefit needs observed changes in ownership and competition.
+Earlier MAC consumption alone does not release a miss fetch context, which
+currently waits for complete destination delivery, or make a pinned full-matrix
+cache object smaller. Record actual issue completion, return association,
+read delivery, context release, output finish and cache unpin/replacement.
+If a candidate changes those policies, its remaining return/data ownership
+and cache semantics need explicit resources and a matched baseline.
+
 Legal readiness must bind original weight coordinates, scale groups and input
 slices: `Ready(expert, N_tile, K_tile, X_slice, scale_group)`. A committed byte
 prefix is not automatically a complete K block across all output rows in the
@@ -306,11 +378,12 @@ output visibility and any packing/transposition remain explicit costs. SiLU
 still waits for its complete Gate/Up dot products. Preserve the stated FP32
 reduction order or explicitly qualify a changed numerical contract.
 
-### Two pilots and the baseline/resource contract
+### Separate pilots and the baseline/resource contract
 
 After P0, original steps 0 and 25 remain the proposed resident and miss-heavy
-pilot workloads. Treat streaming and ownership as separate factors before a
-combined design; keep signed regressions. Original `StreamGemm` is a required
+pilot workloads. First evaluate resident row remapping and cold streaming
+independently before a combined design; keep signed regressions. Original
+`StreamGemm` is a required
 comparison, but its aggregate work/byte contract alone does not certify a legal
 shape-aware array mapping. Reuse the independently qualified multi-wave K
 mapping as another software reference where it applies. Historical Up-local
@@ -353,9 +426,13 @@ machine/profile, array work and registered catalog. Reference is **9.713503 ms**
 Phase-Split is **10.899564 ms**, a signed benefit of **−1.186061 ms**.
 Both read **3,192,644,096 B Native**. This is a retained local degradation,
 not complete Prefill/Decode or final independently accepted paired performance.
-The second Prefill window, all Decode steps and the finisher's whole-case
-readback are still pending at this snapshot. Physical source and scheduling
-freeze remain unchanged.
+The earlier first-window snapshot remains authoritative for that local result.
+[The later progress snapshot](../../artifacts/provenance/real_npu/progress-r57.json)
+records **21/130** saved windows: both Prefill windows and Decode steps 0–18.
+The second Prefill and these Decode archives have not yet received the final
+independent paired/carry-chain readback. Whole-case completion and the scoped
+finisher receipt remain absent; do not extrapolate the first-window degradation
+to complete Prefill or Decode. Physical source and scheduling freeze are unchanged.
 
 ## Frozen workload and completed foundation
 

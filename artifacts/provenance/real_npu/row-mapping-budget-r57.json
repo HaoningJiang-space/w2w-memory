@@ -1,0 +1,75 @@
+{
+  "kind": "static_candidate_budget_screen",
+  "observed_at_utc": "2026-10-12T07:17:23.914201+00:00",
+  "analysis_basis_commit": "df9b7f0e96fe553c37a377c461d74425359baaef",
+  "sources": {
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/campaign-r27/real-moe/registration.json": "a0cb3d6a50d66c549a55d12ea8932999750b274a1ad33e8376b42cf7e18f275e",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/analysis-r56/w2w/architecture/npu_profile.py": "9f72a1d00bad326d2af88f7cdc68739a245896b199d7fcb9ec6bb27a7a662f99",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/analysis-r56/w2w/system/npu_kernel.py": "461532f4596c4599f34a3433c20caa625a33a4fc3be082db97dbe1442756c5a4"
+  },
+  "profile": {
+    "rows": 16,
+    "columns": 16,
+    "arrays": 64,
+    "weight_read_bytes_per_cycle": 32768,
+    "activation_read_bytes_per_cycle": 32768,
+    "output_write_bytes_per_cycle": 32768,
+    "vector_ops_per_cycle": 4096,
+    "banks": 128,
+    "bank_port_bytes_per_cycle": 256,
+    "word_bytes": 32,
+    "input_broadcast_fanout": 64,
+    "period_ps": 1000,
+    "dataflow": "output_stationary"
+  },
+  "fold_rows": 4,
+  "shared_resource_screen": {
+    "useful_fp8_weight_bytes_per_active_cycle": 4096,
+    "fp8_conversions_per_active_cycle": 4096,
+    "weight_port_fraction": 0.125,
+    "conversion_port_fraction": 1.0,
+    "aligned_refill_bytes_per_output_bank_if_current_layout_retained": 1024,
+    "minimum_bank_service_cycles_per_aligned_refill": 4
+  },
+  "gate_up": {
+    "M": 1,
+    "N": 128,
+    "K": 4096,
+    "array_level_k_parts": 8,
+    "per_array_folded_k_parts": 4,
+    "k_per_row": 128,
+    "total_k_parts": 32,
+    "original_partial_sram_bytes": 4096,
+    "candidate_partial_sram_bytes_if_all_folded_partials_spilled": 16384,
+    "candidate_word_buffer_bytes_if_one_32B_buffer_per_independent_weight_column_and_x_row": 139264,
+    "original_reserved_word_buffer_bytes": 65536
+  },
+  "down": {
+    "M": 1,
+    "N": 4096,
+    "K": 128,
+    "current_n_waves": 4,
+    "candidate_n_waves_by_geometry_only": 1,
+    "original_partial_output_elements": 4096,
+    "candidate_partial_output_elements": 4096
+  },
+  "formulas": {
+    "useful_fp8_weight_bytes": "64 arrays * 4 active rows * 16 columns * 1 B",
+    "fp8_conversion_work": "64 * 4 * 16 independent FP8 weights per active cycle",
+    "conditional_bank_burst": "8 existing output-bank-aliasing streams * 4 folded streams * 32 B SRAM word",
+    "bank_service_lower_bound": "ceil(1024 B / 256 B per bank per cycle) = 4 cycles per aligned refill",
+    "gate_partial_store": "32 K partials * 128 outputs * 4 B FP32 = 16384 B, only if every partial is spilled",
+    "candidate_word_buffers": "64 arrays * (4 * 16 weight-column streams + 4 X rows) * 32 B = 139264 B"
+  },
+  "conditions": [
+    "Aligned per-row word refills and current output-interleaved bank=(n+c)%128; a candidate may stagger refills or change paid layout/routing.",
+    "Useful FP8 consumption is not peak 32 B SRAM-word demand; the bank refill bound is not a kernel-cycle prediction.",
+    "4096 conversions/cycle consumes the entire declared vector budget during full four-row feed; reduction and other vector work still need grants.",
+    "Independent row weight injection is not implemented; total-byte feasibility does not qualify a legal PE dataflow.",
+    "K-folding changes FP32 association unless explicitly preserved; ordered partial sums alone do not establish bitwise equivalence."
+  ],
+  "candidate_implemented": false,
+  "candidate_execution_accepted": false,
+  "new_native_experiments": 0,
+  "scope": "Read-only arithmetic against frozen profile and existing word/bank declarations. Candidate four-row K/N geometry, conditional traffic/state obligations only. No schedule, cycle prediction, numerical acceptance, silicon/PPA or application speedup."
+}

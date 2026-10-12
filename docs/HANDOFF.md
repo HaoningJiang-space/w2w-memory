@@ -13,8 +13,10 @@ Complete B1 Reference/Phase-Split, the already launched output-sharded legality
 qualification, separate Prefill/Decode event mechanisms and independent audits.
 No new NPU feature, controller optimization, hardware or G4 work during this
 scope. Latest continuation is P0 paired B1 acceptance → P1 saved-event hit /
-issue/return diagnosis → P2 small streaming/ownership comparisons → P3 real
-B4/16/32. P2 physical interventions wait for P0. 128-Tile remains deferred.
+issue/return and service-capacity diagnosis → P2-A resident intra-array K/N
+row mapping → P2-B cold fine-grained operand streaming → P3 real B4/16/32.
+P2 physical interventions wait for P0. Cross-expert array sharing is secondary;
+128-Tile remains deferred.
 
 Reference is complete: 46 Prefill tokens, 128 Decode steps, true layers 0/1,
 **48.948846 ms** makespan. Source-r51 read-only analysis now closes all 130
@@ -113,6 +115,40 @@ carry metadata is not a certified restorable full Native/NoC checkpoint.
 Conditional fresh fixtures must be labeled separately from continuous original
 step replay. Reference shared-grant work bounds can change with new ownership;
 Gateway work bounds remain conditional on each observed traffic volume.
+
+Latest user steering prioritizes physical PE dimension assignment over coarse
+expert ownership. P2-A proposes four-row K folding for actual M1/N128/K4096
+Gate/Up (retain eight array-level K partitions, form 32 original-scale-aligned
+K128 partials), and four-row N folding for actual M1/N4096/K128 Down. These
+are candidate geometries, not implemented programs or cycle predictions.
+Resident comparisons must include current OS and the strongest qualified legal
+OS K-partition mapping for the actual lowered shape. The prior full-projection
+multi-wave qualification does not automatically qualify these smaller kernels.
+
+The read-only [row-mapping resource screen](../artifacts/provenance/real_npu/row-mapping-budget-r57.json)
+uses the frozen profile: 64×4×16 independent FP8 weights need 4,096 useful
+B/cycle but also 4,096 conversions/cycle, the whole declared vector budget.
+Under aligned word refills and the current output-bank layout, a bank receives
+8×4×32 = 1,024 B versus its 256 B/cycle port: at least four bank-service cycles
+per such refill. This conditional example is not a folding execution time;
+staggering or a paid layout may change it. Charge row weight steering, word
+buffers, FP32 partials/reduction and all shared grants. Ordered K partials do
+not ensure bitwise FP32 equivalence after changing association; preserve the
+old association or separately qualify numerical error before any acceptance.
+
+P2-B keeps the existing twelve-block FFN and scale-first baselines. With fixed
+isolated-kernel compute work, pure supply/compute overlap can save at most that
+compute time (currently 0.553–0.637 µs), not the observed 38.889 µs median tail.
+System effects need actual ownership/release evidence: early consumption alone
+does not release the current complete-delivery fetch slot or full cache object.
+Qualify tile-coordinate readiness and account for any changed cache/return
+policy. Do not combine P2-A/B before independently explaining their costs.
+
+[The progress snapshot](../artifacts/provenance/real_npu/progress-r57.json)
+records 21/130 Phase-Split windows saved, including both Prefill windows and
+Decode steps 0–18. The worker and exact scoped finisher continue; no whole-case
+completion or paired receipt exists at this snapshot. No new Native run or
+simulator policy change was made for the row-mapping resource screen.
 
 ## Completed checks and comparisons
 
