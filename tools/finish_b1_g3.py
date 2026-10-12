@@ -105,10 +105,11 @@ def run(study,pid,corpus,qualification,reference,shapes,output,projection_readba
             if projection is None and observe(qualification/'receipt.json').get('passed'):
                 projection=projection_readback(qualification,corpus,output/'sharded-resource-readback.json')
             r=observe(reference/'mechanism.json');s=observe(shapes/'receipt.json')
+            accepted_reference=observe(study/'cases/B1-reference/analysis.json')
             completion=observe(study/'cases/B1-phase_split/completion.json')
             write_json(output/'status.json',dict(state='waiting_complete_B1',analysis_source=source,
-                G3_1=bool(r.get('passed')),G3_2=bool(completion.get('complete')),G3_3=bool(projection),
-                G3_4=False,G3_5=False,physical_shape_readback=bool(s.get('passed'))))
+                G3_1=bool(accepted_reference.get('passed')),G3_2=bool(completion.get('complete')),G3_3=bool(projection),
+                G3_4=False,G3_5=False,reference_mechanism_ready=bool(r.get('passed')),physical_shape_readback=bool(s.get('passed'))))
             if completion.get('complete') and r.get('passed') and projection and s.get('passed'):break
             if not completion.get('complete') and worker_identity(pid,study)!=initial:
                 raise ValueError('Specific Phase-Split worker ended or changed without complete evidence')
