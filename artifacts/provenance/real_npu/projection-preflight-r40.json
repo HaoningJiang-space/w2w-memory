@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "source_commit": "5f382701406f86ed3d98745bd04f42458e46ddda",
+  "frozen_source_commit": "abf28d617ede430654cf7bbec0e420b6d65a13ef",
+  "default_unchanged": true,
+  "cohort_sha256": "5427ac971c809630a327a8f2982aaa0701d682e704ac6927ed7bdabfa6b5d7c4",
+  "model_config_sha256": "702c46d431bb984db9035a1225186bbfdb52c0d19c82104df4a37cd005e0369e",
+  "views_per_policy": 8,
+  "candidate_shapes": 9,
+  "candidate_minimum_intrinsic_headroom_bytes": 5627048,
+  "sources": {
+    "frozen-default.json": "d4e8ba7ac20c9bc4027210e7fb378b56e5d598f38073297007dca22a75fbbbef",
+    "current-default.json": "a01dc2b840c8adbdfd89cd4957fd2071032fb5706e1e00cdb909cd06e8772344",
+    "current-output-sharded.json": "c284a1272bd46ad8e1ab382f02b0c8ca7150ea5b7fb63860b46378d6e959ac66"
+  },
+  "scope": "Full original B1 first/tail prefill and first/last decode compiler graphs in two true layers. Old/current default graph/kernel/metadata/catalog hashes match exactly; candidate preserves intrinsic budgets and matches pinned array cores. Dynamic Native progress and numerical projection values remain separate gates."
+}

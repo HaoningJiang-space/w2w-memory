@@ -1,0 +1,199 @@
+{
+  "schema": "w2w.completed-real-moe-case-receipt.v1",
+  "passed": true,
+  "observed_at_utc": "2026-10-12T02:36:39.490572+00:00",
+  "source_commit": "a69d29edb96a76220648cfd94f5c04ef17ac83e1",
+  "analysis_source_commit": "a69d29edb96a76220648cfd94f5c04ef17ac83e1",
+  "case": "B1-reference",
+  "B": 1,
+  "baseline": "reference",
+  "proof": {
+    "passed": true,
+    "windows": 130,
+    "tasks": 152302,
+    "native_bytes": 7845262592,
+    "macs": 52728692736,
+    "cache_stats": {
+      "compulsory_bytes": 4079955968,
+      "misses": 14957,
+      "miss_bytes": 7845262592,
+      "evictions": 9087,
+      "evicted_bytes": 4765892352,
+      "reload_bytes": 3765306624,
+      "hits": 70047,
+      "hit_bytes": 36868476672
+    },
+    "makespan_ps": 48948846000,
+    "drained_ps": 48948886000,
+    "scope": "Each raw window re-audited; continuous cache/LRU/clock ownership and final metadata release closed."
+  },
+  "complete_captured_lifecycle": true,
+  "executed_layers": [
+    "0",
+    "1"
+  ],
+  "omitted_execution_layers": 92,
+  "prefill_tokens": 46,
+  "decode_steps": 128,
+  "token_expert_assignments": 2784,
+  "prefill_window_time_ps": 17373712000,
+  "decode_window_time_ps": 31569973000,
+  "late_window_time_ps": 16933297000,
+  "npu_mac_utilization": 0.06517260928827298,
+  "npu_service_cycles": 49381236,
+  "npu_service": {
+    "weight_sram_bytes": 44704989184,
+    "scale_sram_bytes": 10847232,
+    "activation_sram_bytes": 859389952,
+    "output_sram_bytes": 856717312,
+    "vector_ops": 44490408448,
+    "accumulator_register_bytes": 422379487232,
+    "activation_delivery_bytes": 6591086592
+  },
+  "activity_counts": {
+    "dram_read_bits": 62762100736,
+    "hb_payload_bits": 62762100736,
+    "collection_bit_mm": 462870492928.0,
+    "noc_data_bit_mm": 255778432102.40005,
+    "noc_cell_bit_mm": 271764584108.80008,
+    "router_cell_bits": 24868944768,
+    "buffer_cell_bits": 49737889536,
+    "sram_stream_read_bytes": 44715836416,
+    "sram_dma_read_bytes": 1780546176,
+    "sram_rx_write_bytes": 9625808768,
+    "macs": 52728692736,
+    "vector_service_cycles": 335638,
+    "cache_tag_lookups": 85004,
+    "gateway_payload_bits": 62762100736,
+    "command_ack_bits": 2952740352,
+    "active_context_ps": 81832069000,
+    "npu_activation_sram_read_bytes": 2271301120,
+    "npu_partial_output_write_bytes": 2245454464,
+    "npu_vector_ops": 44773226656,
+    "npu_accumulator_register_bytes": 422379487232,
+    "npu_broadcast_delivery_bytes": 6591799296
+  },
+  "decode_zero_native": {
+    "windows": 51,
+    "native_bytes": 0,
+    "window_time_ps": 2540992000,
+    "median_duration_ps": 50173000,
+    "largest_necessary_bound_counts": {
+      "shared_compute_ps": 51
+    }
+  },
+  "decode_with_native": {
+    "windows": 77,
+    "native_bytes": 3671960832,
+    "window_time_ps": 29028981000,
+    "median_duration_ps": 235882000,
+    "largest_necessary_bound_counts": {
+      "fixed_gateway_assignment_ps": 76,
+      "shared_compute_ps": 1
+    }
+  },
+  "selected_decode_windows": [
+    {
+      "index": 2,
+      "phase": "decode",
+      "decode_step": 0,
+      "begin_ps": 17373793000,
+      "end_ps": 17425257000,
+      "duration_ps": 51464000,
+      "native_bytes": 0,
+      "cache_stats": {
+        "hits": 578,
+        "hit_bytes": 304160768
+      },
+      "npu_service_cycles": 335760,
+      "macs": 303038464,
+      "noc_byte_um": 188320550400.0,
+      "gateway_bytes": {},
+      "necessary_service_bounds_ps": {
+        "global_gateway_payload_ps": 0,
+        "fixed_gateway_assignment_ps": 0,
+        "native_data_bus_ps": 0,
+        "vertical_data_lane_ps": 0,
+        "executed_channel_data_lane_ps": 7006000,
+        "receiver_write_ps": 8210188,
+        "shared_compute_ps": 36827000,
+        "arithmetic_dependency_ps": 8426000,
+        "finite_fetch_ownership_ps": 0,
+        "finite_return_ownership_ps": 0
+      },
+      "necessary_bound_ps": 36827000
+    },
+    {
+      "index": 4,
+      "phase": "decode",
+      "decode_step": 2,
+      "begin_ps": 17474994000,
+      "end_ps": 17707319000,
+      "duration_ps": 232325000,
+      "native_bytes": 23074304,
+      "cache_stats": {
+        "hits": 534,
+        "hit_bytes": 281086464,
+        "evictions": 44,
+        "evicted_bytes": 23074304,
+        "reload_bytes": 23074304,
+        "misses": 44,
+        "miss_bytes": 23074304
+      },
+      "npu_service_cycles": 335760,
+      "macs": 303038464,
+      "noc_byte_um": 199481024000.0,
+      "gateway_bytes": {
+        "g0_0": 4719744,
+        "g1_0": 4719744,
+        "g2_0": 4719744,
+        "g3_0": 4719744,
+        "g0_2": 1048832,
+        "g1_2": 1048832,
+        "g2_2": 1048832,
+        "g3_2": 1048832
+      },
+      "necessary_service_bounds_ps": {
+        "global_gateway_payload_ps": 45067000,
+        "fixed_gateway_assignment_ps": 147492000,
+        "native_data_bus_ps": 138646240,
+        "vertical_data_lane_ps": 138642480,
+        "executed_channel_data_lane_ps": 5820000,
+        "receiver_write_ps": 42019063,
+        "shared_compute_ps": 31589000,
+        "arithmetic_dependency_ps": 8426000,
+        "finite_fetch_ownership_ps": 73746000,
+        "finite_return_ownership_ps": 0
+      },
+      "necessary_bound_ps": 147492000
+    }
+  ],
+  "sources": {
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/campaign-r27/real-moe/cases/B1-reference/analysis.json": "334cdadd6edd70b8b1bd03fa13ee16745087fad9a39c1ba36b6682793d8cd999",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/campaign-r27/real-moe/cases/B1-reference/completion.json": "40da7ed851ed4443036fcad04be5b75ab8342f573fe46510ee9230483480a618",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/campaign-r27/real-moe/cases/B1-reference/result.json.gz": "8258e7c91c5a01ec8c0b049af301acbd9b2d4d39bd572fcab27f48fc054e867d",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/campaign-r27/real-moe/registration.json": "a0cb3d6a50d66c549a55d12ea8932999750b274a1ad33e8376b42cf7e18f275e",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/campaign-r27/real-moe/cohorts/B1.json.gz": "5427ac971c809630a327a8f2982aaa0701d682e704ac6927ed7bdabfa6b5d7c4"
+  },
+  "campaign_state": {
+    "state": "running",
+    "case": "B1-phase_split",
+    "worker_pid": 888240,
+    "source_commit": "a69d29edb96a76220648cfd94f5c04ef17ac83e1",
+    "elapsed_wall_seconds": 29556.288139914162,
+    "completed": {
+      "B1-reference": {
+        "passed": true,
+        "analysis_sha256": "334cdadd6edd70b8b1bd03fa13ee16745087fad9a39c1ba36b6682793d8cd999",
+        "makespan_ps": 48948846000,
+        "native_bytes": 7845262592
+      }
+    },
+    "native_sha256": {
+      "booksim": "9d18611aa0cc74b6d8a475e302134c7888b1417648607abce3a6f8d04311e308",
+      "ramulator": "37eb00768993fb5cfd903c690e72a21cdc69e10f4acbc421762f54dc5a33ba54"
+    },
+    "contract": "One case at a time, all captured prefill and all 128 decode steps. No automatic retry."
+  },
+  "scope": "Compact binding check of the completed independently audited B1 Reference case. All 46 captured prefill tokens and 128 decode steps in real MoE layers 0/1; no 94-layer Transformer latency. Zero/native-read groups and service bounds are post-hoc observations; bounds overlap and are not additive stalls or proof of a counterfactual speedup. No new physical execution or new raw-event audit."
+}

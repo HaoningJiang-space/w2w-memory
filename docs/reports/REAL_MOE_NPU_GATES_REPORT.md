@@ -1,9 +1,9 @@
 # Real MoE → executable WoW NPU: evidence and remaining gates
 
 The accepted foundation now executes actual expert token shapes on a concrete,
-finite NPU array model. G3–G5 are **not completed application results**. Their
-complete captured-request campaigns are gated on resource qualification; no
-smaller FFN, truncated request or registered background job counts as acceptance.
+finite NPU array model. **G3 has its first accepted complete B1 Reference case;
+the twelve-case G3 campaign and G4/G5 remain incomplete.** No smaller FFN,
+truncated request or registered background job counts as acceptance.
 
 ## Frozen workload and completed foundation
 
@@ -192,7 +192,8 @@ Controller PID 826834 launched G3 controller 826982 and first physical worker
 conditional full context is `campaign-r27/full-llm-B1`. PIDs are historical
 launch evidence; verify current command identity before operating on them.
 The [recorded status](../../artifacts/provenance/real_npu/campaign-status-r27.json)
-has no completed G3 case yet. The obsolete `campaign-r12` failed its prerequisite
+is the historical pre-completion snapshot. The later B1 result is recorded below.
+The obsolete `campaign-r12` failed its prerequisite
 without applications; `campaign-r20` was invalidated before application launch
 when compiler inspection found duplicate output storage charging.
 
@@ -221,7 +222,8 @@ They do not establish identical lowering or new application performance.
 - G1: full-corpus identity/grouping/demand checks accepted.
 - G2: shape/core, full-size physical microkernels and carry/equivalence accepted;
   banking/ports/dataflow remain explicit uncalibrated assumptions.
-- G3: complete registered physical campaign running; no accepted complete case yet.
+- G3: B1 Reference complete and independently accepted; Phase-Split running,
+  remaining registered cases pending.
 - G4: implemented and independently shape/numerically qualified; awaiting
   full 94-layer serving acceptance after complete B1 Up-local and current context readback.
 - G5: evidence-bound analysis implemented; final decision awaits completed runs.
@@ -355,3 +357,80 @@ admission). Those phases include finite frontend/controller/refresh feedback;
 they do not uniquely isolate DRAM latency or establish a recoverable speedup.
 The result provides a concrete supply-side diagnostic to repeat on the completed
 warm and grouped cases, rather than attributing a full MC pool to one component.
+
+## First complete captured-request result and observed transition
+
+[The complete B1 Reference receipt](../../artifacts/provenance/real_npu/B1-reference-complete-r40.json)
+binds the independently audited `source-r27` result, completion, cohort and
+registration by SHA256. It executes all **46 captured prefill tokens and 128
+decode steps in real layers 0/1**, with continuous Native/NoC/cache state:
+130 windows, 152,302 tasks, 2,784 token–expert assignments and 52,728,692,736
+matrix MACs. Completion is **48.948846 ms**; physical drain is 48.948886 ms.
+Native reads are **7,845,262,592 B**, including **3,765,306,624 B reload**.
+This is complete captured lifecycle evidence for a two-layer MoE window, not
+94-layer Transformer TTFT/TPOT. The other eleven comparisons remain required.
+
+The [source-bound transition plot](../../artifacts/provenance/real_npu/B1-transition-r41.json)
+uses every original decode step. It reuses the accepted raw-event audit and
+checks its source bindings; drawing the plot is not a second full raw-event
+audit. Service bounds overlap and must not be summed as stalls.
+
+| Observed decode group | Windows | Median two-layer completion | Largest necessary work bound |
+|---|---:|---:|---|
+| Zero Native weight reads | 51 | 50.173 µs | Shared NPU service, all 51 windows |
+| At least one Native weight read | 77 | 235.882 µs | Assigned Gateway payload in 76 windows; shared NPU service in one |
+
+![Complete B1 decode transition](figures/real_npu/B1-decode-transition-r41.png)
+
+For original decode step 0, completion is 51.464 µs, with a 36.827 µs shared
+NPU work bound and zero Native bytes. At step 2, completion is 232.325 µs,
+with 23,074,304 B Native reads, a 147.492 µs assigned-Gateway payload bound
+and a 31.589 µs shared NPU bound. These observed windows motivate separate
+resident and cold-supply studies. They do not isolate a recoverable stall or
+prove an optimal dataflow. Aggregate useful MACs divided by reserved NPU
+service capacity are 6.517%; this is modeled service utilization, not measured
+silicon utilization or an application-wide duty cycle.
+
+The optional output-channel Q/K/V/O mapping added after the frozen campaign
+preserves full hidden reductions and original 128×128 scale identities.
+Copies use a finite four-way tree; descriptor initialization/read service and
+FP32 row gather are charged to existing SRAM/ports. It is a stronger legal
+software baseline candidate, not new hardware or an accepted application
+speedup. The default campaign programs remain frozen.
+
+[Sixteen directed regressions](../../artifacts/provenance/real_npu/regression-r40.json)
+pass at `5f38270` on hn072. Projection audit now traces each copy/shard to the
+correct normalized BF16 input or Attention head concat, requires a complete
+original weight read, rejects duplicate assemblies/extra Gather inputs, and
+checks descriptor initialization precedes dependent copy/gather work.
+Same-byte wrong tensors, reordered phases, omitted copy nodes and precision
+changes are tested as rejection cases. Compiler and Native qualification of
+the candidate remain separate from these reader tests.
+
+[Actual B1 compiler preflight](../../artifacts/provenance/real_npu/projection-preflight-r40.json)
+passes the first/tail prefill and first/last decode in both real layers
+(eight views per policy). Default graphs, kernel identities, metadata and
+catalog match `abf28d6` exactly. The candidate's nine distinct projection-shard
+shapes match the pinned SCALE-Sim array core, with at least 5,627,048 B
+intrinsic non-cache SRAM headroom after the unchanged cache, KV and endpoint
+reservations. Intrinsic headroom does not establish dynamic progress.
+
+[Native qualification launch](../../artifacts/provenance/real_npu/context-output-sharded-launch-r40.json)
+starts one isolated two-token context resource gate at `analysis-r40@5f38270`,
+PID 889899, using the same accepted Native binaries. Verify its current
+identity, `context-output-sharded-r40/receipt.json` and its retained log before
+accepting it. Launch is not completion; no retry or change to the r27 campaign
+is authorized by the launch receipt.
+
+Separate selected-window raw readbacks at `analysis-r42@39e091e` pass for
+[decode step 0](../../artifacts/provenance/real_npu/B1-decode-0-competition-r42.json)
+and [step 2](../../artifacts/provenance/real_npu/B1-decode-2-competition-r42.json).
+They preserve prior raw hashes, physical/request/NPU audits, context ledgers
+and projection tails. Step 2's final twelve projections are cache hits, so
+the reader now searches the complete projection list for the last Native-read
+projection. It finds `L0/e1/b11/down`: a 17.843 µs descriptor issue span
+intersects a full MC pool for 17.729 µs. The final cached projection still
+executes a paid 0.637 µs array service. Thus a cached completion tail does
+not establish absence of earlier supply delay; these intersections still do
+not identify recoverable application latency. The earlier r41 readbacks are
+retained as the pre-correction reader evidence.

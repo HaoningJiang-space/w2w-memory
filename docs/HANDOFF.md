@@ -502,6 +502,47 @@ default NPU program changes, no numerical captured-Qwen claim and no G4/G5
 completion promotion. Both r35 and r36 references are accepted, with r36 also
 checking full model dimension identity and separating bank service from core.
 
+### First complete G3 case and projection-audit continuation
+
+`B1-reference` now completes and passes its frozen independent reader:
+all 46 captured prefill tokens plus 128 decode steps in true layers 0/1,
+130 continuous windows and 152,302 tasks. Completion is **48.948846 ms**,
+Native reads **7,845,262,592 B**, reload **3,765,306,624 B**. It is a complete
+two-layer MoE lifecycle, not 94-layer Transformer latency. Source and original
+cohort/result bindings are in `artifacts/provenance/real_npu/B1-reference-complete-r40.json`.
+The r27 controller has moved to `B1-phase_split` (observed worker 888240);
+verify current process identity before operating on it. G3 still needs the
+remaining eleven cases; G4/G5 are not accepted.
+
+The read-only `B1-transition-r41` figure keeps all 128 decode steps. Fifty-one
+windows have zero Native reads and their largest necessary work bound is
+shared NPU service; 77 have Native reads, with assigned-Gateway payload the
+largest bound in 76. These are overlapping service work bounds, not additive
+stalls or proven counterfactual speedups. The figure and hash receipt are in
+the report and `artifacts/provenance/real_npu/B1-transition-r41.json`.
+
+Optional context output-channel sharding is a stronger software baseline
+candidate on existing resources, with full K reductions, original scales,
+paid four-way copies/descriptor service and FP32 row Gather. Frozen default
+G3/G4 execution remains untouched. `analysis-r40@5f38270` passes 16 remote
+projection tampering/context/serving regressions; receipt is `regression-r40.json`.
+Its independent auditor now binds actual tensor producers, full weight reads,
+finite copy trees and descriptor phase order. `projection-preflight-r40.json`
+also passes eight actual B1 views per policy and nine pinned array-core shapes;
+default graph/kernel/metadata/catalog hashes match `abf28d6` exactly.
+Candidate intrinsic SRAM headroom is at least 5,627,048 B. One separate Native
+qualification is launched at source-r40, PID 889899, under
+`context-output-sharded-r40`; verify PID, receipt and retained log before
+acceptance. Launch is not an application result or a full-serving comparison.
+
+Read-only selected-window audits at `analysis-r42@39e091e` preserve all prior
+physical/request/NPU proofs and ledgers for decode steps 0/2. The corrected
+competition reader searches all projections for the last Native-read task,
+even when every displayed tail projection is cached. Step 2 finds
+`L0/e1/b11/down`: 17.843 µs issue span with 17.729 µs full-MC intersection.
+It does not turn those overlapping observations into removable stalls.
+Both r41 and corrected r42 receipts remain in `artifacts/provenance/real_npu`.
+
 ## Limits (historical comparisons)
 
 No search/DSE, new fanout/endpoint RTL, partitioning rewrite, thermal/yield

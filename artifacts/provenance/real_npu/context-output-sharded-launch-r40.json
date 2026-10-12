@@ -1,0 +1,27 @@
+{
+  "pid": 889899,
+  "args": [
+    "/Projects/haoning/w2w/.venv/bin/python",
+    "-m",
+    "tools.validate_real_npu_resources",
+    "--root",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/context-output-sharded-r40",
+    "--corpus",
+    "/Projects/haoning/w2w-full-system-vertical-delivery-20261011/complete-corpus-r1",
+    "--booksim-binary",
+    "/Projects/haoning/w2w-full-system-performance-placement-20261010/native-fast-r1/booksim/endpoint_booksim",
+    "--context",
+    "--context-projection-policy",
+    "output_sharded"
+  ],
+  "source_commit": "5f382701406f86ed3d98745bd04f42458e46ddda",
+  "native_sha256": {
+    "booksim": "9d18611aa0cc74b6d8a475e302134c7888b1417648607abce3a6f8d04311e308",
+    "ramulator": "37eb00768993fb5cfd903c690e72a21cdc69e10f4acbc421762f54dc5a33ba54"
+  },
+  "prerequisite_sources": {
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/regression-r40/receipt.json": "215e7991d6c18b20c540cc1e9303e6ceea1c7113dac184d55536791fe4f0bb3e",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/projection-preflight-r40/receipt.json": "4760eb47af15c86029fcd1386434ba2de158bb3b1860e5bd1ae143548882635f"
+  },
+  "scope": "One isolated resource qualification: first two actual prefill tokens at full H/I and two true layers, existing resources and accepted Native binaries. Complete-operand output shards with paid copies/gather. No complete-serving or architecture speedup claim; no automatic retry or mutation of the frozen G3 campaign."
+}

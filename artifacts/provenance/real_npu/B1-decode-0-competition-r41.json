@@ -1,0 +1,644 @@
+{
+  "passed": true,
+  "analysis_source": "3eebb6ebfc6b019f7d67ea051cf9f33b389b17a9",
+  "result_sha256": "fe123002d76a83b989020db711869f76515b1718bc0cea65b7a214b46993a300",
+  "proof": {
+    "physical": {
+      "passed": true,
+      "packets": 3034,
+      "read_descriptors": 0,
+      "read_words": 0,
+      "data_bytes": 10233024,
+      "physical_link_flits": 97994,
+      "tasks": 1032,
+      "finite_fetch": {
+        "passed": true,
+        "contexts_per_cluster": 2,
+        "peak_contexts": {
+          "c0": 2,
+          "c5": 2,
+          "c7": 2,
+          "c13": 2,
+          "c15": 2,
+          "c12": 2,
+          "c14": 2,
+          "c4": 2,
+          "c6": 2,
+          "c3": 2,
+          "c9": 2,
+          "c11": 2,
+          "c1": 2,
+          "c2": 2,
+          "c8": 2,
+          "c10": 2
+        },
+        "metadata_bytes_per_cluster": 136,
+        "issue_and_outstanding_shared": true
+      },
+      "physical_domains": 128,
+      "native_bytes": 0,
+      "gateway_bytes": 0,
+      "physical_collection_charged": true,
+      "native_and_gateway_reservations_drained": true
+    },
+    "requests": {
+      "enabled": true,
+      "passed": true,
+      "ranges": 0,
+      "command_bytes": 0,
+      "ack_bytes": 0
+    },
+    "npu": {
+      "passed": true,
+      "kernels": 578,
+      "macs": 303038464,
+      "array_service_cycles": 335760,
+      "precision": "BF16 activations, FP8/BF16 weights, ordered FP32 K partials",
+      "scope": "Independent shape/word/fanout/partial/port/ownership audit; array-core cycle calibration is a separate SCALE-Sim receipt. No silicon or real numerical-inference claim."
+    }
+  },
+  "windows": [
+    {
+      "index": 0,
+      "begin_ps": 17373793000,
+      "end_ps": 17425257000,
+      "clusters": {
+        "c0": {
+          "tasks": 23,
+          "context_owned_ps": 7850000,
+          "arithmetic_service_ps": 6461000,
+          "eligible_to_admit_ps": 1000,
+          "admit_to_operands_ps": 6970000,
+          "operands_to_start_ps": 0,
+          "start_to_first_grant_ps": 1389000,
+          "first_grant_to_finish_ps": 6461000
+        },
+        "c4": {
+          "tasks": 51,
+          "context_owned_ps": 25581000,
+          "arithmetic_service_ps": 15799000,
+          "eligible_to_admit_ps": 0,
+          "admit_to_operands_ps": 15473000,
+          "operands_to_start_ps": 2900000,
+          "start_to_first_grant_ps": 8508000,
+          "first_grant_to_finish_ps": 17073000
+        },
+        "c12": {
+          "tasks": 50,
+          "context_owned_ps": 25312000,
+          "arithmetic_service_ps": 15790000,
+          "eligible_to_admit_ps": 0,
+          "admit_to_operands_ps": 17803000,
+          "operands_to_start_ps": 3051000,
+          "start_to_first_grant_ps": 8885000,
+          "first_grant_to_finish_ps": 16427000
+        },
+        "c14": {
+          "tasks": 48,
+          "context_owned_ps": 24200000,
+          "arithmetic_service_ps": 15788000,
+          "eligible_to_admit_ps": 0,
+          "admit_to_operands_ps": 21197000,
+          "operands_to_start_ps": 2457000,
+          "start_to_first_grant_ps": 7775000,
+          "first_grant_to_finish_ps": 16425000
+        },
+        "c6": {
+          "tasks": 55,
+          "context_owned_ps": 24937000,
+          "arithmetic_service_ps": 15811000,
+          "eligible_to_admit_ps": 0,
+          "admit_to_operands_ps": 20096000,
+          "operands_to_start_ps": 2473000,
+          "start_to_first_grant_ps": 8489000,
+          "first_grant_to_finish_ps": 16448000
+        },
+        "c5": {
+          "tasks": 78,
+          "context_owned_ps": 47245000,
+          "arithmetic_service_ps": 26298000,
+          "eligible_to_admit_ps": 0,
+          "admit_to_operands_ps": 35149000,
+          "operands_to_start_ps": 16901000,
+          "start_to_first_grant_ps": 13231000,
+          "first_grant_to_finish_ps": 34014000
+        },
+        "c7": {
+          "tasks": 79,
+          "context_owned_ps": 46807000,
+          "arithmetic_service_ps": 26307000,
+          "eligible_to_admit_ps": 0,
+          "admit_to_operands_ps": 32620000,
+          "operands_to_start_ps": 15829000,
+          "start_to_first_grant_ps": 15000000,
+          "first_grant_to_finish_ps": 31807000
+        },
+        "c13": {
+          "tasks": 84,
+          "context_owned_ps": 47589000,
+          "arithmetic_service_ps": 26328000,
+          "eligible_to_admit_ps": 0,
+          "admit_to_operands_ps": 39640000,
+          "operands_to_start_ps": 16456000,
+          "start_to_first_grant_ps": 16398000,
+          "first_grant_to_finish_ps": 31191000
+        },
+        "c15": {
+          "tasks": 82,
+          "context_owned_ps": 46889000,
+          "arithmetic_service_ps": 26318000,
+          "eligible_to_admit_ps": 1000,
+          "admit_to_operands_ps": 40353000,
+          "operands_to_start_ps": 17403000,
+          "start_to_first_grant_ps": 16244000,
+          "first_grant_to_finish_ps": 30645000
+        },
+        "c3": {
+          "tasks": 111,
+          "context_owned_ps": 70011000,
+          "arithmetic_service_ps": 36827000,
+          "eligible_to_admit_ps": 0,
+          "admit_to_operands_ps": 61156000,
+          "operands_to_start_ps": 51287000,
+          "start_to_first_grant_ps": 18872000,
+          "first_grant_to_finish_ps": 51139000
+        },
+        "c9": {
+          "tasks": 109,
+          "context_owned_ps": 68424000,
+          "arithmetic_service_ps": 36825000,
+          "eligible_to_admit_ps": 0,
+          "admit_to_operands_ps": 49958000,
+          "operands_to_start_ps": 47126000,
+          "start_to_first_grant_ps": 16015000,
+          "first_grant_to_finish_ps": 52409000
+        },
+        "c11": {
+          "tasks": 107,
+          "context_owned_ps": 69009000,
+          "arithmetic_service_ps": 36815000,
+          "eligible_to_admit_ps": 0,
+          "admit_to_operands_ps": 49568000,
+          "operands_to_start_ps": 46683000,
+          "start_to_first_grant_ps": 17710000,
+          "first_grant_to_finish_ps": 51299000
+        },
+        "c1": {
+          "tasks": 109,
+          "context_owned_ps": 70005000,
+          "arithmetic_service_ps": 36825000,
+          "eligible_to_admit_ps": 1000,
+          "admit_to_operands_ps": 55153000,
+          "operands_to_start_ps": 56112000,
+          "start_to_first_grant_ps": 19029000,
+          "first_grant_to_finish_ps": 50976000
+        },
+        "c2": {
+          "tasks": 16,
+          "context_owned_ps": 6655000,
+          "arithmetic_service_ps": 5260000,
+          "eligible_to_admit_ps": 0,
+          "admit_to_operands_ps": 3720000,
+          "operands_to_start_ps": 0,
+          "start_to_first_grant_ps": 1395000,
+          "first_grant_to_finish_ps": 5260000
+        },
+        "c8": {
+          "tasks": 15,
+          "context_owned_ps": 6654000,
+          "arithmetic_service_ps": 5259000,
+          "eligible_to_admit_ps": 0,
+          "admit_to_operands_ps": 3853000,
+          "operands_to_start_ps": 0,
+          "start_to_first_grant_ps": 1395000,
+          "first_grant_to_finish_ps": 5259000
+        },
+        "c10": {
+          "tasks": 15,
+          "context_owned_ps": 6586000,
+          "arithmetic_service_ps": 5259000,
+          "eligible_to_admit_ps": 0,
+          "admit_to_operands_ps": 5103000,
+          "operands_to_start_ps": 0,
+          "start_to_first_grant_ps": 1327000,
+          "first_grant_to_finish_ps": 5259000
+        }
+      },
+      "last_projection_pairs": [
+        {
+          "gate": "W0002/L1/e84/b11/gate",
+          "up": "W0002/L1/e84/b11/up",
+          "joint_ready_ps": 17417325000,
+          "last_projection": "up",
+          "early_projection_slack_ps": 553000
+        },
+        {
+          "gate": "W0002/L1/e87/b10/gate",
+          "up": "W0002/L1/e87/b10/up",
+          "joint_ready_ps": 17417400000,
+          "last_projection": "up",
+          "early_projection_slack_ps": 2768000
+        },
+        {
+          "gate": "W0002/L1/e87/b4/gate",
+          "up": "W0002/L1/e87/b4/up",
+          "joint_ready_ps": 17417800000,
+          "last_projection": "up",
+          "early_projection_slack_ps": 3422000
+        },
+        {
+          "gate": "W0002/L1/e84/b5/gate",
+          "up": "W0002/L1/e84/b5/up",
+          "joint_ready_ps": 17418269000,
+          "last_projection": "up",
+          "early_projection_slack_ps": 555000
+        },
+        {
+          "gate": "W0002/L1/e87/b2/gate",
+          "up": "W0002/L1/e87/b2/up",
+          "joint_ready_ps": 17420726000,
+          "last_projection": "up",
+          "early_projection_slack_ps": 553000
+        },
+        {
+          "gate": "W0002/L1/e87/b8/gate",
+          "up": "W0002/L1/e87/b8/up",
+          "joint_ready_ps": 17421588000,
+          "last_projection": "up",
+          "early_projection_slack_ps": 553000
+        },
+        {
+          "gate": "W0002/L1/e87/b11/gate",
+          "up": "W0002/L1/e87/b11/up",
+          "joint_ready_ps": 17421608000,
+          "last_projection": "up",
+          "early_projection_slack_ps": 553000
+        },
+        {
+          "gate": "W0002/L1/e87/b5/gate",
+          "up": "W0002/L1/e87/b5/up",
+          "joint_ready_ps": 17422001000,
+          "last_projection": "up",
+          "early_projection_slack_ps": 553000
+        }
+      ],
+      "tail_projections": [
+        {
+          "task": "W0002/L1/e84/b5/down",
+          "tile": "c3",
+          "kernel": true,
+          "dependency_ready_ps": 17419558000,
+          "admitted_ps": 17419558000,
+          "operands_committed_ps": 17419845000,
+          "context_start_ps": 17419845000,
+          "first_grant_ps": 17419845000,
+          "completed_ps": 17420482000,
+          "observed_intervals_ps": {
+            "eligible_to_admit_ps": 0,
+            "admit_to_operands_ps": 287000,
+            "operands_to_start_ps": 0,
+            "start_to_first_grant_ps": 0,
+            "first_grant_to_finish_ps": 637000
+          },
+          "arithmetic_service_ps": 637000,
+          "context_owned_ps": 637000,
+          "compute_context_full_before_start_ps": 0,
+          "fetch_full_before_admit_ps": 0,
+          "nonservice_after_start_ps": 0,
+          "cache_hit": true,
+          "shape": {
+            "M": 1,
+            "N": 4096,
+            "K": 128
+          }
+        },
+        {
+          "task": "W0002/L1/e87/b2/up",
+          "tile": "c11",
+          "kernel": true,
+          "dependency_ready_ps": 17419265000,
+          "admitted_ps": 17419265000,
+          "operands_committed_ps": 17419653000,
+          "context_start_ps": 17419653000,
+          "first_grant_ps": 17420173000,
+          "completed_ps": 17420726000,
+          "observed_intervals_ps": {
+            "eligible_to_admit_ps": 0,
+            "admit_to_operands_ps": 388000,
+            "operands_to_start_ps": 0,
+            "start_to_first_grant_ps": 520000,
+            "first_grant_to_finish_ps": 553000
+          },
+          "arithmetic_service_ps": 553000,
+          "context_owned_ps": 1073000,
+          "compute_context_full_before_start_ps": 0,
+          "fetch_full_before_admit_ps": 0,
+          "nonservice_after_start_ps": 520000,
+          "cache_hit": true,
+          "shape": {
+            "M": 1,
+            "N": 128,
+            "K": 4096
+          }
+        },
+        {
+          "task": "W0002/L1/e87/b8/gate",
+          "tile": "c3",
+          "kernel": true,
+          "dependency_ready_ps": 17419559000,
+          "admitted_ps": 17419559000,
+          "operands_committed_ps": 17419956000,
+          "context_start_ps": 17419956000,
+          "first_grant_ps": 17420482000,
+          "completed_ps": 17421035000,
+          "observed_intervals_ps": {
+            "eligible_to_admit_ps": 0,
+            "admit_to_operands_ps": 397000,
+            "operands_to_start_ps": 0,
+            "start_to_first_grant_ps": 526000,
+            "first_grant_to_finish_ps": 553000
+          },
+          "arithmetic_service_ps": 553000,
+          "context_owned_ps": 1079000,
+          "compute_context_full_before_start_ps": 0,
+          "fetch_full_before_admit_ps": 0,
+          "nonservice_after_start_ps": 526000,
+          "cache_hit": true,
+          "shape": {
+            "M": 1,
+            "N": 128,
+            "K": 4096
+          }
+        },
+        {
+          "task": "W0002/L1/e87/b11/gate",
+          "tile": "c9",
+          "kernel": true,
+          "dependency_ready_ps": 17420105000,
+          "admitted_ps": 17420105000,
+          "operands_committed_ps": 17420502000,
+          "context_start_ps": 17420502000,
+          "first_grant_ps": 17420502000,
+          "completed_ps": 17421055000,
+          "observed_intervals_ps": {
+            "eligible_to_admit_ps": 0,
+            "admit_to_operands_ps": 397000,
+            "operands_to_start_ps": 0,
+            "start_to_first_grant_ps": 0,
+            "first_grant_to_finish_ps": 553000
+          },
+          "arithmetic_service_ps": 553000,
+          "context_owned_ps": 553000,
+          "compute_context_full_before_start_ps": 0,
+          "fetch_full_before_admit_ps": 0,
+          "nonservice_after_start_ps": 0,
+          "cache_hit": true,
+          "shape": {
+            "M": 1,
+            "N": 128,
+            "K": 4096
+          }
+        },
+        {
+          "task": "W0002/L1/e87/b2/down",
+          "tile": "c11",
+          "kernel": true,
+          "dependency_ready_ps": 17420744000,
+          "admitted_ps": 17420744000,
+          "operands_committed_ps": 17420747000,
+          "context_start_ps": 17420747000,
+          "first_grant_ps": 17420747000,
+          "completed_ps": 17421384000,
+          "observed_intervals_ps": {
+            "eligible_to_admit_ps": 0,
+            "admit_to_operands_ps": 3000,
+            "operands_to_start_ps": 0,
+            "start_to_first_grant_ps": 0,
+            "first_grant_to_finish_ps": 637000
+          },
+          "arithmetic_service_ps": 637000,
+          "context_owned_ps": 637000,
+          "compute_context_full_before_start_ps": 0,
+          "fetch_full_before_admit_ps": 0,
+          "nonservice_after_start_ps": 0,
+          "cache_hit": true,
+          "shape": {
+            "M": 1,
+            "N": 4096,
+            "K": 128
+          }
+        },
+        {
+          "task": "W0002/L1/e87/b5/gate",
+          "tile": "c1",
+          "kernel": true,
+          "dependency_ready_ps": 17420229000,
+          "admitted_ps": 17420229000,
+          "operands_committed_ps": 17420895000,
+          "context_start_ps": 17420895000,
+          "first_grant_ps": 17420895000,
+          "completed_ps": 17421448000,
+          "observed_intervals_ps": {
+            "eligible_to_admit_ps": 0,
+            "admit_to_operands_ps": 666000,
+            "operands_to_start_ps": 0,
+            "start_to_first_grant_ps": 0,
+            "first_grant_to_finish_ps": 553000
+          },
+          "arithmetic_service_ps": 553000,
+          "context_owned_ps": 553000,
+          "compute_context_full_before_start_ps": 0,
+          "fetch_full_before_admit_ps": 0,
+          "nonservice_after_start_ps": 0,
+          "cache_hit": true,
+          "shape": {
+            "M": 1,
+            "N": 128,
+            "K": 4096
+          }
+        },
+        {
+          "task": "W0002/L1/e87/b8/up",
+          "tile": "c3",
+          "kernel": true,
+          "dependency_ready_ps": 17419559000,
+          "admitted_ps": 17419559000,
+          "operands_committed_ps": 17420022000,
+          "context_start_ps": 17420482000,
+          "first_grant_ps": 17421035000,
+          "completed_ps": 17421588000,
+          "observed_intervals_ps": {
+            "eligible_to_admit_ps": 0,
+            "admit_to_operands_ps": 463000,
+            "operands_to_start_ps": 460000,
+            "start_to_first_grant_ps": 553000,
+            "first_grant_to_finish_ps": 553000
+          },
+          "arithmetic_service_ps": 553000,
+          "context_owned_ps": 1106000,
+          "compute_context_full_before_start_ps": 460000,
+          "fetch_full_before_admit_ps": 0,
+          "nonservice_after_start_ps": 553000,
+          "cache_hit": true,
+          "shape": {
+            "M": 1,
+            "N": 128,
+            "K": 4096
+          }
+        },
+        {
+          "task": "W0002/L1/e87/b11/up",
+          "tile": "c9",
+          "kernel": true,
+          "dependency_ready_ps": 17420105000,
+          "admitted_ps": 17420105000,
+          "operands_committed_ps": 17420568000,
+          "context_start_ps": 17420568000,
+          "first_grant_ps": 17421055000,
+          "completed_ps": 17421608000,
+          "observed_intervals_ps": {
+            "eligible_to_admit_ps": 0,
+            "admit_to_operands_ps": 463000,
+            "operands_to_start_ps": 0,
+            "start_to_first_grant_ps": 487000,
+            "first_grant_to_finish_ps": 553000
+          },
+          "arithmetic_service_ps": 553000,
+          "context_owned_ps": 1040000,
+          "compute_context_full_before_start_ps": 0,
+          "fetch_full_before_admit_ps": 0,
+          "nonservice_after_start_ps": 487000,
+          "cache_hit": true,
+          "shape": {
+            "M": 1,
+            "N": 128,
+            "K": 4096
+          }
+        },
+        {
+          "task": "W0002/L1/e87/b5/up",
+          "tile": "c1",
+          "kernel": true,
+          "dependency_ready_ps": 17420229000,
+          "admitted_ps": 17420229000,
+          "operands_committed_ps": 17420961000,
+          "context_start_ps": 17420961000,
+          "first_grant_ps": 17421448000,
+          "completed_ps": 17422001000,
+          "observed_intervals_ps": {
+            "eligible_to_admit_ps": 0,
+            "admit_to_operands_ps": 732000,
+            "operands_to_start_ps": 0,
+            "start_to_first_grant_ps": 487000,
+            "first_grant_to_finish_ps": 553000
+          },
+          "arithmetic_service_ps": 553000,
+          "context_owned_ps": 1040000,
+          "compute_context_full_before_start_ps": 0,
+          "fetch_full_before_admit_ps": 0,
+          "nonservice_after_start_ps": 487000,
+          "cache_hit": true,
+          "shape": {
+            "M": 1,
+            "N": 128,
+            "K": 4096
+          }
+        },
+        {
+          "task": "W0002/L1/e87/b8/down",
+          "tile": "c3",
+          "kernel": true,
+          "dependency_ready_ps": 17421734000,
+          "admitted_ps": 17421734000,
+          "operands_committed_ps": 17421737000,
+          "context_start_ps": 17421737000,
+          "first_grant_ps": 17421737000,
+          "completed_ps": 17422374000,
+          "observed_intervals_ps": {
+            "eligible_to_admit_ps": 0,
+            "admit_to_operands_ps": 3000,
+            "operands_to_start_ps": 0,
+            "start_to_first_grant_ps": 0,
+            "first_grant_to_finish_ps": 637000
+          },
+          "arithmetic_service_ps": 637000,
+          "context_owned_ps": 637000,
+          "compute_context_full_before_start_ps": 0,
+          "fetch_full_before_admit_ps": 0,
+          "nonservice_after_start_ps": 0,
+          "cache_hit": true,
+          "shape": {
+            "M": 1,
+            "N": 4096,
+            "K": 128
+          }
+        },
+        {
+          "task": "W0002/L1/e87/b11/down",
+          "tile": "c9",
+          "kernel": true,
+          "dependency_ready_ps": 17421735000,
+          "admitted_ps": 17421735000,
+          "operands_committed_ps": 17421738000,
+          "context_start_ps": 17421738000,
+          "first_grant_ps": 17421738000,
+          "completed_ps": 17422375000,
+          "observed_intervals_ps": {
+            "eligible_to_admit_ps": 0,
+            "admit_to_operands_ps": 3000,
+            "operands_to_start_ps": 0,
+            "start_to_first_grant_ps": 0,
+            "first_grant_to_finish_ps": 637000
+          },
+          "arithmetic_service_ps": 637000,
+          "context_owned_ps": 637000,
+          "compute_context_full_before_start_ps": 0,
+          "fetch_full_before_admit_ps": 0,
+          "nonservice_after_start_ps": 0,
+          "cache_hit": true,
+          "shape": {
+            "M": 1,
+            "N": 4096,
+            "K": 128
+          }
+        },
+        {
+          "task": "W0002/L1/e87/b5/down",
+          "tile": "c1",
+          "kernel": true,
+          "dependency_ready_ps": 17422019000,
+          "admitted_ps": 17422019000,
+          "operands_committed_ps": 17422022000,
+          "context_start_ps": 17422022000,
+          "first_grant_ps": 17422022000,
+          "completed_ps": 17422659000,
+          "observed_intervals_ps": {
+            "eligible_to_admit_ps": 0,
+            "admit_to_operands_ps": 3000,
+            "operands_to_start_ps": 0,
+            "start_to_first_grant_ps": 0,
+            "first_grant_to_finish_ps": 637000
+          },
+          "arithmetic_service_ps": 637000,
+          "context_owned_ps": 637000,
+          "compute_context_full_before_start_ps": 0,
+          "fetch_full_before_admit_ps": 0,
+          "nonservice_after_start_ps": 0,
+          "cache_hit": true,
+          "shape": {
+            "M": 1,
+            "N": 4096,
+            "K": 128
+          }
+        }
+      ],
+      "last_projection_with_native_read": null,
+      "scope": "Observed integer-ps dependency/admission/complete-operand/context/grant boundaries. Task spans are disjoint within a task but overlap across tasks. Full-capacity intersections and latest projections do not establish counterfactual savings or an exclusive responsible resource. Complete-operand OS policy is a model assumption, not proof of optimal streaming dataflow."
+    }
+  ],
+  "scope": "Read-only diagnosis of completed supplied evidence. The input experiment scope is unchanged; directed qualifications do not become complete-request results. No counterfactual hardware performance or calibrated energy/area claim.",
+  "original_window_index": 2,
+  "original_decode_step": 0,
+  "selection": "Fixed original decode steps 0 and 2 for post-hoc service diagnosis, not optimized cases",
+  "parent_result_sha256": "8258e7c91c5a01ec8c0b049af301acbd9b2d4d39bd572fcab27f48fc054e867d"
+}

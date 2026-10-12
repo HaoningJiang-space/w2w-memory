@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "analysis_source": "3eebb6ebfc6b019f7d67ea051cf9f33b389b17a9",
+  "case": "B1-reference",
+  "sources": {
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/campaign-r27/real-moe/cases/B1-reference/analysis.json": "334cdadd6edd70b8b1bd03fa13ee16745087fad9a39c1ba36b6682793d8cd999",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/campaign-r27/real-moe/cases/B1-reference/completion.json": "40da7ed851ed4443036fcad04be5b75ab8342f573fe46510ee9230483480a618",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/campaign-r27/real-moe/registration.json": "a0cb3d6a50d66c549a55d12ea8932999750b274a1ad33e8376b42cf7e18f275e",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/campaign-r27/real-moe/cohorts/B1.json.gz": "5427ac971c809630a327a8f2982aaa0701d682e704ac6927ed7bdabfa6b5d7c4",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/campaign-r27/real-moe/cases/B1-reference/result.json.gz": "8258e7c91c5a01ec8c0b049af301acbd9b2d4d39bd572fcab27f48fc054e867d"
+  },
+  "figure_sha256": "49f8e12abcc2e54994e8825324bc6128c580eed1ca1123bf0b528e9bb5708ff1",
+  "completed_case": true,
+  "complete_campaign": false,
+  "zero_native_decode": {
+    "windows": 51,
+    "native_bytes": 0,
+    "median_duration_ps": 50173000,
+    "largest_necessary_bound_counts": {
+      "shared_compute_ps": 51
+    }
+  },
+  "with_native_decode": {
+    "windows": 77,
+    "native_bytes": 3671960832,
+    "median_duration_ps": 235882000,
+    "largest_necessary_bound_counts": {
+      "fixed_gateway_assignment_ps": 76,
+      "shared_compute_ps": 1
+    }
+  },
+  "scope": "Read-only visualization of one accepted full captured lifecycle in two real MoE layers. Existing raw-event audit is reused by hash; this plot performs source bindings, not another raw-event audit. Resource work bounds overlap and cannot be added as stalls or interpreted as counterfactual savings. Other mappings/batches and full Transformer serving remain separate evidence."
+}

@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "returncode": 0,
+  "args": [
+    "/Projects/haoning/w2w/.venv/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_context_projection_audit",
+    "tests.test_llm_context",
+    "tests.test_serving_lifecycle"
+  ],
+  "source_commit": "5f382701406f86ed3d98745bd04f42458e46ddda",
+  "log_sha256": "4ee68b23d736747b920731aa158fdb39982e03e53e9be3a8174539a7e6753535",
+  "content": "................\n----------------------------------------------------------------------\nRan 16 tests in 53.056s\n\nOK\n",
+  "wall_seconds": 53.19216557499021,
+  "scope": "Projection input/read/phase tampering negatives and unchanged context/serving contracts; no captured application performance claim"
+}
