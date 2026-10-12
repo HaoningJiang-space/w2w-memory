@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "source_commit": "df9b7f0e96fe553c37a377c461d74425359baaef",
+  "args": [
+    "/Projects/haoning/w2w/.venv/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_execution_fabric_readback"
+  ],
+  "log_sha256": "33060fd73862c5e1af97335504d5b45211fce6d229657f556d8deceeadc52ce4",
+  "content": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.000s\n\nOK\n",
+  "scope": "Analysis-only contracts: assigned arrays versus inactive cells, existing scale-first order and conservative overlap envelope. No physical experiment."
+}

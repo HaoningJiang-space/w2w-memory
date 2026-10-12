@@ -11,8 +11,10 @@ identities and explicit mapping with the existing BookSim/Ramulator executor.
 Latest user steering overrides the historical broad campaign scheduling below.
 Complete B1 Reference/Phase-Split, the already launched output-sharded legality
 qualification, separate Prefill/Decode event mechanisms and independent audits.
-No new NPU feature, controller optimization, hardware or G4 work. B4/16/32 is
-the next stage after this scope; 128-Tile remains deferred.
+No new NPU feature, controller optimization, hardware or G4 work during this
+scope. Latest continuation is P0 paired B1 acceptance → P1 saved-event hit /
+issue/return diagnosis → P2 small streaming/ownership comparisons → P3 real
+B4/16/32. P2 physical interventions wait for P0. 128-Tile remains deferred.
 
 Reference is complete: 46 Prefill tokens, 128 Decode steps, true layers 0/1,
 **48.948846 ms** makespan. Source-r51 read-only analysis now closes all 130
@@ -84,6 +86,33 @@ separately incomplete. At the latest recorded check, Reference mechanisms,
 shard legality and physical shape readbacks are ready; Phase-Split and paired
 G3.4/G3.5 remain pending. Preserve all old readers and partial outputs; r49/r50
 finisher supersessions affect only this turn's own read-only processes.
+
+Source55 read-only fabric probe at `analysis-r55@87ccbe6` preserves actual
+step-0/step-25 array/epoch identities and records important P2 conditions.
+Actual Gate/Up are M1/N128/K4096 with eight K partitions and all 64 arrays in
+one wave. Down is M1/N4096/K128 with four waves of 64 arrays each. Low 5.5%
+MAC efficiency is largely inactive M rows and pipeline/service overhead, not
+95% unassigned whole arrays. Smaller array subsets reduce existing parallelism;
+different experts in unused rows need distinct weights and paid routing/ports.
+The baseline already has a 12-block FFN pipeline and scale-first requests.
+Do not describe it as waiting for all 18.879 MB of an expert or invent free
+scale prefetch. Step25's 220 cold kernels all receive scales before final data;
+the remaining delivery interval is an overlap envelope, not predicted savings.
+
+`execution-fabric-readback-r55.json` also records a **provisional** first
+Phase-Split Prefill window: 10.899564 ms versus Reference 9.713503 ms,
+signed benefit −1.186061 ms, equal 3,192,644,096 B Native. Same actual routes /
+profile / matrix work and local Native/request/NPU audits pass. This is not
+full-case/carry-chain or paired acceptance. Remaining windows and the exact
+existing finisher continue; preserve this negative observation.
+
+The report's P2 contract distinguishes coordinate/scale/input readiness from
+byte-prefix readiness, counts extra owners/FIFOs/return associations against
+existing resources, and requires a stronger legal execution baseline. Archived
+carry metadata is not a certified restorable full Native/NoC checkpoint.
+Conditional fresh fixtures must be labeled separately from continuous original
+step replay. Reference shared-grant work bounds can change with new ownership;
+Gateway work bounds remain conditional on each observed traffic volume.
 
 ## Completed checks and comparisons
 

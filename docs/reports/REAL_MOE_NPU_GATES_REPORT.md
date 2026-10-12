@@ -211,10 +211,151 @@ negative benefits and changed hit/miss behavior are retained. It starts no
 physical jobs and has no automatic retry or G4/G5 promotion. Its authoritative
 remote output is `B1-g3-finisher-r51`; only its passed final receipt can close
 the current B1 G3.1–G3.5 scope. The original twelve-case campaign remains
-separately incomplete. Batched B4/16/32 is the next stage after this scope.
+separately incomplete. The latest P0–P3 continuation below supersedes the
+earlier direct jump to Batched B4/16/32 after B1.
 [The recorded progress snapshot](../../artifacts/provenance/real_npu/progress-r51.json)
 binds the current accepted readbacks, held controller identities and the
 specific live worker/finisher. It is a snapshot, not final Phase-Split acceptance.
+
+## Execution-fabric hypothesis and continuation order
+
+The next research question is how delivered weights are consumed and how
+physical compute resources are assigned under actual expert M and residency.
+Supply pressure can appear as either upstream admission wait or downstream
+operand wait; those observations do not establish two independent bottlenecks.
+Little's Law requires the stated averaging/stability conditions. These finite
+Prefill observations alone do not certify steady state or a recoverable
+throughput gain from more contexts.
+
+The proposed elastic compute–memory execution fabric remains a hypothesis,
+not an implemented architecture or accepted speedup. Current physical execution
+is unchanged, and no additional Native experiments are inserted before P0.
+
+| Priority | Work | Acceptance boundary |
+|---|---|---|
+| P0 | Finish complete B1 Reference / Phase-Split pair | Current finisher closes all captured windows, signed phase/step differences, cache traffic and physical/carry audits |
+| P1 | Diagnose hit admission and miss issue/return lifetimes from saved events | Separate source pressure and bounded state ownership; record existing stronger policies and their paid costs |
+| P2 | Two small same-budget structure comparisons after P0 | Legal streaming readiness and actual compute partitioning must beat the strongest qualified execution baseline with all state/ports/buffers charged |
+| P3 | Real B4/16/32 demand and execution | Verify whether any advantage survives changing expert M distributions and cache residency; no G4/G5 promotion |
+
+### Actual B1 mapping changes the spatial-sharing premise
+
+[The step-0/step-25 program and event readback](../../artifacts/provenance/real_npu/execution-fabric-readback-r55.json)
+checks the original raw byte hashes, observed epoch work and complete task/context
+ledgers. [Three focused remote reader tests](../../artifacts/provenance/real_npu/regression-r56.json)
+also check assigned arrays versus inactive cells, the actual scale-first contract
+and a changed-contract rejection. Each step executes 192 Gate, 192 Up and 192
+Down kernels at M=1.
+The relevant shapes are the **lowered kernels**, not the full-projection shapes
+used in standalone microkernel validation:
+
+| B1 expert kernel | M/N/K | Current K partitions | Arrays assigned per wave | Observed service cycles |
+|---|---|---:|---|---:|
+| Gate / Up | 1 / 128 / 4096 | 8 | 64 | 553 |
+| Down | 1 / 4096 / 128 | 1 | 64 / 64 / 64 / 64 | 637 |
+
+Every array wave assigns all 64 arrays. The Mapper already uses spare-array K
+partitioning for Gate/Up. Low MAC efficiency therefore **does not imply that
+95% of whole arrays are unassigned and directly available to another expert**.
+In these mapped tiles M uses one of 16 rows; pipeline fill/drain and non-array
+scale/store/reduction service reduce efficiency further. The exact decomposition
+of program efficiency is:
+
+\[
+U=f_{\rm assigned\ arrays}\,f_{\rm shape}\,
+f_{\rm fill/drain}\,f_{\rm array\ core}.
+\]
+
+Gate/Up gives \(1\times1/16\times512/542\times542/553=5.787\%\).
+Down gives \(1\times1/16\times128/158\times632/637=5.024\%\).
+The assigned-array fraction describes mapping reservation, not continuous MAC
+activity or a measured silicon idle signal. Both stages share the same 16,384
+MAC/cycle budget.
+
+Assigning fewer arrays to one expert can reduce its K or output-channel
+parallelism and lengthen its program. Array-subset sharing must account for
+that tradeoff. Filling unused rows with **different** experts is a different
+mapping/data-path problem: those rows require different weights, rather than
+the same GEMM's shared weight columns. It must pay independent operand routing,
+FP8 conversion, task/accumulator identity and shared bank/port arbitration.
+Neither more compute contexts nor low aggregate MAC efficiency alone proves
+spatial multiplexing will recover the missing capacity.
+
+### Streaming must improve on the current block and scale contracts
+
+Current computation is already split into 12 intermediate-width-128 FFN blocks,
+with explicit SiLU, Down partials and ordered accumulation. The complete-operand
+barrier applies to each lowered matrix task (524,288 FP8 data bytes plus 128
+scale bytes in B1), not the entire 18.879 MB expert at once. A candidate must
+distinguish finer kernel streaming from the block pipeline already present.
+
+The current Lowering also **issues scales before weight data**, even though
+scale storage follows the FP8 data within its resident object. In step 25 all
+220 cold expert kernels receive their scale descriptor before their last weight
+descriptor. After activation and all scale descriptors commit, remaining weight
+delivery has a median 38.889 µs span, with range 20.977–42.709 µs. This only
+exposes a possible overlap interval; an individual current kernel has merely
+0.553–0.637 µs array service. Those spans are not predicted streaming savings
+and must not be summed across parallel tasks.
+
+Legal readiness must bind original weight coordinates, scale groups and input
+slices: `Ready(expert, N_tile, K_tile, X_slice, scale_group)`. A committed byte
+prefix is not automatically a complete K block across all output rows in the
+row-major format. Descriptor/receive granularity, partial accumulators, final
+output visibility and any packing/transposition remain explicit costs. SiLU
+still waits for its complete Gate/Up dot products. Preserve the stated FP32
+reduction order or explicitly qualify a changed numerical contract.
+
+### Two pilots and the baseline/resource contract
+
+After P0, original steps 0 and 25 remain the proposed resident and miss-heavy
+pilot workloads. Treat streaming and ownership as separate factors before a
+combined design; keep signed regressions. Original `StreamGemm` is a required
+comparison, but its aggregate work/byte contract alone does not certify a legal
+shape-aware array mapping. Reuse the independently qualified multi-wave K
+mapping as another software reference where it applies. Historical Up-local
+strength under the old compute model is not yet a completed new-NPU baseline;
+strongest-baseline/novelty claims require its appropriate qualification.
+
+Keep the full original weights/scales/token identities, router visibility,
+precision and physical catalogs. Preserve 16 clusters, 16,384 MAC/cycle per
+cluster, 192 MiB SRAM with the unchanged 184 MiB cache, 128 Native domains,
+Gateway/HB/NoC capacities, and finite shared outstanding/descriptor budgets.
+Any additional array owner, hit-admission entry, return association, readiness
+tracker, FIFO or partial-buffer state consumes paid storage/control resources.
+Aggregate MAC, SRAM-bank, broadcast, conversion and read/write grants remain
+shared; private ports/buffers cannot appear for free. A static full-kernel epoch
+cannot bypass external streaming feedback or changing array ownership.
+
+A selected original window carries previous cache/LRU, Native row/refresh,
+physical-clock and BookSim arbitration state. The archived carry record is an
+audit witness, **not a certified restorable full Native/NoC checkpoint**.
+Use a validated replay/branch of the actual prefix for trajectory comparisons,
+or declare identical modeled initial conditions for a separate conditional
+fixture. A fresh warm/cold fixture must not be relabeled as the original step's
+continuous execution. Cache misses/reloads may change despite equal budgets;
+recompute supply work and separate that contribution.
+
+For step 25, 589.968 µs is a Gateway work bound conditional on its observed
+traffic and unchanged Gateway service. Step 0's 36.827 µs bound is **Reference
+shared-grant work under its serialized execution policy**; changing dataflow or
+array sharing can change that work. It is not an immutable structural bound.
+The global MAC-budget-only bound is 1.156 µs in either step, but omits placement,
+ports, conversion, vector work and dependencies and is not a feasible prediction.
+This distinction prevents either bound from becoming an assumed architecture
+speedup.
+
+### Provisional Phase-Split progress
+
+The first 32-token Prefill window is now saved and passes its local
+Native/request/NPU audits. The readback verifies the same ranked routes,
+machine/profile, array work and registered catalog. Reference is **9.713503 ms**;
+Phase-Split is **10.899564 ms**, a signed benefit of **−1.186061 ms**.
+Both read **3,192,644,096 B Native**. This is a retained local degradation,
+not complete Prefill/Decode or final independently accepted paired performance.
+The second Prefill window, all Decode steps and the finisher's whole-case
+readback are still pending at this snapshot. Physical source and scheduling
+freeze remain unchanged.
 
 ## Frozen workload and completed foundation
 
