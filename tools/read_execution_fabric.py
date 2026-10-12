@@ -48,7 +48,7 @@ def scale_observation(raw):
         if len(tail)!=1 or sum(e['bytes'] for e in data)!=weight or len(data)+1!=len(issued[key]):
             raise ValueError('Weight/scale descriptor geometry changed')
         scale=tail[0];last_issue=max(e['time_ps'] for e in data)
-        if scale['time_ps']<last_issue:raise ValueError('Frozen sequential scale-tail issue policy changed')
+        if scale['time_ps']>min(e['time_ps'] for e in data):raise ValueError('Frozen scale-first issue policy changed')
         last_weight=max(delivered[e['request']] for e in data);scale_ready=delivered[scale['request']]
         activation=max(edges[e] for e in incoming[key])
         rows.append(dict(task=key,kind=key.rsplit('/',1)[1],last_weight_issue_ps=last_issue,
@@ -57,7 +57,7 @@ def scale_observation(raw):
             descriptor_level_tail_overlap_envelope_ps=max(0,last_weight-max(scale_ready,activation))))
     return dict(cold_expert_kernels=len(rows),scale_earlier_than_final_weight=sum(r['scale_before_final_weight'] for r in rows),
         tail_overlap_envelope_ps=distribution([r['descriptor_level_tail_overlap_envelope_ps'] for r in rows]),tasks=rows,
-        scope='Current complete-descriptor commits only: input and all scales permit at most this remaining weight-delivery overlap. This does not establish N/K-tile readiness, available arrays/ports, attainable streaming cycles or additive savings. Reordering scale reads must pay the original physical requests.')
+        scope='Scale is stored after FP8 data but its descriptor is already issued first. Current complete-descriptor commits only: input and all scales permit at most this remaining weight-delivery overlap. This does not establish N/K-tile readiness, available arrays/ports, attainable streaming cycles or additive savings. Original physical scale requests remain paid.')
 
 
 def run(study,mechanism,output):
