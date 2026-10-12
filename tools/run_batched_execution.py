@@ -18,10 +18,12 @@ from w2w.mapping.moe_batch_lowering import BASELINES,full_catalog,lower_batch
 from w2w.provenance import revision
 from w2w.serving.batcher import group
 from w2w.system.kernel import execute_system
+from w2w.system.builder import SystemBuilder
 from w2w.system.operand_streaming import StreamingKernelModel,reprogram_streaming_graph
 from w2w.system.row_mapping import RowMappingKernelModel,reprogram_graph
 from w2w.system.runtime_windows import RuntimeWindows
 from w2w.system.weight_cache import WeightCacheConfig
+from w2w.system.operand_readiness import CommittedWeightPrefix
 from w2w.validation.moe_runtime import audit_moe_call
 from w2w.workloads.patterns_adapter import observations
 from w2w.workloads.moe_trace import file_sha
@@ -136,6 +138,27 @@ def coordinate(output,study,p2a,p2b,binary,horizon):
         placement_selection='All three legal best-OS placements measured for each B. Row/stream comparisons use the fastest measured best-OS placement, retaining all baseline and negative results.',
         hardware_cost='Aggregate resources fixed. Row steering/word/scale state and streaming ROM/probes paid as declared; no equal-PPA assumption.',
         host_concurrency=2,host_optimization='Same qualified indexed admission in every case; unchanged physical lexical ordering and resources.'))
+    # Validate every registered shape/catalog/working set before any Native
+    # launch. Do not silently shrink the 184 MiB cache to fit a large group.
+    preflight=[]
+    for name,choice in cases.items():
+        cohort=json.load(gzip.open(Path(cohorts[str(choice['B'])]['path']),'rt'))
+        catalog=full_catalog(machine,old['shape'],('0','1'),choice['placement'])
+        maximum=0;count=0;shape_counts=Counter()
+        for graph,kernels,meta in windows(cohort,machine,catalog,p,choice['policy'],horizon):
+            model=StreamingKernelModel(p,kernels,auxiliary=meta['auxiliary']) if choice['policy']=='streaming_os' else RowMappingKernelModel(p,kernels,policy=choice['policy'],auxiliary=meta['auxiliary'])
+            model.validate(machine,graph);builder=SystemBuilder(machine).validate_graph(graph)
+            # Existing context/cache partitions remain unchanged. Task-specific
+            # descriptor validity metadata is additionally funded at admission.
+            cache=WeightCacheConfig();overhead=cache.data_bytes_per_cluster+cache.metadata_bytes_per_cluster+136+64
+            for task in graph.tasks:
+                live=builder.footprint[task.id]-(sum(r.size_bytes for r in task.reads) if task.reads else 0)+overhead
+                if task.stream:live+=CommittedWeightPrefix(task.stream.weight_data_bytes,machine.memory_request_bytes).metadata_bytes
+                maximum=max(maximum,live)
+                if live>builder.tiles[task.tile].sram_bytes:raise ValueError('Registered grouped mapping cannot fit fixed SRAM/cache: '+name+'/'+task.id)
+            shape_counts.update(v.M for v in kernels.values() if v.weight_dtype=='FP8_E4M3FN');count+=1
+        preflight.append(dict(case=name,windows=count,maximum_intrinsic_sram_bytes=maximum,expert_M_histogram=dict(shape_counts)))
+    write_json(output/'preflight.json',dict(passed=True,cases=preflight,scope='All registered actual shape/catalog/paid-policy working sets checked before Native launch. Intrinsic fit is not dynamic concurrency proof.'))
     complete={};start=time.monotonic()
     def execute_cases(names):
         queue=list(names);live={};handles=[]

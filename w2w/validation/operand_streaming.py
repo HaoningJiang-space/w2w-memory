@@ -2,6 +2,7 @@
 from collections import Counter,defaultdict
 from dataclasses import asdict
 from math import ceil
+from bisect import bisect_right
 
 from w2w.architecture.npu_profile import NPUProfile
 from w2w.system.operand_streaming import streaming_program
@@ -95,6 +96,22 @@ def audit_stream_result(result,reference_audit):
             raise ValueError('Dynamic output/service ownership did not close')
         if waits[key]!=npu['operand_wait_cycles'].get(key,0):raise ValueError('Dynamic wait count differs')
     if waiting:raise ValueError('Dynamic result has live operand wait ownership')
+    # ROM construction, probes and idle operand clocks own the same physical
+    # arrays as the OS body. Removing them below must not create free grants.
+    owners=defaultdict(list)
+    for key in kernels:owners[tasks[key]['tile']].append((starts[key],finishes[key],key))
+    for tile,spans in owners.items():
+        spans.sort()
+        if any(b[0]<a[1] for a,b in zip(spans,spans[1:])):
+            raise ValueError('Streaming startup/probe/wait created overlapping array owners')
+        begin=[a for a,_,_ in spans]
+        for event in result['events']:
+            if event.get('tile')!=tile or event['kind'] not in ('compute_service','stream_compute','npu_cycle','npu_epoch'):continue
+            index=bisect_right(begin,event['time_ps'])-1
+            if index>=0:
+                a,b,key=spans[index]
+                if a<=event['time_ps']<b and event['task']!=key:
+                    raise ValueError('Other shared compute grant used inside a streaming owner interval')
     body=dict(result,events=body_events,graph=dict(result['graph'],tasks=body_tasks),
         npu_execution=dict(npu,plans=body_plans))
     # Complete native events remain unchanged. Only paid probe/stall records
