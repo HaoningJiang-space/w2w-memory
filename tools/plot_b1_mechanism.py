@@ -36,7 +36,7 @@ def run(source,output):
         axes[2].bar(x,heights,bottom=bottom,width=.85,label=label,color=color)
         bottom=[a+b for a,b in zip(bottom,heights)]
     axes[2].set(xlabel='Original Decode step',ylabel='Witnessed chain time (µs)',title='One nonoverlapping completion witness per window')
-    axes[2].legend(fontsize=7,ncol=3,loc='upper right')
+    axes[2].legend(fontsize=7,ncol=3,loc='upper left',bbox_to_anchor=(0,-.28))
     for ax in axes:ax.set_xlim(-1,128)
     fig.savefig(output/'B1-reference-mechanism.png',dpi=180);plt.close(fig)
     receipt=dict(passed=True,analysis_source=revision(),source_sha256=file_sha(source),figure_sha256=file_sha(output/'B1-reference-mechanism.png'),

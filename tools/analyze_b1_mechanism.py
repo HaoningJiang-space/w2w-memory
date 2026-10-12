@@ -61,13 +61,15 @@ def run(study,case,output,accepted_analysis=None):
     write_json(output/'mechanism.json',proof)
     fields=('index','phase','decode_step','duration_ps','native_bytes','maximum_gateway_bytes','maximum_gateway_share',
         'array_service_cycles','array_service_efficiency','expert_array_service_efficiency','cache_misses','cache_hits','cache_reload_bytes',
+        'chain_fetch_full_before_admit_ps','chain_compute_context_full_before_start_ps',
         *('chain_'+x for x in ('eligible_to_admit_ps','admit_to_operands_ps','operands_to_start_ps','start_to_first_grant_ps','first_grant_to_finish_ps')))
     with (output/'steps.csv').open('x',newline='') as f:
         writer=csv.DictWriter(f,fieldnames=fields);writer.writeheader()
         for r in rows:
             line={k:r[k] for k in fields if k in r}
             line.update(cache_misses=r['cache_stats'].get('misses',0),cache_hits=r['cache_stats'].get('hits',0),cache_reload_bytes=r['cache_stats'].get('reload_bytes',0))
-            line.update({'chain_'+k:v for k,v in r['completion_witness']['interval_totals_ps'].items()});writer.writerow(line)
+            line.update({'chain_'+k:v for k,v in r['completion_witness']['interval_totals_ps'].items()})
+            line.update({'chain_'+k:v for k,v in r['completion_witness']['capacity_intersections_ps'].items()});writer.writerow(line)
     return proof
 
 

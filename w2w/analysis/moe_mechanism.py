@@ -95,7 +95,13 @@ def completion_chain(graph,ledger,origin,makespan):
     for row in chain:totals.update(row['observed_intervals_ps'])
     if base<0 or base+sum(totals.values())!=makespan-origin:
         raise ValueError('Nonoverlapping witnessed chain does not reconstruct window completion')
+    capacity=dict(fetch_full_before_admit_ps=sum(r.get('fetch_full_before_admit_ps',0) for r in chain),
+        compute_context_full_before_start_ps=sum(r.get('compute_context_full_before_start_ps',0) for r in chain))
+    if (capacity['fetch_full_before_admit_ps']>totals['eligible_to_admit_ps']
+            or capacity['compute_context_full_before_start_ps']>totals['operands_to_start_ps']):
+        raise ValueError('Observed capacity intersection exceeds its witnessed interval')
     return dict(target=target,initial_release_ps=base,interval_totals_ps=dict(totals),
+        capacity_intersections_ps=capacity,
         arithmetic_service_on_chain_ps=sum(r['arithmetic_service_ps'] for r in chain),tasks=chain,
         scope='One latest-predecessor completion witness. Grant-to-finish includes scalar gaps; admission/operand waits include competing resources and transfers. No exclusive cause or counterfactual savings.')
 
@@ -160,11 +166,12 @@ def phase_summary(rows):
     for phase in ('prefill','decode'):
         selected=[r for r in rows if r['phase']==phase]
         if not selected:raise ValueError('Both captured phases required')
-        cache=Counter();service=Counter();intervals=Counter();gateways=Counter();counts=[];active=[]
+        cache=Counter();service=Counter();intervals=Counter();capacity=Counter();gateways=Counter();counts=[];active=[]
         macs=cycles=expert_macs=expert_cycles=initial_release=0
         for r in selected:
             cache.update(r['cache_stats']);service.update(r['array_service']);gateways.update(r['gateway_bytes'])
             intervals.update(r['completion_witness']['interval_totals_ps'])
+            capacity.update(r['completion_witness']['capacity_intersections_ps'])
             initial_release+=r['completion_witness']['initial_release_ps']
             counts.extend(r['expert_token_counts']);active.extend(len(g['expert_token_counts']) for g in r['groups'])
             macs+=r['array_macs'];cycles+=r['array_service_cycles'];expert_macs+=r['expert_array_macs'];expert_cycles+=r['expert_array_service_cycles']
@@ -176,6 +183,7 @@ def phase_summary(rows):
             gateway_bytes=dict(gateways),array_macs=macs,array_service_cycles=cycles,array_service=dict(service),
             array_service_efficiency=macs/(peak*cycles),expert_array_service_efficiency=expert_macs/(peak*expert_cycles),
             witnessed_interval_totals_ps=dict(intervals),witnessed_initial_release_ps=initial_release,
+            witnessed_capacity_intersections_ps=dict(capacity),
             scope='Phases reported separately; expert distribution samples actual groups in bounded layer/microbatch invocations. Array efficiency uses observed reserved array cycles, not whole-machine duty or silicon utilization. Witnessed intervals partition completion chains, not all parallel task waits.')
     return output
 

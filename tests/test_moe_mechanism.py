@@ -62,6 +62,13 @@ class MechanismReader(unittest.TestCase):
         l['tasks']['join']['dependency_ready_ps']=8
         with self.assertRaises(ValueError):completion_chain(g,l,0,20)
 
+    def test_capacity_intersection_is_inside_its_nonoverlapping_chain_interval(self):
+        g,l=chain_fixture();l['tasks']['join'].update(fetch_full_before_admit_ps=1,compute_context_full_before_start_ps=2)
+        p=completion_chain(g,l,0,20)
+        self.assertEqual(p['capacity_intersections_ps'],dict(fetch_full_before_admit_ps=1,compute_context_full_before_start_ps=2))
+        l['tasks']['join']['fetch_full_before_admit_ps']=2
+        with self.assertRaises(ValueError):completion_chain(g,l,0,20)
+
     def test_positive_and_negative_deltas_keep_mixed_cache_cases_separate(self):
         def case(durations,native):
             rows=[]
