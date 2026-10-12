@@ -188,6 +188,9 @@ class NPUKernelModel:
         kernel=self.kernels[key]
         return program(kernel.M,kernel.N,kernel.K,kernel.weight_dtype,self.profile)
 
+    def for_window(self,kernels,auxiliary):
+        return NPUKernelModel(self.profile,kernels,evidence=self.evidence,auxiliary=auxiliary)
+
     def validate(self,spec,graph):
         for c in spec.stack.compute_clusters:self.profile.validate_cluster(c)
         tasks={t.id:t for t in graph.tasks}

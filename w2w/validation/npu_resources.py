@@ -5,13 +5,16 @@ from bisect import bisect_right
 
 
 def audit_npu_result(result):
+    if result['npu_execution'].get('execution_policy')=='operand_streaming_v1':
+        from .operand_streaming import audit_stream_result
+        return audit_stream_result(result,_audit_reference_npu_result)
     if result['npu_execution'].get('execution_policy')=='row_mapping_v1':
         from .row_mapping import audit_row_result
         return audit_row_result(result,_audit_reference_npu_result)
     return _audit_reference_npu_result(result)
 
 
-def _audit_reference_npu_result(result):
+def _audit_reference_npu_result(result,*,allow_gaps=False):
     npu=result['npu_execution'];p=npu['profile'];tasks={t['id']:t for t in result['graph']['tasks']}
     objects={o['id']:o for o in result['graph']['objects']};incoming=Counter();outgoing=Counter()
     for e in result['graph']['data']:
@@ -55,7 +58,9 @@ def _audit_reference_npu_result(result):
         if key in cycles:
             es=cycles[key];seen[key]=len(es)
             intervals[tasks[key]['tile']].append((es[0]['time_ps'],es[-1]['time_ps']+periods[tasks[key]['tile']],key))
-            if any(b['time_ps']-a['time_ps']!=periods[tasks[key]['tile']] for a,b in zip(es,es[1:])):
+            period=periods[tasks[key]['tile']]
+            if any((b['time_ps']-a['time_ps']<period or (b['time_ps']-a['time_ps'])%period) if allow_gaps
+                    else b['time_ps']-a['time_ps']!=period for a,b in zip(es,es[1:])):
                 raise ValueError('Reference nonpreemptive register ownership interrupted')
         if seen.get(key)!=plan['cycles'] or plan['cycles']!=tasks[key]['compute_cycles'] or macs[key]!=M*N*K:
             raise ValueError('Actual shape/cycle/MAC work differs')

@@ -194,6 +194,9 @@ class RowMappingKernelModel(NPUKernelModel):
         k=self.kernels[key]
         return select_program(k.M,k.N,k.K,k.weight_dtype,self.profile,self.policy)
 
+    def for_window(self,kernels,auxiliary):
+        return RowMappingKernelModel(self.profile,kernels,policy=self.policy,evidence=self.evidence,auxiliary=auxiliary)
+
     def record(self):
         record=super().record()
         record.update(execution_policy='row_mapping_v1',mapping_policy=self.policy,

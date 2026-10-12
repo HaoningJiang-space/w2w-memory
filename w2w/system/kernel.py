@@ -150,6 +150,7 @@ class SystemExecution:
             for tile in self.builder.tiles:self._sram(tile,self.cache_reserved_bytes,'weight-cache-partition')
             objects={o.id:o for o in graph.objects}
             for tile,key in weight_cache.initial_resident:self.weight_cache.preload(tile,key,objects[key].size_bytes)
+        if self.npu_model is not None and hasattr(self.npu_model,'bind_execution'):self.npu_model.bind_execution(self)
         if self.window_source is not None:self.window_source.start(self)
 
     def install_window(self,graph,npu_kernels):
@@ -158,7 +159,6 @@ class SystemExecution:
                 or any(self.mc_pool_slots.values()) or not self.network.drained() or self.native.record()['pending']
                 or self.cache_waiting or any(self.operand_metadata_live.values())):
             raise RuntimeError('A live physical window cannot be replaced')
-        from w2w.system.npu_kernel import NPUKernelModel
         self.graph=graph;self.builder.validate_graph(graph)
         self.tasks={t.id:t for t in graph.tasks};self.objects={o.id:o for o in graph.objects}
         self.predecessors={t.id:set() for t in graph.tasks};self.followers={t.id:set() for t in graph.tasks}
@@ -173,9 +173,9 @@ class SystemExecution:
         self.state={t.id:dict(allocated=False,start_ps=None,finish_ps=None,read_bytes=0,issued_all=False,next_read=None,
             iterator=iter(words_for_task(t,graph,self.builder))) for t in graph.tasks}
         self.edges={e.id:dict(edge=e,sent=0,delivered=0) for e in graph.data};self.done_count=0
-        self.npu_model=NPUKernelModel(self.npu_model.profile,npu_kernels,evidence=self.npu_model.evidence,
-            auxiliary=self.window_source.metadata.get('auxiliary',{}))
+        self.npu_model=self.npu_model.for_window(npu_kernels,self.window_source.metadata.get('auxiliary',{}))
         self.npu_model.validate(self.spec,graph)
+        if hasattr(self.npu_model,'bind_execution'):self.npu_model.bind_execution(self)
 
     def log(self, kind, **data):
         event=dict(time_ps=self.now,kind=kind,**data)
