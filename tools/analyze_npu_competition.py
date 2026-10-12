@@ -18,9 +18,11 @@ def analyze(path,windows=None):
     def visit(raw,row):
         ledger=competition(raw)
         projections=[v for k,v in ledger['tasks'].items() if k.endswith(('/gate','/up','/down'))]
-        tail=sorted(projections,key=lambda v:v['completed_ps'])[-12:]
+        ordered=sorted(projections,key=lambda v:v['completed_ps']);tail=ordered[-12:]
         issued={e['task'] for e in raw['events'] if e['kind']=='read_issue'}
-        target=next((v['task'] for v in reversed(tail) if v['task'] in issued),None)
+        # Late cached projections can inherit earlier cold-supply delays.
+        # Limit the displayed tail, not the search for the last Native read.
+        target=next((v['task'] for v in reversed(ordered) if v['task'] in issued),None)
         diagnostic=explain_pool_window(raw,target) if target else None
         if diagnostic:
             diagnostic.pop('pool_ownership_witnesses');diagnostic.pop('target_descriptors')
