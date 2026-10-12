@@ -62,6 +62,18 @@ def projection_readback(root,corpus,output):
     write_json(output,value);return value
 
 
+def reuse_projection_readback(path,qualification,output):
+    """Reuse a complete independent readback only for unchanged physical files."""
+    value=observe(path);receipt=observe(qualification/'receipt.json')
+    expected={str(p):file_sha(p) for p in (qualification/'receipt.json',qualification/'result.json.gz')}
+    if (value.get('passed') is not True or receipt.get('passed') is not True
+            or value.get('sources')!=expected or value.get('proof')!=receipt.get('proof')
+            or receipt.get('context_projection_policy')!='output_sharded'):
+        raise ValueError('Independent projection readback does not bind the current qualification')
+    write_json(output,value)
+    return value
+
+
 def render_pair(reference,candidate,pair,output):
     import matplotlib
     matplotlib.use('Agg')
@@ -80,14 +92,15 @@ def render_pair(reference,candidate,pair,output):
     fig.savefig(output/'B1-phase-comparison.png',dpi=180);plt.close(fig)
 
 
-def run(study,pid,corpus,qualification,reference,shapes,output):
+def run(study,pid,corpus,qualification,reference,shapes,output,projection_readback_path=None):
     output.mkdir(parents=True,exist_ok=False);source=revision();initial=worker_identity(pid,study)
     if initial is None and not observe(study/'cases/B1-phase_split/completion.json').get('complete'):
         raise ValueError('Specific Phase-Split worker ended without a complete result')
     write_json(output/'launch.json',dict(analysis_source=source,phase_worker_pid=pid,phase_worker_args=initial,
         study=str(study),reference_mechanism=str(reference),shape_readback=str(shapes),scope='Only readbacks of frozen B1 Reference/Phase-Split and already executed sharded qualification. No physical launch, retry, source/status mutation or G4/G5 promotion.'))
     try:
-        projection=None
+        projection=(reuse_projection_readback(projection_readback_path,qualification,output/'sharded-resource-readback.json')
+            if projection_readback_path else None)
         while True:
             if projection is None and observe(qualification/'receipt.json').get('passed'):
                 projection=projection_readback(qualification,corpus,output/'sharded-resource-readback.json')
@@ -119,5 +132,6 @@ def run(study,pid,corpus,qualification,reference,shapes,output):
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__)
     for name in ('study','corpus','qualification','reference','shapes','output'):p.add_argument('--'+name,type=Path,required=True)
+    p.add_argument('--projection-readback',type=Path)
     p.add_argument('--phase-worker-pid',type=int,required=True);a=p.parse_args()
-    run(a.study,a.phase_worker_pid,a.corpus,a.qualification,a.reference,a.shapes,a.output)
+    run(a.study,a.phase_worker_pid,a.corpus,a.qualification,a.reference,a.shapes,a.output,a.projection_readback)

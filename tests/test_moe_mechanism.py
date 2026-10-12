@@ -14,6 +14,23 @@ def chain_fixture():
 
 
 class MechanismReader(unittest.TestCase):
+    def test_reused_projection_proof_rejects_changed_qualification(self):
+        import json,tempfile
+        from pathlib import Path
+        from tools.finish_b1_g3 import reuse_projection_readback
+        from w2w.workloads.moe_trace import file_sha
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);qualification=root/'qualification';qualification.mkdir()
+            receipt=dict(passed=True,proof={'windows':2},context_projection_policy='output_sharded')
+            (qualification/'receipt.json').write_text(json.dumps(receipt))
+            (qualification/'result.json.gz').write_bytes(b'fixture identity only')
+            value=dict(passed=True,proof=receipt['proof'],sources={str(p):file_sha(p) for p in
+                (qualification/'receipt.json',qualification/'result.json.gz')})
+            path=root/'proof.json';path.write_text(json.dumps(value))
+            self.assertEqual(reuse_projection_readback(path,qualification,root/'reused.json'),value)
+            (qualification/'result.json.gz').write_bytes(b'changed fixture identity')
+            with self.assertRaises(ValueError):reuse_projection_readback(path,qualification,root/'rejected.json')
+
     def test_task_projection_preserves_full_decoded_order_and_rejects_changed_source(self):
         import gzip,json,tempfile
         from pathlib import Path
