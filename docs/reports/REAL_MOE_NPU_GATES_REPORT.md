@@ -188,6 +188,20 @@ the fastest measured baseline placement, retaining all other baselines and all
 signed outcomes. Aggregate budgets are identical. Maximum two host cases run
 concurrently; no old broad controller is resumed.
 
+The first independent case is now accepted:
+[B4 Reference / best OS](../../artifacts/provenance/real_npu/B4-reference-episode-receipt-r64.json),
+all three windows, **8.210688 ms**, 10,899 tasks, 3,636,461,568 MACs,
+2,399,727,104 B Native, and zero reload. All raw windows, physical work,
+continuous cache/LRU/clock carry and final SRAM ownership are re-audited.
+The Up-local baseline has automatically started. Full P3 remains **1/15**
+accepted cases at this checkpoint.
+
+[Both B4 physical completion records](../../artifacts/provenance/real_npu/B4-native-completion-r68.json)
+bind the three original window hashes and preserve the earlier observation.
+Phase-Split's physical output is **8.765491 ms**, a provisional **6.76%**
+regression; its independent case/carry audit remains pending. This snapshot
+does not accept the pair, other placements or the final P3 study.
+
 The registered horizon is captured Decode **0/1/2**, every actual token of the
 original nested B4/B16/B32 request cohorts, true layers **0/1**, and a declared
 empty initial cache with continuous Native/NoC/LRU state. Compiler preflight

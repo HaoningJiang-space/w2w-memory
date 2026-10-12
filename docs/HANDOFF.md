@@ -46,7 +46,13 @@ full numerical/core references and visually checked figures are archived.
 
 P3 remains running until all 15 case receipts pass (45 registered true-layer
 windows). Recheck `ordered-execution-r64/p3/status.json`, root receipts and
-worker identities. Read-only `ordered-analysis-r67@1418af5` finisher PID 948324
+worker identities. B4 Reference/best-OS is now independently accepted at
+8.210688 ms (three windows, 2,399,727,104 B Native, zero reload). The queue
+has started B4 Up-local; Phase-Split's physical 8.765491 ms output is still
+awaiting its independent case audit. This checkpoint is 1/15 accepted, not
+complete P3 or a finally accepted pair. Compact receipt and hash-bound Native
+completion observations are archived in `artifacts/provenance/real_npu`.
+Read-only `ordered-analysis-r67@1418af5` finisher PID 948324
 watches only the exact ordered controller and will generate final figures and
 `ordered-final-readback-r67/summary.md` after complete acceptance. It launches
 no Native run and retains any failure. It also independently checks expert
