@@ -6,6 +6,22 @@ from tools.render_ordered_execution import render
 from w2w.common.io import write_json
 from w2w.provenance import revision
 from w2w.workloads.moe_trace import file_sha
+from w2w.analysis.moe_mechanism import read_mechanism_input
+from w2w.validation.route_visibility import audit_route_visibility
+
+
+def route_readback(ordered):
+    p3=observe(ordered/'p3/receipt.json');proofs=[]
+    for name,entry in p3['completed'].items():
+        case=Path(entry['receipt']).parent
+        summary=json.load(__import__('gzip').open(case/'result.json.gz','rt'))
+        for window in summary['runtime_windows']['windows']:
+            raw=read_mechanism_input(case/'windows'/window['file'],window['sha256'],extra_events=('cache_lookup',))
+            proofs.append(dict(case=name,index=window['index'],source_sha256=window['sha256'],
+                **audit_route_visibility(raw,window['index'])))
+    if len(proofs)!=45 and p3['horizon']=='selected_windows':raise ValueError('Registered route-visibility horizon incomplete')
+    return dict(passed=True,windows=len(proofs),proofs=proofs,
+        scope='Every completed SHA-bound P3 window checked for actual route-use timing; existing full canonical/physical audits remain authoritative. No Native launch or route oracle.')
 
 
 def observe(path):
@@ -35,6 +51,7 @@ def run(ordered,p1,output,pid):
             raise ValueError('All four recorded stages must be accepted')
         for item in receipt['completed'].values():
             if file_sha(Path(item['receipt']))!=item['sha256']:raise ValueError('Accepted stage receipt changed')
+        status('auditing_actual_route_visibility');write_json(output/'route-visibility.json',route_readback(ordered))
         status('rendering_accepted_results');render(ordered,p1,output/'figures',require_p3=True)
         p3=observe(ordered/'p3/receipt.json');a=observe(ordered/'p2a/receipt.json');b=observe(ordered/'p2b/receipt.json')
         p=observe(p1/'analysis.json');decode=[v for v in p['paired_windows'] if v['phase']=='decode']
@@ -59,7 +76,8 @@ def run(ordered,p1,output,pid):
         (output/'summary.md').write_text('\n'.join(text))
         value=dict(passed=True,complete_all_four_steps=True,analysis_source=source,physical_source=receipt['source_commit'],
             ordered_receipt_sha256=file_sha(ordered/'receipt.json'),figure_receipt_sha256=file_sha(output/'figures/receipt.json'),
-            summary_sha256=file_sha(output/'summary.md'),accepted_cases=p3['accepted_cases'],P3_horizon=p3['horizon'],
+            summary_sha256=file_sha(output/'summary.md'),route_visibility_sha256=file_sha(output/'route-visibility.json'),
+            accepted_cases=p3['accepted_cases'],P3_horizon=p3['horizon'],
             scope=p3['scope'],new_native_experiments=0)
         write_json(output/'receipt.json',value);status('complete_accepted_readback',receipt=value)
     except Exception as error:status('reader_failed',reason=str(error),physical_jobs_mutated=False);raise

@@ -16,7 +16,7 @@ EVENTS={'task_allocate','task_start','task_finish','data_deliver','read_issue','
     'npu_epoch','npu_cycle','compute_service'}
 
 
-def read_mechanism_input(path,expected_sha256):
+def read_mechanism_input(path,expected_sha256,*,extra_events=()):
     """Project task events from a complete hash-bound, previously audited file.
 
     The original byte SHA binds every event, including unprojected NoC/Native
@@ -26,16 +26,17 @@ def read_mechanism_input(path,expected_sha256):
     import base64,gzip,json
     from w2w.common.event_archive import _read_integers
     from w2w.workloads.moe_trace import file_sha
+    selected=EVENTS|set(extra_events)
     if file_sha(path)!=expected_sha256:raise ValueError('Complete original archive hash changed')
     stored=json.load(gzip.open(path,'rt'))
     if 'events_codec' not in stored:
-        stored['events']=[e for e in stored['events'] if e['kind'] in EVENTS]
+        stored['events']=[e for e in stored['events'] if e['kind'] in selected]
         return stored
     codec=stored['events_codec']
     if codec['schema']!='w2w.lossless-event-columns.v1':raise ValueError('Unknown complete archive format')
     groups={}
     for i,column in enumerate(codec['columns']):
-        if column['kind'] not in EVENTS:continue
+        if column['kind'] not in selected:continue
         rows=[dict(kind=column['kind']) for _ in range(column['count'])]
         for field,values in column['fields'].items():
             n=values['count'];present=_read_integers(values['present'],n) if 'present' in values else range(len(rows))
