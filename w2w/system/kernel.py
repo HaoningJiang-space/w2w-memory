@@ -4,7 +4,7 @@ Blocking task working sets are reserved before input DMA; users must provide
 explicitly tiled tasks when they exceed SRAM. Source output storage is freed
 when copied into a bounded NI, not by a free remote completion acknowledgement.
 """
-from collections import Counter
+from collections import Counter,defaultdict
 from dataclasses import asdict
 from hashlib import sha256
 from math import gcd
@@ -17,10 +17,12 @@ from w2w.system.builder import SystemBuilder
 
 class SystemExecution:
     def __init__(self, spec, graph, native=None, *, network_factory=None,
-                 activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count',fetch_contexts=0,read_issue_policy='ordered',compute_epoch=False,compute_epoch_evidence='full',interactive_compute=False,interactive_compute_evidence='full',causal_boundary=False,return_contexts=0,down_prefetch_plan=None,npu_model=None,window_source=None,idle_release_boundaries=False):
+                 activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count',fetch_contexts=0,read_issue_policy='ordered',compute_epoch=False,compute_epoch_evidence='full',interactive_compute=False,interactive_compute_evidence='full',causal_boundary=False,return_contexts=0,down_prefetch_plan=None,npu_model=None,window_source=None,idle_release_boundaries=False,indexed_admission=False):
         if type(return_contexts) is not int or not 0<=return_contexts<=8 or return_contexts and (not fetch_contexts or weight_cache):
             raise ValueError('Split-phase gate requires finite issue contexts, 0..8 return entries, and cold operands')
         self.spec, self.graph = spec, graph
+        if type(indexed_admission) is not bool:raise ValueError('Explicit host admission indexing switch required')
+        self.indexed_admission=indexed_admission;self.admission_reads=defaultdict(set);self.admission_nonreads=set()
         self.builder = SystemBuilder(spec).validate_graph(graph)
         self.npu_model=npu_model
         self.window_source=window_source
@@ -87,6 +89,7 @@ class SystemExecution:
             self.incoming[edge.consumer].append(edge.id);self.outgoing[edge.producer].append(edge.id)
         self.remaining_deps={k:set(v) for k,v in self.predecessors.items()}
         self.alloc_candidates={k for k,v in self.remaining_deps.items() if not v}
+        for key in self.alloc_candidates:self._index_admission(key)
         self.down_prefetch_plan=down_prefetch_plan;self.prefetch_rows={};self.prefetch_live=Counter();self.prefetch_peak=Counter()
         self.prefetch_remaining={};self.prefetch_followers={k:set() for k in self.tasks}
         if down_prefetch_plan is not None:
@@ -97,7 +100,7 @@ class SystemExecution:
             self.prefetch_rows={row.task:row for row in down_prefetch_plan.releases}
             for key,row in self.prefetch_rows.items():
                 self.prefetch_remaining[key]=set(row.fetch_predecessors)
-                if not row.fetch_predecessors:self.alloc_candidates.add(key)
+                if not row.fetch_predecessors:self._add_admission(key)
                 for p in row.fetch_predecessors:self.prefetch_followers[p].add(key)
         self.active_edges=set();self.done_count=0
         self.task_order = sorted(self.tasks)
@@ -168,6 +171,8 @@ class SystemExecution:
         for e in graph.data:self.incoming[e.consumer].append(e.id);self.outgoing[e.producer].append(e.id)
         self.remaining_deps={k:set(v) for k,v in self.predecessors.items()}
         self.alloc_candidates={k for k,v in self.remaining_deps.items() if not v}
+        self.admission_reads.clear();self.admission_nonreads.clear()
+        for key in self.alloc_candidates:self._index_admission(key)
         self.prefetch_followers={k:set() for k in self.tasks}
         self.task_order=sorted(self.tasks);self.unallocated=set(self.tasks);self.ready_tasks=set();self.reading=set()
         self.state={t.id:dict(allocated=False,start_ps=None,finish_ps=None,read_bytes=0,issued_all=False,next_read=None,
@@ -181,6 +186,15 @@ class SystemExecution:
         event=dict(time_ps=self.now,kind=kind,**data)
         self.events.append(event)
         if self.event_observer is not None:self.event_observer(event)
+
+    def _index_admission(self,key):
+        if not self.indexed_admission:return
+        task=self.tasks[key]
+        if task.reads:self.admission_reads[task.tile].add(key)
+        else:self.admission_nonreads.add(key)
+
+    def _add_admission(self,key):
+        self.alloc_candidates.add(key);self._index_admission(key)
 
     def _sram(self, tile, amount, task):
         self.sram[tile] += amount
@@ -292,15 +306,22 @@ class SystemExecution:
             self.done_count+=1;self.active_edges.update(self.outgoing[key])
             for consumer in self.followers[key]:
                 self.remaining_deps[consumer].remove(key)
-                if not self.remaining_deps[consumer] and not self.state[consumer]['allocated']:self.alloc_candidates.add(consumer)
+                if not self.remaining_deps[consumer] and not self.state[consumer]['allocated']:self._add_admission(consumer)
             for consumer in self.prefetch_followers[key]:
                 self.prefetch_remaining[consumer].remove(key)
-                if not self.prefetch_remaining[consumer]:self.alloc_candidates.add(consumer)
+                if not self.prefetch_remaining[consumer]:self._add_admission(consumer)
             self.engine_context_ps[tile]+=self.now-state['start_ps']
             self.log('task_finish', task=key, tile=tile)
 
     def _allocate(self):
-        order=sorted(self.alloc_candidates,key=lambda k:(k in self.prefetch_rows,k)) if self.down_prefetch_plan else sorted(self.alloc_candidates)
+        candidates=self.alloc_candidates
+        if self.indexed_admission:
+            # Host-only exclusion of tasks which the existing first capacity
+            # guard would reject. Keep every other guard and global ordering.
+            candidates=set(self.admission_nonreads)
+            for tile,keys in self.admission_reads.items():
+                if self.fetch_scheduler.can_allocate(tile):candidates.update(keys)
+        order=sorted(candidates,key=lambda k:(k in self.prefetch_rows,k)) if self.down_prefetch_plan else sorted(candidates)
         for key in order:
             state, task = self.state[key], self.tasks[key]
             if state['allocated'] or self.now < task.release_ps:
@@ -338,6 +359,8 @@ class SystemExecution:
             state['allocated'] = True
             self.unallocated.remove(key)
             self.alloc_candidates.remove(key)
+            if task.reads:self.admission_reads[task.tile].discard(key)
+            else:self.admission_nonreads.discard(key)
             self.ready_tasks.add(key)
             if cache and hit:
                 state['issued_all']=True
@@ -750,6 +773,8 @@ class SystemExecution:
                       network=self.network.record(), native=self.native.record(),
                       physical=self.builder.physical_record(), events=self.events)
         if self.weight_cache:record['weight_cache']=self.weight_cache.record()
+        if self.indexed_admission:record['host_optimizations']=dict(indexed_admission=True,
+            contract='Host candidate index skips only an unchanged can_allocate=False guard; same global lexical order and all physical resources/events.')
         if self.npu_model is not None:record['npu_execution']=self.npu_model.record()
         if self.idle_release_boundaries:record['idle_release_boundaries']=dict(intervals=self.idle_boundary_intervals,
             contract='Host wakeups only; Native refresh and NoC idle-state advancement still execute at the next known external release.')
@@ -781,9 +806,9 @@ class SystemExecution:
 
 
 def execute_system(spec, graph, *, native=None, network_factory=None, max_ps=10_000_000,
-                   time_advance='gcd',activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count',fetch_contexts=0,read_issue_policy='ordered',compute_epoch=False,compute_epoch_evidence='full',interactive_compute=False,interactive_compute_evidence='full',causal_boundary=False,return_contexts=0,down_prefetch_plan=None,npu_model=None,window_source=None,idle_release_boundaries=False):
+                   time_advance='gcd',activation_sram_read_bytes_per_cycle=None,compute_contexts=1,weight_cache=None,event_observer=None,operand_readiness='byte_count',fetch_contexts=0,read_issue_policy='ordered',compute_epoch=False,compute_epoch_evidence='full',interactive_compute=False,interactive_compute_evidence='full',causal_boundary=False,return_contexts=0,down_prefetch_plan=None,npu_model=None,window_source=None,idle_release_boundaries=False,indexed_admission=False):
     execution = SystemExecution(spec, graph, native, network_factory=network_factory,
-                                activation_sram_read_bytes_per_cycle=activation_sram_read_bytes_per_cycle,compute_contexts=compute_contexts,weight_cache=weight_cache,event_observer=event_observer,operand_readiness=operand_readiness,fetch_contexts=fetch_contexts,read_issue_policy=read_issue_policy,compute_epoch=compute_epoch,compute_epoch_evidence=compute_epoch_evidence,interactive_compute=interactive_compute,interactive_compute_evidence=interactive_compute_evidence,causal_boundary=causal_boundary,return_contexts=return_contexts,down_prefetch_plan=down_prefetch_plan,npu_model=npu_model,window_source=window_source,idle_release_boundaries=idle_release_boundaries)
+                                activation_sram_read_bytes_per_cycle=activation_sram_read_bytes_per_cycle,compute_contexts=compute_contexts,weight_cache=weight_cache,event_observer=event_observer,operand_readiness=operand_readiness,fetch_contexts=fetch_contexts,read_issue_policy=read_issue_policy,compute_epoch=compute_epoch,compute_epoch_evidence=compute_epoch_evidence,interactive_compute=interactive_compute,interactive_compute_evidence=interactive_compute_evidence,causal_boundary=causal_boundary,return_contexts=return_contexts,down_prefetch_plan=down_prefetch_plan,npu_model=npu_model,window_source=window_source,idle_release_boundaries=idle_release_boundaries,indexed_admission=indexed_admission)
     try:
         return execution.run(max_ps,time_advance=time_advance)
     except BaseException:

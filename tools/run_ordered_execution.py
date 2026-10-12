@@ -31,6 +31,11 @@ def run(args):
         for path,sha in receipt['sources'].items():
             if file_sha(Path(path))!=sha:raise ValueError('Accepted G3 files changed')
         if args.reuse_p1:
+            while not args.reuse_p1.exists():
+                parent_status=args.reuse_p1.parent.parent/'status.json'
+                if parent_status.exists() and json.loads(parent_status.read_text()).get('state')=='failed':
+                    raise ValueError('Existing P1 reader failed; preserve the original result')
+                status('waiting_P1_saved_event_analysis');time.sleep(30)
             p1=accepted(args.reuse_p1);analysis=args.reuse_p1.parent/'analysis.json'
             if p1['G3_receipt_sha256']!=file_sha(g3) or p1['analysis_sha256']!=file_sha(analysis):raise ValueError('Reused P1 is not the accepted original pair')
             p1_path=args.reuse_p1

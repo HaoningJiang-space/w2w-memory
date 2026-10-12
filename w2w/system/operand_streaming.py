@@ -33,6 +33,7 @@ def required_descriptors(M,N,K,plan,instruction,fragment_bytes=4096):
 def streaming_program(M,N,K,dtype,p):
     base,old=best_os(M,N,K,dtype,p)
     if dtype!='FP8_E4M3FN' or (N,K) not in ((128,4096),(4096,128)):return base,old,tuple(0 for _ in base)
+    if M>32:raise ValueError('Registered streaming row occupancy is M=1..32')
     fragments=ceil(N*K/4096);mask_bytes=ceil(fragments/8)
     probe_bytes=3*ceil(mask_bytes/p.word_bytes)*p.word_bytes
     code=[];required=[];original=[];checked=0
@@ -45,7 +46,17 @@ def streaming_program(M,N,K,dtype,p):
             required.append(need);original.append(None);checked|=need
         code.append(instruction);required.append(need);original.append(index)
     if checked!=(1<<fragments)-1:raise ValueError('Streaming schedule does not inspect all original weight coordinates')
-    rom_bytes=len(set(required))*mask_bytes+2*len(code)
+    # Build/write the geometry table after acquisition, using the existing
+    # vector/write grants. No new task receives uninitialized SRAM for free.
+    rom_bytes=ceil((len(set(required))*mask_bytes+2*(len(code)+1))/p.word_bytes)*p.word_bytes
+    build_ops=4*len(set(required))+2*len(code)
+    init=[];left_bytes=rom_bytes;left_ops=build_ops
+    while left_bytes or left_ops:
+        out=min(left_bytes,p.output_write_bytes_per_cycle,p.banks*p.bank_port_bytes_per_cycle)
+        ops=min(left_ops,p.vector_ops_per_cycle)
+        init.append(NPUInstruction('readiness_rom_build',-1,0,output_sram_bytes=out,vector_ops=ops))
+        left_bytes-=out;left_ops-=ops
+    code=init+code;required=[0]*len(init)+required;original=[None]*len(init)+original
     extra_state=rom_bytes+2*mask_bytes+32
     fields=tuple(old['service']);plan=dict(old)
     plan.update(cycles=len(code),scratch_bytes=old['scratch_bytes']+extra_state,
@@ -54,6 +65,7 @@ def streaming_program(M,N,K,dtype,p):
         peak_service={f:max(getattr(i,f) for i in code) for f in old['peak_service']},
         streaming=dict(fragment_bytes=4096,fragments=fragments,mask_rom_bytes=rom_bytes,extra_state_bytes=extra_state,
             probe_count=sum(i.phase=='operand_probe' for i in code),probe_read_bytes=probe_bytes,
+            table_build_cycles=len(init),table_build_vector_ops=build_ops,
             original_program_cycles=len(base),original_indices=original,required_masks=[hex(v) for v in required],
             base_plan=old,readiness='Actual row-major N/K word coordinates and original scale identity. Complete BF16 input before acquisition. Validity comes only from committed descriptors or paid cache lookup.',
             ownership='One nonpreemptive array group may wait for later descriptors. Existing full-matrix cache pin and miss fetch context survive until their original release conditions.'),

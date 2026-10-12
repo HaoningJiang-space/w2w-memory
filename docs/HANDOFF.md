@@ -18,6 +18,24 @@ negative results and complete final analysis before declaring this task done.
 P3 must pre-register its actual trace horizon and residency assumptions; selected
 physical windows cannot be described as full request/serving measurements.
 
+The new isolated ordered study keeps original B1 timing/event sources immutable.
+P2-A pays row configuration writes/reads, scale routing, extra word buffers and
+ordered partial reductions, with pinned subgroup and independent FP32 numerical
+references. P2-B pays coordinate-readiness table construction and bitmap probes;
+it retains the existing full cache pin and coupled miss-context lifetime.
+Neither changes the default NPU program. New row injection/steering is declared
+candidate hardware, not a same-area silicon claim.
+
+P3's initial horizon is pre-registered captured Decode steps 0/1/2 from the
+original nested B4/16/32 cohorts, all tokens and true layers 0/1. An explicitly
+empty initial cache evolves continuously inside each episode. Measure all three
+best-OS placements before comparing row/stream policies on the fastest measured
+placement for each B; retain all signed results. This is conditional episode
+validation, not original post-Prefill cache state or complete request timing.
+A host-only admission candidate index may be used equally in these runs only
+after exact decoded Native/NoC/SRAM/cache/array event and carry-state equivalence
+on cold-to-warm finite-context fixtures; it changes no simulated resource.
+
 Latest user steering overrides the historical broad campaign scheduling below.
 Complete B1 Reference/Phase-Split, the already launched output-sharded legality
 qualification, separate Prefill/Decode event mechanisms and independent audits.

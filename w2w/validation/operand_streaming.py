@@ -74,6 +74,7 @@ def audit_stream_result(result,reference_audit):
         row=codes[key][cursor]
         if any(e.get(f)!=v for f,v in asdict(row).items()):raise ValueError('Actual dynamic grant differs from its paid instruction')
         if row.phase=='operand_probe':checked[key]|=need
+        elif row.phase=='readiness_rom_build':pass
         else:
             # Independently recover row-major coordinates from the original
             # OS geometry, without accepting a byte prefix as a K tile.

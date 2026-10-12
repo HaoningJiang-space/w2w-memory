@@ -82,13 +82,17 @@ def run(output,p2a_receipt,binary):
     if boundary['windows']!=2 or windows.rows[1]['native_bytes'] or result['npu_execution']['execution_policy']!='operand_streaming_v1':
         raise ValueError('Streaming policy or warm cache lost at the physical boundary')
     with gzip.open(directory/'result.json.gz','wt') as f:json.dump(result,f)
+    from tools.validate_admission_index import qualify
+    host_index=qualify(output/'host-index',machine,p,binary)
     comparisons=[]
     for kind in ('gate','up','down'):
         a=next(v for v in rows if v['kind']==kind and v['policy']=='best_os');b=next(v for v in rows if v['kind']==kind and v['policy']=='streaming_os')
         comparisons.append(dict(kind=kind,best_os_ps=a['makespan_ps'],streaming_ps=b['makespan_ps'],
             signed_benefit_ps=a['makespan_ps']-b['makespan_ps'],early_start_ps=b['early_start_ps'],operand_wait_cycles=b['operand_wait_cycles']))
     value=dict(passed=True,source_commit=revision(),P2A_receipt_sha256=file_sha(p2a_receipt),profile=asdict(p),rows=rows,
-        continuous_boundary=boundary,continuous_result_sha256=file_sha(directory/'result.json.gz'),comparisons=comparisons,wall_seconds=time.monotonic()-start,
+        continuous_boundary=boundary,continuous_result_sha256=file_sha(directory/'result.json.gz'),comparisons=comparisons,
+        host_index_equivalence_sha256=file_sha(output/'host-index/receipt.json'),host_index_equivalence=host_index,
+        wall_seconds=time.monotonic()-start,
         scope='Independent P2-B on actual lowered M1 shape: best qualified complete-operand OS versus same OS with paid descriptor-coordinate probes, plus labeled aggregate StreamGemm. Original row-major/scale-first supply, full cache pin and coupled fetch release retained. Negative results accepted. Continuous cold/warm policy/state boundary audited. No original step-0/25 trajectory, full application or silicon benefit claim.')
     write_json(output/'receipt.json',value);return value
 

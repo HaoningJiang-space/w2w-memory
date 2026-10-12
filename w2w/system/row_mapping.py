@@ -66,11 +66,13 @@ def folded_program(M,N,K,dtype,p,fold):
     scale_register_bytes=max(sum(ceil(g['K']/128)*4 for g in w) for w in waves)
     code.append(NPUInstruction('scale_load',-1,0,scale_sram_bytes=scales))
     for wave_id,groups in enumerate(waves):
+        code.append(NPUInstruction('row_config_build',wave_id,0,output_sram_bytes=configuration_bytes,
+            vector_ops=4*len(groups)))
         code.append(NPUInstruction('row_config_read',wave_id,0,activation_sram_bytes=configuration_bytes,
             bank_peak_activation_bytes=ceil(configuration_bytes/p.banks/p.word_bytes)*p.word_bytes))
         code.append(NPUInstruction('row_config_latch',wave_id,0,vector_ops=len(groups)))
         route_bytes=sum(ceil(g['K']/128)*4 for g in groups)
-        code.append(NPUInstruction('row_scale_route',wave_id,0,scale_sram_bytes=route_bytes,
+        code.append(NPUInstruction('row_scale_route',wave_id,0,scale_sram_bytes=route_bytes,output_sram_bytes=route_bytes,
             vector_ops=route_bytes//4,bank_peak_weight_bytes=ceil(route_bytes/p.banks/p.word_bytes)*p.word_bytes))
         cache={};duration=max(g['start_tick']+g['K']+group_rows+p.columns-2 for g in groups)
         for tick in range(duration):

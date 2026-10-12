@@ -54,8 +54,8 @@ def row_work(kernel,plan,p):
     expected_work=dict(weight_sram_bytes=weight_words*p['word_bytes'],
         scale_sram_bytes=4*ceil(N/128)*ceil(K/128)+scale_routes,
         activation_sram_bytes=input_words*p['word_bytes']+cfg*len(plan['waves'])+(4*M*N*split if split>1 else 0),
-        output_sram_bytes=4*partial_values+(4*M*N if split>1 else 0),
-        vector_ops=N*K+group_count+scale_routes//4+M*N*(split-1),
+        output_sram_bytes=4*partial_values+(4*M*N if split>1 else 0)+cfg*len(plan['waves'])+scale_routes,
+        vector_ops=N*K+5*group_count+scale_routes//4+M*N*(split-1),
         accumulator_register_bytes=8*M*N*K+(8*M*N*split if split>1 else 0),
         activation_delivery_bytes=2*M*K*ceil(N/16))
     if plan['service']!=expected_work:raise ValueError('Folded operand/routing/reduction service not conserved')
