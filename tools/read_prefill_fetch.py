@@ -57,7 +57,7 @@ def pool_ownership(raw,wanted):
 def gateway_bounds(raw,gateway,begin,end):
     evidence=raw['native']['gateway_service_bins'];bins=evidence['gateways'].get(gateway,[])
     complete=[b for b in bins if begin<=b['start_ps'] and b['end_ps']<=end]
-    boundary=[b for b in bins if b['start_ps']<end and b['end_ps']>begin and b not in complete]
+    boundary=[b for b in bins if b['start_ps']<end and b['end_ps']>begin and not (begin<=b['start_ps'] and b['end_ps']<=end)]
     lower=sum(b['bytes'] for b in complete);upper=lower+sum(b['bytes'] for b in boundary)
     period=raw['spec']['noc_period_ps'];capacity=next(g['data_bytes_per_cycle'] for g in raw['spec']['stack']['gateways'] if g['id']==gateway)
     cycles=(end-begin)/period
