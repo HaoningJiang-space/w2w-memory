@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "source_commit": "1e9510ed3bbea47460ab78b08e613da79bc35794",
+  "registration_sha256": "83a62b927b2d95a33830a77460a65f4deebdf4d30d895af77a588663b575082e",
+  "result_sha256": "dabb439d8699e38d79f37787ffae8c2e51fb6282be61751d6f709251d0cac237",
+  "B": 4,
+  "placement": "phase_split",
+  "policy": "best_os",
+  "proof": {
+    "passed": true,
+    "windows": 3,
+    "tasks": 10899,
+    "native_bytes": 2399727104,
+    "macs": 3636461568,
+    "cache_stats": {
+      "compulsory_bytes": 2399727104,
+      "misses": 4574,
+      "miss_bytes": 2399727104,
+      "hits": 1516,
+      "hit_bytes": 797111296
+    },
+    "makespan_ps": 8765491000,
+    "drained_ps": 8765531000,
+    "scope": "Each raw window re-audited; continuous cache/LRU/clock ownership and final metadata release closed."
+  },
+  "expert_M_histogram": {
+    "1": 148,
+    "2": 19,
+    "3": 2
+  },
+  "window_times_ps": [
+    3692907000,
+    2696432000,
+    2376072000
+  ],
+  "scope": "Pre-registered first three consecutive captured Decode steps (0/1/2), all actual B4/16/32 tokens and two true layers. Initial cache is explicitly empty; cache/Native/NoC state persists inside this conditional episode. Captured input activations are unavailable and modeled at the boundary. No claim of original post-prefill residency, full request or Transformer timing."
+}

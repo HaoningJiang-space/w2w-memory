@@ -188,19 +188,39 @@ the fastest measured baseline placement, retaining all other baselines and all
 signed outcomes. Aggregate budgets are identical. Maximum two host cases run
 concurrently; no old broad controller is resumed.
 
-The first independent case is now accepted:
+Both initial B4 independent cases are now accepted:
 [B4 Reference / best OS](../../artifacts/provenance/real_npu/B4-reference-episode-receipt-r64.json),
 all three windows, **8.210688 ms**, 10,899 tasks, 3,636,461,568 MACs,
 2,399,727,104 B Native, and zero reload. All raw windows, physical work,
 continuous cache/LRU/clock carry and final SRAM ownership are re-audited.
-The Up-local baseline has automatically started. Full P3 remains **1/15**
+The Up-local baseline has automatically started. Full P3 remains **2/15**
 accepted cases at this checkpoint.
 
 [Both B4 physical completion records](../../artifacts/provenance/real_npu/B4-native-completion-r68.json)
 bind the three original window hashes and preserve the earlier observation.
-Phase-Split's physical output is **8.765491 ms**, a provisional **6.76%**
-regression; its independent case/carry audit remains pending. This snapshot
-does not accept the pair, other placements or the final P3 study.
+Phase-Split's output is **8.765491 ms**, a **6.76%** regression. Its
+[independent case/carry receipt](../../artifacts/provenance/real_npu/B4-phase-split-episode-receipt-r64.json)
+now also passes, with the same 2,399,727,104 B Native and zero reload. The
+snapshot's then-pending Phase-Split status is superseded by this receipt;
+other placements and the final P3 study remain incomplete.
+
+The current architectural verdict is limited: Phase-Split has a positive B1
+Decode result and a negative conditional cold-B4 result. B1 Decode follows
+captured Prefill, while this B4 episode starts with an empty cache; this is not
+a controlled Batch-only comparison. Paid row mapping improves resident
+projection fixtures, but no complete real-MoE row-policy case is yet accepted.
+Streaming has small cold-fixture savings and a retained cold→warm regression.
+These results do not establish a successful new NPU architecture.
+
+The primary candidate is row mapping, judged by matched complete MoE-window
+output against the strongest legal OS placement under identical trace,
+initial residency and aggregate budgets, with steering/state costs declared.
+The registered cold/mixed episodes test only their stated residency conditions;
+they do not replace a matched resident-MoE test of the warm-compute hypothesis.
+Keep Phase-Split as a workload-dependent placement baseline and reduce the
+priority of further streaming development. Complete the existing registered
+comparisons without adding hardware mechanisms or treating coverage/audit
+counts as performance benefits.
 
 The registered horizon is captured Decode **0/1/2**, every actual token of the
 original nested B4/B16/B32 request cohorts, true layers **0/1**, and a declared

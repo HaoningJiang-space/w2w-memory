@@ -48,9 +48,10 @@ P3 remains running until all 15 case receipts pass (45 registered true-layer
 windows). Recheck `ordered-execution-r64/p3/status.json`, root receipts and
 worker identities. B4 Reference/best-OS is now independently accepted at
 8.210688 ms (three windows, 2,399,727,104 B Native, zero reload). The queue
-has started B4 Up-local; Phase-Split's physical 8.765491 ms output is still
-awaiting its independent case audit. This checkpoint is 1/15 accepted, not
-complete P3 or a finally accepted pair. Compact receipt and hash-bound Native
+has started B4 Up-local and B16 Reference. Phase-Split's 8.765491 ms output
+also passes its independent case audit (6.76% slower, identical Native bytes
+and zero reload). This checkpoint is 2/15 accepted, not complete P3. Compact
+case receipts and hash-bound Native
 completion observations are archived in `artifacts/provenance/real_npu`.
 Read-only `ordered-analysis-r67@1418af5` finisher PID 948324
 watches only the exact ordered controller and will generate final figures and
@@ -60,6 +61,16 @@ admission/cache lookup/Native issue/compute start against actual router completi
 in all 45 SHA-bound windows. Three reader/codec modules and completed selected B4
 windows pass the visibility guard; the old r65 reader was stopped while waiting,
 without mutating any physical job. Neither launch is acceptance of P3.
+
+Latest user concern is whether the research has demonstrated useful architecture
+benefits, rather than merely passing more checks. No complete real-MoE row-policy
+case is accepted yet; resident projection wins are not whole-workload wins.
+B1 Decode's post-Prefill residency and P3's empty initial cache differ, so do not
+attribute their differing Phase-Split outcomes solely to Batch. Keep row mapping
+as the primary candidate, Phase-Split as a conditional placement baseline, and
+streaming development at lower priority. Finish the already registered cases;
+no new hardware mechanisms. A matched resident-MoE window remains necessary to
+test the warm-compute hypothesis beyond microkernels.
 
 The r62 controller was stopped while waiting before Native launch. r63 then
 preserved a failed opt-in audit: old source-scale counting conflated unique
