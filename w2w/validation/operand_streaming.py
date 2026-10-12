@@ -98,8 +98,13 @@ def audit_stream_result(result,reference_audit):
     if waiting:raise ValueError('Dynamic result has live operand wait ownership')
     # ROM construction, probes and idle operand clocks own the same physical
     # arrays as the OS body. Removing them below must not create free grants.
-    owners=defaultdict(list)
-    for key in kernels:owners[tasks[key]['tile']].append((starts[key],finishes[key],key))
+    owners=defaultdict(list);first_grants={}
+    for event in result['events']:
+        if event['kind'] in ('npu_cycle','npu_epoch'):first_grants.setdefault(event['task'],event['time_ps'])
+    for key in kernels:
+        if key not in first_grants or not starts[key]<=first_grants[key]<finishes[key]:
+            raise ValueError('Physical array interval lacks a valid first grant')
+        owners[tasks[key]['tile']].append((first_grants[key],finishes[key],key))
     for tile,spans in owners.items():
         spans.sort()
         if any(b[0]<a[1] for a,b in zip(spans,spans[1:])):

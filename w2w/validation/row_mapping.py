@@ -104,7 +104,7 @@ def audit_row_result(result,reference_audit):
             for e in es:peaks(e)
             if {f:sum(e[f] for e in es) for f in work}!=work:raise ValueError('Observed folded service differs')
             end=es[-1]['time_ps']+p['period_ps']
-        if es[0]['time_ps']!=starts[key] or end!=finishes[key] or any(e['tile']!=task['tile'] or e['time_ps']%p['period_ps'] for e in es):
+        if not starts[key]<=es[0]['time_ps']<end==finishes[key] or any(e['tile']!=task['tile'] or e['time_ps']%p['period_ps'] for e in es):
             raise ValueError('Folded owner/output escaped actual task clocks')
     for key,es in observed.items():
         if not es:continue
