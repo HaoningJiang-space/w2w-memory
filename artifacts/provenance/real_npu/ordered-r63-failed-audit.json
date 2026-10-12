@@ -1,0 +1,32 @@
+{
+  "state": "failed",
+  "source_commit": "4f4df19e40d708860a8f7b8262720223a4fbe14b",
+  "wall_seconds": 120.12988378107548,
+  "completed": {
+    "p1": {
+      "receipt": "/Projects/haoning/w2w-full-system-real-npu-20261011/ordered-p1-r59/p1/receipt.json",
+      "sha256": "70aaac812a55893a8225d6afc26b718d1cec431ed75f92a098bd626584795663"
+    }
+  },
+  "launched": [
+    {
+      "stage": "p2a",
+      "pid": 932720,
+      "args": [
+        "-m",
+        "tools.validate_row_mapping",
+        "--output",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/ordered-execution-r63/p2a",
+        "--reference-source",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/scalesim-reference",
+        "--p1-receipt",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/ordered-p1-r59/p1/receipt.json",
+        "--booksim-binary",
+        "/Projects/haoning/w2w-full-system-performance-placement-20261010/native-fast-r1/booksim/endpoint_booksim"
+      ],
+      "source_commit": "4f4df19e40d708860a8f7b8262720223a4fbe14b"
+    }
+  ],
+  "reason": "p2a ended with 1; preserved, no automatic retry",
+  "no_automatic_retry": true
+}

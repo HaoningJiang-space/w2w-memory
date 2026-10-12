@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "exit_code": 0,
+  "source_commit": "1e9510ed3bbea47460ab78b08e613da79bc35794",
+  "modules": [
+    "tests.test_weight_cache.CacheLifetime",
+    "tests.test_vertical_runtime_v3.VerticalRuntime.test_finite_contexts_share_one_arithmetic_service"
+  ],
+  "wall_seconds": 3.2267930191010237,
+  "log_sha256": "e3260d96dc09d0af078a7824bbe84d1b3f410bdb8f0e1e3c240a62970f6f22cb",
+  "scope": "Three existing targeted Native cache/shared-context regressions. Regression evidence, not a new workload performance comparison."
+}

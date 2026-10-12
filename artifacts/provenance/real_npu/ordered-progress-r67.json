@@ -1,0 +1,656 @@
+{
+  "snapshot_utc": "2026-10-12 12:06:24 UTC",
+  "physical_source": "1e9510ed3bbea47460ab78b08e613da79bc35794",
+  "G3_receipt_sha256": "289421939383f5135fc5e8ef6e37d66a87d1136292fb7401e769338c90beaaef",
+  "completed": {
+    "P1": true,
+    "P2A": true,
+    "P2B": true,
+    "P3": false
+  },
+  "ordered_controller_pid": 935807,
+  "ordered_root": "/Projects/haoning/w2w-full-system-real-npu-20261011/ordered-execution-r64",
+  "p3_status": {
+    "state": "running",
+    "completed": {},
+    "live": {
+      "B4-reference-best_os": 938778,
+      "B4-phase_split-best_os": 938779
+    },
+    "queued": [
+      "B4-up_local-best_os",
+      "B16-reference-best_os",
+      "B16-phase_split-best_os",
+      "B16-up_local-best_os",
+      "B32-reference-best_os",
+      "B32-phase_split-best_os",
+      "B32-up_local-best_os"
+    ],
+    "wall_seconds": 4284.058234661818
+  },
+  "completed_window_snapshots": {
+    "B4-reference-best_os": {
+      "completed_windows": 2,
+      "latest": {
+        "index": 1,
+        "file": "window-0001.json.gz",
+        "sha256": "985bad8217137513518fd1400c5ee36d3983a001ba73800387604a245c7da31d",
+        "decoded_sha256": "754a2f8865c0ab9824a2e405abdb94f48275c0f80741a582236de0645ffb0c37",
+        "begin_ps": 3179660000,
+        "makespan_ps": 5888012000,
+        "drained_ps": 5888052000,
+        "tasks": 3360,
+        "carry_in_sha256": "3b8ddce4f229481c36ba2d0c44150aa87ad8c3d55d33aaa6080d233d259082ad",
+        "carry_out_sha256": "cbaacc6c881ab50d8acaee5841653401c254a70ad3447ef7050693980372a61c",
+        "native_bytes": 717401088,
+        "cache_stats": {
+          "hits": 506,
+          "hit_bytes": 266402816,
+          "compulsory_bytes": 717401088,
+          "misses": 1368,
+          "miss_bytes": 717401088
+        },
+        "metadata": {
+          "index": 1,
+          "calls": [
+            {
+              "batch_id": "decode/S1/L0",
+              "layer_id": "0",
+              "token_ids": [
+                [
+                  "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/59.json",
+                  "decode",
+                  47,
+                  1
+                ],
+                [
+                  "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1534.json",
+                  "decode",
+                  20,
+                  1
+                ],
+                [
+                  "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12203.json",
+                  "decode",
+                  96,
+                  1
+                ],
+                [
+                  "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9894.json",
+                  "decode",
+                  10,
+                  1
+                ]
+              ],
+              "token_to_experts": [
+                [
+                  125,
+                  52,
+                  68,
+                  111,
+                  44,
+                  89,
+                  84,
+                  31
+                ],
+                [
+                  79,
+                  8,
+                  30,
+                  29,
+                  55,
+                  116,
+                  2,
+                  43
+                ],
+                [
+                  88,
+                  123,
+                  70,
+                  59,
+                  95,
+                  60,
+                  99,
+                  26
+                ],
+                [
+                  80,
+                  111,
+                  68,
+                  84,
+                  89,
+                  95,
+                  1,
+                  31
+                ]
+              ],
+              "expert_token_counts": {
+                "1": 1,
+                "2": 1,
+                "8": 1,
+                "26": 1,
+                "29": 1,
+                "30": 1,
+                "31": 2,
+                "43": 1,
+                "44": 1,
+                "52": 1,
+                "55": 1,
+                "59": 1,
+                "60": 1,
+                "68": 2,
+                "70": 1,
+                "79": 1,
+                "80": 1,
+                "84": 2,
+                "88": 1,
+                "89": 2,
+                "95": 2,
+                "99": 1,
+                "111": 2,
+                "116": 1,
+                "123": 1,
+                "125": 1
+              },
+              "expert_macs": 603979776,
+              "router_macs": 2097152,
+              "router_vector_ops": 6752,
+              "finish_tasks": [
+                "W0001/L0/t0/combine",
+                "W0001/L0/t1/combine",
+                "W0001/L0/t2/combine",
+                "W0001/L0/t3/combine"
+              ],
+              "router_visibility": "Captured IDs become hardware-visible only after explicit modeled router matmul/top-k; no route lookahead.",
+              "scratch_policy": "Conservative explicit pack/output copies, paid array/word/partial SRAM, no automatic cache shrink or uncharged broadcast storage."
+            },
+            {
+              "batch_id": "decode/S1/L1",
+              "layer_id": "1",
+              "token_ids": [
+                [
+                  "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/59.json",
+                  "decode",
+                  47,
+                  1
+                ],
+                [
+                  "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1534.json",
+                  "decode",
+                  20,
+                  1
+                ],
+                [
+                  "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12203.json",
+                  "decode",
+                  96,
+                  1
+                ],
+                [
+                  "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9894.json",
+                  "decode",
+                  10,
+                  1
+                ]
+              ],
+              "token_to_experts": [
+                [
+                  86,
+                  28,
+                  78,
+                  62,
+                  105,
+                  64,
+                  65,
+                  49
+                ],
+                [
+                  76,
+                  87,
+                  25,
+                  102,
+                  60,
+                  79,
+                  105,
+                  69
+                ],
+                [
+                  87,
+                  48,
+                  25,
+                  79,
+                  10,
+                  47,
+                  19,
+                  49
+                ],
+                [
+                  119,
+                  114,
+                  19,
+                  112,
+                  101,
+                  31,
+                  51,
+                  55
+                ]
+              ],
+              "expert_token_counts": {
+                "10": 1,
+                "19": 2,
+                "25": 2,
+                "28": 1,
+                "31": 1,
+                "47": 1,
+                "48": 1,
+                "49": 2,
+                "51": 1,
+                "55": 1,
+                "60": 1,
+                "62": 1,
+                "64": 1,
+                "65": 1,
+                "69": 1,
+                "76": 1,
+                "78": 1,
+                "79": 2,
+                "86": 1,
+                "87": 2,
+                "101": 1,
+                "102": 1,
+                "105": 2,
+                "112": 1,
+                "114": 1,
+                "119": 1
+              },
+              "expert_macs": 603979776,
+              "router_macs": 2097152,
+              "router_vector_ops": 6752,
+              "finish_tasks": [
+                "W0001/L1/t0/combine",
+                "W0001/L1/t1/combine",
+                "W0001/L1/t2/combine",
+                "W0001/L1/t3/combine"
+              ],
+              "router_visibility": "Captured IDs become hardware-visible only after explicit modeled router matmul/top-k; no route lookahead.",
+              "scratch_policy": "Conservative explicit pack/output copies, paid array/word/partial SRAM, no automatic cache shrink or uncharged broadcast storage."
+            }
+          ],
+          "expert_macs": 1207959552,
+          "router_macs": 4194304
+        },
+        "audit": {
+          "passed": true,
+          "packets": 364642,
+          "read_descriptors": 176472,
+          "read_words": 22418784,
+          "data_bytes": 40932096,
+          "physical_link_flits": 391479,
+          "tasks": 3360,
+          "finite_fetch": {
+            "passed": true,
+            "contexts_per_cluster": 2,
+            "peak_contexts": {
+              "c0": 2,
+              "c2": 2,
+              "c8": 2,
+              "c10": 2,
+              "c7": 2,
+              "c13": 2,
+              "c15": 2,
+              "c5": 2,
+              "c11": 2,
+              "c1": 2,
+              "c3": 2,
+              "c9": 2,
+              "c12": 2,
+              "c14": 2,
+              "c4": 2,
+              "c6": 2
+            },
+            "metadata_bytes_per_cluster": 136,
+            "issue_and_outstanding_shared": true
+          },
+          "physical_domains": 128,
+          "native_bytes": 717401088,
+          "gateway_bytes": 717401088,
+          "physical_collection_charged": true,
+          "native_and_gateway_reservations_drained": true
+        },
+        "control_audit": {
+          "enabled": true,
+          "passed": true,
+          "ranges": 1406304,
+          "command_bytes": 22500864,
+          "ack_bytes": 11250432
+        },
+        "npu_audit": {
+          "passed": true,
+          "kernels": 1874,
+          "macs": 1212153856,
+          "array_service_cycles": 1088736,
+          "precision": "BF16 activations, FP8/BF16 weights, ordered FP32 K partials",
+          "scope": "Actual Native/NoC execution plus folded coordinate, scale, MAC, shared-port, funded-state and nonpreemptive ownership audits. Row steering/injection is an explicit uncalibrated candidate capability; no equal-PPA or silicon claim.",
+          "folded_kernels": 0
+        },
+        "wall_seconds": 3399.618102612905
+      }
+    },
+    "B4-phase_split-best_os": {
+      "completed_windows": 2,
+      "latest": {
+        "index": 1,
+        "file": "window-0001.json.gz",
+        "sha256": "77a0afe356ee6c9d3f6e5dc3ba00b7f25548a827ea157cf3f7e604f4f07fc4b0",
+        "decoded_sha256": "1e4465ba0685c13a199c90ed56fad0782e691ed7f2038d959260418322d68489",
+        "begin_ps": 3692947000,
+        "makespan_ps": 6389379000,
+        "drained_ps": 6389419000,
+        "tasks": 3360,
+        "carry_in_sha256": "eddd19a5c62a06df468dbeac24b46108d7ba74d69ea3aaded2c19767abcae451",
+        "carry_out_sha256": "bee4a968961dba7ce72f97e4c86a3207e170bf187f54902412396f8fc80875de",
+        "native_bytes": 717401088,
+        "cache_stats": {
+          "hits": 506,
+          "hit_bytes": 266402816,
+          "compulsory_bytes": 717401088,
+          "misses": 1368,
+          "miss_bytes": 717401088
+        },
+        "metadata": {
+          "index": 1,
+          "calls": [
+            {
+              "batch_id": "decode/S1/L0",
+              "layer_id": "0",
+              "token_ids": [
+                [
+                  "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/59.json",
+                  "decode",
+                  47,
+                  1
+                ],
+                [
+                  "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1534.json",
+                  "decode",
+                  20,
+                  1
+                ],
+                [
+                  "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12203.json",
+                  "decode",
+                  96,
+                  1
+                ],
+                [
+                  "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9894.json",
+                  "decode",
+                  10,
+                  1
+                ]
+              ],
+              "token_to_experts": [
+                [
+                  125,
+                  52,
+                  68,
+                  111,
+                  44,
+                  89,
+                  84,
+                  31
+                ],
+                [
+                  79,
+                  8,
+                  30,
+                  29,
+                  55,
+                  116,
+                  2,
+                  43
+                ],
+                [
+                  88,
+                  123,
+                  70,
+                  59,
+                  95,
+                  60,
+                  99,
+                  26
+                ],
+                [
+                  80,
+                  111,
+                  68,
+                  84,
+                  89,
+                  95,
+                  1,
+                  31
+                ]
+              ],
+              "expert_token_counts": {
+                "1": 1,
+                "2": 1,
+                "8": 1,
+                "26": 1,
+                "29": 1,
+                "30": 1,
+                "31": 2,
+                "43": 1,
+                "44": 1,
+                "52": 1,
+                "55": 1,
+                "59": 1,
+                "60": 1,
+                "68": 2,
+                "70": 1,
+                "79": 1,
+                "80": 1,
+                "84": 2,
+                "88": 1,
+                "89": 2,
+                "95": 2,
+                "99": 1,
+                "111": 2,
+                "116": 1,
+                "123": 1,
+                "125": 1
+              },
+              "expert_macs": 603979776,
+              "router_macs": 2097152,
+              "router_vector_ops": 6752,
+              "finish_tasks": [
+                "W0001/L0/t0/combine",
+                "W0001/L0/t1/combine",
+                "W0001/L0/t2/combine",
+                "W0001/L0/t3/combine"
+              ],
+              "router_visibility": "Captured IDs become hardware-visible only after explicit modeled router matmul/top-k; no route lookahead.",
+              "scratch_policy": "Conservative explicit pack/output copies, paid array/word/partial SRAM, no automatic cache shrink or uncharged broadcast storage."
+            },
+            {
+              "batch_id": "decode/S1/L1",
+              "layer_id": "1",
+              "token_ids": [
+                [
+                  "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/59.json",
+                  "decode",
+                  47,
+                  1
+                ],
+                [
+                  "Qwen/Qwen3-235B-A22B-FP8/mmlu/computer_security/1534.json",
+                  "decode",
+                  20,
+                  1
+                ],
+                [
+                  "Qwen/Qwen3-235B-A22B-FP8/mmlu/professional_medicine/12203.json",
+                  "decode",
+                  96,
+                  1
+                ],
+                [
+                  "Qwen/Qwen3-235B-A22B-FP8/mmlu/philosophy/9894.json",
+                  "decode",
+                  10,
+                  1
+                ]
+              ],
+              "token_to_experts": [
+                [
+                  86,
+                  28,
+                  78,
+                  62,
+                  105,
+                  64,
+                  65,
+                  49
+                ],
+                [
+                  76,
+                  87,
+                  25,
+                  102,
+                  60,
+                  79,
+                  105,
+                  69
+                ],
+                [
+                  87,
+                  48,
+                  25,
+                  79,
+                  10,
+                  47,
+                  19,
+                  49
+                ],
+                [
+                  119,
+                  114,
+                  19,
+                  112,
+                  101,
+                  31,
+                  51,
+                  55
+                ]
+              ],
+              "expert_token_counts": {
+                "10": 1,
+                "19": 2,
+                "25": 2,
+                "28": 1,
+                "31": 1,
+                "47": 1,
+                "48": 1,
+                "49": 2,
+                "51": 1,
+                "55": 1,
+                "60": 1,
+                "62": 1,
+                "64": 1,
+                "65": 1,
+                "69": 1,
+                "76": 1,
+                "78": 1,
+                "79": 2,
+                "86": 1,
+                "87": 2,
+                "101": 1,
+                "102": 1,
+                "105": 2,
+                "112": 1,
+                "114": 1,
+                "119": 1
+              },
+              "expert_macs": 603979776,
+              "router_macs": 2097152,
+              "router_vector_ops": 6752,
+              "finish_tasks": [
+                "W0001/L1/t0/combine",
+                "W0001/L1/t1/combine",
+                "W0001/L1/t2/combine",
+                "W0001/L1/t3/combine"
+              ],
+              "router_visibility": "Captured IDs become hardware-visible only after explicit modeled router matmul/top-k; no route lookahead.",
+              "scratch_policy": "Conservative explicit pack/output copies, paid array/word/partial SRAM, no automatic cache shrink or uncharged broadcast storage."
+            }
+          ],
+          "expert_macs": 1207959552,
+          "router_macs": 4194304
+        },
+        "audit": {
+          "passed": true,
+          "packets": 364642,
+          "read_descriptors": 176472,
+          "read_words": 22418784,
+          "data_bytes": 40932096,
+          "physical_link_flits": 2377359,
+          "tasks": 3360,
+          "finite_fetch": {
+            "passed": true,
+            "contexts_per_cluster": 2,
+            "peak_contexts": {
+              "c0": 2,
+              "c2": 2,
+              "c8": 2,
+              "c10": 2,
+              "c7": 2,
+              "c13": 2,
+              "c15": 2,
+              "c5": 2,
+              "c11": 2,
+              "c1": 2,
+              "c3": 2,
+              "c9": 2,
+              "c12": 2,
+              "c14": 2,
+              "c4": 2,
+              "c6": 2
+            },
+            "metadata_bytes_per_cluster": 136,
+            "issue_and_outstanding_shared": true
+          },
+          "physical_domains": 128,
+          "native_bytes": 717401088,
+          "gateway_bytes": 717401088,
+          "physical_collection_charged": true,
+          "native_and_gateway_reservations_drained": true
+        },
+        "control_audit": {
+          "enabled": true,
+          "passed": true,
+          "ranges": 1406304,
+          "command_bytes": 22500864,
+          "ack_bytes": 11250432
+        },
+        "npu_audit": {
+          "passed": true,
+          "kernels": 1874,
+          "macs": 1212153856,
+          "array_service_cycles": 1088736,
+          "precision": "BF16 activations, FP8/BF16 weights, ordered FP32 K partials",
+          "scope": "Actual Native/NoC execution plus folded coordinate, scale, MAC, shared-port, funded-state and nonpreemptive ownership audits. Row steering/injection is an explicit uncalibrated candidate capability; no equal-PPA or silicon claim.",
+          "folded_kernels": 0
+        },
+        "wall_seconds": 4079.48141507525
+      }
+    }
+  },
+  "finisher_pid": 948324,
+  "finisher_root": "/Projects/haoning/w2w-full-system-real-npu-20261011/ordered-final-readback-r67",
+  "finisher_source": "1418af589bf7168b30c9e613f4f74cc5c5a6ac78",
+  "held_broad_controllers": [
+    826834,
+    826982,
+    832174
+  ],
+  "scope": "Progress snapshot only. All recorded partial windows pass their in-run audits; no accepted full P3 case or final result is inferred from a live worker."
+}

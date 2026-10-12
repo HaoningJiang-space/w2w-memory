@@ -1,0 +1,659 @@
+{
+  "passed": true,
+  "source_commit": "1e9510ed3bbea47460ab78b08e613da79bc35794",
+  "P1_receipt_sha256": "70aaac812a55893a8225d6afc26b718d1cec431ed75f92a098bd626584795663",
+  "profile": {
+    "rows": 16,
+    "columns": 16,
+    "arrays": 64,
+    "weight_read_bytes_per_cycle": 32768,
+    "activation_read_bytes_per_cycle": 32768,
+    "output_write_bytes_per_cycle": 32768,
+    "vector_ops_per_cycle": 4096,
+    "banks": 128,
+    "bank_port_bytes_per_cycle": 256,
+    "word_bytes": 32,
+    "input_broadcast_fanout": 64,
+    "period_ps": 1000,
+    "dataflow": "output_stationary"
+  },
+  "resources": {
+    "schema": "w2w.physical-resources.v3",
+    "resource_budget": {
+      "pes": 65536,
+      "macs_per_cycle": 262144,
+      "sram_bytes": 3221225472,
+      "native_domains": 128,
+      "dram_capacity_bytes": 8589934592,
+      "hb_data_bits": 16384,
+      "gateway_output_bytes_per_cycle": 512,
+      "gateway_staging_bytes": 524288,
+      "gateway_descriptor_slots": 128,
+      "routers": 16,
+      "router_input_bytes": 2621440,
+      "router_injection_bytes": 1048576,
+      "fabric_data_bits": 49152
+    },
+    "compute": {
+      "clusters": 16,
+      "pes": 65536,
+      "macs_per_cycle": 262144,
+      "vector_ops_per_cycle": 65536,
+      "sram_bytes": 3221225472,
+      "compute_weight_read_bytes_per_cycle": 524288
+    },
+    "native": {
+      "domains": 128,
+      "capacity_bytes": 8589934592,
+      "interface_peak_bytes_per_ps": 0.5446808510638305,
+      "command_entries": 512,
+      "command_metadata_bare_min_bits": 14848,
+      "reserved_return_bytes": 131072
+    },
+    "vertical": {
+      "ports": 16,
+      "data_bits": 16384,
+      "control_bits": 1024,
+      "hb_sites": 17408,
+      "landing_footprint_um2": 278784,
+      "landing_pitch_scope": "declared 4 um candidate grid; geometry check, not process/PPA calibration"
+    },
+    "gateways": {
+      "count": 16,
+      "output_bytes_per_cycle": 512,
+      "staging_bytes": 524288,
+      "descriptor_slots": 128,
+      "control_bits": 1024,
+      "router_access_wire_bit_um": 0,
+      "router_access_pipeline_bits": 0,
+      "router_access_paths": [
+        {
+          "gateway": "g0_0",
+          "length_um": 0,
+          "data_bits": 256,
+          "pipeline_cycles": 0
+        },
+        {
+          "gateway": "g0_1",
+          "length_um": 0,
+          "data_bits": 256,
+          "pipeline_cycles": 0
+        },
+        {
+          "gateway": "g0_2",
+          "length_um": 0,
+          "data_bits": 256,
+          "pipeline_cycles": 0
+        },
+        {
+          "gateway": "g0_3",
+          "length_um": 0,
+          "data_bits": 256,
+          "pipeline_cycles": 0
+        },
+        {
+          "gateway": "g1_0",
+          "length_um": 0,
+          "data_bits": 256,
+          "pipeline_cycles": 0
+        },
+        {
+          "gateway": "g1_1",
+          "length_um": 0,
+          "data_bits": 256,
+          "pipeline_cycles": 0
+        },
+        {
+          "gateway": "g1_2",
+          "length_um": 0,
+          "data_bits": 256,
+          "pipeline_cycles": 0
+        },
+        {
+          "gateway": "g1_3",
+          "length_um": 0,
+          "data_bits": 256,
+          "pipeline_cycles": 0
+        },
+        {
+          "gateway": "g2_0",
+          "length_um": 0,
+          "data_bits": 256,
+          "pipeline_cycles": 0
+        },
+        {
+          "gateway": "g2_1",
+          "length_um": 0,
+          "data_bits": 256,
+          "pipeline_cycles": 0
+        },
+        {
+          "gateway": "g2_2",
+          "length_um": 0,
+          "data_bits": 256,
+          "pipeline_cycles": 0
+        },
+        {
+          "gateway": "g2_3",
+          "length_um": 0,
+          "data_bits": 256,
+          "pipeline_cycles": 0
+        },
+        {
+          "gateway": "g3_0",
+          "length_um": 0,
+          "data_bits": 256,
+          "pipeline_cycles": 0
+        },
+        {
+          "gateway": "g3_1",
+          "length_um": 0,
+          "data_bits": 256,
+          "pipeline_cycles": 0
+        },
+        {
+          "gateway": "g3_2",
+          "length_um": 0,
+          "data_bits": 256,
+          "pipeline_cycles": 0
+        },
+        {
+          "gateway": "g3_3",
+          "length_um": 0,
+          "data_bits": 256,
+          "pipeline_cycles": 0
+        }
+      ]
+    },
+    "external": {
+      "ports": 0,
+      "bytes_per_cycle": 0,
+      "staging_bytes": 0,
+      "edge_access_wire_bit_um": 0,
+      "edge_access_pipeline_bits": 0,
+      "scope": "external DRAM, edge I/O and system cost are additional; not equal-cost vertical baseline"
+    },
+    "collection": {
+      "paths": 128,
+      "timing_profiles": [
+        "rwdl-collection-1mm-stage-v1"
+      ],
+      "wire_bit_um": 120832000,
+      "pipeline_bits": 122880,
+      "delay_in_execution": true,
+      "shared_native_service": true
+    },
+    "fabric": {
+      "routers": 16,
+      "channels": 48,
+      "data_wire_bit_um": 726630400,
+      "control_wire_bit_um": 726630400,
+      "data_pipeline_bits": 3162112,
+      "control_pipeline_bits": 3162112,
+      "input_data_buffer_bytes": 2621440,
+      "injection_buffer_bytes": 1048576,
+      "receive_staging_bytes": 3158016,
+      "input_cell_metadata_bytes": 163840,
+      "injection_cell_metadata_bytes": 65536,
+      "boundary_stitch_length_um": 1600,
+      "aggregated_fine_links_per_channel": 64,
+      "fine_data_bits_per_link": 16,
+      "fine_control_bits_per_link": 16,
+      "aggregation": "one BookSim macro channel represents a fine-mesh cut and its ordered pipeline; not a cycle-exact Cerebras router model"
+    },
+    "area_um2": null,
+    "energy_j": null,
+    "calibration": "candidate physical layout and resource proxies; macro timing and SRAM banking are explicit assumptions"
+  },
+  "reference_sha256": "c02b22e0520545d839dc3e7cc81d181880dbbb2c93182a3fd4537f9310800491",
+  "resident_native": [
+    {
+      "kind": "gate",
+      "M": 1,
+      "N": 128,
+      "K": 4096,
+      "policy": "reference_os",
+      "makespan_ps": 619000,
+      "kernel_context_ps": 553000,
+      "service_cycles": 553,
+      "scratch_bytes": 137216,
+      "program_sha256": "0c447cf5ed7e8e5127390f731e717b2ec3b31cc7e20acb519056910fccde8274",
+      "physical_audit": {
+        "passed": true,
+        "packets": 2,
+        "read_descriptors": 0,
+        "read_words": 0,
+        "data_bytes": 8192,
+        "physical_link_flits": 0,
+        "tasks": 2,
+        "finite_fetch": {
+          "passed": true,
+          "contexts_per_cluster": 2,
+          "peak_contexts": {
+            "c0": 1
+          },
+          "metadata_bytes_per_cluster": 136,
+          "issue_and_outstanding_shared": true
+        },
+        "physical_domains": 128,
+        "native_bytes": 0,
+        "gateway_bytes": 0,
+        "physical_collection_charged": true,
+        "native_and_gateway_reservations_drained": true
+      },
+      "npu_audit": {
+        "passed": true,
+        "kernels": 1,
+        "macs": 524288,
+        "array_service_cycles": 553,
+        "precision": "BF16 activations, FP8/BF16 weights, ordered FP32 K partials",
+        "scope": "Actual Native/NoC execution plus folded coordinate, scale, MAC, shared-port, funded-state and nonpreemptive ownership audits. Row steering/injection is an explicit uncalibrated candidate capability; no equal-PPA or silicon claim.",
+        "folded_kernels": 0
+      },
+      "file": "M1-gate-reference_os/result.json.gz",
+      "sha256": "c93c93b98ffa52645411cc653737322e897893fb2b8c72a56a57dd471eabbac9",
+      "wall_seconds": 0.12164426129311323
+    },
+    {
+      "kind": "gate",
+      "M": 1,
+      "N": 128,
+      "K": 4096,
+      "policy": "best_os",
+      "makespan_ps": 619000,
+      "kernel_context_ps": 553000,
+      "service_cycles": 553,
+      "scratch_bytes": 137216,
+      "program_sha256": "0c447cf5ed7e8e5127390f731e717b2ec3b31cc7e20acb519056910fccde8274",
+      "physical_audit": {
+        "passed": true,
+        "packets": 2,
+        "read_descriptors": 0,
+        "read_words": 0,
+        "data_bytes": 8192,
+        "physical_link_flits": 0,
+        "tasks": 2,
+        "finite_fetch": {
+          "passed": true,
+          "contexts_per_cluster": 2,
+          "peak_contexts": {
+            "c0": 1
+          },
+          "metadata_bytes_per_cluster": 136,
+          "issue_and_outstanding_shared": true
+        },
+        "physical_domains": 128,
+        "native_bytes": 0,
+        "gateway_bytes": 0,
+        "physical_collection_charged": true,
+        "native_and_gateway_reservations_drained": true
+      },
+      "npu_audit": {
+        "passed": true,
+        "kernels": 1,
+        "macs": 524288,
+        "array_service_cycles": 553,
+        "precision": "BF16 activations, FP8/BF16 weights, ordered FP32 K partials",
+        "scope": "Actual Native/NoC execution plus folded coordinate, scale, MAC, shared-port, funded-state and nonpreemptive ownership audits. Row steering/injection is an explicit uncalibrated candidate capability; no equal-PPA or silicon claim.",
+        "folded_kernels": 0
+      },
+      "file": "M1-gate-best_os/result.json.gz",
+      "sha256": "0b4798a7bab092cabb7d45ec7157a01a3059b0aea6697e01f3c172582fa841cc",
+      "wall_seconds": 0.1125685153529048
+    },
+    {
+      "kind": "gate",
+      "M": 1,
+      "N": 128,
+      "K": 4096,
+      "policy": "row_auto",
+      "makespan_ps": 254000,
+      "kernel_context_ps": 188000,
+      "service_cycles": 188,
+      "scratch_bytes": 257024,
+      "program_sha256": "e3d11c4770a6f8e54dcf7d78f7321f395e816b1aaf36074c0ef964ca8739caa1",
+      "physical_audit": {
+        "passed": true,
+        "packets": 2,
+        "read_descriptors": 0,
+        "read_words": 0,
+        "data_bytes": 8192,
+        "physical_link_flits": 0,
+        "tasks": 2,
+        "finite_fetch": {
+          "passed": true,
+          "contexts_per_cluster": 2,
+          "peak_contexts": {
+            "c0": 1
+          },
+          "metadata_bytes_per_cluster": 136,
+          "issue_and_outstanding_shared": true
+        },
+        "physical_domains": 128,
+        "native_bytes": 0,
+        "gateway_bytes": 0,
+        "physical_collection_charged": true,
+        "native_and_gateway_reservations_drained": true
+      },
+      "npu_audit": {
+        "passed": true,
+        "kernels": 1,
+        "macs": 524288,
+        "array_service_cycles": 188,
+        "precision": "BF16 activations, FP8/BF16 weights, ordered FP32 K partials",
+        "scope": "Actual Native/NoC execution plus folded coordinate, scale, MAC, shared-port, funded-state and nonpreemptive ownership audits. Row steering/injection is an explicit uncalibrated candidate capability; no equal-PPA or silicon claim.",
+        "folded_kernels": 1
+      },
+      "file": "M1-gate-row_auto/result.json.gz",
+      "sha256": "79af4c70be05239f24b0e265353f2dc281f7d0de5e993105af694ba30e9f5f72",
+      "wall_seconds": 0.11362139321863651
+    },
+    {
+      "kind": "up",
+      "M": 1,
+      "N": 128,
+      "K": 4096,
+      "policy": "reference_os",
+      "makespan_ps": 619000,
+      "kernel_context_ps": 553000,
+      "service_cycles": 553,
+      "scratch_bytes": 137216,
+      "program_sha256": "0c447cf5ed7e8e5127390f731e717b2ec3b31cc7e20acb519056910fccde8274",
+      "physical_audit": {
+        "passed": true,
+        "packets": 2,
+        "read_descriptors": 0,
+        "read_words": 0,
+        "data_bytes": 8192,
+        "physical_link_flits": 0,
+        "tasks": 2,
+        "finite_fetch": {
+          "passed": true,
+          "contexts_per_cluster": 2,
+          "peak_contexts": {
+            "c0": 1
+          },
+          "metadata_bytes_per_cluster": 136,
+          "issue_and_outstanding_shared": true
+        },
+        "physical_domains": 128,
+        "native_bytes": 0,
+        "gateway_bytes": 0,
+        "physical_collection_charged": true,
+        "native_and_gateway_reservations_drained": true
+      },
+      "npu_audit": {
+        "passed": true,
+        "kernels": 1,
+        "macs": 524288,
+        "array_service_cycles": 553,
+        "precision": "BF16 activations, FP8/BF16 weights, ordered FP32 K partials",
+        "scope": "Actual Native/NoC execution plus folded coordinate, scale, MAC, shared-port, funded-state and nonpreemptive ownership audits. Row steering/injection is an explicit uncalibrated candidate capability; no equal-PPA or silicon claim.",
+        "folded_kernels": 0
+      },
+      "file": "M1-up-reference_os/result.json.gz",
+      "sha256": "737ae86ad4a838c7b0b874a9a8b97027c60bca3e0868c3d100c9b56e8f85d88f",
+      "wall_seconds": 0.11072646081447601
+    },
+    {
+      "kind": "up",
+      "M": 1,
+      "N": 128,
+      "K": 4096,
+      "policy": "best_os",
+      "makespan_ps": 619000,
+      "kernel_context_ps": 553000,
+      "service_cycles": 553,
+      "scratch_bytes": 137216,
+      "program_sha256": "0c447cf5ed7e8e5127390f731e717b2ec3b31cc7e20acb519056910fccde8274",
+      "physical_audit": {
+        "passed": true,
+        "packets": 2,
+        "read_descriptors": 0,
+        "read_words": 0,
+        "data_bytes": 8192,
+        "physical_link_flits": 0,
+        "tasks": 2,
+        "finite_fetch": {
+          "passed": true,
+          "contexts_per_cluster": 2,
+          "peak_contexts": {
+            "c0": 1
+          },
+          "metadata_bytes_per_cluster": 136,
+          "issue_and_outstanding_shared": true
+        },
+        "physical_domains": 128,
+        "native_bytes": 0,
+        "gateway_bytes": 0,
+        "physical_collection_charged": true,
+        "native_and_gateway_reservations_drained": true
+      },
+      "npu_audit": {
+        "passed": true,
+        "kernels": 1,
+        "macs": 524288,
+        "array_service_cycles": 553,
+        "precision": "BF16 activations, FP8/BF16 weights, ordered FP32 K partials",
+        "scope": "Actual Native/NoC execution plus folded coordinate, scale, MAC, shared-port, funded-state and nonpreemptive ownership audits. Row steering/injection is an explicit uncalibrated candidate capability; no equal-PPA or silicon claim.",
+        "folded_kernels": 0
+      },
+      "file": "M1-up-best_os/result.json.gz",
+      "sha256": "077f68ff1569babcacfeac8bc6b91dc73940a8c2a671bd48fadbfeb452f57d79",
+      "wall_seconds": 0.11198652349412441
+    },
+    {
+      "kind": "up",
+      "M": 1,
+      "N": 128,
+      "K": 4096,
+      "policy": "row_auto",
+      "makespan_ps": 254000,
+      "kernel_context_ps": 188000,
+      "service_cycles": 188,
+      "scratch_bytes": 257024,
+      "program_sha256": "e3d11c4770a6f8e54dcf7d78f7321f395e816b1aaf36074c0ef964ca8739caa1",
+      "physical_audit": {
+        "passed": true,
+        "packets": 2,
+        "read_descriptors": 0,
+        "read_words": 0,
+        "data_bytes": 8192,
+        "physical_link_flits": 0,
+        "tasks": 2,
+        "finite_fetch": {
+          "passed": true,
+          "contexts_per_cluster": 2,
+          "peak_contexts": {
+            "c0": 1
+          },
+          "metadata_bytes_per_cluster": 136,
+          "issue_and_outstanding_shared": true
+        },
+        "physical_domains": 128,
+        "native_bytes": 0,
+        "gateway_bytes": 0,
+        "physical_collection_charged": true,
+        "native_and_gateway_reservations_drained": true
+      },
+      "npu_audit": {
+        "passed": true,
+        "kernels": 1,
+        "macs": 524288,
+        "array_service_cycles": 188,
+        "precision": "BF16 activations, FP8/BF16 weights, ordered FP32 K partials",
+        "scope": "Actual Native/NoC execution plus folded coordinate, scale, MAC, shared-port, funded-state and nonpreemptive ownership audits. Row steering/injection is an explicit uncalibrated candidate capability; no equal-PPA or silicon claim.",
+        "folded_kernels": 1
+      },
+      "file": "M1-up-row_auto/result.json.gz",
+      "sha256": "8066f95f834af2ef901bdda1059c257c21a0900d81ce59c528948579cd3be5dd",
+      "wall_seconds": 0.1117072869092226
+    },
+    {
+      "kind": "down",
+      "M": 1,
+      "N": 4096,
+      "K": 128,
+      "policy": "reference_os",
+      "makespan_ps": 641000,
+      "kernel_context_ps": 637000,
+      "service_cycles": 637,
+      "scratch_bytes": 149504,
+      "program_sha256": "dd58af7fc4d7dd4796660e3e1fcb037946e0eee3af5e3647e9aafc40bc2b7e36",
+      "physical_audit": {
+        "passed": true,
+        "packets": 1,
+        "read_descriptors": 0,
+        "read_words": 0,
+        "data_bytes": 256,
+        "physical_link_flits": 0,
+        "tasks": 2,
+        "finite_fetch": {
+          "passed": true,
+          "contexts_per_cluster": 2,
+          "peak_contexts": {
+            "c0": 1
+          },
+          "metadata_bytes_per_cluster": 136,
+          "issue_and_outstanding_shared": true
+        },
+        "physical_domains": 128,
+        "native_bytes": 0,
+        "gateway_bytes": 0,
+        "physical_collection_charged": true,
+        "native_and_gateway_reservations_drained": true
+      },
+      "npu_audit": {
+        "passed": true,
+        "kernels": 1,
+        "macs": 524288,
+        "array_service_cycles": 637,
+        "precision": "BF16 activations, FP8/BF16 weights, ordered FP32 K partials",
+        "scope": "Actual Native/NoC execution plus folded coordinate, scale, MAC, shared-port, funded-state and nonpreemptive ownership audits. Row steering/injection is an explicit uncalibrated candidate capability; no equal-PPA or silicon claim.",
+        "folded_kernels": 0
+      },
+      "file": "M1-down-reference_os/result.json.gz",
+      "sha256": "52a75d74be0a7815ec720d365665d49e553807c2040de3785f44b60cfe1f1b3d",
+      "wall_seconds": 0.11609088629484177
+    },
+    {
+      "kind": "down",
+      "M": 1,
+      "N": 4096,
+      "K": 128,
+      "policy": "best_os",
+      "makespan_ps": 641000,
+      "kernel_context_ps": 637000,
+      "service_cycles": 637,
+      "scratch_bytes": 149504,
+      "program_sha256": "dd58af7fc4d7dd4796660e3e1fcb037946e0eee3af5e3647e9aafc40bc2b7e36",
+      "physical_audit": {
+        "passed": true,
+        "packets": 1,
+        "read_descriptors": 0,
+        "read_words": 0,
+        "data_bytes": 256,
+        "physical_link_flits": 0,
+        "tasks": 2,
+        "finite_fetch": {
+          "passed": true,
+          "contexts_per_cluster": 2,
+          "peak_contexts": {
+            "c0": 1
+          },
+          "metadata_bytes_per_cluster": 136,
+          "issue_and_outstanding_shared": true
+        },
+        "physical_domains": 128,
+        "native_bytes": 0,
+        "gateway_bytes": 0,
+        "physical_collection_charged": true,
+        "native_and_gateway_reservations_drained": true
+      },
+      "npu_audit": {
+        "passed": true,
+        "kernels": 1,
+        "macs": 524288,
+        "array_service_cycles": 637,
+        "precision": "BF16 activations, FP8/BF16 weights, ordered FP32 K partials",
+        "scope": "Actual Native/NoC execution plus folded coordinate, scale, MAC, shared-port, funded-state and nonpreemptive ownership audits. Row steering/injection is an explicit uncalibrated candidate capability; no equal-PPA or silicon claim.",
+        "folded_kernels": 0
+      },
+      "file": "M1-down-best_os/result.json.gz",
+      "sha256": "1651d1e414c9e5207c8e1dbd4ed1413c31b526c7ed5f1176904ce98b0a3c9db7",
+      "wall_seconds": 0.11380067747086287
+    },
+    {
+      "kind": "down",
+      "M": 1,
+      "N": 4096,
+      "K": 128,
+      "policy": "row_auto",
+      "makespan_ps": 159000,
+      "kernel_context_ps": 155000,
+      "service_cycles": 155,
+      "scratch_bytes": 257024,
+      "program_sha256": "4480e6e84e6dbbc660294ed0911feb350274c413c51263ae6104724529a98928",
+      "physical_audit": {
+        "passed": true,
+        "packets": 1,
+        "read_descriptors": 0,
+        "read_words": 0,
+        "data_bytes": 256,
+        "physical_link_flits": 0,
+        "tasks": 2,
+        "finite_fetch": {
+          "passed": true,
+          "contexts_per_cluster": 2,
+          "peak_contexts": {
+            "c0": 1
+          },
+          "metadata_bytes_per_cluster": 136,
+          "issue_and_outstanding_shared": true
+        },
+        "physical_domains": 128,
+        "native_bytes": 0,
+        "gateway_bytes": 0,
+        "physical_collection_charged": true,
+        "native_and_gateway_reservations_drained": true
+      },
+      "npu_audit": {
+        "passed": true,
+        "kernels": 1,
+        "macs": 524288,
+        "array_service_cycles": 155,
+        "precision": "BF16 activations, FP8/BF16 weights, ordered FP32 K partials",
+        "scope": "Actual Native/NoC execution plus folded coordinate, scale, MAC, shared-port, funded-state and nonpreemptive ownership audits. Row steering/injection is an explicit uncalibrated candidate capability; no equal-PPA or silicon claim.",
+        "folded_kernels": 1
+      },
+      "file": "M1-down-row_auto/result.json.gz",
+      "sha256": "03395c0fff934cdd4126d7e8981278bc0ddc576edba01651a76212c29b9c7ff9",
+      "wall_seconds": 0.10590534377843142
+    }
+  ],
+  "comparisons": [
+    {
+      "kind": "gate",
+      "best_os_ps": 619000,
+      "row_auto_ps": 254000,
+      "signed_benefit_ps": 365000,
+      "service_cycle_benefit": 365
+    },
+    {
+      "kind": "up",
+      "best_os_ps": 619000,
+      "row_auto_ps": 254000,
+      "signed_benefit_ps": 365000,
+      "service_cycle_benefit": 365
+    },
+    {
+      "kind": "down",
+      "best_os_ps": 641000,
+      "row_auto_ps": 159000,
+      "signed_benefit_ps": 482000,
+      "service_cycle_benefit": 482
+    }
+  ],
+  "wall_seconds": 21.924223883077502,
+  "scope": "Actual full-size lowered Gate/Up/Down resident M1 kernels, same aggregate MAC/SRAM/cache/bank/Native/NoC budgets, conditional supplied inputs and declared initial residency. Strong legal OS K-partition search, independent subgroup/core and numerical qualification; signed outcomes retained. Extra row weight steering/word/control/scale resources are funded and counted but no equal-PPA, silicon or original-step trajectory claim."
+}

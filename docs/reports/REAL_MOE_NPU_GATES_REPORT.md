@@ -1,30 +1,214 @@
 # Real MoE → executable WoW NPU: evidence and remaining gates
 
 The accepted foundation executes actual expert token shapes on a concrete,
-finite NPU array model. **The current user-frozen G3 scope is B1 Reference /
-Phase-Split, the already launched sharded Native qualification, phase mechanism
-analysis and independent resource audits.** Reference and sharded legality are
-accepted; Phase-Split and the final paired acceptance are pending. The original
-twelve-case registration is retained, with further scheduling and G4/G5 held.
-No smaller FFN, truncated request or background job counts as acceptance.
+finite NPU array model. **The complete B1 G3 scope is now independently
+accepted:** both Reference and Phase-Split, the sharded legality qualification,
+130-window phase mechanisms and paired physical/resource/carry audits.
+The latest authorized continuation is explanation → resident row mapping →
+independent streaming → real B4/16/32 validation. New interventions use isolated
+versions and leave the original B1 evidence immutable. The old broad campaign
+and G4/G5 remain held. A launched job or compiler view is not acceptance.
 
 ## Current B1 scope and event mechanisms
 
 [The scope-freeze receipt](../../artifacts/provenance/real_npu/scope-freeze-B1-r45.json)
 records a reversible hold on only the old future-launch/readback controllers
 826834, 826982 and 832174. The existing physical Phase-Split worker 888240
-continues at its immutable `source-r27@a69d29e`; registration, machine, kernel,
-Native binaries and cache budgets are unchanged. Up-local, B4/16/32 and G4/G5
-are not automatically launched. Historical scheduling descriptions below are
-superseded by this scope.
+completed at its immutable `source-r27@a69d29e`; registration, machine, kernel,
+Native binaries and cache budgets are unchanged. The old controllers are not
+resumed. Newly authorized P3 runs are separately registered conditional episodes;
+historical scheduling descriptions below remain superseded by this scope.
 
 | Gate | Current evidence |
 |---|---|
 | G3.1 | Complete B1 Reference, full physical/resource audit accepted |
-| G3.2 | Same-trace B1 Phase-Split physical replay running; no speedup claim |
+| G3.2 | Same-trace B1 Phase-Split physical replay complete and independently accepted |
 | G3.3 | Already launched output-sharded qualification complete; independent full-window legality readback accepted |
-| G3.4 | All 130 Reference windows reconstructed; paired phase/cache comparison waits for Phase-Split |
-| G3.5 | Reference, standalone kernels and shard audits pass; final paired audit pending |
+| G3.4 | All 130 windows per placement reconstructed; signed phase/cache pairing complete |
+| G3.5 | Full Native/NoC/SRAM/cache/NPU and continuous carry audits accepted for the scoped B1 pair |
+
+[The G3 acceptance receipt](../../artifacts/provenance/real_npu/B1-g3-complete-r51.json)
+binds the complete physical analysis, existing kernel/shard qualification and
+[all signed window comparisons](../../artifacts/provenance/real_npu/B1-paired-mechanism-r51.json).
+
+| Observed completion | Reference | Phase-Split | Completion reduction |
+|---|---:|---:|---:|
+| Prefill, 46 tokens / 2 windows | 17.373712 ms | 16.474599 ms | 5.18% |
+| Decode, 128 windows | 31.569973 ms | 25.089160 ms | **20.53%** |
+| Complete two-layer episode, including inter-window drain | 48.948846 ms | 41.568920 ms | 15.08% |
+
+The Decode benefit is **6.480813 ms**. All **51 both-zero-Native** steps have
+exactly equal completion times; **76 both-reading** steps contribute
+**6.444848 ms**, and one mixed-reading step contributes **35.965 µs**.
+Across all Decode steps, 70 improve, seven regress, and 51 are unchanged.
+The regressions are steps 32/64/76/78/108/121/125; step 78 regresses by
+96.886 µs. The first Prefill window also regresses (9.713503 → 10.899564 ms),
+despite the aggregate Prefill improvement. No negative sample is discarded.
+
+![Accepted phase times and all signed Decode differences](B1-phase-comparison-r51.png)
+
+These matched observations locate the benefit in Native-supply episodes.
+Phase-Split changes physical placement and the resulting supply/cache timing;
+the result alone does not isolate Gateway parallelism from cache lifecycle,
+Activation arrival or compute contention. The saved-event P1 reader separates
+those observed boundaries before P2 physical comparisons start. This remains
+the complete captured **two-layer MoE** episode, not full Qwen TTFT/TPOT.
+
+### Accepted P1: where the Decode benefit appears
+
+[The P1 source readback](../../artifacts/provenance/real_npu/B1-benefit-sources-r59.json)
+and [its acceptance receipt](../../artifacts/provenance/real_npu/B1-benefit-sources-receipt-r59.json)
+inspect all 260 unchanged saved windows, separating original weight delivery,
+Packed-X/tensor delivery and compute-context/array grants.
+
+| Observed Decode quantity | Reference | Phase-Split |
+|---|---:|---:|
+| Native payload | 3,671,960,832 B | 3,673,534,080 B |
+| Reload payload | 3,011,196,672 B | 3,012,769,920 B |
+| Sum of busiest-Gateway payload work bounds per step | 17.633488 ms | 13.438160 ms |
+| Completion-witness operand interval with Native last-ready | 22.462969 ms | 17.442506 ms |
+| Completion-witness operand interval with Activation last-ready | 1.721172 ms | 1.720783 ms |
+| Miss Fetch Context hold P50 / P99 | 42.737 / 43.027 µs | 21.899 / 77.142 µs |
+| NoC payload-distance activity | 2.36043475456e13 B·µm | 4.05689190656e13 B·µm |
+
+Decode reads **1,573,248 B more**, so its benefit is not saved weight traffic.
+The same aggregate MAC and array-service work is preserved. Placement reduces
+concentrated necessary Gateway work and typical miss lifetimes, while increasing
+NoC movement and the tail of miss lifetimes. Gateway bounds are per-window
+necessary service work, not independently removable delays or a predicted sum.
+
+The signed completion-witness differences are 1.412414 ms at admission,
+5.020852 ms at operand readiness, 0.011738 ms at context start, 0.034772 ms at
+first grant and 0.001037 ms through completion. Their sum is the exact
+6.480813 ms Decode benefit. These are different observed witness positions,
+not five separately identified causes. The Native-last-ready reduction is
+5.020463 ms; Activation-last-ready changes by only 0.389 µs.
+
+Step 24 improves by 238.877 µs with **identical Native and Reload bytes**, a
+98.328 µs smaller busiest-Gateway work bound, 129.664 µs less witnessed
+admission time and 109.307 µs less operand time. Step 78 instead regresses
+96.886 µs with identical reads: its Gateway bound is 49.164 µs smaller, but
+witnessed operand time is 100.470 µs longer. NoC activity increases in both.
+Thus the useful conclusion is improved effective supply/competition under this
+placement, with real transport/tail tradeoffs; it is not a pure bandwidth or
+cache-hit-rate claim. [Every signed step is retained](../../artifacts/provenance/real_npu/B1-benefit-steps-r59.csv).
+
+### Accepted P2-A: resident intra-array row mapping
+
+[The independent reference](../../artifacts/provenance/real_npu/P2A-row-mapping-reference-r64.json)
+qualifies 54 combinations of M=1/2/4/8/16/32, Gate/Up/Down and reference OS /
+best legal OS / adaptive paid row mapping. Each subgroup core matches pinned
+SCALE-Sim, and actual coordinate/increasing-K FP32 partials match an independent
+synthetic BF16 × scaled FP8 GEMM. Maximum relative L2 error is 4.432e−7 and
+normalized maximum error 5.934e−7, below the registered 1e−4 tolerances.
+
+[Nine resident Native fixtures](../../artifacts/provenance/real_npu/P2A-resident-row-mapping-r64.json)
+use the actual lowered full-size M1 matrices, paid initial cache residency,
+input DMA and the shared physical executor. All Native, NoC, SRAM, cache and
+NPU audits pass. The strongest OS baseline searches every legal aligned K
+partition; its M1 result happens to equal the original reference.
+
+| M1 kernel | Best OS service | Paid row service | Best OS output | Row output |
+|---|---:|---:|---:|---:|
+| Gate / Up, 1×128×4096 | 553 cycles | **188 cycles** | 0.619 µs | **0.254 µs** |
+| Down, 1×4096×128 | 637 cycles | **155 cycles** | 0.641 µs | **0.159 µs** |
+
+Aggregate compute remains 16,384 MAC/cycle, with the original SRAM/cache/port,
+bank/fanout, Native and NoC budgets. Four 4×16 row groups use K folding for
+Gate/Up and N folding for Down; larger M can fall back to the strongest OS.
+Configuration construction/read/latch, original scale load plus internal scale
+routing, extra word buffers and FP32 reductions are paid. M1 scratch increases
+from 137,216 / 149,504 B to **257,024 B**. Independent row weight lanes increase
+from 1,024 to 4,096; those extra steering/injection capabilities are explicit
+candidate hardware, with uncalibrated wire/mux area and energy. This proves
+declared-model feasibility and earlier fixture output, not equal-area silicon
+or whole-request speedup.
+
+[Six additional cycle/epoch Native comparisons](../../artifacts/provenance/real_npu/row-cycle-epoch-equivalence-r66.json)
+execute three resident matrices in one cluster with only two compute contexts,
+for each projection kind. Individual paid row instructions pass the actual
+cycle ledger; compact epochs preserve every other physical event, resource and
+output timestamp. Gate/Up's three-matrix completion is 0.630 µs and Down's
+0.469 µs in both representations. Thus the result is qualified physical
+execution under queued contexts, with explicit per-cycle work, not an arbitrary
+compiler latency label.
+
+![Reference-qualified actual-shape service programmes](resident-row-shapes-r65.png)
+
+The first opt-in r63 physical audit rejected internal scale rereads as duplicate
+source scale consumption. [Its failed status is retained](../../artifacts/provenance/real_npu/ordered-r63-failed-audit.json).
+r64 separates source payload from paid internal service and allows coordinate
+streaming only after its independent readiness/work/owner proof. Defaults and
+the frozen B1 evidence are unchanged. Fourteen directed checks plus
+[three existing Native cache/context regressions](../../artifacts/provenance/real_npu/default-native-regression-r64.json)
+pass. Later failures preserve completed raw captures before auditing.
+
+### Accepted P2-B: independent coordinate streaming
+
+[The streaming receipt](../../artifacts/provenance/real_npu/P2B-coordinate-streaming-r64.json)
+compares the same strongest OS with complete operands versus paid coordinate
+probes under the original row-major, Scale-first 524,416 B supply. There is no
+row folding. Full inputs and original scales must be ready; individual weight
+words require their actual committed descriptors. Table construction, ROM/state
+and probes are charged; miss Context release and full cache pins stay unchanged.
+
+| Cold M1 kernel | Complete-operand output | Streaming output | Earlier start | Earlier output |
+|---|---:|---:|---:|---:|
+| Gate / Up | 22.325 µs | 22.310 µs | 2.714 µs | **0.015 µs** |
+| Down | 22.409 µs | 21.932 µs | 15.910 µs | **0.477 µs** |
+
+Earlier acquisition mostly becomes retained-array operand wait: 2,682 cycles
+for Gate/Up and 15,428 for Down. The historical aggregate `StreamGemm` is also
+retained, explicitly unqualified for shape/array mapping. It is not promoted
+to a stronger real-array implementation. The actual cold→warm boundary passes
+all carry/resource checks; warm Gate pays 570 service cycles versus OS's 553.
+
+[The host-index equivalence proof](../../artifacts/provenance/real_npu/host-admission-index-equivalence-r64.json)
+checks three cold matrices competing for two Fetch Contexts, followed by three
+warm matrices. For both OS and streaming, enabling host admission indexing
+preserves every decoded physical event, carry state and output time. Only
+archive-path configuration identity is normalized after comparing actual
+topology/configuration. The index is host runtime support, not a controller
+change. This matched cold+warm fixture also retains a negative streaming result:
+66.766 → 66.802 µs, despite the earlier final cold output.
+
+![Independent cold streaming output versus acquisition](cold-coordinate-streaming-r65.png)
+
+The [read-only figure receipt](../../artifacts/provenance/real_npu/ordered-accepted-figures-r65.json)
+binds these plots and the [Decode source figure](B1-benefit-sources-r65.png) to
+accepted inputs and unchanged microkernel raw files. All PNGs were visually
+checked. The receipt explicitly leaves full P3 acceptance false.
+
+### P3: separately registered real B4/16/32 validation
+
+P3 is currently executing at immutable `ordered-source-r64@1e9510e`, under
+`ordered-execution-r64/p3` on hn072. First measure reference / phase_split /
+up_local with the strongest OS for each B; then compare row and streaming on
+the fastest measured baseline placement, retaining all other baselines and all
+signed outcomes. Aggregate budgets are identical. Maximum two host cases run
+concurrently; no old broad controller is resumed.
+
+The registered horizon is captured Decode **0/1/2**, every actual token of the
+original nested B4/B16/B32 request cohorts, true layers **0/1**, and a declared
+empty initial cache with continuous Native/NoC/LRU state. Compiler preflight
+checks all 27 possible registered policies/placements; the physical study
+executes nine placement baselines plus six matched candidates, **45 windows**.
+These are conditional episodes, not original post-Prefill state, all 128 Decode
+steps, or complete serving. P3 remains pending until all 15 independent case
+receipts and the final ordered receipt pass.
+
+[The progress snapshot](../../artifacts/provenance/real_npu/ordered-progress-r67.json)
+records two completed windows per running B4 placement, with no complete case
+acceptance yet. The first conditional cold window is 3.179620 ms Reference
+versus 3.692907 ms Phase-Split (**16.14% regression**). This local result is
+retained and does not predict the full episode or later batches. The final
+read-only r67 finisher additionally checks actual router visibility before any
+selected-expert admission, cache lookup, Native issue or compute start.
+[Completed selected windows pass that guard](../../artifacts/provenance/real_npu/B4-selected-route-visibility-r67.json);
+[reader/codec regressions pass](../../artifacts/provenance/real_npu/reader-regression-r67.json).
+The finisher will write the accepted final figures and summary after all 15
+cases complete; it cannot launch Native work or turn partial windows into final
+acceptance.
 
 [The full Reference mechanism table](../../artifacts/provenance/real_npu/B1-reference-mechanism-r51.json)
 and [per-window CSV](../../artifacts/provenance/real_npu/B1-reference-steps-r51.csv)

@@ -1,0 +1,566 @@
+{
+  "passed": true,
+  "source_commit": "1e9510ed3bbea47460ab78b08e613da79bc35794",
+  "P2A_receipt_sha256": "c67bb11a09f72e544a2cb4d943aebf86652bd6eab7d8c10ed773bf8e98e60383",
+  "profile": {
+    "rows": 16,
+    "columns": 16,
+    "arrays": 64,
+    "weight_read_bytes_per_cycle": 32768,
+    "activation_read_bytes_per_cycle": 32768,
+    "output_write_bytes_per_cycle": 32768,
+    "vector_ops_per_cycle": 4096,
+    "banks": 128,
+    "bank_port_bytes_per_cycle": 256,
+    "word_bytes": 32,
+    "input_broadcast_fanout": 64,
+    "period_ps": 1000,
+    "dataflow": "output_stationary"
+  },
+  "rows": [
+    {
+      "kind": "gate",
+      "policy": "best_os",
+      "makespan_ps": 22325000,
+      "kernel_start_ps": 21772000,
+      "complete_weight_ready_ps": 21772000,
+      "early_start_ps": 0,
+      "operand_wait_cycles": 0,
+      "physical_audit": {
+        "passed": true,
+        "packets": 260,
+        "read_descriptors": 129,
+        "read_words": 16388,
+        "data_bytes": 8192,
+        "physical_link_flits": 0,
+        "tasks": 2,
+        "finite_fetch": {
+          "passed": true,
+          "contexts_per_cluster": 2,
+          "peak_contexts": {
+            "c0": 1
+          },
+          "metadata_bytes_per_cluster": 136,
+          "issue_and_outstanding_shared": true
+        },
+        "physical_domains": 128,
+        "native_bytes": 524416,
+        "gateway_bytes": 524416,
+        "physical_collection_charged": true,
+        "native_and_gateway_reservations_drained": true
+      },
+      "npu_audit": {
+        "passed": true,
+        "kernels": 1,
+        "macs": 524288,
+        "array_service_cycles": 553,
+        "precision": "BF16 activations, FP8/BF16 weights, ordered FP32 K partials",
+        "scope": "Actual Native/NoC execution plus folded coordinate, scale, MAC, shared-port, funded-state and nonpreemptive ownership audits. Row steering/injection is an explicit uncalibrated candidate capability; no equal-PPA or silicon claim.",
+        "folded_kernels": 0
+      },
+      "file": "gate-best_os/result.json.gz",
+      "sha256": "11e922f61c1df53cf426d25494ff1da334142834a92642ffe9780e253abbccef",
+      "wall_seconds": 1.2566042561084032,
+      "scope": "Actual coordinate-qualified OS execution, no row folding."
+    },
+    {
+      "kind": "gate",
+      "policy": "streaming_os",
+      "makespan_ps": 22310000,
+      "kernel_start_ps": 19058000,
+      "complete_weight_ready_ps": 21772000,
+      "early_start_ps": 2714000,
+      "operand_wait_cycles": 2682,
+      "physical_audit": {
+        "passed": true,
+        "packets": 260,
+        "read_descriptors": 129,
+        "read_words": 16388,
+        "data_bytes": 8192,
+        "physical_link_flits": 0,
+        "tasks": 2,
+        "finite_fetch": {
+          "passed": true,
+          "contexts_per_cluster": 2,
+          "peak_contexts": {
+            "c0": 1
+          },
+          "metadata_bytes_per_cluster": 136,
+          "issue_and_outstanding_shared": true
+        },
+        "physical_domains": 128,
+        "native_bytes": 524416,
+        "gateway_bytes": 524416,
+        "physical_collection_charged": true,
+        "native_and_gateway_reservations_drained": true
+      },
+      "npu_audit": {
+        "passed": true,
+        "kernels": 1,
+        "macs": 524288,
+        "array_service_cycles": 570,
+        "streamed_kernels": 1,
+        "operand_wait_cycles": 2682,
+        "scope": "All original OS work, ports, words, FP32 partials and owners audited; every probe/MAC checks original committed N/K descriptors/scales and full input. Extra readiness ROM/state/probe service is funded. No free context/cache release, epoch bypass, original-step checkpoint or silicon claim."
+      },
+      "file": "gate-streaming_os/result.json.gz",
+      "sha256": "66045e4267edeb2ecb8d1a9dba4f49f554e048d10e90369e96c11fa0a8a50f4a",
+      "wall_seconds": 1.4800249096006155,
+      "scope": "Actual coordinate-qualified OS execution, no row folding."
+    },
+    {
+      "kind": "gate",
+      "policy": "aggregate_stream",
+      "makespan_ps": 21773000,
+      "kernel_start_ps": 118000,
+      "complete_weight_ready_ps": 21772000,
+      "early_start_ps": 21654000,
+      "operand_wait_cycles": null,
+      "physical_audit": {
+        "passed": true,
+        "packets": 260,
+        "read_descriptors": 129,
+        "read_words": 16388,
+        "data_bytes": 8192,
+        "physical_link_flits": 0,
+        "tasks": 2,
+        "finite_fetch": {
+          "passed": true,
+          "contexts_per_cluster": 2,
+          "peak_contexts": {
+            "c0": 1
+          },
+          "metadata_bytes_per_cluster": 136,
+          "issue_and_outstanding_shared": true
+        },
+        "physical_domains": 128,
+        "native_bytes": 524416,
+        "gateway_bytes": 524416,
+        "physical_collection_charged": true,
+        "native_and_gateway_reservations_drained": true
+      },
+      "npu_audit": null,
+      "file": "gate-aggregate_stream/result.json.gz",
+      "sha256": "4f138d254786c3c0afb76af0c7bfa01c4c081fcf6deb4a26d7e877e7de45d049",
+      "wall_seconds": 1.2672152081504464,
+      "scope": "Same scale-first cold lowered matrix. Aggregate StreamGemm is retained as a historical work/byte baseline and has no shape-aware array qualification."
+    },
+    {
+      "kind": "up",
+      "policy": "best_os",
+      "makespan_ps": 22325000,
+      "kernel_start_ps": 21772000,
+      "complete_weight_ready_ps": 21772000,
+      "early_start_ps": 0,
+      "operand_wait_cycles": 0,
+      "physical_audit": {
+        "passed": true,
+        "packets": 260,
+        "read_descriptors": 129,
+        "read_words": 16388,
+        "data_bytes": 8192,
+        "physical_link_flits": 0,
+        "tasks": 2,
+        "finite_fetch": {
+          "passed": true,
+          "contexts_per_cluster": 2,
+          "peak_contexts": {
+            "c0": 1
+          },
+          "metadata_bytes_per_cluster": 136,
+          "issue_and_outstanding_shared": true
+        },
+        "physical_domains": 128,
+        "native_bytes": 524416,
+        "gateway_bytes": 524416,
+        "physical_collection_charged": true,
+        "native_and_gateway_reservations_drained": true
+      },
+      "npu_audit": {
+        "passed": true,
+        "kernels": 1,
+        "macs": 524288,
+        "array_service_cycles": 553,
+        "precision": "BF16 activations, FP8/BF16 weights, ordered FP32 K partials",
+        "scope": "Actual Native/NoC execution plus folded coordinate, scale, MAC, shared-port, funded-state and nonpreemptive ownership audits. Row steering/injection is an explicit uncalibrated candidate capability; no equal-PPA or silicon claim.",
+        "folded_kernels": 0
+      },
+      "file": "up-best_os/result.json.gz",
+      "sha256": "3aa804763e39f7684eba6a66bb9035ab2b9528a0a1a012d8ccad777e74524564",
+      "wall_seconds": 1.2375770835205913,
+      "scope": "Actual coordinate-qualified OS execution, no row folding."
+    },
+    {
+      "kind": "up",
+      "policy": "streaming_os",
+      "makespan_ps": 22310000,
+      "kernel_start_ps": 19058000,
+      "complete_weight_ready_ps": 21772000,
+      "early_start_ps": 2714000,
+      "operand_wait_cycles": 2682,
+      "physical_audit": {
+        "passed": true,
+        "packets": 260,
+        "read_descriptors": 129,
+        "read_words": 16388,
+        "data_bytes": 8192,
+        "physical_link_flits": 0,
+        "tasks": 2,
+        "finite_fetch": {
+          "passed": true,
+          "contexts_per_cluster": 2,
+          "peak_contexts": {
+            "c0": 1
+          },
+          "metadata_bytes_per_cluster": 136,
+          "issue_and_outstanding_shared": true
+        },
+        "physical_domains": 128,
+        "native_bytes": 524416,
+        "gateway_bytes": 524416,
+        "physical_collection_charged": true,
+        "native_and_gateway_reservations_drained": true
+      },
+      "npu_audit": {
+        "passed": true,
+        "kernels": 1,
+        "macs": 524288,
+        "array_service_cycles": 570,
+        "streamed_kernels": 1,
+        "operand_wait_cycles": 2682,
+        "scope": "All original OS work, ports, words, FP32 partials and owners audited; every probe/MAC checks original committed N/K descriptors/scales and full input. Extra readiness ROM/state/probe service is funded. No free context/cache release, epoch bypass, original-step checkpoint or silicon claim."
+      },
+      "file": "up-streaming_os/result.json.gz",
+      "sha256": "a0265a25626c5ceedb87bf0e37f25ee17a497154901e806de97ec4c27fde9316",
+      "wall_seconds": 1.4082403182983398,
+      "scope": "Actual coordinate-qualified OS execution, no row folding."
+    },
+    {
+      "kind": "up",
+      "policy": "aggregate_stream",
+      "makespan_ps": 21773000,
+      "kernel_start_ps": 118000,
+      "complete_weight_ready_ps": 21772000,
+      "early_start_ps": 21654000,
+      "operand_wait_cycles": null,
+      "physical_audit": {
+        "passed": true,
+        "packets": 260,
+        "read_descriptors": 129,
+        "read_words": 16388,
+        "data_bytes": 8192,
+        "physical_link_flits": 0,
+        "tasks": 2,
+        "finite_fetch": {
+          "passed": true,
+          "contexts_per_cluster": 2,
+          "peak_contexts": {
+            "c0": 1
+          },
+          "metadata_bytes_per_cluster": 136,
+          "issue_and_outstanding_shared": true
+        },
+        "physical_domains": 128,
+        "native_bytes": 524416,
+        "gateway_bytes": 524416,
+        "physical_collection_charged": true,
+        "native_and_gateway_reservations_drained": true
+      },
+      "npu_audit": null,
+      "file": "up-aggregate_stream/result.json.gz",
+      "sha256": "2601aa63ddb7823589673bb6cf9608ee9bc7c6640327af4932ebeaa169645c34",
+      "wall_seconds": 1.2262304639443755,
+      "scope": "Same scale-first cold lowered matrix. Aggregate StreamGemm is retained as a historical work/byte baseline and has no shape-aware array qualification."
+    },
+    {
+      "kind": "down",
+      "policy": "best_os",
+      "makespan_ps": 22409000,
+      "kernel_start_ps": 21772000,
+      "complete_weight_ready_ps": 21772000,
+      "early_start_ps": 0,
+      "operand_wait_cycles": 0,
+      "physical_audit": {
+        "passed": true,
+        "packets": 259,
+        "read_descriptors": 129,
+        "read_words": 16388,
+        "data_bytes": 256,
+        "physical_link_flits": 0,
+        "tasks": 2,
+        "finite_fetch": {
+          "passed": true,
+          "contexts_per_cluster": 2,
+          "peak_contexts": {
+            "c0": 1
+          },
+          "metadata_bytes_per_cluster": 136,
+          "issue_and_outstanding_shared": true
+        },
+        "physical_domains": 128,
+        "native_bytes": 524416,
+        "gateway_bytes": 524416,
+        "physical_collection_charged": true,
+        "native_and_gateway_reservations_drained": true
+      },
+      "npu_audit": {
+        "passed": true,
+        "kernels": 1,
+        "macs": 524288,
+        "array_service_cycles": 637,
+        "precision": "BF16 activations, FP8/BF16 weights, ordered FP32 K partials",
+        "scope": "Actual Native/NoC execution plus folded coordinate, scale, MAC, shared-port, funded-state and nonpreemptive ownership audits. Row steering/injection is an explicit uncalibrated candidate capability; no equal-PPA or silicon claim.",
+        "folded_kernels": 0
+      },
+      "file": "down-best_os/result.json.gz",
+      "sha256": "eb3bfb25d1441a8a4027693ab08e9f17ee4a606cf11af00fe791a8e8aa7a4fda",
+      "wall_seconds": 1.206163234077394,
+      "scope": "Actual coordinate-qualified OS execution, no row folding."
+    },
+    {
+      "kind": "down",
+      "policy": "streaming_os",
+      "makespan_ps": 21932000,
+      "kernel_start_ps": 5862000,
+      "complete_weight_ready_ps": 21772000,
+      "early_start_ps": 15910000,
+      "operand_wait_cycles": 15428,
+      "physical_audit": {
+        "passed": true,
+        "packets": 259,
+        "read_descriptors": 129,
+        "read_words": 16388,
+        "data_bytes": 256,
+        "physical_link_flits": 0,
+        "tasks": 2,
+        "finite_fetch": {
+          "passed": true,
+          "contexts_per_cluster": 2,
+          "peak_contexts": {
+            "c0": 1
+          },
+          "metadata_bytes_per_cluster": 136,
+          "issue_and_outstanding_shared": true
+        },
+        "physical_domains": 128,
+        "native_bytes": 524416,
+        "gateway_bytes": 524416,
+        "physical_collection_charged": true,
+        "native_and_gateway_reservations_drained": true
+      },
+      "npu_audit": {
+        "passed": true,
+        "kernels": 1,
+        "macs": 524288,
+        "array_service_cycles": 642,
+        "streamed_kernels": 1,
+        "operand_wait_cycles": 15428,
+        "scope": "All original OS work, ports, words, FP32 partials and owners audited; every probe/MAC checks original committed N/K descriptors/scales and full input. Extra readiness ROM/state/probe service is funded. No free context/cache release, epoch bypass, original-step checkpoint or silicon claim."
+      },
+      "file": "down-streaming_os/result.json.gz",
+      "sha256": "3ad3fdee9cb3598c6e01df2c9b9314a3e26b12ba914106325d68325256266f8a",
+      "wall_seconds": 1.474924965761602,
+      "scope": "Actual coordinate-qualified OS execution, no row folding."
+    },
+    {
+      "kind": "down",
+      "policy": "aggregate_stream",
+      "makespan_ps": 21773000,
+      "kernel_start_ps": 118000,
+      "complete_weight_ready_ps": 21772000,
+      "early_start_ps": 21654000,
+      "operand_wait_cycles": null,
+      "physical_audit": {
+        "passed": true,
+        "packets": 259,
+        "read_descriptors": 129,
+        "read_words": 16388,
+        "data_bytes": 256,
+        "physical_link_flits": 0,
+        "tasks": 2,
+        "finite_fetch": {
+          "passed": true,
+          "contexts_per_cluster": 2,
+          "peak_contexts": {
+            "c0": 1
+          },
+          "metadata_bytes_per_cluster": 136,
+          "issue_and_outstanding_shared": true
+        },
+        "physical_domains": 128,
+        "native_bytes": 524416,
+        "gateway_bytes": 524416,
+        "physical_collection_charged": true,
+        "native_and_gateway_reservations_drained": true
+      },
+      "npu_audit": null,
+      "file": "down-aggregate_stream/result.json.gz",
+      "sha256": "bc0b952cd9dc0a82d8b7d0d5412ad6f687763f10ed0aa6192eabe4c97d37bf8d",
+      "wall_seconds": 1.2492368910461664,
+      "scope": "Same scale-first cold lowered matrix. Aggregate StreamGemm is retained as a historical work/byte baseline and has no shape-aware array qualification."
+    }
+  ],
+  "continuous_boundary": {
+    "passed": true,
+    "windows": 2,
+    "tasks": 4,
+    "native_bytes": 524416,
+    "macs": 1048576,
+    "cache_stats": {
+      "compulsory_bytes": 524416,
+      "misses": 1,
+      "miss_bytes": 524416,
+      "hits": 1,
+      "hit_bytes": 524416
+    },
+    "makespan_ps": 22947000,
+    "drained_ps": 22947000,
+    "scope": "Each raw window re-audited; continuous cache/LRU/clock ownership and final metadata release closed."
+  },
+  "continuous_result_sha256": "037394e3f8d44afad6c0440320ef6ff3a4fbcc5b39ace3b9a52d1f0a128a6f31",
+  "comparisons": [
+    {
+      "kind": "gate",
+      "best_os_ps": 22325000,
+      "streaming_ps": 22310000,
+      "signed_benefit_ps": 15000,
+      "early_start_ps": 2714000,
+      "operand_wait_cycles": 2682
+    },
+    {
+      "kind": "up",
+      "best_os_ps": 22325000,
+      "streaming_ps": 22310000,
+      "signed_benefit_ps": 15000,
+      "early_start_ps": 2714000,
+      "operand_wait_cycles": 2682
+    },
+    {
+      "kind": "down",
+      "best_os_ps": 22409000,
+      "streaming_ps": 21932000,
+      "signed_benefit_ps": 477000,
+      "early_start_ps": 15910000,
+      "operand_wait_cycles": 15428
+    }
+  ],
+  "host_index_equivalence_sha256": "4ce8f5c8696cc09a0816a7376f85f4a37ab9e1c153c75d7bab4d57375d7686e1",
+  "host_index_equivalence": {
+    "passed": true,
+    "source_commit": "1e9510ed3bbea47460ab78b08e613da79bc35794",
+    "comparisons": [
+      {
+        "policy": "best_os",
+        "passed": true,
+        "rows": [
+          {
+            "indexed_admission": false,
+            "result_sha256": "e7e3a6bbfda591bb76b16f96b89c54ce900f0fb6cdb1b2c4e26d9c06b2b27f0c",
+            "file": "best_os-0/result.json.gz",
+            "canonical_comparison_sha256": "154b42e3900fb1ad3c86696e0d8b7496131d46092036e9c2c76559199c674c5d",
+            "proof": {
+              "passed": true,
+              "windows": 2,
+              "tasks": 12,
+              "native_bytes": 1573248,
+              "macs": 3145728,
+              "cache_stats": {
+                "compulsory_bytes": 1573248,
+                "misses": 3,
+                "miss_bytes": 1573248,
+                "hits": 3,
+                "hit_bytes": 1573248
+              },
+              "makespan_ps": 66766000,
+              "drained_ps": 66766000,
+              "scope": "Each raw window re-audited; continuous cache/LRU/clock ownership and final metadata release closed."
+            },
+            "wall_seconds": 6.218052075244486
+          },
+          {
+            "indexed_admission": true,
+            "result_sha256": "ffad5cd3b72a53d4f770145b2ff5b31a55305647d0211722ea853a418cfb482c",
+            "file": "best_os-1/result.json.gz",
+            "canonical_comparison_sha256": "154b42e3900fb1ad3c86696e0d8b7496131d46092036e9c2c76559199c674c5d",
+            "proof": {
+              "passed": true,
+              "windows": 2,
+              "tasks": 12,
+              "native_bytes": 1573248,
+              "macs": 3145728,
+              "cache_stats": {
+                "compulsory_bytes": 1573248,
+                "misses": 3,
+                "miss_bytes": 1573248,
+                "hits": 3,
+                "hit_bytes": 1573248
+              },
+              "makespan_ps": 66766000,
+              "drained_ps": 66766000,
+              "scope": "Each raw window re-audited; continuous cache/LRU/clock ownership and final metadata release closed."
+            },
+            "wall_seconds": 6.204682054929435
+          }
+        ]
+      },
+      {
+        "policy": "streaming_os",
+        "passed": true,
+        "rows": [
+          {
+            "indexed_admission": false,
+            "result_sha256": "a0b1467547651000a4ee2690af1ba70e934fbaa7adf595328ae38635a56aed45",
+            "file": "streaming_os-0/result.json.gz",
+            "canonical_comparison_sha256": "6744224d776a6450c63839afc713c2e3f5e16aba4bcf89459645ad7c5b2ed8d3",
+            "proof": {
+              "passed": true,
+              "windows": 2,
+              "tasks": 12,
+              "native_bytes": 1573248,
+              "macs": 3145728,
+              "cache_stats": {
+                "compulsory_bytes": 1573248,
+                "misses": 3,
+                "miss_bytes": 1573248,
+                "hits": 3,
+                "hit_bytes": 1573248
+              },
+              "makespan_ps": 66802000,
+              "drained_ps": 66802000,
+              "scope": "Each raw window re-audited; continuous cache/LRU/clock ownership and final metadata release closed."
+            },
+            "wall_seconds": 9.04370033275336
+          },
+          {
+            "indexed_admission": true,
+            "result_sha256": "cef4a3c274f43a667fa95b906213907d19e5843c426229fe0dc5564e7ca82803",
+            "file": "streaming_os-1/result.json.gz",
+            "canonical_comparison_sha256": "6744224d776a6450c63839afc713c2e3f5e16aba4bcf89459645ad7c5b2ed8d3",
+            "proof": {
+              "passed": true,
+              "windows": 2,
+              "tasks": 12,
+              "native_bytes": 1573248,
+              "macs": 3145728,
+              "cache_stats": {
+                "compulsory_bytes": 1573248,
+                "misses": 3,
+                "miss_bytes": 1573248,
+                "hits": 3,
+                "hit_bytes": 1573248
+              },
+              "makespan_ps": 66802000,
+              "drained_ps": 66802000,
+              "scope": "Each raw window re-audited; continuous cache/LRU/clock ownership and final metadata release closed."
+            },
+            "wall_seconds": 9.18117391411215
+          }
+        ]
+      }
+    ],
+    "wall_seconds": 30.807461083866656,
+    "scope": "Host-only candidate indexing: two policies, three independent cold matrices sharing one cluster/two fetch contexts, then three warm matrices across the real drain boundary. All decoded physical events, resources, carry states, output times, configuration and topology identical; only archive-path config identity normalized. No hardware or scheduling change."
+  },
+  "wall_seconds": 47.60689365491271,
+  "scope": "Independent P2-B on actual lowered M1 shape: best qualified complete-operand OS versus same OS with paid descriptor-coordinate probes, plus labeled aggregate StreamGemm. Original row-major/scale-first supply, full cache pin and coupled fetch release retained. Negative results accepted. Continuous cold/warm policy/state boundary audited. No original step-0/25 trajectory, full application or silicon benefit claim."
+}

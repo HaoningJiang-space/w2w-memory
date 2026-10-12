@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "analysis_source": "f9418b12b76dbef27dce4275621d0763d6202e64",
+  "complete_all_four_steps": false,
+  "sources": {
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/ordered-p1-r59/p1/receipt.json": "70aaac812a55893a8225d6afc26b718d1cec431ed75f92a098bd626584795663",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/ordered-p1-r59/p1/analysis.json": "cd057d369db66f7b082563fbd5a6b9247406496ff4705756c0a5649f1fd74dc2",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/ordered-execution-r64/p2a/receipt.json": "c67bb11a09f72e544a2cb4d943aebf86652bd6eab7d8c10ed773bf8e98e60383",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/ordered-execution-r64/p2b/receipt.json": "7f8b33e6b27cc0230472176f0be7679dcdf6e859927fa72544229d3d2d456beb",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/ordered-execution-r64/p2a/reference.json": "c02b22e0520545d839dc3e7cc81d181880dbbb2c93182a3fd4537f9310800491",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/ordered-execution-r64/p2b/host-index/receipt.json": "4ce8f5c8696cc09a0816a7376f85f4a37ab9e1c153c75d7bab4d57375d7686e1"
+  },
+  "figures": {
+    "resident-row-shapes.png": "57b1105036d7f0f9dd012389ab87a4be6c7665cbc54dd23b00dfaed4143253cb",
+    "B1-benefit-sources.png": "a95270c9cb362f043437ac55ecd7732f5ff090e9d8008d99e76a8e406b93d6f0",
+    "cold-coordinate-streaming.png": "bc03034da2dcc3d94e9bf174e2334c358b5d866f1dd5b6e6d8344249cbbfcca1"
+  },
+  "scope": "Read-only figures of accepted saved cases. Core curves are reference-qualified declared-model programs; M1 resident and cold output times are actual physical fixtures. P3, when present, is only its explicit conditional three-window horizon. Signed regressions retained; no equal-PPA or full Transformer claim."
+}

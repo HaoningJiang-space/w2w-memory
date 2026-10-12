@@ -18,6 +18,49 @@ negative results and complete final analysis before declaring this task done.
 P3 must pre-register its actual trace horizon and residency assumptions; selected
 physical windows cannot be described as full request/serving measurements.
 
+The original read-only r51 finisher now accepts all five scoped B1 G3 gates:
+Phase-Split is **41.568920 ms**, Prefill **16.474599 ms**, Decode **25.089160 ms**.
+The accepted pair has 70 faster / 7 slower / 51 equal Decode steps. All 51
+both-zero-Native steps are exactly equal; the 76 both-reading steps contribute
+6.444848 ms of the 6.480813 ms Decode benefit. Complete receipts, signed
+windows and visually checked PNG are archived in `artifacts/provenance/real_npu`
+and the report. Original G4/G5 scheduling stays held.
+
+P1 now accepts all 260 SHA-bound saved windows at `ordered-source-r59@18ffaa3`,
+output `ordered-p1-r59/p1`. Witnessed Native-last-ready Decode time falls by
+5.020463 ms, versus only 0.389 µs Activation change; miss Fetch hold P50 falls
+42.737 → 21.899 µs but P99 grows 43.027 → 77.142 µs. Actual Decode traffic and
+reload both grow 1,573,248 B; placement's supply/tail tradeoff is preserved.
+
+The full ordered controller is `ordered-source-r64@1e9510e`, PID 935807, output
+`ordered-execution-r64`. P2-A and P2-B are accepted. Resident M1 Gate/Up is
+553 → 188 cycles (0.619 → 0.254 µs output); Down is 637 → 155 cycles
+(0.641 → 0.159 µs). P2-B cold streaming saves only 15 ns / 477 ns respectively;
+it keeps the original coupled fetch/full cache pin lifetimes. The actual
+cold→warm boundary and exact host-index physical-event equivalence pass.
+Fourteen directed remote checks, syntax and three existing Native cache/context
+regressions pass at r64. Six resident three-matrix/two-context physical runs at
+`ordered-analysis-r66@fe4c996` additionally verify paid row cycles versus epochs:
+every other physical event/resource/output timestamp matches. Compact proof,
+full numerical/core references and visually checked figures are archived.
+
+P3 remains running until all 15 case receipts pass (45 registered true-layer
+windows). Recheck `ordered-execution-r64/p3/status.json`, root receipts and
+worker identities. Read-only `ordered-analysis-r67@1418af5` finisher PID 948324
+watches only the exact ordered controller and will generate final figures and
+`ordered-final-readback-r67/summary.md` after complete acceptance. It launches
+no Native run and retains any failure. It also independently checks expert
+admission/cache lookup/Native issue/compute start against actual router completion
+in all 45 SHA-bound windows. Three reader/codec modules and completed selected B4
+windows pass the visibility guard; the old r65 reader was stopped while waiting,
+without mutating any physical job. Neither launch is acceptance of P3.
+
+The r62 controller was stopped while waiting before Native launch. r63 then
+preserved a failed opt-in audit: old source-scale counting conflated unique
+payload with internal row-scale rereads. r64 independently qualifies the new
+policies, separates source/internal work and archives completed raw runs before
+auditing. Original G3/P1 sources and the default execution contract are unchanged.
+
 The new isolated ordered study keeps original B1 timing/event sources immutable.
 P2-A pays row configuration writes/reads, scale routing, extra word buffers and
 ordered partial reductions, with pinned subgroup and independent FP32 numerical

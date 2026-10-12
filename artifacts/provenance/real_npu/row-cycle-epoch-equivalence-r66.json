@@ -1,0 +1,261 @@
+{
+  "passed": true,
+  "analysis_source": "fe4c99633e802dbc5c54607ebf061ea194777a3f",
+  "P2A_receipt_sha256": "c67bb11a09f72e544a2cb4d943aebf86652bd6eab7d8c10ed773bf8e98e60383",
+  "proofs": [
+    {
+      "kind": "gate",
+      "passed": true,
+      "rows": [
+        {
+          "evidence": "epochs",
+          "makespan_ps": 630000,
+          "physical_audit": {
+            "passed": true,
+            "packets": 6,
+            "read_descriptors": 0,
+            "read_words": 0,
+            "data_bytes": 24576,
+            "physical_link_flits": 0,
+            "tasks": 6,
+            "finite_fetch": {
+              "passed": true,
+              "contexts_per_cluster": 2,
+              "peak_contexts": {
+                "c0": 1
+              },
+              "metadata_bytes_per_cluster": 136,
+              "issue_and_outstanding_shared": true
+            },
+            "physical_domains": 128,
+            "native_bytes": 0,
+            "gateway_bytes": 0,
+            "physical_collection_charged": true,
+            "native_and_gateway_reservations_drained": true
+          },
+          "npu_audit": {
+            "passed": true,
+            "kernels": 3,
+            "macs": 1572864,
+            "array_service_cycles": 564,
+            "precision": "BF16 activations, FP8/BF16 weights, ordered FP32 K partials",
+            "scope": "Actual Native/NoC execution plus folded coordinate, scale, MAC, shared-port, funded-state and nonpreemptive ownership audits. Row steering/injection is an explicit uncalibrated candidate capability; no equal-PPA or silicon claim.",
+            "folded_kernels": 3
+          },
+          "file": "gate-epochs/result.json.gz",
+          "sha256": "f4f6a386bd07f3d149f896b0b19cc630ccb16b9f44042c83f83312c2adbdc004",
+          "comparison_sha256": "542580fd8e888fcf0c903f8d9227dd5fc3d44c728cb15c17ecb19e7ad82a9f51"
+        },
+        {
+          "evidence": "cycles",
+          "makespan_ps": 630000,
+          "physical_audit": {
+            "passed": true,
+            "packets": 6,
+            "read_descriptors": 0,
+            "read_words": 0,
+            "data_bytes": 24576,
+            "physical_link_flits": 0,
+            "tasks": 6,
+            "finite_fetch": {
+              "passed": true,
+              "contexts_per_cluster": 2,
+              "peak_contexts": {
+                "c0": 1
+              },
+              "metadata_bytes_per_cluster": 136,
+              "issue_and_outstanding_shared": true
+            },
+            "physical_domains": 128,
+            "native_bytes": 0,
+            "gateway_bytes": 0,
+            "physical_collection_charged": true,
+            "native_and_gateway_reservations_drained": true
+          },
+          "npu_audit": {
+            "passed": true,
+            "kernels": 3,
+            "macs": 1572864,
+            "array_service_cycles": 564,
+            "precision": "BF16 activations, FP8/BF16 weights, ordered FP32 K partials",
+            "scope": "Actual Native/NoC execution plus folded coordinate, scale, MAC, shared-port, funded-state and nonpreemptive ownership audits. Row steering/injection is an explicit uncalibrated candidate capability; no equal-PPA or silicon claim.",
+            "folded_kernels": 3
+          },
+          "file": "gate-cycles/result.json.gz",
+          "sha256": "10758cf3d90d6dc80b10897e47f228aa5c01de3e7ecfae910a5eeaf337f854d4",
+          "comparison_sha256": "542580fd8e888fcf0c903f8d9227dd5fc3d44c728cb15c17ecb19e7ad82a9f51"
+        }
+      ]
+    },
+    {
+      "kind": "up",
+      "passed": true,
+      "rows": [
+        {
+          "evidence": "epochs",
+          "makespan_ps": 630000,
+          "physical_audit": {
+            "passed": true,
+            "packets": 6,
+            "read_descriptors": 0,
+            "read_words": 0,
+            "data_bytes": 24576,
+            "physical_link_flits": 0,
+            "tasks": 6,
+            "finite_fetch": {
+              "passed": true,
+              "contexts_per_cluster": 2,
+              "peak_contexts": {
+                "c0": 1
+              },
+              "metadata_bytes_per_cluster": 136,
+              "issue_and_outstanding_shared": true
+            },
+            "physical_domains": 128,
+            "native_bytes": 0,
+            "gateway_bytes": 0,
+            "physical_collection_charged": true,
+            "native_and_gateway_reservations_drained": true
+          },
+          "npu_audit": {
+            "passed": true,
+            "kernels": 3,
+            "macs": 1572864,
+            "array_service_cycles": 564,
+            "precision": "BF16 activations, FP8/BF16 weights, ordered FP32 K partials",
+            "scope": "Actual Native/NoC execution plus folded coordinate, scale, MAC, shared-port, funded-state and nonpreemptive ownership audits. Row steering/injection is an explicit uncalibrated candidate capability; no equal-PPA or silicon claim.",
+            "folded_kernels": 3
+          },
+          "file": "up-epochs/result.json.gz",
+          "sha256": "a09d68eae13ee32e99fabb60f483aea9f38753f691ff3d1b27b56368f7da241a",
+          "comparison_sha256": "542580fd8e888fcf0c903f8d9227dd5fc3d44c728cb15c17ecb19e7ad82a9f51"
+        },
+        {
+          "evidence": "cycles",
+          "makespan_ps": 630000,
+          "physical_audit": {
+            "passed": true,
+            "packets": 6,
+            "read_descriptors": 0,
+            "read_words": 0,
+            "data_bytes": 24576,
+            "physical_link_flits": 0,
+            "tasks": 6,
+            "finite_fetch": {
+              "passed": true,
+              "contexts_per_cluster": 2,
+              "peak_contexts": {
+                "c0": 1
+              },
+              "metadata_bytes_per_cluster": 136,
+              "issue_and_outstanding_shared": true
+            },
+            "physical_domains": 128,
+            "native_bytes": 0,
+            "gateway_bytes": 0,
+            "physical_collection_charged": true,
+            "native_and_gateway_reservations_drained": true
+          },
+          "npu_audit": {
+            "passed": true,
+            "kernels": 3,
+            "macs": 1572864,
+            "array_service_cycles": 564,
+            "precision": "BF16 activations, FP8/BF16 weights, ordered FP32 K partials",
+            "scope": "Actual Native/NoC execution plus folded coordinate, scale, MAC, shared-port, funded-state and nonpreemptive ownership audits. Row steering/injection is an explicit uncalibrated candidate capability; no equal-PPA or silicon claim.",
+            "folded_kernels": 3
+          },
+          "file": "up-cycles/result.json.gz",
+          "sha256": "7fc8706e424d9ac4b1a1fd41de269a41d90bf95c212fdcd4a658299dcd08e362",
+          "comparison_sha256": "542580fd8e888fcf0c903f8d9227dd5fc3d44c728cb15c17ecb19e7ad82a9f51"
+        }
+      ]
+    },
+    {
+      "kind": "down",
+      "passed": true,
+      "rows": [
+        {
+          "evidence": "epochs",
+          "makespan_ps": 469000,
+          "physical_audit": {
+            "passed": true,
+            "packets": 3,
+            "read_descriptors": 0,
+            "read_words": 0,
+            "data_bytes": 768,
+            "physical_link_flits": 0,
+            "tasks": 6,
+            "finite_fetch": {
+              "passed": true,
+              "contexts_per_cluster": 2,
+              "peak_contexts": {
+                "c0": 1
+              },
+              "metadata_bytes_per_cluster": 136,
+              "issue_and_outstanding_shared": true
+            },
+            "physical_domains": 128,
+            "native_bytes": 0,
+            "gateway_bytes": 0,
+            "physical_collection_charged": true,
+            "native_and_gateway_reservations_drained": true
+          },
+          "npu_audit": {
+            "passed": true,
+            "kernels": 3,
+            "macs": 1572864,
+            "array_service_cycles": 465,
+            "precision": "BF16 activations, FP8/BF16 weights, ordered FP32 K partials",
+            "scope": "Actual Native/NoC execution plus folded coordinate, scale, MAC, shared-port, funded-state and nonpreemptive ownership audits. Row steering/injection is an explicit uncalibrated candidate capability; no equal-PPA or silicon claim.",
+            "folded_kernels": 3
+          },
+          "file": "down-epochs/result.json.gz",
+          "sha256": "9830b0babe828450cac30eb6dd935dd2f4ee6985466e60c0933bb1f8b62e550e",
+          "comparison_sha256": "2895e3412b68be24967e6e757ed601d4c348b61462adf560c93d60b4298c7d43"
+        },
+        {
+          "evidence": "cycles",
+          "makespan_ps": 469000,
+          "physical_audit": {
+            "passed": true,
+            "packets": 3,
+            "read_descriptors": 0,
+            "read_words": 0,
+            "data_bytes": 768,
+            "physical_link_flits": 0,
+            "tasks": 6,
+            "finite_fetch": {
+              "passed": true,
+              "contexts_per_cluster": 2,
+              "peak_contexts": {
+                "c0": 1
+              },
+              "metadata_bytes_per_cluster": 136,
+              "issue_and_outstanding_shared": true
+            },
+            "physical_domains": 128,
+            "native_bytes": 0,
+            "gateway_bytes": 0,
+            "physical_collection_charged": true,
+            "native_and_gateway_reservations_drained": true
+          },
+          "npu_audit": {
+            "passed": true,
+            "kernels": 3,
+            "macs": 1572864,
+            "array_service_cycles": 465,
+            "precision": "BF16 activations, FP8/BF16 weights, ordered FP32 K partials",
+            "scope": "Actual Native/NoC execution plus folded coordinate, scale, MAC, shared-port, funded-state and nonpreemptive ownership audits. Row steering/injection is an explicit uncalibrated candidate capability; no equal-PPA or silicon claim.",
+            "folded_kernels": 3
+          },
+          "file": "down-cycles/result.json.gz",
+          "sha256": "bc7d5910a3e6d7533746d608b5d5f28eb10a1d88ade9ecfbfa9b6e9631fe7db9",
+          "comparison_sha256": "2895e3412b68be24967e6e757ed601d4c348b61462adf560c93d60b4298c7d43"
+        }
+      ]
+    }
+  ],
+  "wall_seconds": 3.7726980512961745,
+  "scope": "Six actual resident physical executions: three matrices compete for two contexts in one cluster, for Gate/Up/Down. All array cycles/scale routing/shared ports and queued owners independently audited; compact epochs preserve every non-array physical event/resource/output time. No change to ongoing frozen P3 jobs or original B1 evidence."
+}

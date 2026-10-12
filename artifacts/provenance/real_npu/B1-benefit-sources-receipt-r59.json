@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "analysis_source": "18ffaa38fe17cc51537ce8039d648d9e73967dbf",
+  "G3_receipt_sha256": "289421939383f5135fc5e8ef6e37d66a87d1136292fb7401e769338c90beaaef",
+  "analysis_sha256": "cd057d369db66f7b082563fbd5a6b9247406496ff4705756c0a5649f1fd74dc2",
+  "scope": "Accepted full Native/NoC/carry audits reused; all 260 SHA-bound saved windows inspected for actual weight/activation and coupled fetch ownership. Signed total includes drain, negative steps and changed reloads. Latest operand sources and Gateway work bounds are observations, not exclusive causal attribution or removable stalls. No intervention or new physical run."
+}

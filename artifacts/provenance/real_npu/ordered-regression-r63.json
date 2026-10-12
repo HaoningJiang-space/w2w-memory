@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "source_commit": "4f4df19e40d708860a8f7b8262720223a4fbe14b",
+  "modules": [
+    "tests.test_real_npu",
+    "tests.test_row_mapping",
+    "tests.test_phase_split_sources",
+    "tests.test_operand_streaming",
+    "tests.test_execution_policies"
+  ],
+  "exit_code": 0,
+  "wall_seconds": 29.401756659150124,
+  "log_sha256": "de48c5636d4ae7693562afa0a2e14b762f39c7c8e03ac53ccf02149e162d606b",
+  "new_native_experiments": 0
+}

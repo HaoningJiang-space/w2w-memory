@@ -1,0 +1,116 @@
+{
+  "passed": true,
+  "source_commit": "1e9510ed3bbea47460ab78b08e613da79bc35794",
+  "comparisons": [
+    {
+      "policy": "best_os",
+      "passed": true,
+      "rows": [
+        {
+          "indexed_admission": false,
+          "result_sha256": "e7e3a6bbfda591bb76b16f96b89c54ce900f0fb6cdb1b2c4e26d9c06b2b27f0c",
+          "file": "best_os-0/result.json.gz",
+          "canonical_comparison_sha256": "154b42e3900fb1ad3c86696e0d8b7496131d46092036e9c2c76559199c674c5d",
+          "proof": {
+            "passed": true,
+            "windows": 2,
+            "tasks": 12,
+            "native_bytes": 1573248,
+            "macs": 3145728,
+            "cache_stats": {
+              "compulsory_bytes": 1573248,
+              "misses": 3,
+              "miss_bytes": 1573248,
+              "hits": 3,
+              "hit_bytes": 1573248
+            },
+            "makespan_ps": 66766000,
+            "drained_ps": 66766000,
+            "scope": "Each raw window re-audited; continuous cache/LRU/clock ownership and final metadata release closed."
+          },
+          "wall_seconds": 6.218052075244486
+        },
+        {
+          "indexed_admission": true,
+          "result_sha256": "ffad5cd3b72a53d4f770145b2ff5b31a55305647d0211722ea853a418cfb482c",
+          "file": "best_os-1/result.json.gz",
+          "canonical_comparison_sha256": "154b42e3900fb1ad3c86696e0d8b7496131d46092036e9c2c76559199c674c5d",
+          "proof": {
+            "passed": true,
+            "windows": 2,
+            "tasks": 12,
+            "native_bytes": 1573248,
+            "macs": 3145728,
+            "cache_stats": {
+              "compulsory_bytes": 1573248,
+              "misses": 3,
+              "miss_bytes": 1573248,
+              "hits": 3,
+              "hit_bytes": 1573248
+            },
+            "makespan_ps": 66766000,
+            "drained_ps": 66766000,
+            "scope": "Each raw window re-audited; continuous cache/LRU/clock ownership and final metadata release closed."
+          },
+          "wall_seconds": 6.204682054929435
+        }
+      ]
+    },
+    {
+      "policy": "streaming_os",
+      "passed": true,
+      "rows": [
+        {
+          "indexed_admission": false,
+          "result_sha256": "a0b1467547651000a4ee2690af1ba70e934fbaa7adf595328ae38635a56aed45",
+          "file": "streaming_os-0/result.json.gz",
+          "canonical_comparison_sha256": "6744224d776a6450c63839afc713c2e3f5e16aba4bcf89459645ad7c5b2ed8d3",
+          "proof": {
+            "passed": true,
+            "windows": 2,
+            "tasks": 12,
+            "native_bytes": 1573248,
+            "macs": 3145728,
+            "cache_stats": {
+              "compulsory_bytes": 1573248,
+              "misses": 3,
+              "miss_bytes": 1573248,
+              "hits": 3,
+              "hit_bytes": 1573248
+            },
+            "makespan_ps": 66802000,
+            "drained_ps": 66802000,
+            "scope": "Each raw window re-audited; continuous cache/LRU/clock ownership and final metadata release closed."
+          },
+          "wall_seconds": 9.04370033275336
+        },
+        {
+          "indexed_admission": true,
+          "result_sha256": "cef4a3c274f43a667fa95b906213907d19e5843c426229fe0dc5564e7ca82803",
+          "file": "streaming_os-1/result.json.gz",
+          "canonical_comparison_sha256": "6744224d776a6450c63839afc713c2e3f5e16aba4bcf89459645ad7c5b2ed8d3",
+          "proof": {
+            "passed": true,
+            "windows": 2,
+            "tasks": 12,
+            "native_bytes": 1573248,
+            "macs": 3145728,
+            "cache_stats": {
+              "compulsory_bytes": 1573248,
+              "misses": 3,
+              "miss_bytes": 1573248,
+              "hits": 3,
+              "hit_bytes": 1573248
+            },
+            "makespan_ps": 66802000,
+            "drained_ps": 66802000,
+            "scope": "Each raw window re-audited; continuous cache/LRU/clock ownership and final metadata release closed."
+          },
+          "wall_seconds": 9.18117391411215
+        }
+      ]
+    }
+  ],
+  "wall_seconds": 30.807461083866656,
+  "scope": "Host-only candidate indexing: two policies, three independent cold matrices sharing one cluster/two fetch contexts, then three warm matrices across the real drain boundary. All decoded physical events, resources, carry states, output times, configuration and topology identical; only archive-path config identity normalized. No hardware or scheduling change."
+}

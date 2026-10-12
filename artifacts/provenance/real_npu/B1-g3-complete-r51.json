@@ -1,0 +1,54 @@
+{
+  "passed": true,
+  "complete_scoped_B1_G3": true,
+  "complete_original_12_case_campaign": false,
+  "analysis_source": "eaab0483aaf486009258079e2313c169b6676c1c",
+  "gates": {
+    "G3.1": true,
+    "G3.2": true,
+    "G3.3": true,
+    "G3.4": true,
+    "G3.5": true
+  },
+  "sources": {
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/B1-reference-mechanism-r51/mechanism.json": "89995d592a0d98e5ec365a92095f6d0d6b784f23fc40eea38c09b768c2816d73",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/physical-shape-readback-r45/receipt.json": "702e881bbaba4cf7d0fe127f2d06dabe3c0db6f9a5b9a963d24d4e9f20c1d3d6",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/B1-g3-finisher-r51/sharded-resource-readback.json": "e770fd09f7f2c9ab7f5226909c59c0c9d74f8543ec9d2117d23fc530dcb87fc1",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/B1-g3-finisher-r51/phase-split-physical-analysis.json": "f960e865be568209b6f5bc76157e6c722df488761eaa7104e581afbb2acdb64a",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/B1-g3-finisher-r51/phase-split-mechanism/mechanism.json": "fea76dce524a213c0ea76fd8016588f9a8042e627238dd6a2eaa9898945a1723",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/B1-g3-finisher-r51/paired-mechanism.json": "0648c4ba22e3158630235ca0d2b25a7145d9ddec61c696980d66ca917df6f193"
+  },
+  "signed_phase_and_cache_comparison": {
+    "prefill": {
+      "windows": 2,
+      "delta_ps": 899113000,
+      "reference_ps": 17373712000,
+      "candidate_ps": 16474599000
+    },
+    "decode": {
+      "windows": 128,
+      "delta_ps": 6480813000,
+      "reference_ps": 31569973000,
+      "candidate_ps": 25089160000
+    },
+    "both_zero_native": {
+      "windows": 51,
+      "delta_ps": 0,
+      "reference_ps": 2540992000,
+      "candidate_ps": 2540992000
+    },
+    "both_with_native": {
+      "windows": 76,
+      "delta_ps": 6444848000,
+      "reference_ps": 28952846000,
+      "candidate_ps": 22507998000
+    },
+    "mixed_native": {
+      "windows": 1,
+      "delta_ps": 35965000,
+      "reference_ps": 76135000,
+      "candidate_ps": 40170000
+    }
+  },
+  "scope": "Only the user-frozen B1 G3 scope is accepted. Both captured phases, actual per-step routes, shape/service budgets, full physical audits and sharded legality are closed. No new hardware, strongest-baseline or full Transformer claim; original B4/16/32 and G4/G5 remain deferred."
+}

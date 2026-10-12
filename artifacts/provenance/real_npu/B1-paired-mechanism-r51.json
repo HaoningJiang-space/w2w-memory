@@ -1,0 +1,5223 @@
+{
+  "passed": true,
+  "phase_and_cache_groups": {
+    "prefill": {
+      "windows": 2,
+      "delta_ps": 899113000,
+      "reference_ps": 17373712000,
+      "candidate_ps": 16474599000
+    },
+    "decode": {
+      "windows": 128,
+      "delta_ps": 6480813000,
+      "reference_ps": 31569973000,
+      "candidate_ps": 25089160000
+    },
+    "both_zero_native": {
+      "windows": 51,
+      "delta_ps": 0,
+      "reference_ps": 2540992000,
+      "candidate_ps": 2540992000
+    },
+    "both_with_native": {
+      "windows": 76,
+      "delta_ps": 6444848000,
+      "reference_ps": 28952846000,
+      "candidate_ps": 22507998000
+    },
+    "mixed_native": {
+      "windows": 1,
+      "delta_ps": 35965000,
+      "reference_ps": 76135000,
+      "candidate_ps": 40170000
+    }
+  },
+  "windows": [
+    {
+      "index": 0,
+      "phase": "prefill",
+      "decode_step": null,
+      "delta_ps": -1186061000,
+      "reference_ps": 9713503000,
+      "candidate_ps": 10899564000,
+      "reference_native_bytes": 3192644096,
+      "candidate_native_bytes": 3192644096,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_0": 209765888,
+        "g1_0": 207668736,
+        "g2_0": 207668736,
+        "g3_0": 207668736,
+        "g0_3": 226547712,
+        "g1_3": 226547712,
+        "g2_3": 226547712,
+        "g3_3": 226547712,
+        "g0_2": 179350272,
+        "g1_2": 179350272,
+        "g2_2": 179350272,
+        "g3_2": 179350272,
+        "g0_1": 184070016,
+        "g1_1": 184070016,
+        "g2_1": 184070016,
+        "g3_1": 184070016
+      },
+      "candidate_gateway_bytes": {
+        "g0_0": 201899648,
+        "g1_0": 199802496,
+        "g2_0": 199802496,
+        "g3_0": 199802496,
+        "g1_1": 191936256,
+        "g0_3": 210815232,
+        "g1_3": 210815232,
+        "g2_3": 210815232,
+        "g3_3": 210815232,
+        "g0_1": 191936256,
+        "g2_1": 191936256,
+        "g3_2": 195082752,
+        "g0_2": 195082752,
+        "g3_1": 191936256,
+        "g2_2": 195082752,
+        "g1_2": 195082752
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 9120061000,
+        "admit_to_operands_ps": 583335000,
+        "operands_to_start_ps": 0,
+        "start_to_first_grant_ps": 617000,
+        "first_grant_to_finish_ps": 9490000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 10468711000,
+        "admit_to_operands_ps": 420645000,
+        "operands_to_start_ps": 0,
+        "start_to_first_grant_ps": 732000,
+        "first_grant_to_finish_ps": 9476000
+      }
+    },
+    {
+      "index": 1,
+      "phase": "prefill",
+      "decode_step": null,
+      "delta_ps": 2085174000,
+      "reference_ps": 7660209000,
+      "candidate_ps": 5575035000,
+      "reference_native_bytes": 980657664,
+      "candidate_native_bytes": 970169344,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_0": 33037952,
+        "g0_3": 186692096,
+        "g2_3": 186692096,
+        "g3_3": 186692096,
+        "g1_3": 186692096,
+        "g1_0": 20452224,
+        "g2_0": 24123136,
+        "g3_0": 24123136,
+        "g0_1": 18878976,
+        "g1_1": 18878976,
+        "g2_1": 18878976,
+        "g3_1": 18878976,
+        "g0_2": 14159232,
+        "g1_2": 14159232,
+        "g2_2": 14159232,
+        "g3_2": 14159232
+      },
+      "candidate_gateway_bytes": {
+        "g0_0": 28842624,
+        "g0_3": 129006336,
+        "g1_3": 124286592,
+        "g2_3": 129006336,
+        "g3_3": 129006336,
+        "g1_2": 69222912,
+        "g1_0": 19403392,
+        "g2_0": 22025472,
+        "g3_0": 20976640,
+        "g1_1": 19403392,
+        "g0_1": 23074304,
+        "g3_1": 19927808,
+        "g2_1": 20452224,
+        "g3_2": 71844992,
+        "g0_2": 71844992,
+        "g2_2": 71844992
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 7112655000,
+        "admit_to_operands_ps": 533996000,
+        "operands_to_start_ps": 0,
+        "start_to_first_grant_ps": 497000,
+        "first_grant_to_finish_ps": 13061000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 5179156000,
+        "admit_to_operands_ps": 387020000,
+        "operands_to_start_ps": 0,
+        "start_to_first_grant_ps": 403000,
+        "first_grant_to_finish_ps": 8456000
+      }
+    },
+    {
+      "index": 2,
+      "phase": "decode",
+      "decode_step": 0,
+      "delta_ps": 0,
+      "reference_ps": 51464000,
+      "candidate_ps": 51464000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2000,
+        "admit_to_operands_ps": 20182000,
+        "operands_to_start_ps": 17356000,
+        "start_to_first_grant_ps": 2544000,
+        "first_grant_to_finish_ps": 11380000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1640,
+        "admit_to_operands_ps": 20182000,
+        "operands_to_start_ps": 17356360,
+        "start_to_first_grant_ps": 2544000,
+        "first_grant_to_finish_ps": 11380000
+      }
+    },
+    {
+      "index": 3,
+      "phase": "decode",
+      "decode_step": 1,
+      "delta_ps": 0,
+      "reference_ps": 49657000,
+      "candidate_ps": 49657000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 15542000,
+        "operands_to_start_ps": 21745000,
+        "start_to_first_grant_ps": 2652000,
+        "first_grant_to_finish_ps": 9717000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 15542000,
+        "operands_to_start_ps": 21745000,
+        "start_to_first_grant_ps": 2652000,
+        "first_grant_to_finish_ps": 9717000
+      }
+    },
+    {
+      "index": 4,
+      "phase": "decode",
+      "decode_step": 2,
+      "delta_ps": 63951000,
+      "reference_ps": 232325000,
+      "candidate_ps": 168374000,
+      "reference_native_bytes": 23074304,
+      "candidate_native_bytes": 23074304,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_0": 4719744,
+        "g1_0": 4719744,
+        "g2_0": 4719744,
+        "g3_0": 4719744,
+        "g0_2": 1048832,
+        "g1_2": 1048832,
+        "g2_2": 1048832,
+        "g3_2": 1048832
+      },
+      "candidate_gateway_bytes": {
+        "g0_0": 3146496,
+        "g1_0": 3146496,
+        "g2_0": 3146496,
+        "g3_0": 3146496,
+        "g1_1": 1573248,
+        "g2_1": 1573248,
+        "g3_1": 1573248,
+        "g0_1": 1573248,
+        "g3_2": 524416,
+        "g0_2": 524416,
+        "g2_2": 524416,
+        "g1_2": 524416,
+        "g1_3": 524416,
+        "g3_3": 524416,
+        "g0_3": 524416,
+        "g2_3": 524416
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 800,
+        "admit_to_operands_ps": 207084000,
+        "operands_to_start_ps": 11840200,
+        "start_to_first_grant_ps": 2667000,
+        "first_grant_to_finish_ps": 10733000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 40,
+        "admit_to_operands_ps": 144207000,
+        "operands_to_start_ps": 11359960,
+        "start_to_first_grant_ps": 2074000,
+        "first_grant_to_finish_ps": 10733000
+      }
+    },
+    {
+      "index": 5,
+      "phase": "decode",
+      "decode_step": 3,
+      "delta_ps": 187007000,
+      "reference_ps": 779852000,
+      "candidate_ps": 592845000,
+      "reference_native_bytes": 94394880,
+      "candidate_native_bytes": 94394880,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_2": 9439488,
+        "g1_2": 9439488,
+        "g2_2": 9439488,
+        "g3_2": 9439488,
+        "g0_3": 14159232,
+        "g1_3": 14159232,
+        "g2_3": 14159232,
+        "g3_3": 14159232
+      },
+      "candidate_gateway_bytes": {
+        "g3_2": 11012736,
+        "g0_2": 11012736,
+        "g2_2": 11012736,
+        "g1_2": 11012736,
+        "g1_3": 12585984,
+        "g2_3": 12585984,
+        "g3_3": 12585984,
+        "g0_3": 12585984
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 252506040,
+        "admit_to_operands_ps": 516529000,
+        "operands_to_start_ps": 960,
+        "start_to_first_grant_ps": 2390000,
+        "first_grant_to_finish_ps": 8426000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 173643200,
+        "admit_to_operands_ps": 407020000,
+        "operands_to_start_ps": 942800,
+        "start_to_first_grant_ps": 2813000,
+        "first_grant_to_finish_ps": 8426000
+      }
+    },
+    {
+      "index": 6,
+      "phase": "decode",
+      "decode_step": 4,
+      "delta_ps": 63409000,
+      "reference_ps": 227045000,
+      "candidate_ps": 163636000,
+      "reference_native_bytes": 18878976,
+      "candidate_native_bytes": 18878976,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_3": 3146496,
+        "g1_3": 3146496,
+        "g2_3": 3146496,
+        "g3_3": 3146496,
+        "g3_2": 1573248,
+        "g0_2": 1573248,
+        "g2_2": 1573248,
+        "g1_2": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2000,
+        "admit_to_operands_ps": 207223000,
+        "operands_to_start_ps": 7207000,
+        "start_to_first_grant_ps": 3540000,
+        "first_grant_to_finish_ps": 9073000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2000,
+        "admit_to_operands_ps": 144373000,
+        "operands_to_start_ps": 7207000,
+        "start_to_first_grant_ps": 2981000,
+        "first_grant_to_finish_ps": 9073000
+      }
+    },
+    {
+      "index": 7,
+      "phase": "decode",
+      "decode_step": 5,
+      "delta_ps": 63974000,
+      "reference_ps": 227131000,
+      "candidate_ps": 163157000,
+      "reference_native_bytes": 18878976,
+      "candidate_native_bytes": 18878976,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_2": 4719744,
+        "g1_2": 4719744,
+        "g2_2": 4719744,
+        "g3_2": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g3_2": 3146496,
+        "g0_2": 3146496,
+        "g2_2": 3146496,
+        "g1_2": 3146496,
+        "g0_3": 1573248,
+        "g1_3": 1573248,
+        "g2_3": 1573248,
+        "g3_3": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 205701000,
+        "operands_to_start_ps": 8018000,
+        "start_to_first_grant_ps": 3063000,
+        "first_grant_to_finish_ps": 10348000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 80,
+        "admit_to_operands_ps": 142385000,
+        "operands_to_start_ps": 7570920,
+        "start_to_first_grant_ps": 2853000,
+        "first_grant_to_finish_ps": 10348000
+      }
+    },
+    {
+      "index": 8,
+      "phase": "decode",
+      "decode_step": 6,
+      "delta_ps": 190248000,
+      "reference_ps": 596141000,
+      "candidate_ps": 405893000,
+      "reference_native_bytes": 75515904,
+      "candidate_native_bytes": 75515904,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_3": 14159232,
+        "g1_3": 14159232,
+        "g2_3": 14159232,
+        "g3_3": 14159232,
+        "g0_1": 4719744,
+        "g1_1": 4719744,
+        "g2_1": 4719744,
+        "g3_1": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_3": 9439488,
+        "g1_3": 9439488,
+        "g2_3": 9439488,
+        "g3_3": 9439488,
+        "g3_2": 4719744,
+        "g0_2": 4719744,
+        "g2_2": 4719744,
+        "g1_2": 4719744,
+        "g1_1": 3146496,
+        "g0_1": 3146496,
+        "g2_1": 3146496,
+        "g3_1": 3146496,
+        "g0_0": 1573248,
+        "g1_0": 1573248,
+        "g2_0": 1573248,
+        "g3_0": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 126521600,
+        "admit_to_operands_ps": 458546000,
+        "operands_to_start_ps": 1109400,
+        "start_to_first_grant_ps": 1538000,
+        "first_grant_to_finish_ps": 8426000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 62739000,
+        "admit_to_operands_ps": 331816000,
+        "operands_to_start_ps": 1019000,
+        "start_to_first_grant_ps": 1893000,
+        "first_grant_to_finish_ps": 8426000
+      }
+    },
+    {
+      "index": 9,
+      "phase": "decode",
+      "decode_step": 7,
+      "delta_ps": 63855000,
+      "reference_ps": 229001000,
+      "candidate_ps": 165146000,
+      "reference_native_bytes": 37757952,
+      "candidate_native_bytes": 37757952,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744,
+        "g0_0": 4719744,
+        "g1_0": 4719744,
+        "g2_0": 4719744,
+        "g3_0": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_3": 3146496,
+        "g1_3": 3146496,
+        "g2_3": 3146496,
+        "g3_3": 3146496,
+        "g0_0": 3146496,
+        "g1_0": 3146496,
+        "g2_0": 3146496,
+        "g3_0": 3146496,
+        "g0_2": 1573248,
+        "g2_2": 1573248,
+        "g1_2": 1573248,
+        "g0_1": 1573248,
+        "g3_1": 1573248,
+        "g3_2": 1573248,
+        "g1_1": 1573248,
+        "g2_1": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 206474000,
+        "operands_to_start_ps": 7492000,
+        "start_to_first_grant_ps": 5315000,
+        "first_grant_to_finish_ps": 9719000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 142640000,
+        "operands_to_start_ps": 7245000,
+        "start_to_first_grant_ps": 5541000,
+        "first_grant_to_finish_ps": 9719000
+      }
+    },
+    {
+      "index": 10,
+      "phase": "decode",
+      "decode_step": 8,
+      "delta_ps": 125486000,
+      "reference_ps": 408964000,
+      "candidate_ps": 283478000,
+      "reference_native_bytes": 56636928,
+      "candidate_native_bytes": 56636928,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744,
+        "g0_0": 9439488,
+        "g1_0": 9439488,
+        "g2_0": 9439488,
+        "g3_0": 9439488
+      },
+      "candidate_gateway_bytes": {
+        "g0_3": 3146496,
+        "g1_3": 3146496,
+        "g2_3": 3146496,
+        "g3_3": 3146496,
+        "g3_2": 1573248,
+        "g1_2": 1573248,
+        "g0_2": 1573248,
+        "g2_2": 1573248,
+        "g0_0": 6292992,
+        "g1_0": 6292992,
+        "g2_0": 6292992,
+        "g3_0": 6292992,
+        "g1_1": 3146496,
+        "g0_1": 3146496,
+        "g2_1": 3146496,
+        "g3_1": 3146496
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 840,
+        "admit_to_operands_ps": 395658000,
+        "operands_to_start_ps": 1648160,
+        "start_to_first_grant_ps": 3223000,
+        "first_grant_to_finish_ps": 8434000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 800,
+        "admit_to_operands_ps": 270417000,
+        "operands_to_start_ps": 1326200,
+        "start_to_first_grant_ps": 3300000,
+        "first_grant_to_finish_ps": 8434000
+      }
+    },
+    {
+      "index": 11,
+      "phase": "decode",
+      "decode_step": 9,
+      "delta_ps": 21079000,
+      "reference_ps": 86103000,
+      "candidate_ps": 65024000,
+      "reference_native_bytes": 4195328,
+      "candidate_native_bytes": 4195328,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_0": 1048832,
+        "g1_0": 1048832,
+        "g2_0": 1048832,
+        "g3_0": 1048832
+      },
+      "candidate_gateway_bytes": {
+        "g0_0": 524416,
+        "g1_0": 524416,
+        "g2_0": 524416,
+        "g3_0": 524416,
+        "g1_1": 524416,
+        "g2_1": 524416,
+        "g3_1": 524416,
+        "g0_1": 524416
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 58101000,
+        "operands_to_start_ps": 15421000,
+        "start_to_first_grant_ps": 2866000,
+        "first_grant_to_finish_ps": 9714000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 37066000,
+        "operands_to_start_ps": 15377000,
+        "start_to_first_grant_ps": 2866000,
+        "first_grant_to_finish_ps": 9714000
+      }
+    },
+    {
+      "index": 12,
+      "phase": "decode",
+      "decode_step": 10,
+      "delta_ps": 60596000,
+      "reference_ps": 412775000,
+      "candidate_ps": 352179000,
+      "reference_native_bytes": 75515904,
+      "candidate_native_bytes": 75515904,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_0": 4719744,
+        "g1_0": 4719744,
+        "g2_0": 4719744,
+        "g3_0": 4719744,
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744,
+        "g0_2": 9439488,
+        "g1_2": 9439488,
+        "g2_2": 9439488,
+        "g3_2": 9439488
+      },
+      "candidate_gateway_bytes": {
+        "g0_0": 3146496,
+        "g1_0": 3146496,
+        "g2_0": 3146496,
+        "g3_0": 3146496,
+        "g1_1": 1573248,
+        "g2_1": 1573248,
+        "g3_1": 1573248,
+        "g0_1": 1573248,
+        "g0_3": 6292992,
+        "g1_3": 6292992,
+        "g2_3": 6292992,
+        "g3_3": 6292992,
+        "g0_2": 7866240,
+        "g2_2": 7866240,
+        "g1_2": 7866240,
+        "g3_2": 7866240
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 126440720,
+        "admit_to_operands_ps": 268503000,
+        "operands_to_start_ps": 6739280,
+        "start_to_first_grant_ps": 2018000,
+        "first_grant_to_finish_ps": 9074000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 99346880,
+        "admit_to_operands_ps": 235001000,
+        "operands_to_start_ps": 6739120,
+        "start_to_first_grant_ps": 2018000,
+        "first_grant_to_finish_ps": 9074000
+      }
+    },
+    {
+      "index": 13,
+      "phase": "decode",
+      "decode_step": 11,
+      "delta_ps": 64116000,
+      "reference_ps": 227304000,
+      "candidate_ps": 163188000,
+      "reference_native_bytes": 18878976,
+      "candidate_native_bytes": 18878976,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_0": 4719744,
+        "g1_0": 4719744,
+        "g2_0": 4719744,
+        "g3_0": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_0": 3146496,
+        "g1_0": 3146496,
+        "g2_0": 3146496,
+        "g3_0": 3146496,
+        "g1_1": 1573248,
+        "g0_1": 1573248,
+        "g2_1": 1573248,
+        "g3_1": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 207862000,
+        "operands_to_start_ps": 7889000,
+        "start_to_first_grant_ps": 1841000,
+        "first_grant_to_finish_ps": 9711000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 144226000,
+        "operands_to_start_ps": 7450000,
+        "start_to_first_grant_ps": 1800000,
+        "first_grant_to_finish_ps": 9711000
+      }
+    },
+    {
+      "index": 14,
+      "phase": "decode",
+      "decode_step": 12,
+      "delta_ps": 21485000,
+      "reference_ps": 100805000,
+      "candidate_ps": 79320000,
+      "reference_native_bytes": 4719744,
+      "candidate_native_bytes": 5244160,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_0": 1573248,
+        "g1_0": 1048832,
+        "g2_0": 1048832,
+        "g3_0": 1048832
+      },
+      "candidate_gateway_bytes": {
+        "g0_0": 1048832,
+        "g1_0": 1048832,
+        "g2_0": 524416,
+        "g3_0": 524416,
+        "g1_1": 524416,
+        "g2_1": 524416,
+        "g3_1": 524416,
+        "g0_1": 524416
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 520,
+        "admit_to_operands_ps": 77537000,
+        "operands_to_start_ps": 9011480,
+        "start_to_first_grant_ps": 3911000,
+        "first_grant_to_finish_ps": 10345000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 56454000,
+        "operands_to_start_ps": 8609000,
+        "start_to_first_grant_ps": 3911000,
+        "first_grant_to_finish_ps": 10345000
+      }
+    },
+    {
+      "index": 15,
+      "phase": "decode",
+      "decode_step": 13,
+      "delta_ps": 127336000,
+      "reference_ps": 410252000,
+      "candidate_ps": 282916000,
+      "reference_native_bytes": 37757952,
+      "candidate_native_bytes": 37757952,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_0": 4719744,
+        "g1_0": 4719744,
+        "g2_0": 4719744,
+        "g3_0": 4719744,
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_0": 3146496,
+        "g1_0": 3146496,
+        "g2_0": 3146496,
+        "g3_0": 3146496,
+        "g1_1": 1573248,
+        "g0_1": 1573248,
+        "g2_1": 1573248,
+        "g3_1": 1573248,
+        "g0_3": 3146496,
+        "g1_3": 3146496,
+        "g2_3": 3146496,
+        "g3_3": 3146496,
+        "g3_2": 1573248,
+        "g0_2": 1573248,
+        "g2_2": 1573248,
+        "g1_2": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 397443000,
+        "operands_to_start_ps": 544000,
+        "start_to_first_grant_ps": 3830000,
+        "first_grant_to_finish_ps": 8434000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 270573000,
+        "operands_to_start_ps": 770000,
+        "start_to_first_grant_ps": 3138000,
+        "first_grant_to_finish_ps": 8434000
+      }
+    },
+    {
+      "index": 16,
+      "phase": "decode",
+      "decode_step": 14,
+      "delta_ps": 35965000,
+      "reference_ps": 76135000,
+      "candidate_ps": 40170000,
+      "reference_native_bytes": 3146496,
+      "candidate_native_bytes": 0,
+      "cache_class": "mixed_native",
+      "reference_gateway_bytes": {
+        "g1_0": 1048832,
+        "g2_0": 1048832,
+        "g3_0": 1048832
+      },
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 42633000,
+        "admit_to_operands_ps": 14391000,
+        "operands_to_start_ps": 2844000,
+        "start_to_first_grant_ps": 5930000,
+        "first_grant_to_finish_ps": 10337000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 16195000,
+        "operands_to_start_ps": 8404000,
+        "start_to_first_grant_ps": 4589000,
+        "first_grant_to_finish_ps": 10981000
+      }
+    },
+    {
+      "index": 17,
+      "phase": "decode",
+      "decode_step": 15,
+      "delta_ps": 0,
+      "reference_ps": 55869000,
+      "candidate_ps": 55869000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 520,
+        "admit_to_operands_ps": 16367000,
+        "operands_to_start_ps": 26635480,
+        "start_to_first_grant_ps": 2121000,
+        "first_grant_to_finish_ps": 10745000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 16367000,
+        "operands_to_start_ps": 26635000,
+        "start_to_first_grant_ps": 2121000,
+        "first_grant_to_finish_ps": 10745000
+      }
+    },
+    {
+      "index": 18,
+      "phase": "decode",
+      "decode_step": 16,
+      "delta_ps": 0,
+      "reference_ps": 51540000,
+      "candidate_ps": 51540000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2000,
+        "admit_to_operands_ps": 20319000,
+        "operands_to_start_ps": 20458000,
+        "start_to_first_grant_ps": 2312000,
+        "first_grant_to_finish_ps": 8449000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1240,
+        "admit_to_operands_ps": 20319000,
+        "operands_to_start_ps": 20458760,
+        "start_to_first_grant_ps": 2312000,
+        "first_grant_to_finish_ps": 8449000
+      }
+    },
+    {
+      "index": 19,
+      "phase": "decode",
+      "decode_step": 17,
+      "delta_ps": 0,
+      "reference_ps": 43268000,
+      "candidate_ps": 43268000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 15392000,
+        "operands_to_start_ps": 12517000,
+        "start_to_first_grant_ps": 5645000,
+        "first_grant_to_finish_ps": 9713000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 15392000,
+        "operands_to_start_ps": 12517000,
+        "start_to_first_grant_ps": 5645000,
+        "first_grant_to_finish_ps": 9713000
+      }
+    },
+    {
+      "index": 20,
+      "phase": "decode",
+      "decode_step": 18,
+      "delta_ps": 0,
+      "reference_ps": 54751000,
+      "candidate_ps": 54751000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 16364000,
+        "operands_to_start_ps": 26785000,
+        "start_to_first_grant_ps": 1241000,
+        "first_grant_to_finish_ps": 10360000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 16364000,
+        "operands_to_start_ps": 26785000,
+        "start_to_first_grant_ps": 1241000,
+        "first_grant_to_finish_ps": 10360000
+      }
+    },
+    {
+      "index": 21,
+      "phase": "decode",
+      "decode_step": 19,
+      "delta_ps": 126659000,
+      "reference_ps": 411034000,
+      "candidate_ps": 284375000,
+      "reference_native_bytes": 37757952,
+      "candidate_native_bytes": 37757952,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_2": 4719744,
+        "g1_2": 4719744,
+        "g2_2": 4719744,
+        "g3_2": 4719744,
+        "g0_1": 4719744,
+        "g1_1": 4719744,
+        "g2_1": 4719744,
+        "g3_1": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g3_2": 3146496,
+        "g0_2": 3146496,
+        "g2_2": 3146496,
+        "g1_2": 3146496,
+        "g0_3": 1573248,
+        "g1_3": 1573248,
+        "g2_3": 1573248,
+        "g3_3": 1573248,
+        "g1_1": 3146496,
+        "g0_1": 3146496,
+        "g2_1": 3146496,
+        "g3_1": 3146496,
+        "g1_0": 1573248,
+        "g2_0": 1573248,
+        "g3_0": 1573248,
+        "g0_0": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 397746000,
+        "operands_to_start_ps": 233000,
+        "start_to_first_grant_ps": 4623000,
+        "first_grant_to_finish_ps": 8431000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 271544000,
+        "operands_to_start_ps": 0,
+        "start_to_first_grant_ps": 4399000,
+        "first_grant_to_finish_ps": 8431000
+      }
+    },
+    {
+      "index": 22,
+      "phase": "decode",
+      "decode_step": 20,
+      "delta_ps": 0,
+      "reference_ps": 54930000,
+      "candidate_ps": 54930000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 16762000,
+        "operands_to_start_ps": 26965000,
+        "start_to_first_grant_ps": 2114000,
+        "first_grant_to_finish_ps": 9088000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 16762000,
+        "operands_to_start_ps": 26965000,
+        "start_to_first_grant_ps": 2114000,
+        "first_grant_to_finish_ps": 9088000
+      }
+    },
+    {
+      "index": 23,
+      "phase": "decode",
+      "decode_step": 21,
+      "delta_ps": 0,
+      "reference_ps": 39789000,
+      "candidate_ps": 39789000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 16062000,
+        "operands_to_start_ps": 7367000,
+        "start_to_first_grant_ps": 5378000,
+        "first_grant_to_finish_ps": 10981000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 16062000,
+        "operands_to_start_ps": 7367000,
+        "start_to_first_grant_ps": 5378000,
+        "first_grant_to_finish_ps": 10981000
+      }
+    },
+    {
+      "index": 24,
+      "phase": "decode",
+      "decode_step": 22,
+      "delta_ps": 63953000,
+      "reference_ps": 231938000,
+      "candidate_ps": 167985000,
+      "reference_native_bytes": 18878976,
+      "candidate_native_bytes": 18878976,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_0": 4719744,
+        "g1_0": 4719744,
+        "g2_0": 4719744,
+        "g3_0": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g1_0": 3146496,
+        "g2_0": 3146496,
+        "g3_0": 3146496,
+        "g0_0": 3146496,
+        "g1_1": 1573248,
+        "g2_1": 1573248,
+        "g3_1": 1573248,
+        "g0_1": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 205232000,
+        "operands_to_start_ps": 12961000,
+        "start_to_first_grant_ps": 3012000,
+        "first_grant_to_finish_ps": 10732000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 120,
+        "admit_to_operands_ps": 141628000,
+        "operands_to_start_ps": 13112880,
+        "start_to_first_grant_ps": 2512000,
+        "first_grant_to_finish_ps": 10732000
+      }
+    },
+    {
+      "index": 25,
+      "phase": "decode",
+      "decode_step": 23,
+      "delta_ps": 63435000,
+      "reference_ps": 228575000,
+      "candidate_ps": 165140000,
+      "reference_native_bytes": 18878976,
+      "candidate_native_bytes": 18878976,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_1": 4719744,
+        "g1_1": 4719744,
+        "g2_1": 4719744,
+        "g3_1": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g1_1": 3146496,
+        "g0_1": 3146496,
+        "g2_1": 3146496,
+        "g3_1": 3146496,
+        "g0_0": 1573248,
+        "g1_0": 1573248,
+        "g3_0": 1573248,
+        "g2_0": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 208181000,
+        "operands_to_start_ps": 7888000,
+        "start_to_first_grant_ps": 2794000,
+        "first_grant_to_finish_ps": 9711000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 145041000,
+        "operands_to_start_ps": 7910000,
+        "start_to_first_grant_ps": 2477000,
+        "first_grant_to_finish_ps": 9711000
+      }
+    },
+    {
+      "index": 26,
+      "phase": "decode",
+      "decode_step": 24,
+      "delta_ps": 238877000,
+      "reference_ps": 791393000,
+      "candidate_ps": 552516000,
+      "reference_native_bytes": 94394880,
+      "candidate_native_bytes": 94394880,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_3": 14159232,
+        "g2_3": 14159232,
+        "g3_3": 14159232,
+        "g1_3": 14159232,
+        "g0_0": 4719744,
+        "g1_0": 4719744,
+        "g2_0": 4719744,
+        "g3_0": 4719744,
+        "g0_2": 4719744,
+        "g1_2": 4719744,
+        "g2_2": 4719744,
+        "g3_2": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_3": 11012736,
+        "g2_3": 11012736,
+        "g3_3": 11012736,
+        "g1_3": 11012736,
+        "g0_0": 3146496,
+        "g1_0": 3146496,
+        "g2_0": 3146496,
+        "g3_0": 3146496,
+        "g3_2": 7866240,
+        "g0_2": 7866240,
+        "g1_2": 7866240,
+        "g1_1": 1573248,
+        "g0_1": 1573248,
+        "g2_1": 1573248,
+        "g3_1": 1573248,
+        "g2_2": 7866240
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 377969000,
+        "admit_to_operands_ps": 402485000,
+        "operands_to_start_ps": 544000,
+        "start_to_first_grant_ps": 1969000,
+        "first_grant_to_finish_ps": 8426000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 248305000,
+        "admit_to_operands_ps": 293178000,
+        "operands_to_start_ps": 544000,
+        "start_to_first_grant_ps": 2063000,
+        "first_grant_to_finish_ps": 8426000
+      }
+    },
+    {
+      "index": 27,
+      "phase": "decode",
+      "decode_step": 25,
+      "delta_ps": 185838000,
+      "reference_ps": 811879000,
+      "candidate_ps": 626041000,
+      "reference_native_bytes": 115371520,
+      "candidate_native_bytes": 115895936,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_0": 18878976,
+        "g1_0": 18878976,
+        "g2_0": 18878976,
+        "g3_0": 18878976,
+        "g0_1": 4719744,
+        "g1_1": 4719744,
+        "g2_1": 4719744,
+        "g3_1": 4719744,
+        "g0_3": 5244160,
+        "g1_3": 5244160,
+        "g2_3": 5244160,
+        "g3_3": 5244160
+      },
+      "candidate_gateway_bytes": {
+        "g0_0": 14159232,
+        "g1_0": 14159232,
+        "g2_0": 14159232,
+        "g3_0": 14159232,
+        "g1_1": 9439488,
+        "g0_1": 9439488,
+        "g2_1": 9439488,
+        "g3_1": 9439488,
+        "g0_3": 3670912,
+        "g1_3": 3670912,
+        "g2_3": 3670912,
+        "g3_3": 3670912,
+        "g3_2": 1573248,
+        "g0_2": 1573248,
+        "g1_2": 2097664,
+        "g2_2": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 377948560,
+        "admit_to_operands_ps": 419418000,
+        "operands_to_start_ps": 2107440,
+        "start_to_first_grant_ps": 3342000,
+        "first_grant_to_finish_ps": 9063000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 283200000,
+        "admit_to_operands_ps": 326734000,
+        "operands_to_start_ps": 3068000,
+        "start_to_first_grant_ps": 4613000,
+        "first_grant_to_finish_ps": 8426000
+      }
+    },
+    {
+      "index": 28,
+      "phase": "decode",
+      "decode_step": 26,
+      "delta_ps": 0,
+      "reference_ps": 51062000,
+      "candidate_ps": 51062000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1920,
+        "admit_to_operands_ps": 19277000,
+        "operands_to_start_ps": 19372080,
+        "start_to_first_grant_ps": 3323000,
+        "first_grant_to_finish_ps": 9088000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2000,
+        "admit_to_operands_ps": 19277000,
+        "operands_to_start_ps": 19372000,
+        "start_to_first_grant_ps": 3323000,
+        "first_grant_to_finish_ps": 9088000
+      }
+    },
+    {
+      "index": 29,
+      "phase": "decode",
+      "decode_step": 27,
+      "delta_ps": 0,
+      "reference_ps": 54890000,
+      "candidate_ps": 54890000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2000,
+        "admit_to_operands_ps": 16357000,
+        "operands_to_start_ps": 23054000,
+        "start_to_first_grant_ps": 1079000,
+        "first_grant_to_finish_ps": 14398000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2000,
+        "admit_to_operands_ps": 16357000,
+        "operands_to_start_ps": 23054000,
+        "start_to_first_grant_ps": 1079000,
+        "first_grant_to_finish_ps": 14398000
+      }
+    },
+    {
+      "index": 30,
+      "phase": "decode",
+      "decode_step": 28,
+      "delta_ps": 63201000,
+      "reference_ps": 230191000,
+      "candidate_ps": 166990000,
+      "reference_native_bytes": 37757952,
+      "candidate_native_bytes": 37757952,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744,
+        "g0_1": 4719744,
+        "g1_1": 4719744,
+        "g2_1": 4719744,
+        "g3_1": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_3": 3146496,
+        "g1_3": 3146496,
+        "g2_3": 3146496,
+        "g3_3": 3146496,
+        "g0_2": 1573248,
+        "g2_2": 1573248,
+        "g3_2": 1573248,
+        "g1_2": 1573248,
+        "g1_1": 3146496,
+        "g0_1": 3146496,
+        "g2_1": 3146496,
+        "g3_1": 3146496,
+        "g0_0": 1573248,
+        "g2_0": 1573248,
+        "g3_0": 1573248,
+        "g1_0": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 920,
+        "admit_to_operands_ps": 207853000,
+        "operands_to_start_ps": 8648080,
+        "start_to_first_grant_ps": 2880000,
+        "first_grant_to_finish_ps": 10809000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 145278000,
+        "operands_to_start_ps": 8487000,
+        "start_to_first_grant_ps": 2415000,
+        "first_grant_to_finish_ps": 10809000
+      }
+    },
+    {
+      "index": 31,
+      "phase": "decode",
+      "decode_step": 29,
+      "delta_ps": 63323000,
+      "reference_ps": 226377000,
+      "candidate_ps": 163054000,
+      "reference_native_bytes": 18878976,
+      "candidate_native_bytes": 18878976,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_1": 4719744,
+        "g1_1": 4719744,
+        "g2_1": 4719744,
+        "g3_1": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g1_1": 3146496,
+        "g0_1": 3146496,
+        "g2_1": 3146496,
+        "g3_1": 3146496,
+        "g0_0": 1573248,
+        "g2_0": 1573248,
+        "g3_0": 1573248,
+        "g1_0": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2000,
+        "admit_to_operands_ps": 206217000,
+        "operands_to_start_ps": 7638000,
+        "start_to_first_grant_ps": 2818000,
+        "first_grant_to_finish_ps": 9702000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2000,
+        "admit_to_operands_ps": 143244000,
+        "operands_to_start_ps": 7503000,
+        "start_to_first_grant_ps": 2603000,
+        "first_grant_to_finish_ps": 9702000
+      }
+    },
+    {
+      "index": 32,
+      "phase": "decode",
+      "decode_step": 30,
+      "delta_ps": 0,
+      "reference_ps": 56780000,
+      "candidate_ps": 56780000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 4000,
+        "admit_to_operands_ps": 19136000,
+        "operands_to_start_ps": 25324000,
+        "start_to_first_grant_ps": 2599000,
+        "first_grant_to_finish_ps": 9717000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 4000,
+        "admit_to_operands_ps": 19136000,
+        "operands_to_start_ps": 25324000,
+        "start_to_first_grant_ps": 2599000,
+        "first_grant_to_finish_ps": 9717000
+      }
+    },
+    {
+      "index": 33,
+      "phase": "decode",
+      "decode_step": 31,
+      "delta_ps": 127336000,
+      "reference_ps": 414182000,
+      "candidate_ps": 286846000,
+      "reference_native_bytes": 37757952,
+      "candidate_native_bytes": 37757952,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_1": 4719744,
+        "g1_1": 4719744,
+        "g2_1": 4719744,
+        "g3_1": 4719744,
+        "g0_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744,
+        "g1_3": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g1_1": 3146496,
+        "g0_1": 3146496,
+        "g2_1": 3146496,
+        "g3_1": 3146496,
+        "g1_0": 1573248,
+        "g2_0": 1573248,
+        "g3_0": 1573248,
+        "g0_0": 1573248,
+        "g0_3": 3146496,
+        "g1_3": 3146496,
+        "g2_3": 3146496,
+        "g3_3": 3146496,
+        "g3_2": 1573248,
+        "g0_2": 1573248,
+        "g1_2": 1573248,
+        "g2_2": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 397463000,
+        "operands_to_start_ps": 2145000,
+        "start_to_first_grant_ps": 3918000,
+        "first_grant_to_finish_ps": 10655000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 271090000,
+        "operands_to_start_ps": 2139000,
+        "start_to_first_grant_ps": 2961000,
+        "first_grant_to_finish_ps": 10655000
+      }
+    },
+    {
+      "index": 34,
+      "phase": "decode",
+      "decode_step": 32,
+      "delta_ps": -92000,
+      "reference_ps": 144978000,
+      "candidate_ps": 145070000,
+      "reference_native_bytes": 5768576,
+      "candidate_native_bytes": 7341824,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_0": 2622080,
+        "g1_0": 1048832,
+        "g2_0": 1048832,
+        "g3_0": 1048832
+      },
+      "candidate_gateway_bytes": {
+        "g0_0": 2622080,
+        "g1_0": 524416,
+        "g2_0": 524416,
+        "g3_0": 524416,
+        "g1_1": 524416,
+        "g0_1": 1573248,
+        "g2_1": 524416,
+        "g3_1": 524416
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1680,
+        "admit_to_operands_ps": 124147000,
+        "operands_to_start_ps": 6371320,
+        "start_to_first_grant_ps": 3723000,
+        "first_grant_to_finish_ps": 10735000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2000,
+        "admit_to_operands_ps": 124595000,
+        "operands_to_start_ps": 6107000,
+        "start_to_first_grant_ps": 3631000,
+        "first_grant_to_finish_ps": 10735000
+      }
+    },
+    {
+      "index": 35,
+      "phase": "decode",
+      "decode_step": 33,
+      "delta_ps": 62733000,
+      "reference_ps": 225900000,
+      "candidate_ps": 163167000,
+      "reference_native_bytes": 18878976,
+      "candidate_native_bytes": 18878976,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_3": 3146496,
+        "g1_3": 3146496,
+        "g2_3": 3146496,
+        "g3_3": 3146496,
+        "g0_2": 1573248,
+        "g1_2": 1573248,
+        "g2_2": 1573248,
+        "g3_2": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 207736000,
+        "operands_to_start_ps": 7302000,
+        "start_to_first_grant_ps": 1787000,
+        "first_grant_to_finish_ps": 9074000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 760,
+        "admit_to_operands_ps": 144939000,
+        "operands_to_start_ps": 7302240,
+        "start_to_first_grant_ps": 1851000,
+        "first_grant_to_finish_ps": 9074000
+      }
+    },
+    {
+      "index": 36,
+      "phase": "decode",
+      "decode_step": 34,
+      "delta_ps": 62821000,
+      "reference_ps": 232443000,
+      "candidate_ps": 169622000,
+      "reference_native_bytes": 18878976,
+      "candidate_native_bytes": 18878976,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744,
+        "g1_3": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_3": 3146496,
+        "g2_3": 3146496,
+        "g3_3": 3146496,
+        "g1_3": 3146496,
+        "g3_2": 1573248,
+        "g0_2": 1573248,
+        "g1_2": 1573248,
+        "g2_2": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 520,
+        "admit_to_operands_ps": 206124000,
+        "operands_to_start_ps": 13112480,
+        "start_to_first_grant_ps": 2474000,
+        "first_grant_to_finish_ps": 10732000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 320,
+        "admit_to_operands_ps": 142273000,
+        "operands_to_start_ps": 14598680,
+        "start_to_first_grant_ps": 2018000,
+        "first_grant_to_finish_ps": 10732000
+      }
+    },
+    {
+      "index": 37,
+      "phase": "decode",
+      "decode_step": 35,
+      "delta_ps": 0,
+      "reference_ps": 44845000,
+      "candidate_ps": 44845000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 15508000,
+        "operands_to_start_ps": 14816000,
+        "start_to_first_grant_ps": 2891000,
+        "first_grant_to_finish_ps": 11629000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 800,
+        "admit_to_operands_ps": 15508000,
+        "operands_to_start_ps": 14816200,
+        "start_to_first_grant_ps": 2891000,
+        "first_grant_to_finish_ps": 11629000
+      }
+    },
+    {
+      "index": 38,
+      "phase": "decode",
+      "decode_step": 36,
+      "delta_ps": 0,
+      "reference_ps": 55839000,
+      "candidate_ps": 55839000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 200,
+        "admit_to_operands_ps": 16496000,
+        "operands_to_start_ps": 26348800,
+        "start_to_first_grant_ps": 2249000,
+        "first_grant_to_finish_ps": 10745000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 16496000,
+        "operands_to_start_ps": 26348000,
+        "start_to_first_grant_ps": 2249000,
+        "first_grant_to_finish_ps": 10745000
+      }
+    },
+    {
+      "index": 39,
+      "phase": "decode",
+      "decode_step": 37,
+      "delta_ps": 0,
+      "reference_ps": 45900000,
+      "candidate_ps": 45900000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 17481000,
+        "operands_to_start_ps": 15816000,
+        "start_to_first_grant_ps": 3523000,
+        "first_grant_to_finish_ps": 9079000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 17481000,
+        "operands_to_start_ps": 15816000,
+        "start_to_first_grant_ps": 3523000,
+        "first_grant_to_finish_ps": 9079000
+      }
+    },
+    {
+      "index": 40,
+      "phase": "decode",
+      "decode_step": 38,
+      "delta_ps": 0,
+      "reference_ps": 55662000,
+      "candidate_ps": 55662000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 3000,
+        "admit_to_operands_ps": 17154000,
+        "operands_to_start_ps": 26499000,
+        "start_to_first_grant_ps": 1659000,
+        "first_grant_to_finish_ps": 10347000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2720,
+        "admit_to_operands_ps": 17154000,
+        "operands_to_start_ps": 26499280,
+        "start_to_first_grant_ps": 1659000,
+        "first_grant_to_finish_ps": 10347000
+      }
+    },
+    {
+      "index": 41,
+      "phase": "decode",
+      "decode_step": 39,
+      "delta_ps": 0,
+      "reference_ps": 50173000,
+      "candidate_ps": 50173000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 640,
+        "admit_to_operands_ps": 18953000,
+        "operands_to_start_ps": 19186360,
+        "start_to_first_grant_ps": 2316000,
+        "first_grant_to_finish_ps": 9717000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 18953000,
+        "operands_to_start_ps": 19186000,
+        "start_to_first_grant_ps": 2316000,
+        "first_grant_to_finish_ps": 9717000
+      }
+    },
+    {
+      "index": 42,
+      "phase": "decode",
+      "decode_step": 40,
+      "delta_ps": 0,
+      "reference_ps": 51062000,
+      "candidate_ps": 51062000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2000,
+        "admit_to_operands_ps": 19277000,
+        "operands_to_start_ps": 19372000,
+        "start_to_first_grant_ps": 3323000,
+        "first_grant_to_finish_ps": 9088000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2000,
+        "admit_to_operands_ps": 19277000,
+        "operands_to_start_ps": 19372000,
+        "start_to_first_grant_ps": 3323000,
+        "first_grant_to_finish_ps": 9088000
+      }
+    },
+    {
+      "index": 43,
+      "phase": "decode",
+      "decode_step": 41,
+      "delta_ps": 0,
+      "reference_ps": 44188000,
+      "candidate_ps": 44188000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 16131000,
+        "operands_to_start_ps": 15044000,
+        "start_to_first_grant_ps": 2016000,
+        "first_grant_to_finish_ps": 10996000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 16131000,
+        "operands_to_start_ps": 15044000,
+        "start_to_first_grant_ps": 2016000,
+        "first_grant_to_finish_ps": 10996000
+      }
+    },
+    {
+      "index": 44,
+      "phase": "decode",
+      "decode_step": 42,
+      "delta_ps": 0,
+      "reference_ps": 45921000,
+      "candidate_ps": 45921000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2000,
+        "admit_to_operands_ps": 19623000,
+        "operands_to_start_ps": 14310000,
+        "start_to_first_grant_ps": 2905000,
+        "first_grant_to_finish_ps": 9081000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2000,
+        "admit_to_operands_ps": 19623000,
+        "operands_to_start_ps": 14310000,
+        "start_to_first_grant_ps": 2905000,
+        "first_grant_to_finish_ps": 9081000
+      }
+    },
+    {
+      "index": 45,
+      "phase": "decode",
+      "decode_step": 43,
+      "delta_ps": 63580000,
+      "reference_ps": 228496000,
+      "candidate_ps": 164916000,
+      "reference_native_bytes": 18878976,
+      "candidate_native_bytes": 18878976,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_0": 4719744,
+        "g1_0": 4719744,
+        "g2_0": 4719744,
+        "g3_0": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_0": 3146496,
+        "g1_0": 3146496,
+        "g2_0": 3146496,
+        "g3_0": 3146496,
+        "g1_1": 1573248,
+        "g2_1": 1573248,
+        "g3_1": 1573248,
+        "g0_1": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 960,
+        "admit_to_operands_ps": 208411000,
+        "operands_to_start_ps": 7982040,
+        "start_to_first_grant_ps": 3036000,
+        "first_grant_to_finish_ps": 9066000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 144733000,
+        "operands_to_start_ps": 7881000,
+        "start_to_first_grant_ps": 3235000,
+        "first_grant_to_finish_ps": 9066000
+      }
+    },
+    {
+      "index": 46,
+      "phase": "decode",
+      "decode_step": 44,
+      "delta_ps": 0,
+      "reference_ps": 55975000,
+      "candidate_ps": 55975000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 3000,
+        "admit_to_operands_ps": 17184000,
+        "operands_to_start_ps": 26226000,
+        "start_to_first_grant_ps": 1578000,
+        "first_grant_to_finish_ps": 10984000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 3000,
+        "admit_to_operands_ps": 17184000,
+        "operands_to_start_ps": 26226000,
+        "start_to_first_grant_ps": 1578000,
+        "first_grant_to_finish_ps": 10984000
+      }
+    },
+    {
+      "index": 47,
+      "phase": "decode",
+      "decode_step": 45,
+      "delta_ps": 0,
+      "reference_ps": 50181000,
+      "candidate_ps": 50181000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 18315000,
+        "operands_to_start_ps": 17607000,
+        "start_to_first_grant_ps": 3354000,
+        "first_grant_to_finish_ps": 10904000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 120,
+        "admit_to_operands_ps": 18315000,
+        "operands_to_start_ps": 17607880,
+        "start_to_first_grant_ps": 3354000,
+        "first_grant_to_finish_ps": 10904000
+      }
+    },
+    {
+      "index": 48,
+      "phase": "decode",
+      "decode_step": 46,
+      "delta_ps": 0,
+      "reference_ps": 51070000,
+      "candidate_ps": 51070000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1560,
+        "admit_to_operands_ps": 18193000,
+        "operands_to_start_ps": 20111440,
+        "start_to_first_grant_ps": 3676000,
+        "first_grant_to_finish_ps": 9088000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2000,
+        "admit_to_operands_ps": 18193000,
+        "operands_to_start_ps": 20111000,
+        "start_to_first_grant_ps": 3676000,
+        "first_grant_to_finish_ps": 9088000
+      }
+    },
+    {
+      "index": 49,
+      "phase": "decode",
+      "decode_step": 47,
+      "delta_ps": 0,
+      "reference_ps": 54890000,
+      "candidate_ps": 54890000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1240,
+        "admit_to_operands_ps": 16357000,
+        "operands_to_start_ps": 23054760,
+        "start_to_first_grant_ps": 1079000,
+        "first_grant_to_finish_ps": 14398000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2000,
+        "admit_to_operands_ps": 16357000,
+        "operands_to_start_ps": 23054000,
+        "start_to_first_grant_ps": 1079000,
+        "first_grant_to_finish_ps": 14398000
+      }
+    },
+    {
+      "index": 50,
+      "phase": "decode",
+      "decode_step": 48,
+      "delta_ps": 119563000,
+      "reference_ps": 596749000,
+      "candidate_ps": 477186000,
+      "reference_native_bytes": 94394880,
+      "candidate_native_bytes": 94394880,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_3": 9439488,
+        "g1_3": 9439488,
+        "g2_3": 9439488,
+        "g3_3": 9439488,
+        "g0_2": 9439488,
+        "g1_2": 9439488,
+        "g2_2": 9439488,
+        "g3_2": 9439488,
+        "g0_1": 4719744,
+        "g1_1": 4719744,
+        "g2_1": 4719744,
+        "g3_1": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_3": 9439488,
+        "g1_3": 9439488,
+        "g2_3": 9439488,
+        "g3_3": 9439488,
+        "g3_2": 9439488,
+        "g2_2": 9439488,
+        "g1_2": 9439488,
+        "g0_2": 9439488,
+        "g1_1": 3146496,
+        "g0_1": 3146496,
+        "g2_1": 3146496,
+        "g3_1": 3146496,
+        "g0_0": 1573248,
+        "g2_0": 1573248,
+        "g3_0": 1573248,
+        "g1_0": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 125597080,
+        "admit_to_operands_ps": 449957000,
+        "operands_to_start_ps": 5329920,
+        "start_to_first_grant_ps": 2662000,
+        "first_grant_to_finish_ps": 13203000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 111474960,
+        "admit_to_operands_ps": 350029000,
+        "operands_to_start_ps": 3899040,
+        "start_to_first_grant_ps": 1603000,
+        "first_grant_to_finish_ps": 10180000
+      }
+    },
+    {
+      "index": 51,
+      "phase": "decode",
+      "decode_step": 49,
+      "delta_ps": 127010000,
+      "reference_ps": 411993000,
+      "candidate_ps": 284983000,
+      "reference_native_bytes": 37757952,
+      "candidate_native_bytes": 37757952,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_2": 9439488,
+        "g1_2": 9439488,
+        "g2_2": 9439488,
+        "g3_2": 9439488
+      },
+      "candidate_gateway_bytes": {
+        "g3_2": 6292992,
+        "g0_2": 6292992,
+        "g2_2": 6292992,
+        "g1_2": 6292992,
+        "g1_3": 3146496,
+        "g2_3": 3146496,
+        "g3_3": 3146496,
+        "g0_3": 3146496
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 397439000,
+        "operands_to_start_ps": 972000,
+        "start_to_first_grant_ps": 5147000,
+        "first_grant_to_finish_ps": 8434000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 270797000,
+        "operands_to_start_ps": 970000,
+        "start_to_first_grant_ps": 4781000,
+        "first_grant_to_finish_ps": 8434000
+      }
+    },
+    {
+      "index": 52,
+      "phase": "decode",
+      "decode_step": 50,
+      "delta_ps": 63081000,
+      "reference_ps": 227117000,
+      "candidate_ps": 164036000,
+      "reference_native_bytes": 21501056,
+      "candidate_native_bytes": 21501056,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_0": 2622080,
+        "g0_2": 4719744,
+        "g1_2": 4719744,
+        "g2_2": 4719744,
+        "g3_2": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_0": 1573248,
+        "g0_1": 1048832,
+        "g3_2": 3146496,
+        "g0_2": 3146496,
+        "g2_2": 3146496,
+        "g1_2": 3146496,
+        "g0_3": 1573248,
+        "g2_3": 1573248,
+        "g3_3": 1573248,
+        "g1_3": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2000,
+        "admit_to_operands_ps": 208607000,
+        "operands_to_start_ps": 4438000,
+        "start_to_first_grant_ps": 3262000,
+        "first_grant_to_finish_ps": 10808000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2000,
+        "admit_to_operands_ps": 145978000,
+        "operands_to_start_ps": 4438000,
+        "start_to_first_grant_ps": 2810000,
+        "first_grant_to_finish_ps": 10808000
+      }
+    },
+    {
+      "index": 53,
+      "phase": "decode",
+      "decode_step": 51,
+      "delta_ps": 63762000,
+      "reference_ps": 230151000,
+      "candidate_ps": 166389000,
+      "reference_native_bytes": 37757952,
+      "candidate_native_bytes": 37757952,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_1": 4719744,
+        "g1_1": 4719744,
+        "g2_1": 4719744,
+        "g3_1": 4719744,
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g1_1": 3146496,
+        "g0_1": 3146496,
+        "g2_1": 3146496,
+        "g3_1": 3146496,
+        "g0_0": 1573248,
+        "g3_0": 1573248,
+        "g2_0": 1573248,
+        "g1_0": 1573248,
+        "g0_3": 3146496,
+        "g1_3": 3146496,
+        "g2_3": 3146496,
+        "g3_3": 3146496,
+        "g2_2": 1573248,
+        "g1_2": 1573248,
+        "g0_2": 1573248,
+        "g3_2": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2760,
+        "admit_to_operands_ps": 207861000,
+        "operands_to_start_ps": 8962240,
+        "start_to_first_grant_ps": 4890000,
+        "first_grant_to_finish_ps": 8435000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2840,
+        "admit_to_operands_ps": 144373000,
+        "operands_to_start_ps": 8981160,
+        "start_to_first_grant_ps": 4597000,
+        "first_grant_to_finish_ps": 8435000
+      }
+    },
+    {
+      "index": 54,
+      "phase": "decode",
+      "decode_step": 52,
+      "delta_ps": 63677000,
+      "reference_ps": 232997000,
+      "candidate_ps": 169320000,
+      "reference_native_bytes": 18878976,
+      "candidate_native_bytes": 18878976,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_1": 4719744,
+        "g1_1": 4719744,
+        "g2_1": 4719744,
+        "g3_1": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g1_1": 3146496,
+        "g0_1": 3146496,
+        "g2_1": 3146496,
+        "g3_1": 3146496,
+        "g0_0": 1573248,
+        "g1_0": 1573248,
+        "g2_0": 1573248,
+        "g3_0": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 720,
+        "admit_to_operands_ps": 208503000,
+        "operands_to_start_ps": 13515280,
+        "start_to_first_grant_ps": 2544000,
+        "first_grant_to_finish_ps": 8434000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 720,
+        "admit_to_operands_ps": 145369000,
+        "operands_to_start_ps": 12818280,
+        "start_to_first_grant_ps": 2698000,
+        "first_grant_to_finish_ps": 8434000
+      }
+    },
+    {
+      "index": 55,
+      "phase": "decode",
+      "decode_step": 53,
+      "delta_ps": 0,
+      "reference_ps": 43373000,
+      "candidate_ps": 43373000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2000,
+        "admit_to_operands_ps": 15785000,
+        "operands_to_start_ps": 13211000,
+        "start_to_first_grant_ps": 4033000,
+        "first_grant_to_finish_ps": 10342000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2000,
+        "admit_to_operands_ps": 15785000,
+        "operands_to_start_ps": 13211000,
+        "start_to_first_grant_ps": 4033000,
+        "first_grant_to_finish_ps": 10342000
+      }
+    },
+    {
+      "index": 56,
+      "phase": "decode",
+      "decode_step": 54,
+      "delta_ps": 63874000,
+      "reference_ps": 232384000,
+      "candidate_ps": 168510000,
+      "reference_native_bytes": 18878976,
+      "candidate_native_bytes": 18878976,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_0": 4719744,
+        "g1_0": 4719744,
+        "g2_0": 4719744,
+        "g3_0": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_0": 3146496,
+        "g1_0": 3146496,
+        "g2_0": 3146496,
+        "g3_0": 3146496,
+        "g1_1": 1573248,
+        "g2_1": 1573248,
+        "g3_1": 1573248,
+        "g0_1": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 960,
+        "admit_to_operands_ps": 207606000,
+        "operands_to_start_ps": 13863040,
+        "start_to_first_grant_ps": 2479000,
+        "first_grant_to_finish_ps": 8435000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 143879000,
+        "operands_to_start_ps": 13894000,
+        "start_to_first_grant_ps": 2301000,
+        "first_grant_to_finish_ps": 8435000
+      }
+    },
+    {
+      "index": 57,
+      "phase": "decode",
+      "decode_step": 55,
+      "delta_ps": 75762000,
+      "reference_ps": 593776000,
+      "candidate_ps": 518014000,
+      "reference_native_bytes": 94394880,
+      "candidate_native_bytes": 94394880,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g1_0": 14159232,
+        "g2_0": 14159232,
+        "g3_0": 14159232,
+        "g0_0": 14159232,
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744,
+        "g0_1": 4719744,
+        "g1_1": 4719744,
+        "g2_1": 4719744,
+        "g3_1": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g1_0": 11012736,
+        "g2_0": 11012736,
+        "g3_0": 11012736,
+        "g0_0": 11012736,
+        "g1_1": 7866240,
+        "g2_1": 7866240,
+        "g3_1": 7866240,
+        "g0_1": 7866240,
+        "g0_3": 3146496,
+        "g1_3": 3146496,
+        "g2_3": 3146496,
+        "g3_3": 3146496,
+        "g3_2": 1573248,
+        "g0_2": 1573248,
+        "g2_2": 1573248,
+        "g1_2": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 125847000,
+        "admit_to_operands_ps": 457014000,
+        "operands_to_start_ps": 544000,
+        "start_to_first_grant_ps": 1945000,
+        "first_grant_to_finish_ps": 8426000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 63634000,
+        "admit_to_operands_ps": 445106000,
+        "operands_to_start_ps": 0,
+        "start_to_first_grant_ps": 848000,
+        "first_grant_to_finish_ps": 8426000
+      }
+    },
+    {
+      "index": 58,
+      "phase": "decode",
+      "decode_step": 56,
+      "delta_ps": 127755000,
+      "reference_ps": 413152000,
+      "candidate_ps": 285397000,
+      "reference_native_bytes": 37757952,
+      "candidate_native_bytes": 37757952,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_2": 4719744,
+        "g1_2": 4719744,
+        "g2_2": 4719744,
+        "g3_2": 4719744,
+        "g0_1": 4719744,
+        "g1_1": 4719744,
+        "g2_1": 4719744,
+        "g3_1": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g3_2": 3146496,
+        "g0_2": 3146496,
+        "g2_2": 3146496,
+        "g1_2": 3146496,
+        "g1_3": 1573248,
+        "g2_3": 1573248,
+        "g3_3": 1573248,
+        "g0_3": 1573248,
+        "g1_1": 3146496,
+        "g0_1": 3146496,
+        "g2_1": 3146496,
+        "g3_1": 3146496,
+        "g0_0": 1573248,
+        "g2_0": 1573248,
+        "g3_0": 1573248,
+        "g1_0": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 397825000,
+        "operands_to_start_ps": 1086000,
+        "start_to_first_grant_ps": 5798000,
+        "first_grant_to_finish_ps": 8442000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 680,
+        "admit_to_operands_ps": 270714000,
+        "operands_to_start_ps": 1455320,
+        "start_to_first_grant_ps": 3594000,
+        "first_grant_to_finish_ps": 9633000
+      }
+    },
+    {
+      "index": 59,
+      "phase": "decode",
+      "decode_step": 57,
+      "delta_ps": 0,
+      "reference_ps": 55086000,
+      "candidate_ps": 55086000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 320,
+        "admit_to_operands_ps": 16085000,
+        "operands_to_start_ps": 26805680,
+        "start_to_first_grant_ps": 2485000,
+        "first_grant_to_finish_ps": 9710000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 320,
+        "admit_to_operands_ps": 16085000,
+        "operands_to_start_ps": 26805680,
+        "start_to_first_grant_ps": 2485000,
+        "first_grant_to_finish_ps": 9710000
+      }
+    },
+    {
+      "index": 60,
+      "phase": "decode",
+      "decode_step": 58,
+      "delta_ps": 62484000,
+      "reference_ps": 227119000,
+      "candidate_ps": 164635000,
+      "reference_native_bytes": 18878976,
+      "candidate_native_bytes": 18878976,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_3": 3146496,
+        "g1_3": 3146496,
+        "g2_3": 3146496,
+        "g3_3": 3146496,
+        "g3_2": 1573248,
+        "g0_2": 1573248,
+        "g1_2": 1573248,
+        "g2_2": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 206693000,
+        "operands_to_start_ps": 7322000,
+        "start_to_first_grant_ps": 4030000,
+        "first_grant_to_finish_ps": 9073000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 144162000,
+        "operands_to_start_ps": 7322000,
+        "start_to_first_grant_ps": 4077000,
+        "first_grant_to_finish_ps": 9073000
+      }
+    },
+    {
+      "index": 61,
+      "phase": "decode",
+      "decode_step": 59,
+      "delta_ps": 126784000,
+      "reference_ps": 411665000,
+      "candidate_ps": 284881000,
+      "reference_native_bytes": 37757952,
+      "candidate_native_bytes": 37757952,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744,
+        "g0_2": 4719744,
+        "g1_2": 4719744,
+        "g2_2": 4719744,
+        "g3_2": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744,
+        "g0_2": 4719744,
+        "g2_2": 4719744,
+        "g3_2": 4719744,
+        "g1_2": 4719744
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 397978000,
+        "operands_to_start_ps": 1436000,
+        "start_to_first_grant_ps": 3824000,
+        "first_grant_to_finish_ps": 8426000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 272138000,
+        "operands_to_start_ps": 1038000,
+        "start_to_first_grant_ps": 3278000,
+        "first_grant_to_finish_ps": 8426000
+      }
+    },
+    {
+      "index": 62,
+      "phase": "decode",
+      "decode_step": 60,
+      "delta_ps": 231766000,
+      "reference_ps": 729562000,
+      "candidate_ps": 497796000,
+      "reference_native_bytes": 84955392,
+      "candidate_native_bytes": 84955392,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_3": 17305728,
+        "g1_3": 17305728,
+        "g2_3": 15732480,
+        "g3_3": 15732480,
+        "g0_0": 4719744,
+        "g1_0": 4719744,
+        "g2_0": 4719744,
+        "g3_0": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_3": 11537152,
+        "g2_3": 10488320,
+        "g3_3": 10488320,
+        "g1_3": 11537152,
+        "g2_2": 5244160,
+        "g3_2": 5244160,
+        "g1_2": 5768576,
+        "g0_2": 5768576,
+        "g0_0": 3146496,
+        "g1_0": 3146496,
+        "g2_0": 3146496,
+        "g3_0": 3146496,
+        "g1_1": 1573248,
+        "g0_1": 1573248,
+        "g2_1": 1573248,
+        "g3_1": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 376210000,
+        "admit_to_operands_ps": 336647000,
+        "operands_to_start_ps": 2907000,
+        "start_to_first_grant_ps": 4798000,
+        "first_grant_to_finish_ps": 9000000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 249019000,
+        "admit_to_operands_ps": 232797000,
+        "operands_to_start_ps": 2802000,
+        "start_to_first_grant_ps": 2442000,
+        "first_grant_to_finish_ps": 10736000
+      }
+    },
+    {
+      "index": 63,
+      "phase": "decode",
+      "decode_step": 61,
+      "delta_ps": 126455000,
+      "reference_ps": 409934000,
+      "candidate_ps": 283479000,
+      "reference_native_bytes": 56636928,
+      "candidate_native_bytes": 56636928,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_0": 9439488,
+        "g1_0": 9439488,
+        "g2_0": 9439488,
+        "g3_0": 9439488,
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_0": 6292992,
+        "g1_0": 6292992,
+        "g2_0": 6292992,
+        "g3_0": 6292992,
+        "g1_1": 3146496,
+        "g0_1": 3146496,
+        "g2_1": 3146496,
+        "g3_1": 3146496,
+        "g0_3": 3146496,
+        "g1_3": 3146496,
+        "g2_3": 3146496,
+        "g3_3": 3146496,
+        "g3_2": 1573248,
+        "g0_2": 1573248,
+        "g2_2": 1573248,
+        "g1_2": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 720,
+        "admit_to_operands_ps": 397698000,
+        "operands_to_start_ps": 484280,
+        "start_to_first_grant_ps": 3325000,
+        "first_grant_to_finish_ps": 8426000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 270779000,
+        "operands_to_start_ps": 921000,
+        "start_to_first_grant_ps": 3352000,
+        "first_grant_to_finish_ps": 8426000
+      }
+    },
+    {
+      "index": 64,
+      "phase": "decode",
+      "decode_step": 62,
+      "delta_ps": 12447000,
+      "reference_ps": 410434000,
+      "candidate_ps": 397987000,
+      "reference_native_bytes": 94394880,
+      "candidate_native_bytes": 94394880,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_0": 9439488,
+        "g1_0": 9439488,
+        "g2_0": 9439488,
+        "g3_0": 9439488,
+        "g0_1": 4719744,
+        "g1_1": 4719744,
+        "g2_1": 4719744,
+        "g3_1": 4719744,
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744,
+        "g0_2": 4719744,
+        "g1_2": 4719744,
+        "g2_2": 4719744,
+        "g3_2": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_0": 7866240,
+        "g1_0": 7866240,
+        "g2_0": 7866240,
+        "g3_0": 7866240,
+        "g1_1": 6292992,
+        "g2_1": 6292992,
+        "g0_1": 6292992,
+        "g3_1": 6292992,
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744,
+        "g3_2": 4719744,
+        "g0_2": 4719744,
+        "g2_2": 4719744,
+        "g1_2": 4719744
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 396717000,
+        "operands_to_start_ps": 1084000,
+        "start_to_first_grant_ps": 4198000,
+        "first_grant_to_finish_ps": 8434000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 386621000,
+        "operands_to_start_ps": 540000,
+        "start_to_first_grant_ps": 2391000,
+        "first_grant_to_finish_ps": 8434000
+      }
+    },
+    {
+      "index": 65,
+      "phase": "decode",
+      "decode_step": 63,
+      "delta_ps": 0,
+      "reference_ps": 50259000,
+      "candidate_ps": 50259000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2000,
+        "admit_to_operands_ps": 18237000,
+        "operands_to_start_ps": 20969000,
+        "start_to_first_grant_ps": 1965000,
+        "first_grant_to_finish_ps": 9086000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1320,
+        "admit_to_operands_ps": 18237000,
+        "operands_to_start_ps": 20969680,
+        "start_to_first_grant_ps": 1965000,
+        "first_grant_to_finish_ps": 9086000
+      }
+    },
+    {
+      "index": 66,
+      "phase": "decode",
+      "decode_step": 64,
+      "delta_ps": -19048000,
+      "reference_ps": 234100000,
+      "candidate_ps": 253148000,
+      "reference_native_bytes": 37757952,
+      "candidate_native_bytes": 37757952,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_1": 4719744,
+        "g1_1": 4719744,
+        "g2_1": 4719744,
+        "g3_1": 4719744,
+        "g0_0": 4719744,
+        "g1_0": 4719744,
+        "g2_0": 4719744,
+        "g3_0": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g1_1": 4719744,
+        "g0_1": 4719744,
+        "g2_1": 4719744,
+        "g3_1": 4719744,
+        "g1_0": 4719744,
+        "g2_0": 4719744,
+        "g0_0": 4719744,
+        "g3_0": 4719744
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 208082000,
+        "operands_to_start_ps": 10991000,
+        "start_to_first_grant_ps": 1186000,
+        "first_grant_to_finish_ps": 13840000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 235418000,
+        "operands_to_start_ps": 7054000,
+        "start_to_first_grant_ps": 327000,
+        "first_grant_to_finish_ps": 10348000
+      }
+    },
+    {
+      "index": 67,
+      "phase": "decode",
+      "decode_step": 65,
+      "delta_ps": 190579000,
+      "reference_ps": 599529000,
+      "candidate_ps": 408950000,
+      "reference_native_bytes": 94394880,
+      "candidate_native_bytes": 94394880,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_2": 4719744,
+        "g1_2": 4719744,
+        "g2_2": 4719744,
+        "g3_2": 4719744,
+        "g0_3": 9439488,
+        "g1_3": 9439488,
+        "g2_3": 9439488,
+        "g3_3": 9439488,
+        "g0_0": 4719744,
+        "g1_0": 4719744,
+        "g2_0": 4719744,
+        "g3_0": 4719744,
+        "g0_1": 4719744,
+        "g1_1": 4719744,
+        "g2_1": 4719744,
+        "g3_1": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g3_2": 6292992,
+        "g0_2": 6292992,
+        "g2_2": 6292992,
+        "g1_2": 6292992,
+        "g1_3": 7866240,
+        "g2_3": 7866240,
+        "g3_3": 7866240,
+        "g0_3": 7866240,
+        "g0_0": 4719744,
+        "g1_0": 4719744,
+        "g2_0": 4719744,
+        "g3_0": 4719744,
+        "g1_1": 4719744,
+        "g0_1": 4719744,
+        "g2_1": 4719744,
+        "g3_1": 4719744
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 126400000,
+        "admit_to_operands_ps": 454221000,
+        "operands_to_start_ps": 5071000,
+        "start_to_first_grant_ps": 3730000,
+        "first_grant_to_finish_ps": 10107000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 63023000,
+        "admit_to_operands_ps": 327351000,
+        "operands_to_start_ps": 4214000,
+        "start_to_first_grant_ps": 4255000,
+        "first_grant_to_finish_ps": 10107000
+      }
+    },
+    {
+      "index": 68,
+      "phase": "decode",
+      "decode_step": 66,
+      "delta_ps": 184499000,
+      "reference_ps": 780270000,
+      "candidate_ps": 595771000,
+      "reference_native_bytes": 113273856,
+      "candidate_native_bytes": 113273856,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_2": 14159232,
+        "g1_2": 14159232,
+        "g2_2": 14159232,
+        "g3_2": 14159232,
+        "g0_0": 4719744,
+        "g1_0": 4719744,
+        "g2_0": 4719744,
+        "g3_0": 4719744,
+        "g0_3": 9439488,
+        "g1_3": 9439488,
+        "g2_3": 9439488,
+        "g3_3": 9439488
+      },
+      "candidate_gateway_bytes": {
+        "g3_2": 12585984,
+        "g0_2": 12585984,
+        "g2_2": 12585984,
+        "g1_2": 12585984,
+        "g0_0": 3146496,
+        "g1_0": 3146496,
+        "g2_0": 3146496,
+        "g3_0": 3146496,
+        "g1_3": 11012736,
+        "g2_3": 11012736,
+        "g1_1": 1573248,
+        "g0_1": 1573248,
+        "g2_1": 1573248,
+        "g0_3": 11012736,
+        "g3_3": 11012736,
+        "g3_1": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 252807000,
+        "admit_to_operands_ps": 516196000,
+        "operands_to_start_ps": 0,
+        "start_to_first_grant_ps": 628000,
+        "first_grant_to_finish_ps": 10639000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 174149000,
+        "admit_to_operands_ps": 409942000,
+        "operands_to_start_ps": 0,
+        "start_to_first_grant_ps": 3246000,
+        "first_grant_to_finish_ps": 8434000
+      }
+    },
+    {
+      "index": 69,
+      "phase": "decode",
+      "decode_step": 67,
+      "delta_ps": 126347000,
+      "reference_ps": 417653000,
+      "candidate_ps": 291306000,
+      "reference_native_bytes": 75515904,
+      "candidate_native_bytes": 75515904,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_0": 4719744,
+        "g1_0": 4719744,
+        "g2_0": 4719744,
+        "g3_0": 4719744,
+        "g0_1": 4719744,
+        "g1_1": 4719744,
+        "g2_1": 4719744,
+        "g3_1": 4719744,
+        "g0_3": 9439488,
+        "g1_3": 9439488,
+        "g2_3": 9439488,
+        "g3_3": 9439488
+      },
+      "candidate_gateway_bytes": {
+        "g0_0": 4719744,
+        "g1_0": 4719744,
+        "g2_0": 4719744,
+        "g3_0": 4719744,
+        "g1_1": 4719744,
+        "g2_1": 4719744,
+        "g3_1": 4719744,
+        "g0_1": 4719744,
+        "g0_3": 6292992,
+        "g1_3": 6292992,
+        "g2_3": 6292992,
+        "g3_3": 6292992,
+        "g3_2": 3146496,
+        "g0_2": 3146496,
+        "g2_2": 3146496,
+        "g1_2": 3146496
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 126229640,
+        "admit_to_operands_ps": 264220000,
+        "operands_to_start_ps": 16072360,
+        "start_to_first_grant_ps": 2689000,
+        "first_grant_to_finish_ps": 8442000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 60517560,
+        "admit_to_operands_ps": 202300000,
+        "operands_to_start_ps": 17428440,
+        "start_to_first_grant_ps": 2619000,
+        "first_grant_to_finish_ps": 8441000
+      }
+    },
+    {
+      "index": 70,
+      "phase": "decode",
+      "decode_step": 68,
+      "delta_ps": 63201000,
+      "reference_ps": 231749000,
+      "candidate_ps": 168548000,
+      "reference_native_bytes": 18878976,
+      "candidate_native_bytes": 18878976,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_1": 4719744,
+        "g1_1": 4719744,
+        "g2_1": 4719744,
+        "g3_1": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g1_1": 3146496,
+        "g0_1": 3146496,
+        "g2_1": 3146496,
+        "g3_1": 3146496,
+        "g1_0": 1573248,
+        "g2_0": 1573248,
+        "g3_0": 1573248,
+        "g0_0": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 206158000,
+        "operands_to_start_ps": 15289000,
+        "start_to_first_grant_ps": 1861000,
+        "first_grant_to_finish_ps": 8440000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 143571000,
+        "operands_to_start_ps": 15289000,
+        "start_to_first_grant_ps": 1247000,
+        "first_grant_to_finish_ps": 8440000
+      }
+    },
+    {
+      "index": 71,
+      "phase": "decode",
+      "decode_step": 69,
+      "delta_ps": 0,
+      "reference_ps": 45826000,
+      "candidate_ps": 45826000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 18198000,
+        "operands_to_start_ps": 14100000,
+        "start_to_first_grant_ps": 2547000,
+        "first_grant_to_finish_ps": 10980000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 18198000,
+        "operands_to_start_ps": 14100000,
+        "start_to_first_grant_ps": 2547000,
+        "first_grant_to_finish_ps": 10980000
+      }
+    },
+    {
+      "index": 72,
+      "phase": "decode",
+      "decode_step": 70,
+      "delta_ps": 127360000,
+      "reference_ps": 410883000,
+      "candidate_ps": 283523000,
+      "reference_native_bytes": 37757952,
+      "candidate_native_bytes": 37757952,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_0": 4719744,
+        "g1_0": 4719744,
+        "g2_0": 4719744,
+        "g3_0": 4719744,
+        "g0_2": 4719744,
+        "g1_2": 4719744,
+        "g2_2": 4719744,
+        "g3_2": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_0": 3146496,
+        "g1_0": 3146496,
+        "g2_0": 3146496,
+        "g3_0": 3146496,
+        "g1_1": 1573248,
+        "g2_1": 1573248,
+        "g3_1": 1573248,
+        "g0_1": 1573248,
+        "g3_2": 3146496,
+        "g0_2": 3146496,
+        "g2_2": 3146496,
+        "g1_2": 3146496,
+        "g0_3": 1573248,
+        "g1_3": 1573248,
+        "g2_3": 1573248,
+        "g3_3": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 720,
+        "admit_to_operands_ps": 396723000,
+        "operands_to_start_ps": 2142280,
+        "start_to_first_grant_ps": 3583000,
+        "first_grant_to_finish_ps": 8434000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 269548000,
+        "operands_to_start_ps": 1625000,
+        "start_to_first_grant_ps": 3915000,
+        "first_grant_to_finish_ps": 8434000
+      }
+    },
+    {
+      "index": 73,
+      "phase": "decode",
+      "decode_step": 71,
+      "delta_ps": 62663000,
+      "reference_ps": 232431000,
+      "candidate_ps": 169768000,
+      "reference_native_bytes": 18878976,
+      "candidate_native_bytes": 18878976,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_0": 4719744,
+        "g1_0": 4719744,
+        "g2_0": 4719744,
+        "g3_0": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_0": 3146496,
+        "g1_0": 3146496,
+        "g2_0": 3146496,
+        "g3_0": 3146496,
+        "g1_1": 1573248,
+        "g2_1": 1573248,
+        "g3_1": 1573248,
+        "g0_1": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 600,
+        "admit_to_operands_ps": 203327000,
+        "operands_to_start_ps": 15444400,
+        "start_to_first_grant_ps": 5210000,
+        "first_grant_to_finish_ps": 8449000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 680,
+        "admit_to_operands_ps": 141093000,
+        "operands_to_start_ps": 16378320,
+        "start_to_first_grant_ps": 2656000,
+        "first_grant_to_finish_ps": 9640000
+      }
+    },
+    {
+      "index": 74,
+      "phase": "decode",
+      "decode_step": 72,
+      "delta_ps": 0,
+      "reference_ps": 50242000,
+      "candidate_ps": 50242000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 16752000,
+        "operands_to_start_ps": 21995000,
+        "start_to_first_grant_ps": 2406000,
+        "first_grant_to_finish_ps": 9088000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 16752000,
+        "operands_to_start_ps": 21995000,
+        "start_to_first_grant_ps": 2406000,
+        "first_grant_to_finish_ps": 9088000
+      }
+    },
+    {
+      "index": 75,
+      "phase": "decode",
+      "decode_step": 73,
+      "delta_ps": 0,
+      "reference_ps": 45049000,
+      "candidate_ps": 45049000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 16407000,
+        "operands_to_start_ps": 9836000,
+        "start_to_first_grant_ps": 3860000,
+        "first_grant_to_finish_ps": 14945000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 16407000,
+        "operands_to_start_ps": 9836000,
+        "start_to_first_grant_ps": 3860000,
+        "first_grant_to_finish_ps": 14945000
+      }
+    },
+    {
+      "index": 76,
+      "phase": "decode",
+      "decode_step": 74,
+      "delta_ps": 0,
+      "reference_ps": 50391000,
+      "candidate_ps": 50391000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1520,
+        "admit_to_operands_ps": 18266000,
+        "operands_to_start_ps": 21072480,
+        "start_to_first_grant_ps": 1965000,
+        "first_grant_to_finish_ps": 9086000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2000,
+        "admit_to_operands_ps": 18266000,
+        "operands_to_start_ps": 21072000,
+        "start_to_first_grant_ps": 1965000,
+        "first_grant_to_finish_ps": 9086000
+      }
+    },
+    {
+      "index": 77,
+      "phase": "decode",
+      "decode_step": 75,
+      "delta_ps": 62721000,
+      "reference_ps": 227465000,
+      "candidate_ps": 164744000,
+      "reference_native_bytes": 18878976,
+      "candidate_native_bytes": 18878976,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_3": 3146496,
+        "g1_3": 3146496,
+        "g2_3": 3146496,
+        "g3_3": 3146496,
+        "g3_2": 1573248,
+        "g0_2": 1573248,
+        "g2_2": 1573248,
+        "g1_2": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2000,
+        "admit_to_operands_ps": 205738000,
+        "operands_to_start_ps": 8327000,
+        "start_to_first_grant_ps": 4324000,
+        "first_grant_to_finish_ps": 9074000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2000,
+        "admit_to_operands_ps": 143113000,
+        "operands_to_start_ps": 8327000,
+        "start_to_first_grant_ps": 4228000,
+        "first_grant_to_finish_ps": 9074000
+      }
+    },
+    {
+      "index": 78,
+      "phase": "decode",
+      "decode_step": 76,
+      "delta_ps": -51839000,
+      "reference_ps": 232650000,
+      "candidate_ps": 284489000,
+      "reference_native_bytes": 37757952,
+      "candidate_native_bytes": 37757952,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744,
+        "g0_2": 4719744,
+        "g1_2": 4719744,
+        "g2_2": 4719744,
+        "g3_2": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744,
+        "g1_3": 4719744,
+        "g3_2": 4719744,
+        "g0_2": 4719744,
+        "g1_2": 4719744,
+        "g2_2": 4719744
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 204200000,
+        "operands_to_start_ps": 13139000,
+        "start_to_first_grant_ps": 3843000,
+        "first_grant_to_finish_ps": 11467000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 258857000,
+        "operands_to_start_ps": 12042000,
+        "start_to_first_grant_ps": 2130000,
+        "first_grant_to_finish_ps": 11459000
+      }
+    },
+    {
+      "index": 79,
+      "phase": "decode",
+      "decode_step": 77,
+      "delta_ps": 188635000,
+      "reference_ps": 595630000,
+      "candidate_ps": 406995000,
+      "reference_native_bytes": 94394880,
+      "candidate_native_bytes": 94394880,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g1_0": 9439488,
+        "g2_0": 9439488,
+        "g3_0": 9439488,
+        "g0_0": 9439488,
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744,
+        "g0_2": 4719744,
+        "g1_2": 4719744,
+        "g2_2": 4719744,
+        "g3_2": 4719744,
+        "g0_1": 4719744,
+        "g1_1": 4719744,
+        "g2_1": 4719744,
+        "g3_1": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_0": 7866240,
+        "g1_0": 7866240,
+        "g2_0": 7866240,
+        "g3_0": 7866240,
+        "g2_1": 6292992,
+        "g3_1": 6292992,
+        "g1_1": 6292992,
+        "g0_1": 6292992,
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744,
+        "g0_2": 4719744,
+        "g1_2": 4719744,
+        "g2_2": 4719744,
+        "g3_2": 4719744
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 126431000,
+        "admit_to_operands_ps": 455070000,
+        "operands_to_start_ps": 1502000,
+        "start_to_first_grant_ps": 4192000,
+        "first_grant_to_finish_ps": 8435000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 63393800,
+        "admit_to_operands_ps": 327819000,
+        "operands_to_start_ps": 1477200,
+        "start_to_first_grant_ps": 5316000,
+        "first_grant_to_finish_ps": 8989000
+      }
+    },
+    {
+      "index": 80,
+      "phase": "decode",
+      "decode_step": 78,
+      "delta_ps": -96886000,
+      "reference_ps": 411587000,
+      "candidate_ps": 508473000,
+      "reference_native_bytes": 113273856,
+      "candidate_native_bytes": 113273856,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g1_0": 9439488,
+        "g2_0": 9439488,
+        "g3_0": 9439488,
+        "g0_0": 9439488,
+        "g0_2": 9439488,
+        "g1_2": 9439488,
+        "g2_2": 9439488,
+        "g3_2": 9439488,
+        "g0_1": 4719744,
+        "g1_1": 4719744,
+        "g2_1": 4719744,
+        "g3_1": 4719744,
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_0": 7866240,
+        "g1_0": 7866240,
+        "g2_0": 7866240,
+        "g3_0": 7866240,
+        "g2_1": 6292992,
+        "g3_1": 6292992,
+        "g1_1": 6292992,
+        "g0_1": 6292992,
+        "g3_2": 7866240,
+        "g0_2": 7866240,
+        "g2_2": 7866240,
+        "g1_2": 7866240,
+        "g0_3": 6292992,
+        "g1_3": 6292992,
+        "g2_3": 6292992,
+        "g3_3": 6292992
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 397888000,
+        "operands_to_start_ps": 1862000,
+        "start_to_first_grant_ps": 3410000,
+        "first_grant_to_finish_ps": 8426000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 840,
+        "admit_to_operands_ps": 498358000,
+        "operands_to_start_ps": 409160,
+        "start_to_first_grant_ps": 1279000,
+        "first_grant_to_finish_ps": 8426000
+      }
+    },
+    {
+      "index": 81,
+      "phase": "decode",
+      "decode_step": 79,
+      "delta_ps": 0,
+      "reference_ps": 61309000,
+      "candidate_ps": 61309000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 800,
+        "admit_to_operands_ps": 14899000,
+        "operands_to_start_ps": 34227200,
+        "start_to_first_grant_ps": 3095000,
+        "first_grant_to_finish_ps": 9087000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 14899000,
+        "operands_to_start_ps": 34227000,
+        "start_to_first_grant_ps": 3095000,
+        "first_grant_to_finish_ps": 9087000
+      }
+    },
+    {
+      "index": 82,
+      "phase": "decode",
+      "decode_step": 80,
+      "delta_ps": 0,
+      "reference_ps": 45006000,
+      "candidate_ps": 45006000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 15656000,
+        "operands_to_start_ps": 17119000,
+        "start_to_first_grant_ps": 3153000,
+        "first_grant_to_finish_ps": 9077000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 680,
+        "admit_to_operands_ps": 15656000,
+        "operands_to_start_ps": 17119320,
+        "start_to_first_grant_ps": 3153000,
+        "first_grant_to_finish_ps": 9077000
+      }
+    },
+    {
+      "index": 83,
+      "phase": "decode",
+      "decode_step": 81,
+      "delta_ps": 5556000,
+      "reference_ps": 596864000,
+      "candidate_ps": 591308000,
+      "reference_native_bytes": 113273856,
+      "candidate_native_bytes": 113273856,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_3": 9439488,
+        "g1_3": 9439488,
+        "g2_3": 9439488,
+        "g3_3": 9439488,
+        "g0_0": 4719744,
+        "g1_0": 4719744,
+        "g2_0": 4719744,
+        "g3_0": 4719744,
+        "g0_1": 9439488,
+        "g1_1": 9439488,
+        "g2_1": 9439488,
+        "g3_1": 9439488,
+        "g0_2": 4719744,
+        "g1_2": 4719744,
+        "g2_2": 4719744,
+        "g3_2": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_3": 7866240,
+        "g1_3": 7866240,
+        "g2_3": 7866240,
+        "g3_3": 7866240,
+        "g3_2": 6292992,
+        "g2_2": 6292992,
+        "g1_2": 6292992,
+        "g0_2": 6292992,
+        "g0_0": 6292992,
+        "g1_0": 6292992,
+        "g2_0": 6292992,
+        "g3_0": 6292992,
+        "g1_1": 7866240,
+        "g0_1": 7866240,
+        "g2_1": 7866240,
+        "g3_1": 7866240
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 126552000,
+        "admit_to_operands_ps": 458447000,
+        "operands_to_start_ps": 544000,
+        "start_to_first_grant_ps": 2887000,
+        "first_grant_to_finish_ps": 8434000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 106060000,
+        "admit_to_operands_ps": 476445000,
+        "operands_to_start_ps": 0,
+        "start_to_first_grant_ps": 377000,
+        "first_grant_to_finish_ps": 8426000
+      }
+    },
+    {
+      "index": 84,
+      "phase": "decode",
+      "decode_step": 82,
+      "delta_ps": 11739000,
+      "reference_ps": 411100000,
+      "candidate_ps": 399361000,
+      "reference_native_bytes": 75515904,
+      "candidate_native_bytes": 75515904,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_3": 9439488,
+        "g1_3": 9439488,
+        "g2_3": 9439488,
+        "g3_3": 9439488,
+        "g0_0": 4719744,
+        "g1_0": 4719744,
+        "g2_0": 4719744,
+        "g3_0": 4719744,
+        "g0_2": 4719744,
+        "g1_2": 4719744,
+        "g2_2": 4719744,
+        "g3_2": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_3": 7866240,
+        "g1_3": 7866240,
+        "g2_3": 7866240,
+        "g3_3": 7866240,
+        "g0_0": 3146496,
+        "g1_0": 3146496,
+        "g2_0": 3146496,
+        "g3_0": 3146496,
+        "g3_2": 6292992,
+        "g0_2": 6292992,
+        "g2_2": 6292992,
+        "g1_2": 6292992,
+        "g1_1": 1573248,
+        "g0_1": 1573248,
+        "g2_1": 1573248,
+        "g3_1": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 398010000,
+        "operands_to_start_ps": 972000,
+        "start_to_first_grant_ps": 3691000,
+        "first_grant_to_finish_ps": 8426000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 388404000,
+        "operands_to_start_ps": 544000,
+        "start_to_first_grant_ps": 1986000,
+        "first_grant_to_finish_ps": 8426000
+      }
+    },
+    {
+      "index": 85,
+      "phase": "decode",
+      "decode_step": 83,
+      "delta_ps": 62533000,
+      "reference_ps": 227653000,
+      "candidate_ps": 165120000,
+      "reference_native_bytes": 37757952,
+      "candidate_native_bytes": 37757952,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744,
+        "g0_1": 4719744,
+        "g1_1": 4719744,
+        "g2_1": 4719744,
+        "g3_1": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_3": 3146496,
+        "g1_3": 3146496,
+        "g2_3": 3146496,
+        "g3_3": 3146496,
+        "g3_2": 1573248,
+        "g2_2": 1573248,
+        "g1_1": 3146496,
+        "g0_1": 3146496,
+        "g2_1": 3146496,
+        "g0_2": 1573248,
+        "g3_1": 3146496,
+        "g1_2": 1573248,
+        "g2_0": 1573248,
+        "g3_0": 1573248,
+        "g1_0": 1573248,
+        "g0_0": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2000,
+        "admit_to_operands_ps": 208316000,
+        "operands_to_start_ps": 5634000,
+        "start_to_first_grant_ps": 2890000,
+        "first_grant_to_finish_ps": 10811000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2000,
+        "admit_to_operands_ps": 145777000,
+        "operands_to_start_ps": 5090000,
+        "start_to_first_grant_ps": 3440000,
+        "first_grant_to_finish_ps": 10811000
+      }
+    },
+    {
+      "index": 86,
+      "phase": "decode",
+      "decode_step": 84,
+      "delta_ps": 0,
+      "reference_ps": 46369000,
+      "candidate_ps": 46369000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 800,
+        "admit_to_operands_ps": 15897000,
+        "operands_to_start_ps": 17206200,
+        "start_to_first_grant_ps": 4185000,
+        "first_grant_to_finish_ps": 9080000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 960,
+        "admit_to_operands_ps": 15897000,
+        "operands_to_start_ps": 17206040,
+        "start_to_first_grant_ps": 4185000,
+        "first_grant_to_finish_ps": 9080000
+      }
+    },
+    {
+      "index": 87,
+      "phase": "decode",
+      "decode_step": 85,
+      "delta_ps": 0,
+      "reference_ps": 49343000,
+      "candidate_ps": 49343000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 14379000,
+        "operands_to_start_ps": 18837000,
+        "start_to_first_grant_ps": 3382000,
+        "first_grant_to_finish_ps": 12744000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 14379000,
+        "operands_to_start_ps": 18837000,
+        "start_to_first_grant_ps": 3382000,
+        "first_grant_to_finish_ps": 12744000
+      }
+    },
+    {
+      "index": 88,
+      "phase": "decode",
+      "decode_step": 86,
+      "delta_ps": 0,
+      "reference_ps": 55727000,
+      "candidate_ps": 55727000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2000,
+        "admit_to_operands_ps": 17555000,
+        "operands_to_start_ps": 25572000,
+        "start_to_first_grant_ps": 2247000,
+        "first_grant_to_finish_ps": 10351000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2000,
+        "admit_to_operands_ps": 17555000,
+        "operands_to_start_ps": 25572000,
+        "start_to_first_grant_ps": 2247000,
+        "first_grant_to_finish_ps": 10351000
+      }
+    },
+    {
+      "index": 89,
+      "phase": "decode",
+      "decode_step": 87,
+      "delta_ps": 0,
+      "reference_ps": 61309000,
+      "candidate_ps": 61309000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 14899000,
+        "operands_to_start_ps": 34227000,
+        "start_to_first_grant_ps": 3095000,
+        "first_grant_to_finish_ps": 9087000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 40,
+        "admit_to_operands_ps": 14899000,
+        "operands_to_start_ps": 34227960,
+        "start_to_first_grant_ps": 3095000,
+        "first_grant_to_finish_ps": 9087000
+      }
+    },
+    {
+      "index": 90,
+      "phase": "decode",
+      "decode_step": 88,
+      "delta_ps": 0,
+      "reference_ps": 50862000,
+      "candidate_ps": 50862000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 18519000,
+        "operands_to_start_ps": 21196000,
+        "start_to_first_grant_ps": 1430000,
+        "first_grant_to_finish_ps": 9716000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 18519000,
+        "operands_to_start_ps": 21196000,
+        "start_to_first_grant_ps": 1430000,
+        "first_grant_to_finish_ps": 9716000
+      }
+    },
+    {
+      "index": 91,
+      "phase": "decode",
+      "decode_step": 89,
+      "delta_ps": 174888000,
+      "reference_ps": 791133000,
+      "candidate_ps": 616245000,
+      "reference_native_bytes": 113273856,
+      "candidate_native_bytes": 113273856,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_3": 14159232,
+        "g1_3": 14159232,
+        "g2_3": 14159232,
+        "g3_3": 14159232,
+        "g0_2": 9439488,
+        "g1_2": 9439488,
+        "g2_2": 9439488,
+        "g3_2": 9439488,
+        "g0_0": 4719744,
+        "g1_0": 4719744,
+        "g2_0": 4719744,
+        "g3_0": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_3": 12585984,
+        "g1_3": 12585984,
+        "g2_3": 12585984,
+        "g3_3": 12585984,
+        "g3_2": 11012736,
+        "g2_2": 11012736,
+        "g1_2": 11012736,
+        "g0_2": 11012736,
+        "g0_0": 3146496,
+        "g1_0": 3146496,
+        "g2_0": 3146496,
+        "g3_0": 3146496,
+        "g1_1": 1573248,
+        "g2_1": 1573248,
+        "g3_1": 1573248,
+        "g0_1": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 338977000,
+        "admit_to_operands_ps": 437059000,
+        "operands_to_start_ps": 2229000,
+        "start_to_first_grant_ps": 4434000,
+        "first_grant_to_finish_ps": 8434000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 254700080,
+        "admit_to_operands_ps": 346216000,
+        "operands_to_start_ps": 2077920,
+        "start_to_first_grant_ps": 3548000,
+        "first_grant_to_finish_ps": 9703000
+      }
+    },
+    {
+      "index": 92,
+      "phase": "decode",
+      "decode_step": 90,
+      "delta_ps": 123369000,
+      "reference_ps": 387939000,
+      "candidate_ps": 264570000,
+      "reference_native_bytes": 35660288,
+      "candidate_native_bytes": 35660288,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_2": 8915072,
+        "g1_2": 8915072,
+        "g2_2": 8915072,
+        "g3_2": 8915072
+      },
+      "candidate_gateway_bytes": {
+        "g3_2": 5768576,
+        "g0_2": 5768576,
+        "g2_2": 5768576,
+        "g1_2": 5768576,
+        "g2_3": 3146496,
+        "g3_3": 3146496,
+        "g0_3": 3146496,
+        "g1_3": 3146496
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 374940000,
+        "operands_to_start_ps": 1056000,
+        "start_to_first_grant_ps": 3516000,
+        "first_grant_to_finish_ps": 8426000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 250557000,
+        "operands_to_start_ps": 948000,
+        "start_to_first_grant_ps": 3524000,
+        "first_grant_to_finish_ps": 9540000
+      }
+    },
+    {
+      "index": 93,
+      "phase": "decode",
+      "decode_step": 91,
+      "delta_ps": 63872000,
+      "reference_ps": 227439000,
+      "candidate_ps": 163567000,
+      "reference_native_bytes": 18878976,
+      "candidate_native_bytes": 18878976,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_3": 3146496,
+        "g1_3": 3146496,
+        "g2_3": 3146496,
+        "g3_3": 3146496,
+        "g3_2": 1573248,
+        "g0_2": 1573248,
+        "g1_2": 1573248,
+        "g2_2": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2000,
+        "admit_to_operands_ps": 205962000,
+        "operands_to_start_ps": 9281000,
+        "start_to_first_grant_ps": 2483000,
+        "first_grant_to_finish_ps": 9711000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2000,
+        "admit_to_operands_ps": 142217000,
+        "operands_to_start_ps": 9281000,
+        "start_to_first_grant_ps": 2356000,
+        "first_grant_to_finish_ps": 9711000
+      }
+    },
+    {
+      "index": 94,
+      "phase": "decode",
+      "decode_step": 92,
+      "delta_ps": 0,
+      "reference_ps": 45579000,
+      "candidate_ps": 45579000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 16577000,
+        "operands_to_start_ps": 15339000,
+        "start_to_first_grant_ps": 3316000,
+        "first_grant_to_finish_ps": 10346000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 16577000,
+        "operands_to_start_ps": 15339000,
+        "start_to_first_grant_ps": 3316000,
+        "first_grant_to_finish_ps": 10346000
+      }
+    },
+    {
+      "index": 95,
+      "phase": "decode",
+      "decode_step": 93,
+      "delta_ps": 144535000,
+      "reference_ps": 781074000,
+      "candidate_ps": 636539000,
+      "reference_native_bytes": 117469184,
+      "candidate_native_bytes": 119566848,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_0": 4719744,
+        "g1_0": 4719744,
+        "g2_0": 4719744,
+        "g3_0": 4719744,
+        "g0_3": 5768576,
+        "g1_3": 5768576,
+        "g2_3": 5768576,
+        "g3_3": 5768576,
+        "g0_2": 18878976,
+        "g1_2": 18878976,
+        "g2_2": 18878976,
+        "g3_2": 18878976
+      },
+      "candidate_gateway_bytes": {
+        "g0_0": 3146496,
+        "g1_0": 3146496,
+        "g2_0": 3146496,
+        "g3_0": 3146496,
+        "g1_1": 1573248,
+        "g2_1": 1573248,
+        "g3_1": 1573248,
+        "g0_1": 1573248,
+        "g0_3": 10488320,
+        "g1_3": 10488320,
+        "g2_3": 10488320,
+        "g3_3": 10488320,
+        "g3_2": 14683648,
+        "g0_2": 14683648,
+        "g1_2": 14683648,
+        "g2_2": 14683648
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 248376000,
+        "admit_to_operands_ps": 514880000,
+        "operands_to_start_ps": 2553000,
+        "start_to_first_grant_ps": 5559000,
+        "first_grant_to_finish_ps": 9706000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 130816840,
+        "admit_to_operands_ps": 491991000,
+        "operands_to_start_ps": 2377160,
+        "start_to_first_grant_ps": 1648000,
+        "first_grant_to_finish_ps": 9706000
+      }
+    },
+    {
+      "index": 96,
+      "phase": "decode",
+      "decode_step": 94,
+      "delta_ps": 189676000,
+      "reference_ps": 594592000,
+      "candidate_ps": 404916000,
+      "reference_native_bytes": 75515904,
+      "candidate_native_bytes": 75515904,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_1": 4719744,
+        "g1_1": 4719744,
+        "g2_1": 4719744,
+        "g3_1": 4719744,
+        "g0_0": 9439488,
+        "g1_0": 9439488,
+        "g2_0": 9439488,
+        "g3_0": 9439488,
+        "g0_2": 4719744,
+        "g1_2": 4719744,
+        "g2_2": 4719744,
+        "g3_2": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g1_1": 6292992,
+        "g0_1": 6292992,
+        "g2_1": 6292992,
+        "g3_1": 6292992,
+        "g0_0": 7866240,
+        "g1_0": 7866240,
+        "g3_0": 7866240,
+        "g2_0": 7866240,
+        "g3_2": 3146496,
+        "g0_2": 3146496,
+        "g2_2": 3146496,
+        "g1_2": 3146496,
+        "g1_3": 1573248,
+        "g2_3": 1573248,
+        "g3_3": 1573248,
+        "g0_3": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 126535720,
+        "admit_to_operands_ps": 458061000,
+        "operands_to_start_ps": 267280,
+        "start_to_first_grant_ps": 1302000,
+        "first_grant_to_finish_ps": 8426000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 63746000,
+        "admit_to_operands_ps": 330765000,
+        "operands_to_start_ps": 486000,
+        "start_to_first_grant_ps": 1493000,
+        "first_grant_to_finish_ps": 8426000
+      }
+    },
+    {
+      "index": 97,
+      "phase": "decode",
+      "decode_step": 95,
+      "delta_ps": 124825000,
+      "reference_ps": 598359000,
+      "candidate_ps": 473534000,
+      "reference_native_bytes": 75515904,
+      "candidate_native_bytes": 75515904,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_2": 14159232,
+        "g1_2": 14159232,
+        "g2_2": 14159232,
+        "g3_2": 14159232,
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g3_2": 11012736,
+        "g0_2": 11012736,
+        "g2_2": 11012736,
+        "g1_2": 11012736,
+        "g0_3": 7866240,
+        "g1_3": 7866240,
+        "g2_3": 7866240,
+        "g3_3": 7866240
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 126514000,
+        "admit_to_operands_ps": 458276000,
+        "operands_to_start_ps": 3826000,
+        "start_to_first_grant_ps": 1316000,
+        "first_grant_to_finish_ps": 8427000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 111271880,
+        "admit_to_operands_ps": 349440000,
+        "operands_to_start_ps": 3455120,
+        "start_to_first_grant_ps": 940000,
+        "first_grant_to_finish_ps": 8427000
+      }
+    },
+    {
+      "index": 98,
+      "phase": "decode",
+      "decode_step": 96,
+      "delta_ps": 9521000,
+      "reference_ps": 410328000,
+      "candidate_ps": 400807000,
+      "reference_native_bytes": 75515904,
+      "candidate_native_bytes": 75515904,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_3": 9439488,
+        "g1_3": 9439488,
+        "g2_3": 9439488,
+        "g3_3": 9439488,
+        "g0_0": 4719744,
+        "g1_0": 4719744,
+        "g2_0": 4719744,
+        "g3_0": 4719744,
+        "g0_2": 4719744,
+        "g1_2": 4719744,
+        "g2_2": 4719744,
+        "g3_2": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_3": 7866240,
+        "g1_3": 7866240,
+        "g2_3": 7866240,
+        "g3_3": 7866240,
+        "g3_2": 6292992,
+        "g2_2": 6292992,
+        "g1_2": 6292992,
+        "g0_2": 6292992,
+        "g0_0": 3146496,
+        "g1_0": 3146496,
+        "g2_0": 3146496,
+        "g3_0": 3146496,
+        "g1_1": 1573248,
+        "g0_1": 1573248,
+        "g2_1": 1573248,
+        "g3_1": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 395786000,
+        "operands_to_start_ps": 3233000,
+        "start_to_first_grant_ps": 2879000,
+        "first_grant_to_finish_ps": 8429000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 387600000,
+        "operands_to_start_ps": 2847000,
+        "start_to_first_grant_ps": 1930000,
+        "first_grant_to_finish_ps": 8429000
+      }
+    },
+    {
+      "index": 99,
+      "phase": "decode",
+      "decode_step": 97,
+      "delta_ps": 12358000,
+      "reference_ps": 413286000,
+      "candidate_ps": 400928000,
+      "reference_native_bytes": 56636928,
+      "candidate_native_bytes": 56636928,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744,
+        "g1_2": 9439488,
+        "g2_2": 9439488,
+        "g3_2": 9439488,
+        "g0_2": 9439488
+      },
+      "candidate_gateway_bytes": {
+        "g0_3": 6292992,
+        "g1_3": 6292992,
+        "g2_3": 6292992,
+        "g3_3": 6292992,
+        "g2_2": 7866240,
+        "g1_2": 7866240,
+        "g3_2": 7866240,
+        "g0_2": 7866240
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 398297000,
+        "operands_to_start_ps": 1438000,
+        "start_to_first_grant_ps": 5116000,
+        "first_grant_to_finish_ps": 8434000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 388826000,
+        "operands_to_start_ps": 544000,
+        "start_to_first_grant_ps": 3123000,
+        "first_grant_to_finish_ps": 8434000
+      }
+    },
+    {
+      "index": 100,
+      "phase": "decode",
+      "decode_step": 98,
+      "delta_ps": 0,
+      "reference_ps": 39393000,
+      "candidate_ps": 39393000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 600,
+        "admit_to_operands_ps": 15309000,
+        "operands_to_start_ps": 9126400,
+        "start_to_first_grant_ps": 3972000,
+        "first_grant_to_finish_ps": 10985000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 120,
+        "admit_to_operands_ps": 15309000,
+        "operands_to_start_ps": 9126880,
+        "start_to_first_grant_ps": 3972000,
+        "first_grant_to_finish_ps": 10985000
+      }
+    },
+    {
+      "index": 101,
+      "phase": "decode",
+      "decode_step": 99,
+      "delta_ps": 0,
+      "reference_ps": 49343000,
+      "candidate_ps": 49343000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 14379000,
+        "operands_to_start_ps": 18837000,
+        "start_to_first_grant_ps": 3382000,
+        "first_grant_to_finish_ps": 12744000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 14379000,
+        "operands_to_start_ps": 18837000,
+        "start_to_first_grant_ps": 3382000,
+        "first_grant_to_finish_ps": 12744000
+      }
+    },
+    {
+      "index": 102,
+      "phase": "decode",
+      "decode_step": 100,
+      "delta_ps": 125783000,
+      "reference_ps": 414652000,
+      "candidate_ps": 288869000,
+      "reference_native_bytes": 56636928,
+      "candidate_native_bytes": 56636928,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_3": 9439488,
+        "g1_3": 9439488,
+        "g2_3": 9439488,
+        "g3_3": 9439488,
+        "g0_0": 4719744,
+        "g1_0": 4719744,
+        "g2_0": 4719744,
+        "g3_0": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_3": 6292992,
+        "g2_3": 6292992,
+        "g3_3": 6292992,
+        "g1_3": 6292992,
+        "g3_2": 3146496,
+        "g0_2": 3146496,
+        "g1_2": 3146496,
+        "g2_2": 3146496,
+        "g0_0": 3146496,
+        "g1_0": 3146496,
+        "g2_0": 3146496,
+        "g3_0": 3146496,
+        "g1_1": 1573248,
+        "g0_1": 1573248,
+        "g2_1": 1573248,
+        "g3_1": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 397321000,
+        "operands_to_start_ps": 3212000,
+        "start_to_first_grant_ps": 2830000,
+        "first_grant_to_finish_ps": 11288000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 271528000,
+        "operands_to_start_ps": 3041000,
+        "start_to_first_grant_ps": 1820000,
+        "first_grant_to_finish_ps": 12479000
+      }
+    },
+    {
+      "index": 103,
+      "phase": "decode",
+      "decode_step": 101,
+      "delta_ps": 168005000,
+      "reference_ps": 535892000,
+      "candidate_ps": 367887000,
+      "reference_native_bytes": 46673024,
+      "candidate_native_bytes": 46673024,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_3": 11012736,
+        "g1_3": 12585984,
+        "g2_3": 12061568,
+        "g3_3": 11012736
+      },
+      "candidate_gateway_bytes": {
+        "g0_3": 7341824,
+        "g1_3": 8390656,
+        "g2_3": 7866240,
+        "g3_3": 7341824,
+        "g3_2": 3670912,
+        "g0_2": 3670912,
+        "g2_2": 4195328,
+        "g1_2": 4195328
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 84556000,
+        "admit_to_operands_ps": 435573000,
+        "operands_to_start_ps": 1551000,
+        "start_to_first_grant_ps": 5762000,
+        "first_grant_to_finish_ps": 8450000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 42551960,
+        "admit_to_operands_ps": 308272000,
+        "operands_to_start_ps": 2642040,
+        "start_to_first_grant_ps": 5971000,
+        "first_grant_to_finish_ps": 8450000
+      }
+    },
+    {
+      "index": 104,
+      "phase": "decode",
+      "decode_step": 102,
+      "delta_ps": 62165000,
+      "reference_ps": 232462000,
+      "candidate_ps": 170297000,
+      "reference_native_bytes": 18878976,
+      "candidate_native_bytes": 18878976,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_3": 3146496,
+        "g1_3": 3146496,
+        "g2_3": 3146496,
+        "g3_3": 3146496,
+        "g1_2": 1573248,
+        "g3_2": 1573248,
+        "g0_2": 1573248,
+        "g2_2": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 207170000,
+        "operands_to_start_ps": 9641000,
+        "start_to_first_grant_ps": 5472000,
+        "first_grant_to_finish_ps": 10178000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 145921000,
+        "operands_to_start_ps": 9285000,
+        "start_to_first_grant_ps": 4912000,
+        "first_grant_to_finish_ps": 10178000
+      }
+    },
+    {
+      "index": 105,
+      "phase": "decode",
+      "decode_step": 103,
+      "delta_ps": 120405000,
+      "reference_ps": 595527000,
+      "candidate_ps": 475122000,
+      "reference_native_bytes": 75515904,
+      "candidate_native_bytes": 75515904,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_2": 9439488,
+        "g1_2": 9439488,
+        "g2_2": 9439488,
+        "g3_2": 9439488,
+        "g0_3": 9439488,
+        "g1_3": 9439488,
+        "g2_3": 9439488,
+        "g3_3": 9439488
+      },
+      "candidate_gateway_bytes": {
+        "g3_2": 9439488,
+        "g0_2": 9439488,
+        "g2_2": 9439488,
+        "g1_2": 9439488,
+        "g0_3": 9439488,
+        "g1_3": 9439488,
+        "g3_3": 9439488,
+        "g2_3": 9439488
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 126041000,
+        "admit_to_operands_ps": 457632000,
+        "operands_to_start_ps": 356000,
+        "start_to_first_grant_ps": 3072000,
+        "first_grant_to_finish_ps": 8426000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 105895000,
+        "admit_to_operands_ps": 356688000,
+        "operands_to_start_ps": 544000,
+        "start_to_first_grant_ps": 3569000,
+        "first_grant_to_finish_ps": 8426000
+      }
+    },
+    {
+      "index": 106,
+      "phase": "decode",
+      "decode_step": 104,
+      "delta_ps": 63210000,
+      "reference_ps": 233231000,
+      "candidate_ps": 170021000,
+      "reference_native_bytes": 18878976,
+      "candidate_native_bytes": 18878976,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744,
+        "g1_3": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_3": 3146496,
+        "g2_3": 3146496,
+        "g3_3": 3146496,
+        "g1_3": 3146496,
+        "g3_2": 1573248,
+        "g2_2": 1573248,
+        "g1_2": 1573248,
+        "g0_2": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 880,
+        "admit_to_operands_ps": 206685000,
+        "operands_to_start_ps": 15327120,
+        "start_to_first_grant_ps": 2775000,
+        "first_grant_to_finish_ps": 8443000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 240,
+        "admit_to_operands_ps": 143843000,
+        "operands_to_start_ps": 14431760,
+        "start_to_first_grant_ps": 2112000,
+        "first_grant_to_finish_ps": 9634000
+      }
+    },
+    {
+      "index": 107,
+      "phase": "decode",
+      "decode_step": 105,
+      "delta_ps": 123569000,
+      "reference_ps": 595231000,
+      "candidate_ps": 471662000,
+      "reference_native_bytes": 94394880,
+      "candidate_native_bytes": 94394880,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_2": 9439488,
+        "g1_2": 9439488,
+        "g2_2": 9439488,
+        "g3_2": 9439488,
+        "g0_1": 9439488,
+        "g1_1": 9439488,
+        "g2_1": 9439488,
+        "g3_1": 9439488,
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g1_1": 6292992,
+        "g0_1": 6292992,
+        "g2_1": 6292992,
+        "g3_1": 6292992,
+        "g3_2": 7866240,
+        "g0_2": 7866240,
+        "g2_2": 7866240,
+        "g1_2": 7866240,
+        "g0_3": 6292992,
+        "g1_3": 6292992,
+        "g2_3": 6292992,
+        "g3_3": 6292992,
+        "g0_0": 3146496,
+        "g3_0": 3146496,
+        "g1_0": 3146496,
+        "g2_0": 3146496
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 126486280,
+        "admit_to_operands_ps": 458805000,
+        "operands_to_start_ps": 304720,
+        "start_to_first_grant_ps": 1209000,
+        "first_grant_to_finish_ps": 8426000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 113893280,
+        "admit_to_operands_ps": 348496000,
+        "operands_to_start_ps": 720,
+        "start_to_first_grant_ps": 846000,
+        "first_grant_to_finish_ps": 8426000
+      }
+    },
+    {
+      "index": 108,
+      "phase": "decode",
+      "decode_step": 106,
+      "delta_ps": 63169000,
+      "reference_ps": 226884000,
+      "candidate_ps": 163715000,
+      "reference_native_bytes": 18878976,
+      "candidate_native_bytes": 18878976,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_1": 4719744,
+        "g1_1": 4719744,
+        "g2_1": 4719744,
+        "g3_1": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g1_1": 3146496,
+        "g0_1": 3146496,
+        "g2_1": 3146496,
+        "g3_1": 3146496,
+        "g0_0": 1573248,
+        "g1_0": 1573248,
+        "g2_0": 1573248,
+        "g3_0": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 206601000,
+        "operands_to_start_ps": 8046000,
+        "start_to_first_grant_ps": 2526000,
+        "first_grant_to_finish_ps": 9710000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 143764000,
+        "operands_to_start_ps": 7764000,
+        "start_to_first_grant_ps": 2476000,
+        "first_grant_to_finish_ps": 9710000
+      }
+    },
+    {
+      "index": 109,
+      "phase": "decode",
+      "decode_step": 107,
+      "delta_ps": 237226000,
+      "reference_ps": 793188000,
+      "candidate_ps": 555962000,
+      "reference_native_bytes": 75515904,
+      "candidate_native_bytes": 75515904,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_2": 14159232,
+        "g1_2": 14159232,
+        "g2_2": 14159232,
+        "g3_2": 14159232,
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g3_2": 11012736,
+        "g0_2": 11012736,
+        "g2_2": 11012736,
+        "g1_2": 11012736,
+        "g0_3": 7866240,
+        "g2_3": 7866240,
+        "g3_3": 7866240,
+        "g1_3": 7866240
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 378049720,
+        "admit_to_operands_ps": 401916000,
+        "operands_to_start_ps": 1044280,
+        "start_to_first_grant_ps": 3744000,
+        "first_grant_to_finish_ps": 8434000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 251838000,
+        "admit_to_operands_ps": 291274000,
+        "operands_to_start_ps": 961000,
+        "start_to_first_grant_ps": 3455000,
+        "first_grant_to_finish_ps": 8434000
+      }
+    },
+    {
+      "index": 110,
+      "phase": "decode",
+      "decode_step": 108,
+      "delta_ps": -49518000,
+      "reference_ps": 225759000,
+      "candidate_ps": 275277000,
+      "reference_native_bytes": 37757952,
+      "candidate_native_bytes": 37757952,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744,
+        "g0_2": 4719744,
+        "g1_2": 4719744,
+        "g2_2": 4719744,
+        "g3_2": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744,
+        "g3_2": 4719744,
+        "g0_2": 4719744,
+        "g2_2": 4719744,
+        "g1_2": 4719744
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 207262000,
+        "operands_to_start_ps": 3925000,
+        "start_to_first_grant_ps": 3764000,
+        "first_grant_to_finish_ps": 10807000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 260902000,
+        "operands_to_start_ps": 1813000,
+        "start_to_first_grant_ps": 3498000,
+        "first_grant_to_finish_ps": 9063000
+      }
+    },
+    {
+      "index": 111,
+      "phase": "decode",
+      "decode_step": 109,
+      "delta_ps": 0,
+      "reference_ps": 49343000,
+      "candidate_ps": 49343000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 14379000,
+        "operands_to_start_ps": 18837000,
+        "start_to_first_grant_ps": 3382000,
+        "first_grant_to_finish_ps": 12744000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 280,
+        "admit_to_operands_ps": 14379000,
+        "operands_to_start_ps": 18837720,
+        "start_to_first_grant_ps": 3382000,
+        "first_grant_to_finish_ps": 12744000
+      }
+    },
+    {
+      "index": 112,
+      "phase": "decode",
+      "decode_step": 110,
+      "delta_ps": 125559000,
+      "reference_ps": 411169000,
+      "candidate_ps": 285610000,
+      "reference_native_bytes": 37757952,
+      "candidate_native_bytes": 37757952,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_2": 4719744,
+        "g1_2": 4719744,
+        "g2_2": 4719744,
+        "g3_2": 4719744,
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g3_2": 4719744,
+        "g0_2": 4719744,
+        "g2_2": 4719744,
+        "g1_2": 4719744,
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 396349000,
+        "operands_to_start_ps": 1872000,
+        "start_to_first_grant_ps": 3323000,
+        "first_grant_to_finish_ps": 9624000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 271250000,
+        "operands_to_start_ps": 1641000,
+        "start_to_first_grant_ps": 3094000,
+        "first_grant_to_finish_ps": 9624000
+      }
+    },
+    {
+      "index": 113,
+      "phase": "decode",
+      "decode_step": 111,
+      "delta_ps": 63364000,
+      "reference_ps": 235882000,
+      "candidate_ps": 172518000,
+      "reference_native_bytes": 18878976,
+      "candidate_native_bytes": 18878976,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_3": 3146496,
+        "g1_3": 3146496,
+        "g2_3": 3146496,
+        "g3_3": 3146496,
+        "g3_2": 1573248,
+        "g0_2": 1573248,
+        "g2_2": 1573248,
+        "g1_2": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 204945000,
+        "operands_to_start_ps": 17123000,
+        "start_to_first_grant_ps": 3151000,
+        "first_grant_to_finish_ps": 10662000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 142376000,
+        "operands_to_start_ps": 16396000,
+        "start_to_first_grant_ps": 3083000,
+        "first_grant_to_finish_ps": 10662000
+      }
+    },
+    {
+      "index": 114,
+      "phase": "decode",
+      "decode_step": 112,
+      "delta_ps": 0,
+      "reference_ps": 49838000,
+      "candidate_ps": 49838000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 16225000,
+        "operands_to_start_ps": 21491000,
+        "start_to_first_grant_ps": 1298000,
+        "first_grant_to_finish_ps": 10823000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 16225000,
+        "operands_to_start_ps": 21491000,
+        "start_to_first_grant_ps": 1298000,
+        "first_grant_to_finish_ps": 10823000
+      }
+    },
+    {
+      "index": 115,
+      "phase": "decode",
+      "decode_step": 113,
+      "delta_ps": 0,
+      "reference_ps": 45826000,
+      "candidate_ps": 45826000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 18198000,
+        "operands_to_start_ps": 14100000,
+        "start_to_first_grant_ps": 2547000,
+        "first_grant_to_finish_ps": 10980000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 160,
+        "admit_to_operands_ps": 18198000,
+        "operands_to_start_ps": 14100840,
+        "start_to_first_grant_ps": 2547000,
+        "first_grant_to_finish_ps": 10980000
+      }
+    },
+    {
+      "index": 116,
+      "phase": "decode",
+      "decode_step": 114,
+      "delta_ps": 61889000,
+      "reference_ps": 233228000,
+      "candidate_ps": 171339000,
+      "reference_native_bytes": 18878976,
+      "candidate_native_bytes": 18878976,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_2": 4719744,
+        "g1_2": 4719744,
+        "g2_2": 4719744,
+        "g3_2": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g3_2": 3146496,
+        "g0_2": 3146496,
+        "g2_2": 3146496,
+        "g1_2": 3146496,
+        "g0_3": 1573248,
+        "g1_3": 1573248,
+        "g2_3": 1573248,
+        "g3_3": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 206412000,
+        "operands_to_start_ps": 16160000,
+        "start_to_first_grant_ps": 2215000,
+        "first_grant_to_finish_ps": 8440000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 143393000,
+        "operands_to_start_ps": 16291000,
+        "start_to_first_grant_ps": 3206000,
+        "first_grant_to_finish_ps": 8448000
+      }
+    },
+    {
+      "index": 117,
+      "phase": "decode",
+      "decode_step": 115,
+      "delta_ps": 0,
+      "reference_ps": 50651000,
+      "candidate_ps": 50651000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1360,
+        "admit_to_operands_ps": 16019000,
+        "operands_to_start_ps": 23176640,
+        "start_to_first_grant_ps": 2371000,
+        "first_grant_to_finish_ps": 9083000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1440,
+        "admit_to_operands_ps": 16019000,
+        "operands_to_start_ps": 23176560,
+        "start_to_first_grant_ps": 2371000,
+        "first_grant_to_finish_ps": 9083000
+      }
+    },
+    {
+      "index": 118,
+      "phase": "decode",
+      "decode_step": 116,
+      "delta_ps": 0,
+      "reference_ps": 49343000,
+      "candidate_ps": 49343000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 14379000,
+        "operands_to_start_ps": 18837000,
+        "start_to_first_grant_ps": 3382000,
+        "first_grant_to_finish_ps": 12744000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 14379000,
+        "operands_to_start_ps": 18837000,
+        "start_to_first_grant_ps": 3382000,
+        "first_grant_to_finish_ps": 12744000
+      }
+    },
+    {
+      "index": 119,
+      "phase": "decode",
+      "decode_step": 117,
+      "delta_ps": 0,
+      "reference_ps": 44221000,
+      "candidate_ps": 44221000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 16414000,
+        "operands_to_start_ps": 14388000,
+        "start_to_first_grant_ps": 4346000,
+        "first_grant_to_finish_ps": 9072000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 16414000,
+        "operands_to_start_ps": 14388000,
+        "start_to_first_grant_ps": 4346000,
+        "first_grant_to_finish_ps": 9072000
+      }
+    },
+    {
+      "index": 120,
+      "phase": "decode",
+      "decode_step": 118,
+      "delta_ps": 0,
+      "reference_ps": 39703000,
+      "candidate_ps": 39703000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1480,
+        "admit_to_operands_ps": 15889000,
+        "operands_to_start_ps": 8557520,
+        "start_to_first_grant_ps": 4913000,
+        "first_grant_to_finish_ps": 10342000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1560,
+        "admit_to_operands_ps": 15889000,
+        "operands_to_start_ps": 8557440,
+        "start_to_first_grant_ps": 4913000,
+        "first_grant_to_finish_ps": 10342000
+      }
+    },
+    {
+      "index": 121,
+      "phase": "decode",
+      "decode_step": 119,
+      "delta_ps": 0,
+      "reference_ps": 54535000,
+      "candidate_ps": 54535000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 680,
+        "admit_to_operands_ps": 13161000,
+        "operands_to_start_ps": 30250320,
+        "start_to_first_grant_ps": 2667000,
+        "first_grant_to_finish_ps": 8456000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 760,
+        "admit_to_operands_ps": 13161000,
+        "operands_to_start_ps": 30250240,
+        "start_to_first_grant_ps": 2667000,
+        "first_grant_to_finish_ps": 8456000
+      }
+    },
+    {
+      "index": 122,
+      "phase": "decode",
+      "decode_step": 120,
+      "delta_ps": 0,
+      "reference_ps": 49838000,
+      "candidate_ps": 49838000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 16225000,
+        "operands_to_start_ps": 21491000,
+        "start_to_first_grant_ps": 1298000,
+        "first_grant_to_finish_ps": 10823000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 16225000,
+        "operands_to_start_ps": 21491000,
+        "start_to_first_grant_ps": 1298000,
+        "first_grant_to_finish_ps": 10823000
+      }
+    },
+    {
+      "index": 123,
+      "phase": "decode",
+      "decode_step": 121,
+      "delta_ps": -53068000,
+      "reference_ps": 233575000,
+      "candidate_ps": 286643000,
+      "reference_native_bytes": 37757952,
+      "candidate_native_bytes": 37757952,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744,
+        "g0_2": 4719744,
+        "g1_2": 4719744,
+        "g2_2": 4719744,
+        "g3_2": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744,
+        "g3_2": 4719744,
+        "g0_2": 4719744,
+        "g1_2": 4719744,
+        "g2_2": 4719744
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 480,
+        "admit_to_operands_ps": 205615000,
+        "operands_to_start_ps": 15157520,
+        "start_to_first_grant_ps": 4353000,
+        "first_grant_to_finish_ps": 8449000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 560,
+        "admit_to_operands_ps": 261834000,
+        "operands_to_start_ps": 14613440,
+        "start_to_first_grant_ps": 1754000,
+        "first_grant_to_finish_ps": 8441000
+      }
+    },
+    {
+      "index": 124,
+      "phase": "decode",
+      "decode_step": 122,
+      "delta_ps": 63559000,
+      "reference_ps": 233842000,
+      "candidate_ps": 170283000,
+      "reference_native_bytes": 18878976,
+      "candidate_native_bytes": 18878976,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_3": 3146496,
+        "g1_3": 3146496,
+        "g2_3": 3146496,
+        "g3_3": 3146496,
+        "g3_2": 1573248,
+        "g0_2": 1573248,
+        "g2_2": 1573248,
+        "g1_2": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 208186000,
+        "operands_to_start_ps": 13109000,
+        "start_to_first_grant_ps": 4115000,
+        "first_grant_to_finish_ps": 8431000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 144415000,
+        "operands_to_start_ps": 13159000,
+        "start_to_first_grant_ps": 4277000,
+        "first_grant_to_finish_ps": 8431000
+      }
+    },
+    {
+      "index": 125,
+      "phase": "decode",
+      "decode_step": 123,
+      "delta_ps": 62912000,
+      "reference_ps": 228731000,
+      "candidate_ps": 165819000,
+      "reference_native_bytes": 18878976,
+      "candidate_native_bytes": 18878976,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_1": 4719744,
+        "g1_1": 4719744,
+        "g2_1": 4719744,
+        "g3_1": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g1_1": 3146496,
+        "g0_1": 3146496,
+        "g2_1": 3146496,
+        "g3_1": 3146496,
+        "g2_0": 1573248,
+        "g1_0": 1573248,
+        "g3_0": 1573248,
+        "g0_0": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2000,
+        "admit_to_operands_ps": 208704000,
+        "operands_to_start_ps": 6150000,
+        "start_to_first_grant_ps": 4801000,
+        "first_grant_to_finish_ps": 9074000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2000,
+        "admit_to_operands_ps": 146000000,
+        "operands_to_start_ps": 6150000,
+        "start_to_first_grant_ps": 4593000,
+        "first_grant_to_finish_ps": 9074000
+      }
+    },
+    {
+      "index": 126,
+      "phase": "decode",
+      "decode_step": 124,
+      "delta_ps": 0,
+      "reference_ps": 47153000,
+      "candidate_ps": 47153000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2000,
+        "admit_to_operands_ps": 20450000,
+        "operands_to_start_ps": 13347000,
+        "start_to_first_grant_ps": 2375000,
+        "first_grant_to_finish_ps": 10979000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 2000,
+        "admit_to_operands_ps": 20450000,
+        "operands_to_start_ps": 13347000,
+        "start_to_first_grant_ps": 2375000,
+        "first_grant_to_finish_ps": 10979000
+      }
+    },
+    {
+      "index": 127,
+      "phase": "decode",
+      "decode_step": 125,
+      "delta_ps": -55441000,
+      "reference_ps": 233743000,
+      "candidate_ps": 289184000,
+      "reference_native_bytes": 37757952,
+      "candidate_native_bytes": 37757952,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744,
+        "g0_2": 4719744,
+        "g1_2": 4719744,
+        "g2_2": 4719744,
+        "g3_2": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g0_3": 4719744,
+        "g1_3": 4719744,
+        "g2_3": 4719744,
+        "g3_3": 4719744,
+        "g3_2": 4719744,
+        "g2_2": 4719744,
+        "g0_2": 4719744,
+        "g1_2": 4719744
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 520,
+        "admit_to_operands_ps": 209004000,
+        "operands_to_start_ps": 13707480,
+        "start_to_first_grant_ps": 2589000,
+        "first_grant_to_finish_ps": 8442000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 880,
+        "admit_to_operands_ps": 266670000,
+        "operands_to_start_ps": 12612120,
+        "start_to_first_grant_ps": 1459000,
+        "first_grant_to_finish_ps": 8442000
+      }
+    },
+    {
+      "index": 128,
+      "phase": "decode",
+      "decode_step": 126,
+      "delta_ps": 0,
+      "reference_ps": 46369000,
+      "candidate_ps": 46369000,
+      "reference_native_bytes": 0,
+      "candidate_native_bytes": 0,
+      "cache_class": "both_zero_native",
+      "reference_gateway_bytes": {},
+      "candidate_gateway_bytes": {},
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 15897000,
+        "operands_to_start_ps": 17206000,
+        "start_to_first_grant_ps": 4185000,
+        "first_grant_to_finish_ps": 9080000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 15897000,
+        "operands_to_start_ps": 17206000,
+        "start_to_first_grant_ps": 4185000,
+        "first_grant_to_finish_ps": 9080000
+      }
+    },
+    {
+      "index": 129,
+      "phase": "decode",
+      "decode_step": 127,
+      "delta_ps": 62330000,
+      "reference_ps": 234019000,
+      "candidate_ps": 171689000,
+      "reference_native_bytes": 18878976,
+      "candidate_native_bytes": 18878976,
+      "cache_class": "both_with_native",
+      "reference_gateway_bytes": {
+        "g0_1": 4719744,
+        "g1_1": 4719744,
+        "g2_1": 4719744,
+        "g3_1": 4719744
+      },
+      "candidate_gateway_bytes": {
+        "g1_1": 3146496,
+        "g0_1": 3146496,
+        "g2_1": 3146496,
+        "g3_1": 3146496,
+        "g2_0": 1573248,
+        "g3_0": 1573248,
+        "g0_0": 1573248,
+        "g1_0": 1573248
+      },
+      "reference_witness_intervals_ps": {
+        "eligible_to_admit_ps": 1000,
+        "admit_to_operands_ps": 206027000,
+        "operands_to_start_ps": 17656000,
+        "start_to_first_grant_ps": 1899000,
+        "first_grant_to_finish_ps": 8436000
+      },
+      "candidate_witness_intervals_ps": {
+        "eligible_to_admit_ps": 520,
+        "admit_to_operands_ps": 144196000,
+        "operands_to_start_ps": 17124480,
+        "start_to_first_grant_ps": 1932000,
+        "first_grant_to_finish_ps": 8436000
+      }
+    }
+  ],
+  "scope": "Signed paired deltas on identical actual routes and NPU work; observed cache traffic may differ. A witnessed-chain change is not a unique resource cause or counterfactual saving. Negative Phase-Split results are retained."
+}

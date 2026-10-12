@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "proofs": [
+    {
+      "case": "B4-reference-best_os",
+      "index": 1,
+      "source_sha256": "985bad8217137513518fd1400c5ee36d3983a001ba73800387604a245c7da31d",
+      "passed": true,
+      "expert_groups": 52,
+      "checked_route_uses": 185024,
+      "contract": "Selected expert/dispatch admission, cache lookup, Native issue and compute start follow actual router completion. Trace-read identity is not hardware lookahead."
+    },
+    {
+      "case": "B4-phase_split-best_os",
+      "index": 0,
+      "source_sha256": "4eff9da6ee03f6d9b25330d600ac565b72c6e21d448d107334bd3faee1532c07",
+      "passed": true,
+      "expert_groups": 54,
+      "checked_route_uses": 259652,
+      "contract": "Selected expert/dispatch admission, cache lookup, Native issue and compute start follow actual router completion. Trace-read identity is not hardware lookahead."
+    }
+  ],
+  "new_native_experiments": 0,
+  "scope": "Saved complete selected B4 windows at their explicit recorded indices; not full P3 acceptance."
+}
