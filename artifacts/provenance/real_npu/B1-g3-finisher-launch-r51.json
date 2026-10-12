@@ -1,0 +1,27 @@
+{
+  "pid": 898515,
+  "args": [
+    "/Projects/haoning/w2w/.venv/bin/python",
+    "-m",
+    "tools.finish_b1_g3",
+    "--study",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/campaign-r27/real-moe",
+    "--phase-worker-pid",
+    "888240",
+    "--corpus",
+    "/Projects/haoning/w2w-full-system-vertical-delivery-20261011/complete-corpus-r1",
+    "--qualification",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/context-output-sharded-r40",
+    "--reference",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/B1-reference-mechanism-r51",
+    "--shapes",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/physical-shape-readback-r45",
+    "--projection-readback",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/B1-g3-finisher-r46/sharded-resource-readback.json",
+    "--output",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/B1-g3-finisher-r51"
+  ],
+  "source_commit": "eaab0483aaf486009258079e2313c169b6676c1c",
+  "cwd": "/Projects/haoning/w2w-full-system-real-npu-20261011/analysis-r51",
+  "role": "Read-only B1 evidence; no physical launch"
+}

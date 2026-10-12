@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "returncode": 0,
+  "args": [
+    "/Projects/haoning/w2w/.venv/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_moe_mechanism"
+  ],
+  "source_commit": "93bdf211a5c61ab03561bc2dbd93d6c9e1cd806d",
+  "log_sha256": "120fcf1e1b1ef6883b716f1b33b4fbea79c7089f1d1ff950e98c9608d82abb42",
+  "content": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.008s\n\nOK\n",
+  "wall_seconds": 0.0980819370597601,
+  "scope": "Exact projected event order and full-source hash negatives; nonoverlapping completion chain and signed/mixed-cache pair contracts"
+}

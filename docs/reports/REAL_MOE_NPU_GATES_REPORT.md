@@ -1,9 +1,179 @@
 # Real MoE → executable WoW NPU: evidence and remaining gates
 
-The accepted foundation now executes actual expert token shapes on a concrete,
-finite NPU array model. **G3 has its first accepted complete B1 Reference case;
-the twelve-case G3 campaign and G4/G5 remain incomplete.** No smaller FFN,
-truncated request or registered background job counts as acceptance.
+The accepted foundation executes actual expert token shapes on a concrete,
+finite NPU array model. **The current user-frozen G3 scope is B1 Reference /
+Phase-Split, the already launched sharded Native qualification, phase mechanism
+analysis and independent resource audits.** Reference and sharded legality are
+accepted; Phase-Split and the final paired acceptance are pending. The original
+twelve-case registration is retained, with further scheduling and G4/G5 held.
+No smaller FFN, truncated request or background job counts as acceptance.
+
+## Current B1 scope and event mechanisms
+
+[The scope-freeze receipt](../../artifacts/provenance/real_npu/scope-freeze-B1-r45.json)
+records a reversible hold on only the old future-launch/readback controllers
+826834, 826982 and 832174. The existing physical Phase-Split worker 888240
+continues at its immutable `source-r27@a69d29e`; registration, machine, kernel,
+Native binaries and cache budgets are unchanged. Up-local, B4/16/32 and G4/G5
+are not automatically launched. Historical scheduling descriptions below are
+superseded by this scope.
+
+| Gate | Current evidence |
+|---|---|
+| G3.1 | Complete B1 Reference, full physical/resource audit accepted |
+| G3.2 | Same-trace B1 Phase-Split physical replay running; no speedup claim |
+| G3.3 | Already launched output-sharded qualification complete; independent full-window legality readback accepted |
+| G3.4 | All 130 Reference windows reconstructed; paired phase/cache comparison waits for Phase-Split |
+| G3.5 | Reference, standalone kernels and shard audits pass; final paired audit pending |
+
+[The full Reference mechanism table](../../artifacts/provenance/real_npu/B1-reference-mechanism-r51.json)
+and [per-window CSV](../../artifacts/provenance/real_npu/B1-reference-steps-r51.csv)
+preserve actual original step IDs, ranked expert memberships, M distributions,
+Native bytes per gateway, cache state, observed array/SRAM service and one
+completion witness for every window. Samples count expert groups in each
+bounded layer/microbatch invocation, rather than merging the two Prefill windows
+into an unexecuted larger GEMM.
+
+| Observed Reference metric | Prefill | Decode |
+|---|---:|---:|
+| Tokens / windows | 46 / 2 | 128 / 128 |
+| Sum of window completion | **17.373712 ms** | **31.569973 ms** |
+| Active expert groups across layer calls | 306 | 2,048 |
+| Actual active experts per call | L0/L1: 89/80 at M_batch=32; 73/64 at M_batch=14 | 8 in every layer/step |
+| Expert n_e: mean / P50 / P90 / P99 / max | 2.405 / 2 / 5 / 10 / 10 | 1 / 1 / 1 / 1 / 1 |
+| Matrix-cache hits / misses | 3,065 / 7,955 | 66,982 / 7,002 |
+| Observed Native payload | 4,173,301,760 B | 3,671,960,832 B |
+| Reload bytes | 754,109,952 B | 3,011,196,672 B |
+| Useful matrix MAC / reserved array peak-service | 13.286% | 5.509% |
+
+Cache counts are actual matrix-object lookups, including router matrices; they
+are not counts of whole experts. Array service efficiency is MAC work divided
+by peak capacity during observed array grants; it excludes scalar/vector
+intervals and is not whole-machine duty or silicon utilization.
+The two phase times plus **5.161 µs inter-window drain** exactly reconstruct
+the **48.948846 ms** makespan; the last **40 ns** drain gives 48.948886 ms.
+These remain two-layer MoE-window times, not Qwen TTFT/TPOT.
+
+### Completion-chain evidence
+
+For each window, the reader follows the latest completed mathematical
+predecessor from the actual final task. Admission, complete-operand readiness,
+context start, first grant and finish delimit five disjoint intervals on that
+chain. Ties use a stable task ID. Initial release plus these intervals must
+equal the actual makespan; parallel task waits are never summed. Operand-ready
+points have observed cache, tensor-transfer or complete Native-supply witnesses.
+This is one observed completion witness, not a unique critical path or a
+counterfactual attribution.
+
+| Summed witnessed interval | Prefill | Decode |
+|---|---:|---:|
+| Dependency eligible → admission | 16.232716 ms | 4.245756 ms |
+| Admission → complete operands | 1.117331 ms | 24.184141 ms |
+| Complete operands → context start | 0 | 1.491183 ms |
+| Start → first arithmetic grant | 0.001114 ms | 0.400598 ms |
+| First grant → finish | 0.022551 ms | 1.248295 ms |
+
+Actual finite-slot ownership overlaps **16.232715 ms** of Prefill's witnessed
+admission interval and **4.245643 ms** of Decode's. Thus almost all of the large
+Prefill admission interval coincides with both paid fetch contexts being owned.
+The four longest Prefill tasks each wait 3.372–4.522 ms before admission;
+their entire wait intersects a full fetch pool. This identifies a concrete
+finite-admission mechanism in the frozen reference. It does not prove that
+adding slots would recover that time: SRAM, issue, cache and supply resources
+remain shared, and no controller intervention is performed.
+The full compute-context intersection is 1.491168 ms inside Decode's
+operand-ready→start interval. These intersections are subsets of the chain
+intervals, not additional stalls to add to completion.
+
+![Actual Decode event mechanisms](figures/real_npu/B1-reference-mechanism-r51.png)
+
+The slowest Decode step is original step 25: **811.879 µs**, 115,371,520 B
+Native payload, of which the most loaded gateway supplies 18,878,976 B.
+The CSV retains all 128 steps and all cache classes. Step 0 instead has zero
+Native payload and completes in **51.464 µs**. Its witnessed intervals are
+0.002 / 20.182 / 17.356 / 2.544 / 11.380 µs in the table's order. Actual packed-X
+deliveries witness operand readiness on its late Up tasks; the 20.182 µs operand
+interval cannot be labeled DRAM latency. Step 2 pays 23,074,304 B Native reads
+and finishes in 232.325 µs; its late cold Up projections have observed Native
+supply-ready boundaries. The earlier complete raw step-0/step-2 resource
+audits remain available below.
+
+The mechanism reader checks the complete original archive byte SHA against
+its accepted full physical audit, then projects only task/operand/service
+events while preserving order. [Exact actual step-0 equivalence](../../artifacts/provenance/real_npu/event-projection-equivalence-r47.json)
+checks the full and projected mechanisms/ledgers/chain for equality; the
+original complete Native/NoC archive remains authoritative. This controls
+analysis host memory without changing physical execution or claiming a second
+full decoded-canonical audit. [Six remote regressions](../../artifacts/provenance/real_npu/regression-r51.json)
+cover temporal closure, capacity-intersection containment, paired positive /
+negative / mixed-cache cases, source changes and projection order.
+
+### Physical array-shape evidence
+
+[The renewed 72-case readback](../../artifacts/provenance/real_npu/physical-shape-readback-r45.json)
+rechecks 36 resident and 36 cold full-shape physical microkernels, not new
+experiments. Gate/Up use N=1536, K=4096; Down uses N=4096, K=1536;
+M=1/2/4/8/16/32 for both 64×16×16 and 16×32×32. Both retain 16,384 MAC/cycle
+and the same 192 MiB SRAM / 184 MiB cache budgets per cluster. Every physical
+array interval and authorized cycle/MAC/operand-service total matches its
+program and the independently pinned SCALE-Sim core reference.
+
+| Resident shape | 64×16×16: actual service cycles / efficiency | 16×32×32: actual service cycles / efficiency |
+|---|---:|---:|
+| Gate M=1 | 8,255 / 4.652% | 12,478 / 3.077% |
+| Gate M=16 | 8,256 / 74.419% | 12,478 / 49.239% |
+| Gate M=32 | 12,385 / 99.217% | 12,481 / 98.454% |
+| Down M=1 | 6,269 / 6.125% | 12,793 / 3.002% |
+| Down M=32 | 12,545 / 97.951% | 12,801 / 95.993% |
+
+Paid reads also change with mapping waves: the 16×16 Gate reads 6,291,456 B
+of FP8 weight SRAM at M=1/16 and 12,582,912 B at M=32. Its activation SRAM
+reads are respectively 16,384 / 262,144 / 524,288 B; output writes are
+6,144 / 98,304 / 196,608 B. Original scales, conversion work, finite broadcast
+delivery and FP32 accumulator/partial work are separately recorded. These
+shape differences come from executable mapping and service, not a changed
+aggregate MAC peak. Context storage remains charged within the existing SRAM.
+
+![Existing full-shape physical kernels](figures/real_npu/physical-shapes-r49.png)
+
+The nine shapes in the prior context preflight are nine projection-shard
+M/N/K tuples, **not nine array organizations**. The cold standalone policy
+pays Native delivery before full-operand OS acquisition; its roughly 262–269 µs
+completion does not demonstrate streamed compute overlap. The resident shape
+efficiency and captured-window latency answer different questions, and neither
+proves an optimal mapper or new hardware requirement.
+
+### Accepted sharded legality and remaining paired gate
+
+[The completed qualification](../../artifacts/provenance/real_npu/context-output-sharded-complete-r40.json)
+and [independent full-window readback](../../artifacts/provenance/real_npu/context-output-sharded-readback-r46.json)
+cover the first two actual Prefill tokens in true layers 0/1: 2 continuous
+windows, 2,452 tasks, 711,179,264 B Native payload, 891,387,904 MACs and
+**2.688093 ms** completion/drain. Cache lookups are 154 hits / 1,162 misses;
+all original projection dot products, tensor-copy identities, Native/request
+resources, SRAM and continuous cache/clock ownership pass.
+
+The run pays 48 input-copy nodes: 563,200 B SRAM reads, 2,234,368 B writes
+and 1,114,496 vector operations. Its 16 Gather nodes pay 218,112 B reads,
+218,112 B writes and 53,568 vector operations. These are absolute auxiliary
+costs, not net overhead versus a matched unsharded baseline. The earlier
+unsharded context qualification used different conservative scratch charges;
+it is not used to claim speedup. This gate qualifies legality, not complete
+serving performance.
+
+The [scoped read-only finisher](../../artifacts/provenance/real_npu/B1-g3-finisher-launch-r51.json)
+at `analysis-r51@eaab048` waits for the existing Phase-Split worker to finish,
+independently audits all its physical windows, reconstructs the same event
+mechanisms, and writes signed Prefill/Decode and per-step comparisons. It keeps
+both-zero-Native, both-with-Native and mixed observed cache classes separate;
+negative benefits and changed hit/miss behavior are retained. It starts no
+physical jobs and has no automatic retry or G4/G5 promotion. Its authoritative
+remote output is `B1-g3-finisher-r51`; only its passed final receipt can close
+the current B1 G3.1–G3.5 scope. The original twelve-case campaign remains
+separately incomplete. Batched B4/16/32 is the next stage after this scope.
+[The recorded progress snapshot](../../artifacts/provenance/real_npu/progress-r51.json)
+binds the current accepted readbacks, held controller identities and the
+specific live worker/finisher. It is a snapshot, not final Phase-Split acceptance.
 
 ## Frozen workload and completed foundation
 
@@ -168,8 +338,9 @@ stable modeled address policy, never presented as real IDs. Only a completed
 129-emission horizon. Numerical text generation, true EOS, silicon timing and
 calibrated energy/area remain outside that claim.
 
-G4 starts only after the context/KV resource gate and the complete accepted
-G3 B1 Up-local case. At most two G4 physical/archive-reader workers hold active
+The historical controller was configured to start G4 after the context/KV
+resource gate and complete G3 B1 Up-local. That queue is now held by the
+current B1-only scope. At most two G4 physical/archive-reader workers hold active
 slots; other stages wait. G5 final figures reject incomplete G3 or G4 evidence.
 Its decision must distinguish resource work bounds from recoverable stalls and
 conditional EDP inequalities from measured total energy. No new hardware is
@@ -222,10 +393,10 @@ They do not establish identical lowering or new application performance.
 - G1: full-corpus identity/grouping/demand checks accepted.
 - G2: shape/core, full-size physical microkernels and carry/equivalence accepted;
   banking/ports/dataflow remain explicit uncalibrated assumptions.
-- G3: B1 Reference complete and independently accepted; Phase-Split running,
-  remaining registered cases pending.
+- G3: B1 Reference and sharded legality accepted; Phase-Split and paired
+  acceptance pending. Other registered cases are deferred by the current scope.
 - G4: implemented and independently shape/numerically qualified; awaiting
-  full 94-layer serving acceptance after complete B1 Up-local and current context readback.
+  full 94-layer serving acceptance. Current work defers this broader gate.
 - G5: evidence-bound analysis implemented; final decision awaits completed runs.
 
 Two design limits prevent overstating the hardware conclusion: the NPU reference
@@ -274,7 +445,7 @@ has no value. [Eight directed regressions](../../artifacts/provenance/real_npu/r
 cover mapping boundaries and this evidence contract; their reader fixtures are
 deliberately fictitious and are not application results.
 
-The running `source-r27` controller remains frozen with its older final-status
+The held `source-r27` controller remains frozen with its older final-status
 writer. If it eventually prints G5 complete, re-read its results using the current
 architecture criteria before claiming goal completion. Its terminal label alone
 does not satisfy the structural/cost gate.
@@ -368,7 +539,8 @@ decode steps in real layers 0/1**, with continuous Native/NoC/cache state:
 matrix MACs. Completion is **48.948846 ms**; physical drain is 48.948886 ms.
 Native reads are **7,845,262,592 B**, including **3,765,306,624 B reload**.
 This is complete captured lifecycle evidence for a two-layer MoE window, not
-94-layer Transformer TTFT/TPOT. The other eleven comparisons remain required.
+94-layer Transformer TTFT/TPOT. The original other eleven comparisons remain
+unaccepted; only Phase-Split is active in the current narrowed scope.
 
 The [source-bound transition plot](../../artifacts/provenance/real_npu/B1-transition-r41.json)
 uses every original decode step. It reuses the accepted raw-event audit and
@@ -416,11 +588,12 @@ intrinsic non-cache SRAM headroom after the unchanged cache, KV and endpoint
 reservations. Intrinsic headroom does not establish dynamic progress.
 
 [Native qualification launch](../../artifacts/provenance/real_npu/context-output-sharded-launch-r40.json)
-starts one isolated two-token context resource gate at `analysis-r40@5f38270`,
-PID 889899, using the same accepted Native binaries. Verify its current
-identity, `context-output-sharded-r40/receipt.json` and its retained log before
-accepting it. Launch is not completion; no retry or change to the r27 campaign
-is authorized by the launch receipt.
+started one isolated two-token context resource gate at `analysis-r40@5f38270`,
+PID 889899, using the same accepted Native binaries. Its passed completion and
+independent readback are now recorded above. The historical launch alone is
+not acceptance. Complete receipts and retained raw hashes, rather than a PID
+or launch record, establish this qualification. No retry or change to the r27
+physical campaign follows from the launch receipt.
 
 Separate selected-window raw readbacks at `analysis-r42@39e091e` pass for
 [decode step 0](../../artifacts/provenance/real_npu/B1-decode-0-competition-r42.json)

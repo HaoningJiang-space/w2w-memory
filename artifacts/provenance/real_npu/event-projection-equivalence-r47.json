@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "source_commit": "93bdf211a5c61ab03561bc2dbd93d6c9e1cd806d",
+  "source_sha256": "fe123002d76a83b989020db711869f76515b1718bc0cea65b7a214b46993a300",
+  "projection": {
+    "complete_archive_sha256": "fe123002d76a83b989020db711869f76515b1718bc0cea65b7a214b46993a300",
+    "original_decoded_sha256": "093e68aeed89d20795d64bf67bcca0838e1f7ddb8f94722de82c434658d99a01",
+    "original_events": 185932,
+    "projected_events": 10652,
+    "scope": "Task/operand/service event projection for analysis; prior complete physical/resource audit remains authoritative."
+  },
+  "scope": "Exact mechanism/chain/array/context equivalence for original B1 decode step zero; full original source archive retained"
+}

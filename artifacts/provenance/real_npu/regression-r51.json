@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "returncode": 0,
+  "source_commit": "eaab0483aaf486009258079e2313c169b6676c1c",
+  "log_sha256": "9b0fd0e0e3fe13eecc11207b26ee4368ed41a9b8fdee58792bfa772e14954fcb",
+  "content": "......\n----------------------------------------------------------------------\nRan 6 tests in 0.066s\n\nOK\n",
+  "wall_seconds": 0.12100102007389069
+}

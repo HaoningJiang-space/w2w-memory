@@ -1,0 +1,47 @@
+{
+  "source_commit": "9eccab5c82aaa8e82ab6fcbd19ca1dc82b036c9f",
+  "prior_readers": [
+    {
+      "pid": 891715,
+      "args": [
+        "/Projects/haoning/w2w/.venv/bin/python",
+        "-m",
+        "tools.analyze_b1_mechanism",
+        "--study",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/campaign-r27/real-moe",
+        "--case",
+        "B1-reference",
+        "--output",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/B1-reference-mechanism-r45"
+      ],
+      "signal": "SIGTERM",
+      "role": "Own read-only analysis; no physical job"
+    },
+    {
+      "pid": 892801,
+      "args": [
+        "/Projects/haoning/w2w/.venv/bin/python",
+        "-m",
+        "tools.finish_b1_g3",
+        "--study",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/campaign-r27/real-moe",
+        "--phase-worker-pid",
+        "888240",
+        "--corpus",
+        "/Projects/haoning/w2w-full-system-vertical-delivery-20261011/complete-corpus-r1",
+        "--qualification",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/context-output-sharded-r40",
+        "--reference",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/B1-reference-mechanism-r45",
+        "--shapes",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/physical-shape-readback-r45",
+        "--output",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/B1-g3-finisher-r46"
+      ],
+      "signal": "SIGTERM",
+      "role": "Own read-only analysis; no physical job"
+    }
+  ],
+  "reason": "Bound event-reader memory after exact full/projection actual-window equivalence; preserve prior results and independent shard proof. Physical Phase-Split worker and immutable source remain unchanged.",
+  "phase_worker_pid": 888240
+}

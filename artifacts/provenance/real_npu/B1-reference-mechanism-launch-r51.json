@@ -1,0 +1,17 @@
+{
+  "pid": 898513,
+  "args": [
+    "/Projects/haoning/w2w/.venv/bin/python",
+    "-m",
+    "tools.analyze_b1_mechanism",
+    "--study",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/campaign-r27/real-moe",
+    "--case",
+    "B1-reference",
+    "--output",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/B1-reference-mechanism-r51"
+  ],
+  "source_commit": "eaab0483aaf486009258079e2313c169b6676c1c",
+  "cwd": "/Projects/haoning/w2w-full-system-real-npu-20261011/analysis-r51",
+  "role": "Read-only B1 evidence; no physical launch"
+}

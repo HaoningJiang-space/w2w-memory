@@ -1,0 +1,62 @@
+{
+  "passed": true,
+  "analysis_source": "e7db2ad8d5a89e2ec48ef5c097457ee9dca23b67",
+  "sources": {
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/context-output-sharded-r40/receipt.json": "3b18e46c1a808a4d1abc4415ca7e7449104a714deb3a18db58433985d4531745",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/context-output-sharded-r40/result.json.gz": "3453630eab2ea952d218e05a9dccee604392e4226556bba6fb462dd94a8a07b7"
+  },
+  "proof": {
+    "passed": true,
+    "windows": 2,
+    "tasks": 2452,
+    "native_bytes": 711179264,
+    "macs": 891387904,
+    "cache_stats": {
+      "compulsory_bytes": 711107584,
+      "misses": 1162,
+      "miss_bytes": 711107584,
+      "hits": 154,
+      "hit_bytes": 182496256
+    },
+    "makespan_ps": 2688093000,
+    "drained_ps": 2688093000,
+    "scope": "Each raw window re-audited; continuous cache/LRU/clock ownership and final metadata release closed."
+  },
+  "projection_math": [
+    {
+      "passed": true,
+      "projection_macs": 71303168,
+      "sharded": true,
+      "scope": "Complete original dot products and paid copies/gathers; no captured numerical tensors or architecture performance claim."
+    },
+    {
+      "passed": true,
+      "projection_macs": 71303168,
+      "sharded": true,
+      "scope": "Complete original dot products and paid copies/gathers; no captured numerical tensors or architecture performance claim."
+    },
+    {
+      "passed": true,
+      "projection_macs": 71303168,
+      "sharded": true,
+      "scope": "Complete original dot products and paid copies/gathers; no captured numerical tensors or architecture performance claim."
+    },
+    {
+      "passed": true,
+      "projection_macs": 71303168,
+      "sharded": true,
+      "scope": "Complete original dot products and paid copies/gathers; no captured numerical tensors or architecture performance claim."
+    }
+  ],
+  "paid_auxiliary_work": {
+    "copy_nodes": 48,
+    "copy_activation_sram_bytes": 563200,
+    "copy_output_sram_bytes": 2234368,
+    "copy_vector_ops": 1114496,
+    "gather_nodes": 16,
+    "gather_activation_sram_bytes": 218112,
+    "gather_output_sram_bytes": 218112,
+    "gather_vector_ops": 53568
+  },
+  "scope": "Independent current full-window resource/projection audits for the first two actual prefill tokens in two true layers. Copy/gather work is paid absolute auxiliary service, not net overhead versus a matched baseline. It qualifies legality, not speedup or complete application serving."
+}

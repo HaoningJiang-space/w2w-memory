@@ -1,0 +1,26 @@
+{
+  "old_pid": 896940,
+  "old_args": [
+    "/Projects/haoning/w2w/.venv/bin/python",
+    "-m",
+    "tools.finish_b1_g3",
+    "--study",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/campaign-r27/real-moe",
+    "--phase-worker-pid",
+    "888240",
+    "--corpus",
+    "/Projects/haoning/w2w-full-system-vertical-delivery-20261011/complete-corpus-r1",
+    "--qualification",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/context-output-sharded-r40",
+    "--reference",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/B1-reference-mechanism-r49",
+    "--shapes",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/physical-shape-readback-r45",
+    "--projection-readback",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/B1-g3-finisher-r46/sharded-resource-readback.json",
+    "--output",
+    "/Projects/haoning/w2w-full-system-real-npu-20261011/B1-g3-finisher-r50"
+  ],
+  "source_commit": "eaab0483aaf486009258079e2313c169b6676c1c",
+  "reason": "Final readback adds bounded capacity intersections on the same physical records. Supersedes only own waiting read-only finisher; no physical job mutation."
+}

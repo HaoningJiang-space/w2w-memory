@@ -1,0 +1,175 @@
+{
+  "observed_at_utc": "2026-10-12T03:42:40.217057+00:00",
+  "passed_readbacks": true,
+  "complete_scoped_B1_G3": false,
+  "complete_original_12_case_campaign": false,
+  "status": {
+    "state": "waiting_complete_B1",
+    "analysis_source": "eaab0483aaf486009258079e2313c169b6676c1c",
+    "G3_1": true,
+    "G3_2": false,
+    "G3_3": true,
+    "G3_4": false,
+    "G3_5": false,
+    "reference_mechanism_ready": true,
+    "physical_shape_readback": true
+  },
+  "processes": [
+    {
+      "pid": 826834,
+      "state": "T",
+      "starttime_ticks": "426535157",
+      "args": [
+        "/Projects/haoning/w2w/.venv/bin/python",
+        "-m",
+        "tools.run_npu_gates",
+        "--root",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/campaign-r27",
+        "--evidence",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011",
+        "--corpus",
+        "/Projects/haoning/w2w-full-system-vertical-delivery-20261011/complete-corpus-r1",
+        "--config",
+        "/Projects/haoning/w2w-full-system-vertical-delivery-20261011/model-config.json",
+        "--booksim-binary",
+        "/Projects/haoning/w2w-full-system-performance-placement-20261010/native-fast-r1/booksim/endpoint_booksim",
+        "--resource",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/resources-r19/receipt.json",
+        "--context",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/context-r19/receipt.json",
+        "--resource-pid",
+        "823535",
+        "--context-pid",
+        "823537",
+        "--idle-gate",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/idle-boundary-r19/receipt.json",
+        "--gqa-gate",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/gqa-reference-r19.json",
+        "--npu-reference",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/npu-reference-r19.json",
+        "--additional-gates",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/regression-r25.json",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/mapping-preflight-r26.json",
+        "--kernel-gates",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/npu-reference-r19.json",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/compute-r4/receipt.json",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/stream-r4/receipt.json",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/remote-boundary-r19/receipt.json",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/bf16-boundary-r19/receipt.json",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/equivalence-r19/receipt.json"
+      ],
+      "cwd": "/Projects/haoning/w2w-full-system-real-npu-20261011/source-r27"
+    },
+    {
+      "pid": 826982,
+      "state": "T",
+      "starttime_ticks": "426566143",
+      "args": [
+        "/Projects/haoning/w2w/.venv/bin/python",
+        "-m",
+        "tools.run_real_moe_study",
+        "--root",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/campaign-r27/real-moe",
+        "--booksim-binary",
+        "/Projects/haoning/w2w-full-system-performance-placement-20261010/native-fast-r1/booksim/endpoint_booksim"
+      ],
+      "cwd": "/Projects/haoning/w2w-full-system-real-npu-20261011/source-r27"
+    },
+    {
+      "pid": 832174,
+      "state": "T",
+      "starttime_ticks": "426915777",
+      "args": [
+        "/Projects/haoning/w2w/.venv/bin/python",
+        "-m",
+        "tools.watch_npu_gate_readback",
+        "--campaign",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/campaign-r27",
+        "--controller-pid",
+        "826834",
+        "--evidence",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011",
+        "--npu-reference",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/npu-reference-r19.json",
+        "--output",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/postrun-readback-r34"
+      ],
+      "cwd": "/Projects/haoning/w2w-full-system-real-npu-20261011/analysis-r34"
+    },
+    {
+      "pid": 888240,
+      "state": "R",
+      "starttime_ticks": "429379637",
+      "args": [
+        "/Projects/haoning/w2w/.venv/bin/python",
+        "-m",
+        "w2w.experiments.run_real_moe",
+        "--root",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/campaign-r27/real-moe",
+        "--case",
+        "B1-phase_split",
+        "--booksim-binary",
+        "/Projects/haoning/w2w-full-system-performance-placement-20261010/native-fast-r1/booksim/endpoint_booksim"
+      ],
+      "cwd": "/Projects/haoning/w2w-full-system-real-npu-20261011/source-r27"
+    },
+    {
+      "pid": 898515,
+      "state": "S",
+      "starttime_ticks": "429886889",
+      "args": [
+        "/Projects/haoning/w2w/.venv/bin/python",
+        "-m",
+        "tools.finish_b1_g3",
+        "--study",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/campaign-r27/real-moe",
+        "--phase-worker-pid",
+        "888240",
+        "--corpus",
+        "/Projects/haoning/w2w-full-system-vertical-delivery-20261011/complete-corpus-r1",
+        "--qualification",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/context-output-sharded-r40",
+        "--reference",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/B1-reference-mechanism-r51",
+        "--shapes",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/physical-shape-readback-r45",
+        "--projection-readback",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/B1-g3-finisher-r46/sharded-resource-readback.json",
+        "--output",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/B1-g3-finisher-r51"
+      ],
+      "cwd": "/Projects/haoning/w2w-full-system-real-npu-20261011/analysis-r51"
+    }
+  ],
+  "sources": [
+    {
+      "path": "/Projects/haoning/w2w-full-system-real-npu-20261011/B1-reference-mechanism-r51/mechanism.json",
+      "sha256": "89995d592a0d98e5ec365a92095f6d0d6b784f23fc40eea38c09b768c2816d73"
+    },
+    {
+      "path": "/Projects/haoning/w2w-full-system-real-npu-20261011/B1-reference-mechanism-r51/steps.csv",
+      "sha256": "f26bf38939ef5282789f2d9211afe121034488312d497c1da11f7037e2e65e6e"
+    },
+    {
+      "path": "/Projects/haoning/w2w-full-system-real-npu-20261011/physical-shape-readback-r45/receipt.json",
+      "sha256": "702e881bbaba4cf7d0fe127f2d06dabe3c0db6f9a5b9a963d24d4e9f20c1d3d6"
+    },
+    {
+      "path": "/Projects/haoning/w2w-full-system-real-npu-20261011/B1-g3-finisher-r46/sharded-resource-readback.json",
+      "sha256": "e770fd09f7f2c9ab7f5226909c59c0c9d74f8543ec9d2117d23fc530dcb87fc1"
+    },
+    {
+      "path": "/Projects/haoning/w2w-full-system-real-npu-20261011/scope-freeze-B1-r45.json",
+      "sha256": "fc61c9c23765baef6fe95fc5e4ddeef94a67f5ddf2f71ee7867e2c421d2c0221"
+    },
+    {
+      "path": "/Projects/haoning/w2w-full-system-real-npu-20261011/regression-r51/receipt.json",
+      "sha256": "fb2a00f0db23befc72a7c5446c383eee04b207068dd274dc9c5d3c8e6147d304"
+    },
+    {
+      "path": "/Projects/haoning/w2w-full-system-real-npu-20261011/finisher-launch-r51.json",
+      "sha256": "ee4a62fdf76933ef7a6357af9e6dac4ec8dc43d450d7ac43ee7c4014be07bca2"
+    }
+  ],
+  "scope": "Snapshot of completed Reference mechanisms, sharded legality and 72 physical shape readbacks. Specific Phase-Split worker continues; future controllers remain held. This snapshot does not accept Phase-Split or the final paired gate."
+}

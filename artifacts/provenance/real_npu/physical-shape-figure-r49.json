@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "source_commit": "9eccab5c82aaa8e82ab6fcbd19ca1dc82b036c9f",
+  "source_receipt_sha256": "702e881bbaba4cf7d0fe127f2d06dabe3c0db6f9a5b9a963d24d4e9f20c1d3d6",
+  "figure_sha256": "c99a652d25f2a6e5c22a3b0be48ac8d343f090c05d412f8cd7c323b002620ce3",
+  "scope": "Pure rerender of the accepted 72 physical kernel readbacks; no new measurements or audits"
+}

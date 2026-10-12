@@ -1,0 +1,54 @@
+{
+  "passed": true,
+  "source_commit": "5f382701406f86ed3d98745bd04f42458e46ddda",
+  "context": true,
+  "context_projection_policy": "output_sharded",
+  "proof": {
+    "passed": true,
+    "windows": 2,
+    "tasks": 2452,
+    "native_bytes": 711179264,
+    "macs": 891387904,
+    "cache_stats": {
+      "compulsory_bytes": 711107584,
+      "misses": 1162,
+      "miss_bytes": 711107584,
+      "hits": 154,
+      "hit_bytes": 182496256
+    },
+    "makespan_ps": 2688093000,
+    "drained_ps": 2688093000,
+    "scope": "Each raw window re-audited; continuous cache/LRU/clock ownership and final metadata release closed."
+  },
+  "math": [
+    {
+      "passed": true,
+      "token_expert_assignments": 8,
+      "expert_macs": 150994944,
+      "vector_contract": "Materialized block inputs; ordered FP32 partition and ranked expert combine; paid BF16 conversion and bounded coefficient fanout."
+    },
+    {
+      "passed": true,
+      "token_expert_assignments": 8,
+      "expert_macs": 150994944,
+      "vector_contract": "Materialized block inputs; ordered FP32 partition and ranked expert combine; paid BF16 conversion and bounded coefficient fanout."
+    },
+    {
+      "passed": true,
+      "token_expert_assignments": 8,
+      "expert_macs": 150994944,
+      "vector_contract": "Materialized block inputs; ordered FP32 partition and ranked expert combine; paid BF16 conversion and bounded coefficient fanout."
+    },
+    {
+      "passed": true,
+      "token_expert_assignments": 8,
+      "expert_macs": 150994944,
+      "vector_contract": "Materialized block inputs; ordered FP32 partition and ranked expert combine; paid BF16 conversion and bounded coefficient fanout."
+    }
+  ],
+  "request_id": "Qwen/Qwen3-235B-A22B-FP8/mmlu/abstract_algebra/59.json",
+  "raw_sha256": "500f15d6e4f628f7a7fc86379d51821ecfa14c041adbe142eec1a5dcd06bb0da",
+  "result_sha256": "3453630eab2ea952d218e05a9dccee604392e4226556bba6fb462dd94a8a07b7",
+  "wall_seconds": 1569.2768890140578,
+  "scope": "Directed resource qualification of the first two actual prefill tokens, full H/I and two true layers; deliberately incomplete request, not G3/G4 research performance. Complete registrations must execute all captured tokens."
+}

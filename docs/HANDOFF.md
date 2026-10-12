@@ -6,6 +6,67 @@ or change the sibling simulator/RTL workspaces. Computation is on the logic
 wafer, not PIM. Current machines use independent physical/native resource
 identities and explicit mapping with the existing BookSim/Ramulator executor.
 
+## Current priority: finish the frozen B1 G3 scope
+
+Latest user steering overrides the historical broad campaign scheduling below.
+Complete B1 Reference/Phase-Split, the already launched output-sharded legality
+qualification, separate Prefill/Decode event mechanisms and independent audits.
+No new NPU feature, controller optimization, hardware or G4 work. B4/16/32 is
+the next stage after this scope; 128-Tile remains deferred.
+
+Reference is complete: 46 Prefill tokens, 128 Decode steps, true layers 0/1,
+**48.948846 ms** makespan. Source-r51 read-only analysis now closes all 130
+original windows: Prefill **17.373712 ms**, Decode **31.569973 ms**, plus
+**5.161 µs** inter-window drain. Actual Prefill expert n_e has P50/P90/P99/max
+2/5/10/10; Decode is M=1 throughout. The Reference mechanism JSON, per-step CSV
+and verified PNG are in `artifacts/provenance/real_npu/B1-reference-*-r51.*`
+and the [current report](reports/REAL_MOE_NPU_GATES_REPORT.md).
+
+One latest-predecessor completion witness partitions each window into observed
+eligibility/admission/operand/context/grant/finish intervals. Prefill has
+16.232716 ms witnessed admission time, of which 16.232715 ms intersects both
+finite fetch slots being owned. Decode has 24.184141 ms admission→operand time
+and 1.491183 ms operand→start time (1.491168 ms at full compute-context capacity).
+Zero-Native step 0 contains actual packed-X readiness and context contention;
+its operand interval is not DRAM latency. These are observed intersections,
+not additive stalls, exclusive causes or counterfactual controller benefits.
+
+The source40 output-sharded Native qualification and source46 independent
+full-window readback both pass: first two actual Prefill tokens, true layers
+0/1, 2,452 tasks, 711,179,264 B Native, 891,387,904 MACs, **2.688093 ms**.
+Copy/Gather counts and absolute paid read/write/vector costs are archived.
+This closes scoped G3.3 legality; the unsharded older qualification has different
+scratch charges, so do not infer a matched speedup or serving result.
+
+All 72 existing standalone physical microkernels have renewed actual-event
+NPU/request audits and exact program/reference comparisons: M=1/2/4/8/16/32,
+Gate/Up/Down, resident/cold, two equal-peak array organizations. The nine earlier
+context preflight shapes are nine shard M/N/K tuples, not nine array designs.
+Cold OS pays full supply before array acquisition; it is not streaming overlap.
+Six directed remote mechanism tests pass at `eaab048`; actual full/projected
+step-0 mechanisms also compare exactly. Complete raw archives/audits remain
+outside Git. Host-memory projection changes only read-only analysis.
+
+hn072 root: `/Projects/haoning/w2w-full-system-real-npu-20261011`.
+`scope-freeze-B1-r45.json` records SIGSTOP of future-launch controllers 826834 /
+826982 and broad readback watcher 832174; verify exact PID identity before any
+signal. The existing physical Phase-Split worker 888240 continues unchanged at
+`source-r27@a69d29e`. Do not resume the broad queue merely because a child ends.
+The older controller status is historical and is not authoritative for this
+new scope. Up-local, batched cases and G4/G5 are held.
+
+Read-only scoped finisher PID 898515 is immutable at `analysis-r51@eaab048`,
+output `B1-g3-finisher-r51`, log `finisher-r51.log`. Its launch receipt is
+`B1-g3-finisher-launch-r51.json`. It waits for the exact Phase-Split worker,
+independently audits all windows, produces phase/per-step signed comparisons,
+separates both-zero / both-read / mixed observed Native classes, and retains
+negative results. No physical retry or later gate launch. Only its passed final
+receipt accepts scoped B1 G3.1–G3.5; the original twelve-case campaign remains
+separately incomplete. At the latest recorded check, Reference mechanisms,
+shard legality and physical shape readbacks are ready; Phase-Split and paired
+G3.4/G3.5 remain pending. Preserve all old readers and partial outputs; r49/r50
+finisher supersessions affect only this turn's own read-only processes.
+
 ## Completed checks and comparisons
 
 The read-only equal-byte RWDL probe at `f308299` is independently audited:
@@ -450,14 +511,15 @@ invalidation/prior status and all failed launch logs. Original frozen
 `tools/run_npu_gates.py` requires accepted receipts and current readback before
 launching all complete B1/4/16/32 × three-mapping G3 cases. Full original prefill
 plus 128 decode steps run with real distinct layers and continuous physical
-Native/NoC/LRU state; lossless window archives retain complete events. It later
-launches conditional 94-layer G4 only after complete B1 Up-local acceptance.
+Native/NoC/LRU state; lossless window archives retain complete events. Its
+historical queue included conditional G4 after B1 Up-local; that queue is now
+held by the current B1-only scope above.
 G4 explicitly provisions 47 four-reticle V3 stack copies, true GQA/KV, modeled
 missing inputs/arrivals, finite paid links and request lifecycle. No unsupported
 single-stack full-model capacity or real numerical text claim. It has at most
 two active physical/reader workers. G5 refuses final figures without complete
-accepted G3/G4. Keep the goal active until required readbacks and final decision
-finish; pending qualification/background jobs are not completed gates.
+accepted G3/G4. Those broader gates are deferred; pending jobs are not accepted
+results.
 
 Read-only follow-up `mapping-r30@779e96e` passed an independent stronger legal
 multi-wave K mapping reference (`mapping-reference-r30b.json`). Full Gate
@@ -510,9 +572,10 @@ all 46 captured prefill tokens plus 128 decode steps in true layers 0/1,
 Native reads **7,845,262,592 B**, reload **3,765,306,624 B**. It is a complete
 two-layer MoE lifecycle, not 94-layer Transformer latency. Source and original
 cohort/result bindings are in `artifacts/provenance/real_npu/B1-reference-complete-r40.json`.
-The r27 controller has moved to `B1-phase_split` (observed worker 888240);
-verify current process identity before operating on it. G3 still needs the
-remaining eleven cases; G4/G5 are not accepted.
+The r27 controller had moved to `B1-phase_split` (observed worker 888240);
+verify current process identity before operating on it. The latest B1-only
+scope holds further scheduling; the original twelve-case campaign is incomplete
+and G4/G5 are deferred.
 
 The read-only `B1-transition-r41` figure keeps all 128 decode steps. Fifty-one
 windows have zero Native reads and their largest necessary work bound is

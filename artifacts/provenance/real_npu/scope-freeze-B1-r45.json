@@ -1,0 +1,89 @@
+{
+  "observed_at_utc": "2026-10-12T02:59:05.812067+00:00",
+  "signal": "SIGSTOP",
+  "controllers": [
+    {
+      "pid": 826834,
+      "args": [
+        "/Projects/haoning/w2w/.venv/bin/python",
+        "-m",
+        "tools.run_npu_gates",
+        "--root",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/campaign-r27",
+        "--evidence",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011",
+        "--corpus",
+        "/Projects/haoning/w2w-full-system-vertical-delivery-20261011/complete-corpus-r1",
+        "--config",
+        "/Projects/haoning/w2w-full-system-vertical-delivery-20261011/model-config.json",
+        "--booksim-binary",
+        "/Projects/haoning/w2w-full-system-performance-placement-20261010/native-fast-r1/booksim/endpoint_booksim",
+        "--resource",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/resources-r19/receipt.json",
+        "--context",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/context-r19/receipt.json",
+        "--resource-pid",
+        "823535",
+        "--context-pid",
+        "823537",
+        "--idle-gate",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/idle-boundary-r19/receipt.json",
+        "--gqa-gate",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/gqa-reference-r19.json",
+        "--npu-reference",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/npu-reference-r19.json",
+        "--additional-gates",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/regression-r25.json",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/mapping-preflight-r26.json",
+        "--kernel-gates",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/npu-reference-r19.json",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/compute-r4/receipt.json",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/stream-r4/receipt.json",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/remote-boundary-r19/receipt.json",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/bf16-boundary-r19/receipt.json",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/equivalence-r19/receipt.json"
+      ],
+      "cwd": "/Projects/haoning/w2w-full-system-real-npu-20261011/source-r27",
+      "starttime_ticks": "426535157"
+    },
+    {
+      "pid": 826982,
+      "args": [
+        "/Projects/haoning/w2w/.venv/bin/python",
+        "-m",
+        "tools.run_real_moe_study",
+        "--root",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/campaign-r27/real-moe",
+        "--booksim-binary",
+        "/Projects/haoning/w2w-full-system-performance-placement-20261010/native-fast-r1/booksim/endpoint_booksim"
+      ],
+      "cwd": "/Projects/haoning/w2w-full-system-real-npu-20261011/source-r27",
+      "starttime_ticks": "426566143"
+    },
+    {
+      "pid": 832174,
+      "args": [
+        "/Projects/haoning/w2w/.venv/bin/python",
+        "-m",
+        "tools.watch_npu_gate_readback",
+        "--campaign",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/campaign-r27",
+        "--controller-pid",
+        "826834",
+        "--evidence",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011",
+        "--npu-reference",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/npu-reference-r19.json",
+        "--output",
+        "/Projects/haoning/w2w-full-system-real-npu-20261011/postrun-readback-r34"
+      ],
+      "cwd": "/Projects/haoning/w2w-full-system-real-npu-20261011/analysis-r34",
+      "starttime_ticks": "426915777"
+    }
+  ],
+  "preserved_workers": [
+    888240,
+    889899
+  ],
+  "scope": "User freezes current G3 to B1 Reference/Phase-Split, sharded Native legality, phase mechanism analysis and independent audits. Only future-launch and final G4/G5 readback controllers are held; current physical workers continue. No frozen source, registration or historical status is rewritten. Resume scheduling only after this scoped gate is accepted or later user steering."
+}
