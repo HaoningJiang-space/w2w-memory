@@ -6,16 +6,26 @@ or change the sibling simulator/RTL workspaces. Computation is on the logic
 wafer, not PIM. Current machines use independent physical/native resource
 identities and explicit mapping with the existing BookSim/Ramulator executor.
 
-## Current priority: finish the frozen B1 G3 scope
+## Current priority: close B1 and complete the ordered P1–P3 study
+
+The latest user instruction authorizes completing all four next steps: G3
+paired audit, explanation of Decode benefit, resident K/N row mapping, then
+independent streaming and real B4/16/32 validation. Preserve the frozen B1
+physical runs. The old broad controllers remain held because they also launch
+unrequested G4/G5 work. New opt-in study versions/directories must bind the
+accepted G3 receipt; P2 physical comparisons wait for P0/P1 acceptance. Record
+negative results and complete final analysis before declaring this task done.
+P3 must pre-register its actual trace horizon and residency assumptions; selected
+physical windows cannot be described as full request/serving measurements.
 
 Latest user steering overrides the historical broad campaign scheduling below.
 Complete B1 Reference/Phase-Split, the already launched output-sharded legality
 qualification, separate Prefill/Decode event mechanisms and independent audits.
-No new NPU feature, controller optimization, hardware or G4 work during this
-scope. Latest continuation is P0 paired B1 acceptance → P1 saved-event hit /
+No intervention changes the original B1 execution. G4/G5 and controller/hardware
+expansions remain outside this task. Latest continuation is P0 paired B1 acceptance → P1 saved-event hit /
 issue/return and service-capacity diagnosis → P2-A resident intra-array K/N
 row mapping → P2-B cold fine-grained operand streaming → P3 real B4/16/32.
-P2 physical interventions wait for P0. Cross-expert array sharing is secondary;
+P2 physical interventions wait for P0/P1. Cross-expert array sharing is secondary;
 128-Tile remains deferred.
 
 Reference is complete: 46 Prefill tokens, 128 Decode steps, true layers 0/1,

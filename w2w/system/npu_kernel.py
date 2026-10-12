@@ -182,7 +182,11 @@ class NPUKernelModel:
         self.auxiliary=dict(auxiliary or {});self.aux_cursors=Counter()
         from .npu_auxiliary import auxiliary_program
         self.aux_programs={k:auxiliary_program(v,profile) for k,v in self.auxiliary.items()}
-        self.plans={k:program(v.M,v.N,v.K,v.weight_dtype,profile)[1] for k,v in self.kernels.items()}
+        self.plans={k:self.program_for(k)[1] for k in self.kernels}
+
+    def program_for(self,key):
+        kernel=self.kernels[key]
+        return program(kernel.M,kernel.N,kernel.K,kernel.weight_dtype,self.profile)
 
     def validate(self,spec,graph):
         for c in spec.stack.compute_clusters:self.profile.validate_cluster(c)
@@ -227,7 +231,7 @@ class NPUKernelModel:
 
     def service(self,execution,key):
         task=execution.tasks[key];k=self.kernels[key];p=self.profile
-        instructions,_=program(k.M,k.N,k.K,k.weight_dtype,p)
+        instructions,_=self.program_for(key)
         cursor=self.cursors[key]
         if cursor==len(instructions):return
         if self.evidence=='epochs':

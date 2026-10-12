@@ -5,6 +5,13 @@ from bisect import bisect_right
 
 
 def audit_npu_result(result):
+    if result['npu_execution'].get('execution_policy')=='row_mapping_v1':
+        from .row_mapping import audit_row_result
+        return audit_row_result(result,_audit_reference_npu_result)
+    return _audit_reference_npu_result(result)
+
+
+def _audit_reference_npu_result(result):
     npu=result['npu_execution'];p=npu['profile'];tasks={t['id']:t for t in result['graph']['tasks']}
     objects={o['id']:o for o in result['graph']['objects']};incoming=Counter();outgoing=Counter()
     for e in result['graph']['data']:
